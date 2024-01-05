@@ -1,0 +1,21 @@
+{
+    "name": "espd-demo_lws",
+    "version": "1.0.0",
+    "description": "ESPD Demo local dev Webserver",
+    "private": false,
+    "main": "dev_server.js",
+    "type": "commonjs",
+    "author": "Dragos-Constantin Stoica",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/OP-TED/espd-demo.git"
+    },
+    "license": "EUPL",
+    "scripts": {
+        "start": "node dev_server.js"
+    },
+    "dependencies": {
+        "fastify": "^4.25.2",
+        "@fastify/static": "^6.12.*"
+    }
+}

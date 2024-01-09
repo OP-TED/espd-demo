@@ -1,7 +1,5 @@
-var pdb = PouchDB('espd_demo')
-
-  // Create the definition.
-  const definitions = Blockly.common.createBlockDefinitionsFromJsonArray([
+// Create the definition.
+const definitions = Blockly.common.createBlockDefinitionsFromJsonArray([
     {
       // The type is like the "class name" for your block. It is used to construct
       // new instances. E.g. in the toolbox.
@@ -28,29 +26,3 @@ var pdb = PouchDB('espd_demo')
   
   // Register the definition.
   Blockly.common.defineBlocks(definitions);
-
-const toolbox = {
-    // There are two kinds of toolboxes. The simpler one is a flyout toolbox.
-    kind: 'flyoutToolbox',
-    // The contents is the blocks and other items that exist in your toolbox.
-    contents: [
-      {
-        kind: 'block',
-        type: 'controls_if'
-      },
-      {
-        kind: 'block',
-        type: 'controls_whileUntil'
-      },
-      {
-        kind:'block',
-        type: 'my_custom_block'
-      }
-      // You can add more blocks to this array.
-    ]
-  };
-  
-  
-  // The toolbox gets passed to the configuration struct during injection.
-  const workspace = Blockly.inject('blocklyDiv', {toolbox: toolbox});
-

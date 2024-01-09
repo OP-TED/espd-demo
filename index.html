@@ -1,78 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+
     <title>ESPD Demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="src/css/styles.css">
-</head>
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container">
-            <a class="navbar-brand" href="/">ESPD Demo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav-pills navbar-nav me-auto mb-2 mb-lg-0" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                            aria-selected="true">Home</button>
-                    </li>
-                    <li class="nav-item active" role="presentation">
-                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                            aria-selected="false">Model</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
-                            aria-selected="false">Service</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" sizes="any" type="image/ico">
+
+    <!-- Required Stylesheets -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@2.23.0/dist/bootstrap-vue.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
+
+    <script src="https://unpkg.com/bootstrap-vue@2.23.0/dist/bootstrap-vue.js"></script>
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="https://unpkg.com/bootstrap-vue@2.23.0/dist/bootstrap-vue-icons.min.js"></script>
 
 
+    <!-- Extra libraries needed by BootstrapVue -->
+    <script src="https://unpkg.com/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="http://unpkg.com/portal-vue@2.1.7/dist/portal-vue.umd.min.js"></script>
 
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade m-5" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
-            tabindex="0">
-            <h1>ESPD Demo</h1>
-            <div class="col-lg-8 px-0">
-                <p class="fs-5">This site is a collection of Demo applications allowing you to get familiar with ESPD
-                    model
-                    and service. This site is provide for educational and training purpouse. It does not constitute an
-                    official implementation of the ESPD service.</p>
-                <p>Feel free to download or copy-and-paste any parts of this example.</p>
-            </div>
-        </div>
-        <div class="tab-pane fade show active m-5" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-            tabindex="0">
-            <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-        </div>
-        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-            Service demo view</div>
-    </div>
+    <!-- Vue Internationalization framework -->
+    <script src="https://unpkg.com/vue-i18n@8"></script>
+    <!-- Vue flag icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css" />
 
+    <!-- Custom  stylesheet -->
+    <link rel="stylesheet" href="src/css/footer.css" />
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- PDFMake framework -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"
+        integrity="sha512-a9NgEEK7tsCvABL7KqtUTQjl69z7091EVPpw5KxPlZ93T141ffe1woLtbXTX+r2/8TtTvRX/v4zTL2UlMUPgwg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js"
+        integrity="sha512-P0bOMePRS378NwmPDVPU455C/TuxDS+8QwJozdc7PGgN8kLqR4ems0U/3DeJkmiE31749vYWHvBOtR+37qDCZQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Handlebars famework -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- SheetJS framework -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 
     <!-- PouchDB -->
-    <script src="//cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+    
     <!-- Load Blockly core -->
     <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
     <!-- Load the default blocks -->
@@ -83,7 +67,48 @@
     <script src="https://unpkg.com/blockly/msg/en.js"></script>
 
 
-    <script src="src/js/main.js"></script>
+    <!-- My Blocks definitions -->
+    <script src="src/js/myblocks.js"></script>
+    <!-- Translation file -->
+        <script src="src/js/messages.js"></script>
+        <!-- Vuejs utility functions -->
+        <script src="src/js/utils.js"></script>
+
+
+
+    <!-- Vue components and logic -->
+    <script src="/src/js/header.js"></script>
+    <script src="/src/js/footer.js"></script>
+    <script src="/src/js/home.js"></script>
+    <script src="/src/js/model.js"></script>
+    <script src="/src/js/service.js"></script>
+
+
+</head>
+
+<body>
+
+    <!-- Our application root element -->
+    <div id="app">
+        <header>
+            <component v-bind:is="currentHeader"></component>
+        </header>
+        <main>
+            <!-- We want main content here -->
+            <component v-bind:is="mainComponent"></component>
+        </main>
+        <footer class="footer">
+            <!-- We want footer content here -->
+            <component v-bind:is="currentFooter"></component>
+        </footer>
+    </div>
+
+    <!-- Start running your app -->
+    <script src="src/js/app.js"></script>
+    <script>
+        window.app.showLayout({ currentHeader: 'publicHeader', mainComponent: 'home', currentFooter: 'publicFooter' })
+    </script>
+
 </body>
 
 </html>

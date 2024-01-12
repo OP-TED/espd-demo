@@ -16,23 +16,36 @@ const toolbox = {
     contents: [
       {
         kind: 'block',
-        type: 'controls_if'
+        type: 'criterion'
       },
       {
         kind: 'block',
-        type: 'controls_whileUntil'
+        type: 'subcriterion'
       },
       {
-        kind:'block',
-        type: 'my_custom_block'
+        kind: 'block',
+        type: 'additional_description_line'
       }
-      // You can add more blocks to this array.
     ]
   };
   
   
   // The toolbox gets passed to the configuration struct during injection.
-   this.workspace = Blockly.inject('blocklyDiv', {toolbox: toolbox});
+   this.workspace = Blockly.inject('blocklyDiv', 
+    {
+      toolbox: toolbox,
+      zoom:
+         {controls: true,
+          wheel: true,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2,
+          pinch: true},	
+      collapse : true, 
+      comments : true,
+      maxBlocks : Infinity, 
+  });
 
 
     },
@@ -41,7 +54,8 @@ const toolbox = {
     <b-container fluid class="m-auto">
         <p>ESPD Model viewer</p>
 
-        <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+        <div id="blocklyDiv" style="height: 480px; width: 1200px;"></div>
+        <div> Show the HTML represenation of the blockly model </div>
     </b-container>
     `
 });

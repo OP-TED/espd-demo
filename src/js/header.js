@@ -35,6 +35,7 @@ Vue.component("publicHeader", {
 
 	<!-- Right aligned nav items -->
 	<b-navbar-nav class="ml-auto">
+	<b-nav-item href="#" @click="doShow('codelists')">{{$t("mainmenu.codelists")}}</b-nav-item>
     <b-nav-item href="#" @click="doShow('model')">{{$t("mainmenu.model")}}</b-nav-item>
     <b-nav-item href="#" @click="doShow('service')">{{$t("mainmenu.service")}}</b-nav-item>
     

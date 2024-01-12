@@ -5,6 +5,7 @@ const messages = {
         hello: 'Hello!'
       },
       mainmenu: {
+        codelists: 'Lists',
         model: 'Model',
         service: 'Service'
       }
@@ -14,6 +15,7 @@ const messages = {
         hello: 'Bonjour!'
       },
       mainmenu: {
+        codelists: 'Listes',
         model: 'Model',
         service: 'Service'
       }
@@ -23,6 +25,7 @@ const messages = {
         hello: 'Bine ati venit!'
       },
       mainmenu: {
+        codelists: 'Liste',
         model: 'Model',
         service: 'Serviciu'
       }

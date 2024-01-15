@@ -1,0 +1,20 @@
+{
+  "code_lists": [
+    "access-right",
+    "boolean-gui-control-type",
+    "country",
+    "criterion",
+    "criterion-element-type",
+    "currency",
+    "docrefcontent-type",
+    "economic-operator-size",
+    "eoid-type",
+    "eo-role-type",
+    "financial-ratio-type",
+    "language",
+    "occupation",
+    "profile-execution-id",
+    "property-group-type",
+    "response-data-type"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "docrefcontent-type",
+  "type": "external",
+  "ShortName": "DocRefContentType",
+  "LongName": "docrefcontent-type",
+  "ListID": "http://publications.europa.eu/resource/authority/docrefcontent-type",
+  "Version": "20220928-0",
+  "CanonicalUri": "http://publications.europa.eu/resource/dataset/docrefcontent-type",
+  "CanonicalVersionUri": "http://publications.europa.eu/resource/dataset/docrefcontent-type/20220928-0",
+  "LocationUri": "http://publications.europa.eu/resource/distribution/docrefcontent-type/20220928-0/xml/gc/DocrefcontentType.gc",
+  "AgencyLongName": "Publications Office of the European Union",
+  "AgencyIdentifier": "OP"
+}

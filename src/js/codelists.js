@@ -1,59 +1,104 @@
-Vue.component("codelists",{
-    data: function(){
+Vue.component("codelists", {
+    data: function () {
         return {
             codelist: null,
             codelists: [],
             sources: {},
             crt_list: {
-                'ShortName': '', 
-                'LongName': '', 
-                'ListID': '', 
-                'Version': '', 
-                'CanonicalUri': '', 
-                'CanonicalVersionUri': '', 
-                'LocaltionUri':'',
-                'AgencyLongName':'', 
-                'AgencyIdentifier':'', 
-                'type':'', 
-                'name':''
+                'ShortName': '',
+                'LongName': '',
+                'ListID': '',
+                'Version': '',
+                'CanonicalUri': '',
+                'CanonicalVersionUri': '',
+                'LocaltionUri': '',
+                'AgencyLongName': '',
+                'AgencyIdentifier': '',
+                'type': '',
+                'name': '',
+                'table': []
             },
+            details_fields:[
+                { key: 'Code', label: 'Code' },
+                { key: 'Name', label: 'Name' },
+                { key: 'Description', label: 'Description' },
+                { key: 'Status', label: 'Status' },
+                'show_details'
+              ],
+              language_fields: [
+                "bul",
+      "spa",
+      "ces",
+      "dan",
+      "deu",
+      "est",
+      "ell",
+      "eng",
+      "fra",
+      "gle",
+      "hrv",
+      "ita",
+      "lav",
+      "lit",
+      "hun",
+      "mlt",
+      "nld",
+      "pol",
+      "por",
+      "ron",
+      "slk",
+      "slv",
+      "fin",
+      "swe"
+              ],
             show: true
         }
     },
 
-    methods:{
-        selectCodeList(event){
+    methods: {
+        selectCodeList(event) {
             this.crt_list = this.sources[event]
+            this.crt_list.table = []
+            for (const fld in this.sources[event].fields) {
+                this.crt_list.table.push(this.sources[this.codelist].fields[fld])
+            }
+            //console.log(this.crt_list.table);
         }
     },
 
-    created(){
+    created() {
         const dataURL = ['ESPD/codelists/']
 
-        const getData = async() => {
+        const getData = async () => {
             try {
                 let thecall = await fetch(`${dataURL}/codelist.json`)
                 let data = await thecall.json()
-                if (thecall.ok){
+                if (thecall.ok) {
                     this.codelists = data.code_lists
                     //console.log(data)
 
                     //get the rest of the files
-                    for (const elm of this.codelists){
-                        if (!Object.hasOwn(this.sources, elm)) this.sources[elm]={}
+                    for (const elm of this.codelists) {
+                        if (!Object.hasOwn(this.sources, elm)) this.sources[elm] = {}
                         thecall = await fetch(`${dataURL}/${elm}/${elm}.json`)
                         data = await thecall.json()
-                        if (thecall.ok){
+                        if (thecall.ok) {
                             this.sources[elm] = data
                             //console.log(data);
                         }
                     }
 
                     this.codelist = this.codelists[0]
-                    const toplevelfields = ['ShortName', 'LongName', 'ListID', 'Version', 
-                                            'CanonicalUri', 'CanonicalVersionUri', 'LocaltionUri',
-                                            'AgencyLongName', 'AgencyIdentifier', 'type', 'name']
+                    const toplevelfields = ['ShortName', 'LongName', 'ListID', 'Version',
+                        'CanonicalUri', 'CanonicalVersionUri', 'LocaltionUri',
+                        'AgencyLongName', 'AgencyIdentifier', 'type', 'name']
                     this.crt_list = this.sources[this.codelist]
+                    this.crt_list.table = []
+                    for (const fld in this.sources[this.codelist].fields) {
+                        this.crt_list.table.push(this.sources[this.codelist].fields[fld])
+                    }
+                    
+
                 }
             } catch (error) {
                 console.log("Error!", error)
@@ -64,6 +109,7 @@ Vue.component("codelists",{
     },
 
     template: `
+    <template>
     <b-container fluid class="m-auto">
     ESPD Code Lists
     <div>
@@ -105,8 +151,22 @@ Vue.component("codelists",{
             <b-form-input id="input-type" v-model="crt_list.type"></b-form-input>
         </b-form-group>
 
+        <b-table striped hover responsive :items="crt_list.table" :fields="details_fields">
+        <template #cell(show_details)="row">
+            <b-button pill variant="warning" size="sm" @click="row.toggleDetails" class="mr-2">
+                {{ row.detailsShowing ? 'Close' : 'Details'}}
+            </b-button>
+        </template>
+        <template #row-details="row">
+            <b-card>
+                <b-table stacked :items="[row.item]" :fields="language_fields"></b-table>
+            </b-card>
+        </template>
+        </b-table>
+
     </div>
 
     </b-container>
+    </template>
     `
 });

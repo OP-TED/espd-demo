@@ -1,5 +1,6 @@
 {
   "name": "eoid-type",
+  "type": "technical",
   "ShortName": "EOIDType",
   "ListID": "eoid-type",
   "Version": "3.3.0",

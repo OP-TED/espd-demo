@@ -1,5 +1,6 @@
 {
   "name": "property-group-type",
+  "type": "technical",
   "ShortName": "PropertyGroupType",
   "ListID": "property-group-type",
   "Version": "3.3.0",

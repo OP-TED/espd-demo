@@ -1,5 +1,6 @@
 {
   "name": "boolean-gui-control-type",
+  "type": "technical",
   "ShortName": "BooleanGUIControlType",
   "ListID": "boolean-gui-control-type",
   "Version": "3.3.0",

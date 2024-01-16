@@ -1,5 +1,6 @@
 {
   "name": "profile-execution-id",
+  "type": "technical",
   "ShortName": "ProfileExecutionID",
   "ListID": "profile-execution-id",
   "Version": "3.3.0",

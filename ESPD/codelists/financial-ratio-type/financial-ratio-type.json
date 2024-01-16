@@ -1,5 +1,6 @@
 {
   "name": "financial-ratio-type",
+  "type": "technical",
   "ShortName": "FinancialRatioType",
   "ListID": "financial-ratio-type",
   "Version": "3.3.0",

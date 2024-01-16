@@ -1,5 +1,6 @@
 {
   "name": "criterion-element-type",
+  "type": "technical",
   "ShortName": "CriterionElementType",
   "ListID": "criterion-element-type",
   "Version": "3.3.0",

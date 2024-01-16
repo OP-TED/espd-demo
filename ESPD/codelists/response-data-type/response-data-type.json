@@ -1,5 +1,6 @@
 {
   "name": "response-data-type",
+  "type": "technical",
   "ShortName": "ResponseDataType",
   "ListID": "response-data-type",
   "Version": "3.3.0",

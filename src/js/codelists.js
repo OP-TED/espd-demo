@@ -11,46 +11,51 @@ Vue.component("codelists", {
                 'Version': '',
                 'CanonicalUri': '',
                 'CanonicalVersionUri': '',
-                'LocaltionUri': '',
+                'LocationUri': '',
                 'AgencyLongName': '',
                 'AgencyIdentifier': '',
                 'type': '',
                 'name': '',
-                'table': []
+                'table': [],
+                'fields': {}
             },
-            details_fields:[
+            details_fields: [
                 { key: 'Code', label: 'Code' },
                 { key: 'Name', label: 'Name' },
                 { key: 'Description', label: 'Description' },
                 { key: 'Status', label: 'Status' },
                 'show_details'
-              ],
-              language_fields: [
+            ],
+            language_fields: [
                 "bul",
-      "spa",
-      "ces",
-      "dan",
-      "deu",
-      "est",
-      "ell",
-      "eng",
-      "fra",
-      "gle",
-      "hrv",
-      "ita",
-      "lav",
-      "lit",
-      "hun",
-      "mlt",
-      "nld",
-      "pol",
-      "por",
-      "ron",
-      "slk",
-      "slv",
-      "fin",
-      "swe"
-              ],
+                "spa",
+                "ces",
+                "dan",
+                "deu",
+                "est",
+                "ell",
+                "eng",
+                "fra",
+                "gle",
+                "hrv",
+                "ita",
+                "lav",
+                "lit",
+                "hun",
+                "mlt",
+                "nld",
+                "pol",
+                "por",
+                "ron",
+                "slk",
+                "slv",
+                "fin",
+                "swe"
+            ],
+            scl_fileds: [
+                'Code', 'Status'
+            ],
+            theFile:'',
             show: true
         }
     },
@@ -63,6 +68,203 @@ Vue.component("codelists", {
                 this.crt_list.table.push(this.sources[this.codelist].fields[fld])
             }
             //console.log(this.crt_list.table);
+        },
+
+        DownloadZIP() {
+            //type == external => fetch; type == technical => build XML
+            var XMLzip = new JSZip()
+            XMLzip.file("codelists/README.md", "Code List GC files")
+
+            function urlToPromise(url) {
+                return new Promise(function(resolve, reject) {
+                    JSZipUtils.getBinaryContent(url, function (err, data) {
+                        if(err) {
+                            reject(err);
+                        } else {
+                            resolve(data);
+                        }
+                    });
+                });
+            };
+
+            const getAllXMLFiles = async () => {
+                try {
+                    for (const key in this.sources) {
+                        if (this.sources[key].type == 'external') {
+                            //fetch the file from the local server
+                            //it is not possible to fetch files from another servers using JavaScript in browser
+                            //getExternalCodeLists.ps1 script to download the external files so that they can be loaded from local server
+                            XMLzip.file(`codelists/${this.sources[key].ShortName}.gc`, urlToPromise(`ESPD/codelists/${this.sources[key].LongName}/${this.sources[key].ShortName}.gc`), {binary:true})
+                        }
+                        if (this.sources[key].type == 'technical') {
+                            //build the file
+                            //create the XML file and display it
+                            let lang = '', scl = ''
+                            let item = this.sources[key]
+                            for (const elm in item.fields) {
+                                scl += '<Row>'
+                                for (const itm in item.fields[elm]) {
+
+                                    if (this.language_fields.indexOf(itm) != -1) {
+                                        //it should be language attribute
+                                        lang += `
+                    <Column Id="name-${itm}" Use="optional">
+                        <ShortName>Name</ShortName>
+                        <Data Type="string" Lang="${itm}"/>
+                    </Column>`
+                                        if (item.fields[elm][itm].length > 0) {
+                                            scl += `
+                            <Value ColumnRef="name-${itm}">
+                                <SimpleValue>${item.fields[elm][itm]}</SimpleValue>
+                             </Value>`
+                                        }
+                                    } else {
+                                        if (this.scl_fileds.indexOf(itm) != -1) {
+                                            scl += `
+                        <Value ColumnRef="${itm.toLowerCase()}">
+                            <SimpleValue>${item.fields[elm][itm]}</SimpleValue>
+                        </Value>`
+                                        }
+                                    }
+                                }
+                                scl += '\n</Row>\n'
+                            }
+
+
+                            let gc = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <gc:CodeList xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                             xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+                             xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    
+                <Identification>
+                    <ShortName>${item.ShortName}</ShortName>
+                    <LongName Identifier="listID">${item.ListID}</LongName>
+                    <Version>${item.Version}</Version>
+                    <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
+                    <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
+                    <LocationUri>${item.LocationUri}</LocationUri>
+                </Identification>
+                <ColumnSet>
+                    <Column Id="code" Use="required">
+                        <ShortName>Code</ShortName>
+                        <Data Type="normalizedString" Lang="en"/>
+                    </Column>
+                    <Column Id="status" Use="required">
+                        <ShortName>Status</ShortName>
+                        <Data Type="normalizedString" Lang="en"/>
+                    </Column>
+                    ${lang}
+                    <Key Id="codeKey">
+                        <ShortName>CodeKey</ShortName>
+                        <ColumnRef Ref="code"/>
+                    </Key>
+                </ColumnSet>
+                <SimpleCodeList>
+                ${scl}
+                </SimpleCodeList>
+                </gc:CodeList>
+                `
+                            XMLzip.file(`codelists/${this.sources[key].ShortName}.gc`, gc)
+                        }
+                    }
+                    XMLzip.generateAsync({ type: "blob" })
+                        .then(function (blob) {
+                            saveAs(blob, "codelist.zip");
+                        });
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            getAllXMLFiles()
+
+        },
+
+        ViewXML() {
+            let item = this.crt_list
+            if (item.type == 'external') {
+                //fetch the file and show it
+                window.open(item.LocationUri, "_blank")
+            }
+            if (item.type == 'technical') {
+                //create the XML file and display it
+                let lang = '', scl = ''
+
+                for (const elm in item.fields) {
+                    scl += '<Row>'
+                    for (const itm in item.fields[elm]) {
+
+                        if (this.language_fields.indexOf(itm) != -1) {
+                            //it should be language attribute
+                            lang += `
+                    <Column Id="name-${itm}" Use="optional">
+                        <ShortName>Name</ShortName>
+                        <Data Type="string" Lang="${itm}"/>
+                    </Column>`
+                            if (item.fields[elm][itm].length > 0) {
+                                scl += `
+                            <Value ColumnRef="name-${itm}">
+                                <SimpleValue>${item.fields[elm][itm]}</SimpleValue>
+                             </Value>`
+                            }
+                        } else {
+                            if (this.scl_fileds.indexOf(itm) != -1) {
+                                scl += `
+                        <Value ColumnRef="${itm.toLowerCase()}">
+                            <SimpleValue>${item.fields[elm][itm]}</SimpleValue>
+                        </Value>`
+                            }
+                        }
+                    }
+                    scl += '\n</Row>\n'
+                }
+
+
+                let gc = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <gc:CodeList xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                             xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+                             xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    
+                <Identification>
+                    <ShortName>${item.ShortName}</ShortName>
+                    <LongName Identifier="listID">${item.ListID}</LongName>
+                    <Version>${item.Version}</Version>
+                    <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
+                    <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
+                    <LocationUri>${item.LocationUri}</LocationUri>
+                </Identification>
+                <ColumnSet>
+                    <Column Id="code" Use="required">
+                        <ShortName>Code</ShortName>
+                        <Data Type="normalizedString" Lang="en"/>
+                    </Column>
+                    <Column Id="status" Use="required">
+                        <ShortName>Status</ShortName>
+                        <Data Type="normalizedString" Lang="en"/>
+                    </Column>
+                    ${lang}
+                    <Key Id="codeKey">
+                        <ShortName>CodeKey</ShortName>
+                        <ColumnRef Ref="code"/>
+                    </Key>
+                </ColumnSet>
+                <SimpleCodeList>
+                ${scl}
+                </SimpleCodeList>
+                </gc:CodeList>
+                `
+                let blob = new Blob([gc], { type: 'text/xml' });
+                let url = URL.createObjectURL(blob);
+                window.open(url, "_blank");
+                URL.revokeObjectURL(url);
+
+                //console.log(gc);
+            }
+
         }
     },
 
@@ -97,7 +299,7 @@ Vue.component("codelists", {
                     for (const fld in this.sources[this.codelist].fields) {
                         this.crt_list.table.push(this.sources[this.codelist].fields[fld])
                     }
-                    
+
 
                 }
             } catch (error) {
@@ -109,10 +311,8 @@ Vue.component("codelists", {
     },
 
     template: `
-    <template>
-    <b-container fluid class="m-auto">
-    ESPD Code Lists
-    <div>
+
+    <b-card title="ESPD Code Lists" footer-tag="footer">
         <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="Code list" label-for="input-codelist">
             <b-form-select id="input-codelist" v-model="codelist" :options="codelists" @change="selectCodeList($event)"></b-form-select>
         </b-form-group>
@@ -164,9 +364,17 @@ Vue.component("codelists", {
         </template>
         </b-table>
 
-    </div>
+        <template #footer>
+            <b-row>
+                <b-col class="pb-2">
+                    <b-button pill @click="ViewXML" variant="primary">View XML file</b-button>
+                </b-col>
+                <b-col class="pb-2 text-right">
+                    <b-button pill @click="DownloadZIP" variant="success">Download all XML files as ZIP archive</b-button>
+                </b-col>
+            </b-row>
+        </template>
+    </b-card>
 
-    </b-container>
-    </template>
     `
 });

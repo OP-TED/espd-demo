@@ -5,7 +5,7 @@
   "ListID": "boolean-gui-control-type",
   "Version": "3.3.0",
   "CanonicalUri": "https://github.com/OP-TED/ESPD-EDM",
-  "CanonicalVersoinUri": "https://github.com/ESPD/ESPD-EDM/tree/v3.3.0/",
+  "CanonicalVersionUri": "https://github.com/ESPD/ESPD-EDM/tree/v3.3.0/",
   "LocationUri": "https://github.com/ESPD/ESPD-EDM/tree/v3.3.0/codelists/gc/BooleanGUIControlType.gc",
   "fields": {
     "RADIO_BUTTON_TRUE": {

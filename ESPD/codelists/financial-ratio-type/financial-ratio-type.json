@@ -5,8 +5,10 @@
   "ListID": "financial-ratio-type",
   "Version": "3.3.0",
   "CanonicalUri": "https://github.com/ESPD/ESPD-EDM",
-  "CanonicalVersoinUri": "https://github.com/ESPD/ESPD-EDM/tree/v3.3.0",
+  "CanonicalVersionUri": "https://github.com/ESPD/ESPD-EDM/tree/v3.3.0",
   "LocationUri": "https://github.com/ESPD/ESPD-EDM/tree/v3.3.0/codelists/gc/FinancialRatioType.gc",
+  "AgencyLongName": "BACH Banque de France",
+  "AgencyIdentifier": "BACH",
   "fields": {
     "R11": {
       "Code": "R11",

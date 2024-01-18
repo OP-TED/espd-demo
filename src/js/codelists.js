@@ -70,6 +70,82 @@ Vue.component("codelists", {
             //console.log(this.crt_list.table);
         },
 
+        ExportExcel(){
+            const wb = new ExcelJS.Workbook();
+            
+            //Excelify the JSON object this.sources
+
+            const exportKeys= ['ShortName', 'LongName', 'ListID', 
+                               'Version', 'CanonicalUri', 'CanonicalVersionUri', 
+                               'LocationUri', 'AgencyLongName', 'AgencyIdentifier']
+            for (const key in this.sources) {
+                let ws = wb.addWorksheet(this.sources[key].ShortName)
+                let row  = 1, maxAColWidth = 0
+                for (const elm of exportKeys) {
+                    if(Object.hasOwn(this.sources[key], elm)){
+                        ws.getCell(`A${row}`).value = elm
+                        maxAColWidth = Math.max(maxAColWidth, elm.length+1)
+                        ws.getCell(`A${row}`).font = { bold: true }
+                        ws.getCell(`B${row}`).value = this.sources[key][elm]
+                        row++
+                    }
+                    //Set the width for Column A
+                    ws.getColumn('A').width = maxAColWidth
+
+                }
+                //Export the table part after the mandatory fields
+                const tableKeys = ['Code', 'Name', 'Description', 'Status'].concat(this.language_fields)
+                      
+                if (Object.hasOwn(this.sources[key], 'fields')){
+                    //Add table
+                    let cols = [], rows = []
+
+                    tableKeys.forEach(elm =>{
+                        cols.push({
+                            name: elm,
+                            filterButton: true
+                        })
+                    })
+
+                    for (const elm in this.sources[key]['fields']) {
+                        let crt_row = []
+                        tableKeys.forEach(val =>{
+                            crt_row.push(this.sources[key]['fields'][elm][val])
+                        })
+                        rows.push(crt_row)
+                    }
+
+                    ws.addTable({
+                        name: `${this.sources[key].ShortName}_tbl`,
+                        ref: `A${row}`,
+                        headerRow: true,
+                        totalsRow: false,
+                        style: {
+                          theme: 'TableStyleMedium9',
+                          showRowStripes: true,
+                        },
+                        columns: cols,
+                        rows: rows,
+                      })
+                }
+            }
+
+
+            //wrapup the file and send it to the browser
+            wb.xlsx.writeBuffer({base64: true})
+            .then( function (xls64) {
+                var data = new Blob([xls64], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                var url = URL.createObjectURL(data);
+                //the name of the file can not be setup programatically :( you will get some randomly generated name
+                window.open(url, "_blank");
+                URL.revokeObjectURL(url);
+            })
+            .catch(function(error) {
+                console.log(error.message);
+            });
+
+        },
+
         DownloadZIP() {
             //type == external => fetch; type == technical => build XML
             var XMLzip = new JSZip()
@@ -99,8 +175,34 @@ Vue.component("codelists", {
                         if (this.sources[key].type == 'technical') {
                             //build the file
                             //create the XML file and display it
-                            let lang = '', scl = ''
+                            let lang = '', scl = '', ids=''
                             let item = this.sources[key]
+
+                            if (Object.hasOwn(item, 'AgencyIdentifier')){
+                                ids = `
+                                <ShortName>${item.ShortName}</ShortName>
+                                <LongName Identifier="listID">${item.ListID}</LongName>
+                                <Version>${item.Version}</Version>
+                                <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
+                                <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
+                                <LocationUri>${item.LocationUri}</LocationUri>
+                                <Agency>
+                                    <LongName xml:lang="Name">${item.AgencyLongName}</LongName>
+                                    <Identifier>${item.AgencyIdentifier}</Identifier>
+                                </Agency>
+                                `
+                            }else{
+                                ids =`
+                                <ShortName>${item.ShortName}</ShortName>
+                                <LongName Identifier="listID">${item.ListID}</LongName>
+                                <Version>${item.Version}</Version>
+                                <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
+                                <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
+                                <LocationUri>${item.LocationUri}</LocationUri>
+                                `
+                            }
+
+
                             for (const elm in item.fields) {
                                 scl += '<Row>'
                                 for (const itm in item.fields[elm]) {
@@ -139,12 +241,7 @@ Vue.component("codelists", {
                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                     
                 <Identification>
-                    <ShortName>${item.ShortName}</ShortName>
-                    <LongName Identifier="listID">${item.ListID}</LongName>
-                    <Version>${item.Version}</Version>
-                    <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
-                    <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
-                    <LocationUri>${item.LocationUri}</LocationUri>
+                   ${ids}
                 </Identification>
                 <ColumnSet>
                     <Column Id="code" Use="required">
@@ -190,7 +287,32 @@ Vue.component("codelists", {
             }
             if (item.type == 'technical') {
                 //create the XML file and display it
-                let lang = '', scl = ''
+                let lang = '', scl = '', ids = ''
+
+                if (Object.hasOwn(item, 'AgencyIdentifier')){
+                    ids = `
+                    <ShortName>${item.ShortName}</ShortName>
+                    <LongName Identifier="listID">${item.ListID}</LongName>
+                    <Version>${item.Version}</Version>
+                    <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
+                    <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
+                    <LocationUri>${item.LocationUri}</LocationUri>
+                    <Agency>
+                        <LongName xml:lang="Name">${item.AgencyLongName}</LongName>
+                        <Identifier>${item.AgencyIdentifier}</Identifier>
+                    </Agency>
+                    `
+                }else{
+                    ids =`
+                    <ShortName>${item.ShortName}</ShortName>
+                    <LongName Identifier="listID">${item.ListID}</LongName>
+                    <Version>${item.Version}</Version>
+                    <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
+                    <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
+                    <LocationUri>${item.LocationUri}</LocationUri>
+                    `
+                }
+
 
                 for (const elm in item.fields) {
                     scl += '<Row>'
@@ -230,12 +352,7 @@ Vue.component("codelists", {
                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                     
                 <Identification>
-                    <ShortName>${item.ShortName}</ShortName>
-                    <LongName Identifier="listID">${item.ListID}</LongName>
-                    <Version>${item.Version}</Version>
-                    <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
-                    <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
-                    <LocationUri>${item.LocationUri}</LocationUri>
+                    ${ids}
                 </Identification>
                 <ColumnSet>
                     <Column Id="code" Use="required">
@@ -370,6 +487,7 @@ Vue.component("codelists", {
                     <b-button pill @click="ViewXML" variant="primary">View XML file</b-button>
                 </b-col>
                 <b-col class="pb-2 text-right">
+                    <b-button pill @click="ExportExcel" variant="warning">Export to Excel</b-button>
                     <b-button pill @click="DownloadZIP" variant="success">Download all XML files as ZIP archive</b-button>
                 </b-col>
             </b-row>

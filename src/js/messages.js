@@ -6,6 +6,7 @@ const messages = {
       },
       mainmenu: {
         codelists: 'Lists',
+        uuid: 'UUID',
         model: 'Model',
         service: 'Service'
       }
@@ -16,6 +17,7 @@ const messages = {
       },
       mainmenu: {
         codelists: 'Listes',
+        uuid: 'UUID',
         model: 'Model',
         service: 'Service'
       }
@@ -26,6 +28,7 @@ const messages = {
       },
       mainmenu: {
         codelists: 'Liste',
+        uuid: 'UUID',
         model: 'Model',
         service: 'Serviciu'
       }

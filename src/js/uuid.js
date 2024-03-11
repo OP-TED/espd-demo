@@ -1,0 +1,117 @@
+Vue.component("uuid", {
+    data: function () {
+        return {
+            isBusy: false,
+            sources: {},
+            uuid_files: [],
+            uuid_table: [],
+            fields: [ 
+                {key: 'version', label: 'Version'},
+                {key: 'location', label: 'Spreadsheet'},
+                {key: 'code', label: 'Item Code'},
+                {key: 'item_id', label: 'Itemd ID'},
+                {key: 'uuid', uuid: 'UUID'}
+            ],
+            filter: null,
+            totalRows: 1,
+            currentPage: 1,
+            perPage: 25,
+            pageOptions: [25, 50, 100, 500],
+        }
+    },
+
+    created(){
+        const dataURL = ['ESPD/uuid'] 
+        this.isBusy = true
+        const getData = async () => {
+            try {
+                let thecall = await fetch(`${dataURL}/uuid.json`)
+                let data = await thecall.json()
+                if (thecall.ok) {
+                    this.uuid_files = data.uuid_files
+                    //console.log(data)
+
+                    //get the rest of the files
+                    for (const elm of this.uuid_files) {
+                        if (!Object.hasOwn(this.sources, elm.version)) this.sources[elm.version] = {}
+                        thecall = await fetch(`${dataURL}/${elm.filename}`)
+                        data = await thecall.text()
+                        if (thecall.ok) {
+                            this.sources[elm.version] = data
+                            //console.log(data);
+                            //Populate the table data source
+                            data.split('\n').map(line => {
+                                let cols = line.split('\t')
+                                this.uuid_table.push({
+                                    version: elm.version,
+                                    location: cols[0],
+                                    code: cols[1],
+                                    item_id: cols[2],
+                                    uuid: cols[3]
+                                })
+                            })
+                        }
+                    }
+                    this.totalRows = this.uuid_table.length
+
+                    this.isBusy = false
+
+                }
+            } catch (error) {
+                this.isBusy = false
+                console.log("Error!", error)
+            }
+        }
+
+        getData()
+    },
+
+    methods: {
+        onFiltered(filteredItems) {
+          // Trigger pagination to update the number of buttons/pages due to filtering
+            this.totalRows = filteredItems.length
+            this.currentPage = 1
+        }
+    },
+
+    template: `
+    <b-card title="ESPD UUID search">
+        <b-row>
+            <b-col sm="4" lg="4" md="4" class="mb-3">
+                <b-form-group label="Filter" label-for="filter-input" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
+                    <b-input-group size="sm">
+                        <b-form-input id="filter-input" v-model="filter" type="search" placeholder="Type UUID to Search"></b-form-input>
+
+                    <b-input-group-append>
+                        <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                    </b-input-group-append>
+                    </b-input-group>
+                </b-form-group>
+            </b-col>
+            <b-col sm="2" md="2" class="mb-3">
+                <b-form-group label="Per page" label-for="per-page-select"
+                label-cols-sm="6" label-cols-md="4" label-cols-lg="3" label-align-sm="right" label-size="sm"
+                class="mb-0">
+                <b-form-select id="per-page-select" v-model="perPage" :options="pageOptions" size="sm"></b-form-select>
+                </b-form-group>
+            </b-col>
+
+            <b-col sm="6" md="6" class="mb-3">
+                <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage"
+                align="fill" size="sm" class="my-0"></b-pagination>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-table :items="uuid_table" :fields="fields" :filter="filter" :current-page="currentPage" :per-page="perPage" 
+            striped hover show-empty small @filtered="onFiltered">
+            <template #table-busy>
+                <div class="text-center text-danger my-2">
+                    <b-spinner class="align-middle"></b-spinner>
+                    <strong>Loading...</strong>
+                </div>
+            </template>
+            </b-table>
+        </b-row>
+        </b-card>
+    `
+})

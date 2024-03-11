@@ -10,8 +10,8 @@ Vue.component("uuid", {
                 {key: 'location', label: 'Spreadsheet'},
                 {key: 'code', label: 'Item Code'},
                 {key: 'item_id', label: 'Itemd ID'},
-                {key: 'uuid', uuid: 'UUID'},
-                'eCertis'
+                {key: 'uuid', label: 'UUID'},
+                {key:'eCertis', label:'eCertis'}
             ],
             filter: null,
             totalRows: 1,

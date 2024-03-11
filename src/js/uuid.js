@@ -79,16 +79,16 @@ Vue.component("uuid", {
             const eCertis_URL="https://ec.europa.eu/growth/tools-databases/ecertisrest/criteria/espd"
             const checkURL = async() => {
                 try {
-                    showToast('Cheking UUID in eCertis ... this may take a couple of minutes.','eCertis check','info')
+                    showToast('Cheking UUID in eCertis ... this may take a couple of minutes.','eCertis check','info','')
                     let thecall = await fetch(`${eCertis_URL}/${item.uuid.replace('\r','').trim()}`)
                     let thedata = await thecall.text()
                     if (thecall.ok){
                         if(thedata.length > 0){
-                            showToast(`The UUID:${item.uuid.replace('\r','').trim()} is in eCertis`, 'eCertis check successfully', 'success')
+                            showToast(`The UUID:${item.uuid.replace('\r','').trim()} is in eCertis`, 'eCertis check successfully', 'success', `${eCertis_URL}/${item.uuid.replace('\r','').trim()}`)
                             //console.log(thedata)
                             
                         }else{
-                            showToast(`The UUID::${item.uuid.replace('\r','').trim()} not forund in eCertis!`, 'eCertis check error', 'danger')
+                            showToast(`The UUID::${item.uuid.replace('\r','').trim()} not forund in eCertis!`, 'eCertis check error', 'danger','')
                             
                         }
                     }

@@ -16,11 +16,12 @@ if (localStorage.getItem("language")) {
 var pdb = PouchDB('espd_demo')
 
 //Auxiliary funciton for Bootsrap toast messages
-function showToast(message, title='Message from server', type='info'){
+function showToast(message, title='Message from server', type='info', href=''){
  window.app.$bvToast.toast(message,
    {
     title: title,
     toaster: 'b-toaster-bottom-center',
+    href: href,
     solid: true,
     variant: type,
     appendToast: true

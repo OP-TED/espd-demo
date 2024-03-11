@@ -10,7 +10,8 @@ Vue.component("uuid", {
                 {key: 'location', label: 'Spreadsheet'},
                 {key: 'code', label: 'Item Code'},
                 {key: 'item_id', label: 'Itemd ID'},
-                {key: 'uuid', uuid: 'UUID'}
+                {key: 'uuid', uuid: 'UUID'},
+                'eCertis'
             ],
             filter: null,
             totalRows: 1,
@@ -71,6 +72,33 @@ Vue.component("uuid", {
           // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length
             this.currentPage = 1
+        },
+        checkeCertis(item){
+            //console.log(item);
+
+            const eCertis_URL="https://ec.europa.eu/growth/tools-databases/ecertisrest/criteria/espd"
+            const checkURL = async() => {
+                try {
+                    showToast('Cheking UUID in eCertis ... this may take a couple of minutes.','eCertis check','info')
+                    let thecall = await fetch(`${eCertis_URL}/${item.uuid.replace('\r','').trim()}`)
+                    let thedata = await thecall.text()
+                    if (thecall.ok){
+                        if(thedata.length > 0){
+                            showToast(`The UUID:${item.uuid.replace('\r','').trim()} is in eCertis`, 'eCertis check successfully', 'success')
+                            //console.log(thedata)
+                            
+                        }else{
+                            showToast(`The UUID::${item.uuid.replace('\r','').trim()} not forund in eCertis!`, 'eCertis check error', 'danger')
+                            
+                        }
+                    }
+                } catch (error) {
+                    
+                    console.log(error);
+                }
+            }
+
+            checkURL()
         }
     },
 
@@ -110,6 +138,11 @@ Vue.component("uuid", {
                     <strong>Loading...</strong>
                 </div>
             </template>
+            <template #cell(eCertis)="row">
+            <b-button pill variant="warning" size="sm" @click="checkeCertis(row.item)" class="mr-2">
+                Check eCertis
+            </b-button>
+        </template>
             </b-table>
         </b-row>
         </b-card>

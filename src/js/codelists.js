@@ -1,9 +1,12 @@
 Vue.component("codelists", {
     data: function () {
         return {
+            raw_data: {},
             codelist: null,
             codelists: [],
             sources: {},
+            versions: [],
+            version: null,
             crt_list: {
                 'ShortName': '',
                 'LongName': '',
@@ -55,7 +58,7 @@ Vue.component("codelists", {
             scl_fileds: [
                 'Code', 'Status'
             ],
-            theFile:'',
+            theFile: '',
             show: true
         }
     },
@@ -70,21 +73,56 @@ Vue.component("codelists", {
             //console.log(this.crt_list.table);
         },
 
-        ExportExcel(){
+        selectVersion(event) {
+            //console.log(event);
+            //load the lista data from server
+            const dataURL = ['ESPD/codelists/']
+            this.version = event
+
+            const getData = async () => {
+                this.codelists = this.raw_data[this.version]
+
+                //load only the 1st version lists
+                //each time when the version or lists are changed 
+                for (const elm of this.codelists) {
+                    if (!Object.hasOwn(this.sources, elm)) this.sources[elm] = {}
+                    thecall = await fetch(`${dataURL}/${this.version}/${elm}/${elm}.json`)
+                    data = await thecall.json()
+                    if (thecall.ok) {
+                        this.sources[elm] = data
+                        //console.log(data);
+                    }
+                }
+
+                this.codelist = this.codelists[0]
+                const toplevelfields = ['ShortName', 'LongName', 'ListID', 'Version',
+                    'CanonicalUri', 'CanonicalVersionUri', 'LocaltionUri',
+                    'AgencyLongName', 'AgencyIdentifier', 'type', 'name']
+                this.crt_list = this.sources[this.codelist]
+                this.crt_list.table = []
+                for (const fld in this.sources[this.codelist].fields) {
+                    this.crt_list.table.push(this.sources[this.codelist].fields[fld])
+                }
+
+            }
+            getData()
+        },
+
+        ExportExcel() {
             const wb = new ExcelJS.Workbook();
-            
+
             //Excelify the JSON object this.sources
 
-            const exportKeys= ['ShortName', 'LongName', 'ListID', 
-                               'Version', 'CanonicalUri', 'CanonicalVersionUri', 
-                               'LocationUri', 'AgencyLongName', 'AgencyIdentifier']
+            const exportKeys = ['ShortName', 'LongName', 'ListID',
+                'Version', 'CanonicalUri', 'CanonicalVersionUri',
+                'LocationUri', 'AgencyLongName', 'AgencyIdentifier']
             for (const key in this.sources) {
                 let ws = wb.addWorksheet(this.sources[key].ShortName)
-                let row  = 1, maxAColWidth = 0
+                let row = 1, maxAColWidth = 0
                 for (const elm of exportKeys) {
-                    if(Object.hasOwn(this.sources[key], elm)){
+                    if (Object.hasOwn(this.sources[key], elm)) {
                         ws.getCell(`A${row}`).value = elm
-                        maxAColWidth = Math.max(maxAColWidth, elm.length+1)
+                        maxAColWidth = Math.max(maxAColWidth, elm.length + 1)
                         ws.getCell(`A${row}`).font = { bold: true }
                         ws.getCell(`B${row}`).value = this.sources[key][elm]
                         row++
@@ -95,12 +133,12 @@ Vue.component("codelists", {
                 }
                 //Export the table part after the mandatory fields
                 const tableKeys = ['Code', 'Name', 'Description', 'Status'].concat(this.language_fields)
-                      
-                if (Object.hasOwn(this.sources[key], 'fields')){
+
+                if (Object.hasOwn(this.sources[key], 'fields')) {
                     //Add table
                     let cols = [], rows = []
 
-                    tableKeys.forEach(elm =>{
+                    tableKeys.forEach(elm => {
                         cols.push({
                             name: elm,
                             filterButton: true
@@ -109,7 +147,7 @@ Vue.component("codelists", {
 
                     for (const elm in this.sources[key]['fields']) {
                         let crt_row = []
-                        tableKeys.forEach(val =>{
+                        tableKeys.forEach(val => {
                             crt_row.push(this.sources[key]['fields'][elm][val])
                         })
                         rows.push(crt_row)
@@ -121,28 +159,28 @@ Vue.component("codelists", {
                         headerRow: true,
                         totalsRow: false,
                         style: {
-                          theme: 'TableStyleMedium9',
-                          showRowStripes: true,
+                            theme: 'TableStyleMedium9',
+                            showRowStripes: true,
                         },
                         columns: cols,
                         rows: rows,
-                      })
+                    })
                 }
             }
 
 
             //wrapup the file and send it to the browser
-            wb.xlsx.writeBuffer({base64: true})
-            .then( function (xls64) {
-                var data = new Blob([xls64], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-                var url = URL.createObjectURL(data);
-                //the name of the file can not be setup programatically :( you will get some randomly generated name
-                window.open(url, "_blank");
-                URL.revokeObjectURL(url);
-            })
-            .catch(function(error) {
-                console.log(error.message);
-            });
+            wb.xlsx.writeBuffer({ base64: true })
+                .then(function (xls64) {
+                    var data = new Blob([xls64], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                    var url = URL.createObjectURL(data);
+                    //the name of the file can not be setup programatically :( you will get some randomly generated name
+                    window.open(url, "_blank");
+                    URL.revokeObjectURL(url);
+                })
+                .catch(function (error) {
+                    console.log(error.message);
+                });
 
         },
 
@@ -152,9 +190,9 @@ Vue.component("codelists", {
             XMLzip.file("codelists/README.md", "Code List GC files")
 
             function urlToPromise(url) {
-                return new Promise(function(resolve, reject) {
+                return new Promise(function (resolve, reject) {
                     JSZipUtils.getBinaryContent(url, function (err, data) {
-                        if(err) {
+                        if (err) {
                             reject(err);
                         } else {
                             resolve(data);
@@ -170,15 +208,15 @@ Vue.component("codelists", {
                             //fetch the file from the local server
                             //it is not possible to fetch files from another servers using JavaScript in browser
                             //getExternalCodeLists.ps1 script to download the external files so that they can be loaded from local server
-                            XMLzip.file(`codelists/${this.sources[key].ShortName}.gc`, urlToPromise(`ESPD/codelists/${this.sources[key].LongName}/${this.sources[key].ShortName}.gc`), {binary:true})
+                            XMLzip.file(`codelists/${this.sources[key].ShortName}.gc`, urlToPromise(`ESPD/codelists/${this.sources[key].LongName}/${this.sources[key].ShortName}.gc`), { binary: true })
                         }
                         if (this.sources[key].type == 'technical') {
                             //build the file
                             //create the XML file and display it
-                            let lang = '', scl = '', ids=''
+                            let lang = '', scl = '', ids = ''
                             let item = this.sources[key]
 
-                            if (Object.hasOwn(item, 'AgencyIdentifier')){
+                            if (Object.hasOwn(item, 'AgencyIdentifier')) {
                                 ids = `
                                 <ShortName>${item.ShortName}</ShortName>
                                 <LongName Identifier="listID">${item.ListID}</LongName>
@@ -191,8 +229,8 @@ Vue.component("codelists", {
                                     <Identifier>${item.AgencyIdentifier}</Identifier>
                                 </Agency>
                                 `
-                            }else{
-                                ids =`
+                            } else {
+                                ids = `
                                 <ShortName>${item.ShortName}</ShortName>
                                 <LongName Identifier="listID">${item.ListID}</LongName>
                                 <Version>${item.Version}</Version>
@@ -289,7 +327,7 @@ Vue.component("codelists", {
                 //create the XML file and display it
                 let lang = '', scl = '', ids = ''
 
-                if (Object.hasOwn(item, 'AgencyIdentifier')){
+                if (Object.hasOwn(item, 'AgencyIdentifier')) {
                     ids = `
                     <ShortName>${item.ShortName}</ShortName>
                     <LongName Identifier="listID">${item.ListID}</LongName>
@@ -302,8 +340,8 @@ Vue.component("codelists", {
                         <Identifier>${item.AgencyIdentifier}</Identifier>
                     </Agency>
                     `
-                }else{
-                    ids =`
+                } else {
+                    ids = `
                     <ShortName>${item.ShortName}</ShortName>
                     <LongName Identifier="listID">${item.ListID}</LongName>
                     <Version>${item.Version}</Version>
@@ -393,13 +431,26 @@ Vue.component("codelists", {
                 let thecall = await fetch(`${dataURL}/codelist.json`)
                 let data = await thecall.json()
                 if (thecall.ok) {
-                    this.codelists = data.code_lists
+                    this.raw_data = data.code_lists
+
                     //console.log(data)
 
                     //get the rest of the files
+                    for (const ver in this.raw_data) {
+                        if (Object.hasOwnProperty.call(this.raw_data, ver)) {
+                            const v = this.raw_data[ver];
+                            this.versions.push(ver)
+                            //console.log(v);
+                        }
+                    }
+                    this.version = this.versions[0]
+                    this.codelists = this.raw_data[this.versions[0]]
+
+                    //load only the 1st version lists
+                    //each time when the version or lists are changed 
                     for (const elm of this.codelists) {
                         if (!Object.hasOwn(this.sources, elm)) this.sources[elm] = {}
-                        thecall = await fetch(`${dataURL}/${elm}/${elm}.json`)
+                        thecall = await fetch(`${dataURL}/${this.version}/${elm}/${elm}.json`)
                         data = await thecall.json()
                         if (thecall.ok) {
                             this.sources[elm] = data
@@ -430,6 +481,11 @@ Vue.component("codelists", {
     template: `
 
     <b-card title="ESPD Code Lists" footer-tag="footer">
+
+        <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="ESPD version" label-for="input-espdversion">
+            <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
+        </b-form-group>
+
         <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="Code list" label-for="input-codelist">
             <b-form-select id="input-codelist" v-model="codelist" :options="codelists" @change="selectCodeList($event)"></b-form-select>
         </b-form-group>

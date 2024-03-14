@@ -1,0 +1,13 @@
+{
+  "name": "language",
+  "type": "external",
+  "ShortName": "Language",
+  "LongName": "language",
+  "ListID": "http://publications.europa.eu/resource/authority/language",
+  "Version": "20220928-0",
+  "CanonicalUri": "http://publications.europa.eu/resource/dataset/language",
+  "CanonicalVersionUri": "http://publications.europa.eu/resource/dataset/language/20220928-0",
+  "LocationUri": "http://publications.europa.eu/resource/distribution/language/20220928-0/xml/gc/Language.gc",
+  "AgencyLongName": "Publications Office of the European Union",
+  "AgencyIdentifier": "OP"
+}

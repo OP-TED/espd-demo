@@ -1,0 +1,13 @@
+{
+  "name": "currency",
+  "type": "external",
+  "ShortName": "Currency",
+  "LongName": "currency",
+  "ListID": "http://publications.europa.eu/resource/authority/currency",
+  "Version": "20220928-0",
+  "CanonicalUri": "http://publications.europa.eu/resource/dataset/currency",
+  "CanonicalVersionUri": "http://publications.europa.eu/resource/dataset/currency/20220928-0",
+  "LocationUri": "http://publications.europa.eu/resource/distribution/currency/20220928-0/xml/gc/Currency.gc",
+  "AgencyLongName": "Publications Office of the European Union",
+  "AgencyIdentifier": "OP"
+}

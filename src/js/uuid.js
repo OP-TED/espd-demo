@@ -43,13 +43,18 @@ Vue.component("uuid", {
                             //Populate the table data source
                             data.split('\n').map(line => {
                                 let cols = line.split('\t')
-                                this.uuid_table.push({
-                                    version: elm.version,
-                                    location: cols[0],
-                                    code: cols[1],
-                                    item_id: cols[2],
-                                    uuid: cols[3]
-                                })
+                                //filter only criteria
+                                if( (cols[2].indexOf('/') == -1 && !cols[2].startsWith('CRITERION') && cols[2].indexOf('_') == -1 
+                                     && cols[2].trim() != 'LEGISLATION' && cols[2].trim() != 'SUBCRITERION' && cols[2].trim() != 'QUESTION') || 
+                                    cols[2].startsWith('CRITERION')) {
+                                    this.uuid_table.push({
+                                        version: elm.version,
+                                        location: cols[0],
+                                        code: cols[1],
+                                        item_id: cols[2],
+                                        uuid: cols[3]
+                                    })
+                                }
                             })
                         }
                     }

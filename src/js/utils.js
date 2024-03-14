@@ -1,7 +1,7 @@
 // 0. Create i18n instance with options
 const i18n = new VueI18n({
-	locale: 'gb', // set locale
-	fallbackLocale: 'gb', // set fallback locale
+	locale: 'eu', // set locale
+	fallbackLocale: 'eu', // set fallback locale
 	messages, // set locale messages
 	// If you need to specify other options, you can set other options
 })

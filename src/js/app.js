@@ -6,7 +6,7 @@ window.app = new Vue({
 		currentHeader: 'publicHeader',
 		currentFooter: 'publicFooter',
 		mainComponent: 'home',
-		locales: ['gb', 'fr', 'ro'],
+		locales: ['eu', 'fr', 'ro'],
 	},
 
 	methods: {

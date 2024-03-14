@@ -1,7 +1,7 @@
 Vue.component("publicHeader", {
 	data() {
 		return {
-			locales: ['gb', 'fr', 'ro'],
+			locales: ['eu', 'fr', 'ro'],
 			show: true,
 		}
 	},

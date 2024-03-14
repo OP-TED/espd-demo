@@ -1,6 +1,6 @@
 //Translated locale messages
 const messages = {
-    gb: {
+    eu: {
       message: {
         hello: 'Hello!'
       },

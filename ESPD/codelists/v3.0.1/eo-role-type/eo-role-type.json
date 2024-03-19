@@ -1,0 +1,13 @@
+{
+    "ShortName": "EoRoleType",
+    "LongName": "eo-role-type",
+    "ListID": "http://publications.europa.eu/resource/authority/eo-role-type",
+    "Version": "20211208-0",
+    "CanonicalUri": "http://publications.europa.eu/resource/dataset/eo-role-type",
+    "CanonicalVersionUri": "http://publications.europa.eu/resource/dataset/eo-role-type/20211208-0",
+    "LocationUri": "http://publications.europa.eu/resource/distribution/eo-role-type/20211208-0/xml/gc/EoRoleType.gc",
+    "AgencyLongName": "Publications Office of the European Union",
+    "AgencyIdentifier": "OP",
+    "type": "external",
+    "name": "eo-role-type"
+}

@@ -12,10 +12,17 @@
     },
     "license": "EUPL",
     "scripts": {
-        "start": "node dev_server.js"
+        "start": "node dev_server.js",
+        "codelist" : "node codelist.js"
+    },
+    "overrides": {
+        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
     },
     "dependencies": {
         "fastify": "^4.25.2",
-        "@fastify/static": "^6.12.*"
+        "@fastify/static": "^6.12.*",
+        "caporal": "1.4.0",
+        "chalk": "4.1.2",
+        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
     }
 }

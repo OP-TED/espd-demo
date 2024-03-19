@@ -1,0 +1,13 @@
+{
+    "ShortName": "Language",
+    "LongName": "language",
+    "ListID": "Language",
+    "Version": "20201216-0",
+    "CanonicalUri": "https://github.com/ESPD/ESPD-EDM",
+    "CanonicalVersionUri": "https://github.com/ESPD/ESPD-EDM/tree/3.0.0",
+    "LocationUri": "https://github.com/ESPD/ESPD-EDM/tree/3.0.0/docs/src/main/asciidoc/dist/cl/gc/language.gc",
+    "AgencyLongName": "Publications Office of the European Union",
+    "AgencyIdentifier": "EU-COM-OP",
+    "type": "technical",
+    "name": "Language"
+}

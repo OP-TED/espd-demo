@@ -1,0 +1,13 @@
+{
+"name":"occupation",
+"type":"external",
+"ShortName":"Occupation",
+"LongName":"occupation",
+"ListID":"http://publications.europa.eu/resource/authority/occupation",
+"Version":"20220615-0",
+"CanonicalUri":"http://publications.europa.eu/resource/dataset/occupation",
+"CanonicalVersionUri":"http://publications.europa.eu/resource/dataset/occupation/20220615-0",
+"LocationUri":"http://publications.europa.eu/resource/distribution/occupation/20220615-0/xml/gc/Occupation.gc",
+"AgencyLongName":"Directorate-General for Employment, Social Affairs and Inclusion",
+"AgencyIdentifier":"EMPL"
+}

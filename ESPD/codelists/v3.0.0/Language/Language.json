@@ -1,13 +1,13 @@
 {
     "ShortName": "Language",
-    "LongName": "language",
-    "ListID": "Language",
+    "LongName": "Language",
+    "ListID": "http://publications.europa.eu/resource/authority/language",
     "Version": "20201216-0",
-    "CanonicalUri": "https://github.com/ESPD/ESPD-EDM",
-    "CanonicalVersionUri": "https://github.com/ESPD/ESPD-EDM/tree/3.0.0",
-    "LocationUri": "https://github.com/ESPD/ESPD-EDM/tree/3.0.0/docs/src/main/asciidoc/dist/cl/gc/language.gc",
+    "CanonicalUri": "http://publications.europa.eu/resource/dataset/language",
+    "CanonicalVersionUri": "http://publications.europa.eu/resource/dataset/language/20201216-0",
+    "LocationUri": "http://publications.europa.eu/resource/distribution/language/20201216-0/xml/gc/Language.gc",
     "AgencyLongName": "Publications Office of the European Union",
     "AgencyIdentifier": "EU-COM-OP",
-    "type": "technical",
+    "type": "external",
     "name": "Language"
 }

@@ -4,8 +4,8 @@
     "ListID": "occupation",
     "Version": "3.0.0",
     "CanonicalUri": "https://github.com/ESPD/ESPD-EDM",
-    "CanonicalVersionUri": "https://github.com/ESPD/ESPD-EDM/tree/ESPD-EDM-V3.0.0",
-    "LocationUri": "https://github.com/ESPD/ESPD-EDM/tree/ESPD-EDM-V3.0.0/docs/src/main/asciidoc/dist/cl/gc/occupation.gc",
+    "CanonicalVersionUri": "https://github.com/ESPD/ESPD-EDM/tree/v3.0.0",
+    "LocationUri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.0/docs/src/main/asciidoc/modules/ROOT/dist/cl/gc/occupation.gc",
     "AgencyLongName": "Publications Office of the European Union",
     "AgencyIdentifier": "EU-COM-OP",
     "fields": {
@@ -88300,6 +88300,6 @@
             "swe": ""
         }
     },
-    "type": "technical",
+    "type": "external",
     "name": "occupation"
 }

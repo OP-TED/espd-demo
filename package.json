@@ -23,6 +23,7 @@
         "@fastify/static": "^6.12.*",
         "caporal": "1.4.0",
         "chalk": "4.1.2",
-        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
+        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz",
+        "axios":"1.6.8"
     }
 }

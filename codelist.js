@@ -16,7 +16,11 @@ const path = require("path");
 const { type } = require("os");
 
 const in_excel_we_trust = [
-    "ESPD-CodeLists_v3.0.0.xlsx"
+    //"ESPD-CodeLists_v3.0.0.xlsx"
+    //"ESPD-CodeLists_v3.0.1.xlsx"
+    //"ESPD-CodeLists_v3.1.0.xlsx"
+    //"ESPD-CodeLists_v3.2.0.xlsx"
+    //"ESPD-CodeLists_v3.3.0.xlsx"
 ]
 
 const log = console.log, ESDP_version = 'ESDP release v3.0.0', path_to_folder = '.\\ESPD\\codelists\\';
@@ -25,6 +29,7 @@ XLSX.set_fs(fs);
 let name_version = '', json_ui = {}, json_external = [];
 
 var clJSON = require('./ESPD/codelists/codelist.json')
+//download all codelists some are from Github some are form EU Vocabulary
 var extclJSON = require('./ESPD/codelists/external_code_list.json')
 
 program
@@ -202,13 +207,14 @@ function process_code_lists(sph) {
     JSON2file(filePath, json_structure)
 
     //build the JSON that is used to fetch the remote files
-    if (json_structure.type == 'external') {
+    //fethc all files
+    //if (json_structure.type == 'external') {
         json_external.push({
             folder: `${name_version}\\${json_structure.name}`,
-            filename: json_structure.ShortName,
+            filename: `${json_structure.ShortName}.gc`,
             uri: json_structure.LocationUri
         })
-    }
+    //}
 
     //build the JSON that will be saved in the UI
     json_ui[name_version].push(json_structure.name)

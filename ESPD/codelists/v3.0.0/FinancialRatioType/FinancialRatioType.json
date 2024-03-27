@@ -1,11 +1,11 @@
 {
     "ShortName": "FinancialRatioType",
-    "LongName": "FINANCIAL RATIO TYPE",
+    "LongName": "FinancialRatioType",
     "ListID": "FinancialRatioType",
     "Version": "1.0",
     "CanonicalUri": "https://www.bach.banque-france.fr/",
     "CanonicalVersionUri": "https://www.bach.banque-france.fr/",
-    "LocationUri": "https://github.com/ESPD/ESPD-EDM/tree/3.0.0/docs/src/main/asciidoc/dist/cl/gc/FinancialRatioType.gc",
+    "LocationUri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.0/docs/src/main/asciidoc/modules/ROOT/dist/cl/gc/FinancialRatioType.gc",
     "AgencyLongName": "BACH Banque de France",
     "AgencyIdentifier": "BACH",
     "fields": {
@@ -880,6 +880,6 @@
             "swe": ""
         }
     },
-    "type": "technical",
+    "type": "external",
     "name": "FinancialRatioType"
 }

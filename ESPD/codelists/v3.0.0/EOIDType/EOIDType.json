@@ -4,8 +4,8 @@
     "ListID": "EORoleType",
     "Version": "3.0.0",
     "CanonicalUri": "https://github.com/ESPD/ESPD-EDM",
-    "CanonicalVersionUri": "https://github.com/ESPD/ESPD-EDM/tree/3.0.0",
-    "LocationUri": "https://github.com/ESPD/ESPD-EDM/tree/3.0.0/docs/src/main/asciidoc/dist/cl/gc/EOIDType.gc",
+    "CanonicalVersionUri": "https://github.com/ESPD/ESPD-EDM/tree/v3.0.0",
+    "LocationUri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.0/docs/src/main/asciidoc/modules/ROOT/dist/cl/gc/EOIDType.gc",
     "AgencyLongName": "DG GROW (European Commission)",
     "AgencyIdentifier": "EU-COM-GROW",
     "fields": {
@@ -160,6 +160,6 @@
             "swe": ""
         }
     },
-    "type": "technical",
-    "name": "EORoleType"
+    "type": "external",
+    "name": "EOIDType"
 }

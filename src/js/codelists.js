@@ -78,6 +78,7 @@ Vue.component("codelists", {
             //load the lista data from server
             const dataURL = ['ESPD/codelists/']
             this.version = event
+            this.sources = {}
 
             const getData = async () => {
                 this.codelists = this.raw_data[this.version]
@@ -168,14 +169,18 @@ Vue.component("codelists", {
                 }
             }
 
-
-            //wrapup the file and send it to the browser
+            let fn_version = this.version
+            //wrap up the file and send it to the browser
             wb.xlsx.writeBuffer({ base64: true })
                 .then(function (xls64) {
                     var data = new Blob([xls64], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
                     var url = URL.createObjectURL(data);
                     //the name of the file can not be setup programatically :( you will get some randomly generated name
-                    window.open(url, "_blank");
+                    //window.open(url, "_blank");
+                    let a = document.getElementById('excel_file')
+                    a.href = url
+                    a.download = `CodeList_${fn_version}.xlsx`
+                    a.click()
                     URL.revokeObjectURL(url);
                 })
                 .catch(function (error) {
@@ -204,105 +209,12 @@ Vue.component("codelists", {
             const getAllXMLFiles = async () => {
                 try {
                     for (const key in this.sources) {
-                        if (this.sources[key].type == 'external') {
-                            //fetch the file from the local server
-                            //it is not possible to fetch files from another servers using JavaScript in browser
-                            //getExternalCodeLists.ps1 script to download the external files so that they can be loaded from local server
-                            XMLzip.file(`codelists/${this.sources[key].ShortName}.gc`, urlToPromise(`ESPD/codelists/${this.sources[key].LongName}/${this.sources[key].ShortName}.gc`), { binary: true })
-                        }
-                        if (this.sources[key].type == 'technical') {
-                            //build the file
-                            //create the XML file and display it
-                            let lang = '', scl = '', ids = ''
-                            let item = this.sources[key]
-
-                            if (Object.hasOwn(item, 'AgencyIdentifier')) {
-                                ids = `
-                                <ShortName>${item.ShortName}</ShortName>
-                                <LongName Identifier="listID">${item.ListID}</LongName>
-                                <Version>${item.Version}</Version>
-                                <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
-                                <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
-                                <LocationUri>${item.LocationUri}</LocationUri>
-                                <Agency>
-                                    <LongName xml:lang="Name">${item.AgencyLongName}</LongName>
-                                    <Identifier>${item.AgencyIdentifier}</Identifier>
-                                </Agency>
-                                `
-                            } else {
-                                ids = `
-                                <ShortName>${item.ShortName}</ShortName>
-                                <LongName Identifier="listID">${item.ListID}</LongName>
-                                <Version>${item.Version}</Version>
-                                <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
-                                <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
-                                <LocationUri>${item.LocationUri}</LocationUri>
-                                `
-                            }
-
-
-                            for (const elm in item.fields) {
-                                scl += '<Row>'
-                                for (const itm in item.fields[elm]) {
-
-                                    if (this.language_fields.indexOf(itm) != -1) {
-                                        //it should be language attribute
-                                        lang += `
-                    <Column Id="name-${itm}" Use="optional">
-                        <ShortName>Name</ShortName>
-                        <Data Type="string" Lang="${itm}"/>
-                    </Column>`
-                                        if (item.fields[elm][itm].length > 0) {
-                                            scl += `
-                            <Value ColumnRef="name-${itm}">
-                                <SimpleValue>${item.fields[elm][itm]}</SimpleValue>
-                             </Value>`
-                                        }
-                                    } else {
-                                        if (this.scl_fileds.indexOf(itm) != -1) {
-                                            scl += `
-                        <Value ColumnRef="${itm.toLowerCase()}">
-                            <SimpleValue>${item.fields[elm][itm]}</SimpleValue>
-                        </Value>`
-                                        }
-                                    }
-                                }
-                                scl += '\n</Row>\n'
-                            }
-
-
-                            let gc = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-                <gc:CodeList xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                             xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                             xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-                             xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                    
-                <Identification>
-                   ${ids}
-                </Identification>
-                <ColumnSet>
-                    <Column Id="code" Use="required">
-                        <ShortName>Code</ShortName>
-                        <Data Type="normalizedString" Lang="en"/>
-                    </Column>
-                    <Column Id="status" Use="required">
-                        <ShortName>Status</ShortName>
-                        <Data Type="normalizedString" Lang="en"/>
-                    </Column>
-                    ${lang}
-                    <Key Id="codeKey">
-                        <ShortName>CodeKey</ShortName>
-                        <ColumnRef Ref="code"/>
-                    </Key>
-                </ColumnSet>
-                <SimpleCodeList>
-                ${scl}
-                </SimpleCodeList>
-                </gc:CodeList>
-                `
-                            XMLzip.file(`codelists/${this.sources[key].ShortName}.gc`, gc)
-                        }
+                        //fetch the file from the local server
+                        //it is not possible to fetch files from another servers using JavaScript in browser
+                        //getExternalCodeLists.ps1 script to download the external files so that they can be loaded from local server
+                        XMLzip.file(`codelists/${this.version}/${this.sources[key].ShortName}.gc`,
+                            urlToPromise(`ESPD/codelists/${this.version}/${this.sources[key].LongName}/${this.sources[key].ShortName}.gc`), 
+                            { binary: true })
                     }
                     XMLzip.generateAsync({ type: "blob" })
                         .then(function (blob) {
@@ -319,107 +231,8 @@ Vue.component("codelists", {
 
         ViewXML() {
             let item = this.crt_list
-            if (item.type == 'external') {
-                //fetch the file and show it
-                window.open(item.LocationUri, "_blank")
-            }
-            if (item.type == 'technical') {
-                //create the XML file and display it
-                let lang = '', scl = '', ids = ''
-
-                if (Object.hasOwn(item, 'AgencyIdentifier')) {
-                    ids = `
-                    <ShortName>${item.ShortName}</ShortName>
-                    <LongName Identifier="listID">${item.ListID}</LongName>
-                    <Version>${item.Version}</Version>
-                    <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
-                    <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
-                    <LocationUri>${item.LocationUri}</LocationUri>
-                    <Agency>
-                        <LongName xml:lang="Name">${item.AgencyLongName}</LongName>
-                        <Identifier>${item.AgencyIdentifier}</Identifier>
-                    </Agency>
-                    `
-                } else {
-                    ids = `
-                    <ShortName>${item.ShortName}</ShortName>
-                    <LongName Identifier="listID">${item.ListID}</LongName>
-                    <Version>${item.Version}</Version>
-                    <CanonicalUri>${item.CanonicalUri}</CanonicalUri>
-                    <CanonicalVersionUri>${item.CanonicalVersionUri}</CanonicalVersionUri>
-                    <LocationUri>${item.LocationUri}</LocationUri>
-                    `
-                }
-
-
-                for (const elm in item.fields) {
-                    scl += '<Row>'
-                    for (const itm in item.fields[elm]) {
-
-                        if (this.language_fields.indexOf(itm) != -1) {
-                            //it should be language attribute
-                            lang += `
-                    <Column Id="name-${itm}" Use="optional">
-                        <ShortName>Name</ShortName>
-                        <Data Type="string" Lang="${itm}"/>
-                    </Column>`
-                            if (item.fields[elm][itm].length > 0) {
-                                scl += `
-                            <Value ColumnRef="name-${itm}">
-                                <SimpleValue>${item.fields[elm][itm]}</SimpleValue>
-                             </Value>`
-                            }
-                        } else {
-                            if (this.scl_fileds.indexOf(itm) != -1) {
-                                scl += `
-                        <Value ColumnRef="${itm.toLowerCase()}">
-                            <SimpleValue>${item.fields[elm][itm]}</SimpleValue>
-                        </Value>`
-                            }
-                        }
-                    }
-                    scl += '\n</Row>\n'
-                }
-
-
-                let gc = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-                <gc:CodeList xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                             xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                             xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-                             xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
-                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                    
-                <Identification>
-                    ${ids}
-                </Identification>
-                <ColumnSet>
-                    <Column Id="code" Use="required">
-                        <ShortName>Code</ShortName>
-                        <Data Type="normalizedString" Lang="en"/>
-                    </Column>
-                    <Column Id="status" Use="required">
-                        <ShortName>Status</ShortName>
-                        <Data Type="normalizedString" Lang="en"/>
-                    </Column>
-                    ${lang}
-                    <Key Id="codeKey">
-                        <ShortName>CodeKey</ShortName>
-                        <ColumnRef Ref="code"/>
-                    </Key>
-                </ColumnSet>
-                <SimpleCodeList>
-                ${scl}
-                </SimpleCodeList>
-                </gc:CodeList>
-                `
-                let blob = new Blob([gc], { type: 'text/xml' });
-                let url = URL.createObjectURL(blob);
-                window.open(url, "_blank");
-                URL.revokeObjectURL(url);
-
-                //console.log(gc);
-            }
-
+            //fetch the file and show it
+            window.open(item.LocationUri.replace('https://github.com/OP-TED/ESPD-EDM/tree', 'https://raw.githubusercontent.com/OP-TED/ESPD-EDM'), "_blank")
         }
     },
 
@@ -543,6 +356,7 @@ Vue.component("codelists", {
                     <b-button pill @click="ViewXML" variant="primary">View XML file</b-button>
                 </b-col>
                 <b-col class="pb-2 text-right">
+                    <a href="#" id='excel_file' name='excel_file' class="card-link"></a>
                     <b-button pill @click="ExportExcel" variant="warning">Export to Excel</b-button>
                     <b-button pill @click="DownloadZIP" variant="success">Download all XML files as ZIP archive</b-button>
                 </b-col>

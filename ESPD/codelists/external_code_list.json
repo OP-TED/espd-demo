@@ -398,5 +398,190 @@
         "folder": "v3.3.0",
         "filename": "ResponseDataType.gc",
         "uri": "https://github.com/ESPD/ESPD-EDM/tree/v3.3.0/codelists/gc/ResponseDataType.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "BooleanGUIControlType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/BooleanGUIControlType.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "CriterionElementType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/CriterionElementType.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "DocRefContentType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/DocRefContentType.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "EOIDType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/EOIDType.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "FinancialRatioType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/FinancialRatioType.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "Occupation.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/occupation.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "ProfileExecutionID.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/ProfileExecutionID.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "PropertyGroupType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/PropertyGroupType.gc"
+    },
+    {
+        "folder": "v3.0.1",
+        "filename": "ResponseDataType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.0.1/codelists/gc/ResponseDataType.gc"
+    },
+    {
+        "folder": "v3.1.0",
+        "filename": "BooleanGUIControlType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.1.0/codelists/gc/BooleanGUIControlType.gc"
+    },
+    {
+        "folder": "v3.1.0",
+        "filename": "CriterionElementType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.1.0/codelists/gc/CriterionElementType.gc"
+    },
+    {
+        "folder": "v3.1.0",
+        "filename": "EOIDType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.1.0/codelists/gc/EOIDType.gc"
+    },
+    {
+        "folder": "v3.1.0",
+        "filename": "FinancialRatioType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.1.0/codelists/gc/FinancialRatioType.gc"
+    },
+    {
+        "folder": "v3.1.0",
+        "filename": "ProfileExecutionID.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.1.0/codelists/gc/ProfileExecutionID.gc"
+    },
+    {
+        "folder": "v3.1.0",
+        "filename": "PropertyGroupType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.1.0/codelists/gc/PropertyGroupType.gc"
+    },
+    {
+        "folder": "v3.1.0",
+        "filename": "ResponseDataType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.1.0/codelists/gc/ResponseDataType.gc"
+    },
+    {
+        "folder": "v3.2.0",
+        "filename": "BooleanGUIControlType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.2.0/codelists/gc/BooleanGUIControlType.gc"
+    },
+    {
+        "folder": "v3.2.0",
+        "filename": "CriterionElementType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.2.0/codelists/gc/CriterionElementType.gc"
+    },
+    {
+        "folder": "v3.2.0",
+        "filename": "EOIDType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.2.0/codelists/gc/EOIDType.gc"
+    },
+    {
+        "folder": "v3.2.0",
+        "filename": "FinancialRatioType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.2.0/codelists/gc/FinancialRatioType.gc"
+    },
+    {
+        "folder": "v3.2.0",
+        "filename": "ProfileExecutionID.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.2.0/codelists/gc/ProfileExecutionID.gc"
+    },
+    {
+        "folder": "v3.2.0",
+        "filename": "PropertyGroupType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.2.0/codelists/gc/PropertyGroupType.gc"
+    },
+    {
+        "folder": "v3.2.0",
+        "filename": "ResponseDataType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.2.0/codelists/gc/ResponseDataType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "BooleanGUIControlType.gc",
+        "uri": "https://github.com/OP-TED/ESDP-EDM/tree/v3.3.0/codelists/gc/BooleanGUIControlType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "CriterionElementType.gc",
+        "uri": "https://github.com/OP-TED/ESDP-EDM/tree/v3.3.0/codelists/gc/CriterionElementType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "EOIDType.gc",
+        "uri": "https://github.com/OP-TED/ESDP-EDM/tree/v3.3.0/codelists/gc/EOIDType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "FinancialRatioType.gc",
+        "uri": "https://github.com/OP-TED/ESDP-EDM/tree/v3.3.0/codelists/gc/FinancialRatioType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "ProfileExecutionID.gc",
+        "uri": "https://github.com/OP-TED/ESDP-EDM/tree/v3.3.0/codelists/gc/ProfileExecutionID.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "PropertyGroupType.gc",
+        "uri": "https://github.com/OP-TED/ESDP-EDM/tree/v3.3.0/codelists/gc/PropertyGroupType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "ResponseDataType.gc",
+        "uri": "https://github.com/OP-TED/ESDP-EDM/tree/v3.3.0/codelists/gc/ResponseDataType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "BooleanGUIControlType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.3.0/codelists/gc/BooleanGUIControlType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "CriterionElementType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.3.0/codelists/gc/CriterionElementType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "EOIDType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.3.0/codelists/gc/EOIDType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "FinancialRatioType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.3.0/codelists/gc/FinancialRatioType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "ProfileExecutionID.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.3.0/codelists/gc/ProfileExecutionID.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "PropertyGroupType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.3.0/codelists/gc/PropertyGroupType.gc"
+    },
+    {
+        "folder": "v3.3.0",
+        "filename": "ResponseDataType.gc",
+        "uri": "https://github.com/OP-TED/ESPD-EDM/tree/v3.3.0/codelists/gc/ResponseDataType.gc"
     }
 ]

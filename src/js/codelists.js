@@ -137,11 +137,6 @@ Vue.component("codelists", {
                 this.crt_list.table.push(this.crt_list.fields[fld])
             }
 
-
-
-
-
-
         },
 
         selectVersion(event) {
@@ -249,7 +244,7 @@ Vue.component("codelists", {
         ExportExcel() {
             const wb = new ExcelJS.Workbook();
 
-            //Excelify the JSON object this.sources
+            //Excelify the XMLs from this.sources
 
             const exportKeys = ['ShortName', 'LongName', 'ListID',
                 'Version', 'CanonicalUri', 'CanonicalVersionUri',
@@ -345,17 +340,32 @@ Vue.component("codelists", {
 
             const getAllXMLFiles = async () => {
                 try {
+                    const parser = new DOMParser();
+                        function nsResolver(prefix) {
+                            const ns = {
+                                xs: "http://www.w3.org/2001/XMLSchema",
+                                fn: "http://www.w3.org/2005/xpath-functions",
+                                ss: "urn:schemas-microsoft-com:office:spreadsheet",
+                                gc: "http://docs.oasis-open.org/codelist/ns/genericode/1.0/",
+                                xsi: "http://www.w3.org/2001/XMLSchema-instance"
+                            };
+                            return ns[prefix] || null;
+                        }
                     for (const key in this.sources) {
+                        
+                        const gcXML = parser.parseFromString(this.sources[key], "text/xml");
+                        let ShortName = gcXML.evaluate('/gc:CodeList/Identification/ShortName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
                         //fetch the file from the local server
                         //it is not possible to fetch files from another servers using JavaScript in browser
                         //getExternalCodeLists.ps1 script to download the external files so that they can be loaded from local server
-                        XMLzip.file(`codelists/${this.version}/${this.sources[key].ShortName}.gc`,
-                            urlToPromise(`ESPD/codelists/${this.version}/${this.sources[key].ShortName}.gc`),
+                        XMLzip.file(`codelists/${this.version}/${ShortName}.gc`,
+                            urlToPromise(`ESPD/codelists/${this.version}/${ShortName}.gc`),
                             { binary: true })
                     }
+                    let fn_version = this.version
                     XMLzip.generateAsync({ type: "blob" })
                         .then(function (blob) {
-                            saveAs(blob, `codelist_${this.version}.zip`);
+                            saveAs(blob, `codelist_${fn_version}.zip`);
                         });
                 } catch (error) {
                     console.log(error);
@@ -369,7 +379,12 @@ Vue.component("codelists", {
         ViewXML() {
             let item = this.crt_list
             //fetch the file and show it
-            window.open(item.LocationUri.replace('https://github.com/OP-TED/ESPD-EDM/tree', 'https://raw.githubusercontent.com/OP-TED/ESPD-EDM'), "_blank")
+            //technical code lists should be fetched from the site the others from their remote locaitons
+            if (item.type == 'technical') {
+                window.open(`ESPD/codelists/${this.version}/${item.ShortName}.gc`, "_blank")
+            } else {
+                window.open(item.LocationUri, "_blank")
+            }
         }
     },
 
@@ -393,7 +408,7 @@ Vue.component("codelists", {
                             //console.log(v);
                         }
                     }
-                    this.versions.sort()
+                    this.versions.sort().reverse()
                     this.version = this.versions[0]
                     this.codelists = this.raw_data[this.versions[0]]
 

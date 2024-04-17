@@ -8,7 +8,7 @@ const messages = {
         codelists: 'Lists',
         uuid: 'UUID',
         model: 'Model',
-        service: 'Service'
+        service: 'Example'
       }
     },
     fr: {
@@ -19,7 +19,7 @@ const messages = {
         codelists: 'Listes',
         uuid: 'UUID',
         model: 'Model',
-        service: 'Service'
+        service: 'Exemples'
       }
     },
     ro: {
@@ -30,7 +30,7 @@ const messages = {
         codelists: 'Liste',
         uuid: 'UUID',
         model: 'Model',
-        service: 'Serviciu'
+        service: 'Exemplu'
       }
     }
   }

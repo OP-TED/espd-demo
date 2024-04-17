@@ -32,6 +32,8 @@ var clJSON = require('./ESPD/codelists/codelist.json')
 //download all codelists some are from Github some are form EU Vocabulary
 var extclJSON = require('./ESPD/codelists/external_code_list.json')
 
+var extModel = require('./ESPD/model/model.json')
+
 program
     .version("1.0.0")
     .name("codelist")
@@ -111,6 +113,24 @@ program
             JSON2file('.\\ESPD\\codelists\\codelist.json', clJSON)
         })
 
+    })
+
+    .command("process_model", "Process all models as options")
+    .action(({logger, args, options}) => {
+        log(chalk.blue.bold('Process all models as options'), chalk.red(ESDP_version));
+        log('\n')
+
+        let model_file = require('./ESPD/model/espd_edm_v3.3.0.json')
+        if (! Object.hasOwn(extModel, 'models')) extModel.models = {}
+        if (! Object.hasOwn(extModel.models, 'v3.3.0')) extModel.models['v3.3.0'] = []
+
+        for (const key in model_file) {
+            if (Object.hasOwn(model_file, key)) {
+                extModel.models['v3.3.0'].push({ value: model_file[key].tag, text: `${model_file[key].tag} - ${model_file[key].name}` })
+            }
+        }
+        log(extModel)
+        JSON2file('.\\ESPD\\model\\model.json', extModel)
     })
 
 // launch the main loop

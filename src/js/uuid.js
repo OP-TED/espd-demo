@@ -44,8 +44,8 @@ Vue.component("uuid", {
                             data.split('\n').map(line => {
                                 let cols = line.split('\t')
                                 //filter only criteria
-                                if( (cols[2].trim().startsWith('CRITERION') || cols[2].trim().startsWith('SC') || cols[2].trim().startsWith('EC')) && 
-                                    !cols[2].trim().startsWith('OT') && 
+                                if( (cols[2].trim().startsWith('SC') || cols[2].trim().startsWith('EC') || !cols[2].trim().startsWith('OT') || cols[2].trim().startsWith('CRITERION') ) &&
+                                     (cols[2].trim().indexOf('/') == -1 && cols[2].trim().indexOf('_') == -1 && ['LEGISLATION', 'SUBCRITERION', 'QUESTION'].indexOf(cols[2].trim()) == -1) && 
                                     !cols[1].trim().startsWith('CRITERION.OTHER') && 
                                     !cols[0].trim().startsWith('OTHER') 
                                   ){

@@ -44,9 +44,11 @@ Vue.component("uuid", {
                             data.split('\n').map(line => {
                                 let cols = line.split('\t')
                                 //filter only criteria
-                                if( (cols[2].indexOf('/') == -1 && !cols[2].startsWith('CRITERION') && cols[2].indexOf('_') == -1 
-                                     && cols[2].trim() != 'LEGISLATION' && cols[2].trim() != 'SUBCRITERION' && cols[2].trim() != 'QUESTION') || 
-                                    cols[2].startsWith('CRITERION')) {
+                                if( (cols[2].trim().startsWith('CRITERION') || cols[2].trim().startsWith('SC') || cols[2].trim().startsWith('EC')) && 
+                                    !cols[2].trim().startsWith('OT') && 
+                                    !cols[1].trim().startsWith('CRITERION.OTHER') && 
+                                    !cols[0].trim().startsWith('OTHER') 
+                                  ){
                                         this.uuid_table.push({
                                         version: elm.version,
                                         location: cols[0],

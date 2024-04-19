@@ -35,11 +35,15 @@ Vue.component("publicHeader", {
 
 	<!-- Right aligned nav items -->
 	<b-navbar-nav class="ml-auto">
+	<!--
+	<b-nav-item href="#" @click="doShow('distribution')">{{$t("mainmenu.distribution")}}</b-nav-item>
 	<b-nav-item href="#" @click="doShow('codelists')">{{$t("mainmenu.codelists")}}</b-nav-item>
+	-->
 	<b-nav-item href="#" @click="doShow('uuid')">{{$t("mainmenu.uuid")}}</b-nav-item>
-    <b-nav-item href="#" @click="doShow('model')">{{$t("mainmenu.model")}}</b-nav-item>
+    <!--
+	<b-nav-item href="#" @click="doShow('model')">{{$t("mainmenu.model")}}</b-nav-item>
     <b-nav-item href="#" @click="doShow('service')">{{$t("mainmenu.service")}}</b-nav-item>
-    
+    -->
 	<b-dropdown right size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
 			<template #button-content>
 				<span :class="localeFlagClass()"></span>&nbsp;{{ getLocale() }}&nbsp;<b-icon icon="translate" aria-hidden="true"></b-icon>

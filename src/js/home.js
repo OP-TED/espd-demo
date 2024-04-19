@@ -11,9 +11,9 @@ Vue.component("home",{
             <template #header>ESPD Demo Site</template>
 
             <template #lead>
-            This site is a collection of Demo applications allowing you to get familiar with ESPD model
-    and service. This site is provided for educational and training purpouse. It does not constitute an
-    official implementation of the ESPD service. Consider this site as a Mock Service or a Playground.</p>
+            This site is a collection of Tools allowing you to get familiar with ESPD model
+    and examples. This site is provided for educational and training purpouses. It does not constitute an
+    official implementation of the ESPD service. Consider this site as a Test or Playground to get familiar with ESPD.</p>
     <p>Feel free to download or copy-and-paste any parts of this example.
             </template>
 

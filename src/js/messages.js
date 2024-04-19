@@ -5,6 +5,7 @@ const messages = {
         hello: 'Hello!'
       },
       mainmenu: {
+        distribution: 'Export',
         codelists: 'Lists',
         uuid: 'UUID',
         model: 'Model',
@@ -16,6 +17,7 @@ const messages = {
         hello: 'Bonjour!'
       },
       mainmenu: {
+        distribution: 'Exporter',
         codelists: 'Listes',
         uuid: 'UUID',
         model: 'Model',
@@ -27,6 +29,7 @@ const messages = {
         hello: 'Bine ati venit!'
       },
       mainmenu: {
+        distribution: 'Export',
         codelists: 'Liste',
         uuid: 'UUID',
         model: 'Model',

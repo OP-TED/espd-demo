@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PrimeVue + CDN</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="https://unpkg.com/primevue/resources/themes/lara-light-green/theme.css" />
+  <style scoped>
+    .p-stepper {
+      flex-basis: 50rem;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/primevue/3.52.0/core/core.min.js"
+    integrity="sha512-A6tUUK1SH8GMRlGUaaJ/bMI5sWGj2wwBY4IY1BjBUJ3KOfekrcLP1ZlPM6UJGblQDpuGtXLENtazteEKlmAVOg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/primevue/3.52.0/stepper/stepper.min.js"
+    integrity="sha512-sUx9m3lE9Wq3PpljnqIw9W/MsVfFq4x+zR5Ky1YUe9F+niAsbGpKF3FE6QiypmqDTij0lp16hw255PRODV0vTw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/primevue/3.52.0/stepperpanel/stepperpanel.min.js"
+    integrity="sha512-n3KMxZHI1jQJpxhs1ySvMR8i8vvbY0e6PFSjLC6DiVdeCaXBz2ffxK9K75FteiY+xDgJX583LAwfzy2OTmtx2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <div id="app">
+
+    <div class="card flex justify-content-center">
+      <Stepper>
+        <StepperPanel header="Header I">
+          <template #content="{ nextCallback }">
+            <div class="flex flex-column h-12rem">
+              <div
+                class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                Content I</div>
+            </div>
+            <div class="flex pt-4 justify-content-end">
+              <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="nextCallback" />
+            </div>
+          </template>
+        </StepperPanel>
+        <StepperPanel header="Header II">
+          <template #content="{ prevCallback, nextCallback }">
+            <div class="flex flex-column h-12rem">
+              <div
+                class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                Content II</div>
+            </div>
+            <div class="flex pt-4 justify-content-between">
+              <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="prevCallback" />
+              <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="nextCallback" />
+            </div>
+          </template>
+        </StepperPanel>
+        <StepperPanel header="Header III">
+          <template #content="{ prevCallback }">
+            <div class="flex flex-column h-12rem">
+              <div
+                class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                Content III</div>
+            </div>
+            <div class="flex pt-4 justify-content-start">
+              <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="prevCallback" />
+            </div>
+          </template>
+        </StepperPanel>
+      </Stepper>
+    </div>
+
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    const app = createApp({
+      setup() {
+        const date = ref();
+        return {
+          date,
+        };
+      },
+    });
+
+    app.use(primevue.config.default);
+    app.component('p-datepicker', primevue.calendar);
+
+    app.mount('#app');
+  </script>
+</body>
+
+</html>

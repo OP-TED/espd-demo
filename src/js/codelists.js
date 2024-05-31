@@ -101,7 +101,7 @@ Vue.component("codelists", {
             this.crt_list.CanonicalVersionUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalVersionUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
             this.crt_list.LocationUri = gcXML.evaluate('/gc:CodeList/Identification/LocationUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
             this.crt_list.AgencyLongName = gcXML.evaluate('/gc:CodeList/Identification/Agency/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+            this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier/@Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
             this.crt_list.type = (this.crt_list.LocationUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
             this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
@@ -201,7 +201,7 @@ Vue.component("codelists", {
                 this.crt_list.CanonicalVersionUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalVersionUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
                 this.crt_list.LocationUri = gcXML.evaluate('/gc:CodeList/Identification/LocationUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
                 this.crt_list.AgencyLongName = gcXML.evaluate('/gc:CodeList/Identification/Agency/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier/@Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
                 this.crt_list.type = (this.crt_list.LocationUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
                 this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
@@ -241,147 +241,19 @@ Vue.component("codelists", {
             getData()
         },
 
-        ExportExcel() {
-            const wb = new ExcelJS.Workbook();
-
-            //Excelify the XMLs from this.sources
-
-            const exportKeys = ['ShortName', 'LongName', 'ListID',
-                'Version', 'CanonicalUri', 'CanonicalVersionUri',
-                'LocationUri', 'AgencyLongName', 'AgencyIdentifier']
-            for (const key in this.sources) {
-                let ws = wb.addWorksheet(this.sources[key].ShortName)
-                let row = 1, maxAColWidth = 0
-                for (const elm of exportKeys) {
-                    if (Object.hasOwn(this.sources[key], elm)) {
-                        ws.getCell(`A${row}`).value = elm
-                        maxAColWidth = Math.max(maxAColWidth, elm.length + 1)
-                        ws.getCell(`A${row}`).font = { bold: true }
-                        ws.getCell(`B${row}`).value = this.sources[key][elm]
-                        row++
-                    }
-                    //Set the width for Column A
-                    ws.getColumn('A').width = maxAColWidth
-
-                }
-                //Export the table part after the mandatory fields
-                const tableKeys = ['Code', 'Name', 'Description', 'Status'].concat(this.language_fields)
-
-                if (Object.hasOwn(this.sources[key], 'fields')) {
-                    //Add table
-                    let cols = [], rows = []
-
-                    tableKeys.forEach(elm => {
-                        cols.push({
-                            name: elm,
-                            filterButton: true
-                        })
-                    })
-
-                    for (const elm in this.sources[key]['fields']) {
-                        let crt_row = []
-                        tableKeys.forEach(val => {
-                            crt_row.push(this.sources[key]['fields'][elm][val])
-                        })
-                        rows.push(crt_row)
-                    }
-
-                    ws.addTable({
-                        name: `${this.sources[key].ShortName}_tbl`,
-                        ref: `A${row}`,
-                        headerRow: true,
-                        totalsRow: false,
-                        style: {
-                            theme: 'TableStyleMedium9',
-                            showRowStripes: true,
-                        },
-                        columns: cols,
-                        rows: rows,
-                    })
-                }
-            }
-
-            let fn_version = this.version
-            //wrap up the file and send it to the browser
-            wb.xlsx.writeBuffer({ base64: true })
-                .then(function (xls64) {
-                    var data = new Blob([xls64], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-                    var url = URL.createObjectURL(data);
-                    //the name of the file can not be setup programatically :( you will get some randomly generated name
-                    //window.open(url, "_blank");
-                    let a = document.getElementById('excel_file')
-                    a.href = url
-                    a.download = `CodeList_${fn_version}.xlsx`
-                    a.click()
-                    URL.revokeObjectURL(url);
-                })
-                .catch(function (error) {
-                    console.log(error.message);
-                });
-
-        },
-
-        DownloadZIP() {
-            //type == external => fetch; type == technical => build XML
-            var XMLzip = new JSZip()
-            XMLzip.file("codelists/README.md", `Code List GC files version ${this.version}`)
-
-            function urlToPromise(url) {
-                return new Promise(function (resolve, reject) {
-                    JSZipUtils.getBinaryContent(url, function (err, data) {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(data);
-                        }
-                    });
-                });
-            };
-
-            const getAllXMLFiles = async () => {
-                try {
-                    const parser = new DOMParser();
-                        function nsResolver(prefix) {
-                            const ns = {
-                                xs: "http://www.w3.org/2001/XMLSchema",
-                                fn: "http://www.w3.org/2005/xpath-functions",
-                                ss: "urn:schemas-microsoft-com:office:spreadsheet",
-                                gc: "http://docs.oasis-open.org/codelist/ns/genericode/1.0/",
-                                xsi: "http://www.w3.org/2001/XMLSchema-instance"
-                            };
-                            return ns[prefix] || null;
-                        }
-                    for (const key in this.sources) {
-                        
-                        const gcXML = parser.parseFromString(this.sources[key], "text/xml");
-                        let ShortName = gcXML.evaluate('/gc:CodeList/Identification/ShortName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                        //fetch the file from the local server
-                        //it is not possible to fetch files from another servers using JavaScript in browser
-                        //getExternalCodeLists.ps1 script to download the external files so that they can be loaded from local server
-                        XMLzip.file(`codelists/${this.version}/${ShortName}.gc`,
-                            urlToPromise(`ESPD/codelists/${this.version}/${ShortName}.gc`),
-                            { binary: true })
-                    }
-                    let fn_version = this.version
-                    XMLzip.generateAsync({ type: "blob" })
-                        .then(function (blob) {
-                            saveAs(blob, `codelist_${fn_version}.zip`);
-                        });
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-
-            getAllXMLFiles()
-
-        },
-
         ViewXML() {
             let item = this.crt_list
             //fetch the file and show it
             //technical code lists should be fetched from the site the others from their remote locaitons
             if (item.type == 'technical') {
-                window.open(`ESPD/codelists/${this.version}/${item.ShortName}.gc`, "_blank")
+                fetch(`ESPD/codelists/${this.version}/${item.ShortName}.gc`)
+                    .then(res => res.text()) // Gets the response and returns it as a blob
+                    .then(txt => {
+                        let blob = new Blob([txt], { type: 'text/xml' });
+                        let url = URL.createObjectURL(blob);
+                        window.open(url, "_blank");
+                        URL.revokeObjectURL(url);
+                    })
             } else {
                 window.open(item.LocationUri, "_blank")
             }
@@ -465,7 +337,7 @@ Vue.component("codelists", {
                     this.crt_list.CanonicalVersionUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalVersionUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
                     this.crt_list.LocationUri = gcXML.evaluate('/gc:CodeList/Identification/LocationUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
                     this.crt_list.AgencyLongName = gcXML.evaluate('/gc:CodeList/Identification/Agency/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                    this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier/@Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
                     this.crt_list.type = (this.crt_list.LocationUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
                     this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
@@ -574,11 +446,6 @@ Vue.component("codelists", {
             <b-row>
                 <b-col class="pb-2">
                     <b-button pill @click="ViewXML" variant="primary">View XML file</b-button>
-                </b-col>
-                <b-col class="pb-2 text-right">
-                    <a href="#" id='excel_file' name='excel_file' class="card-link"></a>
-                    <b-button pill @click="ExportExcel" variant="warning">Export to Excel</b-button>
-                    <b-button pill @click="DownloadZIP" variant="success">Download all XML files as ZIP archive</b-button>
                 </b-col>
             </b-row>
         </template>

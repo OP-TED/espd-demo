@@ -1,4 +1,4 @@
-// 0. Create i18n instance with options
+//Create i18n instance with options
 const i18n = new VueI18n({
 	locale: 'eu', // set locale
 	fallbackLocale: 'eu', // set fallback locale
@@ -27,6 +27,19 @@ function showToast(message, title='Message from server', type='info', href=''){
     appendToast: true
    })
 }
+
+//function to fetch a remote file for inclusion in ZIP archive
+function urlToPromise(url) {
+  return new Promise(function (resolve, reject) {
+      JSZipUtils.getBinaryContent(url, function (err, data) {
+          if (err) {
+              reject(err);
+          } else {
+              resolve(data);
+          }
+      });
+  });
+};
 
 
 const COUNTRY_LIST = [

@@ -15,6 +15,45 @@ if (localStorage.getItem("language")) {
 //Global application database for local browser storage
 var pdb = PouchDB('espd_demo')
 
+//UPdate-inSERT a document
+async function upsert(pdb_doc_id,data={}){
+  try {
+    var doc = await pdb.get(pdb_doc_id)
+    data._id = doc._id
+    data._rev= doc._rev
+    var result = await pdb.put(data)
+    console.log(result)
+  } catch (err) {
+    try {
+      data._id = pdb_doc_id
+      var result = await pdb.put(data)
+      console.log(result)      
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(err)
+  }
+}
+
+//DELete-inSERT document
+async function delsert(pdb_doc_id){
+  try{
+    var doc = await pdb.get(pdb_doc_id);
+    var response = await pdb.remove(doc);
+    response = await pdb.put({'_id':pdb_doc_id})
+    console.log(response);
+  }catch(err){
+    try{
+      var response = await pdb.put({'_id':pdb_doc_id})
+      console.log(response);
+    }catch(e){
+      console.log(e);
+    }
+    console.log(err)
+  }
+}
+
+
 //Auxiliary funciton for Bootsrap toast messages
 function showToast(message, title='Message from server', type='info', href=''){
  window.app.$bvToast.toast(message,

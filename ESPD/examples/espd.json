@@ -1,6 +1,21 @@
 {
     "versions": {
         "v3.3.0": {
+            "start":{
+                "context":["actor"]
+            },
+            "procedure":{
+                "info":["buyer"]
+            },
+            "exclusion_criteria":{
+                "convictions": ["crime-org", "corruption", "fraud", "terr-offenct", "finan-laund", "human-traffic"],
+                "contributions": [ "tax-pay", "socsec-pay"],
+                "social": ["envir-law", "scosec-law", "labour-law"],
+                "business": ["bankruptcy", "insolvency", "cred-arran", "bankr-nat", "liq-admin", "susp-act"],
+                "misconduct": ["disortion"],
+                "conflict_of_interest": ["paric-confl", "prep-confl", "sanction", "misinterpr"],
+                "national": ["nati-ground"]
+            },
             "selection_criteria":{
                 "suitability": ["prof-regist", "trade-regist", "authorisation", "membership"],
                 "economic_financial_standing": {
@@ -13,15 +28,6 @@
                     "management": ["manage-staff", "year-manpower", "suncont-port", "wo-authent", "w-autent"],
                     "certificates": ["qa-cerif-inst", "qu-certif-indep", "envir-certif-indep"]
                 }
-            },
-            "exclusion_criteria":{
-                "convictions": ["crime-org", "corruption", "fraud", "terr-offenct", "finan-laund", "human-traffic"],
-                "contributions": [ "tax-pay", "socsec-pay"],
-                "social": ["envir-law", "scosec-law", "labour-law"],
-                "business": ["bankruptcy", "insolvency", "cred-arran", "bankr-nat", "liq-admin", "susp-act"],
-                "misconduct": ["disortion"],
-                "conflict_of_interest": ["paric-confl", "prep-confl", "sanction", "misinterpr"],
-                "national": ["nati-ground"]
             }
         }
     }

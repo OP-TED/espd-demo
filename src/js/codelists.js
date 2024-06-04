@@ -1,5 +1,5 @@
 Vue.component("codelists", {
-    data: function () {
+    data() {
         return {
             raw_data: {},
             codelist: null,

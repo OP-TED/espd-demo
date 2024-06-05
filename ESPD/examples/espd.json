@@ -5,7 +5,7 @@
                 "context":["actor"]
             },
             "procedure":{
-                "info":["buyer"]
+                "context":["publication", "procurer", "procurement_procedure"]
             },
             "exclusion_criteria":{
                 "convictions": ["crime-org", "corruption", "fraud", "terr-offenct", "finan-laund", "human-traffic"],

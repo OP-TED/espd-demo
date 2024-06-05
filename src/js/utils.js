@@ -1,29 +1,30 @@
 //Create i18n instance with options
 const i18n = new VueI18n({
-	locale: 'eu', // set locale
-	fallbackLocale: 'eu', // set fallback locale
-	messages, // set locale messages
-	// If you need to specify other options, you can set other options
+  locale: 'eu', // set locale
+  fallbackLocale: 'eu', // set fallback locale
+  messages, // set locale messages
+  // If you need to specify other options, you can set other options
 })
 
 if (localStorage.getItem("language")) {
-	i18n.locale = localStorage.getItem("language");
+  i18n.locale = localStorage.getItem("language");
 } else {
-	sessionStorage.setItem("language", i18n.feedbackLocale);
+  sessionStorage.setItem("language", i18n.feedbackLocale);
 }
 
 //Global application database for local browser storage
 var pdb = PouchDB('espd_demo')
 
 //UPdate-inSERT a document
-async function upsert(pdb_doc_id,data={}){
+async function upsert(pdb_doc_id, data = {}) {
   try {
     var doc = await pdb.get(pdb_doc_id)
     data._id = doc._id
-    data._rev= doc._rev
+    data._rev = doc._rev
     var result = await pdb.put(data)
     console.log(result)
   } catch (err) {
+    /*
     try {
       data._id = pdb_doc_id
       var result = await pdb.put(data)
@@ -31,52 +32,56 @@ async function upsert(pdb_doc_id,data={}){
     } catch (error) {
       console.log(error);
     }
+    */
     console.log(err)
   }
 }
 
 //DELete-inSERT document
-async function delsert(pdb_doc_id){
-  try{
-    var doc = await pdb.get(pdb_doc_id);
-    var response = await pdb.remove(doc);
-    response = await pdb.put({'_id':pdb_doc_id})
+async function delsert(pdb_doc_id) {
+  try {
+    var doc = await pdb.get(pdb_doc_id)
+    var response = await pdb.remove(doc)
+    response = await pdb.compact()
+    response = await pdb.put({ '_id': pdb_doc_id })
     console.log(response);
-  }catch(err){
-    try{
-      var response = await pdb.put({'_id':pdb_doc_id})
-      console.log(response);
-    }catch(e){
-      console.log(e);
+  } catch (err) {
+    if (err.status = 404) {
+      try {
+        var response = await pdb.put({ '_id': pdb_doc_id })
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      console.log(err)
     }
-    console.log(err)
   }
 }
 
-
 //Auxiliary funciton for Bootsrap toast messages
-function showToast(message, title='Message from server', type='info', href=''){
- window.app.$bvToast.toast(message,
-   {
-    title: title,
-    toaster: 'b-toaster-bottom-center',
-    href: href,
-    solid: true,
-    variant: type,
-    appendToast: true
-   })
+function showToast(message, title = 'Message from server', type = 'info', href = '') {
+  window.app.$bvToast.toast(message,
+    {
+      title: title,
+      toaster: 'b-toaster-bottom-center',
+      href: href,
+      solid: true,
+      variant: type,
+      appendToast: true
+    })
 }
 
 //function to fetch a remote file for inclusion in ZIP archive
 function urlToPromise(url) {
   return new Promise(function (resolve, reject) {
-      JSZipUtils.getBinaryContent(url, function (err, data) {
-          if (err) {
-              reject(err);
-          } else {
-              resolve(data);
-          }
-      });
+    JSZipUtils.getBinaryContent(url, function (err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
   });
 };
 

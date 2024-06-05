@@ -2,16 +2,18 @@ Vue.component("startComponent", {
     data() {
         return {
             espd_version: '3.3.0',
-            role: 'ca',
-            country: 'lu',
+            role: null,
+            country: null,
             espd_opt: [
                 { value: '3.3.0', text: 'ESPD v3.3.0' }
             ],
             role_opt: [
+                { value: null, text: 'Please select a Role'},
                 { value: 'ca', text: 'Contracting authority - ESPD Request' },
                 { value: 'eo', text: 'Economic operator - ESPD Response' }
             ],
             country_list: [
+                { value: null, text: 'Please select a Country'},
                 { value: 'lu', text: 'Luxembourg' }
             ],
             show: true
@@ -30,20 +32,16 @@ Vue.component("startComponent", {
         }
 
     },
+    emits: ['updateESPDDoc'],
 
     methods: {
         updateESPDDoc() {
-            //Update the PouchDB store 
-            upsert('espd_doc',{
+            this.$emit('updateESPDDoc',{
                 espd_version: this.espd_version,
                 role: this.role,
                 country: this.country
             })
         }
-    },
-
-    created() {
-        this.updateESPDDoc()
     },
 
     template: `

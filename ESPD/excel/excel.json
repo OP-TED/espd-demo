@@ -5,7 +5,7 @@
                 "source": "ESPD/codelists/codelist.json"
             },
             "model":{
-                "source": "ESDP/model/espd_edm_v3.3.0.json"
+                "source": "ESPD/model/espd_edm_v3.3.0.json"
             }
         }
     }

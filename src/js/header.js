@@ -43,7 +43,7 @@ Vue.component("publicHeader", {
     <!-- -->
 	<b-nav-item href="#" @click="doShow('model')">{{$t("mainmenu.model")}}</b-nav-item>
     <b-nav-item href="#" @click="doShow('service')">{{$t("mainmenu.service")}}</b-nav-item>
-    <!-- -->
+    <!-- 
 	<b-dropdown right size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
 			<template #button-content>
 				<span :class="localeFlagClass()"></span>&nbsp;{{ getLocale() }}&nbsp;<b-icon icon="translate" aria-hidden="true"></b-icon>
@@ -52,7 +52,7 @@ Vue.component("publicHeader", {
 			<b-dropdown-item v-for="item in locales" v-bind:key="item.id"
 					 @click="changeLanguage(item)"><span :class="buildFlagClass(item)"></span>&nbsp; {{item.toUpperCase()}}</b-dropdown-item>
 	</b-dropdown>
-
+    -->
 	</b-navbar-nav>
 			</b-collapse>
 	</b-navbar>

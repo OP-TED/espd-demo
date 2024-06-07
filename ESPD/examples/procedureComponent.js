@@ -28,20 +28,22 @@ Vue.component('procedureComponent',{
             show: true
         }
     },
-    emits: ['updateESPDDoc'],
 
-    methods: {
-        updateESPDDoc() {
-            this.$emit('updateESPDDoc',{
-                received_notice_number: this.received_notice_number,
-                OJS_notice_number: this.OJS_notice_number,
-                OJS_URL: this.OJS_URL,
-                national_official_journal: this.national_official_journal,
-                procurer: this.procurer,
-                procedure: this.procedure
-            })
+    created(){
+        const getData = async () => {
+            try {
+                let thecall = await fetch(`${window.raw_data[window.espd_doc.espd_version].model.source}`)
+                let data = await thecall.json()
+                if (thecall.ok) {
+                    window.espd_model = data
+                }
+            } catch (error) {
+                console.log("Error!", error);
+            }
         }
+        getData()
     },
+
     template: `
     <template>
     <b-conatiner>
@@ -57,9 +59,9 @@ Vue.component('procedureComponent',{
     <div class="accordion" role="tablist">
         <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-1 variant="info">A. Information about publication</b-button>
+            <b-button block v-b-toggle.accordion-p1 variant="info">A. Information about publication</b-button>
         </b-card-header>
-        <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-p1" accordion="my-accordion" role="tabpanel">
             <b-card-body>
             <b-form-group id="flds-ron" label-cols-sm="4" label-cols-lg="3" description="Please specify the received notice number." label="Received notice number" label-for="inp-received_notice_number">
                 <b-form-input id="inp-received_notice_number" v-model="received_notice_number"></b-form-input>
@@ -79,9 +81,9 @@ Vue.component('procedureComponent',{
 
         <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-2 variant="info">B. Identity of the procurer</b-button>
+            <b-button block v-b-toggle.accordion-p2 variant="info">B. Identity of the procurer</b-button>
         </b-card-header>
-        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-p2" accordion="my-accordion" role="tabpanel">
             <b-card-body>
             <b-form-group id="flds-caname" label-cols-sm="4" label-cols-lg="3" description="Please specify Procurer's name" label="Official name" label-for="inp-caname">
                 <b-form-input id="inp-caname" v-model="procurer.name"></b-form-input>
@@ -123,9 +125,9 @@ Vue.component('procedureComponent',{
 
         <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-3 variant="info">C. Information about the procurement procedure</b-button>
+            <b-button block v-b-toggle.accordion-p3 variant="info">C. Information about the procurement procedure</b-button>
         </b-card-header>
-        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-p3" accordion="my-accordion" role="tabpanel">
             <b-card-body>
             <b-form-group id="flds-ptype" label-cols-sm="4" label-cols-lg="3" description="Select the Type of procedure." label="Type of procedure" label-for="inp-ptype">
                 <b-form-input id="inp-ptype" v-model="procedure.type"></b-form-input>

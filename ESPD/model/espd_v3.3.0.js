@@ -1,5 +1,5 @@
 /**
- * VueJS components for ESDP-EDM 
+ * VueJS components for ESPD-EDM 
  * generated on 2024-04-17T13:17:09.711Z 
  */
 

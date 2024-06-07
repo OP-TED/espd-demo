@@ -23,7 +23,7 @@ const in_excel_we_trust = [
     "ESPD-CodeLists_v3.3.0.xlsx",
 ]
 
-const log = console.log, ESDP_version = 'ESDP release v3.X', path_to_folder = '.\\ESPD\\codelists\\';
+const log = console.log, ESPD_version = 'ESPD release v3.X', path_to_folder = '.\\ESPD\\codelists\\';
 XLSX.set_fs(fs);
 
 let name_version = '', json_ui = {}, json_external = [];
@@ -42,7 +42,7 @@ program
     .command("all_JSON", "Print all spreadsheets as JSON")
     .action(({ logger, args, options }) => {
         // Combine styled and normal strings
-        log(chalk.blue.bold('Dump code list'), chalk.red(ESDP_version));
+        log(chalk.blue.bold('Dump code list'), chalk.red(ESPD_version));
         log('\n\n')
 
         in_excel_we_trust.forEach(xcl => {
@@ -64,7 +64,7 @@ program
     .command("process_code_lists", "Process Code Lists")
     .action(({ logger, args, options }) => {
         // Combine styled and normal strings
-        log(chalk.blue.bold('Process code list'), chalk.red(ESDP_version));
+        log(chalk.blue.bold('Process code list'), chalk.red(ESPD_version));
         log('\n')
 
         in_excel_we_trust.forEach(xcl => {
@@ -117,7 +117,7 @@ program
 
     .command("process_model", "Process all models as options")
     .action(({logger, args, options}) => {
-        log(chalk.blue.bold('Process all models as options'), chalk.red(ESDP_version));
+        log(chalk.blue.bold('Process all models as options'), chalk.red(ESPD_version));
         log('\n')
 
         let model_file = require('./ESPD/model/espd_edm_v3.3.0.json')

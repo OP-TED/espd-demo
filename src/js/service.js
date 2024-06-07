@@ -1,105 +1,59 @@
 Vue.component("service", {
+
     data() {
         return {
-            espd_doc: '',
-            raw_data: null,
-            versions: [{ value: null, text: 'Select an option' }],
-            models: [{ value: null, text: 'Select an option' }],
-            version: '',
-            model: '',
-            startComponent: 'startComponent',
-            procedureComponent: 'procedureComponent',
-            exclusionComponent: 'exclusionGrounds',
-            selectionComponent: 'selectionCriteria',
-            finishComponent: 'ESPDdownload',
+            crt_step:0,
+            steps: [
+                {icon:'collection-play', label:'Start', component:'startComponent'},
+                {icon:'bank', label:'Procedure', component:'procedureComponent'},
+                {icon:'exclamation-octagon', label:'Exclusion', component:'exclusionGrounds'},
+                {icon:'shield-fill-check', label:'Selection', component:'selectionCriteria'},
+                {icon:'cloud-download', label:'Finish', component:'ESPDdownload'}
+            ],
             show: true
         }
     },
 
     methods: {
-        updateESPDDoc(item) {
-            //console.log(item);
-            for (const key in item) {
-                if (Object.hasOwn(item, key)) {
-                    this.espd_doc[key] = item[key];
-                }
-            }
+        nextStep(){
+            this.crt_step= Math.min(this.crt_step + 1, this.steps.length - 1)
+        },
+        previousStep(){
+            this.crt_step= Math.max(this.crt_step - 1, 0)
         }
     },
 
     created() {
-        const dataURL = ['ESPD/model/']
-
-        const getData = async () => {
-            try {
-                let thecall = await fetch(`${dataURL}/model.json`)
-                let data = await thecall.json()
-                if (thecall.ok) {
-                    this.raw_data = data.models
-                    this.versions = []
-                    this.models = []
-                    for (const key in this.raw_data) {
-                        if (Object.hasOwn(this.raw_data, key)) {
-                            this.versions.push(key)
-                            this.version = this.versions[0]
-                            this.models = this.raw_data[key]
-                            this.model = this.models[0].value
-                        }
-                    }
-                }
-            } catch (error) {
-                console.log("Error!", error);
-            }
-        }
-
-        getData()
+        if(window.espd_doc) delete window.espd_doc
+        window.espd_doc = {}        
     },
 
     template: `
     <b-card title="ESPD Examples Generator">
         <b-card-text>
-        Select the ESPD version and generate the ESPD Request and Response examples as Contracting Authority or Economic Operator.
-        You can create and test ESDP Requests as Contracting Authority and ESPD Responses as Economic Operator.
+        Select desired ESPD version and generate ESPD Request examples as Contracting Authority and ESPD Response examples Economic Operator.
         </b-card-text>
 
         <div>
-        <b-tabs content-class="mt-3" justified>
-            <b-tab>
-            <template #title>
-                <b-icon icon="collection-play" aria-hidden="true"></b-icon> <strong>Start</strong>
-            </template>
-            <component v-bind:is="startComponent" v-on:updateESPDDoc="updateESPDDoc"></component>
-            </b-tab>
-            
-            <b-tab>
-            <template #title>
-                <b-icon icon="bank" aria-hidden="true"></b-icon> <strong>Procedure</strong>
-            </template>
-            <component v-bind:is="procedureComponent" v-on:updateESPDDoc="updateESPDDoc"></component>
-            </b-tab>
-            
-            <b-tab>
-            <template #title>
-                <b-icon icon="exclamation-octagon" aria-hidden="true"></b-icon> <strong>Exclusion</strong>
-            </template>
-            <component v-bind:is="exclusionComponent" v-on:updateESPDDoc="updateESPDDoc"></component>
-            </b-tab>
-            
-            <b-tab>
-            <template #title>
-                <b-icon icon="shield-fill-check" aria-hidden="true"></b-icon> <strong>Selection</strong>
-            </template>
-            <component v-bind:is="selectionComponent" v-on:updateESPDDoc="updateESPDDoc"></component>
-            </b-tab>
-            
-            <b-tab>
-            <template #title>
-                <b-icon icon="cloud-download" aria-hidden="true"></b-icon> <strong>Finish</strong>
-            </template>
-            <component v-bind:is="finishComponent" v-on:updateESPDDoc="updateESPDDoc"></component>
-            </b-tab>
-        </b-tabs>
-        </div>
+        <b-conatiner>
+            <b-row>
+                <b-col class="text-left">
+                <b-button pill variant="success" @click='previousStep'>Previous</b-button>
+                </b-col>
+                <b-col class="text-center">
+                   [ Step: {{crt_step}} ] <b-icon :icon=steps[crt_step].icon aria-hidden='true'></b-icon> <strong>{{steps[crt_step].label}}</strong>
+                </b-col>
+                <b-col class="text-right">
+                <b-button pill variant="success" @click='nextStep()'>Next</b-button>
+                </b-col>
+            </b-row>
+        
+        <b-row class="my-2">
+        <b-col col-span=3>
+        <component v-bind:is="steps[crt_step].component" ></component>
+        </b-col>
+        </b-row>
+        </b-container>
     </b-card> 
     `
 });

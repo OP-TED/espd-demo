@@ -59,7 +59,7 @@ Vue.component("model", {
             <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
     </b-form-group>
 
-    <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="Code list" label-for="input-model">
+    <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="Cirterion" label-for="input-model">
         <b-form-select id="input-model" v-model="model" :options="models" @change="selectModel($event)"></b-form-select>
     </b-form-group>
     <comonent :is="model"></component>

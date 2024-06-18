@@ -170,7 +170,7 @@ Vue.component("distribution", {
         </b-col>
         <b-col  cols="10">
         <a href="#" id='excel_file_codelist' name='excel_file_codelist' class="card-link"></a>
-        <b-button class="mb-3 mr-sm-2" pill @click="ExportExcel('codelist')" variant="warning">Create Excel</b-button>
+        <b-button class="mb-3 mr-sm-2" pill @click="ExportExcel('codelist')" variant="warning">Download Excel</b-button>
         <b-button class="mb-3" pill @click="DownloadZIP('codelist')" variant="success">Download all XML files as ZIP archive</b-button>
         </b-col>
     </b-row>
@@ -180,7 +180,7 @@ Vue.component("distribution", {
         </b-col>
         <b-col  cols="10">
         <a href="#" id='excel_file_criterion' name='excel_file_criterion' class="card-link"></a>
-        <b-button class="mb-3 mr-sm-2" pill @click="ExportExcel('model')" variant="warning">Create Excel</b-button>
+        <b-button class="mb-3 mr-sm-2" pill @click="ExportExcel('model')" variant="warning">Download Excel</b-button>
         </b-col>
     </b-row>   
 

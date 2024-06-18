@@ -6,10 +6,10 @@ const messages = {
       },
       mainmenu: {
         distribution: 'Export',
-        codelists: 'Lists',
+        codelists: 'Code Lists',
         uuid: 'UUID',
-        model: 'Model',
-        service: 'Example'
+        model: 'View',
+        service: 'Examples'
       }
     },
     fr: {
@@ -18,9 +18,9 @@ const messages = {
       },
       mainmenu: {
         distribution: 'Exporter',
-        codelists: 'Listes',
+        codelists: 'Listes de Codes',
         uuid: 'UUID',
-        model: 'Model',
+        model: 'Visualisation',
         service: 'Exemples'
       }
     },
@@ -30,10 +30,10 @@ const messages = {
       },
       mainmenu: {
         distribution: 'Export',
-        codelists: 'Liste',
+        codelists: 'Liste de Coduri',
         uuid: 'UUID',
-        model: 'Model',
-        service: 'Exemplu'
+        model: 'Afisare Model',
+        service: 'Exemple'
       }
     }
   }

@@ -41,7 +41,7 @@ Vue.component("service", {
                 <b-button pill variant="success" @click='previousStep'>Previous</b-button>
                 </b-col>
                 <b-col class="text-center">
-                   [ Step: {{crt_step}} ] <b-icon :icon=steps[crt_step].icon aria-hidden='true'></b-icon> <strong>{{steps[crt_step].label}}</strong>
+                   [ Step: {{crt_step}} / {{steps.length-1}} ] <b-icon :icon=steps[crt_step].icon aria-hidden='true'></b-icon> <strong>{{steps[crt_step].label}}</strong>
                 </b-col>
                 <b-col class="text-right">
                 <b-button pill variant="success" @click='nextStep()'>Next</b-button>

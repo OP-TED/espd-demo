@@ -3,17 +3,14 @@ Vue.component("startComponent", {
         return {
             raw_data: null,
             versions: [{ value: null, text: 'Select an option' }],
-            
             espd_version: null,
             role: null,
             country: null,
             role_opt: [
-                { value: null, text: 'Please select a Role'},
                 { value: 'ca', text: 'Contracting authority - ESPD Request' },
                 { value: 'eo', text: 'Economic operator - ESPD Response' }
             ],
             country_list: [
-                { value: null, text: 'Please select a Country'},
                 { value: 'EUR', text: 'European Union' }
             ],
             show: true

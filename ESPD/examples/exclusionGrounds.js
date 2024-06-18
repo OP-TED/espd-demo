@@ -8,7 +8,7 @@ Vue.component('exclusionGrounds', {
     },
 
     created(){
-        console.log('exclusion grounds')
+        //console.log('exclusion grounds')
     },
 
     template: `

@@ -1,10 +1,12 @@
 Vue.component('procedureComponent',{
     data(){
         return{
-            received_notice_number:'',
-            OJS_notice_number: '',
-            OJS_URL: '',
-            national_official_journal:'',
+            publication:{
+                received_notice_number:'',
+                OJS_notice_number: '',
+                OJS_URL: '',
+                national_official_journal:''
+            },
             procurer:{
                 name:'',
                 country:'',
@@ -15,18 +17,31 @@ Vue.component('procedureComponent',{
                 postcode:'',
                 contact_person: '',
                 telephone: '',
-                fax: '',
                 email:''
             },
             procedure:{
-                type: '',
                 title: '',
                 short_description: '',
                 file_reference: '',
-                number_of_lots: 0
+                number_of_lots: 1
             },
+            country_list: [
+                { value: 'EUR', text: 'European Union' }
+            ],
             show: true
         }
+    },
+
+    watch:{
+        procurer: [function (oldV, newV) {
+            window.espd_doc.procurer = this.procurer
+        }],
+        procedure: [function (oldV, newV) {
+            window.espd_doc.procedure = this.procedure
+        }], 
+        publication: [function (oldV, newV) {
+            window.espd_doc.publication = this.publication
+        }]
     },
 
     created(){
@@ -36,10 +51,38 @@ Vue.component('procedureComponent',{
                 let data = await thecall.json()
                 if (thecall.ok) {
                     window.espd_model = data
+
+                    this.procurer.country = window.espd_doc.country
+                    window.espd_doc.publication = this.publication
+                    window.espd_doc.procurer = this.procurer
+                    window.espd_doc.procedure = this.procedure  
+
+
+                    //Initialize form data
+                    this.publication.received_notice_number = 'EU1234'
+                    this.publication.OJS_notice_number = '2024/S001-123123'
+                    this.publication.OJS_URL = 'https://docs.ted.europa.eu/ESPD-EDM/latest/index.html'
+                    this.publication.national_official_journal = 'EU0001'
+
+                    this.procurer.name = 'TED-OP'
+                    this.procurer.website = 'https://ted.europa.eu/en/'
+                    this.procurer.vat = 'EU0123456789'
+                    this.procurer.city = 'Luxembourg'
+                    this.procurer.street_and_number = '20 Rue de Reims'
+                    this.procurer.postcode = '2417'
+                    this.procurer.contact_person = 'Help Desk'
+                    this.procurer.telephone = '0080067891011'
+                    this.procurer.email = 'OPESPD@publications.europa.eu'
+
+                    this.procedure.title = 'Example of ESPD Request'
+                    this.procedure.short_description = 'This is an example ESPD Request created with ESPD Demo application.'
+                    this.procedure.file_reference = 'REF0001'
                 }
             } catch (error) {
                 console.log("Error!", error);
             }
+
+            
         }
         getData()
     },
@@ -64,16 +107,16 @@ Vue.component('procedureComponent',{
         <b-collapse id="accordion-p1" accordion="my-accordion" role="tabpanel">
             <b-card-body>
             <b-form-group id="flds-ron" label-cols-sm="4" label-cols-lg="3" description="Please specify the received notice number." label="Received notice number" label-for="inp-received_notice_number">
-                <b-form-input id="inp-received_notice_number" v-model="received_notice_number"></b-form-input>
+                <b-form-input id="inp-received_notice_number" v-model="publication.received_notice_number"></b-form-input>
             </b-form-group>
             <b-form-group id="flds-ojs_number" label-cols-sm="4" label-cols-lg="3" description="[][][][]/S [][][]-[][][][][][]." label="Notice number in the OJS" label-for="inp-OJS_notice_number">
-                <b-form-input id="inp-OJS_notice_number" v-model="OJS_notice_number"></b-form-input>
+                <b-form-input id="inp-OJS_notice_number" v-model="publication.OJS_notice_number"></b-form-input>
             </b-form-group>
             <b-form-group id="flds-ojs_url" label-cols-sm="4" label-cols-lg="3" description="Please specify the OJS URL." label="OJS URL" label-for="inp-OJS_url">
-                <b-form-input id="inp-OJS_url" v-model="OJS_URL"></b-form-input>
+                <b-form-input id="inp-OJS_url" v-model="publication.OJS_URL"></b-form-input>
             </b-form-group>
             <b-form-group id="flds-noj" label-cols-sm="4" label-cols-lg="3" description="Please specify the national government official journal number" label="National Official Journal" label-for="inp-noj">
-                <b-form-input id="inp-noj" v-model="national_official_journal"></b-form-input>
+                <b-form-input id="inp-noj" v-model="publication.national_official_journal"></b-form-input>
             </b-form-group>
             </b-card-body>
         </b-collapse>
@@ -89,7 +132,7 @@ Vue.component('procedureComponent',{
                 <b-form-input id="inp-caname" v-model="procurer.name"></b-form-input>
             </b-form-group>
             <b-form-group id="flds-cacountry" label-cols-sm="4" label-cols-lg="3" description="Procurer's country." label="Country" label-for="inp-cacountry">
-                <b-form-input id="inp-cacountry" v-model="procurer.country"></b-form-input>
+                <b-form-select id="inp-cacountry" v-model="procurer.country" :options="country_list"></b-form-input>
             </b-form-group>
             <b-form-group id="flds-caweb" label-cols-sm="4" label-cols-lg="3" description="Please specify Procurer's URL (if applicable)" label="Website" label-for="inp-caweb">
                 <b-form-input id="inp-caweb" v-model="procurer.website"></b-form-input>
@@ -113,9 +156,6 @@ Vue.component('procedureComponent',{
             <b-form-group id="flds-catelephone" label-cols-sm="4" label-cols-lg="3" description="Please specify Procurer's contact phone" label="Telephone" label-for="inp-catelephone">
                 <b-form-input id="inp-catelephone" v-model="procurer.telephone"></b-form-input>
             </b-form-group>
-            <b-form-group id="flds-fax" label-cols-sm="4" label-cols-lg="3" description="Please specify Procurer's contact FAX" label="FAX" label-for="inp-fax">
-                <b-form-input id="inp-fax" v-model="procurer.fax"></b-form-input>
-            </b-form-group>
             <b-form-group id="flds-caemail" label-cols-sm="4" label-cols-lg="3" description="Please specify Procurer's contact email" label="E-mail" label-for="inp-caemail">
                 <b-form-input id="inp-caemail" v-model="procurer.email"></b-form-input>
             </b-form-group>
@@ -129,9 +169,6 @@ Vue.component('procedureComponent',{
         </b-card-header>
         <b-collapse id="accordion-p3" accordion="my-accordion" role="tabpanel">
             <b-card-body>
-            <b-form-group id="flds-ptype" label-cols-sm="4" label-cols-lg="3" description="Select the Type of procedure." label="Type of procedure" label-for="inp-ptype">
-                <b-form-input id="inp-ptype" v-model="procedure.type"></b-form-input>
-            </b-form-group>
             <b-form-group id="flds-ptitle" label-cols-sm="4" label-cols-lg="3" description="Procurement procedure title." label="Title" label-for="inp-ptitle">
                 <b-form-input id="inp-ptitle" v-model="procedure.title"></b-form-input>
             </b-form-group>
@@ -142,7 +179,7 @@ Vue.component('procedureComponent',{
                 <b-form-input id="inp-pfile_reference" v-model="procedure.file_reference"></b-form-input>
             </b-form-group>
             <b-form-group id="flds-pnumber_of_lots" label-cols-sm="4" label-cols-lg="3" description="Number of lots (if applicable)" label="Number of lots" label-for="inp-pnumber_of_lots">
-                <b-form-input id="inp-pnumber_of_lots" v-model="procedure.number_of_lots" type="number" min=0></b-form-input>
+                <b-form-input id="inp-pnumber_of_lots" v-model="procedure.number_of_lots" type="number" min=1></b-form-input>
             </b-form-group>
             </b-card-body>
         </b-collapse>

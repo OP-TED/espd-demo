@@ -74,7 +74,7 @@ Vue.component("startComponent", {
         <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-st1 variant="info">A. Select initial parameters</b-button>
         </b-card-header>
-        <b-collapse id="accordion-st1" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-st1" visible accordion="my-accordion" role="tabpanel">
             <b-card-body>
                 <b-form-group id="fieldset-espd" label-cols-sm="4" label-cols-lg="3" description="Select ESPD version" label="ESPD version" label-for="sel-espd">
                     <b-form-select id="sel-espd" v-model="espd_version" :options="versions"></b-form-select>

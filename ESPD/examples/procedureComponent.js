@@ -28,6 +28,8 @@ Vue.component('procedureComponent',{
             country_list: [
                 { value: 'EUR', text: 'European Union' }
             ],
+            meta_espd_doc: window.raw_data[window.espd_doc.espd_version],
+            espd_model: window.espd_model,
             show: true
         }
     },
@@ -104,7 +106,7 @@ Vue.component('procedureComponent',{
         <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-p1 variant="info">A. Information about publication</b-button>
         </b-card-header>
-        <b-collapse id="accordion-p1" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-p1" visible accordion="my-accordion" role="tabpanel">
             <b-card-body>
             <b-form-group id="flds-ron" label-cols-sm="4" label-cols-lg="3" description="Please specify the received notice number." label="Received notice number" label-for="inp-received_notice_number">
                 <b-form-input id="inp-received_notice_number" v-model="publication.received_notice_number"></b-form-input>
@@ -186,6 +188,66 @@ Vue.component('procedureComponent',{
         </b-card>
     </div>
     </b-col>
+    </b-row>
+    <b-row v-if="window.espd_doc.role=='eo'">
+        <b-col>
+        <div>
+        <h6>Part II: Information concerning the economic operator</h6>
+        </div>
+        </b-col>
+    </b-row>
+    <b-row v-if="window.espd_doc.role=='eo'">
+        <b-col>
+        <div class="accordion" role="tablist">
+            <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-button block v-b-toggle.accordion-p4 variant="info">A: Information about the economic operator</b-button>
+            </b-card-header>
+            <b-collapse id="accordion-p4" accordion="my-accordion" role="tabpanel">
+            <b-card-body v-for="item in meta_espd_doc['partII']['A']">
+                <strong>{{ espd_model[item].name }}</strong>
+                <p>{{ espd_model[item].description }}</p>
+            </b-card-body>
+            </b-collapse>
+            </b-card>
+
+            <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-button block v-b-toggle.accordion-p5 variant="info">B: Information about representatives of the economic operator</b-button>
+            </b-card-header>
+            <b-collapse id="accordion-p5" accordion="my-accordion" role="tabpanel">
+                <b-card-body v-for="item in meta_espd_doc['partII']['B']">
+                    <strong>{{ espd_model[item].name }}</strong>
+                    <p>{{ espd_model[item].description }}</p>
+                </b-card-body>
+            </b-collapse>
+            </b-card>
+
+            <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-button block v-b-toggle.accordion-p6 variant="info">C: Information about reliance on the capacities of other entities</b-button>
+            </b-card-header>
+            <b-collapse id="accordion-p6" accordion="my-accordion" role="tabpanel">
+                <b-card-body v-for="item in meta_espd_doc['partII']['C']">
+                    <strong>{{ espd_model[item].name }}</strong>
+                    <p>{{ espd_model[item].description }}</p>
+                </b-card-body>
+            </b-collapse>
+            </b-card>
+
+            <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-button block v-b-toggle.accordion-p7 variant="info">D: Information concerning subcontractors on whose capacity the economic operator does not rely</b-button>
+            </b-card-header>
+            <b-collapse id="accordion-p7" accordion="my-accordion" role="tabpanel">
+                <b-card-body v-for="item in meta_espd_doc['partII']['D']">
+                    <strong>{{ espd_model[item].name }}</strong>
+                    <p>{{ espd_model[item].description }}</p>
+                </b-card-body>
+            </b-collapse>
+            </b-card>
+        </div>
+        </b-col>
     </b-row>
     </b-container>
     </template>

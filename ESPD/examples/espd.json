@@ -1,12 +1,6 @@
 {
     "versions": {
         "v3.3.0": {
-            "start":{
-                "context":["actor"]
-            },
-            "procedure":{
-                "context":["publication", "procurer", "procurement_procedure"]
-            },
             "exclusion_criteria":{
                 "convictions": ["crime-org", "corruption", "fraud", "terr-offenct", "finan-laund", "human-traffic"],
                 "contributions": [ "tax-pay", "socsec-pay"],

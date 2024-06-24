@@ -29,7 +29,6 @@ Vue.component("startComponent", {
         }
     },
 
-
     created(){
         const dataURL = ['ESPD/examples/']
 
@@ -44,10 +43,18 @@ Vue.component("startComponent", {
                         if (Object.hasOwn(window.raw_data, key)) {
                             this.versions.push(key)
                             this.espd_version = this.versions[0]
+                            window.espd_doc.espd_version = this.espd_version
                         }
                     }
                     this.role = 'ca'
                     this.country = 'EUR'
+
+                    //load the model too
+                    thecall = await fetch(`${window.raw_data[window.espd_doc.espd_version].model.source}`)
+                    data = await thecall.json()
+                    if (thecall.ok) {
+                        window.espd_model = data
+                    }
                 }
             } catch (error) {
                 console.log("Error!", error);

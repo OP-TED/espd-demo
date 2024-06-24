@@ -192,7 +192,7 @@ Vue.component('ESPDdownload',{
 
                 //Create evidence
                 window.espd_response.ele('@cac', 'Evidence')
-                .ele('@cbc', 'ID', { 'schemeAgencyID': "XXXAGENCYXXX" }).txt('EVIDENCE-00001').up()
+                .ele('@cbc', 'ID', { 'schemeAgencyID': "XXXAGENCYXXX" }).txt('EVIDENCE-001').up()
                 .ele('@cbc', 'ConfidentialityLevelCode', { 'listID': "http://publications.europa.eu/resource/authority/access-right", 'listAgencyID': "OP", 'listVersionID': "20220316-0" }).txt('CONFIDENTIAL').up()
                 .ele('@cac', 'DocumentReference')
                 .ele('@cbc', 'ID', { 'schemeAgencyID': "XXXAGENCYXXX" }).txt('SAT-11121233').up()

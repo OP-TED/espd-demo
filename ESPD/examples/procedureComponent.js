@@ -1,29 +1,59 @@
-Vue.component('procedureComponent',{
-    data(){
-        return{
-            publication:{
-                received_notice_number:'',
+Vue.component('procedureComponent', {
+    data() {
+        return {
+            publication: {
+                received_notice_number: '',
                 OJS_notice_number: '',
                 OJS_URL: '',
-                national_official_journal:''
+                national_official_journal: ''
             },
-            procurer:{
-                name:'',
-                country:'',
+            procurer: {
+                name: '',
+                country: '',
                 website: '',
                 vat: '',
                 city: '',
-                street_and_number:'',
-                postcode:'',
+                street_and_number: '',
+                postcode: '',
                 contact_person: '',
                 telephone: '',
-                email:''
+                email: ''
             },
-            procedure:{
+            procedure: {
                 title: '',
                 short_description: '',
                 file_reference: '',
                 number_of_lots: 1
+            },
+            seller: {
+                name: '',
+                country: '',
+                website: '',
+                vat: '',
+                city: '',
+                street_and_number: '',
+                postcode: '',
+                contact_person: '',
+                telephone: '',
+                email: ''
+            },
+            poa: {
+                name: '',
+                familyname: '',
+                dateofbirth: '',
+                placeofbirth: '',
+                country: '',
+                website: '',
+                role: '',
+                details: '',
+                city: '',
+                street_and_number: '',
+                postcode: '',
+                telephone: '',
+                email: ''
+            },
+            esdp_structure: {
+
             },
             country_list: [
                 { value: 'EUR', text: 'European Union' }
@@ -34,59 +64,63 @@ Vue.component('procedureComponent',{
         }
     },
 
-    watch:{
+    watch: {
         procurer: [function (oldV, newV) {
             window.espd_doc.procurer = this.procurer
         }],
         procedure: [function (oldV, newV) {
             window.espd_doc.procedure = this.procedure
-        }], 
+        }],
         publication: [function (oldV, newV) {
             window.espd_doc.publication = this.publication
+        }],
+        seller: [function (oldV, newV) {
+            window.espd_doc.seller = this.seller
+        }],
+        poa: [function (oldV, newV) {
+            window.espd_doc.poa = this.poa
         }]
     },
 
-    created(){
-        const getData = async () => {
-            try {
-                let thecall = await fetch(`${window.raw_data[window.espd_doc.espd_version].model.source}`)
-                let data = await thecall.json()
-                if (thecall.ok) {
-                    window.espd_model = data
+    created() {
 
-                    this.procurer.country = window.espd_doc.country
-                    window.espd_doc.publication = this.publication
-                    window.espd_doc.procurer = this.procurer
-                    window.espd_doc.procedure = this.procedure  
+        this.procurer.country = window.espd_doc.country
+        this.seller.country = window.espd_doc.country
+        this.poa.country = window.espd_doc.country
+
+        window.espd_doc.publication = this.publication
+        window.espd_doc.procurer = this.procurer
+        window.espd_doc.procedure = this.procedure
+        window.espd_doc.seller = this.seller
+        window.espd_doc.poa = this.poa
 
 
-                    //Initialize form data
-                    this.publication.received_notice_number = 'EU1234'
-                    this.publication.OJS_notice_number = '2024/S001-123123'
-                    this.publication.OJS_URL = 'https://docs.ted.europa.eu/ESPD-EDM/latest/index.html'
-                    this.publication.national_official_journal = 'EU0001'
+        //Initialize form data
+        this.publication.received_notice_number = 'EU1234'
+        this.publication.OJS_notice_number = '2024/S001-123123'
+        this.publication.OJS_URL = 'https://docs.ted.europa.eu/ESPD-EDM/latest/index.html'
+        this.publication.national_official_journal = 'EU0001'
 
-                    this.procurer.name = 'TED-OP'
-                    this.procurer.website = 'https://ted.europa.eu/en/'
-                    this.procurer.vat = 'EU0123456789'
-                    this.procurer.city = 'Luxembourg'
-                    this.procurer.street_and_number = '20 Rue de Reims'
-                    this.procurer.postcode = '2417'
-                    this.procurer.contact_person = 'Help Desk'
-                    this.procurer.telephone = '0080067891011'
-                    this.procurer.email = 'OPESPD@publications.europa.eu'
+        this.procurer.name = 'TED-OP'
+        this.procurer.website = 'https://ted.europa.eu/en/'
+        this.procurer.vat = 'EU0123456789'
+        this.procurer.city = 'Luxembourg'
+        this.procurer.street_and_number = '20 Rue de Reims'
+        this.procurer.postcode = '2417'
+        this.procurer.contact_person = 'Help Desk'
+        this.procurer.telephone = '0080067891011'
+        this.procurer.email = 'OPESPD@publications.europa.eu'
 
-                    this.procedure.title = 'Example of ESPD Request'
-                    this.procedure.short_description = 'This is an example ESPD Request created with ESPD Demo application.'
-                    this.procedure.file_reference = 'REF0001'
-                }
-            } catch (error) {
-                console.log("Error!", error);
-            }
+        this.procedure.title = 'Example of ESPD Request'
+        this.procedure.short_description = 'This is an example ESPD Request created with ESPD Demo application.'
+        this.procedure.file_reference = 'REF0001'
 
+        //Build the UI part for each Criteria
+        if(window.espd_doc.role == 'eo'){
             
         }
-        getData()
+
+
     },
 
     template: `
@@ -134,7 +168,7 @@ Vue.component('procedureComponent',{
                 <b-form-input id="inp-caname" v-model="procurer.name"></b-form-input>
             </b-form-group>
             <b-form-group id="flds-cacountry" label-cols-sm="4" label-cols-lg="3" description="Procurer's country." label="Country" label-for="inp-cacountry">
-                <b-form-select id="inp-cacountry" v-model="procurer.country" :options="country_list"></b-form-input>
+                <b-form-select id="inp-cacountry" v-model="procurer.country" :options="country_list"></b-form-select>
             </b-form-group>
             <b-form-group id="flds-caweb" label-cols-sm="4" label-cols-lg="3" description="Please specify Procurer's URL (if applicable)" label="Website" label-for="inp-caweb">
                 <b-form-input id="inp-caweb" v-model="procurer.website"></b-form-input>
@@ -204,6 +238,40 @@ Vue.component('procedureComponent',{
                 <b-button block v-b-toggle.accordion-p4 variant="info">A: Information about the economic operator</b-button>
             </b-card-header>
             <b-collapse id="accordion-p4" accordion="my-accordion" role="tabpanel">
+
+            <b-card-body>
+            <b-form-group id="flds-eoname" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's name" label="Official name" label-for="inp-eoname">
+                <b-form-input id="inp-eoname" v-model="seller.name"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-eocountry" label-cols-sm="4" label-cols-lg="3" description="Seller's Country." label="Country" label-for="inp-eocountry">
+                <b-form-select id="inp-eocountry" v-model="seller.country" :options="country_list"></b-form-select>
+            </b-form-group>
+            <b-form-group id="flds-eoweb" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's URL (if applicable)" label="Website" label-for="inp-eoweb">
+                <b-form-input id="inp-eoweb" v-model="seller.website"></b-form-input>
+            </b-form-group>
+            </b-form-group>
+            <b-form-group id="flds-eovat" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's V.A.T number (if applicable)" label="V.A.T number" label-for="inp-eovat">
+                <b-form-input id="inp-eovat" v-model="seller.vat"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-eocity" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's city" label="City" label-for="inp-eocity">
+                <b-form-input id="inp-eocity" v-model="seller.city"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-eostreetandnumber" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's street and number" label="Street and Number" label-for="inp-eostreetandnumber">
+                <b-form-input id="inp-eostreetandnumber" v-model="seller.street_and_number"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-eopostcode" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's post code" label="Post code" label-for="inp-eopostcode">
+                <b-form-input id="inp-eopostcode" v-model="seller.postcode"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-eontactperson" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's contact person" label="Contact person" label-for="inp-eontactperson">
+                <b-form-input id="inp-eontactperson" v-model="seller.contact_person"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-eotelephone" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's contact phone" label="Telephone" label-for="inp-eotelephone">
+                <b-form-input id="inp-eotelephone" v-model="seller.telephone"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-eoemail" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's contact email" label="E-mail" label-for="inp-eoemail">
+                <b-form-input id="inp-eoemail" v-model="seller.email"></b-form-input>
+            </b-form-group>
+            </b-card-body>          
             <b-card-body v-for="item in meta_espd_doc['partII']['A']">
                 <strong>{{ espd_model[item].name }}</strong>
                 <p>{{ espd_model[item].description }}</p>
@@ -216,10 +284,52 @@ Vue.component('procedureComponent',{
                 <b-button block v-b-toggle.accordion-p5 variant="info">B: Information about representatives of the economic operator</b-button>
             </b-card-header>
             <b-collapse id="accordion-p5" accordion="my-accordion" role="tabpanel">
-                <b-card-body v-for="item in meta_espd_doc['partII']['B']">
-                    <strong>{{ espd_model[item].name }}</strong>
-                    <p>{{ espd_model[item].description }}</p>
-                </b-card-body>
+                
+            <b-card-body>
+            <b-form-group id="flds-poaname" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative name" label="First Name" label-for="inp-poaname">
+                <b-form-input id="inp-poaname" v-model="poa.name"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poafname" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative family name" label="Last Name" label-for="inp-poafname">
+            <b-form-input id="inp-poafname" v-model="poa.familyname"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poadateofbirth" label-cols-sm="4" label-cols-lg="3" description="Seller's representative date of birth." label="Date of Birth" label-for="inp-poadateofbirth">
+                <b-form-input id="inp-poadateofbirth" type='date' v-model="poa.dateofbirth"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poaplaceofbirth" label-cols-sm="4" label-cols-lg="3" description="Seller's representative place of birth." label="Place of Birth" label-for="inp-poaplaceofbirth">
+                <b-form-input id="inp-poaplaceofbirth" v-model="poa.placeofbirth"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poacountry" label-cols-sm="4" label-cols-lg="3" description="Seller's representative Country." label="Country" label-for="inp-poacountry">
+                <b-form-select id="inp-poacountry" v-model="poa.country" :options="country_list"></b-form-select>
+            </b-form-group>
+            <b-form-group id="flds-poaweb" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative URL (if applicable)" label="Website" label-for="inp-poaweb">
+                <b-form-input id="inp-poaweb" v-model="poa.website"></b-form-input>
+            </b-form-group>
+            </b-form-group>
+            <b-form-group id="flds-poarole" label-cols-sm="4" label-cols-lg="3" description="Position/Acting in the capacity of" label="Role" label-for="inp-poarole">
+                <b-form-input id="inp-poarole" v-model="poa.role"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poacity" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative city" label="City" label-for="inp-poacity">
+                <b-form-input id="inp-poacity" v-model="poa.city"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poastreetandnumber" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative street and number" label="Street and Number" label-for="inp-poastreetandnumber">
+                <b-form-input id="inp-poastreetandnumber" v-model="poa.street_and_number"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poapostcode" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative post code" label="Post code" label-for="inp-poapostcode">
+                <b-form-input id="inp-poapostcode" v-model="poa.postcode"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poatelephone" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative contact phone" label="Telephone" label-for="inp-poatelephone">
+            <b-form-input id="inp-poatelephone" v-model="poa.telephone"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poaemail" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative contact email" label="E-mail" label-for="inp-poaemail">
+                <b-form-input id="inp-poaemail" v-model="poa.email"></b-form-input>
+            </b-form-group>
+            <b-form-group id="flds-poadetails" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's representative detailed information (if needed)" label="Detailed information" label-for="inp-poadetails">
+                <b-form-input id="inp-poadetails" v-model="poa.details"></b-form-input>
+            </b-form-group>
+
+            </b-card-body>
+
+
             </b-collapse>
             </b-card>
 

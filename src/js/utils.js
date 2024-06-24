@@ -249,6 +249,7 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
           part.up()
           break;
         case "QUESTION": case "CAPTION":
+          element.elementUUID = crypto.randomUUID()
           part.ele('@cac', 'TenderingCriterionProperty')
             .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
             .ele('@cbc', 'Name').txt(element.name).up()
@@ -258,6 +259,7 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
             .up()
           break;
         case "REQUIREMENT":
+          element.elementUUID = crypto.randomUUID()
           tmp = part.ele('@cac', 'TenderingCriterionProperty')
             .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
             .ele('@cbc', 'Name').txt(element.name).up()
@@ -321,9 +323,9 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
               break;
 
             case 'CODE':
-              if (element.codelist == 'Occupation') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "http://publications.europa.eu/resource/authority/occupation", 'listAgencyID': "EMPL", 'listVersionID': "20221214-0" }).txt(element.sellervalue).up()
-              if (element.codelist == 'FinancialRatioType') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "financial-ratio-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt(element.sellervalue).up()
-              if (element.codelist == 'EORoleType') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "http://publications.europa.eu/resource/authority/eo-role-type", 'listAgencyID': "OP", 'listVersionID': "20211208-0" }).txt(element.sellervalue).up()
+              if (element.codelist == 'Occupation') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "http://publications.europa.eu/resource/authority/occupation", 'listAgencyID': "EMPL", 'listVersionID': "20221214-0" }).txt('DV').up()
+              if (element.codelist == 'FinancialRatioType') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "financial-ratio-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt('DV').up()
+              if (element.codelist == 'EORoleType') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "http://publications.europa.eu/resource/authority/eo-role-type", 'listAgencyID': "OP", 'listVersionID': "20211208-0" }).txt('DV').up()
               break;
 
             default:
@@ -363,9 +365,9 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
               if (Object.hasOwn(element.components, key)) {
                 const e = element.components[key]
                 tmpComponents[key] = e
-                if (e.type == 'QUESTION' && e.propertydatatype == 'INDICATOR' && Object.hasOwn(e, "sellervalue")) {
+                if (e.type == 'QUESTION' && e.propertydatatype == 'INDICATOR') {
                   QI_FLAG = true
-                  INDICATOR_value = e.sellervalue
+                  INDICATOR_value = 'true'
                 }
               }
             }
@@ -399,7 +401,7 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
             .com(` Property: ${element.description} (PropertyID: ${element.elementUUID}) `)
             .ele('@cac', 'TenderingCriterionResponse')
             .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-            .ele('@cbc', 'ValidatedCriterionPropertyID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.responsecontent2).up()
+            .ele('@cbc', 'ValidatedCriterionPropertyID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
 
           switch (element.propertydatatype) {
             case 'PERIOD':
@@ -410,7 +412,7 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
               break;
             case 'EVIDENCE_IDENTIFIER':
               tmp.ele('@cac', 'EvidenceSupplied')
-                .ele('@cbc', 'ID', { 'schemeAgencyID': 'OP' }).txt(element.elementUUID).up()
+                .ele('@cbc', 'ID', { 'schemeAgencyID': 'OP' }).txt('EVIDENCE-001').up()
                 .up()
               break;
             case 'DESCRIPTION':
@@ -508,7 +510,7 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
                   .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
                   .ele('@cbc', 'ResponseCode', { 'listAgencyID': "OP", 'listVersionID': schemeVersionID, 'listID': "financial-ratio-type" }).txt('dummy-value').up()
                   .up()
-              } else if (element.codelist == 'EoRoleType') {
+              } else if (element.codelist == 'EORoleType') {
                 tmp.ele('@cac', 'ResponseValue')
                   .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
                   .ele('@cbc', 'ResponseCode', { 'listAgencyID': "OP", 'listVersionID': "20211208-0", 'listID': "http://publications.europa.eu/resource/authority/eo-role-type" }).txt('dummy-value').up()

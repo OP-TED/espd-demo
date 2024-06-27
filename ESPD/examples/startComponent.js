@@ -62,6 +62,7 @@ Vue.component("startComponent", {
         }
 
         getData()
+
     },
 
     template: `

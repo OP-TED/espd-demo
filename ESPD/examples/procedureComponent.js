@@ -52,8 +52,13 @@ Vue.component('procedureComponent', {
                 telephone: '',
                 email: ''
             },
-            esdp_structure: {
-
+            espd_structure: {
+                partII: {
+                    A: [],
+                    B: [],
+                    C: [],
+                    D: []
+                }
             },
             country_list: [
                 { value: 'EUR', text: 'European Union' }
@@ -117,9 +122,14 @@ Vue.component('procedureComponent', {
 
         //Build the UI part for each Criteria
         if(window.espd_doc.role == 'eo'){
-            
+            for (const key in this.meta_espd_doc.partII) {
+                if (Object.hasOwn(this.meta_espd_doc.partII, key)) {
+                    for (const el of this.meta_espd_doc.partII[key]) {
+                        this.espd_structure.partII[key].push(`${window.espd_doc.espd_version}-${el}`)                    
+                    }
+                }
+            }
         }
-
 
     },
 
@@ -271,11 +281,12 @@ Vue.component('procedureComponent', {
             <b-form-group id="flds-eoemail" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's contact email" label="E-mail" label-for="inp-eoemail">
                 <b-form-input id="inp-eoemail" v-model="seller.email"></b-form-input>
             </b-form-group>
-            </b-card-body>          
-            <b-card-body v-for="item in meta_espd_doc['partII']['A']">
-                <strong>{{ espd_model[item].name }}</strong>
-                <p>{{ espd_model[item].description }}</p>
+            </b-card-body> 
+                   
+            <b-card-body v-for="item in espd_structure['partII']['A']">
+                <component v-bind:is="item"></component>
             </b-card-body>
+
             </b-collapse>
             </b-card>
 
@@ -338,9 +349,8 @@ Vue.component('procedureComponent', {
                 <b-button block v-b-toggle.accordion-p6 variant="info">C: Information about reliance on the capacities of other entities</b-button>
             </b-card-header>
             <b-collapse id="accordion-p6" accordion="my-accordion" role="tabpanel">
-                <b-card-body v-for="item in meta_espd_doc['partII']['C']">
-                    <strong>{{ espd_model[item].name }}</strong>
-                    <p>{{ espd_model[item].description }}</p>
+                <b-card-body v-for="item in espd_structure['partII']['C']">
+                    <component v-bind:is="item"></component>
                 </b-card-body>
             </b-collapse>
             </b-card>
@@ -350,9 +360,8 @@ Vue.component('procedureComponent', {
                 <b-button block v-b-toggle.accordion-p7 variant="info">D: Information concerning subcontractors on whose capacity the economic operator does not rely</b-button>
             </b-card-header>
             <b-collapse id="accordion-p7" accordion="my-accordion" role="tabpanel">
-                <b-card-body v-for="item in meta_espd_doc['partII']['D']">
-                    <strong>{{ espd_model[item].name }}</strong>
-                    <p>{{ espd_model[item].description }}</p>
+                <b-card-body v-for="item in espd_structure['partII']['D']">
+                    <component v-bind:is="item"></component>
                 </b-card-body>
             </b-collapse>
             </b-card>

@@ -1,6 +1,13 @@
 Vue.component('ESPDdownload',{
     data(){
         return {
+            meta_espd_doc: window.raw_data[window.espd_doc.espd_version],
+            espd_model: window.espd_model,
+            espd_structure: {
+                partV: {
+                    A: []
+                }
+            },
             show: true
         }
     },
@@ -216,13 +223,26 @@ Vue.component('ESPDdownload',{
         }
     },
 
+    created(){
+        //Build the UI part for each Criteria
+        if (window.espd_doc.role == 'eo') {
+            for (const key in this.meta_espd_doc.partV) {
+                if (Object.hasOwn(this.meta_espd_doc.partV, key)) {
+                    for (const el of this.meta_espd_doc.partV[key]) {
+                        this.espd_structure.partV[key].push(`${window.espd_doc.espd_version}-${el}`)
+                    }
+                }
+            }
+        }
+    },
+
     template: `
     <template>
     <b-conatiner>
     <b-row>
     <b-col>
     <div>
-    <h6>Finish</h6>
+    <h6>Part V: Reduction of the number of qualified candidates</h6>
     </div>
     </b-col>
     </b-row>
@@ -231,7 +251,19 @@ Vue.component('ESPDdownload',{
     <div class="accordion" role="tablist">
         <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-fn1 variant="info">A. Save ESPD</b-button>
+            <b-button block v-b-toggle.accordion-s1 variant="info">A: The Economic Operator Declaration</b-button>
+        </b-card-header>
+        <b-collapse id="accordion-s1" accordion="my-accordion" role="tabpanel">
+            <b-card-body v-if="window.espd_doc.role=='eo'" v-for="item in espd_structure['partV']['A']">
+                <component v-bind:is="item"></component>
+            </b-card-body>
+        </b-collapse>
+        </b-card>
+
+
+        <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle.accordion-fn1 variant="info">B. Save ESPD</b-button>
         </b-card-header>
         <b-collapse id="accordion-fn1" visible accordion="my-accordion" role="tabpanel">
             <b-card-body class='text-center'>

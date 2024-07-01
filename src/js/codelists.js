@@ -114,7 +114,7 @@ Vue.component("codelists", {
                     for (const n of children) {
                         if (n.nextSibling && n.nextSibling.attributes) {
                             let key = n.nextSibling.getAttribute('ColumnRef'), val = n.nextSibling.getElementsByTagName('SimpleValue')[0].textContent
-                            switch (key) {
+                            switch (key.toLowerCase()) {
                                 case 'code':
                                     nodename = val
                                     if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[val] = {}
@@ -350,7 +350,7 @@ Vue.component("codelists", {
                             for (const n of children) {
                                 if (n.nextSibling && n.nextSibling.attributes) {
                                     let key = n.nextSibling.getAttribute('ColumnRef'), val = n.nextSibling.getElementsByTagName('SimpleValue')[0].textContent
-                                    switch (key) {
+                                    switch (key.toLowerCase()) {
                                         case 'code':
                                             nodename = val
                                             if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[val] = {}

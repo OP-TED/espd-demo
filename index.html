@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
+    <!-- 
+    Copyright (c) 2021 European Union 
+    Licensed under the EUPL, Version 1.2 or – as soon they will be approved by the European Commission – subsequent versions of the EUPL (the “Licence”); You may not use this work except in compliance with the Licence. You may obtain a copy of the Licence at: 
+    https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12 
+    Unless required by applicable law or agreed to in writing, software distributed under the Licence is distributed on an “AS IS” basis, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the Licence for the specific language governing permissions and limitations under the Licence. 
+    -->
 
     <title>ESPD Demo</title>
 
@@ -98,17 +104,17 @@
 
     <!-- Our application root element -->
     <div id="app">
-        <header>
+        <header style="border-bottom: 6px solid #2c862d">
             <component v-bind:is="currentHeader"></component>
         </header>
         <main>
             <!-- We want main content here -->
             <component v-bind:is="mainComponent"></component>
         </main>
-        <footer class="footer">
+        <!--<footer class="footer">-->
             <!-- We want footer content here -->
-            <component v-bind:is="currentFooter"></component>
-        </footer>
+            <!--<component v-bind:is="currentFooter"></component>-->
+        <!--</footer>-->
     </div>
 
     <!-- Start running your app -->

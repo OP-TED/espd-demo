@@ -28,8 +28,11 @@ Vue.component("publicHeader", {
 		},
 	},
 	template: `
-	<b-navbar toggleable="lg" type="light" variant="light">
-			<b-navbar-brand href="https://docs.ted.europa.eu/espd-demo/">ESPD Demo</b-navbar-brand>
+	<b-navbar class="px-4" toggleable="lg" type="light" variant="light">
+			<b-navbar-brand href="https://docs.ted.europa.eu/espd-demo/">
+				<img src="src/assets/ted-logo.png" alt="ESPD Demo" width="60">
+			ESPD Demo
+			</b-navbar-brand>
 			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 			<b-collapse id="nav-collapse" is-nav>
 

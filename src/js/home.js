@@ -7,7 +7,7 @@ Vue.component("home",{
 
     template: `
     <b-container fluid class="m-auto">
-        <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
+        <b-jumbotron>
             <template #header>ESPD Demo Site</template>
 
             <template #lead>

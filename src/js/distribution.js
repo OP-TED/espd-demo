@@ -3,6 +3,8 @@ Vue.component("distribution", {
         return {
             version: '',
             versions: [],
+            sources: {},
+            espd_model: {},
             raw_data: {},
             show: true
         }
@@ -11,26 +13,35 @@ Vue.component("distribution", {
     methods: {
         selectVersion(event) {
             console.log(event);
+            //TODO - reload data for Code Lists and Model
         },
+
         ExportExcel(what) {
             console.log(what);
+            //Create Excel for Code List
             if (what == 'codelist') {
                 const wb = new ExcelJS.Workbook();
 
-                //Excelify the XMLs from this.sources
+                //Excelify the XMLs from this.sources[this.version][<Code List name>]
 
                 const exportKeys = ['ShortName', 'LongName', 'ListID',
                     'Version', 'CanonicalUri', 'CanonicalVersionUri',
-                    'LocationUri', 'AgencyLongName', 'AgencyIdentifier']
-                for (const key in this.sources) {
-                    let ws = wb.addWorksheet(this.sources[key].ShortName)
+                    'LocationUri', 'AgencyLongName', 'AgencyIdentifier'],
+                    language_fields = [
+                        "bul", "spa", "ces", "dan", "deu", "est", "ell",
+                        "eng", "fra", "gle", "hrv", "ita", "lav", "lit",
+                        "hun", "mlt", "nld", "pol", "por", "ron", "slk",
+                        "slv", "fin", "swe"
+                    ]
+                for (const key in this.sources[this.version]) {
+                    let ws = wb.addWorksheet(this.sources[this.version][key].ShortName)
                     let row = 1, maxAColWidth = 0
                     for (const elm of exportKeys) {
-                        if (Object.hasOwn(this.sources[key], elm)) {
+                        if (Object.hasOwn(this.sources[this.version][key], elm)) {
                             ws.getCell(`A${row}`).value = elm
                             maxAColWidth = Math.max(maxAColWidth, elm.length + 1)
                             ws.getCell(`A${row}`).font = { bold: true }
-                            ws.getCell(`B${row}`).value = this.sources[key][elm]
+                            ws.getCell(`B${row}`).value = this.sources[this.version][key][elm]
                             row++
                         }
                         //Set the width for Column A
@@ -38,9 +49,9 @@ Vue.component("distribution", {
 
                     }
                     //Export the table part after the mandatory fields
-                    const tableKeys = ['Code', 'Name', 'Description', 'Status'].concat(this.language_fields)
+                    const tableKeys = ['Code', 'Name', 'Status'].concat(language_fields)
 
-                    if (Object.hasOwn(this.sources[key], 'fields')) {
+                    if (Object.hasOwn(this.sources[this.version][key], 'fields')) {
                         //Add table
                         let cols = [], rows = []
 
@@ -51,16 +62,16 @@ Vue.component("distribution", {
                             })
                         })
 
-                        for (const elm in this.sources[key]['fields']) {
+                        for (const elm in this.sources[this.version][key]['fields']) {
                             let crt_row = []
                             tableKeys.forEach(val => {
-                                crt_row.push(this.sources[key]['fields'][elm][val])
+                                crt_row.push(this.sources[this.version][key]['fields'][elm][val])
                             })
                             rows.push(crt_row)
                         }
 
                         ws.addTable({
-                            name: `${this.sources[key].ShortName}_tbl`,
+                            name: `${this.sources[this.version][key].ShortName}_tbl`,
                             ref: `A${row}`,
                             headerRow: true,
                             totalsRow: false,
@@ -91,6 +102,57 @@ Vue.component("distribution", {
                     .catch(function (error) {
                         console.log(error.message);
                     });
+            }
+
+            //Create Excel for ESPD EDM
+            if (what == 'model'){
+                const wb = XLSX.utils.book_new();
+                
+                let header_rows = [
+                    [1,2,3,4,5,6,7,8,9,10,
+                     11,12,13,14,15,16,17,18,19,20,
+                     21,22,23,24,25,26,27,28,29,30
+                    ],
+                    ["","","","","","","","","","","","","","","","","",
+                     "Name", "Description", "Value (example)", "Cardinality",	
+                     "Property Data Type", "Element UUID",	"Element Code", "Code List","Comment"
+                    ]   
+                ]
+
+                for (const key in this.espd_model) {
+                    
+                    if (Object.hasOwn(this.espd_model, key)) {
+                        const element = this.espd_model[key];
+
+                        //create header
+                        let ws = XLSX.utils.aoa_to_sheet(header_rows, {origin: "A1"})
+
+                        XLSX.utils.book_append_sheet(wb, ws, `${element.tag}_${element.elementcode}`)
+                    }
+                }
+
+
+                
+                //wrap up the file and send it to the browser
+                XLSX.writeFile(wb, `ESPD_EDM_criterion_${this.version}.xlsx`, { compression: true });
+                /*
+                let fn_version = this.version
+                wb.xlsx.writeBuffer({ base64: true })
+                    .then(function (xls64) {
+                        var data = new Blob([xls64], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                        var url = URL.createObjectURL(data);
+                        //the name of the file can not be setup programatically :( you will get some randomly generated name
+                        //window.open(url, "_blank");
+                        let a = document.getElementById('excel_file_criterion')
+                        a.href = url
+                        a.download = `ESPD_EDM_criterion_${fn_version}.xlsx`
+                        a.click()
+                        URL.revokeObjectURL(url);
+                    })
+                    .catch(function (error) {
+                        console.log(error.message);
+                    });
+                */
             }
         },
         DownloadZIP(what) {
@@ -140,9 +202,89 @@ Vue.component("distribution", {
                     for (const key in this.raw_data) {
                         if (Object.hasOwn(this.raw_data, key)) {
                             this.versions.push(key)
+                            this.sources[key] = {}
                         }
                     }
                     this.version = this.versions[0]
+
+                    //Load the ESPD Model in JSON format
+                    thecall = await fetch(`${this.raw_data[this.version].model.source}`)
+                    data = await thecall.json()
+                    if (thecall.ok) {
+                        this.espd_model = data
+                    }
+
+                    //Load the XML files in sources
+                    //get the list of all Code Lists for this version
+                    thecall = await fetch(this.raw_data[this.version].codelists.source)
+                    data = await thecall.json()
+                    if (thecall.ok) {
+                        let cl = data.code_lists[this.version]
+                        for (const it of cl) {
+                            this.sources[this.version][it] = {}
+                            this.sources[this.version][it].ShortName = it
+                            thecall = await fetch(`ESPD/codelists/${this.version}/${it}.gc`)
+                            data = await thecall.text()
+                            if (thecall.ok) {
+                                //this.sources[this.version][it] = data
+                                //populate each filed with the corresponding value
+                                const parser = new DOMParser();
+                                function nsResolver(prefix) {
+                                    const ns = {
+                                        xs: "http://www.w3.org/2001/XMLSchema",
+                                        fn: "http://www.w3.org/2005/xpath-functions",
+                                        ss: "urn:schemas-microsoft-com:office:spreadsheet",
+                                        gc: "http://docs.oasis-open.org/codelist/ns/genericode/1.0/",
+                                        xsi: "http://www.w3.org/2001/XMLSchema-instance"
+                                    };
+                                    return ns[prefix] || null;
+                                }
+                                const gcXML = parser.parseFromString(data, "text/xml");
+                                this.sources[this.version][it].ShortName = gcXML.evaluate('/gc:CodeList/Identification/ShortName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].LongName = gcXML.evaluate('/gc:CodeList/Identification/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].ListID = gcXML.evaluate('/gc:CodeList/Identification/LongName[@Identifier="listId"]', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].Version = gcXML.evaluate('/gc:CodeList/Identification/Version', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].CanonicalUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].CanonicalVersionUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalVersionUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].LocationUri = gcXML.evaluate('/gc:CodeList/Identification/LocationUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].AgencyLongName = gcXML.evaluate('/gc:CodeList/Identification/Agency/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier/@Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+                                this.sources[this.version][it].type = (this.sources[this.version][it].LocationUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
+                                this.sources[this.version][it].name = (this.sources[this.version][it].type == 'external') ? this.sources[this.version][it].LongName : this.sources[this.version][it].ListID
+                                //extract fields infromation
+                                if (this.sources[this.version][it].type == 'technical') {
+                                    this.sources[this.version][it].fields = {}
+
+                                    const scl = gcXML.evaluate('/gc:CodeList/SimpleCodeList/Row', gcXML, nsResolver, XPathResult.ANY_TYPE, null)
+                                    let node = null
+                                    while (node = scl.iterateNext()) {
+                                        if (node.hasChildNodes()) {
+                                            let children = node.childNodes, nodename = ''
+                                            for (const n of children) {
+                                                if (n.nextSibling && n.nextSibling.attributes) {
+                                                    let key = n.nextSibling.getAttribute('ColumnRef'), val = n.nextSibling.getElementsByTagName('SimpleValue')[0].textContent
+                                                    switch (key.toLowerCase()) {
+                                                        case 'code':
+                                                            nodename = val
+                                                            if (!Object.hasOwn(this.sources[this.version][it].fields, nodename)) this.sources[this.version][it].fields[val] = {}
+                                                            this.sources[this.version][it].fields[nodename]["Code"] = val
+                                                            break;
+                                                        case 'status':
+                                                            this.sources[this.version][it].fields[nodename]["Status"] = val
+                                                            break;
+                                                        default:
+                                                            this.sources[this.version][it].fields[nodename][key.replace('name-', '').replace('_label', '')] = val
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
                 }
 
             } catch (error) {
@@ -161,8 +303,8 @@ Vue.component("distribution", {
     </b-card-text>
 
     <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="ESPD version" label-for="input-espdversion">
-            <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
-        </b-form-group>
+        <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
+    </b-form-group>
     
     <b-row>
         <b-col >

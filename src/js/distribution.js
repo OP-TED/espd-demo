@@ -91,8 +91,6 @@ Vue.component("distribution", {
                     .then(function (xls64) {
                         var data = new Blob([xls64], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
                         var url = URL.createObjectURL(data);
-                        //the name of the file can not be setup programatically :( you will get some randomly generated name
-                        //window.open(url, "_blank");
                         let a = document.getElementById('excel_file_codelist')
                         a.href = url
                         a.download = `CodeList_${fn_version}.xlsx`
@@ -106,44 +104,113 @@ Vue.component("distribution", {
 
             //Create Excel for ESPD EDM
             if (what == 'model'){
-                const wb = XLSX.utils.book_new();
+                const wb = new ExcelJS.Workbook();
                 
-                let header_rows = [
+                let header_row_1 =
                     [1,2,3,4,5,6,7,8,9,10,
                      11,12,13,14,15,16,17,18,19,20,
                      21,22,23,24,25,26,27,28,29,30
                     ],
+                    header_row_2 =
                     ["","","","","","","","","","","","","","","","","",
                      "Name", "Description", "Value (example)", "Cardinality",	
-                     "Property Data Type", "Element UUID",	"Element Code", "Code List","Comment"
-                    ]   
-                ]
+                     "Property Data Type", "Element UUID",	"Element Code", "Code List"
+                    ]
+                    key2col = {
+                        'name': 18,
+                        'description': 19,
+                        'examplevalue': 20,
+                        'cardinality': 21,
+                        'propertydatatype': 22,
+                        'elementUUID': 23,
+                        'elementcode': 24,
+                        'codelist': 25
+                    },
+                    crt_col = 1,  
+                    renderComponents = function(ws, component){
+                        crt_col++
+                        //console.log(component)
+                        for (const key in component) {
+                            if (Object.hasOwn(component, key)) {
+                                const element = component[key]
+                                let crt_row = []
+                                crt_row[crt_col] = key
+                                //one line component vs containers
+                                if (Object.hasOwn(element, 'components')){
+                                    crt_row[crt_col+1] = `{${element.type}`
+                                    for (const k in key2col) {
+                                        if (Object.hasOwn(element, k)) {
+                                            crt_row[key2col[k]] = element[k]
+                                        }
+                                    }
+                                    ws.addRow(crt_row)
+                                    renderComponents(ws, element.components)
+                                    crt_row = []
+                                    crt_row[crt_col] = `${element.type}}`
+                                    ws.addRow(crt_row)  
+                                    crt_col--
+                                }else{
+                                    crt_row[crt_col+1] = `{${element.type}}`
+                                    for (const k in key2col) {
+                                        if (Object.hasOwn(element, k)) {
+                                            crt_row[key2col[k]] = element[k]
+                                        }
+                                    }
+                                    ws.addRow(crt_row)
+                                }
+                                        
+                            }
+                        }
+                        //crt_col--
+                    };
 
                 for (const key in this.espd_model) {
                     
                     if (Object.hasOwn(this.espd_model, key)) {
                         const element = this.espd_model[key];
 
+                        let ws = wb.addWorksheet(`${element.tag}_${element.elementcode}`)
                         //create header
-                        let ws = XLSX.utils.aoa_to_sheet(header_rows, {origin: "A1"})
+                        ws.addRow(header_row_1)
+                        ws.addRow(header_row_2)
+                        //transform JSON structure to Excel table
+                        crt_col = 1
+                        let crt_row = []
+                        crt_row[crt_col] = key
+                        crt_row[crt_col+1] = `{${element.type}`
+                        for (const k in key2col) {
+                            if (Object.hasOwn(element, k)) {
+                                crt_row[key2col[k]] = element[k]
+                            }
+                        }
+                        ws.addRow(crt_row)
+                        
+                        //render components
+                        if (Object.hasOwn(element, 'components')) renderComponents(ws, element.components, crt_col)
+                        crt_col--
+                        crt_row = []
+                        crt_row[crt_col+1] = `${element.type}}`
+                        ws.addRow(crt_row)
 
-                        XLSX.utils.book_append_sheet(wb, ws, `${element.tag}_${element.elementcode}`)
+                        //fix column widhts for columns 1..17
+                        for (let index = 1; index <= 17; index++) {
+                            let maxColWidht  = 0
+                            let tmp_col = ws.getColumn(index)
+                            tmp_col.eachCell(function(cell, rowNr){
+                                maxColWidht = Math.max(maxColWidht, cell.text.length+1)
+                            }) 
+                            tmp_col.width = maxColWidht
+                        }
                     }
                 }
-
-
                 
-                //wrap up the file and send it to the browser
-                XLSX.writeFile(wb, `ESPD_EDM_criterion_${this.version}.xlsx`, { compression: true });
-                /*
                 let fn_version = this.version
+                //wrap up the file and send it to the browser
                 wb.xlsx.writeBuffer({ base64: true })
                     .then(function (xls64) {
                         var data = new Blob([xls64], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
                         var url = URL.createObjectURL(data);
-                        //the name of the file can not be setup programatically :( you will get some randomly generated name
-                        //window.open(url, "_blank");
-                        let a = document.getElementById('excel_file_criterion')
+                        let a = document.getElementById('excel_file_model')
                         a.href = url
                         a.download = `ESPD_EDM_criterion_${fn_version}.xlsx`
                         a.click()
@@ -152,7 +219,6 @@ Vue.component("distribution", {
                     .catch(function (error) {
                         console.log(error.message);
                     });
-                */
             }
         },
         DownloadZIP(what) {
@@ -251,6 +317,7 @@ Vue.component("distribution", {
                                 this.sources[this.version][it].AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier/@Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
                                 this.sources[this.version][it].type = (this.sources[this.version][it].LocationUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
                                 this.sources[this.version][it].name = (this.sources[this.version][it].type == 'external') ? this.sources[this.version][it].LongName : this.sources[this.version][it].ListID
+                                if(!this.sources[this.version][it].LongName) this.sources[this.version][it].LongName = this.sources[this.version][it].ShortName
                                 //extract fields infromation
                                 if (this.sources[this.version][it].type == 'technical') {
                                     this.sources[this.version][it].fields = {}
@@ -321,7 +388,7 @@ Vue.component("distribution", {
         Model and Data structure
         </b-col>
         <b-col  cols="10">
-        <a href="#" id='excel_file_criterion' name='excel_file_criterion' class="card-link"></a>
+        <a href="#" id='excel_file_model' name='excel_file_model' class="card-link"></a>
         <b-button class="mb-3 mr-sm-2" pill @click="ExportExcel('model')" variant="warning">Download Excel</b-button>
         </b-col>
     </b-row>   

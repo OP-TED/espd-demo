@@ -25,7 +25,6 @@ Vue.component("codelists", {
             details_fields: [
                 { key: 'Code', label: 'Code' },
                 { key: 'Name', label: 'Name' },
-                { key: 'Description', label: 'Description' },
                 { key: 'Status', label: 'Status' },
                 'show_details'
             ],

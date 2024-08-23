@@ -16,6 +16,7 @@
         {"version":"v3.0.0", "filename":"v3.0.0.txt"},
         {"version":"v3.0.1", "filename":"v3.0.1.txt"},
         {"version":"v3.2.0", "filename":"v3.2.0.txt"},
-        {"version":"v3.3.0", "filename":"v3.3.0.txt"}
+        {"version":"v3.3.0", "filename":"v3.3.0.txt"},
+        {"version":"v4.0.0", "filename":"v4.0.0.txt"}
     ]
 }

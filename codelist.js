@@ -23,7 +23,7 @@ const in_excel_we_trust = [
     "ESPD-CodeLists_v3.3.0.xlsx",
 ]
 
-const log = console.log, ESPD_version = 'ESPD release v3.X', path_to_folder = '.\\ESPD\\codelists\\';
+const log = console.log, ESPD_version = 'ESPD release v4.0.0', path_to_folder = '.\\ESPD\\codelists\\', crtv = "v4.0.0"
 XLSX.set_fs(fs);
 
 let name_version = '', json_ui = {}, json_external = [];
@@ -117,16 +117,16 @@ program
 
     .command("process_model", "Process all models as options")
     .action(({logger, args, options}) => {
-        log(chalk.blue.bold('Process all models as options'), chalk.red(ESPD_version));
+        log(chalk.blue.bold('Process all models as options'), chalk.red(`${ESPD_version} :: ${crtv}`));
         log('\n')
 
-        let model_file = require('./ESPD/model/espd_edm_v3.3.0.json')
+        let model_file = require(`./ESPD/model/espd_edm_${crtv}.json`)
         if (! Object.hasOwn(extModel, 'models')) extModel.models = {}
-        if (! Object.hasOwn(extModel.models, 'v3.3.0')) extModel.models['v3.3.0'] = []
+        if (! Object.hasOwn(extModel.models, crtv)) extModel.models[crtv] = []
 
         for (const key in model_file) {
             if (Object.hasOwn(model_file, key)) {
-                extModel.models['v3.3.0'].push({ value: model_file[key].tag, text: `${model_file[key].tag} - ${model_file[key].name}` })
+                extModel.models[crtv].push({ value: model_file[key].tag, text: `${model_file[key].tag} - ${model_file[key].name}` })
             }
         }
         log(extModel)

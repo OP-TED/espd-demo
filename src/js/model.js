@@ -13,6 +13,8 @@ Vue.component("model", {
   methods:{
     selectVersion(event){
       console.log(event);
+      this.models = this.raw_data[this.version]
+      this.model = this.models[0].value
     },
     selectModel(event){
       console.log(event)
@@ -35,11 +37,11 @@ Vue.component("model", {
             for (const key in this.raw_data) {
               if (Object.hasOwn(this.raw_data, key)) {
                 this.versions.push(key)
-                this.version = this.versions[0]
-                this.models = this.raw_data[key]
-                this.model = this.models[0].value
               }
             }
+            this.version = this.versions[0]
+            this.models = this.raw_data[this.version]
+            this.model = this.models[0].value
         }
       }catch(error){
         console.log("Error!", error);

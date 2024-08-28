@@ -13,17 +13,17 @@
     "license": "EUPL",
     "scripts": {
         "start": "node dev_server.js",
-        "codelist" : "node codelist.js"
+        "codelist": "node codelist.js"
     },
     "overrides": {
-        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
+        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
     },
     "dependencies": {
-        "fastify": "^4.25.2",
         "@fastify/static": "^6.12.*",
+        "axios": "^1.7.5",
         "caporal": "1.4.0",
         "chalk": "4.1.2",
-        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz",
-        "axios":"1.6.8"
+        "fastify": "^4.25.2",
+        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
     }
 }

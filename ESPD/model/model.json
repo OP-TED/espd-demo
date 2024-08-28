@@ -249,6 +249,256 @@
                 "value": "C65 - OT",
                 "text": "C65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise"
             }
+        ],
+        "v4.0.0": [
+            {
+                "value": "CC1 - EG",
+                "text": "CC1 - EG - Participation in a criminal organisation"
+            },
+            {
+                "value": "CC2 - EG",
+                "text": "CC2 - EG - Corruption"
+            },
+            {
+                "value": "CC3 - EG",
+                "text": "CC3 - EG - Fraud"
+            },
+            {
+                "value": "CC4 - EG",
+                "text": "CC4 - EG - Terrorist offences or offences linked to terrorist activities"
+            },
+            {
+                "value": "CC5 - EG",
+                "text": "CC5 - EG - Money laundering or terrorist financing"
+            },
+            {
+                "value": "CC6 - EG",
+                "text": "CC6 - EG - Child labour and other forms of trafficking in human beings"
+            },
+            {
+                "value": "CC7 - EG",
+                "text": "CC7 - EG - Payment of taxes"
+            },
+            {
+                "value": "CC8 - EG",
+                "text": "CC8 - EG - Payment of social security contributions"
+            },
+            {
+                "value": "CC9 - EG",
+                "text": "CC9 - EG - Breaching of obligations in the fields of environmental law"
+            },
+            {
+                "value": "CC10 - EG",
+                "text": "CC10 - EG - Breaching of obligations in the fields of social law"
+            },
+            {
+                "value": "CC11 - EG",
+                "text": "CC11 - EG - Breaching of obligations in the fields of labour law"
+            },
+            {
+                "value": "CC12 - EG",
+                "text": "CC12 - EG - Bankruptcy"
+            },
+            {
+                "value": "CC13 - EG",
+                "text": "CC13 - EG - Insolvency"
+            },
+            {
+                "value": "CC14 - EG",
+                "text": "CC14 - EG - Arrangement with creditors"
+            },
+            {
+                "value": "CC15 - EG",
+                "text": "CC15 - EG - Analogous situation like bankruptcy under national law"
+            },
+            {
+                "value": "CC16 - EG",
+                "text": "CC16 - EG - Assets being administered by liquidator"
+            },
+            {
+                "value": "CC17 - EG",
+                "text": "CC17 - EG - Business activities are suspended"
+            },
+            {
+                "value": "CC18 - EG",
+                "text": "CC18 - EG - Guilty of grave professional misconduct"
+            },
+            {
+                "value": "CC19 - EG",
+                "text": "CC19 - EG - Agreements with other economic operators aimed at distorting competition"
+            },
+            {
+                "value": "CC20 - EG",
+                "text": "CC20 - EG - Conflict of interest due to its participation in the procurement procedure"
+            },
+            {
+                "value": "CC21 - EG",
+                "text": "CC21 - EG - Direct or indirect involvement in the preparation of this procurement procedure"
+            },
+            {
+                "value": "CC22 - EG",
+                "text": "CC22 - EG - Early termination, damages or other comparable sanctions"
+            },
+            {
+                "value": "CC23 - EG",
+                "text": "CC23 - EG - Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure"
+            },
+            {
+                "value": "CC24 - EG",
+                "text": "CC24 - EG - Purely national exclusion grounds"
+            },
+            {
+                "value": "CC25 - SC",
+                "text": "CC25 - SC - Enrolment in a relevant professional register"
+            },
+            {
+                "value": "CC26 - SC",
+                "text": "CC26 - SC - Enrolment in a trade register"
+            },
+            {
+                "value": "CC27 - SC",
+                "text": "CC27 - SC - For service contracts: authorisation of particular organisation needed"
+            },
+            {
+                "value": "CC28 - SC",
+                "text": "CC28 - SC - For service contracts: membership of particular organisation needed"
+            },
+            {
+                "value": "CC29 - SC",
+                "text": "CC29 - SC - General yearly turnover"
+            },
+            {
+                "value": "CC30 - SC",
+                "text": "CC30 - SC - Average yearly turnover"
+            },
+            {
+                "value": "CC31 - SC",
+                "text": "CC31 - SC - Specific average turnover"
+            },
+            {
+                "value": "CC32 - SC",
+                "text": "CC32 - SC - Specific yearly turnover"
+            },
+            {
+                "value": "CC34 - SC",
+                "text": "CC34 - SC - Financial ratio"
+            },
+            {
+                "value": "CC35 - SC",
+                "text": "CC35 - SC - Professional risk indemnity insurance"
+            },
+            {
+                "value": "CC36 - SC",
+                "text": "CC36 - SC - Other economic or financial requirements"
+            },
+            {
+                "value": "CC37 - SC",
+                "text": "CC37 - SC - For works contracts: performance of works of the specified type"
+            },
+            {
+                "value": "CC38 - SC",
+                "text": "CC38 - SC - For supply contracts: performance of deliveries of the specified type"
+            },
+            {
+                "value": "CC39 - SC",
+                "text": "CC39 - SC - For service contracts: performance of services of the specified type"
+            },
+            {
+                "value": "CC40 - SC",
+                "text": "CC40 - SC - Technicians or technical bodies for quality control"
+            },
+            {
+                "value": "CC41 - SC",
+                "text": "CC41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:"
+            },
+            {
+                "value": "CC42 - SC",
+                "text": "CC42 - SC - Technical facilities and measures for ensuring quality"
+            },
+            {
+                "value": "CC43 - SC",
+                "text": "CC43 - SC - Study and research facilities"
+            },
+            {
+                "value": "CC44 - SC",
+                "text": "CC44 - SC - Supply chain management"
+            },
+            {
+                "value": "CC45 - SC",
+                "text": "CC45 - SC - Environmental management measures"
+            },
+            {
+                "value": "CC46 - SC",
+                "text": "CC46 - SC - Tools, plant or technical equipment"
+            },
+            {
+                "value": "CC47 - SC",
+                "text": "CC47 - SC - Educational and professional qualifications"
+            },
+            {
+                "value": "CC48 - SC",
+                "text": "CC48 - SC - Special requierements check"
+            },
+            {
+                "value": "CC49 - SC",
+                "text": "CC49 - SC - Number of managerial staff"
+            },
+            {
+                "value": "CC50 - SC",
+                "text": "CC50 - SC - Average annual manpower"
+            },
+            {
+                "value": "CC51 - SC",
+                "text": "CC51 - SC - Subcontracting proportion"
+            },
+            {
+                "value": "CC52 - SC",
+                "text": "CC52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity"
+            },
+            {
+                "value": "CC53 - SC",
+                "text": "CC53 - SC - For supply contracts: samples, descriptions or photographs with certification of authenticity"
+            },
+            {
+                "value": "CC54 - SC",
+                "text": "CC54 - SC - For supply contracts: certificates by quality control institutes"
+            },
+            {
+                "value": "CC55 - SC",
+                "text": "CC55 - SC - Certificates by independent bodies about quality assurance standards"
+            },
+            {
+                "value": "CC56 - SC",
+                "text": "CC56 - SC - Certificates by independent bodies about environmental management systems or standards"
+            },
+            {
+                "value": "CC57 - OT",
+                "text": "CC57 - OT - Economic operator is a sheltered workshop"
+            },
+            {
+                "value": "CC58 - OT",
+                "text": "CC58 - OT - Economic operator registered in a pre qualification system"
+            },
+            {
+                "value": "CC59 - OT",
+                "text": "CC59 - OT - Economic Operator together with others"
+            },
+            {
+                "value": "CC60 - OT",
+                "text": "CC60 - OT - Relied on entities"
+            },
+            {
+                "value": "CC61 - OT",
+                "text": "CC61 - OT - Not relied on entities"
+            },
+            {
+                "value": "CC63 - OT",
+                "text": "CC63 - OT - Reduction of the number of qualified candidates"
+            },
+            {
+                "value": "CC65 - OT",
+                "text": "CC65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise"
+            }
         ]
     }
 }

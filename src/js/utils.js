@@ -163,9 +163,13 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
               .ele('@cbc', 'CriterionTypeCode', { 'listID': "http://publications.europa.eu/resource/authority/criterion", 'listAgencyID': "OP", 'listVersionID': "20230315-0" }).txt(element.elementcode).up()
               .ele('@cbc', 'Name').txt(element.name).up()
               .ele('@cbc', 'Description').txt(element.description).up()
-              .ele('@cac', 'ProcurementProjectLotReference')
-              .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "OP", 'schemeVersionID': schemeVersionID }).txt('LOT-0000').up()
-              .up()
+
+              //add lots here cac:ProcurementProjectLot
+              for (let index = 0; index < element.lots.length; index++) {
+                tmp = tmp.ele('@cac', 'ProcurementProjectLotReference')
+                .ele('@cbc', 'ID', {'schemeID': "Criterion", 'schemeAgencyID':"OP", 'schemeVersionID':schemeVersionID}).txt(element.lots[index]).up()
+                .up()    
+              }
           } else {
             tmp = part.com(` Criterion: ${element.name} `)
               .ele('@cac', 'TenderingCriterion')
@@ -206,10 +210,12 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
           break;
         case "ADDITIONAL_DESCRIPTION_LINE":
           tmp = part.ele('@cbc', 'Description').txt(element.description).up()
+          /*
           if (!EG_FLAG)
             tmp = part.ele('@cac', 'ProcurementProjectLotReference')
               .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "OP", 'schemeVersionID': schemeVersionID }).txt('LOT-0000').up()
               .up()
+          */
           //create the inner elements
           if (Object.hasOwn(element, 'components')) render_request(element.components, tmp, EG_FLAG)
           part.up()
@@ -353,6 +359,8 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
 
       switch (element.type) {
         case 'CRITERION':
+          //Check for LOT-0001
+          if (Object.hasOwn(element, 'lots') && element.lots.indexOf('LOT-0001') == -1) return
           //create the inner elements
           if (Object.hasOwn(element, 'components')) render_response(element.components, tmp, element.name)
           break;

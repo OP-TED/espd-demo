@@ -87,6 +87,13 @@ Vue.component('ESPDdownload',{
                 .ele('@cbc', 'Description').txt(window.espd_doc.procedure.short_description??'Description of Project.').up()
                 .up()
 
+                //add lots here cac:ProcurementProjectLot
+                for (let index = 1; index <= window.espd_doc.procedure.number_of_lots; index++) {
+                    window.espd_request.ele('@cac', 'ProcurementProjectLot')
+                    .ele('@cbc', 'ID', {'schemeID': "Criterion", 'schemeAgencyID':"OP", 'schemeVersionID':schemeVersionID}).txt(`LOT-${index.toString().padStart(4,"0")}`).up()
+                    .up()    
+                }
+
                 render_request(window.espd_model)
 
                 download('ESPD_Request.xml', window.espd_request.end({prettyPrint: true}))
@@ -190,9 +197,18 @@ Vue.component('ESPDdownload',{
                 .ele('@cbc', 'Description').txt(window.espd_doc.procedure.short_description??'Description of Project.').up()
                 .up()
 
+                //add lots here cac:ProcurementProjectLot
+                /*
+                for (let index = 1; index <= window.espd_doc.procedure.number_of_lots; index++) {
+                    window.espd_response.ele('@cac', 'ProcurementProjectLot')
+                    .ele('@cbc', 'ID', {'schemeID': "Criterion", 'schemeAgencyID':"OP", 'schemeVersionID':schemeVersionID}).txt(`LOT-${index.toString().padStart(4,"0")}`).up()
+                    .up()    
+                }
+                */
+                //TODO - confirm that we shoud respond on a LOT by LOT basis not all LOTs, LOT-0001 is mandatory - check to see how to handle the Response 
                 window.espd_response.ele('@cac', 'ProcurementProjectLot')
-                .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "OP", 'schemeVersionID': schemeVersionID }).txt('LOT-0000').up()
-                .up()
+                    .ele('@cbc', 'ID', {'schemeID': "Criterion", 'schemeAgencyID':"OP", 'schemeVersionID':schemeVersionID}).txt('LOT-0001').up()
+                    .up()  
         
                 render_request(window.espd_model, window.espd_response)
                 render_response(window.espd_model, window.espd_response)

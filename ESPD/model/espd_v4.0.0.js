@@ -1,6 +1,6 @@
 /**
  * VueJS components for ESDP-EDM 
- * generated on 2024-08-28T12:23:18.486Z 
+ * generated on 2024-08-31T15:10:23.552Z 
  */
 
 
@@ -39,7 +39,7 @@ Vue.component("CC1 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-01" v-model="selected01" name="radio-options01" switch>QUESTION - Your Answer [1]<b>({{ selected01?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-01" v-model="selected01" name="radio-options01" inline="true"  switch><b>({{ selected01?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -48,7 +48,7 @@ Vue.component("CC1 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-02" v-model="selected02" name="radio-options02" switch>QUESTION - Your answer [1]<b>({{ selected02?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-02" v-model="selected02" name="radio-options02" inline="true"  switch><b>({{ selected02?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected02">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Date of conviction [1]" 
@@ -73,7 +73,7 @@ Vue.component("CC1 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-03" v-model="selected03" name="radio-options03" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected03?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-03" v-model="selected03" name="radio-options03" inline="true"  switch><b>({{ selected03?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected03">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -88,7 +88,7 @@ Vue.component("CC1 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-04" v-model="selected04" name="radio-options04" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected04?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-04" v-model="selected04" name="radio-options04" inline="true"  switch><b>({{ selected04?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected04">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -137,7 +137,7 @@ Vue.component("CC2 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-05" v-model="selected05" name="radio-options05" switch>QUESTION - Your Answer [1]<b>({{ selected05?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-05" v-model="selected05" name="radio-options05" inline="true"  switch><b>({{ selected05?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -146,7 +146,7 @@ Vue.component("CC2 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-06" v-model="selected06" name="radio-options06" switch>QUESTION - Your answer [1]<b>({{ selected06?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-06" v-model="selected06" name="radio-options06" inline="true"  switch><b>({{ selected06?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected06">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Date of conviction [1]" 
@@ -171,7 +171,7 @@ Vue.component("CC2 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-07" v-model="selected07" name="radio-options07" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected07?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-07" v-model="selected07" name="radio-options07" inline="true"  switch><b>({{ selected07?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected07">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -186,7 +186,7 @@ Vue.component("CC2 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-08" v-model="selected08" name="radio-options08" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected08?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-08" v-model="selected08" name="radio-options08" inline="true"  switch><b>({{ selected08?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected08">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -235,7 +235,7 @@ Vue.component("CC3 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-09" v-model="selected09" name="radio-options09" switch>QUESTION - Your Answer [1]<b>({{ selected09?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-09" v-model="selected09" name="radio-options09" inline="true"  switch><b>({{ selected09?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -244,7 +244,7 @@ Vue.component("CC3 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-10" v-model="selected10" name="radio-options10" switch>QUESTION - Your answer [1]<b>({{ selected10?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-10" v-model="selected10" name="radio-options10" inline="true"  switch><b>({{ selected10?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected10">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Date of conviction [1]" 
@@ -269,7 +269,7 @@ Vue.component("CC3 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-11" v-model="selected11" name="radio-options11" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected11?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-11" v-model="selected11" name="radio-options11" inline="true"  switch><b>({{ selected11?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected11">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -284,7 +284,7 @@ Vue.component("CC3 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-12" v-model="selected12" name="radio-options12" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected12?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-12" v-model="selected12" name="radio-options12" inline="true"  switch><b>({{ selected12?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected12">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -333,7 +333,7 @@ Vue.component("CC4 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-13" v-model="selected13" name="radio-options13" switch>QUESTION - Your Answer [1]<b>({{ selected13?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-13" v-model="selected13" name="radio-options13" inline="true"  switch><b>({{ selected13?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -342,7 +342,7 @@ Vue.component("CC4 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-14" v-model="selected14" name="radio-options14" switch>QUESTION - Your answer [1]<b>({{ selected14?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-14" v-model="selected14" name="radio-options14" inline="true"  switch><b>({{ selected14?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected14">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Date of conviction [1]" 
@@ -367,7 +367,7 @@ Vue.component("CC4 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-15" v-model="selected15" name="radio-options15" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected15?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-15" v-model="selected15" name="radio-options15" inline="true"  switch><b>({{ selected15?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected15">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -382,7 +382,7 @@ Vue.component("CC4 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-16" v-model="selected16" name="radio-options16" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected16?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-16" v-model="selected16" name="radio-options16" inline="true"  switch><b>({{ selected16?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected16">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -431,7 +431,7 @@ Vue.component("CC5 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-17" v-model="selected17" name="radio-options17" switch>QUESTION - Your Answer [1]<b>({{ selected17?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-17" v-model="selected17" name="radio-options17" inline="true"  switch><b>({{ selected17?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -440,7 +440,7 @@ Vue.component("CC5 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-18" v-model="selected18" name="radio-options18" switch>QUESTION - Your answer [1]<b>({{ selected18?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-18" v-model="selected18" name="radio-options18" inline="true"  switch><b>({{ selected18?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected18">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Date of conviction [1]" 
@@ -465,7 +465,7 @@ Vue.component("CC5 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-19" v-model="selected19" name="radio-options19" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected19?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-19" v-model="selected19" name="radio-options19" inline="true"  switch><b>({{ selected19?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected19">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -480,7 +480,7 @@ Vue.component("CC5 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-20" v-model="selected20" name="radio-options20" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected20?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-20" v-model="selected20" name="radio-options20" inline="true"  switch><b>({{ selected20?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected20">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -529,7 +529,7 @@ Vue.component("CC6 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-21" v-model="selected21" name="radio-options21" switch>QUESTION - Your Answer [1]<b>({{ selected21?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-21" v-model="selected21" name="radio-options21" inline="true"  switch><b>({{ selected21?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -538,7 +538,7 @@ Vue.component("CC6 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-22" v-model="selected22" name="radio-options22" switch>QUESTION - Your answer [1]<b>({{ selected22?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-22" v-model="selected22" name="radio-options22" inline="true"  switch><b>({{ selected22?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected22">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Date of conviction [1]" 
@@ -563,7 +563,7 @@ Vue.component("CC6 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-23" v-model="selected23" name="radio-options23" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected23?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-23" v-model="selected23" name="radio-options23" inline="true"  switch><b>({{ selected23?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected23">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -578,7 +578,7 @@ Vue.component("CC6 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-24" v-model="selected24" name="radio-options24" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected24?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-24" v-model="selected24" name="radio-options24" inline="true"  switch><b>({{ selected24?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected24">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -629,7 +629,7 @@ Vue.component("CC7 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-25" v-model="selected25" name="radio-options25" switch>QUESTION - Your Answer [1]<b>({{ selected25?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-25" v-model="selected25" name="radio-options25" inline="true"  switch><b>({{ selected25?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - Minimum Amount Threshold [1]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -647,7 +647,7 @@ Vue.component("CC7 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-26" v-model="selected26" name="radio-options26" switch>QUESTION - Your answer [1]<b>({{ selected26?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-26" v-model="selected26" name="radio-options26" inline="true"  switch><b>({{ selected26?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected26">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Country or member state concerned [1]" 
@@ -664,7 +664,7 @@ Vue.component("CC7 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-27" v-model="selected27" name="radio-options27" switch>QUESTION - Has this breach of obligations been established by means other than a judicial or administrative decision? [1]<b>({{ selected27?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Has this breach of obligations been established by means other than a judicial or administrative decision? [1] <b-form-checkbox id="radio-group-27" v-model="selected27" name="radio-options27" inline="true"  switch><b>({{ selected27?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected27">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe which means were used [1]" 
@@ -681,7 +681,7 @@ Vue.component("CC7 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-28" v-model="selected28" name="radio-options28" switch>QUESTION - If this breach of obligations was established through a judicial or administrative decision, was this decision final and binding? [1]<b>({{ selected28?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION If this breach of obligations was established through a judicial or administrative decision, was this decision final and binding? [1] <b-form-checkbox id="radio-group-28" v-model="selected28" name="radio-options28" inline="true"  switch><b>({{ selected28?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected28">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please indicate the date of conviction or decision [1]" 
@@ -702,7 +702,7 @@ Vue.component("CC7 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-29" v-model="selected29" name="radio-options29" switch>QUESTION - Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the taxes contributions due, including, where applicable, any interest accrued or fines? [1]<b>({{ selected29?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the taxes contributions due, including, where applicable, any interest accrued or fines? [1] <b-form-checkbox id="radio-group-29" v-model="selected29" name="radio-options29" inline="true"  switch><b>({{ selected29?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected29">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -717,7 +717,7 @@ Vue.component("CC7 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-30" v-model="selected30" name="radio-options30" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected30?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-30" v-model="selected30" name="radio-options30" inline="true"  switch><b>({{ selected30?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected30">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -767,7 +767,7 @@ Vue.component("CC8 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-31" v-model="selected31" name="radio-options31" switch>QUESTION - Your Answer [1]<b>({{ selected31?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-31" v-model="selected31" name="radio-options31" inline="true"  switch><b>({{ selected31?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - Minimum Amount Threshold [1]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -785,7 +785,7 @@ Vue.component("CC8 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-32" v-model="selected32" name="radio-options32" switch>QUESTION - Your answer [1]<b>({{ selected32?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-32" v-model="selected32" name="radio-options32" inline="true"  switch><b>({{ selected32?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected32">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Country or member state concerned [1]" 
@@ -802,7 +802,7 @@ Vue.component("CC8 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-33" v-model="selected33" name="radio-options33" switch>QUESTION - Has this breach of obligations been established by means other than a judicial or administrative decision? [1]<b>({{ selected33?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Has this breach of obligations been established by means other than a judicial or administrative decision? [1] <b-form-checkbox id="radio-group-33" v-model="selected33" name="radio-options33" inline="true"  switch><b>({{ selected33?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected33">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe which means were used [1]" 
@@ -819,7 +819,7 @@ Vue.component("CC8 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-34" v-model="selected34" name="radio-options34" switch>QUESTION - If this breach of obligations was established through a judicial or administrative decision, was this decision final and binding? [1]<b>({{ selected34?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION If this breach of obligations was established through a judicial or administrative decision, was this decision final and binding? [1] <b-form-checkbox id="radio-group-34" v-model="selected34" name="radio-options34" inline="true"  switch><b>({{ selected34?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected34">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please indicate the date of conviction or decision [1]" 
@@ -840,7 +840,7 @@ Vue.component("CC8 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-35" v-model="selected35" name="radio-options35" switch>QUESTION - Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the social security contributions due, including, where applicable, any interest accrued or fines? [1]<b>({{ selected35?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the social security contributions due, including, where applicable, any interest accrued or fines? [1] <b-form-checkbox id="radio-group-35" v-model="selected35" name="radio-options35" inline="true"  switch><b>({{ selected35?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected35">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -855,7 +855,7 @@ Vue.component("CC8 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-36" v-model="selected36" name="radio-options36" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected36?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-36" v-model="selected36" name="radio-options36" inline="true"  switch><b>({{ selected36?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected36">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -903,7 +903,7 @@ Vue.component("CC9 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-37" v-model="selected37" name="radio-options37" switch>QUESTION - Your Answer [1]<b>({{ selected37?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-37" v-model="selected37" name="radio-options37" inline="true"  switch><b>({{ selected37?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -912,7 +912,7 @@ Vue.component("CC9 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-38" v-model="selected38" name="radio-options38" switch>QUESTION - Your answer [1]<b>({{ selected38?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-38" v-model="selected38" name="radio-options38" inline="true"  switch><b>({{ selected38?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected38">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                         <!--    
@@ -921,7 +921,7 @@ Vue.component("CC9 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-39" v-model="selected39" name="radio-options39" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected39?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-39" v-model="selected39" name="radio-options39" inline="true"  switch><b>({{ selected39?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected39">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -938,7 +938,7 @@ Vue.component("CC9 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-40" v-model="selected40" name="radio-options40" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected40?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-40" v-model="selected40" name="radio-options40" inline="true"  switch><b>({{ selected40?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected40">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -985,7 +985,7 @@ Vue.component("CC10 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-41" v-model="selected41" name="radio-options41" switch>QUESTION - Your Answer [1]<b>({{ selected41?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-41" v-model="selected41" name="radio-options41" inline="true"  switch><b>({{ selected41?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -994,7 +994,7 @@ Vue.component("CC10 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-42" v-model="selected42" name="radio-options42" switch>QUESTION - Your answer [1]<b>({{ selected42?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-42" v-model="selected42" name="radio-options42" inline="true"  switch><b>({{ selected42?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected42">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                         <!--    
@@ -1003,7 +1003,7 @@ Vue.component("CC10 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-43" v-model="selected43" name="radio-options43" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected43?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-43" v-model="selected43" name="radio-options43" inline="true"  switch><b>({{ selected43?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected43">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1020,7 +1020,7 @@ Vue.component("CC10 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-44" v-model="selected44" name="radio-options44" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected44?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-44" v-model="selected44" name="radio-options44" inline="true"  switch><b>({{ selected44?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected44">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1067,7 +1067,7 @@ Vue.component("CC11 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-45" v-model="selected45" name="radio-options45" switch>QUESTION - Your Answer [1]<b>({{ selected45?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-45" v-model="selected45" name="radio-options45" inline="true"  switch><b>({{ selected45?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1076,7 +1076,7 @@ Vue.component("CC11 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-46" v-model="selected46" name="radio-options46" switch>QUESTION - Your answer [1]<b>({{ selected46?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-46" v-model="selected46" name="radio-options46" inline="true"  switch><b>({{ selected46?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected46">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                         <!--    
@@ -1085,7 +1085,7 @@ Vue.component("CC11 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-47" v-model="selected47" name="radio-options47" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected47?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-47" v-model="selected47" name="radio-options47" inline="true"  switch><b>({{ selected47?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected47">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1102,7 +1102,7 @@ Vue.component("CC11 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-48" v-model="selected48" name="radio-options48" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected48?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-48" v-model="selected48" name="radio-options48" inline="true"  switch><b>({{ selected48?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected48">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1148,7 +1148,7 @@ Vue.component("CC12 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-49" v-model="selected49" name="radio-options49" switch>QUESTION - Your Answer [1]<b>({{ selected49?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-49" v-model="selected49" name="radio-options49" inline="true"  switch><b>({{ selected49?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1157,7 +1157,7 @@ Vue.component("CC12 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-50" v-model="selected50" name="radio-options50" switch>QUESTION - Your answer [1]<b>({{ selected50?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-50" v-model="selected50" name="radio-options50" inline="true"  switch><b>({{ selected50?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected50">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1176,7 +1176,7 @@ Vue.component("CC12 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-51" v-model="selected51" name="radio-options51" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected51?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-51" v-model="selected51" name="radio-options51" inline="true"  switch><b>({{ selected51?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected51">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1222,7 +1222,7 @@ Vue.component("CC13 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-52" v-model="selected52" name="radio-options52" switch>QUESTION - Your Answer [1]<b>({{ selected52?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-52" v-model="selected52" name="radio-options52" inline="true"  switch><b>({{ selected52?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1231,7 +1231,7 @@ Vue.component("CC13 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-53" v-model="selected53" name="radio-options53" switch>QUESTION - Your answer [1]<b>({{ selected53?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-53" v-model="selected53" name="radio-options53" inline="true"  switch><b>({{ selected53?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected53">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1250,7 +1250,7 @@ Vue.component("CC13 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-54" v-model="selected54" name="radio-options54" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected54?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-54" v-model="selected54" name="radio-options54" inline="true"  switch><b>({{ selected54?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected54">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1296,7 +1296,7 @@ Vue.component("CC14 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-55" v-model="selected55" name="radio-options55" switch>QUESTION - Your Answer [1]<b>({{ selected55?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-55" v-model="selected55" name="radio-options55" inline="true"  switch><b>({{ selected55?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1305,7 +1305,7 @@ Vue.component("CC14 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-56" v-model="selected56" name="radio-options56" switch>QUESTION - Your answer [1]<b>({{ selected56?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-56" v-model="selected56" name="radio-options56" inline="true"  switch><b>({{ selected56?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected56">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1324,7 +1324,7 @@ Vue.component("CC14 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-57" v-model="selected57" name="radio-options57" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected57?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-57" v-model="selected57" name="radio-options57" inline="true"  switch><b>({{ selected57?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected57">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1370,7 +1370,7 @@ Vue.component("CC15 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-58" v-model="selected58" name="radio-options58" switch>QUESTION - Your Answer [1]<b>({{ selected58?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-58" v-model="selected58" name="radio-options58" inline="true"  switch><b>({{ selected58?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1379,7 +1379,7 @@ Vue.component("CC15 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-59" v-model="selected59" name="radio-options59" switch>QUESTION - Your answer [1]<b>({{ selected59?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-59" v-model="selected59" name="radio-options59" inline="true"  switch><b>({{ selected59?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected59">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1398,7 +1398,7 @@ Vue.component("CC15 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-60" v-model="selected60" name="radio-options60" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected60?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-60" v-model="selected60" name="radio-options60" inline="true"  switch><b>({{ selected60?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected60">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1444,7 +1444,7 @@ Vue.component("CC16 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-61" v-model="selected61" name="radio-options61" switch>QUESTION - Your Answer [1]<b>({{ selected61?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-61" v-model="selected61" name="radio-options61" inline="true"  switch><b>({{ selected61?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1453,7 +1453,7 @@ Vue.component("CC16 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-62" v-model="selected62" name="radio-options62" switch>QUESTION - Your answer [1]<b>({{ selected62?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-62" v-model="selected62" name="radio-options62" inline="true"  switch><b>({{ selected62?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected62">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1472,7 +1472,7 @@ Vue.component("CC16 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-63" v-model="selected63" name="radio-options63" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected63?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-63" v-model="selected63" name="radio-options63" inline="true"  switch><b>({{ selected63?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected63">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1518,7 +1518,7 @@ Vue.component("CC17 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-64" v-model="selected64" name="radio-options64" switch>QUESTION - Your Answer [1]<b>({{ selected64?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-64" v-model="selected64" name="radio-options64" inline="true"  switch><b>({{ selected64?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1527,7 +1527,7 @@ Vue.component("CC17 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-65" v-model="selected65" name="radio-options65" switch>QUESTION - Your answer [1]<b>({{ selected65?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-65" v-model="selected65" name="radio-options65" inline="true"  switch><b>({{ selected65?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected65">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1546,7 +1546,7 @@ Vue.component("CC17 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-66" v-model="selected66" name="radio-options66" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected66?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-66" v-model="selected66" name="radio-options66" inline="true"  switch><b>({{ selected66?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected66">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1593,7 +1593,7 @@ Vue.component("CC18 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-67" v-model="selected67" name="radio-options67" switch>QUESTION - Your Answer [1]<b>({{ selected67?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-67" v-model="selected67" name="radio-options67" inline="true"  switch><b>({{ selected67?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1602,7 +1602,7 @@ Vue.component("CC18 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-68" v-model="selected68" name="radio-options68" switch>QUESTION - Your answer [1]<b>({{ selected68?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-68" v-model="selected68" name="radio-options68" inline="true"  switch><b>({{ selected68?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected68">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1615,7 +1615,7 @@ Vue.component("CC18 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-69" v-model="selected69" name="radio-options69" switch>QUESTION - Have you taken measures to demonstrate your reliability [1]<b>({{ selected69?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability [1] <b-form-checkbox id="radio-group-69" v-model="selected69" name="radio-options69" inline="true"  switch><b>({{ selected69?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected69">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1632,7 +1632,7 @@ Vue.component("CC18 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-70" v-model="selected70" name="radio-options70" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected70?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-70" v-model="selected70" name="radio-options70" inline="true"  switch><b>({{ selected70?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected70">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1679,7 +1679,7 @@ Vue.component("CC19 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-71" v-model="selected71" name="radio-options71" switch>QUESTION - Your Answer [1]<b>({{ selected71?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-71" v-model="selected71" name="radio-options71" inline="true"  switch><b>({{ selected71?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1688,7 +1688,7 @@ Vue.component("CC19 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-72" v-model="selected72" name="radio-options72" switch>QUESTION - Your answer [1]<b>({{ selected72?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-72" v-model="selected72" name="radio-options72" inline="true"  switch><b>({{ selected72?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected72">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1701,10 +1701,10 @@ Vue.component("CC19 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-73" v-model="selected73" name="radio-options73" switch>QUESTION - Have you taken measures to demonstrate your reliability [1]<b>({{ selected73?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability [1] <b-form-checkbox id="radio-group-73" v-model="selected73" name="radio-options73" inline="true"  switch><b>({{ selected73?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected73">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Please describe them [1]" 
+                                            <b-form-group label="QUESTION - Please describe them [s]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
                                             </b-form-group>
@@ -1718,7 +1718,7 @@ Vue.component("CC19 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-74" v-model="selected74" name="radio-options74" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected74?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-74" v-model="selected74" name="radio-options74" inline="true"  switch><b>({{ selected74?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected74">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1764,7 +1764,7 @@ Vue.component("CC20 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-75" v-model="selected75" name="radio-options75" switch>QUESTION - Your Answer [1]<b>({{ selected75?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-75" v-model="selected75" name="radio-options75" inline="true"  switch><b>({{ selected75?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1773,7 +1773,7 @@ Vue.component("CC20 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-76" v-model="selected76" name="radio-options76" switch>QUESTION - Your answer [1]<b>({{ selected76?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-76" v-model="selected76" name="radio-options76" inline="true"  switch><b>({{ selected76?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected76">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1788,7 +1788,7 @@ Vue.component("CC20 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-77" v-model="selected77" name="radio-options77" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected77?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-77" v-model="selected77" name="radio-options77" inline="true"  switch><b>({{ selected77?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected77">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1834,7 +1834,7 @@ Vue.component("CC21 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-78" v-model="selected78" name="radio-options78" switch>QUESTION - Your Answer [1]<b>({{ selected78?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-78" v-model="selected78" name="radio-options78" inline="true"  switch><b>({{ selected78?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1843,7 +1843,7 @@ Vue.component("CC21 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-79" v-model="selected79" name="radio-options79" switch>QUESTION - Your answer [1]<b>({{ selected79?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-79" v-model="selected79" name="radio-options79" inline="true"  switch><b>({{ selected79?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected79">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1858,7 +1858,7 @@ Vue.component("CC21 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-80" v-model="selected80" name="radio-options80" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected80?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-80" v-model="selected80" name="radio-options80" inline="true"  switch><b>({{ selected80?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected80">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1905,7 +1905,7 @@ Vue.component("CC22 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-81" v-model="selected81" name="radio-options81" switch>QUESTION - Your Answer [1]<b>({{ selected81?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-81" v-model="selected81" name="radio-options81" inline="true"  switch><b>({{ selected81?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1914,7 +1914,7 @@ Vue.component("CC22 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-82" v-model="selected82" name="radio-options82" switch>QUESTION - Your answer [1]<b>({{ selected82?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-82" v-model="selected82" name="radio-options82" inline="true"  switch><b>({{ selected82?'Yes':'No' }})</b></b-form-checkbox>
                                     <div v-if="selected82">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1927,7 +1927,7 @@ Vue.component("CC22 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-83" v-model="selected83" name="radio-options83" switch>QUESTION - Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1]<b>({{ selected83?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Have you taken measures to demonstrate your reliability (Self-Cleaning)? [1] <b-form-checkbox id="radio-group-83" v-model="selected83" name="radio-options83" inline="true"  switch><b>({{ selected83?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected83">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
@@ -1944,7 +1944,7 @@ Vue.component("CC22 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-84" v-model="selected84" name="radio-options84" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected84?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-84" v-model="selected84" name="radio-options84" inline="true"  switch><b>({{ selected84?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected84">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -1990,7 +1990,7 @@ Vue.component("CC23 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-85" v-model="selected85" name="radio-options85" switch>QUESTION - Your Answer [1]<b>({{ selected85?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-85" v-model="selected85" name="radio-options85" inline="true"  switch><b>({{ selected85?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
@@ -1999,14 +1999,14 @@ Vue.component("CC23 - EG",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-86" v-model="selected86" name="radio-options86" switch>QUESTION - Your answer [1]<b>({{ selected86?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        QUESTION Your answer [1] <b-form-checkbox id="radio-group-86" v-model="selected86" name="radio-options86" inline="true"  switch><b>({{ selected86?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
                                                 <b-form-radio-group id="radio-group-87" v-model="selected87" :options="options" name="radio-options87">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-87" v-model="selected87" name="radio-options87" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected87?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-87" v-model="selected87" name="radio-options87" inline="true"  switch><b>({{ selected87?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected87">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -2051,14 +2051,14 @@ Vue.component("CC24 - EG",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-88" v-model="selected88" name="radio-options88" switch>QUESTION - Your answer? [1]<b>({{ selected88?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-88" v-model="selected88" name="radio-options88" inline="true"  switch><b>({{ selected88?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
                                                 <b-form-radio-group id="radio-group-89" v-model="selected89" :options="options" name="radio-options89">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-89" v-model="selected89" name="radio-options89" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected89?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-89" v-model="selected89" name="radio-options89" inline="true"  switch><b>({{ selected89?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected89">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -2092,19 +2092,7 @@ Vue.component("CC25 - SC",
  "selected91": true,
  "selected92": true,
  "selected93": true,
- "selected94": true,
- "selected95": true,
- "selected96": true,
- "selected97": true,
- "selected98": true,
- "selected99": true,
- "selected100": true,
- "selected101": true,
- "selected102": true,
- "selected103": true,
- "selected104": true,
- "selected105": true,
- "selected106": true
+ "selected94": true
 }
                         },
                         template: `<div>
@@ -2118,7 +2106,7 @@ Vue.component("CC25 - SC",
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-90" v-model="selected90" name="radio-options90" switch>QUESTION - Your Answer [1]<b>({{ selected90?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-90" v-model="selected90" name="radio-options90" inline="true"  switch><b>({{ selected90?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2136,7 +2124,7 @@ Vue.component("CC25 - SC",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-91" v-model="selected91" name="radio-options91" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected91?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-91" v-model="selected91" name="radio-options91" inline="true"  switch><b>({{ selected91?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="!selected91">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
@@ -2145,7 +2133,7 @@ Vue.component("CC25 - SC",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-92" v-model="selected92" name="radio-options92" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected92?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-92" v-model="selected92" name="radio-options92" inline="true"  switch><b>({{ selected92?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected92">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
@@ -2166,7 +2154,7 @@ Vue.component("CC25 - SC",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-93" v-model="selected93" name="radio-options93" switch>QUESTION - Your Answer [1]<b>({{ selected93?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-93" v-model="selected93" name="radio-options93" inline="true"  switch><b>({{ selected93?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected93">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Registration number [0..1]" 
@@ -2189,7 +2177,7 @@ Vue.component("CC25 - SC",
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-94" v-model="selected94" name="radio-options94" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected94?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-94" v-model="selected94" name="radio-options94" inline="true"  switch><b>({{ selected94?'Yes':'No' }})</b></b-form-checkbox>
                                         <div v-if="selected94">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
@@ -2197,231 +2185,7 @@ Vue.component("CC25 - SC",
                                             <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
                                             </b-form-group>
                                         </b-card>
-                                        </div></b-card></b-card>
-                    <b-form-group label="REQUIREMENT - occupation [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="CODE"></b-form-input>
-                    </b-form-group>
-                    
-                                        <!--    
-                                        <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-95" v-model="selected95" :options="options" name="radio-options95">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-95" v-model="selected95" name="radio-options95" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected95?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected95">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-96" v-model="selected96" :options="options" name="radio-options96">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-96" v-model="selected96" name="radio-options96" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected96?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected96">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        </b-card>
-                                        </div>
-                                        <!--    
-                                        <b-form-group label="QUESTION - Your Answer [1]">
-                                                <b-form-radio-group id="radio-group-97" v-model="selected97" :options="options" name="radio-options97">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-97" v-model="selected97" name="radio-options97" switch>QUESTION - Your Answer [1]<b>({{ selected97?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected97">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Registration number [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        <div v-if="!selected97">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Reasons why your are not registered [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-98" v-model="selected98" :options="options" name="radio-options98">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-98" v-model="selected98" name="radio-options98" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected98?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected98">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card></b-card>
-                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
-                    </b-form-group>
-                    <b-card>
-                    <b-form-group label="REQUIREMENT - occupation [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="CODE"></b-form-input>
-                    </b-form-group>
-                    
-                                        <!--    
-                                        <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-99" v-model="selected99" :options="options" name="radio-options99">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-99" v-model="selected99" name="radio-options99" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected99?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected99">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-100" v-model="selected100" :options="options" name="radio-options100">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-100" v-model="selected100" name="radio-options100" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected100?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected100">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        </b-card>
-                                        </div>
-                                        <!--    
-                                        <b-form-group label="QUESTION - Your Answer [1]">
-                                                <b-form-radio-group id="radio-group-101" v-model="selected101" :options="options" name="radio-options101">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-101" v-model="selected101" name="radio-options101" switch>QUESTION - Your Answer [1]<b>({{ selected101?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected101">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Registration number [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        <div v-if="!selected101">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Reasons why your are not registered [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-102" v-model="selected102" :options="options" name="radio-options102">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-102" v-model="selected102" name="radio-options102" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected102?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected102">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card></b-card>
-                    <b-form-group label="REQUIREMENT - occupation [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="CODE"></b-form-input>
-                    </b-form-group>
-                    
-                                        <!--    
-                                        <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-103" v-model="selected103" :options="options" name="radio-options103">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-103" v-model="selected103" name="radio-options103" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected103?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected103">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-104" v-model="selected104" :options="options" name="radio-options104">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-104" v-model="selected104" name="radio-options104" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected104?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected104">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        </b-card>
-                                        </div>
-                                        <!--    
-                                        <b-form-group label="QUESTION - Your Answer [1]">
-                                                <b-form-radio-group id="radio-group-105" v-model="selected105" :options="options" name="radio-options105">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-105" v-model="selected105" name="radio-options105" switch>QUESTION - Your Answer [1]<b>({{ selected105?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected105">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Registration number [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        <div v-if="!selected105">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Reasons why your are not registered [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-106" v-model="selected106" :options="options" name="radio-options106">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-106" v-model="selected106" name="radio-options106" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected106?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected106">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card></b-card>
+                                        </div></b-card></b-card></b-card></b-card>
                     </div>`
                     })
 
@@ -2442,11 +2206,11 @@ Vue.component("CC26 - SC",
    "value": "no"
   }
  ],
- "selected107": true,
- "selected108": true,
- "selected109": true,
- "selected110": true,
- "selected111": true
+ "selected95": true,
+ "selected96": true,
+ "selected97": true,
+ "selected98": true,
+ "selected99": true
 }
                         },
                         template: `<div>
@@ -2456,11 +2220,11 @@ Vue.component("CC26 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-107" v-model="selected107" :options="options" name="radio-options107">
+                                            <b-form-radio-group id="radio-group-95" v-model="selected95" :options="options" name="radio-options95">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-107" v-model="selected107" name="radio-options107" switch>QUESTION - Your Answer [1]<b>({{ selected107?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-95" v-model="selected95" name="radio-options95" inline="true"  switch><b>({{ selected95?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2479,21 +2243,21 @@ Vue.component("CC26 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-108" v-model="selected108" :options="options" name="radio-options108">
+                                                <b-form-radio-group id="radio-group-96" v-model="selected96" :options="options" name="radio-options96">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-108" v-model="selected108" name="radio-options108" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected108?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected108">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-96" v-model="selected96" name="radio-options96" inline="true"  switch><b>({{ selected96?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected96">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-109" v-model="selected109" :options="options" name="radio-options109">
+                                                <b-form-radio-group id="radio-group-97" v-model="selected97" :options="options" name="radio-options97">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-109" v-model="selected109" name="radio-options109" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected109?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected109">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-97" v-model="selected97" name="radio-options97" inline="true"  switch><b>({{ selected97?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected97">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2509,12 +2273,12 @@ Vue.component("CC26 - SC",
                                         </div>
                                         <!--    
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                                <b-form-radio-group id="radio-group-110" v-model="selected110" :options="options" name="radio-options110">
+                                                <b-form-radio-group id="radio-group-98" v-model="selected98" :options="options" name="radio-options98">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-110" v-model="selected110" name="radio-options110" switch>QUESTION - Your Answer [1]<b>({{ selected110?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected110">
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-98" v-model="selected98" name="radio-options98" inline="true"  switch><b>({{ selected98?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected98">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Registration number [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2522,7 +2286,7 @@ Vue.component("CC26 - SC",
                                             </b-form-group>
                                         </b-card>
                                         </div>
-                                        <div v-if="!selected110">
+                                        <div v-if="!selected98">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Reasons why your are not registered [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2532,12 +2296,12 @@ Vue.component("CC26 - SC",
                                         </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-111" v-model="selected111" :options="options" name="radio-options111">
+                                                <b-form-radio-group id="radio-group-99" v-model="selected99" :options="options" name="radio-options99">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-111" v-model="selected111" name="radio-options111" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected111?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected111">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-99" v-model="selected99" name="radio-options99" inline="true"  switch><b>({{ selected99?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected99">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2565,12 +2329,12 @@ Vue.component("CC27 - SC",
    "value": "no"
   }
  ],
- "selected112": true,
- "selected113": true,
- "selected114": true,
- "selected115": true,
- "selected116": true,
- "selected117": true
+ "selected100": true,
+ "selected101": true,
+ "selected102": true,
+ "selected103": true,
+ "selected104": true,
+ "selected105": true
 }
                         },
                         template: `<div>
@@ -2580,12 +2344,12 @@ Vue.component("CC27 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-112" v-model="selected112" :options="options" name="radio-options112">
+                                            <b-form-radio-group id="radio-group-100" v-model="selected100" :options="options" name="radio-options100">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-112" v-model="selected112" name="radio-options112" switch>QUESTION - Your Answer [1]<b>({{ selected112?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected112">
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-100" v-model="selected100" name="radio-options100" inline="true"  switch><b>({{ selected100?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="selected100">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - If yes, please describe them [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2593,11 +2357,11 @@ Vue.component("CC27 - SC",
                                             </b-form-group>
                                         <!--    
                                         <b-form-group label="QUESTION - Indicate whether the economic operator has it [0..1]">
-                                                <b-form-radio-group id="radio-group-113" v-model="selected113" :options="options" name="radio-options113">
+                                                <b-form-radio-group id="radio-group-101" v-model="selected101" :options="options" name="radio-options101">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-113" v-model="selected113" name="radio-options113" switch>QUESTION - Indicate whether the economic operator has it [0..1]<b>({{ selected113?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Indicate whether the economic operator has it [0..1] <b-form-checkbox id="radio-group-101" v-model="selected101" name="radio-options101" inline="true"  switch><b>({{ selected101?'Yes':'No' }})</b></b-form-checkbox>
                                     </b-card>
                                     </div>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
@@ -2618,21 +2382,21 @@ Vue.component("CC27 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-114" v-model="selected114" :options="options" name="radio-options114">
+                                                <b-form-radio-group id="radio-group-102" v-model="selected102" :options="options" name="radio-options102">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-114" v-model="selected114" name="radio-options114" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected114?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected114">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-102" v-model="selected102" name="radio-options102" inline="true"  switch><b>({{ selected102?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected102">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-115" v-model="selected115" :options="options" name="radio-options115">
+                                                <b-form-radio-group id="radio-group-103" v-model="selected103" :options="options" name="radio-options103">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-115" v-model="selected115" name="radio-options115" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected115?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected115">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-103" v-model="selected103" name="radio-options103" inline="true"  switch><b>({{ selected103?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected103">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2648,12 +2412,12 @@ Vue.component("CC27 - SC",
                                         </div>
                                         <!--    
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                                <b-form-radio-group id="radio-group-116" v-model="selected116" :options="options" name="radio-options116">
+                                                <b-form-radio-group id="radio-group-104" v-model="selected104" :options="options" name="radio-options104">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-116" v-model="selected116" name="radio-options116" switch>QUESTION - Your Answer [1]<b>({{ selected116?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected116">
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-104" v-model="selected104" name="radio-options104" inline="true"  switch><b>({{ selected104?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected104">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Registration number [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2661,7 +2425,7 @@ Vue.component("CC27 - SC",
                                             </b-form-group>
                                         </b-card>
                                         </div>
-                                        <div v-if="!selected116">
+                                        <div v-if="!selected104">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Reasons why your are not registered [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2671,12 +2435,12 @@ Vue.component("CC27 - SC",
                                         </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-117" v-model="selected117" :options="options" name="radio-options117">
+                                                <b-form-radio-group id="radio-group-105" v-model="selected105" :options="options" name="radio-options105">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-117" v-model="selected117" name="radio-options117" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected117?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected117">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-105" v-model="selected105" name="radio-options105" inline="true"  switch><b>({{ selected105?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected105">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2704,12 +2468,12 @@ Vue.component("CC28 - SC",
    "value": "no"
   }
  ],
- "selected118": true,
- "selected119": true,
- "selected120": true,
- "selected121": true,
- "selected122": true,
- "selected123": true
+ "selected106": true,
+ "selected107": true,
+ "selected108": true,
+ "selected109": true,
+ "selected110": true,
+ "selected111": true
 }
                         },
                         template: `<div>
@@ -2719,12 +2483,12 @@ Vue.component("CC28 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-118" v-model="selected118" :options="options" name="radio-options118">
+                                            <b-form-radio-group id="radio-group-106" v-model="selected106" :options="options" name="radio-options106">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-118" v-model="selected118" name="radio-options118" switch>QUESTION - Your Answer [1]<b>({{ selected118?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected118">
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-106" v-model="selected106" name="radio-options106" inline="true"  switch><b>({{ selected106?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="selected106">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - If yes, please describe them [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2732,11 +2496,11 @@ Vue.component("CC28 - SC",
                                             </b-form-group>
                                         <!--    
                                         <b-form-group label="QUESTION - Indicate whether the economic operator has it [0..1]">
-                                                <b-form-radio-group id="radio-group-119" v-model="selected119" :options="options" name="radio-options119">
+                                                <b-form-radio-group id="radio-group-107" v-model="selected107" :options="options" name="radio-options107">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-119" v-model="selected119" name="radio-options119" switch>QUESTION - Indicate whether the economic operator has it [0..1]<b>({{ selected119?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Indicate whether the economic operator has it [0..1] <b-form-checkbox id="radio-group-107" v-model="selected107" name="radio-options107" inline="true"  switch><b>({{ selected107?'Yes':'No' }})</b></b-form-checkbox>
                                     </b-card>
                                     </div>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
@@ -2757,21 +2521,21 @@ Vue.component("CC28 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-120" v-model="selected120" :options="options" name="radio-options120">
+                                                <b-form-radio-group id="radio-group-108" v-model="selected108" :options="options" name="radio-options108">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-120" v-model="selected120" name="radio-options120" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected120?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected120">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-108" v-model="selected108" name="radio-options108" inline="true"  switch><b>({{ selected108?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected108">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-121" v-model="selected121" :options="options" name="radio-options121">
+                                                <b-form-radio-group id="radio-group-109" v-model="selected109" :options="options" name="radio-options109">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-121" v-model="selected121" name="radio-options121" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected121?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected121">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-109" v-model="selected109" name="radio-options109" inline="true"  switch><b>({{ selected109?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected109">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2787,12 +2551,12 @@ Vue.component("CC28 - SC",
                                         </div>
                                         <!--    
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                                <b-form-radio-group id="radio-group-122" v-model="selected122" :options="options" name="radio-options122">
+                                                <b-form-radio-group id="radio-group-110" v-model="selected110" :options="options" name="radio-options110">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-122" v-model="selected122" name="radio-options122" switch>QUESTION - Your Answer [1]<b>({{ selected122?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected122">
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-110" v-model="selected110" name="radio-options110" inline="true"  switch><b>({{ selected110?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected110">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Registration number [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2800,7 +2564,7 @@ Vue.component("CC28 - SC",
                                             </b-form-group>
                                         </b-card>
                                         </div>
-                                        <div v-if="!selected122">
+                                        <div v-if="!selected110">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Reasons why your are not registered [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2810,12 +2574,12 @@ Vue.component("CC28 - SC",
                                         </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-123" v-model="selected123" :options="options" name="radio-options123">
+                                                <b-form-radio-group id="radio-group-111" v-model="selected111" :options="options" name="radio-options111">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-123" v-model="selected123" name="radio-options123" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected123?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected123">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-111" v-model="selected111" name="radio-options111" inline="true"  switch><b>({{ selected111?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected111">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2843,11 +2607,11 @@ Vue.component("CC29 - SC",
    "value": "no"
   }
  ],
- "selected124": true,
- "selected125": true,
- "selected126": true,
- "selected127": true,
- "selected128": true
+ "selected112": true,
+ "selected113": true,
+ "selected114": true,
+ "selected115": true,
+ "selected116": true
 }
                         },
                         template: `<div>
@@ -2857,11 +2621,11 @@ Vue.component("CC29 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-124" v-model="selected124" :options="options" name="radio-options124">
+                                            <b-form-radio-group id="radio-group-112" v-model="selected112" :options="options" name="radio-options112">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-124" v-model="selected124" name="radio-options124" switch>QUESTION - Your Answer [1]<b>({{ selected124?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-112" v-model="selected112" name="radio-options112" inline="true"  switch><b>({{ selected112?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2885,21 +2649,21 @@ Vue.component("CC29 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-125" v-model="selected125" :options="options" name="radio-options125">
+                                                <b-form-radio-group id="radio-group-113" v-model="selected113" :options="options" name="radio-options113">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-125" v-model="selected125" name="radio-options125" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected125?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected125">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-113" v-model="selected113" name="radio-options113" inline="true"  switch><b>({{ selected113?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected113">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-126" v-model="selected126" :options="options" name="radio-options126">
+                                                <b-form-radio-group id="radio-group-114" v-model="selected114" :options="options" name="radio-options114">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-126" v-model="selected126" name="radio-options126" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected126?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected126">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-114" v-model="selected114" name="radio-options114" inline="true"  switch><b>({{ selected114?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected114">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2923,12 +2687,12 @@ Vue.component("CC29 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-127" v-model="selected127" :options="options" name="radio-options127">
+                                                <b-form-radio-group id="radio-group-115" v-model="selected115" :options="options" name="radio-options115">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-127" v-model="selected127" name="radio-options127" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected127?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected127">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-115" v-model="selected115" name="radio-options115" inline="true"  switch><b>({{ selected115?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected115">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2942,12 +2706,12 @@ Vue.component("CC29 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-128" v-model="selected128" :options="options" name="radio-options128">
+                                                <b-form-radio-group id="radio-group-116" v-model="selected116" :options="options" name="radio-options116">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-128" v-model="selected128" name="radio-options128" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected128?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected128">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-116" v-model="selected116" name="radio-options116" inline="true"  switch><b>({{ selected116?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected116">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2975,11 +2739,11 @@ Vue.component("CC30 - SC",
    "value": "no"
   }
  ],
- "selected129": true,
- "selected130": true,
- "selected131": true,
- "selected132": true,
- "selected133": true
+ "selected117": true,
+ "selected118": true,
+ "selected119": true,
+ "selected120": true,
+ "selected121": true
 }
                         },
                         template: `<div>
@@ -2989,11 +2753,11 @@ Vue.component("CC30 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-129" v-model="selected129" :options="options" name="radio-options129">
+                                            <b-form-radio-group id="radio-group-117" v-model="selected117" :options="options" name="radio-options117">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-129" v-model="selected129" name="radio-options129" switch>QUESTION - Your Answer [1]<b>({{ selected129?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-117" v-model="selected117" name="radio-options117" inline="true"  switch><b>({{ selected117?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3012,21 +2776,21 @@ Vue.component("CC30 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-130" v-model="selected130" :options="options" name="radio-options130">
+                                                <b-form-radio-group id="radio-group-118" v-model="selected118" :options="options" name="radio-options118">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-130" v-model="selected130" name="radio-options130" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected130?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected130">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-118" v-model="selected118" name="radio-options118" inline="true"  switch><b>({{ selected118?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected118">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-131" v-model="selected131" :options="options" name="radio-options131">
+                                                <b-form-radio-group id="radio-group-119" v-model="selected119" :options="options" name="radio-options119">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-131" v-model="selected131" name="radio-options131" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected131?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected131">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-119" v-model="selected119" name="radio-options119" inline="true"  switch><b>({{ selected119?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected119">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3050,12 +2814,12 @@ Vue.component("CC30 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-132" v-model="selected132" :options="options" name="radio-options132">
+                                                <b-form-radio-group id="radio-group-120" v-model="selected120" :options="options" name="radio-options120">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-132" v-model="selected132" name="radio-options132" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected132?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected132">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-120" v-model="selected120" name="radio-options120" inline="true"  switch><b>({{ selected120?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected120">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3069,12 +2833,12 @@ Vue.component("CC30 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-133" v-model="selected133" :options="options" name="radio-options133">
+                                                <b-form-radio-group id="radio-group-121" v-model="selected121" :options="options" name="radio-options121">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-133" v-model="selected133" name="radio-options133" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected133?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected133">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-121" v-model="selected121" name="radio-options121" inline="true"  switch><b>({{ selected121?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected121">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3102,11 +2866,11 @@ Vue.component("CC31 - SC",
    "value": "no"
   }
  ],
- "selected134": true,
- "selected135": true,
- "selected136": true,
- "selected137": true,
- "selected138": true
+ "selected122": true,
+ "selected123": true,
+ "selected124": true,
+ "selected125": true,
+ "selected126": true
 }
                         },
                         template: `<div>
@@ -3116,11 +2880,11 @@ Vue.component("CC31 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-134" v-model="selected134" :options="options" name="radio-options134">
+                                            <b-form-radio-group id="radio-group-122" v-model="selected122" :options="options" name="radio-options122">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-134" v-model="selected134" name="radio-options134" switch>QUESTION - Your Answer [1]<b>({{ selected134?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-122" v-model="selected122" name="radio-options122" inline="true"  switch><b>({{ selected122?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3144,21 +2908,21 @@ Vue.component("CC31 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-135" v-model="selected135" :options="options" name="radio-options135">
+                                                <b-form-radio-group id="radio-group-123" v-model="selected123" :options="options" name="radio-options123">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-135" v-model="selected135" name="radio-options135" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected135?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected135">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-123" v-model="selected123" name="radio-options123" inline="true"  switch><b>({{ selected123?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected123">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-136" v-model="selected136" :options="options" name="radio-options136">
+                                                <b-form-radio-group id="radio-group-124" v-model="selected124" :options="options" name="radio-options124">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-136" v-model="selected136" name="radio-options136" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected136?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected136">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-124" v-model="selected124" name="radio-options124" inline="true"  switch><b>({{ selected124?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected124">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3182,12 +2946,12 @@ Vue.component("CC31 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-137" v-model="selected137" :options="options" name="radio-options137">
+                                                <b-form-radio-group id="radio-group-125" v-model="selected125" :options="options" name="radio-options125">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-137" v-model="selected137" name="radio-options137" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected137?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected137">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-125" v-model="selected125" name="radio-options125" inline="true"  switch><b>({{ selected125?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected125">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3201,12 +2965,12 @@ Vue.component("CC31 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-138" v-model="selected138" :options="options" name="radio-options138">
+                                                <b-form-radio-group id="radio-group-126" v-model="selected126" :options="options" name="radio-options126">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-138" v-model="selected138" name="radio-options138" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected138?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected138">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-126" v-model="selected126" name="radio-options126" inline="true"  switch><b>({{ selected126?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected126">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3234,15 +2998,11 @@ Vue.component("CC32 - SC",
    "value": "no"
   }
  ],
- "selected139": true,
- "selected140": true,
- "selected141": true,
- "selected142": true,
- "selected143": true,
- "selected144": true,
- "selected145": true,
- "selected146": true,
- "selected147": true
+ "selected127": true,
+ "selected128": true,
+ "selected129": true,
+ "selected130": true,
+ "selected131": true
 }
                         },
                         template: `<div>
@@ -3252,11 +3012,11 @@ Vue.component("CC32 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-139" v-model="selected139" :options="options" name="radio-options139">
+                                            <b-form-radio-group id="radio-group-127" v-model="selected127" :options="options" name="radio-options127">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-139" v-model="selected139" name="radio-options139" switch>QUESTION - Your Answer [1]<b>({{ selected139?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-127" v-model="selected127" name="radio-options127" inline="true"  switch><b>({{ selected127?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3280,21 +3040,21 @@ Vue.component("CC32 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-140" v-model="selected140" :options="options" name="radio-options140">
+                                                <b-form-radio-group id="radio-group-128" v-model="selected128" :options="options" name="radio-options128">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-140" v-model="selected140" name="radio-options140" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected140?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected140">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-128" v-model="selected128" name="radio-options128" inline="true"  switch><b>({{ selected128?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected128">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-141" v-model="selected141" :options="options" name="radio-options141">
+                                                <b-form-radio-group id="radio-group-129" v-model="selected129" :options="options" name="radio-options129">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-141" v-model="selected141" name="radio-options141" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected141?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected141">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-129" v-model="selected129" name="radio-options129" inline="true"  switch><b>({{ selected129?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected129">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3318,12 +3078,12 @@ Vue.component("CC32 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-142" v-model="selected142" :options="options" name="radio-options142">
+                                                <b-form-radio-group id="radio-group-130" v-model="selected130" :options="options" name="radio-options130">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-142" v-model="selected142" name="radio-options142" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected142?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected142">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-130" v-model="selected130" name="radio-options130" inline="true"  switch><b>({{ selected130?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected130">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3337,111 +3097,19 @@ Vue.component("CC32 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-143" v-model="selected143" :options="options" name="radio-options143">
+                                                <b-form-radio-group id="radio-group-131" v-model="selected131" :options="options" name="radio-options131">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-143" v-model="selected143" name="radio-options143" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected143?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected143">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-131" v-model="selected131" name="radio-options131" inline="true"  switch><b>({{ selected131?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected131">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
                                             </b-form-group>
                                         </b-card>
-                                        </div></b-card></b-card></b-card>
-                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
-                    </b-form-group>
-                    <b-card>
-                    <b-form-group label="REQUIREMENT - Number of fiscal years [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
-                    </b-form-group>
-                    
-                    <b-form-group label="REQUIREMENT - Business domain description [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                    </b-form-group>
-                    
-                    <b-form-group label="REQUIREMENT - Minimum amount requirement [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="MINIMUM_AMOUNT"></b-form-input>
-                    </b-form-group>
-                    
-                                        <!--    
-                                        <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-144" v-model="selected144" :options="options" name="radio-options144">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-144" v-model="selected144" name="radio-options144" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected144?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected144">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-145" v-model="selected145" :options="options" name="radio-options145">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-145" v-model="selected145" name="radio-options145" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected145?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected145">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        </b-card>
-                                        </div>
-                                            <b-form-group label="QUESTION - Start date; End date [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Amount [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-146" v-model="selected146" :options="options" name="radio-options146">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-146" v-model="selected146" name="radio-options146" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected146?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected146">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card>
-                                            <b-form-group label="QUESTION - In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading: [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <!--    
-                                        <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-147" v-model="selected147" :options="options" name="radio-options147">
-                                                </b-form-radio-group>
-                                            </b-form-group>
-                                            -->
-                                        <b-form-checkbox id="radio-group-147" v-model="selected147" name="radio-options147" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected147?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected147">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card></b-card></b-card>
+                                        </div></b-card></b-card></b-card></b-card>
                     </div>`
                     })
 
@@ -3462,9 +3130,9 @@ Vue.component("CC34 - SC",
    "value": "no"
   }
  ],
- "selected148": true,
- "selected149": true,
- "selected150": true
+ "selected132": true,
+ "selected133": true,
+ "selected134": true
 }
                         },
                         template: `<div>
@@ -3498,21 +3166,21 @@ Vue.component("CC34 - SC",
                     </b-card>
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-148" v-model="selected148" :options="options" name="radio-options148">
+                                                <b-form-radio-group id="radio-group-132" v-model="selected132" :options="options" name="radio-options132">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-148" v-model="selected148" name="radio-options148" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected148?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected148">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-132" v-model="selected132" name="radio-options132" inline="true"  switch><b>({{ selected132?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected132">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-149" v-model="selected149" :options="options" name="radio-options149">
+                                                <b-form-radio-group id="radio-group-133" v-model="selected133" :options="options" name="radio-options133">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-149" v-model="selected149" name="radio-options149" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected149?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected149">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-133" v-model="selected133" name="radio-options133" inline="true"  switch><b>({{ selected133?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected133">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3532,12 +3200,12 @@ Vue.component("CC34 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-150" v-model="selected150" :options="options" name="radio-options150">
+                                                <b-form-radio-group id="radio-group-134" v-model="selected134" :options="options" name="radio-options134">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-150" v-model="selected150" name="radio-options150" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected150?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected150">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-134" v-model="selected134" name="radio-options134" inline="true"  switch><b>({{ selected134?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected134">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3565,12 +3233,12 @@ Vue.component("CC35 - SC",
    "value": "no"
   }
  ],
- "selected151": true,
- "selected152": true,
- "selected153": true,
- "selected154": true,
- "selected155": true,
- "selected156": true
+ "selected135": true,
+ "selected136": true,
+ "selected137": true,
+ "selected138": true,
+ "selected139": true,
+ "selected140": true
 }
                         },
                         template: `<div>
@@ -3580,11 +3248,11 @@ Vue.component("CC35 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-151" v-model="selected151" :options="options" name="radio-options151">
+                                            <b-form-radio-group id="radio-group-135" v-model="selected135" :options="options" name="radio-options135">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-151" v-model="selected151" name="radio-options151" switch>QUESTION - Your Answer [1]<b>({{ selected151?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-135" v-model="selected135" name="radio-options135" inline="true"  switch><b>({{ selected135?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3603,21 +3271,21 @@ Vue.component("CC35 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-152" v-model="selected152" :options="options" name="radio-options152">
+                                                <b-form-radio-group id="radio-group-136" v-model="selected136" :options="options" name="radio-options136">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-152" v-model="selected152" name="radio-options152" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected152?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected152">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-136" v-model="selected136" name="radio-options136" inline="true"  switch><b>({{ selected136?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected136">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-153" v-model="selected153" :options="options" name="radio-options153">
+                                                <b-form-radio-group id="radio-group-137" v-model="selected137" :options="options" name="radio-options137">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-153" v-model="selected153" name="radio-options153" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected153?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected153">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-137" v-model="selected137" name="radio-options137" inline="true"  switch><b>({{ selected137?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected137">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3637,26 +3305,26 @@ Vue.component("CC35 - SC",
                                             </b-form-group>
                                         <!--    
                                         <b-form-group label="QUESTION - As an EO I will commit to obtain the minimum amount required [1]">
-                                                <b-form-radio-group id="radio-group-154" v-model="selected154" :options="options" name="radio-options154">
+                                                <b-form-radio-group id="radio-group-138" v-model="selected138" :options="options" name="radio-options138">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-154" v-model="selected154" name="radio-options154" switch>QUESTION - As an EO I will commit to obtain the minimum amount required [1]<b>({{ selected154?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION As an EO I will commit to obtain the minimum amount required [1] <b-form-checkbox id="radio-group-138" v-model="selected138" name="radio-options138" inline="true"  switch><b>({{ selected138?'Yes':'No' }})</b></b-form-checkbox>
                                         <!--    
                                         <b-form-group label="QUESTION - I am exempt [1]">
-                                                <b-form-radio-group id="radio-group-155" v-model="selected155" :options="options" name="radio-options155">
+                                                <b-form-radio-group id="radio-group-139" v-model="selected139" :options="options" name="radio-options139">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-155" v-model="selected155" name="radio-options155" switch>QUESTION - I am exempt [1]<b>({{ selected155?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        QUESTION I am exempt [1] <b-form-checkbox id="radio-group-139" v-model="selected139" name="radio-options139" inline="true"  switch><b>({{ selected139?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-156" v-model="selected156" :options="options" name="radio-options156">
+                                                <b-form-radio-group id="radio-group-140" v-model="selected140" :options="options" name="radio-options140">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-156" v-model="selected156" name="radio-options156" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected156?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected156">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-140" v-model="selected140" name="radio-options140" inline="true"  switch><b>({{ selected140?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected140">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3684,10 +3352,10 @@ Vue.component("CC36 - SC",
    "value": "no"
   }
  ],
- "selected157": true,
- "selected158": true,
- "selected159": true,
- "selected160": true
+ "selected141": true,
+ "selected142": true,
+ "selected143": true,
+ "selected144": true
 }
                         },
                         template: `<div>
@@ -3697,11 +3365,11 @@ Vue.component("CC36 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-157" v-model="selected157" :options="options" name="radio-options157">
+                                            <b-form-radio-group id="radio-group-141" v-model="selected141" :options="options" name="radio-options141">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-157" v-model="selected157" name="radio-options157" switch>QUESTION - Your Answer [1]<b>({{ selected157?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-141" v-model="selected141" name="radio-options141" inline="true"  switch><b>({{ selected141?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3734,12 +3402,12 @@ Vue.component("CC36 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-158" v-model="selected158" :options="options" name="radio-options158">
+                                                <b-form-radio-group id="radio-group-142" v-model="selected142" :options="options" name="radio-options142">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-158" v-model="selected158" name="radio-options158" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected158?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected158">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-142" v-model="selected142" name="radio-options142" inline="true"  switch><b>({{ selected142?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected142">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3763,12 +3431,12 @@ Vue.component("CC36 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-159" v-model="selected159" :options="options" name="radio-options159">
+                                                <b-form-radio-group id="radio-group-143" v-model="selected143" :options="options" name="radio-options143">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-159" v-model="selected159" name="radio-options159" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected159?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected159">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-143" v-model="selected143" name="radio-options143" inline="true"  switch><b>({{ selected143?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected143">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3787,12 +3455,12 @@ Vue.component("CC36 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-160" v-model="selected160" :options="options" name="radio-options160">
+                                                <b-form-radio-group id="radio-group-144" v-model="selected144" :options="options" name="radio-options144">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-160" v-model="selected160" name="radio-options160" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected160?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected160">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-144" v-model="selected144" name="radio-options144" inline="true"  switch><b>({{ selected144?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected144">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3820,9 +3488,9 @@ Vue.component("CC37 - SC",
    "value": "no"
   }
  ],
- "selected161": true,
- "selected162": true,
- "selected163": true
+ "selected145": true,
+ "selected146": true,
+ "selected147": true
 }
                         },
                         template: `<div>
@@ -3832,11 +3500,11 @@ Vue.component("CC37 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-161" v-model="selected161" :options="options" name="radio-options161">
+                                            <b-form-radio-group id="radio-group-145" v-model="selected145" :options="options" name="radio-options145">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-161" v-model="selected161" name="radio-options161" switch>QUESTION - Your Answer [1]<b>({{ selected161?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-145" v-model="selected145" name="radio-options145" inline="true"  switch><b>({{ selected145?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3875,11 +3543,11 @@ Vue.component("CC37 - SC",
                                             </b-form-group>
                                         <!--    
                                         <b-form-group label="QUESTION - Confidential [0..1]">
-                                                <b-form-radio-group id="radio-group-162" v-model="selected162" :options="options" name="radio-options162">
+                                                <b-form-radio-group id="radio-group-146" v-model="selected146" :options="options" name="radio-options146">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-162" v-model="selected162" name="radio-options162" switch>QUESTION - Confidential [0..1]<b>({{ selected162?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                        QUESTION Confidential [0..1] <b-form-checkbox id="radio-group-146" v-model="selected146" name="radio-options146" inline="true"  switch><b>({{ selected146?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Recipient name [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
@@ -3898,12 +3566,12 @@ Vue.component("CC37 - SC",
                                             </b-form-group></b-card><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-163" v-model="selected163" :options="options" name="radio-options163">
+                                                <b-form-radio-group id="radio-group-147" v-model="selected147" :options="options" name="radio-options147">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-163" v-model="selected163" name="radio-options163" switch>QUESTION - Is this information available online? [1]<b>({{ selected163?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected163">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-147" v-model="selected147" name="radio-options147" inline="true"  switch><b>({{ selected147?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected147">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3931,9 +3599,9 @@ Vue.component("CC38 - SC",
    "value": "no"
   }
  ],
- "selected164": true,
- "selected165": true,
- "selected166": true
+ "selected148": true,
+ "selected149": true,
+ "selected150": true
 }
                         },
                         template: `<div>
@@ -3943,11 +3611,11 @@ Vue.component("CC38 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-164" v-model="selected164" :options="options" name="radio-options164">
+                                            <b-form-radio-group id="radio-group-148" v-model="selected148" :options="options" name="radio-options148">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-164" v-model="selected164" name="radio-options164" switch>QUESTION - Your Answer [1]<b>({{ selected164?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-148" v-model="selected148" name="radio-options148" inline="true"  switch><b>({{ selected148?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3986,11 +3654,11 @@ Vue.component("CC38 - SC",
                                             </b-form-group>
                                         <!--    
                                         <b-form-group label="QUESTION - Confidential [0..1]">
-                                                <b-form-radio-group id="radio-group-165" v-model="selected165" :options="options" name="radio-options165">
+                                                <b-form-radio-group id="radio-group-149" v-model="selected149" :options="options" name="radio-options149">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-165" v-model="selected165" name="radio-options165" switch>QUESTION - Confidential [0..1]<b>({{ selected165?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                        QUESTION Confidential [0..1] <b-form-checkbox id="radio-group-149" v-model="selected149" name="radio-options149" inline="true"  switch><b>({{ selected149?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Recipient name [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
@@ -4009,12 +3677,12 @@ Vue.component("CC38 - SC",
                                             </b-form-group></b-card><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-166" v-model="selected166" :options="options" name="radio-options166">
+                                                <b-form-radio-group id="radio-group-150" v-model="selected150" :options="options" name="radio-options150">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-166" v-model="selected166" name="radio-options166" switch>QUESTION - Is this information available online? [1]<b>({{ selected166?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected166">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-150" v-model="selected150" name="radio-options150" inline="true"  switch><b>({{ selected150?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected150">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4042,9 +3710,9 @@ Vue.component("CC39 - SC",
    "value": "no"
   }
  ],
- "selected167": true,
- "selected168": true,
- "selected169": true
+ "selected151": true,
+ "selected152": true,
+ "selected153": true
 }
                         },
                         template: `<div>
@@ -4054,11 +3722,11 @@ Vue.component("CC39 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-167" v-model="selected167" :options="options" name="radio-options167">
+                                            <b-form-radio-group id="radio-group-151" v-model="selected151" :options="options" name="radio-options151">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-167" v-model="selected167" name="radio-options167" switch>QUESTION - Your Answer [1]<b>({{ selected167?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-151" v-model="selected151" name="radio-options151" inline="true"  switch><b>({{ selected151?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4097,11 +3765,11 @@ Vue.component("CC39 - SC",
                                             </b-form-group>
                                         <!--    
                                         <b-form-group label="QUESTION - Confidential [0..1]">
-                                                <b-form-radio-group id="radio-group-168" v-model="selected168" :options="options" name="radio-options168">
+                                                <b-form-radio-group id="radio-group-152" v-model="selected152" :options="options" name="radio-options152">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-168" v-model="selected168" name="radio-options168" switch>QUESTION - Confidential [0..1]<b>({{ selected168?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                        QUESTION Confidential [0..1] <b-form-checkbox id="radio-group-152" v-model="selected152" name="radio-options152" inline="true"  switch><b>({{ selected152?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Recipient name [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
@@ -4120,12 +3788,12 @@ Vue.component("CC39 - SC",
                                             </b-form-group></b-card><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-169" v-model="selected169" :options="options" name="radio-options169">
+                                                <b-form-radio-group id="radio-group-153" v-model="selected153" :options="options" name="radio-options153">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-169" v-model="selected169" name="radio-options169" switch>QUESTION - Is this information available online? [1]<b>({{ selected169?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected169">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-153" v-model="selected153" name="radio-options153" inline="true"  switch><b>({{ selected153?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected153">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4153,11 +3821,11 @@ Vue.component("CC40 - SC",
    "value": "no"
   }
  ],
- "selected170": true,
- "selected171": true,
- "selected172": true,
- "selected173": true,
- "selected174": true
+ "selected154": true,
+ "selected155": true,
+ "selected156": true,
+ "selected157": true,
+ "selected158": true
 }
                         },
                         template: `<div>
@@ -4167,11 +3835,11 @@ Vue.component("CC40 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-170" v-model="selected170" :options="options" name="radio-options170">
+                                            <b-form-radio-group id="radio-group-154" v-model="selected154" :options="options" name="radio-options154">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-170" v-model="selected170" name="radio-options170" switch>QUESTION - Your Answer [1]<b>({{ selected170?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-154" v-model="selected154" name="radio-options154" inline="true"  switch><b>({{ selected154?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4185,21 +3853,21 @@ Vue.component("CC40 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-171" v-model="selected171" :options="options" name="radio-options171">
+                                                <b-form-radio-group id="radio-group-155" v-model="selected155" :options="options" name="radio-options155">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-171" v-model="selected171" name="radio-options171" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected171?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected171">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-155" v-model="selected155" name="radio-options155" inline="true"  switch><b>({{ selected155?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected155">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-172" v-model="selected172" :options="options" name="radio-options172">
+                                                <b-form-radio-group id="radio-group-156" v-model="selected156" :options="options" name="radio-options156">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-172" v-model="selected172" name="radio-options172" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected172?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected172">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-156" v-model="selected156" name="radio-options156" inline="true"  switch><b>({{ selected156?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected156">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4239,12 +3907,12 @@ Vue.component("CC40 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-173" v-model="selected173" :options="options" name="radio-options173">
+                                                <b-form-radio-group id="radio-group-157" v-model="selected157" :options="options" name="radio-options157">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-173" v-model="selected173" name="radio-options173" switch>QUESTION - Is this information available online? [1]<b>({{ selected173?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected173">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-157" v-model="selected157" name="radio-options157" inline="true"  switch><b>({{ selected157?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected157">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4266,12 +3934,12 @@ Vue.component("CC40 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-174" v-model="selected174" :options="options" name="radio-options174">
+                                                <b-form-radio-group id="radio-group-158" v-model="selected158" :options="options" name="radio-options158">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-174" v-model="selected174" name="radio-options174" switch>QUESTION - Is this information available online? [1]<b>({{ selected174?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected174">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-158" v-model="selected158" name="radio-options158" inline="true"  switch><b>({{ selected158?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected158">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4299,11 +3967,11 @@ Vue.component("CC41 - SC",
    "value": "no"
   }
  ],
- "selected175": true,
- "selected176": true,
- "selected177": true,
- "selected178": true,
- "selected179": true
+ "selected159": true,
+ "selected160": true,
+ "selected161": true,
+ "selected162": true,
+ "selected163": true
 }
                         },
                         template: `<div>
@@ -4313,11 +3981,11 @@ Vue.component("CC41 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-175" v-model="selected175" :options="options" name="radio-options175">
+                                            <b-form-radio-group id="radio-group-159" v-model="selected159" :options="options" name="radio-options159">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-175" v-model="selected175" name="radio-options175" switch>QUESTION - Your Answer [1]<b>({{ selected175?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-159" v-model="selected159" name="radio-options159" inline="true"  switch><b>({{ selected159?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card><p>Requirement Group to define different lots with different requirements <em>Requirement Group to define different lots with different requirements</em> [<em>1..n</em>]</p>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4331,21 +3999,21 @@ Vue.component("CC41 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-176" v-model="selected176" :options="options" name="radio-options176">
+                                                <b-form-radio-group id="radio-group-160" v-model="selected160" :options="options" name="radio-options160">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-176" v-model="selected176" name="radio-options176" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected176?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected176">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-160" v-model="selected160" name="radio-options160" inline="true"  switch><b>({{ selected160?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected160">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-177" v-model="selected177" :options="options" name="radio-options177">
+                                                <b-form-radio-group id="radio-group-161" v-model="selected161" :options="options" name="radio-options161">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-177" v-model="selected177" name="radio-options177" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected177?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected177">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-161" v-model="selected161" name="radio-options161" inline="true"  switch><b>({{ selected161?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected161">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4385,12 +4053,12 @@ Vue.component("CC41 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-178" v-model="selected178" :options="options" name="radio-options178">
+                                                <b-form-radio-group id="radio-group-162" v-model="selected162" :options="options" name="radio-options162">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-178" v-model="selected178" name="radio-options178" switch>QUESTION - Is this information available online? [1]<b>({{ selected178?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected178">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-162" v-model="selected162" name="radio-options162" inline="true"  switch><b>({{ selected162?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected162">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4412,12 +4080,12 @@ Vue.component("CC41 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-179" v-model="selected179" :options="options" name="radio-options179">
+                                                <b-form-radio-group id="radio-group-163" v-model="selected163" :options="options" name="radio-options163">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-179" v-model="selected179" name="radio-options179" switch>QUESTION - Is this information available online? [1]<b>({{ selected179?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected179">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-163" v-model="selected163" name="radio-options163" inline="true"  switch><b>({{ selected163?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected163">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4445,10 +4113,10 @@ Vue.component("CC42 - SC",
    "value": "no"
   }
  ],
- "selected180": true,
- "selected181": true,
- "selected182": true,
- "selected183": true
+ "selected164": true,
+ "selected165": true,
+ "selected166": true,
+ "selected167": true
 }
                         },
                         template: `<div>
@@ -4458,11 +4126,11 @@ Vue.component("CC42 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-180" v-model="selected180" :options="options" name="radio-options180">
+                                            <b-form-radio-group id="radio-group-164" v-model="selected164" :options="options" name="radio-options164">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-180" v-model="selected180" name="radio-options180" switch>QUESTION - Your Answer [1]<b>({{ selected180?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-164" v-model="selected164" name="radio-options164" inline="true"  switch><b>({{ selected164?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4476,21 +4144,21 @@ Vue.component("CC42 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-181" v-model="selected181" :options="options" name="radio-options181">
+                                                <b-form-radio-group id="radio-group-165" v-model="selected165" :options="options" name="radio-options165">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-181" v-model="selected181" name="radio-options181" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected181?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected181">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-165" v-model="selected165" name="radio-options165" inline="true"  switch><b>({{ selected165?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected165">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-182" v-model="selected182" :options="options" name="radio-options182">
+                                                <b-form-radio-group id="radio-group-166" v-model="selected166" :options="options" name="radio-options166">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-182" v-model="selected182" name="radio-options182" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected182?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected182">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-166" v-model="selected166" name="radio-options166" inline="true"  switch><b>({{ selected166?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected166">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4510,12 +4178,12 @@ Vue.component("CC42 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-183" v-model="selected183" :options="options" name="radio-options183">
+                                                <b-form-radio-group id="radio-group-167" v-model="selected167" :options="options" name="radio-options167">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-183" v-model="selected183" name="radio-options183" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected183?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected183">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-167" v-model="selected167" name="radio-options167" inline="true"  switch><b>({{ selected167?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected167">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4543,10 +4211,10 @@ Vue.component("CC43 - SC",
    "value": "no"
   }
  ],
- "selected184": true,
- "selected185": true,
- "selected186": true,
- "selected187": true
+ "selected168": true,
+ "selected169": true,
+ "selected170": true,
+ "selected171": true
 }
                         },
                         template: `<div>
@@ -4556,11 +4224,11 @@ Vue.component("CC43 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-184" v-model="selected184" :options="options" name="radio-options184">
+                                            <b-form-radio-group id="radio-group-168" v-model="selected168" :options="options" name="radio-options168">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-184" v-model="selected184" name="radio-options184" switch>QUESTION - Your Answer [1]<b>({{ selected184?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-168" v-model="selected168" name="radio-options168" inline="true"  switch><b>({{ selected168?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4574,21 +4242,21 @@ Vue.component("CC43 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-185" v-model="selected185" :options="options" name="radio-options185">
+                                                <b-form-radio-group id="radio-group-169" v-model="selected169" :options="options" name="radio-options169">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-185" v-model="selected185" name="radio-options185" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected185?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected185">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-169" v-model="selected169" name="radio-options169" inline="true"  switch><b>({{ selected169?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected169">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-186" v-model="selected186" :options="options" name="radio-options186">
+                                                <b-form-radio-group id="radio-group-170" v-model="selected170" :options="options" name="radio-options170">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-186" v-model="selected186" name="radio-options186" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected186?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected186">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-170" v-model="selected170" name="radio-options170" inline="true"  switch><b>({{ selected170?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected170">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4608,12 +4276,12 @@ Vue.component("CC43 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-187" v-model="selected187" :options="options" name="radio-options187">
+                                                <b-form-radio-group id="radio-group-171" v-model="selected171" :options="options" name="radio-options171">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-187" v-model="selected187" name="radio-options187" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected187?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected187">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-171" v-model="selected171" name="radio-options171" inline="true"  switch><b>({{ selected171?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected171">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4641,10 +4309,10 @@ Vue.component("CC44 - SC",
    "value": "no"
   }
  ],
- "selected188": true,
- "selected189": true,
- "selected190": true,
- "selected191": true
+ "selected172": true,
+ "selected173": true,
+ "selected174": true,
+ "selected175": true
 }
                         },
                         template: `<div>
@@ -4654,11 +4322,11 @@ Vue.component("CC44 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-188" v-model="selected188" :options="options" name="radio-options188">
+                                            <b-form-radio-group id="radio-group-172" v-model="selected172" :options="options" name="radio-options172">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-188" v-model="selected188" name="radio-options188" switch>QUESTION - Your Answer [1]<b>({{ selected188?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-172" v-model="selected172" name="radio-options172" inline="true"  switch><b>({{ selected172?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4672,21 +4340,21 @@ Vue.component("CC44 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-189" v-model="selected189" :options="options" name="radio-options189">
+                                                <b-form-radio-group id="radio-group-173" v-model="selected173" :options="options" name="radio-options173">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-189" v-model="selected189" name="radio-options189" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected189?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected189">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-173" v-model="selected173" name="radio-options173" inline="true"  switch><b>({{ selected173?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected173">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-190" v-model="selected190" :options="options" name="radio-options190">
+                                                <b-form-radio-group id="radio-group-174" v-model="selected174" :options="options" name="radio-options174">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-190" v-model="selected190" name="radio-options190" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected190?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected190">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-174" v-model="selected174" name="radio-options174" inline="true"  switch><b>({{ selected174?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected174">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4706,12 +4374,12 @@ Vue.component("CC44 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-191" v-model="selected191" :options="options" name="radio-options191">
+                                                <b-form-radio-group id="radio-group-175" v-model="selected175" :options="options" name="radio-options175">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-191" v-model="selected191" name="radio-options191" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected191?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected191">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-175" v-model="selected175" name="radio-options175" inline="true"  switch><b>({{ selected175?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected175">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4739,10 +4407,10 @@ Vue.component("CC45 - SC",
    "value": "no"
   }
  ],
- "selected192": true,
- "selected193": true,
- "selected194": true,
- "selected195": true
+ "selected176": true,
+ "selected177": true,
+ "selected178": true,
+ "selected179": true
 }
                         },
                         template: `<div>
@@ -4752,11 +4420,11 @@ Vue.component("CC45 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-192" v-model="selected192" :options="options" name="radio-options192">
+                                            <b-form-radio-group id="radio-group-176" v-model="selected176" :options="options" name="radio-options176">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-192" v-model="selected192" name="radio-options192" switch>QUESTION - Your Answer [1]<b>({{ selected192?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-176" v-model="selected176" name="radio-options176" inline="true"  switch><b>({{ selected176?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4770,21 +4438,21 @@ Vue.component("CC45 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-193" v-model="selected193" :options="options" name="radio-options193">
+                                                <b-form-radio-group id="radio-group-177" v-model="selected177" :options="options" name="radio-options177">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-193" v-model="selected193" name="radio-options193" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected193?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected193">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-177" v-model="selected177" name="radio-options177" inline="true"  switch><b>({{ selected177?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected177">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-194" v-model="selected194" :options="options" name="radio-options194">
+                                                <b-form-radio-group id="radio-group-178" v-model="selected178" :options="options" name="radio-options178">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-194" v-model="selected194" name="radio-options194" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected194?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected194">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-178" v-model="selected178" name="radio-options178" inline="true"  switch><b>({{ selected178?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected178">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4804,12 +4472,12 @@ Vue.component("CC45 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-195" v-model="selected195" :options="options" name="radio-options195">
+                                                <b-form-radio-group id="radio-group-179" v-model="selected179" :options="options" name="radio-options179">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-195" v-model="selected195" name="radio-options195" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected195?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected195">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-179" v-model="selected179" name="radio-options179" inline="true"  switch><b>({{ selected179?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected179">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4837,10 +4505,10 @@ Vue.component("CC46 - SC",
    "value": "no"
   }
  ],
- "selected196": true,
- "selected197": true,
- "selected198": true,
- "selected199": true
+ "selected180": true,
+ "selected181": true,
+ "selected182": true,
+ "selected183": true
 }
                         },
                         template: `<div>
@@ -4850,11 +4518,11 @@ Vue.component("CC46 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-196" v-model="selected196" :options="options" name="radio-options196">
+                                            <b-form-radio-group id="radio-group-180" v-model="selected180" :options="options" name="radio-options180">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-196" v-model="selected196" name="radio-options196" switch>QUESTION - Your Answer [1]<b>({{ selected196?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-180" v-model="selected180" name="radio-options180" inline="true"  switch><b>({{ selected180?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4868,21 +4536,21 @@ Vue.component("CC46 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-197" v-model="selected197" :options="options" name="radio-options197">
+                                                <b-form-radio-group id="radio-group-181" v-model="selected181" :options="options" name="radio-options181">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-197" v-model="selected197" name="radio-options197" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected197?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected197">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-181" v-model="selected181" name="radio-options181" inline="true"  switch><b>({{ selected181?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected181">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-198" v-model="selected198" :options="options" name="radio-options198">
+                                                <b-form-radio-group id="radio-group-182" v-model="selected182" :options="options" name="radio-options182">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-198" v-model="selected198" name="radio-options198" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected198?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected198">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-182" v-model="selected182" name="radio-options182" inline="true"  switch><b>({{ selected182?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected182">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4902,12 +4570,12 @@ Vue.component("CC46 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-199" v-model="selected199" :options="options" name="radio-options199">
+                                                <b-form-radio-group id="radio-group-183" v-model="selected183" :options="options" name="radio-options183">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-199" v-model="selected199" name="radio-options199" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected199?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected199">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-183" v-model="selected183" name="radio-options183" inline="true"  switch><b>({{ selected183?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected183">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4935,10 +4603,10 @@ Vue.component("CC47 - SC",
    "value": "no"
   }
  ],
- "selected200": true,
- "selected201": true,
- "selected202": true,
- "selected203": true
+ "selected184": true,
+ "selected185": true,
+ "selected186": true,
+ "selected187": true
 }
                         },
                         template: `<div>
@@ -4948,11 +4616,11 @@ Vue.component("CC47 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-200" v-model="selected200" :options="options" name="radio-options200">
+                                            <b-form-radio-group id="radio-group-184" v-model="selected184" :options="options" name="radio-options184">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-200" v-model="selected200" name="radio-options200" switch>QUESTION - Your Answer [1]<b>({{ selected200?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-184" v-model="selected184" name="radio-options184" inline="true"  switch><b>({{ selected184?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4966,21 +4634,21 @@ Vue.component("CC47 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-201" v-model="selected201" :options="options" name="radio-options201">
+                                                <b-form-radio-group id="radio-group-185" v-model="selected185" :options="options" name="radio-options185">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-201" v-model="selected201" name="radio-options201" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected201?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected201">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-185" v-model="selected185" name="radio-options185" inline="true"  switch><b>({{ selected185?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected185">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-202" v-model="selected202" :options="options" name="radio-options202">
+                                                <b-form-radio-group id="radio-group-186" v-model="selected186" :options="options" name="radio-options186">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-202" v-model="selected202" name="radio-options202" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected202?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected202">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-186" v-model="selected186" name="radio-options186" inline="true"  switch><b>({{ selected186?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected186">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5032,12 +4700,12 @@ Vue.component("CC47 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-203" v-model="selected203" :options="options" name="radio-options203">
+                                                <b-form-radio-group id="radio-group-187" v-model="selected187" :options="options" name="radio-options187">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-203" v-model="selected203" name="radio-options203" switch>QUESTION - Is this information available online? [1]<b>({{ selected203?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected203">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-187" v-model="selected187" name="radio-options187" inline="true"  switch><b>({{ selected187?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected187">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5065,11 +4733,11 @@ Vue.component("CC48 - SC",
    "value": "no"
   }
  ],
- "selected204": true,
- "selected205": true,
- "selected206": true,
- "selected207": true,
- "selected208": true
+ "selected188": true,
+ "selected189": true,
+ "selected190": true,
+ "selected191": true,
+ "selected192": true
 }
                         },
                         template: `<div>
@@ -5079,11 +4747,11 @@ Vue.component("CC48 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-204" v-model="selected204" :options="options" name="radio-options204">
+                                            <b-form-radio-group id="radio-group-188" v-model="selected188" :options="options" name="radio-options188">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-204" v-model="selected204" name="radio-options204" switch>QUESTION - Your Answer [1]<b>({{ selected204?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-188" v-model="selected188" name="radio-options188" inline="true"  switch><b>({{ selected188?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5097,21 +4765,21 @@ Vue.component("CC48 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-205" v-model="selected205" :options="options" name="radio-options205">
+                                                <b-form-radio-group id="radio-group-189" v-model="selected189" :options="options" name="radio-options189">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-205" v-model="selected205" name="radio-options205" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected205?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected205">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-189" v-model="selected189" name="radio-options189" inline="true"  switch><b>({{ selected189?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected189">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-206" v-model="selected206" :options="options" name="radio-options206">
+                                                <b-form-radio-group id="radio-group-190" v-model="selected190" :options="options" name="radio-options190">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-206" v-model="selected206" name="radio-options206" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected206?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected206">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-190" v-model="selected190" name="radio-options190" inline="true"  switch><b>({{ selected190?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected190">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5127,19 +4795,19 @@ Vue.component("CC48 - SC",
                                         </div>
                                         <!--    
                                         <b-form-group label="QUESTION - Do you allow checks? [1]">
-                                                <b-form-radio-group id="radio-group-207" v-model="selected207" :options="options" name="radio-options207">
+                                                <b-form-radio-group id="radio-group-191" v-model="selected191" :options="options" name="radio-options191">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-207" v-model="selected207" name="radio-options207" switch>QUESTION - Do you allow checks? [1]<b>({{ selected207?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        QUESTION Do you allow checks? [1] <b-form-checkbox id="radio-group-191" v-model="selected191" name="radio-options191" inline="true"  switch><b>({{ selected191?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-208" v-model="selected208" :options="options" name="radio-options208">
+                                                <b-form-radio-group id="radio-group-192" v-model="selected192" :options="options" name="radio-options192">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-208" v-model="selected208" name="radio-options208" switch>QUESTION - Is this information available online? [1]<b>({{ selected208?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected208">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-192" v-model="selected192" name="radio-options192" inline="true"  switch><b>({{ selected192?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected192">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5167,10 +4835,10 @@ Vue.component("CC49 - SC",
    "value": "no"
   }
  ],
- "selected209": true,
- "selected210": true,
- "selected211": true,
- "selected212": true
+ "selected193": true,
+ "selected194": true,
+ "selected195": true,
+ "selected196": true
 }
                         },
                         template: `<div>
@@ -5180,11 +4848,11 @@ Vue.component("CC49 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-209" v-model="selected209" :options="options" name="radio-options209">
+                                            <b-form-radio-group id="radio-group-193" v-model="selected193" :options="options" name="radio-options193">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-209" v-model="selected209" name="radio-options209" switch>QUESTION - Your Answer [1]<b>({{ selected209?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-193" v-model="selected193" name="radio-options193" inline="true"  switch><b>({{ selected193?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5203,21 +4871,21 @@ Vue.component("CC49 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-210" v-model="selected210" :options="options" name="radio-options210">
+                                                <b-form-radio-group id="radio-group-194" v-model="selected194" :options="options" name="radio-options194">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-210" v-model="selected210" name="radio-options210" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected210?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected210">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-194" v-model="selected194" name="radio-options194" inline="true"  switch><b>({{ selected194?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected194">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-211" v-model="selected211" :options="options" name="radio-options211">
+                                                <b-form-radio-group id="radio-group-195" v-model="selected195" :options="options" name="radio-options195">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-211" v-model="selected211" name="radio-options211" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected211?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected211">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-195" v-model="selected195" name="radio-options195" inline="true"  switch><b>({{ selected195?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected195">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5241,12 +4909,12 @@ Vue.component("CC49 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-212" v-model="selected212" :options="options" name="radio-options212">
+                                                <b-form-radio-group id="radio-group-196" v-model="selected196" :options="options" name="radio-options196">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-212" v-model="selected212" name="radio-options212" switch>QUESTION - Is this information available online? [1]<b>({{ selected212?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected212">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-196" v-model="selected196" name="radio-options196" inline="true"  switch><b>({{ selected196?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected196">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5274,10 +4942,10 @@ Vue.component("CC50 - SC",
    "value": "no"
   }
  ],
- "selected213": true,
- "selected214": true,
- "selected215": true,
- "selected216": true
+ "selected197": true,
+ "selected198": true,
+ "selected199": true,
+ "selected200": true
 }
                         },
                         template: `<div>
@@ -5287,11 +4955,11 @@ Vue.component("CC50 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-213" v-model="selected213" :options="options" name="radio-options213">
+                                            <b-form-radio-group id="radio-group-197" v-model="selected197" :options="options" name="radio-options197">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-213" v-model="selected213" name="radio-options213" switch>QUESTION - Your Answer [1]<b>({{ selected213?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-197" v-model="selected197" name="radio-options197" inline="true"  switch><b>({{ selected197?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5310,21 +4978,21 @@ Vue.component("CC50 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-214" v-model="selected214" :options="options" name="radio-options214">
+                                                <b-form-radio-group id="radio-group-198" v-model="selected198" :options="options" name="radio-options198">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-214" v-model="selected214" name="radio-options214" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected214?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected214">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-198" v-model="selected198" name="radio-options198" inline="true"  switch><b>({{ selected198?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected198">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-215" v-model="selected215" :options="options" name="radio-options215">
+                                                <b-form-radio-group id="radio-group-199" v-model="selected199" :options="options" name="radio-options199">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-215" v-model="selected215" name="radio-options215" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected215?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected215">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-199" v-model="selected199" name="radio-options199" inline="true"  switch><b>({{ selected199?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected199">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5348,12 +5016,12 @@ Vue.component("CC50 - SC",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-216" v-model="selected216" :options="options" name="radio-options216">
+                                                <b-form-radio-group id="radio-group-200" v-model="selected200" :options="options" name="radio-options200">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-216" v-model="selected216" name="radio-options216" switch>QUESTION - Is this information available online? [1]<b>({{ selected216?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected216">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-200" v-model="selected200" name="radio-options200" inline="true"  switch><b>({{ selected200?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected200">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5381,10 +5049,10 @@ Vue.component("CC51 - SC",
    "value": "no"
   }
  ],
- "selected217": true,
- "selected218": true,
- "selected219": true,
- "selected220": true
+ "selected201": true,
+ "selected202": true,
+ "selected203": true,
+ "selected204": true
 }
                         },
                         template: `<div>
@@ -5394,30 +5062,30 @@ Vue.component("CC51 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-217" v-model="selected217" :options="options" name="radio-options217">
+                                            <b-form-radio-group id="radio-group-201" v-model="selected201" :options="options" name="radio-options201">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-217" v-model="selected217" name="radio-options217" switch>QUESTION - Your Answer [1]<b>({{ selected217?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-201" v-model="selected201" name="radio-options201" inline="true"  switch><b>({{ selected201?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                            <b-form-radio-group id="radio-group-218" v-model="selected218" :options="options" name="radio-options218">
+                                            <b-form-radio-group id="radio-group-202" v-model="selected202" :options="options" name="radio-options202">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-218" v-model="selected218" name="radio-options218" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected218?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="!selected218">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-202" v-model="selected202" name="radio-options202" inline="true"  switch><b>({{ selected202?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="!selected202">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-219" v-model="selected219" :options="options" name="radio-options219">
+                                                <b-form-radio-group id="radio-group-203" v-model="selected203" :options="options" name="radio-options203">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-219" v-model="selected219" name="radio-options219" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected219?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected219">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-203" v-model="selected203" name="radio-options203" inline="true"  switch><b>({{ selected203?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected203">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5439,12 +5107,12 @@ Vue.component("CC51 - SC",
                                         </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-220" v-model="selected220" :options="options" name="radio-options220">
+                                                <b-form-radio-group id="radio-group-204" v-model="selected204" :options="options" name="radio-options204">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-220" v-model="selected220" name="radio-options220" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected220?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected220">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-204" v-model="selected204" name="radio-options204" inline="true"  switch><b>({{ selected204?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected204">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5473,11 +5141,11 @@ Vue.component("CC52 - SC",
    "value": "no"
   }
  ],
- "selected221": true,
- "selected222": true,
- "selected223": true,
- "selected224": true,
- "selected225": true
+ "selected205": true,
+ "selected206": true,
+ "selected207": true,
+ "selected208": true,
+ "selected209": true
 }
                         },
                         template: `<div>
@@ -5487,30 +5155,30 @@ Vue.component("CC52 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-221" v-model="selected221" :options="options" name="radio-options221">
+                                            <b-form-radio-group id="radio-group-205" v-model="selected205" :options="options" name="radio-options205">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-221" v-model="selected221" name="radio-options221" switch>QUESTION - Your Answer [1]<b>({{ selected221?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-205" v-model="selected205" name="radio-options205" inline="true"  switch><b>({{ selected205?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                            <b-form-radio-group id="radio-group-222" v-model="selected222" :options="options" name="radio-options222">
+                                            <b-form-radio-group id="radio-group-206" v-model="selected206" :options="options" name="radio-options206">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-222" v-model="selected222" name="radio-options222" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected222?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="!selected222">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-206" v-model="selected206" name="radio-options206" inline="true"  switch><b>({{ selected206?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="!selected206">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-223" v-model="selected223" :options="options" name="radio-options223">
+                                                <b-form-radio-group id="radio-group-207" v-model="selected207" :options="options" name="radio-options207">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-223" v-model="selected223" name="radio-options223" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected223?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected223">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-207" v-model="selected207" name="radio-options207" inline="true"  switch><b>({{ selected207?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected207">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5528,19 +5196,19 @@ Vue.component("CC52 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-224" v-model="selected224" :options="options" name="radio-options224">
+                                            <b-form-radio-group id="radio-group-208" v-model="selected208" :options="options" name="radio-options208">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-224" v-model="selected224" name="radio-options224" switch>QUESTION - Your answer? [1]<b>({{ selected224?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-208" v-model="selected208" name="radio-options208" inline="true"  switch><b>({{ selected208?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-225" v-model="selected225" :options="options" name="radio-options225">
+                                                <b-form-radio-group id="radio-group-209" v-model="selected209" :options="options" name="radio-options209">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-225" v-model="selected225" name="radio-options225" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected225?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected225">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-209" v-model="selected209" name="radio-options209" inline="true"  switch><b>({{ selected209?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected209">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5569,11 +5237,11 @@ Vue.component("CC53 - SC",
    "value": "no"
   }
  ],
- "selected226": true,
- "selected227": true,
- "selected228": true,
- "selected229": true,
- "selected230": true
+ "selected210": true,
+ "selected211": true,
+ "selected212": true,
+ "selected213": true,
+ "selected214": true
 }
                         },
                         template: `<div>
@@ -5583,30 +5251,30 @@ Vue.component("CC53 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-226" v-model="selected226" :options="options" name="radio-options226">
+                                            <b-form-radio-group id="radio-group-210" v-model="selected210" :options="options" name="radio-options210">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-226" v-model="selected226" name="radio-options226" switch>QUESTION - Your Answer [1]<b>({{ selected226?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-210" v-model="selected210" name="radio-options210" inline="true"  switch><b>({{ selected210?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                            <b-form-radio-group id="radio-group-227" v-model="selected227" :options="options" name="radio-options227">
+                                            <b-form-radio-group id="radio-group-211" v-model="selected211" :options="options" name="radio-options211">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-227" v-model="selected227" name="radio-options227" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected227?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="!selected227">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-211" v-model="selected211" name="radio-options211" inline="true"  switch><b>({{ selected211?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="!selected211">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-228" v-model="selected228" :options="options" name="radio-options228">
+                                                <b-form-radio-group id="radio-group-212" v-model="selected212" :options="options" name="radio-options212">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-228" v-model="selected228" name="radio-options228" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected228?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected228">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-212" v-model="selected212" name="radio-options212" inline="true"  switch><b>({{ selected212?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected212">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5624,19 +5292,19 @@ Vue.component("CC53 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-229" v-model="selected229" :options="options" name="radio-options229">
+                                            <b-form-radio-group id="radio-group-213" v-model="selected213" :options="options" name="radio-options213">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-229" v-model="selected229" name="radio-options229" switch>QUESTION - Your answer? [1]<b>({{ selected229?'Yes':'No' }})</b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-213" v-model="selected213" name="radio-options213" inline="true"  switch><b>({{ selected213?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-230" v-model="selected230" :options="options" name="radio-options230">
+                                                <b-form-radio-group id="radio-group-214" v-model="selected214" :options="options" name="radio-options214">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-230" v-model="selected230" name="radio-options230" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected230?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected230">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-214" v-model="selected214" name="radio-options214" inline="true"  switch><b>({{ selected214?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected214">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5665,11 +5333,11 @@ Vue.component("CC54 - SC",
    "value": "no"
   }
  ],
- "selected231": true,
- "selected232": true,
- "selected233": true,
- "selected234": true,
- "selected235": true
+ "selected215": true,
+ "selected216": true,
+ "selected217": true,
+ "selected218": true,
+ "selected219": true
 }
                         },
                         template: `<div>
@@ -5679,11 +5347,11 @@ Vue.component("CC54 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-231" v-model="selected231" :options="options" name="radio-options231">
+                                            <b-form-radio-group id="radio-group-215" v-model="selected215" :options="options" name="radio-options215">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-231" v-model="selected231" name="radio-options231" switch>QUESTION - Your Answer [1]<b>({{ selected231?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-215" v-model="selected215" name="radio-options215" inline="true"  switch><b>({{ selected215?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5697,21 +5365,21 @@ Vue.component("CC54 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-232" v-model="selected232" :options="options" name="radio-options232">
+                                                <b-form-radio-group id="radio-group-216" v-model="selected216" :options="options" name="radio-options216">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-232" v-model="selected232" name="radio-options232" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected232?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected232">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-216" v-model="selected216" name="radio-options216" inline="true"  switch><b>({{ selected216?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected216">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-233" v-model="selected233" :options="options" name="radio-options233">
+                                                <b-form-radio-group id="radio-group-217" v-model="selected217" :options="options" name="radio-options217">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-233" v-model="selected233" name="radio-options233" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected233?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected233">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-217" v-model="selected217" name="radio-options217" inline="true"  switch><b>({{ selected217?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected217">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5727,12 +5395,12 @@ Vue.component("CC54 - SC",
                                         </div>
                                         <!--    
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                                <b-form-radio-group id="radio-group-234" v-model="selected234" :options="options" name="radio-options234">
+                                                <b-form-radio-group id="radio-group-218" v-model="selected218" :options="options" name="radio-options218">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-234" v-model="selected234" name="radio-options234" switch>QUESTION - Your answer? [1]<b>({{ selected234?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected234">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-218" v-model="selected218" name="radio-options218" inline="true"  switch><b>({{ selected218?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected218">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - If not, please explain why and state which other means of proof can be provided: [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5742,12 +5410,12 @@ Vue.component("CC54 - SC",
                                         </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-235" v-model="selected235" :options="options" name="radio-options235">
+                                                <b-form-radio-group id="radio-group-219" v-model="selected219" :options="options" name="radio-options219">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-235" v-model="selected235" name="radio-options235" switch>QUESTION - Is this information available online? [1]<b>({{ selected235?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected235">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-219" v-model="selected219" name="radio-options219" inline="true"  switch><b>({{ selected219?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected219">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5775,11 +5443,11 @@ Vue.component("CC55 - SC",
    "value": "no"
   }
  ],
- "selected236": true,
- "selected237": true,
- "selected238": true,
- "selected239": true,
- "selected240": true
+ "selected220": true,
+ "selected221": true,
+ "selected222": true,
+ "selected223": true,
+ "selected224": true
 }
                         },
                         template: `<div>
@@ -5789,11 +5457,11 @@ Vue.component("CC55 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-236" v-model="selected236" :options="options" name="radio-options236">
+                                            <b-form-radio-group id="radio-group-220" v-model="selected220" :options="options" name="radio-options220">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-236" v-model="selected236" name="radio-options236" switch>QUESTION - Your Answer [1]<b>({{ selected236?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-220" v-model="selected220" name="radio-options220" inline="true"  switch><b>({{ selected220?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5807,21 +5475,21 @@ Vue.component("CC55 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-237" v-model="selected237" :options="options" name="radio-options237">
+                                                <b-form-radio-group id="radio-group-221" v-model="selected221" :options="options" name="radio-options221">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-237" v-model="selected237" name="radio-options237" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected237?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected237">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-221" v-model="selected221" name="radio-options221" inline="true"  switch><b>({{ selected221?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected221">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-238" v-model="selected238" :options="options" name="radio-options238">
+                                                <b-form-radio-group id="radio-group-222" v-model="selected222" :options="options" name="radio-options222">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-238" v-model="selected238" name="radio-options238" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected238?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected238">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-222" v-model="selected222" name="radio-options222" inline="true"  switch><b>({{ selected222?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected222">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5837,12 +5505,12 @@ Vue.component("CC55 - SC",
                                         </div>
                                         <!--    
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                                <b-form-radio-group id="radio-group-239" v-model="selected239" :options="options" name="radio-options239">
+                                                <b-form-radio-group id="radio-group-223" v-model="selected223" :options="options" name="radio-options223">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-239" v-model="selected239" name="radio-options239" switch>QUESTION - Your answer? [1]<b>({{ selected239?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected239">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-223" v-model="selected223" name="radio-options223" inline="true"  switch><b>({{ selected223?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected223">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - If not, please explain why and state which other means of proof can be provided: [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5852,12 +5520,12 @@ Vue.component("CC55 - SC",
                                         </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-240" v-model="selected240" :options="options" name="radio-options240">
+                                                <b-form-radio-group id="radio-group-224" v-model="selected224" :options="options" name="radio-options224">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-240" v-model="selected240" name="radio-options240" switch>QUESTION - Is this information available online? [1]<b>({{ selected240?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected240">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-224" v-model="selected224" name="radio-options224" inline="true"  switch><b>({{ selected224?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected224">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5885,11 +5553,11 @@ Vue.component("CC56 - SC",
    "value": "no"
   }
  ],
- "selected241": true,
- "selected242": true,
- "selected243": true,
- "selected244": true,
- "selected245": true
+ "selected225": true,
+ "selected226": true,
+ "selected227": true,
+ "selected228": true,
+ "selected229": true
 }
                         },
                         template: `<div>
@@ -5899,11 +5567,11 @@ Vue.component("CC56 - SC",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <!--
                                         <b-form-group label="QUESTION - Your Answer [1]">
-                                            <b-form-radio-group id="radio-group-241" v-model="selected241" :options="options" name="radio-options241">
+                                            <b-form-radio-group id="radio-group-225" v-model="selected225" :options="options" name="radio-options225">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-241" v-model="selected241" name="radio-options241" switch>QUESTION - Your Answer [1]<b>({{ selected241?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Your Answer [1] <b-form-checkbox id="radio-group-225" v-model="selected225" name="radio-options225" inline="true"  switch><b>({{ selected225?'Yes':'No' }})</b></b-form-checkbox>
                     </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5917,21 +5585,21 @@ Vue.component("CC56 - SC",
                     
                                         <!--    
                                         <b-form-group label="QUESTION - Does the EO fulfil the criteria by itself? [1]">
-                                                <b-form-radio-group id="radio-group-242" v-model="selected242" :options="options" name="radio-options242">
+                                                <b-form-radio-group id="radio-group-226" v-model="selected226" :options="options" name="radio-options226">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-242" v-model="selected242" name="radio-options242" switch>QUESTION - Does the EO fulfil the criteria by itself? [1]<b>({{ selected242?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected242">
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-226" v-model="selected226" name="radio-options226" inline="true"  switch><b>({{ selected226?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected226">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - In the case of no – Relied upon or not [1]">
-                                                <b-form-radio-group id="radio-group-243" v-model="selected243" :options="options" name="radio-options243">
+                                                <b-form-radio-group id="radio-group-227" v-model="selected227" :options="options" name="radio-options227">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-243" v-model="selected243" name="radio-options243" switch>QUESTION - In the case of no – Relied upon or not [1]<b>({{ selected243?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected243">
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-227" v-model="selected227" name="radio-options227" inline="true"  switch><b>({{ selected227?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected227">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5947,12 +5615,12 @@ Vue.component("CC56 - SC",
                                         </div>
                                         <!--    
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                                <b-form-radio-group id="radio-group-244" v-model="selected244" :options="options" name="radio-options244">
+                                                <b-form-radio-group id="radio-group-228" v-model="selected228" :options="options" name="radio-options228">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-244" v-model="selected244" name="radio-options244" switch>QUESTION - Your answer? [1]<b>({{ selected244?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="!selected244">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-228" v-model="selected228" name="radio-options228" inline="true"  switch><b>({{ selected228?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="!selected228">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - If not, please explain why and state which other means of proof can be provided: [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5962,12 +5630,12 @@ Vue.component("CC56 - SC",
                                         </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available online? [1]">
-                                                <b-form-radio-group id="radio-group-245" v-model="selected245" :options="options" name="radio-options245">
+                                                <b-form-radio-group id="radio-group-229" v-model="selected229" :options="options" name="radio-options229">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-245" v-model="selected245" name="radio-options245" switch>QUESTION - Is this information available online? [1]<b>({{ selected245?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected245">
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-229" v-model="selected229" name="radio-options229" inline="true"  switch><b>({{ selected229?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected229">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -5995,8 +5663,8 @@ Vue.component("CC57 - OT",
    "value": "no"
   }
  ],
- "selected246": true,
- "selected247": true
+ "selected230": true,
+ "selected231": true
 }
                         },
                         template: `<div>
@@ -6006,12 +5674,12 @@ Vue.component("CC57 - OT",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-246" v-model="selected246" :options="options" name="radio-options246">
+                                            <b-form-radio-group id="radio-group-230" v-model="selected230" :options="options" name="radio-options230">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-246" v-model="selected246" name="radio-options246" switch>QUESTION - Your answer? [1]<b>({{ selected246?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected246">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-230" v-model="selected230" name="radio-options230" inline="true"  switch><b>({{ selected230?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="selected230">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - What is the corresponding percentage of disabled or disadvantaged workers? [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6025,12 +5693,12 @@ Vue.component("CC57 - OT",
                                     </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-247" v-model="selected247" :options="options" name="radio-options247">
+                                                <b-form-radio-group id="radio-group-231" v-model="selected231" :options="options" name="radio-options231">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-247" v-model="selected247" name="radio-options247" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected247?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected247">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-231" v-model="selected231" name="radio-options231" inline="true"  switch><b>({{ selected231?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected231">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6059,11 +5727,11 @@ Vue.component("CC58 - OT",
    "value": "no"
   }
  ],
- "selected248": true,
- "selected249": true,
- "selected250": true,
- "selected251": true,
- "selected252": true
+ "selected232": true,
+ "selected233": true,
+ "selected234": true,
+ "selected235": true,
+ "selected236": true
 }
                         },
                         template: `<div>
@@ -6073,21 +5741,19 @@ Vue.component("CC58 - OT",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-248" v-model="selected248" :options="options" name="radio-options248">
+                                            <b-form-radio-group id="radio-group-232" v-model="selected232" :options="options" name="radio-options232">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-248" v-model="selected248" name="radio-options248" switch>QUESTION - Your answer? [1]<b>({{ selected248?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected248">
-                                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-232" v-model="selected232" name="radio-options232" inline="true"  switch><b>({{ selected232?'Yes':'No' }})</b></b-form-checkbox><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is the economic operator registered on an official list of approved economic operators or does it have an equivalent certificate? [1]">
-                                                <b-form-radio-group id="radio-group-249" v-model="selected249" :options="options" name="radio-options249">
+                                                <b-form-radio-group id="radio-group-233" v-model="selected233" :options="options" name="radio-options233">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-249" v-model="selected249" name="radio-options249" switch>QUESTION - Is the economic operator registered on an official list of approved economic operators or does it have an equivalent certificate? [1]<b>({{ selected249?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected249">
+                                        QUESTION Is the economic operator registered on an official list of approved economic operators or does it have an equivalent certificate? [1] <b-form-checkbox id="radio-group-233" v-model="selected233" name="radio-options233" inline="true"  switch><b>({{ selected233?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected233">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Please provide the name of the list or certificate and the relevant registration or certification number, if applicable [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6103,42 +5769,40 @@ Vue.component("CC58 - OT",
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Does the registration or certification cover all of the required selection criteria? [1]">
-                                                <b-form-radio-group id="radio-group-250" v-model="selected250" :options="options" name="radio-options250">
+                                                <b-form-radio-group id="radio-group-234" v-model="selected234" :options="options" name="radio-options234">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-250" v-model="selected250" name="radio-options250" switch>QUESTION - Does the registration or certification cover all of the required selection criteria? [1]<b>({{ selected250?'Yes':'No' }})</b-form-checkbox></b-card>
+                                        QUESTION Does the registration or certification cover all of the required selection criteria? [1] <b-form-checkbox id="radio-group-234" v-model="selected234" name="radio-options234" inline="true"  switch><b>({{ selected234?'Yes':'No' }})</b></b-form-checkbox></b-card>
                                         </b-card>
                                         </div>
-                                        <div v-if="!selected249">
+                                        <div v-if="!selected233">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Will the economic operator be able to provide a certificate with regard to the payment of social security contributions and taxes or provide information enabling the contracting authority or contracting entity to obtaining it directly by accessing a national database in any Member State that is available free of charge? [1]">
-                                                <b-form-radio-group id="radio-group-251" v-model="selected251" :options="options" name="radio-options251">
+                                                <b-form-radio-group id="radio-group-235" v-model="selected235" :options="options" name="radio-options235">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-251" v-model="selected251" name="radio-options251" switch>QUESTION - Will the economic operator be able to provide a certificate with regard to the payment of social security contributions and taxes or provide information enabling the contracting authority or contracting entity to obtaining it directly by accessing a national database in any Member State that is available free of charge? [1]<b>({{ selected251?'Yes':'No' }})</b-form-checkbox>
+                                        QUESTION Will the economic operator be able to provide a certificate with regard to the payment of social security contributions and taxes or provide information enabling the contracting authority or contracting entity to obtaining it directly by accessing a national database in any Member State that is available free of charge? [1] <b-form-checkbox id="radio-group-235" v-model="selected235" name="radio-options235" inline="true"  switch><b>({{ selected235?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-card>
                                         </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-252" v-model="selected252" :options="options" name="radio-options252">
+                                                <b-form-radio-group id="radio-group-236" v-model="selected236" :options="options" name="radio-options236">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-252" v-model="selected252" name="radio-options252" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected252?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected252">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-236" v-model="selected236" name="radio-options236" inline="true"  switch><b>({{ selected236?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected236">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
                                             </b-form-group>
                                         </b-card>
-                                        </div></b-card>
-                                    </b-card>
-                                    </div>
-                                    <div v-if="!selected248">
+                                        </div></b-card></b-card>
+                                    <div v-if="!selected232">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - The country of the economic operator does not have an official list of approved economic operators or an equivalent certificate (e.g. under a national (pre)qualification system).</b-card-text>
                                     </b-card>
                                     </div>
@@ -6163,8 +5827,8 @@ Vue.component("CC59 - OT",
    "value": "no"
   }
  ],
- "selected253": true,
- "selected254": true
+ "selected237": true,
+ "selected238": true
 }
                         },
                         template: `<div>
@@ -6174,12 +5838,12 @@ Vue.component("CC59 - OT",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-253" v-model="selected253" :options="options" name="radio-options253">
+                                            <b-form-radio-group id="radio-group-237" v-model="selected237" :options="options" name="radio-options237">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-253" v-model="selected253" name="radio-options253" switch>QUESTION - Your answer? [1]<b>({{ selected253?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected253">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-237" v-model="selected237" name="radio-options237" inline="true"  switch><b>({{ selected237?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="selected237">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Please indicate the role of the economic operator in the group (leader, responsible for specific tasks...) [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6197,12 +5861,12 @@ Vue.component("CC59 - OT",
                                     </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-254" v-model="selected254" :options="options" name="radio-options254">
+                                                <b-form-radio-group id="radio-group-238" v-model="selected238" :options="options" name="radio-options238">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-254" v-model="selected254" name="radio-options254" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected254?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected254">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-238" v-model="selected238" name="radio-options238" inline="true"  switch><b>({{ selected238?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected238">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6231,8 +5895,8 @@ Vue.component("CC60 - OT",
    "value": "no"
   }
  ],
- "selected255": true,
- "selected256": true
+ "selected239": true,
+ "selected240": true
 }
                         },
                         template: `<div>
@@ -6242,12 +5906,12 @@ Vue.component("CC60 - OT",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-255" v-model="selected255" :options="options" name="radio-options255">
+                                            <b-form-radio-group id="radio-group-239" v-model="selected239" :options="options" name="radio-options239">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-255" v-model="selected255" name="radio-options255" switch>QUESTION - Your answer? [1]<b>({{ selected255?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected255">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-239" v-model="selected239" name="radio-options239" inline="true"  switch><b>({{ selected239?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="selected239">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6261,12 +5925,12 @@ Vue.component("CC60 - OT",
                                     </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-256" v-model="selected256" :options="options" name="radio-options256">
+                                                <b-form-radio-group id="radio-group-240" v-model="selected240" :options="options" name="radio-options240">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-256" v-model="selected256" name="radio-options256" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected256?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected256">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-240" v-model="selected240" name="radio-options240" inline="true"  switch><b>({{ selected240?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected240">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6295,8 +5959,8 @@ Vue.component("CC61 - OT",
    "value": "no"
   }
  ],
- "selected257": true,
- "selected258": true
+ "selected241": true,
+ "selected242": true
 }
                         },
                         template: `<div>
@@ -6306,12 +5970,12 @@ Vue.component("CC61 - OT",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-257" v-model="selected257" :options="options" name="radio-options257">
+                                            <b-form-radio-group id="radio-group-241" v-model="selected241" :options="options" name="radio-options241">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-257" v-model="selected257" name="radio-options257" switch>QUESTION - Your answer? [1]<b>({{ selected257?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected257">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-241" v-model="selected241" name="radio-options241" inline="true"  switch><b>({{ selected241?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="selected241">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6325,12 +5989,12 @@ Vue.component("CC61 - OT",
                                     </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-258" v-model="selected258" :options="options" name="radio-options258">
+                                                <b-form-radio-group id="radio-group-242" v-model="selected242" :options="options" name="radio-options242">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-258" v-model="selected258" name="radio-options258" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected258?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected258">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-242" v-model="selected242" name="radio-options242" inline="true"  switch><b>({{ selected242?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected242">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6359,8 +6023,8 @@ Vue.component("CC63 - OT",
    "value": "no"
   }
  ],
- "selected259": true,
- "selected260": true
+ "selected243": true,
+ "selected244": true
 }
                         },
                         template: `<div>
@@ -6370,12 +6034,12 @@ Vue.component("CC63 - OT",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-259" v-model="selected259" :options="options" name="radio-options259">
+                                            <b-form-radio-group id="radio-group-243" v-model="selected243" :options="options" name="radio-options243">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-259" v-model="selected259" name="radio-options259" switch>QUESTION - Your answer? [1]<b>({{ selected259?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected259">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-243" v-model="selected243" name="radio-options243" inline="true"  switch><b>({{ selected243?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="selected243">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Please describe them [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6385,12 +6049,12 @@ Vue.component("CC63 - OT",
                                     </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-260" v-model="selected260" :options="options" name="radio-options260">
+                                                <b-form-radio-group id="radio-group-244" v-model="selected244" :options="options" name="radio-options244">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-260" v-model="selected260" name="radio-options260" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected260?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected260">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-244" v-model="selected244" name="radio-options244" inline="true"  switch><b>({{ selected244?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected244">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6419,8 +6083,8 @@ Vue.component("CC65 - OT",
    "value": "no"
   }
  ],
- "selected261": true,
- "selected262": true
+ "selected245": true,
+ "selected246": true
 }
                         },
                         template: `<div>
@@ -6430,12 +6094,12 @@ Vue.component("CC65 - OT",
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--
                                         <b-form-group label="QUESTION - Your answer? [1]">
-                                            <b-form-radio-group id="radio-group-261" v-model="selected261" :options="options" name="radio-options261">
+                                            <b-form-radio-group id="radio-group-245" v-model="selected245" :options="options" name="radio-options245">
                                             </b-form-radio-group>
                                         </b-form-group>
                                         -->
-                                        <b-form-checkbox id="radio-group-261" v-model="selected261" name="radio-options261" switch>QUESTION - Your answer? [1]<b>({{ selected261?'Yes':'No' }})</b-form-checkbox>
-                                    <div v-if="selected261">
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-245" v-model="selected245" name="radio-options245" inline="true"  switch><b>({{ selected245?'Yes':'No' }})</b></b-form-checkbox>
+                                    <div v-if="selected245">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Number of employees [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -6449,12 +6113,12 @@ Vue.component("CC65 - OT",
                                     </div><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <!--    
                                         <b-form-group label="QUESTION - Is this information available electronically? [1]">
-                                                <b-form-radio-group id="radio-group-262" v-model="selected262" :options="options" name="radio-options262">
+                                                <b-form-radio-group id="radio-group-246" v-model="selected246" :options="options" name="radio-options246">
                                                 </b-form-radio-group>
                                             </b-form-group>
                                             -->
-                                        <b-form-checkbox id="radio-group-262" v-model="selected262" name="radio-options262" switch>QUESTION - Is this information available electronically? [1]<b>({{ selected262?'Yes':'No' }})</b-form-checkbox>
-                                        <div v-if="selected262">
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-246" v-model="selected246" name="radio-options246" inline="true"  switch><b>({{ selected246?'Yes':'No' }})</b></b-form-checkbox>
+                                        <div v-if="selected246">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">

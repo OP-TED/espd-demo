@@ -15,6 +15,10 @@ window.app = new Vue({
 			this.currentHeader = layout.currentHeader
 			this.currentFooter = layout.currentFooter
 		},
+		doShow(component) {
+			this.showLayout({ currentHeader: 'publicHeader', mainComponent: component, currentFooter: 'publicFooter' })
+			console.log(`show ${component}`)
+		},
 	}
 
 })

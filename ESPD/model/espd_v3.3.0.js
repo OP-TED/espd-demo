@@ -9,26 +9,26 @@
  * Component - C1 - EG - Participation in a criminal organisation
  */
 Vue.component("C1 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected01": "yes",
- "selected02": "yes",
- "selected03": "yes",
- "selected04": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected01": "yes",
+                "selected02": "yes",
+                "selected03": "yes",
+                "selected04": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C1 - EG - Participation in a criminal organisation">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for participation in a criminal organisation, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Council Framework Decision 2008/841/JHA of 24 October 2008 on the fight against organised crime (OJ L 300, 11.11.2008, p. 42).</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -91,32 +91,32 @@ Vue.component("C1 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C2 - EG - Corruption
  */
 Vue.component("C2 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected05": "yes",
- "selected06": "yes",
- "selected07": "yes",
- "selected08": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected05": "yes",
+                "selected06": "yes",
+                "selected07": "yes",
+                "selected08": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C2 - EG - Corruption">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for corruption, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 3 of the Convention on the fight against corruption involving officials of the European Communities or officials of Member States of the European Union, OJ C 195, 25.6.1997, p. 1, and in Article 2(1) of Council Framework Decision 2003/568/JHA of 22 July 2003 on combating corruption in the private sector (OJ L 192, 31.7.2003, p. 54). This exclusion ground also includes corruption as defined in the national law of the contracting authority (contracting entity) or the economic operator.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -179,32 +179,32 @@ Vue.component("C2 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C3 - EG - Fraud
  */
 Vue.component("C3 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected09": "yes",
- "selected10": "yes",
- "selected11": "yes",
- "selected12": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected09": "yes",
+                "selected10": "yes",
+                "selected11": "yes",
+                "selected12": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C3 - EG - Fraud">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for fraud, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? Within the meaning of Article 1 of the Convention on the protection of the European Communities' financial interests (OJ C 316, 27.11.1995, p. 48).</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -267,32 +267,32 @@ Vue.component("C3 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C4 - EG - Terrorist offences or offences linked to terrorist activities
  */
 Vue.component("C4 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected13": "yes",
- "selected14": "yes",
- "selected15": "yes",
- "selected16": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected13": "yes",
+                "selected14": "yes",
+                "selected15": "yes",
+                "selected16": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C4 - EG - Terrorist offences or offences linked to terrorist activities">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for terrorist offences or offences linked to terrorist activities, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Articles 1 and 3 of Council Framework Decision of 13 June 2002 on combating terrorism (OJ L 164, 22.6.2002, p. 3). This exclusion ground also includes inciting or aiding or abetting or attempting to commit an offence, as referred to in Article 4 of that Framework Decision.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -355,32 +355,32 @@ Vue.component("C4 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C5 - EG - Money laundering or terrorist financing
  */
 Vue.component("C5 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected17": "yes",
- "selected18": "yes",
- "selected19": "yes",
- "selected20": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected17": "yes",
+                "selected18": "yes",
+                "selected19": "yes",
+                "selected20": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C5 - EG - Money laundering or terrorist financing">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for money laundering or terrorist financing, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 1 of Directive 2005/60/EC of the European Parliament and of the Council of 26 October 2005 on the prevention of the use of the financial system for the purpose of money laundering and terrorist financing (OJ L 309, 25.11.2005, p. 15).</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -443,32 +443,32 @@ Vue.component("C5 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C6 - EG - Child labour and other forms of trafficking in human beings
  */
 Vue.component("C6 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected21": "yes",
- "selected22": "yes",
- "selected23": "yes",
- "selected24": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected21": "yes",
+                "selected22": "yes",
+                "selected23": "yes",
+                "selected24": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C6 - EG - Child labour and other forms of trafficking in human beings">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for child labour and other forms of trafficking in human beings, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Directive 2011/36/EU of the European Parliament and of the Council of 5 April 2011 on preventing and combating trafficking in human beings and protecting its victims, and replacing Council Framework Decision 2002/629/JHA (OJ L 101, 15.4.2011, p. 1).</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -531,34 +531,34 @@ Vue.component("C6 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C7 - EG - Payment of taxes
  */
 Vue.component("C7 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected25": "yes",
- "selected26": "yes",
- "selected27": "yes",
- "selected28": "yes",
- "selected29": "yes",
- "selected30": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected25": "yes",
+                "selected26": "yes",
+                "selected27": "yes",
+                "selected28": "yes",
+                "selected29": "yes",
+                "selected30": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C7 - EG - Payment of taxes">
                             <b-card-text>Has the economic operator breached its obligations relating to the payment of taxes, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -651,34 +651,34 @@ Vue.component("C7 - EG",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C8 - EG - Payment of social security contributions
  */
 Vue.component("C8 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected31": "yes",
- "selected32": "yes",
- "selected33": "yes",
- "selected34": "yes",
- "selected35": "yes",
- "selected36": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected31": "yes",
+                "selected32": "yes",
+                "selected33": "yes",
+                "selected34": "yes",
+                "selected35": "yes",
+                "selected36": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C8 - EG - Payment of social security contributions">
                             <b-card-text>Has the economic operator breached its obligations relating to the payment of social security contributions, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -771,32 +771,32 @@ Vue.component("C8 - EG",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C9 - EG - Breaching of obligations in the fields of environmental law
  */
 Vue.component("C9 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected37": "yes",
- "selected38": "yes",
- "selected39": "yes",
- "selected40": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected37": "yes",
+                "selected38": "yes",
+                "selected39": "yes",
+                "selected40": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C9 - EG - Breaching of obligations in the fields of environmental law">
                             <b-card-text>Has the economic operator, to its knowledge, breached its obligations in the fields of environmental law? As referred to for the purposes of this procurement in national law, in the ESPD, the relevant notice or the in the ESPD, the relevant notice or , in Article 18(2) of Directive 2014/24/EU or in the ESPD.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -843,32 +843,32 @@ Vue.component("C9 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C10 - EG - Breaching of obligations in the fields of social law
  */
 Vue.component("C10 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected41": "yes",
- "selected42": "yes",
- "selected43": "yes",
- "selected44": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected41": "yes",
+                "selected42": "yes",
+                "selected43": "yes",
+                "selected44": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C10 - EG - Breaching of obligations in the fields of social law">
                             <b-card-text>Has the economic operator, to its knowledge, breached its obligations in the fields of social law? As referred to for the purposes of this procurement in national law, in the ESPD, the relevant notice or the in the ESPD, the relevant notice or in Article 18(2) of Directive 2014/24/EU.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -915,32 +915,32 @@ Vue.component("C10 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C11 - EG - Breaching of obligations in the fields of labour law
  */
 Vue.component("C11 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected45": "yes",
- "selected46": "yes",
- "selected47": "yes",
- "selected48": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected45": "yes",
+                "selected46": "yes",
+                "selected47": "yes",
+                "selected48": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C11 - EG - Breaching of obligations in the fields of labour law">
                             <b-card-text>Has the economic operator, to its knowledge, breached its obligations in the fields of labour law? As referred to for the purposes of this procurement in national law, in the relevant notice or the in the ESPD, the relevant notice or in Article 18(2) of Directive 2014/24/EU.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -987,31 +987,31 @@ Vue.component("C11 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C12 - EG - Bankruptcy
  */
 Vue.component("C12 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected49": "yes",
- "selected50": "yes",
- "selected51": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected49": "yes",
+                "selected50": "yes",
+                "selected51": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C12 - EG - Bankruptcy">
                             <b-card-text>Is the economic operator bankrupt? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1054,31 +1054,31 @@ Vue.component("C12 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C13 - EG - Insolvency
  */
 Vue.component("C13 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected52": "yes",
- "selected53": "yes",
- "selected54": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected52": "yes",
+                "selected53": "yes",
+                "selected54": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C13 - EG - Insolvency">
                             <b-card-text>Is the economic operator the subject of insolvency or winding-up? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1121,31 +1121,31 @@ Vue.component("C13 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C14 - EG - Arrangement with creditors
  */
 Vue.component("C14 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected55": "yes",
- "selected56": "yes",
- "selected57": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected55": "yes",
+                "selected56": "yes",
+                "selected57": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C14 - EG - Arrangement with creditors">
                             <b-card-text>Is the economic operator in arrangement with creditors? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1188,31 +1188,31 @@ Vue.component("C14 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C15 - EG - Analogous situation like bankruptcy under national law
  */
 Vue.component("C15 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected58": "yes",
- "selected59": "yes",
- "selected60": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected58": "yes",
+                "selected59": "yes",
+                "selected60": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C15 - EG - Analogous situation like bankruptcy under national law">
                             <b-card-text>Is the economic operator in any analogous situation like bankruptcy arising from a similar procedure under national laws and regulations? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1255,31 +1255,31 @@ Vue.component("C15 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C16 - EG - Assets being administered by liquidator
  */
 Vue.component("C16 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected61": "yes",
- "selected62": "yes",
- "selected63": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected61": "yes",
+                "selected62": "yes",
+                "selected63": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C16 - EG - Assets being administered by liquidator">
                             <b-card-text>Are the assets of the economic operator being administered by a liquidator or by the court? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1322,31 +1322,31 @@ Vue.component("C16 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C17 - EG - Business activities are suspended
  */
 Vue.component("C17 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected64": "yes",
- "selected65": "yes",
- "selected66": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected64": "yes",
+                "selected65": "yes",
+                "selected66": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C17 - EG - Business activities are suspended">
                             <b-card-text>Are the business activities of the economic operator suspended? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1389,32 +1389,32 @@ Vue.component("C17 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C18 - EG - Guilty of grave professional misconduct
  */
 Vue.component("C18 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected67": "yes",
- "selected68": "yes",
- "selected69": "yes",
- "selected70": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected67": "yes",
+                "selected68": "yes",
+                "selected69": "yes",
+                "selected70": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C18 - EG - Guilty of grave professional misconduct">
                             <b-card-text>Is the economic operator guilty of grave professional misconduct? Where applicable, see definitions in national law, the relevant notice or the procurement documents.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1465,32 +1465,32 @@ Vue.component("C18 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C19 - EG - Agreements with other economic operators aimed at distorting competition
  */
 Vue.component("C19 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected71": "yes",
- "selected72": "yes",
- "selected73": "yes",
- "selected74": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected71": "yes",
+                "selected72": "yes",
+                "selected73": "yes",
+                "selected74": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C19 - EG - Agreements with other economic operators aimed at distorting competition">
                             <b-card-text>Has the economic operator entered into agreements with other economic operators aimed at distorting competition?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1541,31 +1541,31 @@ Vue.component("C19 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C20 - EG - Conflict of interest due to its participation in the procurement procedure
  */
 Vue.component("C20 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected75": "yes",
- "selected76": "yes",
- "selected77": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected75": "yes",
+                "selected76": "yes",
+                "selected77": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C20 - EG - Conflict of interest due to its participation in the procurement procedure">
                             <b-card-text>Is the economic operator aware of any conflict of interest, as indicated in national law, the relevant notice or in the ESPD, the relevant notice or due to its participation in the procurement procedure?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1604,31 +1604,31 @@ Vue.component("C20 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C21 - EG - Direct or indirect involvement in the preparation of this procurement procedure
  */
 Vue.component("C21 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected78": "yes",
- "selected79": "yes",
- "selected80": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected78": "yes",
+                "selected79": "yes",
+                "selected80": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C21 - EG - Direct or indirect involvement in the preparation of this procurement procedure">
                             <b-card-text>Has the economic operator or an undertaking related to it advised the contracting authority or contracting entity or otherwise been involved in the preparation of the procurement procedure?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1667,32 +1667,32 @@ Vue.component("C21 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C22 - EG - Early termination, damages or other comparable sanctions
  */
 Vue.component("C22 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected81": "yes",
- "selected82": "yes",
- "selected83": "yes",
- "selected84": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected81": "yes",
+                "selected82": "yes",
+                "selected83": "yes",
+                "selected84": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C22 - EG - Early termination, damages or other comparable sanctions">
                             <b-card-text>Has the economic operator experienced that a prior public contract, a prior contract with a contracting entity or a prior concession contract was terminated early, or that damages or other comparable sanctions were imposed in connection with that prior contract?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1743,31 +1743,31 @@ Vue.component("C22 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C23 - EG - Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure
  */
 Vue.component("C23 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected85": "yes",
- "selected86": "yes",
- "selected87": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected85": "yes",
+                "selected86": "yes",
+                "selected87": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C23 - EG - Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure">
                             <b-card-text>Can the economic operator confirm that:</b-card-text>
                         <b-card-text>ADDITIONAL_DESCRIPTION_LINE - a) It has been guilty of serious misrepresentation in supplying the information required for the verification of the absence of grounds for exclusion or the fulfilment of the selection criteria,</b-card-text><b-card-text>ADDITIONAL_DESCRIPTION_LINE - b) It has withheld such information,</b-card-text><b-card-text>ADDITIONAL_DESCRIPTION_LINE - c) It has not been able, without delay, to submit the supporting documents required by a contracting authority or contracting entity, and</b-card-text><b-card-text>ADDITIONAL_DESCRIPTION_LINE - d) It has undertaken to unduly influence the decision making process of the contracting authority or contracting entity, to obtain confidential information that may confer upon it undue advantages in the procurement procedure or to negligently provide misleading information that may have a material influence on decisions concerning exclusion, selection or award?</b-card-text><b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1798,30 +1798,30 @@ Vue.component("C23 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C24 - EG - Purely national exclusion grounds
  */
 Vue.component("C24 - EG",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected88": "yes",
- "selected89": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected88": "yes",
+                "selected89": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C24 - EG - Purely national exclusion grounds">
                             <b-card-text>Other exclusion grounds that may be foreseen in the national legislation of the contracting authority's or contracting entity's Member State. Has the economic operator breached its obligations relating to the purely national grounds of exclusion, which are specified in the relevant notice or in the procurement documents?</b-card-text>
                         <b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
@@ -1846,33 +1846,33 @@ Vue.component("C24 - EG",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C25 - SC - Enrolment in a relevant professional register
  */
 Vue.component("C25 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected90": "yes",
- "selected91": "yes",
- "selected92": "yes",
- "selected93": "yes",
- "selected94": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected90": "yes",
+                "selected91": "yes",
+                "selected92": "yes",
+                "selected93": "yes",
+                "selected94": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C25 - SC - Enrolment in a relevant professional register">
                             <b-card-text>It is enrolled in relevant professional registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -1944,33 +1944,33 @@ Vue.component("C25 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C26 - SC - Enrolment in a trade register
  */
 Vue.component("C26 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected95": "yes",
- "selected96": "yes",
- "selected97": "yes",
- "selected98": "yes",
- "selected99": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected95": "yes",
+                "selected96": "yes",
+                "selected97": "yes",
+                "selected98": "yes",
+                "selected99": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C26 - SC - Enrolment in a trade register">
                             <b-card-text>It is enrolled in trade registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2047,34 +2047,34 @@ Vue.component("C26 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C27 - SC - For service contracts: authorisation of particular organisation needed
  */
 Vue.component("C27 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected100": "yes",
- "selected101": "yes",
- "selected102": "yes",
- "selected103": "yes",
- "selected104": "yes",
- "selected105": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected100": "yes",
+                "selected101": "yes",
+                "selected102": "yes",
+                "selected103": "yes",
+                "selected104": "yes",
+                "selected105": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C27 - SC - For service contracts: authorisation of particular organisation needed">
                             <b-card-text>Is a particular authorisation of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2163,34 +2163,34 @@ Vue.component("C27 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C28 - SC - For service contracts: membership of particular organisation needed
  */
 Vue.component("C28 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected106": "yes",
- "selected107": "yes",
- "selected108": "yes",
- "selected109": "yes",
- "selected110": "yes",
- "selected111": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected106": "yes",
+                "selected107": "yes",
+                "selected108": "yes",
+                "selected109": "yes",
+                "selected110": "yes",
+                "selected111": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C28 - SC - For service contracts: membership of particular organisation needed">
                             <b-card-text>Is a particular membership of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2279,33 +2279,33 @@ Vue.component("C28 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C29 - SC - General yearly turnover
  */
 Vue.component("C29 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected112": "yes",
- "selected113": "yes",
- "selected114": "yes",
- "selected115": "yes",
- "selected116": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected112": "yes",
+                "selected113": "yes",
+                "selected114": "yes",
+                "selected115": "yes",
+                "selected116": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C29 - SC - General yearly turnover">
                             <b-card-text>Its general yearly turnover for the number of financial years required in the relevant notice, the in the ESPD, the relevant notice or the ESPD is as follows:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2391,33 +2391,33 @@ Vue.component("C29 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C30 - SC - Average yearly turnover
  */
 Vue.component("C30 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected117": "yes",
- "selected118": "yes",
- "selected119": "yes",
- "selected120": "yes",
- "selected121": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected117": "yes",
+                "selected118": "yes",
+                "selected119": "yes",
+                "selected120": "yes",
+                "selected121": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C30 - SC - Average yearly turnover">
                             <b-card-text>Its average yearly turnover for the number of years required in the relevant notice, the procurement documents or the ESPD is as follows:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2498,33 +2498,33 @@ Vue.component("C30 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C31 - SC - Specific average turnover
  */
 Vue.component("C31 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected122": "yes",
- "selected123": "yes",
- "selected124": "yes",
- "selected125": "yes",
- "selected126": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected122": "yes",
+                "selected123": "yes",
+                "selected124": "yes",
+                "selected125": "yes",
+                "selected126": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C31 - SC - Specific average turnover">
                             <b-card-text>Its specific average yearly turnover in the business area covered by the contract for the number of years required in the relevant notice, the in the ESPD, the relevant notice or the ESPD is as follows:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2610,33 +2610,33 @@ Vue.component("C31 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C32 - SC - Specific yearly turnover
  */
 Vue.component("C32 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected127": "yes",
- "selected128": "yes",
- "selected129": "yes",
- "selected130": "yes",
- "selected131": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected127": "yes",
+                "selected128": "yes",
+                "selected129": "yes",
+                "selected130": "yes",
+                "selected131": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C32 - SC - Specific yearly turnover">
                             <b-card-text>Its specific yearly turnover in the business area covered by the contract for the number of financial years required in the relevant notice, in the ESPD, the relevant notice or the ESPD is as follows:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2722,31 +2722,31 @@ Vue.component("C32 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C34 - SC - Financial ratio
  */
 Vue.component("C34 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected132": "yes",
- "selected133": "yes",
- "selected134": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected132": "yes",
+                "selected133": "yes",
+                "selected134": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C34 - SC - Financial ratio">
                             <b-card-text>Concerning the financial ratios specified in the relevant notice, the procurement documents or the ESPD, the economic operator declares that the actual values for the required ratios are as follows:</b-card-text>
                         <b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
@@ -2811,34 +2811,34 @@ Vue.component("C34 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C35 - SC - Professional risk indemnity insurance
  */
 Vue.component("C35 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected135": "yes",
- "selected136": "yes",
- "selected137": "yes",
- "selected138": "yes",
- "selected139": "yes",
- "selected140": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected135": "yes",
+                "selected136": "yes",
+                "selected137": "yes",
+                "selected138": "yes",
+                "selected139": "yes",
+                "selected140": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C35 - SC - Professional risk indemnity insurance">
                             <b-card-text>The insured amount in its professional risk indemnity insurance is the following:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2907,30 +2907,30 @@ Vue.component("C35 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C36 - SC - Other economic or financial requirements
  */
 Vue.component("C36 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected141": "yes",
- "selected142": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected141": "yes",
+                "selected142": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C36 - SC - Other economic or financial requirements">
                             <b-card-text>Concerning the other economic or financial requirements, if any, that may have been specified in the relevant notice or in the ESPD, the economic operator declares that:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -2991,31 +2991,31 @@ Vue.component("C36 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C37 - SC - For works contracts: performance of works of the specified type
  */
 Vue.component("C37 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected143": "yes",
- "selected144": "yes",
- "selected145": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected143": "yes",
+                "selected144": "yes",
+                "selected145": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C37 - SC - For works contracts: performance of works of the specified type">
                             <b-card-text>For public works contracts only: During the reference period, the economic operator has performed the following works of the specified type. Contracting authorities may require up to five years and allow experience dating from more than five years.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3088,31 +3088,31 @@ Vue.component("C37 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C38 - SC - For supply contracts: performance of deliveries of the specified type
  */
 Vue.component("C38 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected146": "yes",
- "selected147": "yes",
- "selected148": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected146": "yes",
+                "selected147": "yes",
+                "selected148": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C38 - SC - For supply contracts: performance of deliveries of the specified type">
                             <b-card-text>For public supply contracts only: During the reference period, the economic operator has delivered the following principal deliveries of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3185,31 +3185,31 @@ Vue.component("C38 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C39 - SC - For service contracts: performance of services of the specified type
  */
 Vue.component("C39 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected149": "yes",
- "selected150": "yes",
- "selected151": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected149": "yes",
+                "selected150": "yes",
+                "selected151": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C39 - SC - For service contracts: performance of services of the specified type">
                             <b-card-text>For public service contracts only: During the reference period, the economic operator has provided the following main services of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3282,33 +3282,33 @@ Vue.component("C39 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C40 - SC - Technicians or technical bodies for quality control
  */
 Vue.component("C40 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected152": "yes",
- "selected153": "yes",
- "selected154": "yes",
- "selected155": "yes",
- "selected156": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected152": "yes",
+                "selected153": "yes",
+                "selected154": "yes",
+                "selected155": "yes",
+                "selected156": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C40 - SC - Technicians or technical bodies for quality control">
                             <b-card-text>It can call upon the following technicians or technical bodies, especially those responsible for quality control. For technicians or technical bodies not belonging directly to the economic operator's undertaking but on whose capacities the economic operator relies as set out under Part II, Section C, separate ESPD forms must be filled in.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3408,33 +3408,33 @@ Vue.component("C40 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:
  */
 Vue.component("C41 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected157": "yes",
- "selected158": "yes",
- "selected159": "yes",
- "selected160": "yes",
- "selected161": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected157": "yes",
+                "selected158": "yes",
+                "selected159": "yes",
+                "selected160": "yes",
+                "selected161": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:">
                             <b-card-text>In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:</b-card-text>
                         <b-card><p>[Description of the National Criterion ] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3534,32 +3534,32 @@ Vue.component("C41 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C42 - SC - Technical facilities and measures for ensuring quality
  */
 Vue.component("C42 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected162": "yes",
- "selected163": "yes",
- "selected164": "yes",
- "selected165": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected162": "yes",
+                "selected163": "yes",
+                "selected164": "yes",
+                "selected165": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C42 - SC - Technical facilities and measures for ensuring quality">
                             <b-card-text>It uses the following technical facilities and measures for ensuring quality and its study and research facilities are as follows:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3615,32 +3615,32 @@ Vue.component("C42 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C43 - SC - Study and research facilities
  */
 Vue.component("C43 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected166": "yes",
- "selected167": "yes",
- "selected168": "yes",
- "selected169": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected166": "yes",
+                "selected167": "yes",
+                "selected168": "yes",
+                "selected169": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C43 - SC - Study and research facilities">
                             <b-card-text>It uses the following study and research facilities are as follows:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3696,32 +3696,32 @@ Vue.component("C43 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C44 - SC - Supply chain management
  */
 Vue.component("C44 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected170": "yes",
- "selected171": "yes",
- "selected172": "yes",
- "selected173": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected170": "yes",
+                "selected171": "yes",
+                "selected172": "yes",
+                "selected173": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C44 - SC - Supply chain management">
                             <b-card-text>It will be able to apply the following supply chain management and tracking systems when performing the contract:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3777,32 +3777,32 @@ Vue.component("C44 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C45 - SC - Environmental management measures
  */
 Vue.component("C45 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected174": "yes",
- "selected175": "yes",
- "selected176": "yes",
- "selected177": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected174": "yes",
+                "selected175": "yes",
+                "selected176": "yes",
+                "selected177": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C45 - SC - Environmental management measures">
                             <b-card-text>The economic operator will be able to apply the following environmental management measures when performing the contract:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3858,32 +3858,32 @@ Vue.component("C45 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C46 - SC - Tools, plant or technical equipment
  */
 Vue.component("C46 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected178": "yes",
- "selected179": "yes",
- "selected180": "yes",
- "selected181": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected178": "yes",
+                "selected179": "yes",
+                "selected180": "yes",
+                "selected181": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C46 - SC - Tools, plant or technical equipment">
                             <b-card-text>The following tools, plant or technical equipment will be available to it for performing the contract:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -3939,32 +3939,32 @@ Vue.component("C46 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C47 - SC - Educational and professional qualifications
  */
 Vue.component("C47 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected182": "yes",
- "selected183": "yes",
- "selected184": "yes",
- "selected185": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected182": "yes",
+                "selected183": "yes",
+                "selected184": "yes",
+                "selected185": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C47 - SC - Educational and professional qualifications">
                             <b-card-text>The following educational and professional qualifications are held by the service provider or the contractor itself, and/or (depending on the requirements set out in the relevant notice or the in the ESPD, the relevant notice or by its managerial staff.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4052,33 +4052,33 @@ Vue.component("C47 - SC",
                                         </b-card>
                                         </div></b-card></b-card></b-card></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C48 - SC - Special requierements check
  */
 Vue.component("C48 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected186": "yes",
- "selected187": "yes",
- "selected188": "yes",
- "selected189": "yes",
- "selected190": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected186": "yes",
+                "selected187": "yes",
+                "selected188": "yes",
+                "selected189": "yes",
+                "selected190": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C48 - SC - Special requierements check">
                             <b-card-text>For complex products or services to be supplied or, exceptionally, for products or services which are required for a special purpose: The economic operator will allow checks to be conducted on the production capacities or the technical capacity of the economic operator and, where necessary, on the means of study and research which are available to it and on the quality control measures? The check is to be performed by the contracting authority or, in case the latter consents to this, on its behalf by a competent official body of the country in which the supplier or service provider is established.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4134,32 +4134,32 @@ Vue.component("C48 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C49 - SC - Number of managerial staff
  */
 Vue.component("C49 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected191": "yes",
- "selected192": "yes",
- "selected193": "yes",
- "selected194": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected191": "yes",
+                "selected192": "yes",
+                "selected193": "yes",
+                "selected194": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C49 - SC - Number of managerial staff">
                             <b-card-text>The economic operator’s number of managerial staff for the last three years were as follows:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4224,32 +4224,32 @@ Vue.component("C49 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C50 - SC - Average annual manpower
  */
 Vue.component("C50 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected195": "yes",
- "selected196": "yes",
- "selected197": "yes",
- "selected198": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected195": "yes",
+                "selected196": "yes",
+                "selected197": "yes",
+                "selected198": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C50 - SC - Average annual manpower">
                             <b-card-text>The economic operator’s average annual manpower for the last three years were as follows:</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4314,32 +4314,32 @@ Vue.component("C50 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C51 - SC - Subcontracting proportion
  */
 Vue.component("C51 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected199": "yes",
- "selected200": "yes",
- "selected201": "yes",
- "selected202": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected199": "yes",
+                "selected200": "yes",
+                "selected201": "yes",
+                "selected202": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C51 - SC - Subcontracting proportion">
                             <b-card-text>The economic operator intends possibly to subcontract the following proportion (i.e. percentage) of the contract. Please note that if the economic operator has decided to subcontract a part of the contract and relies on the subcontractor’s capacities to perform that part, then please fill in a separate ESPD for such subcontractors, see Part II, Section C above.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4396,33 +4396,33 @@ Vue.component("C51 - SC",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity
  */
 Vue.component("C52 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected203": "yes",
- "selected204": "yes",
- "selected205": "yes",
- "selected206": "yes",
- "selected207": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected203": "yes",
+                "selected204": "yes",
+                "selected205": "yes",
+                "selected206": "yes",
+                "selected207": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity">
                             <b-card-text>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied, which do not need to be accompanied by certifications of authenticity.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4479,33 +4479,33 @@ Vue.component("C52 - SC",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C53 - SC - For supply contracts: samples, descriptions or photographs with certification of authenticity
  */
 Vue.component("C53 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected208": "yes",
- "selected209": "yes",
- "selected210": "yes",
- "selected211": "yes",
- "selected212": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected208": "yes",
+                "selected209": "yes",
+                "selected210": "yes",
+                "selected211": "yes",
+                "selected212": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C53 - SC - For supply contracts: samples, descriptions or photographs with certification of authenticity">
                             <b-card-text>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied and will provide certifications of authenticity where applicable.</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4562,33 +4562,33 @@ Vue.component("C53 - SC",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C54 - SC - For supply contracts: certificates by quality control institutes
  */
 Vue.component("C54 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected213": "yes",
- "selected214": "yes",
- "selected215": "yes",
- "selected216": "yes",
- "selected217": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected213": "yes",
+                "selected214": "yes",
+                "selected215": "yes",
+                "selected216": "yes",
+                "selected217": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C54 - SC - For supply contracts: certificates by quality control institutes">
                             <b-card-text>Can the economic operator provide the required certificates drawn up by official quality control institutes or agencies of recognised competence attesting the conformity of products clearly identified by references to the technical specifications or standards, which are set out in the relevant notice or the in the ESPD, the relevant notice or ?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4652,33 +4652,33 @@ Vue.component("C54 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C55 - SC - Certificates by independent bodies about quality assurance standards
  */
 Vue.component("C55 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected218": "yes",
- "selected219": "yes",
- "selected220": "yes",
- "selected221": "yes",
- "selected222": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected218": "yes",
+                "selected219": "yes",
+                "selected220": "yes",
+                "selected221": "yes",
+                "selected222": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C55 - SC - Certificates by independent bodies about quality assurance standards">
                             <b-card-text>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required quality assurance standards, including accessibility for disabled persons?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4742,33 +4742,33 @@ Vue.component("C55 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C56 - SC - Certificates by independent bodies about environmental management systems or standards
  */
 Vue.component("C56 - SC",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected223": "yes",
- "selected224": "yes",
- "selected225": "yes",
- "selected226": "yes",
- "selected227": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected223": "yes",
+                "selected224": "yes",
+                "selected225": "yes",
+                "selected226": "yes",
+                "selected227": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C56 - SC - Certificates by independent bodies about environmental management systems or standards">
                             <b-card-text>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required environmental management systems or standards?</b-card-text>
                         <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion ]</em> [<em>0..n</em>]</p>
@@ -4832,30 +4832,30 @@ Vue.component("C56 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C57 - OT - Economic operator is a sheltered workshop
  */
 Vue.component("C57 - OT",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected228": "yes",
- "selected229": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected228": "yes",
+                "selected229": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C57 - OT - Economic operator is a sheltered workshop">
                             <b-card-text>Only in case the procurement is reserved: is the economic operator a sheltered workshop, a 'social business' or will it provide for the performance of the contract in the context of sheltered employment programmes?</b-card-text>
                         
@@ -4892,32 +4892,32 @@ Vue.component("C57 - OT",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C58 - OT - Economic operator registered in a pre qualification system
  */
 Vue.component("C58 - OT",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected230": "yes",
- "selected231": "yes",
- "selected232": "yes",
- "selected233": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected230": "yes",
+                "selected231": "yes",
+                "selected232": "yes",
+                "selected233": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C58 - OT - Economic operator registered in a pre qualification system">
                             <b-card-text>If applicable, is the economic operator registered on an official list of approved economic operators or does it have an equivalent certificate (e.g. under a national (pre)qualification system)?</b-card-text>
                         
@@ -4970,30 +4970,30 @@ Vue.component("C58 - OT",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C59 - OT - Economic Operator together with others
  */
 Vue.component("C59 - OT",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected234": "yes",
- "selected235": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected234": "yes",
+                "selected235": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C59 - OT - Economic Operator together with others">
                             <b-card-text>Is the economic operator participating in the procurement procedure together with others?</b-card-text>
                         
@@ -5034,30 +5034,30 @@ Vue.component("C59 - OT",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C60 - OT - Relied on entities
  */
 Vue.component("C60 - OT",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected236": "yes",
- "selected237": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected236": "yes",
+                "selected237": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C60 - OT - Relied on entities">
                             <b-card-text>Does the economic operator rely on the capacities of other entities in order to meet the selection criteria set out under Part IV and the criteria and rules (if any) set out under Part V below?</b-card-text>
                         
@@ -5094,30 +5094,30 @@ Vue.component("C60 - OT",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C61 - OT - Not relied on entities
  */
 Vue.component("C61 - OT",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected238": "yes",
- "selected239": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected238": "yes",
+                "selected239": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C61 - OT - Not relied on entities">
                             <b-card-text>Does the economic operator intend to subcontract any share of the contract to third parties?</b-card-text>
                         
@@ -5154,30 +5154,30 @@ Vue.component("C61 - OT",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C63 - OT - Reduction of the number of qualified candidates
  */
 Vue.component("C63 - OT",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected240": "yes",
- "selected241": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected240": "yes",
+                "selected241": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C63 - OT - Reduction of the number of qualified candidates">
                             <b-card-text>The economic operator declares that It meets the objective and non discriminatory criteria or rules to be applied in order to limit the number of candidates in the following way:</b-card-text>
                         
@@ -5210,29 +5210,29 @@ Vue.component("C63 - OT",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })
 
 /**
  * Component - C65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise
  */
 Vue.component("C65 - OT",
-                    { 
-                        data(){
-                            return {
- "options": [
-  {
-   "text": "Yes",
-   "value": "yes"
-  },
-  {
-   "text": "No",
-   "value": "no"
-  }
- ],
- "selected242": "yes"
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "options": [
+                    {
+                        "text": "Yes",
+                        "value": "yes"
+                    },
+                    {
+                        "text": "No",
+                        "value": "no"
+                    }
+                ],
+                "selected242": "yes"
+            }
+        },
+        template: `<div>
                         <b-card title="C65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise">
                             <b-card-text>Is the economic operator a Micro, a Small or Medium-sized Enterprise?</b-card-text>
                         
@@ -5255,4 +5255,4 @@ Vue.component("C65 - OT",
                                     </div>
                     </b-card></b-card>
                     </div>`
-                    })
+    })

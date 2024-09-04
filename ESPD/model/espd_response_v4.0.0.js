@@ -4,16 +4,16 @@
  * Component - CC1 - EG - Participation in a criminal organisation
  */
 Vue.component("v4.0.0-CC1",
-                    { 
-                        data(){
-                            return {
- "selected01": false,
- "selected02": false,
- "selected03": false,
- "selected04": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected01": false,
+                "selected02": false,
+                "selected03": false,
+                "selected04": false
+            }
+        },
+        template: `<div>
                         <strong>Participation in a criminal organisation</strong>
                         <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for participation in a criminal organisation, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Council Framework Decision 2008/841/JHA of 24 October 2008 on the fight against organised crime (OJ L 300, 11.11.2008, p. 42).</p>
                         <div>
@@ -71,22 +71,22 @@ Vue.component("v4.0.0-CC1",
                                         </div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC2 - EG - Corruption
  */
 Vue.component("v4.0.0-CC2",
-                    { 
-                        data(){
-                            return {
- "selected05": false,
- "selected06": false,
- "selected07": false,
- "selected08": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected05": false,
+                "selected06": false,
+                "selected07": false,
+                "selected08": false
+            }
+        },
+        template: `<div>
                         <strong>Corruption</strong>
                         <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for corruption, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 3 of the Convention on the fight against corruption involving officials of the European Communities or officials of Member States of the European Union, OJ C 195, 25.6.1997, p. 1, and in Article 2(1) of Council Framework Decision 2003/568/JHA of 22 July 2003 on combating corruption in the private sector (OJ L 192, 31.7.2003, p. 54). This exclusion ground also includes corruption as defined in the national law of the contracting authority (contracting entity) or the economic operator.</p>
                         <div>
@@ -144,22 +144,22 @@ Vue.component("v4.0.0-CC2",
                                         </div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC3 - EG - Fraud
  */
 Vue.component("v4.0.0-CC3",
-                    { 
-                        data(){
-                            return {
- "selected09": false,
- "selected10": false,
- "selected11": false,
- "selected12": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected09": false,
+                "selected10": false,
+                "selected11": false,
+                "selected12": false
+            }
+        },
+        template: `<div>
                         <strong>Fraud</strong>
                         <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for fraud, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? Within the meaning of Article 1 of the Convention on the protection of the European Communities' financial interests (OJ C 316, 27.11.1995, p. 48).</p>
                         <div>
@@ -217,22 +217,22 @@ Vue.component("v4.0.0-CC3",
                                         </div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC4 - EG - Terrorist offences or offences linked to terrorist activities
  */
 Vue.component("v4.0.0-CC4",
-                    { 
-                        data(){
-                            return {
- "selected13": false,
- "selected14": false,
- "selected15": false,
- "selected16": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected13": false,
+                "selected14": false,
+                "selected15": false,
+                "selected16": false
+            }
+        },
+        template: `<div>
                         <strong>Terrorist offences or offences linked to terrorist activities</strong>
                         <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for terrorist offences or offences linked to terrorist activities, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Articles 1 and 3 of Council Framework Decision of 13 June 2002 on combating terrorism (OJ L 164, 22.6.2002, p. 3). This exclusion ground also includes inciting or aiding or abetting or attempting to commit an offence, as referred to in Article 4 of that Framework Decision.</p>
                         <div>
@@ -290,22 +290,22 @@ Vue.component("v4.0.0-CC4",
                                         </div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC5 - EG - Money laundering or terrorist financing
  */
 Vue.component("v4.0.0-CC5",
-                    { 
-                        data(){
-                            return {
- "selected17": false,
- "selected18": false,
- "selected19": false,
- "selected20": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected17": false,
+                "selected18": false,
+                "selected19": false,
+                "selected20": false
+            }
+        },
+        template: `<div>
                         <strong>Money laundering or terrorist financing</strong>
                         <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for money laundering or terrorist financing, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 1 of Directive 2005/60/EC of the European Parliament and of the Council of 26 October 2005 on the prevention of the use of the financial system for the purpose of money laundering and terrorist financing (OJ L 309, 25.11.2005, p. 15).</p>
                         <div>
@@ -363,22 +363,22 @@ Vue.component("v4.0.0-CC5",
                                         </div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC6 - EG - Child labour and other forms of trafficking in human beings
  */
 Vue.component("v4.0.0-CC6",
-                    { 
-                        data(){
-                            return {
- "selected21": false,
- "selected22": false,
- "selected23": false,
- "selected24": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected21": false,
+                "selected22": false,
+                "selected23": false,
+                "selected24": false
+            }
+        },
+        template: `<div>
                         <strong>Child labour and other forms of trafficking in human beings</strong>
                         <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for child labour and other forms of trafficking in human beings, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Directive 2011/36/EU of the European Parliament and of the Council of 5 April 2011 on preventing and combating trafficking in human beings and protecting its victims, and replacing Council Framework Decision 2002/629/JHA (OJ L 101, 15.4.2011, p. 1).</p>
                         <div>
@@ -436,24 +436,24 @@ Vue.component("v4.0.0-CC6",
                                         </div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC7 - EG - Payment of taxes
  */
 Vue.component("v4.0.0-CC7",
-                    { 
-                        data(){
-                            return {
- "selected25": false,
- "selected26": false,
- "selected27": false,
- "selected28": false,
- "selected29": false,
- "selected30": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected25": false,
+                "selected26": false,
+                "selected27": false,
+                "selected28": false,
+                "selected29": false,
+                "selected30": false
+            }
+        },
+        template: `<div>
                         <strong>Payment of taxes</strong>
                         <p>Has the economic operator breached its obligations relating to the payment of taxes, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</p>
                         <div>
@@ -540,24 +540,24 @@ Vue.component("v4.0.0-CC7",
                                         </div></div>
                                         </div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC8 - EG - Payment of social security contributions
  */
 Vue.component("v4.0.0-CC8",
-                    { 
-                        data(){
-                            return {
- "selected31": false,
- "selected32": false,
- "selected33": false,
- "selected34": false,
- "selected35": false,
- "selected36": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected31": false,
+                "selected32": false,
+                "selected33": false,
+                "selected34": false,
+                "selected35": false,
+                "selected36": false
+            }
+        },
+        template: `<div>
                         <strong>Payment of social security contributions</strong>
                         <p>Has the economic operator breached its obligations relating to the payment of social security contributions, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</p>
                         <div>
@@ -644,22 +644,22 @@ Vue.component("v4.0.0-CC8",
                                         </div></div>
                                         </div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC9 - EG - Breaching of obligations in the fields of environmental law
  */
 Vue.component("v4.0.0-CC9",
-                    { 
-                        data(){
-                            return {
- "selected37": false,
- "selected38": false,
- "selected39": false,
- "selected40": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected37": false,
+                "selected38": false,
+                "selected39": false,
+                "selected40": false
+            }
+        },
+        template: `<div>
                         <strong>Breaching of obligations in the fields of environmental law</strong>
                         <p>Has the economic operator, to its knowledge, breached its obligations in the fields of environmental law? As referred to for the purposes of this procurement in national law, in the ESPD, the relevant notice or the in the ESPD, the relevant notice or , in Article 18(2) of Directive 2014/24/EU or in the ESPD.</p>
                         <div>
@@ -701,22 +701,22 @@ Vue.component("v4.0.0-CC9",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC10 - EG - Breaching of obligations in the fields of social law
  */
 Vue.component("v4.0.0-CC10",
-                    { 
-                        data(){
-                            return {
- "selected41": false,
- "selected42": false,
- "selected43": false,
- "selected44": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected41": false,
+                "selected42": false,
+                "selected43": false,
+                "selected44": false
+            }
+        },
+        template: `<div>
                         <strong>Breaching of obligations in the fields of social law</strong>
                         <p>Has the economic operator, to its knowledge, breached its obligations in the fields of social law? As referred to for the purposes of this procurement in national law, in the ESPD, the relevant notice or the in the ESPD, the relevant notice or in Article 18(2) of Directive 2014/24/EU.</p>
                         <div>
@@ -758,22 +758,22 @@ Vue.component("v4.0.0-CC10",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC11 - EG - Breaching of obligations in the fields of labour law
  */
 Vue.component("v4.0.0-CC11",
-                    { 
-                        data(){
-                            return {
- "selected45": false,
- "selected46": false,
- "selected47": false,
- "selected48": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected45": false,
+                "selected46": false,
+                "selected47": false,
+                "selected48": false
+            }
+        },
+        template: `<div>
                         <strong>Breaching of obligations in the fields of labour law</strong>
                         <p>Has the economic operator, to its knowledge, breached its obligations in the fields of labour law? As referred to for the purposes of this procurement in national law, in the relevant notice or the in the ESPD, the relevant notice or in Article 18(2) of Directive 2014/24/EU.</p>
                         <div>
@@ -815,21 +815,21 @@ Vue.component("v4.0.0-CC11",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC12 - EG - Bankruptcy
  */
 Vue.component("v4.0.0-CC12",
-                    { 
-                        data(){
-                            return {
- "selected49": false,
- "selected50": false,
- "selected51": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected49": false,
+                "selected50": false,
+                "selected51": false
+            }
+        },
+        template: `<div>
                         <strong>Bankruptcy</strong>
                         <p>Is the economic operator bankrupt? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
                         <div>
@@ -868,21 +868,21 @@ Vue.component("v4.0.0-CC12",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC13 - EG - Insolvency
  */
 Vue.component("v4.0.0-CC13",
-                    { 
-                        data(){
-                            return {
- "selected52": false,
- "selected53": false,
- "selected54": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected52": false,
+                "selected53": false,
+                "selected54": false
+            }
+        },
+        template: `<div>
                         <strong>Insolvency</strong>
                         <p>Is the economic operator the subject of insolvency or winding-up? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
                         <div>
@@ -921,21 +921,21 @@ Vue.component("v4.0.0-CC13",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC14 - EG - Arrangement with creditors
  */
 Vue.component("v4.0.0-CC14",
-                    { 
-                        data(){
-                            return {
- "selected55": false,
- "selected56": false,
- "selected57": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected55": false,
+                "selected56": false,
+                "selected57": false
+            }
+        },
+        template: `<div>
                         <strong>Arrangement with creditors</strong>
                         <p>Is the economic operator in arrangement with creditors? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
                         <div>
@@ -974,21 +974,21 @@ Vue.component("v4.0.0-CC14",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC15 - EG - Analogous situation like bankruptcy under national law
  */
 Vue.component("v4.0.0-CC15",
-                    { 
-                        data(){
-                            return {
- "selected58": false,
- "selected59": false,
- "selected60": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected58": false,
+                "selected59": false,
+                "selected60": false
+            }
+        },
+        template: `<div>
                         <strong>Analogous situation like bankruptcy under national law</strong>
                         <p>Is the economic operator in any analogous situation like bankruptcy arising from a similar procedure under national laws and regulations? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
                         <div>
@@ -1027,21 +1027,21 @@ Vue.component("v4.0.0-CC15",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC16 - EG - Assets being administered by liquidator
  */
 Vue.component("v4.0.0-CC16",
-                    { 
-                        data(){
-                            return {
- "selected61": false,
- "selected62": false,
- "selected63": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected61": false,
+                "selected62": false,
+                "selected63": false
+            }
+        },
+        template: `<div>
                         <strong>Assets being administered by liquidator</strong>
                         <p>Are the assets of the economic operator being administered by a liquidator or by the court? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
                         <div>
@@ -1080,21 +1080,21 @@ Vue.component("v4.0.0-CC16",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC17 - EG - Business activities are suspended
  */
 Vue.component("v4.0.0-CC17",
-                    { 
-                        data(){
-                            return {
- "selected64": false,
- "selected65": false,
- "selected66": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected64": false,
+                "selected65": false,
+                "selected66": false
+            }
+        },
+        template: `<div>
                         <strong>Business activities are suspended</strong>
                         <p>Are the business activities of the economic operator suspended? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
                         <div>
@@ -1133,22 +1133,22 @@ Vue.component("v4.0.0-CC17",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC18 - EG - Guilty of grave professional misconduct
  */
 Vue.component("v4.0.0-CC18",
-                    { 
-                        data(){
-                            return {
- "selected67": false,
- "selected68": false,
- "selected69": false,
- "selected70": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected67": false,
+                "selected68": false,
+                "selected69": false,
+                "selected70": false
+            }
+        },
+        template: `<div>
                         <strong>Guilty of grave professional misconduct</strong>
                         <p>Is the economic operator guilty of grave professional misconduct? Where applicable, see definitions in national law, the relevant notice or the procurement documents.</p>
                         <div>
@@ -1194,22 +1194,22 @@ Vue.component("v4.0.0-CC18",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC19 - EG - Agreements with other economic operators aimed at distorting competition
  */
 Vue.component("v4.0.0-CC19",
-                    { 
-                        data(){
-                            return {
- "selected71": false,
- "selected72": false,
- "selected73": false,
- "selected74": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected71": false,
+                "selected72": false,
+                "selected73": false,
+                "selected74": false
+            }
+        },
+        template: `<div>
                         <strong>Agreements with other economic operators aimed at distorting competition</strong>
                         <p>Has the economic operator entered into agreements with other economic operators aimed at distorting competition?</p>
                         <div>
@@ -1255,21 +1255,21 @@ Vue.component("v4.0.0-CC19",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC20 - EG - Conflict of interest due to its participation in the procurement procedure
  */
 Vue.component("v4.0.0-CC20",
-                    { 
-                        data(){
-                            return {
- "selected75": false,
- "selected76": false,
- "selected77": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected75": false,
+                "selected76": false,
+                "selected77": false
+            }
+        },
+        template: `<div>
                         <strong>Conflict of interest due to its participation in the procurement procedure</strong>
                         <p>Is the economic operator aware of any conflict of interest, as indicated in national law, the relevant notice or in the ESPD, the relevant notice or due to its participation in the procurement procedure?</p>
                         <div>
@@ -1304,21 +1304,21 @@ Vue.component("v4.0.0-CC20",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC21 - EG - Direct or indirect involvement in the preparation of this procurement procedure
  */
 Vue.component("v4.0.0-CC21",
-                    { 
-                        data(){
-                            return {
- "selected78": false,
- "selected79": false,
- "selected80": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected78": false,
+                "selected79": false,
+                "selected80": false
+            }
+        },
+        template: `<div>
                         <strong>Direct or indirect involvement in the preparation of this procurement procedure</strong>
                         <p>Has the economic operator or an undertaking related to it advised the contracting authority or contracting entity or otherwise been involved in the preparation of the procurement procedure?</p>
                         <div>
@@ -1353,22 +1353,22 @@ Vue.component("v4.0.0-CC21",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC22 - EG - Early termination, damages or other comparable sanctions
  */
 Vue.component("v4.0.0-CC22",
-                    { 
-                        data(){
-                            return {
- "selected81": false,
- "selected82": false,
- "selected83": false,
- "selected84": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected81": false,
+                "selected82": false,
+                "selected83": false,
+                "selected84": false
+            }
+        },
+        template: `<div>
                         <strong>Early termination, damages or other comparable sanctions</strong>
                         <p>Has the economic operator experienced that a prior public contract, a prior contract with a contracting entity or a prior concession contract was terminated early, or that damages or other comparable sanctions were imposed in connection with that prior contract?</p>
                         <div>
@@ -1414,21 +1414,21 @@ Vue.component("v4.0.0-CC22",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC23 - EG - Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure
  */
 Vue.component("v4.0.0-CC23",
-                    { 
-                        data(){
-                            return {
- "selected85": false,
- "selected86": false,
- "selected87": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected85": false,
+                "selected86": false,
+                "selected87": false
+            }
+        },
+        template: `<div>
                         <strong>Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure</strong>
                         <p>Can the economic operator confirm that:</p>
                         <em>a) It has been guilty of serious misrepresentation in supplying the information required for the verification of the absence of grounds for exclusion or the fulfilment of the selection criteria,</em><em>b) It has withheld such information,</em><em>c) It has not been able, without delay, to submit the supporting documents required by a contracting authority or contracting entity, and</em><em>d) It has undertaken to unduly influence the decision making process of the contracting authority or contracting entity, to obtain confidential information that may confer upon it undue advantages in the procurement procedure or to negligently provide misleading information that may have a material influence on decisions concerning exclusion, selection or award?</em><div>
@@ -1456,20 +1456,20 @@ Vue.component("v4.0.0-CC23",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC24 - EG - Purely national exclusion grounds
  */
 Vue.component("v4.0.0-CC24",
-                    { 
-                        data(){
-                            return {
- "selected88": false,
- "selected89": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected88": false,
+                "selected89": false
+            }
+        },
+        template: `<div>
                         <strong>Purely national exclusion grounds</strong>
                         <p>Other exclusion grounds that may be foreseen in the national legislation of the contracting authority's or contracting entity's Member State. Has the economic operator breached its obligations relating to the purely national grounds of exclusion, which are specified in the relevant notice or in the procurement documents?</p>
                         <em>LEGISLATION</em>
@@ -1491,23 +1491,23 @@ Vue.component("v4.0.0-CC24",
                                         </div></div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC25 - SC - Enrolment in a relevant professional register
  */
 Vue.component("v4.0.0-CC25",
-                    { 
-                        data(){
-                            return {
- "selected90": false,
- "selected91": false,
- "selected92": false,
- "selected93": false,
- "selected94": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected90": false,
+                "selected91": false,
+                "selected92": false,
+                "selected93": false,
+                "selected94": false
+            }
+        },
+        template: `<div>
                         <strong>Enrolment in a relevant professional register</strong>
                         <p>It is enrolled in relevant professional registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</p>
                         <div>
@@ -1579,23 +1579,23 @@ Vue.component("v4.0.0-CC25",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC26 - SC - Enrolment in a trade register
  */
 Vue.component("v4.0.0-CC26",
-                    { 
-                        data(){
-                            return {
- "selected95": false,
- "selected96": false,
- "selected97": false,
- "selected98": false,
- "selected99": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected95": false,
+                "selected96": false,
+                "selected97": false,
+                "selected98": false,
+                "selected99": false
+            }
+        },
+        template: `<div>
                         <strong>Enrolment in a trade register</strong>
                         <p>It is enrolled in trade registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</p>
                         <div>
@@ -1672,24 +1672,24 @@ Vue.component("v4.0.0-CC26",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC27 - SC - For service contracts: authorisation of particular organisation needed
  */
 Vue.component("v4.0.0-CC27",
-                    { 
-                        data(){
-                            return {
- "selected100": false,
- "selected101": false,
- "selected102": false,
- "selected103": false,
- "selected104": false,
- "selected105": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected100": false,
+                "selected101": false,
+                "selected102": false,
+                "selected103": false,
+                "selected104": false,
+                "selected105": false
+            }
+        },
+        template: `<div>
                         <strong>For service contracts: authorisation of particular organisation needed</strong>
                         <p>Is a particular authorisation of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</p>
                         <div>
@@ -1777,24 +1777,24 @@ Vue.component("v4.0.0-CC27",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC28 - SC - For service contracts: membership of particular organisation needed
  */
 Vue.component("v4.0.0-CC28",
-                    { 
-                        data(){
-                            return {
- "selected106": false,
- "selected107": false,
- "selected108": false,
- "selected109": false,
- "selected110": false,
- "selected111": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected106": false,
+                "selected107": false,
+                "selected108": false,
+                "selected109": false,
+                "selected110": false,
+                "selected111": false
+            }
+        },
+        template: `<div>
                         <strong>For service contracts: membership of particular organisation needed</strong>
                         <p>Is a particular membership of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</p>
                         <div>
@@ -1882,23 +1882,23 @@ Vue.component("v4.0.0-CC28",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC29 - SC - General yearly turnover
  */
 Vue.component("v4.0.0-CC29",
-                    { 
-                        data(){
-                            return {
- "selected112": false,
- "selected113": false,
- "selected114": false,
- "selected115": false,
- "selected116": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected112": false,
+                "selected113": false,
+                "selected114": false,
+                "selected115": false,
+                "selected116": false
+            }
+        },
+        template: `<div>
                         <strong>General yearly turnover</strong>
                         <p>Its general yearly turnover for the number of financial years required in the relevant notice, the in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         <div>
@@ -1985,23 +1985,23 @@ Vue.component("v4.0.0-CC29",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC30 - SC - Average yearly turnover
  */
 Vue.component("v4.0.0-CC30",
-                    { 
-                        data(){
-                            return {
- "selected117": false,
- "selected118": false,
- "selected119": false,
- "selected120": false,
- "selected121": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected117": false,
+                "selected118": false,
+                "selected119": false,
+                "selected120": false,
+                "selected121": false
+            }
+        },
+        template: `<div>
                         <strong>Average yearly turnover</strong>
                         <p>Its average yearly turnover for the number of years required in the relevant notice, the procurement documents or the ESPD is as follows:</p>
                         <div>
@@ -2083,23 +2083,23 @@ Vue.component("v4.0.0-CC30",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC31 - SC - Specific average turnover
  */
 Vue.component("v4.0.0-CC31",
-                    { 
-                        data(){
-                            return {
- "selected122": false,
- "selected123": false,
- "selected124": false,
- "selected125": false,
- "selected126": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected122": false,
+                "selected123": false,
+                "selected124": false,
+                "selected125": false,
+                "selected126": false
+            }
+        },
+        template: `<div>
                         <strong>Specific average turnover</strong>
                         <p>Its specific average yearly turnover in the business area covered by the contract for the number of years required in the relevant notice, the in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         <div>
@@ -2186,23 +2186,23 @@ Vue.component("v4.0.0-CC31",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC32 - SC - Specific yearly turnover
  */
 Vue.component("v4.0.0-CC32",
-                    { 
-                        data(){
-                            return {
- "selected127": false,
- "selected128": false,
- "selected129": false,
- "selected130": false,
- "selected131": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected127": false,
+                "selected128": false,
+                "selected129": false,
+                "selected130": false,
+                "selected131": false
+            }
+        },
+        template: `<div>
                         <strong>Specific yearly turnover</strong>
                         <p>Its specific yearly turnover in the business area covered by the contract for the number of financial years required in the relevant notice, in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         <div>
@@ -2289,21 +2289,21 @@ Vue.component("v4.0.0-CC32",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC34 - SC - Financial ratio
  */
 Vue.component("v4.0.0-CC34",
-                    { 
-                        data(){
-                            return {
- "selected132": false,
- "selected133": false,
- "selected134": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected132": false,
+                "selected133": false,
+                "selected134": false
+            }
+        },
+        template: `<div>
                         <strong>Financial ratio</strong>
                         <p>Concerning the financial ratios specified in the relevant notice, the in the ESPD, the relevant notice or the ESPD, the economic operator declares that the actual values for the required ratios are as follows:</p>
                         <em>LEGISLATION</em><div>
@@ -2370,24 +2370,24 @@ Vue.component("v4.0.0-CC34",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC35 - SC - Professional risk indemnity insurance
  */
 Vue.component("v4.0.0-CC35",
-                    { 
-                        data(){
-                            return {
- "selected135": false,
- "selected136": false,
- "selected137": false,
- "selected138": false,
- "selected139": false,
- "selected140": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected135": false,
+                "selected136": false,
+                "selected137": false,
+                "selected138": false,
+                "selected139": false,
+                "selected140": false
+            }
+        },
+        template: `<div>
                         <strong>Professional risk indemnity insurance</strong>
                         <p>The insured amount in its professional risk indemnity insurance is the following:</p>
                         <div>
@@ -2458,22 +2458,22 @@ Vue.component("v4.0.0-CC35",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC36 - SC - Other economic or financial requirements
  */
 Vue.component("v4.0.0-CC36",
-                    { 
-                        data(){
-                            return {
- "selected141": false,
- "selected142": false,
- "selected143": false,
- "selected144": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected141": false,
+                "selected142": false,
+                "selected143": false,
+                "selected144": false
+            }
+        },
+        template: `<div>
                         <strong>Other economic or financial requirements</strong>
                         <p>Concerning the other economic or financial requirements, if any, that may have been specified in the relevant notice or in the ESPD, the economic operator declares that:</p>
                         <div>
@@ -2569,21 +2569,21 @@ Vue.component("v4.0.0-CC36",
                                             </b-form-group>
                                         </div></div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC37 - SC - For works contracts: performance of works of the specified type
  */
 Vue.component("v4.0.0-CC37",
-                    { 
-                        data(){
-                            return {
- "selected145": false,
- "selected146": false,
- "selected147": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected145": false,
+                "selected146": false,
+                "selected147": false
+            }
+        },
+        template: `<div>
                         <strong>For works contracts: performance of works of the specified type</strong>
                         <p>For public works contracts only: During the reference period, the economic operator has performed the following works of the specified type. Contracting authorities may require up to five years and allow experience dating from more than five years.</p>
                         <div>
@@ -2660,21 +2660,21 @@ Vue.component("v4.0.0-CC37",
                                             </b-form-group>
                                         </div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC38 - SC - For supply contracts: performance of deliveries of the specified type
  */
 Vue.component("v4.0.0-CC38",
-                    { 
-                        data(){
-                            return {
- "selected148": false,
- "selected149": false,
- "selected150": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected148": false,
+                "selected149": false,
+                "selected150": false
+            }
+        },
+        template: `<div>
                         <strong>For supply contracts: performance of deliveries of the specified type</strong>
                         <p>For public supply contracts only: During the reference period, the economic operator has delivered the following principal deliveries of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</p>
                         <div>
@@ -2751,21 +2751,21 @@ Vue.component("v4.0.0-CC38",
                                             </b-form-group>
                                         </div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC39 - SC - For service contracts: performance of services of the specified type
  */
 Vue.component("v4.0.0-CC39",
-                    { 
-                        data(){
-                            return {
- "selected151": false,
- "selected152": false,
- "selected153": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected151": false,
+                "selected152": false,
+                "selected153": false
+            }
+        },
+        template: `<div>
                         <strong>For service contracts: performance of services of the specified type</strong>
                         <p>For public service contracts only: During the reference period, the economic operator has provided the following main services of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</p>
                         <div>
@@ -2842,23 +2842,23 @@ Vue.component("v4.0.0-CC39",
                                             </b-form-group>
                                         </div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC40 - SC - Technicians or technical bodies for quality control
  */
 Vue.component("v4.0.0-CC40",
-                    { 
-                        data(){
-                            return {
- "selected154": false,
- "selected155": false,
- "selected156": false,
- "selected157": false,
- "selected158": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected154": false,
+                "selected155": false,
+                "selected156": false,
+                "selected157": false,
+                "selected158": false
+            }
+        },
+        template: `<div>
                         <strong>Technicians or technical bodies for quality control</strong>
                         <p>It can call upon the following technicians or technical bodies, especially those responsible for quality control. For technicians or technical bodies not belonging directly to the economic operator's undertaking but on whose capacities the economic operator relies as set out under Part II, Section C, separate ESPD forms must be filled in.</p>
                         <div>
@@ -2959,23 +2959,23 @@ Vue.component("v4.0.0-CC40",
                                             </b-form-group>
                                         </div></div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:
  */
 Vue.component("v4.0.0-CC41",
-                    { 
-                        data(){
-                            return {
- "selected159": false,
- "selected160": false,
- "selected161": false,
- "selected162": false,
- "selected163": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected159": false,
+                "selected160": false,
+                "selected161": false,
+                "selected162": false,
+                "selected163": false
+            }
+        },
+        template: `<div>
                         <strong>In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:</strong>
                         <p>In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:</p>
                         <div>
@@ -3076,22 +3076,22 @@ Vue.component("v4.0.0-CC41",
                                             </b-form-group>
                                         </div></div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC42 - SC - Technical facilities and measures for ensuring quality
  */
 Vue.component("v4.0.0-CC42",
-                    { 
-                        data(){
-                            return {
- "selected164": false,
- "selected165": false,
- "selected166": false,
- "selected167": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected164": false,
+                "selected165": false,
+                "selected166": false,
+                "selected167": false
+            }
+        },
+        template: `<div>
                         <strong>Technical facilities and measures for ensuring quality</strong>
                         <p>It uses the following technical facilities and measures for ensuring quality and its study and research facilities are as follows:</p>
                         <div>
@@ -3149,22 +3149,22 @@ Vue.component("v4.0.0-CC42",
                                             </b-form-group>
                                         </div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC43 - SC - Study and research facilities
  */
 Vue.component("v4.0.0-CC43",
-                    { 
-                        data(){
-                            return {
- "selected168": false,
- "selected169": false,
- "selected170": false,
- "selected171": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected168": false,
+                "selected169": false,
+                "selected170": false,
+                "selected171": false
+            }
+        },
+        template: `<div>
                         <strong>Study and research facilities</strong>
                         <p>It uses the following study and research facilities are as follows:</p>
                         <div>
@@ -3222,22 +3222,22 @@ Vue.component("v4.0.0-CC43",
                                             </b-form-group>
                                         </div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC44 - SC - Supply chain management
  */
 Vue.component("v4.0.0-CC44",
-                    { 
-                        data(){
-                            return {
- "selected172": false,
- "selected173": false,
- "selected174": false,
- "selected175": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected172": false,
+                "selected173": false,
+                "selected174": false,
+                "selected175": false
+            }
+        },
+        template: `<div>
                         <strong>Supply chain management</strong>
                         <p>It will be able to apply the following supply chain management and tracking systems when performing the contract:</p>
                         <div>
@@ -3295,22 +3295,22 @@ Vue.component("v4.0.0-CC44",
                                             </b-form-group>
                                         </div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC45 - SC - Environmental management measures
  */
 Vue.component("v4.0.0-CC45",
-                    { 
-                        data(){
-                            return {
- "selected176": false,
- "selected177": false,
- "selected178": false,
- "selected179": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected176": false,
+                "selected177": false,
+                "selected178": false,
+                "selected179": false
+            }
+        },
+        template: `<div>
                         <strong>Environmental management measures</strong>
                         <p>The economic operator will be able to apply the following environmental management measures when performing the contract:</p>
                         <div>
@@ -3368,22 +3368,22 @@ Vue.component("v4.0.0-CC45",
                                             </b-form-group>
                                         </div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC46 - SC - Tools, plant or technical equipment
  */
 Vue.component("v4.0.0-CC46",
-                    { 
-                        data(){
-                            return {
- "selected180": false,
- "selected181": false,
- "selected182": false,
- "selected183": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected180": false,
+                "selected181": false,
+                "selected182": false,
+                "selected183": false
+            }
+        },
+        template: `<div>
                         <strong>Tools, plant or technical equipment</strong>
                         <p>The following tools, plant or technical equipment will be available to it for performing the contract:</p>
                         <div>
@@ -3441,22 +3441,22 @@ Vue.component("v4.0.0-CC46",
                                             </b-form-group>
                                         </div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC47 - SC - Educational and professional qualifications
  */
 Vue.component("v4.0.0-CC47",
-                    { 
-                        data(){
-                            return {
- "selected184": false,
- "selected185": false,
- "selected186": false,
- "selected187": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected184": false,
+                "selected185": false,
+                "selected186": false,
+                "selected187": false
+            }
+        },
+        template: `<div>
                         <strong>Educational and professional qualifications</strong>
                         <p>The following educational and professional qualifications are held by the service provider or the contractor itself, and/or (depending on the requirements set out in the relevant notice or the in the ESPD, the relevant notice or by its managerial staff.</p>
                         <div>
@@ -3546,23 +3546,23 @@ Vue.component("v4.0.0-CC47",
                                             </b-form-group>
                                         </div></div></div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC48 - SC - Special requierements check
  */
 Vue.component("v4.0.0-CC48",
-                    { 
-                        data(){
-                            return {
- "selected188": false,
- "selected189": false,
- "selected190": false,
- "selected191": false,
- "selected192": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected188": false,
+                "selected189": false,
+                "selected190": false,
+                "selected191": false,
+                "selected192": false
+            }
+        },
+        template: `<div>
                         <strong>Special requierements check</strong>
                         <p>For complex products or services to be supplied or, exceptionally, for products or services which are required for a special purpose: The economic operator will allow checks to be conducted on the production capacities or the technical capacity of the economic operator and, where necessary, on the means of study and research which are available to it and on the quality control measures? The check is to be performed by the contracting authority or, in case the latter consents to this, on its behalf by a competent official body of the country in which the supplier or service provider is established.</p>
                         <div>
@@ -3620,22 +3620,22 @@ Vue.component("v4.0.0-CC48",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC49 - SC - Number of managerial staff
  */
 Vue.component("v4.0.0-CC49",
-                    { 
-                        data(){
-                            return {
- "selected193": false,
- "selected194": false,
- "selected195": false,
- "selected196": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected193": false,
+                "selected194": false,
+                "selected195": false,
+                "selected196": false
+            }
+        },
+        template: `<div>
                         <strong>Number of managerial staff</strong>
                         <p>The economic operator’s number of managerial staff for the last three years were as follows:</p>
                         <div>
@@ -3702,22 +3702,22 @@ Vue.component("v4.0.0-CC49",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC50 - SC - Average annual manpower
  */
 Vue.component("v4.0.0-CC50",
-                    { 
-                        data(){
-                            return {
- "selected197": false,
- "selected198": false,
- "selected199": false,
- "selected200": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected197": false,
+                "selected198": false,
+                "selected199": false,
+                "selected200": false
+            }
+        },
+        template: `<div>
                         <strong>Average annual manpower</strong>
                         <p>The economic operator’s average annual manpower for the last three years were as follows:</p>
                         <div>
@@ -3784,22 +3784,22 @@ Vue.component("v4.0.0-CC50",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC51 - SC - Subcontracting proportion
  */
 Vue.component("v4.0.0-CC51",
-                    { 
-                        data(){
-                            return {
- "selected201": false,
- "selected202": false,
- "selected203": false,
- "selected204": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected201": false,
+                "selected202": false,
+                "selected203": false,
+                "selected204": false
+            }
+        },
+        template: `<div>
                         <strong>Subcontracting proportion</strong>
                         <p>The economic operator intends possibly to subcontract the following proportion (i.e. percentage) of the contract. Please note that if the economic operator has decided to subcontract a part of the contract and relies on the subcontractor’s capacities to perform that part, then please fill in a separate ESPD for such subcontractors, see Part II, Section C above.</p>
                         <div>
@@ -3851,23 +3851,23 @@ Vue.component("v4.0.0-CC51",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity
  */
 Vue.component("v4.0.0-CC52",
-                    { 
-                        data(){
-                            return {
- "selected205": false,
- "selected206": false,
- "selected207": false,
- "selected208": false,
- "selected209": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected205": false,
+                "selected206": false,
+                "selected207": false,
+                "selected208": false,
+                "selected209": false
+            }
+        },
+        template: `<div>
                         <strong>For supply contracts: samples, descriptions or photographs without certification of authenticity</strong>
                         <p>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied, which do not need to be accompanied by certifications of authenticity.</p>
                         <div>
@@ -3919,23 +3919,23 @@ Vue.component("v4.0.0-CC52",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC53 - SC - For supply contracts: samples, descriptions or photographs with certification of authenticity
  */
 Vue.component("v4.0.0-CC53",
-                    { 
-                        data(){
-                            return {
- "selected210": false,
- "selected211": false,
- "selected212": false,
- "selected213": false,
- "selected214": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected210": false,
+                "selected211": false,
+                "selected212": false,
+                "selected213": false,
+                "selected214": false
+            }
+        },
+        template: `<div>
                         <strong>For supply contracts: samples, descriptions or photographs with certification of authenticity</strong>
                         <p>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied and will provide certifications of authenticity where applicable.</p>
                         <div>
@@ -3987,23 +3987,23 @@ Vue.component("v4.0.0-CC53",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC54 - SC - For supply contracts: certificates by quality control institutes
  */
 Vue.component("v4.0.0-CC54",
-                    { 
-                        data(){
-                            return {
- "selected215": false,
- "selected216": false,
- "selected217": false,
- "selected218": false,
- "selected219": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected215": false,
+                "selected216": false,
+                "selected217": false,
+                "selected218": false,
+                "selected219": false
+            }
+        },
+        template: `<div>
                         <strong>For supply contracts: certificates by quality control institutes</strong>
                         <p>Can the economic operator provide the required certificates drawn up by official quality control institutes or agencies of recognised competence attesting the conformity of products clearly identified by references to the technical specifications or standards, which are set out in the relevant notice or the in the ESPD, the relevant notice or ?</p>
                         <div>
@@ -4068,23 +4068,23 @@ Vue.component("v4.0.0-CC54",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC55 - SC - Certificates by independent bodies about quality assurance standards
  */
 Vue.component("v4.0.0-CC55",
-                    { 
-                        data(){
-                            return {
- "selected220": false,
- "selected221": false,
- "selected222": false,
- "selected223": false,
- "selected224": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected220": false,
+                "selected221": false,
+                "selected222": false,
+                "selected223": false,
+                "selected224": false
+            }
+        },
+        template: `<div>
                         <strong>Certificates by independent bodies about quality assurance standards</strong>
                         <p>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required quality assurance standards, including accessibility for disabled persons?</p>
                         <div>
@@ -4149,23 +4149,23 @@ Vue.component("v4.0.0-CC55",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC56 - SC - Certificates by independent bodies about environmental management systems or standards
  */
 Vue.component("v4.0.0-CC56",
-                    { 
-                        data(){
-                            return {
- "selected225": false,
- "selected226": false,
- "selected227": false,
- "selected228": false,
- "selected229": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected225": false,
+                "selected226": false,
+                "selected227": false,
+                "selected228": false,
+                "selected229": false
+            }
+        },
+        template: `<div>
                         <strong>Certificates by independent bodies about environmental management systems or standards</strong>
                         <p>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required environmental management systems or standards?</p>
                         <div>
@@ -4230,20 +4230,20 @@ Vue.component("v4.0.0-CC56",
                                             </b-form-group>
                                         </div></div></div></div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC57 - OT - Economic operator is a sheltered workshop
  */
 Vue.component("v4.0.0-CC57",
-                    { 
-                        data(){
-                            return {
- "selected230": false,
- "selected231": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected230": false,
+                "selected231": false
+            }
+        },
+        template: `<div>
                         <strong>Economic operator is a sheltered workshop</strong>
                         <p>Only in case the procurement is reserved: is the economic operator a sheltered workshop, a 'social business' or will it provide for the performance of the contract in the context of sheltered employment programmes?</p>
                         
@@ -4276,23 +4276,23 @@ Vue.component("v4.0.0-CC57",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC58 - OT - Economic operator registered in a pre qualification system
  */
 Vue.component("v4.0.0-CC58",
-                    { 
-                        data(){
-                            return {
- "selected232": false,
- "selected233": false,
- "selected234": false,
- "selected235": false,
- "selected236": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected232": false,
+                "selected233": false,
+                "selected234": false,
+                "selected235": false,
+                "selected236": false
+            }
+        },
+        template: `<div>
                         <strong>Economic operator registered in a pre qualification system</strong>
                         <p>Does the country of the economic operator have an official list of approved economic operators or an equivalent certificate (e.g. under a national (pre)qualification system)?</p>
                         
@@ -4347,20 +4347,20 @@ Vue.component("v4.0.0-CC58",
                                         </div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC59 - OT - Economic Operator together with others
  */
 Vue.component("v4.0.0-CC59",
-                    { 
-                        data(){
-                            return {
- "selected237": false,
- "selected238": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected237": false,
+                "selected238": false
+            }
+        },
+        template: `<div>
                         <strong>Economic Operator together with others</strong>
                         <p>Is the economic operator participating in the procurement procedure together with others?</p>
                         
@@ -4397,20 +4397,20 @@ Vue.component("v4.0.0-CC59",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC60 - OT - Relied on entities
  */
 Vue.component("v4.0.0-CC60",
-                    { 
-                        data(){
-                            return {
- "selected239": false,
- "selected240": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected239": false,
+                "selected240": false
+            }
+        },
+        template: `<div>
                         <strong>Relied on entities</strong>
                         <p>Does the economic operator rely on the capacities of other entities in order to meet the selection criteria set out under Part IV and the criteria and rules (if any) set out under Part V below?</p>
                         
@@ -4443,20 +4443,20 @@ Vue.component("v4.0.0-CC60",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC61 - OT - Not relied on entities
  */
 Vue.component("v4.0.0-CC61",
-                    { 
-                        data(){
-                            return {
- "selected241": false,
- "selected242": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected241": false,
+                "selected242": false
+            }
+        },
+        template: `<div>
                         <strong>Not relied on entities</strong>
                         <p>Does the economic operator intend to subcontract any share of the contract to third parties?</p>
                         
@@ -4489,20 +4489,20 @@ Vue.component("v4.0.0-CC61",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC63 - OT - Reduction of the number of qualified candidates
  */
 Vue.component("v4.0.0-CC63",
-                    { 
-                        data(){
-                            return {
- "selected243": false,
- "selected244": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected243": false,
+                "selected244": false
+            }
+        },
+        template: `<div>
                         <strong>Reduction of the number of qualified candidates</strong>
                         <p>The economic operator declares that It meets the objective and non discriminatory criteria or rules to be applied in order to limit the number of candidates in the following way:</p>
                         <em>In case certain certificates or other forms of documentary evidence are required, please indicate for each whether the economic operator has the required documents</em>
@@ -4531,20 +4531,20 @@ Vue.component("v4.0.0-CC63",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })
 
 /**
  * Component - CC65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise
  */
 Vue.component("v4.0.0-CC65",
-                    { 
-                        data(){
-                            return {
- "selected245": false,
- "selected246": false
-}
-                        },
-                        template: `<div>
+    {
+        data() {
+            return {
+                "selected245": false,
+                "selected246": false
+            }
+        },
+        template: `<div>
                         <strong>Economic Operator Micro, Small or Medium-sized Enterprise</strong>
                         <p>Is the economic operator a Micro, a Small or Medium-sized Enterprise?</p>
                         
@@ -4577,4 +4577,4 @@ Vue.component("v4.0.0-CC65",
                                         </div></div>
                         </div>
                     </div>`
-                    })
+    })

@@ -29,6 +29,27 @@ Vue.component("startComponent", {
         }
     },
 
+    methods: {
+        selectVersion(event){
+            this.espd_version = event
+            window.espd_doc.espd_version = this.espd_version
+
+            const getData = async () => {
+                try {
+                    //load the model too
+                    let thecall = await fetch(`${window.raw_data[window.espd_doc.espd_version].model.source}`)
+                    let data = await thecall.json()
+                    if (thecall.ok) {
+                        window.espd_model = data
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            getData()
+        }
+    },
+
     created(){
         const dataURL = ['ESPD/examples/']
 
@@ -85,7 +106,7 @@ Vue.component("startComponent", {
         <b-collapse id="accordion-st1" visible accordion="my-accordion" role="tabpanel">
             <b-card-body>
                 <b-form-group id="fieldset-espd" label-cols-sm="4" label-cols-lg="3" description="Select ESPD version" label="ESPD version" label-for="sel-espd">
-                    <b-form-select id="sel-espd" v-model="espd_version" :options="versions"></b-form-select>
+                    <b-form-select id="sel-espd" v-model="espd_version" :options="versions" @change="selectVersion($event)"></b-form-select>
                 </b-form-group>
                 
                 <b-form-group id="fieldset-role" label-cols-sm="4" label-cols-lg="3" description="Select your role" label="Select your role" label-for="sel-role">

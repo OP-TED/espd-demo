@@ -110,7 +110,17 @@
             <component v-bind:is="currentHeader"></component>
         </header>
         <main>
-            <!-- We want main content here -->
+            <!-- Top menu -->
+            <div class="mx-3 my-2">
+                <b-nav tabs>
+                    <b-nav-item href="#" @click="doShow('distribution')">{{$t("mainmenu.distribution")}}</b-nav-item>
+                    <b-nav-item href="#" @click="doShow('codelists')">{{$t("mainmenu.codelists")}}</b-nav-item>
+                    <b-nav-item href="#" @click="doShow('uuid')">{{$t("mainmenu.uuid")}}</b-nav-item>
+                    <b-nav-item href="#" @click="doShow('model')">{{$t("mainmenu.model")}}</b-nav-item>
+                    <b-nav-item href="#" @click="doShow('service')">{{$t("mainmenu.service")}}</b-nav-item>
+                </b-nav>
+              </div>
+            <!-- Main content here -->
             <component v-bind:is="mainComponent"></component>
         </main>
         <!--<footer class="footer">-->

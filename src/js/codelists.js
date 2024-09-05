@@ -58,6 +58,7 @@ Vue.component("codelists", {
                 'Code', 'Status'
             ],
             theFile: '',
+            loading: true,
             show: true
         }
     },
@@ -146,6 +147,7 @@ Vue.component("codelists", {
             this.sources = {}
 
             const getData = async () => {
+                this.loading = true
                 this.codelists = this.raw_data[this.version]
 
                 //load only the 1st version lists
@@ -235,7 +237,7 @@ Vue.component("codelists", {
                 for (const fld in this.crt_list.fields) {
                     this.crt_list.table.push(this.crt_list.fields[fld])
                 }
-
+                this.loading = false
             }
             getData()
         },
@@ -264,6 +266,7 @@ Vue.component("codelists", {
 
         const getData = async () => {
             try {
+                this.loading = true
                 let thecall = await fetch(`${dataURL}/codelist.json`)
                 let data = await thecall.json()
                 if (thecall.ok) {
@@ -371,7 +374,7 @@ Vue.component("codelists", {
                     for (const fld in this.crt_list.fields) {
                         this.crt_list.table.push(this.crt_list.fields[fld])
                     }
-
+                    this.loading = false
 
                 }
             } catch (error) {
@@ -390,6 +393,12 @@ Vue.component("codelists", {
             <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
         </b-form-group>
 
+        <div v-if="loading">
+            <div class="d-flex justify-content-center mb-3">
+                <b-spinner label="Loading Code List data ..."></b-spinner>
+            </div>
+        </div>
+        <div v-else>
         <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="Code list" label-for="input-codelist">
             <b-form-select id="input-codelist" v-model="codelist" :options="codelists" @change="selectCodeList($event)"></b-form-select>
         </b-form-group>
@@ -440,9 +449,10 @@ Vue.component("codelists", {
             </b-card>
         </template>
         </b-table>
+        </div>
 
         <template #footer>
-            <b-row>
+            <b-row v-if="!loading">
                 <b-col class="pb-2">
                     <b-button pill @click="ViewXML" variant="primary">View XML file</b-button>
                 </b-col>

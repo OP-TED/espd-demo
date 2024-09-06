@@ -30,11 +30,6 @@ Vue.component('ESPDdownload',{
                     .att('@xmlns', 'xmlns:cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2')
                     .att('@xmlns', 'xmlns:cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2')
                     .att('@xmlns', 'xmlns:espd', `urn:com:grow:espd:${schemeVersionID}`)
-                    .att('@xmlns', 'xmlns:text', 'urn:oasis:names:tc:opendocument:xmlns:text:1.0')
-                    .att('@xmlns', 'xmlns:util', 'java:java.util.UUID')
-                    .att('@xmlns', 'xmlns:style', 'urn:oasis:names:tc:opendocument:xmlns:style:1.0')
-                    .att('@xmlns', 'xmlns:table', 'urn:oasis:names:tc:opendocument:xmlns:table:1.0')
-                    .att('@xmlns', 'xmlns:office', 'urn:oasis:names:tc:opendocument:xmlns:office:1.0') 
             
                 //Transform JSON documents into XML
                 window.espd_request.com(` The ESPD-EDM-V${schemeVersionID} is entirely based on OASIS UBL-2.3 `)

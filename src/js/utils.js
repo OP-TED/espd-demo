@@ -508,7 +508,7 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
                 .up()
               break;
             case 'CODE':
-              if (element.codelist == 'occupation') {
+              if (element.codelist == 'Occupation') {
                 tmp.ele('@cac', 'ResponseValue')
                   .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
                   .ele('@cbc', 'ResponseCode', { 'listAgencyID': "EMPL", 'listVersionID': "20221214-0", 'listID': "http://publications.europa.eu/resource/authority/occupation" }).txt('dummy-value').up()
@@ -518,7 +518,7 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
                   .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
                   .ele('@cbc', 'ResponseCode', { 'listAgencyID': "OP", 'listVersionID': schemeVersionID, 'listID': "financial-ratio-type" }).txt('dummy-value').up()
                   .up()
-              } else if (element.codelist == 'EORoleType') {
+              } else if (element.codelist == 'EoRoleType') {
                 tmp.ele('@cac', 'ResponseValue')
                   .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
                   .ele('@cbc', 'ResponseCode', { 'listAgencyID': "OP", 'listVersionID': "20211208-0", 'listID': "http://publications.europa.eu/resource/authority/eo-role-type" }).txt('dummy-value').up()

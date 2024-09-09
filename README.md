@@ -55,7 +55,7 @@ We provide a basicdemonstration of the behaviour of the rules behind each buildi
 
 ESPD Request and ESPD Response examples generator - here we provide a JavaScript online implementation of the ESPD Request and Response example generator that will give Member States a playground for testing the latest ESPD versions. Member States will be able to generate specific examples and use them to test their ESPD before implementation.
 
-This is provided only for demonstrative purposes only and is not an actual service. The Member States must use the officially implemented and agreed ESPD services for their corresponding country.
+This is provided only for demonstrative purposes only and is not an actual service. Member States must use the officially implemented and agreed ESPD services for their corresponding country.
 
 You can fill in the required fields and download an ESPD Request XML file of ESPD Response XML file.
 

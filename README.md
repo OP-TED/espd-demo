@@ -26,7 +26,7 @@ This should start the local webserver on port **3000**, your site will then be a
 
 ## Usage
 
-Go to the GitHub Pages site: [ESPD Demo](https://docs.ted.europa.eu/espd-demo/) (or your local installation) to see the site live. The site contains the following sections:
+Go to the GitHub Pages site: [ESPD Demo](https://docs.ted.europa.eu/espd-demo/) (or your local installation) to see the site live. The demo contains the following sections:
 
 ### Section 1. Export
 

@@ -1,4 +1,4 @@
-# espd-demo
+# The espd-demo
 The espd-demo is a JavaScript application demonstrating the usage of the ESPD-EDM for ESPD versions that currently do not have an ESPD Service implemented (e.g. v3.3.0, v4.0.0).
 
 ## Table of Contents
@@ -6,7 +6,7 @@ The espd-demo is a JavaScript application demonstrating the usage of the ESPD-ED
 - [Usage](#usage)
 - [Licence](#licence)
 
-## Instalation
+## Installation
 The code in this repository is intended to run on GitHub Pages or as a Single Page Web Application. If you want to test the code on your local machine, you have to perform the following steps:
 
 1. clone the repository on your machine

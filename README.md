@@ -1,5 +1,5 @@
 # espd-demo
-The espd-demo is a JavaScript application demonstrating the usage of ESPD EDM for ESPD versions that currently do not have an ESPD Service implemented (e.g. v3.3.0, v4.0.0).
+The espd-demo is a JavaScript application demonstrating the usage of the ESPD-EDM for ESPD versions that currently do not have an ESPD Service implemented (e.g. v3.3.0, v4.0.0).
 
 ## Table of Contents
 - [Installation](#installation)
@@ -7,14 +7,14 @@ The espd-demo is a JavaScript application demonstrating the usage of ESPD EDM fo
 - [Licence](#licence)
 
 ## Instalation
-The code in this repository is intended to run on GitHub Pages or as Single Page Web Application. If you want to test the code on your local machine, you have to perform the following steps:
+The code in this repository is intended to run on GitHub Pages or as a Single Page Web Application. If you want to test the code on your local machine, you have to perform the following steps:
 
 1. clone the repository on your machine
 ```
 git clone git@github.com:OP-TED/espd-demo.git
 cd espd-demo
 ```
-2. Use a local webserver that renders static web files. Here, [Fastify](https://fastify.dev/) was chosen, but any webserver that serves static files will do. You will need to install and run the local webserver the root folder. The following prerequisites for **Fastify** and other [NodeJS](https://nodejs.org/en/download/) libraries can be installed from the command line:
+2. Use a local webserver that renders static web files. Here, [Fastify](https://fastify.dev/) was chosen, but any webserver that serves static files will do. You will need to install and run the local webserver in the root folder. The following prerequisites for **Fastify** and other [NodeJS](https://nodejs.org/en/download/) libraries can be installed from the command line:
 ```
 npm install
 ```
@@ -26,7 +26,7 @@ This should start the local webserver on port **3000**, your site will then be a
 
 ## Usage
 
-Go to the GitHub Pages site: [ESPD Demo](https://docs.ted.europa.eu/espd-demo/) to see the site live. The site contains the following sections:
+Go to the GitHub Pages site: [ESPD Demo](https://docs.ted.europa.eu/espd-demo/) (or your local installation) to see the site live. The site contains the following sections:
 
 ### Section 1. Export
 
@@ -41,19 +41,19 @@ The **Export** menu allows you to download:
 
 ### Section 3. UUID
 
-The **UUID** sections allows to explore the UUIDs for Exclusion Grounds and Selection Criteria. You can also check whether they are available in eCERTIS. Those UUIDs are the integration point between the ESPD and eCERITS. If the UUID is not present in eCertis, it will return an error. Please note that it takes a couple of minutes to retrieve the data from eCertis.  
+The **UUID** sections allows to explore the UUIDs for Exclusion Grounds and Selection Criteria. You can also check whether these UUIDs are available in eCERTIS. Those UUIDs are the integration point between the ESPD and eCERITS. If the UUID is not present in eCertis, it will return an error. Please note that it can take a couple of minutes to retrieve the data from eCertis.  
 
 The general search allows you to search by version, UUID, keywords or any combination.
 
 ### Section 4. View 
 
-ESPD model visualiation - in order to model Criteria and better visualise the ESPD model we have created a basic UI visualisation to get direct representation of what the model will look like on a web page.
+The ESPD model visualiation - to model Criteria and visualise the ESPD model better, we have created a basic UI visualisation so that you can see what the model might look like on a web page.
 
-We provide a basic behaviour demonstration of the rules behind each building block, cardinalities, and the data type expected for each input.
+We provide a basicdemonstration of the behaviour of the rules behind each building block, the cardinalities, and the data type expected for each input.
 
 ### Section 5. Examples
 
-ESPD Request and ESPD Response examples generator - here we provide a JavaScript online implementation of the ESPD Request and Response example generator that will give Member States  a playground for testing the latest ESPD versions. Member States will be able to generate specific examples and use them to test their ESPD before implementation.
+ESPD Request and ESPD Response examples generator - here we provide a JavaScript online implementation of the ESPD Request and Response example generator that will give Member States a playground for testing the latest ESPD versions. Member States will be able to generate specific examples and use them to test their ESPD before implementation.
 
 This is provided only for demonstrative purposes only and is not an actual service. The Member States must use the officially implemented and agreed ESPD services for their corresponding country.
 

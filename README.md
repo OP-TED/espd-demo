@@ -22,7 +22,7 @@ On your local machine you can test the results by starting the local webserver:
 ```
 npm start
 ```
-This should start the local webserver on port **3000**, your site will then be available at: [http://localhost:3000](http://localhost:3000). Use any Web browser to access the site.
+This should start the local webserver on port **3000**, your site will then be available at: [http://localhost:3000](http://localhost:3000). Use any web browser to access the site.
 
 ## Usage
 

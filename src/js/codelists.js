@@ -282,7 +282,7 @@ Vue.component("codelists", {
                             //console.log(v);
                         }
                     }
-                    this.versions.sort().reverse()
+                    this.versions.sort()
                     this.version = this.versions[0]
                     this.codelists = this.raw_data[this.versions[0]]
 

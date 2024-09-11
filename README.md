@@ -32,12 +32,12 @@ Go to the GitHub Pages site: [ESPD Demo](https://docs.ted.europa.eu/espd-demo/) 
 
 The **Export** menu allows you to download:
 - The **Excel** file for Codel Lists,
-- All Code Lists as an archive file.
+- All code lists as an archive file.
 - The **Excel** file for the Model and Datastructure 
 
 ### Section 2. Code Lists
 
-**Lists** allows you to view Code Lists and all the elements details. Here you can view the XML version of the Code List.
+**Lists** allows you to view code lists and all the elements details. Here you can view the XML version of a code list.
 
 ### Section 3. UUID
 

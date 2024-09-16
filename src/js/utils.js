@@ -145,7 +145,13 @@ function JS2XML(what, date = new Date()) {
 }
 
 
-//render the elementes of JSON to XML ESPD Request, and ESPD Response - the Request part
+/**
+ * Render the elementes of JSON to XML ESPD Request, and ESPD Response - the Request part
+ * 
+ * @param {*} obj - the ESPD Request or part of ESPD Request to be rendered
+ * @param {*} [part=window.espd_request] - ESPD Response XML document 
+ * @param {boolean} [EG_FLAG=true] - true if the part is an Exclusion Ground 
+ */
 function render_request(obj, part = window.espd_request, EG_FLAG = true) {
   let tmp = part, schemeVersionID = window.espd_doc.espd_version.substring(1)
   for (const elm in obj) {
@@ -349,7 +355,13 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
   }
 }
 
-//render the elements of JSON to XML ESPD Response
+/**
+ * Render the elements of JSON to XML ESPD Response
+ * 
+ * @param {*} obj - the ESPD Response or part of ESPD Response to be rendered
+ * @param {*} [part=window.espd_response] - ESPD Response XML document
+ * @param {string} [crt_criterion='NONE'] - current criterion to be rendered
+ */
 function render_response(obj, part = window.espd_response, crt_criterion = 'NONE') {
   let tmp = part, schemeVersionID = window.espd_doc.espd_version.substring(1)
 
@@ -541,3 +553,13 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
   }
 }
 
+/**
+ * Render HTML/Bootstrap from JSON data for ESPD Example
+ * The JSON object is stored in window.espd_doc
+ * Each criteria is a root level entry
+ * 
+ * @param {string} part - the JSON path to be rendered as HTML
+ */
+function renderHTML(part) {
+  console.log(part)
+}

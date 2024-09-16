@@ -14,78 +14,82 @@ Vue.component("v4.0.0-CC1",
 "C1_EG_crime-org/QG1/Q1" : false,
 "selected02" : false,
 "C1_EG_crime-org/QG1/QSG1" : [],
-"C1_EG_crime-org/QG1/QSG1/Q1" : '',
-"C1_EG_crime-org/QG1/QSG1/Q2" : '',
-"C1_EG_crime-org/QG1/QSG1/Q3" : '',
-"C1_EG_crime-org/QG1/QSG1/Q4" : '',
+"C1_EG_crime__org$QG1$QSG1$Q1" : [],
+"C1_EG_crime__org$QG1$QSG1$Q2" : [],
+"C1_EG_crime__org$QG1$QSG1$Q3" : [],
+"C1_EG_crime__org$QG1$QSG1$Q4" : [],
 "C1_EG_crime-org/QG1/QSG1/QSG1" : [],
 "C1_EG_crime-org/QG1/QSG1/QSG1/Q1" : false,
 "selected03" : false,
 "C1_EG_crime-org/QG1/QSG1/QSG1/QSG1" : [],
-"C1_EG_crime-org/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C1_EG_crime__org$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C1_EG_crime-org/QG1/QSG1/QSG2" : [],
 "C1_EG_crime-org/QG1/QSG1/QSG2/Q1" : false,
 "selected04" : false,
 "C1_EG_crime-org/QG1/QSG1/QSG2/QSG1" : [],
-"C1_EG_crime-org/QG1/QSG1/QSG2/QSG1/Q1" : '',
+"C1_EG_crime__org$QG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Participation in a criminal organisation</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for participation in a criminal organisation, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Council Framework Decision 2008/841/JHA of 24 October 2008 on the fight against organised crime (OJ L 300, 11.11.2008, p. 42).</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected01" name="check-button" inline="true" switch>
                                                      <b>[{{ selected01?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C1_EG_crime-org/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected02" name="check-button" inline="true" switch>
                                                      <b>[{{ selected02?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected02">
-                                        
-                                            <b-form-group label="[Q] Date of conviction" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Reason" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Who has been convicted" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Length of the period of exclusion" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] Date of conviction" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C1_EG_crime__org$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Reason" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C1_EG_crime__org$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Who has been convicted" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C1_EG_crime__org$QG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Length of the period of exclusion" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C1_EG_crime__org$QG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability (Self-Cleaning)? <b-form-checkbox v-model="selected03" name="check-button" inline="true" switch>
                                                      <b>[{{ selected03?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected03">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C1_EG_crime__org$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected04" name="check-button" inline="true" switch>
                                                      <b>[{{ selected04?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected04">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C1_EG_crime__org$QG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C1_EG_crime-org/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div>
                         </div>
                     </div>`
@@ -105,78 +109,82 @@ Vue.component("v4.0.0-CC2",
 "C2_EG_corruption/QG1/Q1" : false,
 "selected06" : false,
 "C2_EG_corruption/QG1/QSG1" : [],
-"C2_EG_corruption/QG1/QSG1/Q1" : '',
-"C2_EG_corruption/QG1/QSG1/Q2" : '',
-"C2_EG_corruption/QG1/QSG1/Q3" : '',
-"C2_EG_corruption/QG1/QSG1/Q4" : '',
+"C2_EG_corruption$QG1$QSG1$Q1" : [],
+"C2_EG_corruption$QG1$QSG1$Q2" : [],
+"C2_EG_corruption$QG1$QSG1$Q3" : [],
+"C2_EG_corruption$QG1$QSG1$Q4" : [],
 "C2_EG_corruption/QG1/QSG1/QSG1" : [],
 "C2_EG_corruption/QG1/QSG1/QSG1/Q1" : false,
 "selected07" : false,
 "C2_EG_corruption/QG1/QSG1/QSG1/QSG1" : [],
-"C2_EG_corruption/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C2_EG_corruption$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C2_EG_corruption/QG1/QSG1/QSG2" : [],
 "C2_EG_corruption/QG1/QSG1/QSG2/Q1" : false,
 "selected08" : false,
 "C2_EG_corruption/QG1/QSG1/QSG2/QSG1" : [],
-"C2_EG_corruption/QG1/QSG1/QSG2/QSG1/Q1" : '',
+"C2_EG_corruption$QG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Corruption</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for corruption, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 3 of the Convention on the fight against corruption involving officials of the European Communities or officials of Member States of the European Union, OJ C 195, 25.6.1997, p. 1, and in Article 2(1) of Council Framework Decision 2003/568/JHA of 22 July 2003 on combating corruption in the private sector (OJ L 192, 31.7.2003, p. 54). This exclusion ground also includes corruption as defined in the national law of the contracting authority (contracting entity) or the economic operator.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected05" name="check-button" inline="true" switch>
                                                      <b>[{{ selected05?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C2_EG_corruption/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected06" name="check-button" inline="true" switch>
                                                      <b>[{{ selected06?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected06">
-                                        
-                                            <b-form-group label="[Q] Date of conviction" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Reason" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Who has been convicted" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Length of the period of exclusion" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] Date of conviction" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C2_EG_corruption$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Reason" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C2_EG_corruption$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Who has been convicted" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C2_EG_corruption$QG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Length of the period of exclusion" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C2_EG_corruption$QG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability (Self-Cleaning)? <b-form-checkbox v-model="selected07" name="check-button" inline="true" switch>
                                                      <b>[{{ selected07?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected07">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C2_EG_corruption$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected08" name="check-button" inline="true" switch>
                                                      <b>[{{ selected08?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected08">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C2_EG_corruption$QG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C2_EG_corruption/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div>
                         </div>
                     </div>`
@@ -196,78 +204,82 @@ Vue.component("v4.0.0-CC3",
 "C3_EG_fraud/QG1/Q1" : false,
 "selected10" : false,
 "C3_EG_fraud/QG1/QSG1" : [],
-"C3_EG_fraud/QG1/QSG1/Q1" : '',
-"C3_EG_fraud/QG1/QSG1/Q2" : '',
-"C3_EG_fraud/QG1/QSG1/Q3" : '',
-"C3_EG_fraud/QG1/QSG1/Q4" : '',
+"C3_EG_fraud$QG1$QSG1$Q1" : [],
+"C3_EG_fraud$QG1$QSG1$Q2" : [],
+"C3_EG_fraud$QG1$QSG1$Q3" : [],
+"C3_EG_fraud$QG1$QSG1$Q4" : [],
 "C3_EG_fraud/QG1/QSG1/QSG1" : [],
 "C3_EG_fraud/QG1/QSG1/QSG1/Q1" : false,
 "selected11" : false,
 "C3_EG_fraud/QG1/QSG1/QSG1/QSG1" : [],
-"C3_EG_fraud/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C3_EG_fraud$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C3_EG_fraud/QG1/QSG1/QSG2" : [],
 "C3_EG_fraud/QG1/QSG1/QSG2/Q1" : false,
 "selected12" : false,
 "C3_EG_fraud/QG1/QSG1/QSG2/QSG1" : [],
-"C3_EG_fraud/QG1/QSG1/QSG2/QSG1/Q1" : '',
+"C3_EG_fraud$QG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Fraud</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for fraud, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? Within the meaning of Article 1 of the Convention on the protection of the European Communities' financial interests (OJ C 316, 27.11.1995, p. 48).</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected09" name="check-button" inline="true" switch>
                                                      <b>[{{ selected09?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C3_EG_fraud/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected10" name="check-button" inline="true" switch>
                                                      <b>[{{ selected10?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected10">
-                                        
-                                            <b-form-group label="[Q] Date of conviction" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Reason" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Who has been convicted" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Length of the period of exclusion" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] Date of conviction" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C3_EG_fraud$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Reason" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C3_EG_fraud$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Who has been convicted" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C3_EG_fraud$QG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Length of the period of exclusion" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C3_EG_fraud$QG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability (Self-Cleaning)? <b-form-checkbox v-model="selected11" name="check-button" inline="true" switch>
                                                      <b>[{{ selected11?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected11">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C3_EG_fraud$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected12" name="check-button" inline="true" switch>
                                                      <b>[{{ selected12?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected12">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C3_EG_fraud$QG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C3_EG_fraud/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div>
                         </div>
                     </div>`
@@ -287,78 +299,82 @@ Vue.component("v4.0.0-CC4",
 "C4_EG_terr-offence/QG1/Q1" : false,
 "selected14" : false,
 "C4_EG_terr-offence/QG1/QSG1" : [],
-"C4_EG_terr-offence/QG1/QSG1/Q1" : '',
-"C4_EG_terr-offence/QG1/QSG1/Q2" : '',
-"C4_EG_terr-offence/QG1/QSG1/Q3" : '',
-"C4_EG_terr-offence/QG1/QSG1/Q4" : '',
+"C4_EG_terr__offence$QG1$QSG1$Q1" : [],
+"C4_EG_terr__offence$QG1$QSG1$Q2" : [],
+"C4_EG_terr__offence$QG1$QSG1$Q3" : [],
+"C4_EG_terr__offence$QG1$QSG1$Q4" : [],
 "C4_EG_terr-offence/QG1/QSG1/QSG1" : [],
 "C4_EG_terr-offence/QG1/QSG1/QSG1/Q1" : false,
 "selected15" : false,
 "C4_EG_terr-offence/QG1/QSG1/QSG1/QSG1" : [],
-"C4_EG_terr-offence/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C4_EG_terr__offence$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C4_EG_terr-offence/QG1/QSG1/QSG2" : [],
 "C4_EG_terr-offence/QG1/QSG1/QSG2/Q1" : false,
 "selected16" : false,
 "C4_EG_terr-offence/QG1/QSG1/QSG2/QSG1" : [],
-"C4_EG_terr-offence/QG1/QSG1/QSG2/QSG1/Q1" : '',
+"C4_EG_terr__offence$QG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Terrorist offences or offences linked to terrorist activities</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for terrorist offences or offences linked to terrorist activities, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Articles 1 and 3 of Council Framework Decision of 13 June 2002 on combating terrorism (OJ L 164, 22.6.2002, p. 3). This exclusion ground also includes inciting or aiding or abetting or attempting to commit an offence, as referred to in Article 4 of that Framework Decision.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected13" name="check-button" inline="true" switch>
                                                      <b>[{{ selected13?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C4_EG_terr-offence/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected14" name="check-button" inline="true" switch>
                                                      <b>[{{ selected14?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected14">
-                                        
-                                            <b-form-group label="[Q] Date of conviction" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Reason" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Who has been convicted" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Length of the period of exclusion" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] Date of conviction" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C4_EG_terr__offence$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Reason" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C4_EG_terr__offence$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Who has been convicted" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C4_EG_terr__offence$QG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Length of the period of exclusion" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C4_EG_terr__offence$QG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability (Self-Cleaning)? <b-form-checkbox v-model="selected15" name="check-button" inline="true" switch>
                                                      <b>[{{ selected15?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected15">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C4_EG_terr__offence$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected16" name="check-button" inline="true" switch>
                                                      <b>[{{ selected16?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected16">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C4_EG_terr__offence$QG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C4_EG_terr-offence/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div>
                         </div>
                     </div>`
@@ -378,78 +394,82 @@ Vue.component("v4.0.0-CC5",
 "C5_EG_finan-laund/QG1/Q1" : false,
 "selected18" : false,
 "C5_EG_finan-laund/QG1/QSG1" : [],
-"C5_EG_finan-laund/QG1/QSG1/Q1" : '',
-"C5_EG_finan-laund/QG1/QSG1/Q2" : '',
-"C5_EG_finan-laund/QG1/QSG1/Q3" : '',
-"C5_EG_finan-laund/QG1/QSG1/Q4" : '',
+"C5_EG_finan__laund$QG1$QSG1$Q1" : [],
+"C5_EG_finan__laund$QG1$QSG1$Q2" : [],
+"C5_EG_finan__laund$QG1$QSG1$Q3" : [],
+"C5_EG_finan__laund$QG1$QSG1$Q4" : [],
 "C5_EG_finan-laund/QG1/QSG1/QSG1" : [],
 "C5_EG_finan-laund/QG1/QSG1/QSG1/Q1" : false,
 "selected19" : false,
 "C5_EG_finan-laund/QG1/QSG1/QSG1/QSG1" : [],
-"C5_EG_finan-laund/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C5_EG_finan__laund$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C5_EG_finan-laund/QG1/QSG1/QSG2" : [],
 "C5_EG_finan-laund/QG1/QSG1/QSG2/Q1" : false,
 "selected20" : false,
 "C5_EG_finan-laund/QG1/QSG1/QSG2/QSG1" : [],
-"C5_EG_finan-laund/QG1/QSG1/QSG2/QSG1/Q1" : '',
+"C5_EG_finan__laund$QG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Money laundering or terrorist financing</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for money laundering or terrorist financing, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 1 of Directive 2005/60/EC of the European Parliament and of the Council of 26 October 2005 on the prevention of the use of the financial system for the purpose of money laundering and terrorist financing (OJ L 309, 25.11.2005, p. 15).</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected17" name="check-button" inline="true" switch>
                                                      <b>[{{ selected17?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C5_EG_finan-laund/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected18" name="check-button" inline="true" switch>
                                                      <b>[{{ selected18?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected18">
-                                        
-                                            <b-form-group label="[Q] Date of conviction" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Reason" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Who has been convicted" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Length of the period of exclusion" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] Date of conviction" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C5_EG_finan__laund$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Reason" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C5_EG_finan__laund$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Who has been convicted" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C5_EG_finan__laund$QG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Length of the period of exclusion" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C5_EG_finan__laund$QG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability (Self-Cleaning)? <b-form-checkbox v-model="selected19" name="check-button" inline="true" switch>
                                                      <b>[{{ selected19?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected19">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C5_EG_finan__laund$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected20" name="check-button" inline="true" switch>
                                                      <b>[{{ selected20?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected20">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C5_EG_finan__laund$QG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C5_EG_finan-laund/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div>
                         </div>
                     </div>`
@@ -469,78 +489,82 @@ Vue.component("v4.0.0-CC6",
 "C6_EG_human-traffic/QG1/Q1" : false,
 "selected22" : false,
 "C6_EG_human-traffic/QG1/QSG1" : [],
-"C6_EG_human-traffic/QG1/QSG1/Q1" : '',
-"C6_EG_human-traffic/QG1/QSG1/Q2" : '',
-"C6_EG_human-traffic/QG1/QSG1/Q3" : '',
-"C6_EG_human-traffic/QG1/QSG1/Q4" : '',
+"C6_EG_human__traffic$QG1$QSG1$Q1" : [],
+"C6_EG_human__traffic$QG1$QSG1$Q2" : [],
+"C6_EG_human__traffic$QG1$QSG1$Q3" : [],
+"C6_EG_human__traffic$QG1$QSG1$Q4" : [],
 "C6_EG_human-traffic/QG1/QSG1/QSG1" : [],
 "C6_EG_human-traffic/QG1/QSG1/QSG1/Q1" : false,
 "selected23" : false,
 "C6_EG_human-traffic/QG1/QSG1/QSG1/QSG1" : [],
-"C6_EG_human-traffic/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C6_EG_human__traffic$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C6_EG_human-traffic/QG1/QSG1/QSG2" : [],
 "C6_EG_human-traffic/QG1/QSG1/QSG2/Q1" : false,
 "selected24" : false,
 "C6_EG_human-traffic/QG1/QSG1/QSG2/QSG1" : [],
-"C6_EG_human-traffic/QG1/QSG1/QSG2/QSG1/Q1" : '',
+"C6_EG_human__traffic$QG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Child labour and other forms of trafficking in human beings</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for child labour and other forms of trafficking in human beings, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Directive 2011/36/EU of the European Parliament and of the Council of 5 April 2011 on preventing and combating trafficking in human beings and protecting its victims, and replacing Council Framework Decision 2002/629/JHA (OJ L 101, 15.4.2011, p. 1).</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected21" name="check-button" inline="true" switch>
                                                      <b>[{{ selected21?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C6_EG_human-traffic/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected22" name="check-button" inline="true" switch>
                                                      <b>[{{ selected22?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected22">
-                                        
-                                            <b-form-group label="[Q] Date of conviction" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Reason" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Who has been convicted" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Length of the period of exclusion" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] Date of conviction" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C6_EG_human__traffic$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Reason" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C6_EG_human__traffic$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Who has been convicted" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C6_EG_human__traffic$QG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Length of the period of exclusion" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C6_EG_human__traffic$QG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability (Self-Cleaning)? <b-form-checkbox v-model="selected23" name="check-button" inline="true" switch>
                                                      <b>[{{ selected23?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected23">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C6_EG_human__traffic$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected24" name="check-button" inline="true" switch>
                                                      <b>[{{ selected24?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected24">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C6_EG_human__traffic$QG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C6_EG_human-traffic/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div>
                         </div>
                     </div>`
@@ -563,42 +587,45 @@ Vue.component("v4.0.0-CC7",
 "C7_EG_tax-pay/RG1/QSG1/Q1" : false,
 "selected26" : false,
 "C7_EG_tax-pay/RG1/QSG1/QSG1" : [],
-"C7_EG_tax-pay/RG1/QSG1/QSG1/Q1" : '',
-"C7_EG_tax-pay/RG1/QSG1/QSG1/Q2" : '',
+"C7_EG_tax__pay$RG1$QSG1$QSG1$Q1" : [],
+"C7_EG_tax__pay$RG1$QSG1$QSG1$Q2" : [],
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1" : [],
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/Q1" : false,
 "selected27" : false,
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG1" : [],
-"C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG1/Q1" : '',
+"C7_EG_tax__pay$RG1$QSG1$QSG1$QSG1$QSG1$Q1" : [],
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG2" : [],
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG2/Q1" : false,
 "selected28" : false,
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG2/QSG1" : [],
-"C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q1" : '',
-"C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q2" : '',
+"C7_EG_tax__pay$RG1$QSG1$QSG1$QSG1$QSG2$QSG1$Q1" : [],
+"C7_EG_tax__pay$RG1$QSG1$QSG1$QSG1$QSG2$QSG1$Q2" : [],
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG3" : [],
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG3/Q1" : false,
 "selected29" : false,
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG3/QSG1" : [],
-"C7_EG_tax-pay/RG1/QSG1/QSG1/QSG1/QSG3/QSG1/Q1" : '',
+"C7_EG_tax__pay$RG1$QSG1$QSG1$QSG1$QSG3$QSG1$Q1" : [],
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG2" : [],
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG2/Q1" : false,
 "selected30" : false,
 "C7_EG_tax-pay/RG1/QSG1/QSG1/QSG2/QSG1" : [],
-"C7_EG_tax-pay/RG1/QSG1/QSG1/QSG2/QSG1/Q1" : '',
+"C7_EG_tax__pay$RG1$QSG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Payment of taxes</strong>
                             <p>Has the economic operator breached its obligations relating to the payment of taxes, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected25" name="check-button" inline="true" switch>
                                                      <b>[{{ selected25?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C7_EG_tax-pay/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Minimum Amount Threshold"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_AMOUNT"></b-form-input>
@@ -615,24 +642,24 @@ Vue.component("v4.0.0-CC7",
                                             
                                         <div v-if="selected26">
                                         
-                                            <b-form-group label="[Q] Country or member state concerned" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="CODE_COUNTRY"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Amount concerned" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Country or member state concerned" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="CODE_COUNTRY" v-model="C7_EG_tax__pay$RG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Amount concerned" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C7_EG_tax__pay$RG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Has this breach of obligations been established by means other than a judicial or administrative decision? <b-form-checkbox v-model="selected27" name="check-button" inline="true" switch>
                                                      <b>[{{ selected27?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected27">
                                         
-                                            <b-form-group label="[Q] Please describe which means were used" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe which means were used" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C7_EG_tax__pay$RG1$QSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         <div v-if="!selected27">
                                         
@@ -642,14 +669,14 @@ Vue.component("v4.0.0-CC7",
                                             
                                         <div v-if="selected28">
                                         
-                                            <b-form-group label="[Q] Please indicate the date of conviction or decision" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] In case of a conviction insofar as established directly therein, the length of the period of exclusion" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please indicate the date of conviction or decision" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C7_EG_tax__pay$RG1$QSG1$QSG1$QSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] In case of a conviction insofar as established directly therein, the length of the period of exclusion" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C7_EG_tax__pay$RG1$QSG1$QSG1$QSG1$QSG2$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div><div>
                                             <br/>[Q] Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the taxes contributions due, including, where applicable, any interest accrued or fines? <b-form-checkbox v-model="selected29" name="check-button" inline="true" switch>
@@ -658,21 +685,19 @@ Vue.component("v4.0.0-CC7",
                                             
                                         <div v-if="selected29">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C7_EG_tax__pay$RG1$QSG1$QSG1$QSG1$QSG3$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div></div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected30" name="check-button" inline="true" switch>
                                                      <b>[{{ selected30?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected30">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C7_EG_tax__pay$RG1$QSG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                                         </div></div>
                     </div>`
@@ -695,42 +720,45 @@ Vue.component("v4.0.0-CC8",
 "C8_EG_socsec-pay/RG1/QSG1/Q1" : false,
 "selected32" : false,
 "C8_EG_socsec-pay/RG1/QSG1/QSG1" : [],
-"C8_EG_socsec-pay/RG1/QSG1/QSG1/Q1" : '',
-"C8_EG_socsec-pay/RG1/QSG1/QSG1/Q2" : '',
+"C8_EG_socsec__pay$RG1$QSG1$QSG1$Q1" : [],
+"C8_EG_socsec__pay$RG1$QSG1$QSG1$Q2" : [],
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1" : [],
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/Q1" : false,
 "selected33" : false,
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG1" : [],
-"C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG1/Q1" : '',
+"C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG1$QSG1$Q1" : [],
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG2" : [],
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG2/Q1" : false,
 "selected34" : false,
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG2/QSG1" : [],
-"C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q1" : '',
-"C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q2" : '',
+"C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG1$QSG2$QSG1$Q1" : [],
+"C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG1$QSG2$QSG1$Q2" : [],
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG3" : [],
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG3/Q1" : false,
 "selected35" : false,
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG3/QSG1" : [],
-"C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG1/QSG3/QSG1/Q1" : '',
+"C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG1$QSG3$QSG1$Q1" : [],
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG2" : [],
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG2/Q1" : false,
 "selected36" : false,
 "C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG2/QSG1" : [],
-"C8_EG_socsec-pay/RG1/QSG1/QSG1/QSG2/QSG1/Q1" : '',
+"C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Payment of social security contributions</strong>
                             <p>Has the economic operator breached its obligations relating to the payment of social security contributions, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected31" name="check-button" inline="true" switch>
                                                      <b>[{{ selected31?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C8_EG_socsec-pay/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Minimum Amount Threshold"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_AMOUNT"></b-form-input>
@@ -747,24 +775,24 @@ Vue.component("v4.0.0-CC8",
                                             
                                         <div v-if="selected32">
                                         
-                                            <b-form-group label="[Q] Country or member state concerned" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="CODE_COUNTRY"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Amount concerned" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Country or member state concerned" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="CODE_COUNTRY" v-model="C8_EG_socsec__pay$RG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Amount concerned" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C8_EG_socsec__pay$RG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Has this breach of obligations been established by means other than a judicial or administrative decision? <b-form-checkbox v-model="selected33" name="check-button" inline="true" switch>
                                                      <b>[{{ selected33?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected33">
                                         
-                                            <b-form-group label="[Q] Please describe which means were used" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe which means were used" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         <div v-if="!selected33">
                                         
@@ -774,14 +802,14 @@ Vue.component("v4.0.0-CC8",
                                             
                                         <div v-if="selected34">
                                         
-                                            <b-form-group label="[Q] Please indicate the date of conviction or decision" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] In case of a conviction insofar as established directly therein, the length of the period of exclusion" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please indicate the date of conviction or decision" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] In case of a conviction insofar as established directly therein, the length of the period of exclusion" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG1$QSG2$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div><div>
                                             <br/>[Q] Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the social security contributions due, including, where applicable, any interest accrued or fines? <b-form-checkbox v-model="selected35" name="check-button" inline="true" switch>
@@ -790,21 +818,19 @@ Vue.component("v4.0.0-CC8",
                                             
                                         <div v-if="selected35">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG1$QSG3$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div></div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected36" name="check-button" inline="true" switch>
                                                      <b>[{{ selected36?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected36">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C8_EG_socsec__pay$RG1$QSG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                                         </div></div>
                     </div>`
@@ -827,25 +853,28 @@ Vue.component("v4.0.0-CC9",
 "C9_EG_envir-law/QG1/QSG1/Q1" : false,
 "selected39" : false,
 "C9_EG_envir-law/QG1/QSG1/QSG1" : [],
-"C9_EG_envir-law/QG1/QSG1/QSG1/Q1" : '',
+"C9_EG_envir__law$QG1$QSG1$QSG1$Q1" : [],
 "C9_EG_envir-law/QG1/QSG2" : [],
 "C9_EG_envir-law/QG1/QSG2/Q1" : false,
 "selected40" : false,
 "C9_EG_envir-law/QG1/QSG2/QSG1" : [],
-"C9_EG_envir-law/QG1/QSG2/QSG1/Q1" : '',
+"C9_EG_envir__law$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Breaching of obligations in the fields of environmental law</strong>
                             <p>Has the economic operator, to its knowledge, breached its obligations in the fields of environmental law? As referred to for the purposes of this procurement in national law, in the ESPD, the relevant notice or the in the ESPD, the relevant notice or , in Article 18(2) of Directive 2014/24/EU or in the ESPD.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected37" name="check-button" inline="true" switch>
                                                      <b>[{{ selected37?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C9_EG_envir-law/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected38" name="check-button" inline="true" switch>
                                                      <b>[{{ selected38?'Yes':'No' }}]</b>
@@ -859,10 +888,10 @@ Vue.component("v4.0.0-CC9",
                                             
                                         <div v-if="selected39">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C9_EG_envir__law$QG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected40" name="check-button" inline="true" switch>
@@ -870,11 +899,9 @@ Vue.component("v4.0.0-CC9",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected40">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C9_EG_envir__law$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -897,25 +924,28 @@ Vue.component("v4.0.0-CC10",
 "C10_EG_socsec-law/QG1/QSG1/Q1" : false,
 "selected43" : false,
 "C10_EG_socsec-law/QG1/QSG1/QSG1" : [],
-"C10_EG_socsec-law/QG1/QSG1/QSG1/Q1" : '',
+"C10_EG_socsec__law$QG1$QSG1$QSG1$Q1" : [],
 "C10_EG_socsec-law/QG1/QSG2" : [],
 "C10_EG_socsec-law/QG1/QSG2/Q1" : false,
 "selected44" : false,
 "C10_EG_socsec-law/QG1/QSG2/QSG1" : [],
-"C10_EG_socsec-law/QG1/QSG2/QSG1/Q1" : '',
+"C10_EG_socsec__law$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Breaching of obligations in the fields of social law</strong>
                             <p>Has the economic operator, to its knowledge, breached its obligations in the fields of social law? As referred to for the purposes of this procurement in national law, in the ESPD, the relevant notice or the in the ESPD, the relevant notice or in Article 18(2) of Directive 2014/24/EU.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected41" name="check-button" inline="true" switch>
                                                      <b>[{{ selected41?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C10_EG_socsec-law/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected42" name="check-button" inline="true" switch>
                                                      <b>[{{ selected42?'Yes':'No' }}]</b>
@@ -929,10 +959,10 @@ Vue.component("v4.0.0-CC10",
                                             
                                         <div v-if="selected43">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C10_EG_socsec__law$QG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected44" name="check-button" inline="true" switch>
@@ -940,11 +970,9 @@ Vue.component("v4.0.0-CC10",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected44">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C10_EG_socsec__law$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -967,25 +995,28 @@ Vue.component("v4.0.0-CC11",
 "C11_EG_labour-law/QG1/QSG1/Q1" : false,
 "selected47" : false,
 "C11_EG_labour-law/QG1/QSG1/QSG1" : [],
-"C11_EG_labour-law/QG1/QSG1/QSG1/Q1" : '',
+"C11_EG_labour__law$QG1$QSG1$QSG1$Q1" : [],
 "C11_EG_labour-law/QG1/QSG2" : [],
 "C11_EG_labour-law/QG1/QSG2/Q1" : false,
 "selected48" : false,
 "C11_EG_labour-law/QG1/QSG2/QSG1" : [],
-"C11_EG_labour-law/QG1/QSG2/QSG1/Q1" : '',
+"C11_EG_labour__law$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Breaching of obligations in the fields of labour law</strong>
                             <p>Has the economic operator, to its knowledge, breached its obligations in the fields of labour law? As referred to for the purposes of this procurement in national law, in the relevant notice or the in the ESPD, the relevant notice or in Article 18(2) of Directive 2014/24/EU.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected45" name="check-button" inline="true" switch>
                                                      <b>[{{ selected45?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C11_EG_labour-law/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected46" name="check-button" inline="true" switch>
                                                      <b>[{{ selected46?'Yes':'No' }}]</b>
@@ -999,10 +1030,10 @@ Vue.component("v4.0.0-CC11",
                                             
                                         <div v-if="selected47">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C11_EG_labour__law$QG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected48" name="check-button" inline="true" switch>
@@ -1010,11 +1041,9 @@ Vue.component("v4.0.0-CC11",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected48">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C11_EG_labour__law$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1034,26 +1063,29 @@ Vue.component("v4.0.0-CC12",
 "C12_EG_bankruptcy/QG1/Q1" : false,
 "selected50" : false,
 "C12_EG_bankruptcy/QG1/QSG1" : [],
-"C12_EG_bankruptcy/QG1/QSG1/Q1" : '',
-"C12_EG_bankruptcy/QG1/QSG1/Q2" : '',
+"C12_EG_bankruptcy$QG1$QSG1$Q1" : [],
+"C12_EG_bankruptcy$QG1$QSG1$Q2" : [],
 "C12_EG_bankruptcy/QG1/QSG2" : [],
 "C12_EG_bankruptcy/QG1/QSG2/Q1" : false,
 "selected51" : false,
 "C12_EG_bankruptcy/QG1/QSG2/QSG1" : [],
-"C12_EG_bankruptcy/QG1/QSG2/QSG1/Q1" : '',
+"C12_EG_bankruptcy$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Bankruptcy</strong>
                             <p>Is the economic operator bankrupt? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected49" name="check-button" inline="true" switch>
                                                      <b>[{{ selected49?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C12_EG_bankruptcy/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected50" name="check-button" inline="true" switch>
                                                      <b>[{{ selected50?'Yes':'No' }}]</b>
@@ -1061,25 +1093,23 @@ Vue.component("v4.0.0-CC12",
                                             
                                         <div v-if="selected50">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C12_EG_bankruptcy$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C12_EG_bankruptcy$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected51" name="check-button" inline="true" switch>
                                                      <b>[{{ selected51?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected51">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C12_EG_bankruptcy$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1099,26 +1129,29 @@ Vue.component("v4.0.0-CC13",
 "C13_EG_insolvency/QG1/Q1" : false,
 "selected53" : false,
 "C13_EG_insolvency/QG1/QSG1" : [],
-"C13_EG_insolvency/QG1/QSG1/Q1" : '',
-"C13_EG_insolvency/QG1/QSG1/Q2" : '',
+"C13_EG_insolvency$QG1$QSG1$Q1" : [],
+"C13_EG_insolvency$QG1$QSG1$Q2" : [],
 "C13_EG_insolvency/QG1/QSG2" : [],
 "C13_EG_insolvency/QG1/QSG2/Q1" : false,
 "selected54" : false,
 "C13_EG_insolvency/QG1/QSG2/QSG1" : [],
-"C13_EG_insolvency/QG1/QSG2/QSG1/Q1" : '',
+"C13_EG_insolvency$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Insolvency</strong>
                             <p>Is the economic operator the subject of insolvency or winding-up? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected52" name="check-button" inline="true" switch>
                                                      <b>[{{ selected52?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C13_EG_insolvency/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected53" name="check-button" inline="true" switch>
                                                      <b>[{{ selected53?'Yes':'No' }}]</b>
@@ -1126,25 +1159,23 @@ Vue.component("v4.0.0-CC13",
                                             
                                         <div v-if="selected53">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C13_EG_insolvency$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C13_EG_insolvency$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected54" name="check-button" inline="true" switch>
                                                      <b>[{{ selected54?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected54">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C13_EG_insolvency$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1164,26 +1195,29 @@ Vue.component("v4.0.0-CC14",
 "C14_EG_cred-arran/QG1/Q1" : false,
 "selected56" : false,
 "C14_EG_cred-arran/QG1/QSG1" : [],
-"C14_EG_cred-arran/QG1/QSG1/Q1" : '',
-"C14_EG_cred-arran/QG1/QSG1/Q2" : '',
+"C14_EG_cred__arran$QG1$QSG1$Q1" : [],
+"C14_EG_cred__arran$QG1$QSG1$Q2" : [],
 "C14_EG_cred-arran/QG1/QSG2" : [],
 "C14_EG_cred-arran/QG1/QSG2/Q1" : false,
 "selected57" : false,
 "C14_EG_cred-arran/QG1/QSG2/QSG1" : [],
-"C14_EG_cred-arran/QG1/QSG2/QSG1/Q1" : '',
+"C14_EG_cred__arran$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Arrangement with creditors</strong>
                             <p>Is the economic operator in arrangement with creditors? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected55" name="check-button" inline="true" switch>
                                                      <b>[{{ selected55?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C14_EG_cred-arran/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected56" name="check-button" inline="true" switch>
                                                      <b>[{{ selected56?'Yes':'No' }}]</b>
@@ -1191,25 +1225,23 @@ Vue.component("v4.0.0-CC14",
                                             
                                         <div v-if="selected56">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C14_EG_cred__arran$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C14_EG_cred__arran$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected57" name="check-button" inline="true" switch>
                                                      <b>[{{ selected57?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected57">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C14_EG_cred__arran$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1229,26 +1261,29 @@ Vue.component("v4.0.0-CC15",
 "C15_EG_bankr-nat/QG1/Q1" : false,
 "selected59" : false,
 "C15_EG_bankr-nat/QG1/QSG1" : [],
-"C15_EG_bankr-nat/QG1/QSG1/Q1" : '',
-"C15_EG_bankr-nat/QG1/QSG1/Q2" : '',
+"C15_EG_bankr__nat$QG1$QSG1$Q1" : [],
+"C15_EG_bankr__nat$QG1$QSG1$Q2" : [],
 "C15_EG_bankr-nat/QG1/QSG2" : [],
 "C15_EG_bankr-nat/QG1/QSG2/Q1" : false,
 "selected60" : false,
 "C15_EG_bankr-nat/QG1/QSG2/QSG1" : [],
-"C15_EG_bankr-nat/QG1/QSG2/QSG1/Q1" : '',
+"C15_EG_bankr__nat$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Analogous situation like bankruptcy under national law</strong>
                             <p>Is the economic operator in any analogous situation like bankruptcy arising from a similar procedure under national laws and regulations? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected58" name="check-button" inline="true" switch>
                                                      <b>[{{ selected58?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C15_EG_bankr-nat/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected59" name="check-button" inline="true" switch>
                                                      <b>[{{ selected59?'Yes':'No' }}]</b>
@@ -1256,25 +1291,23 @@ Vue.component("v4.0.0-CC15",
                                             
                                         <div v-if="selected59">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C15_EG_bankr__nat$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C15_EG_bankr__nat$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected60" name="check-button" inline="true" switch>
                                                      <b>[{{ selected60?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected60">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C15_EG_bankr__nat$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1294,26 +1327,29 @@ Vue.component("v4.0.0-CC16",
 "C16_EG_liq-admin/QG1/Q1" : false,
 "selected62" : false,
 "C16_EG_liq-admin/QG1/QSG1" : [],
-"C16_EG_liq-admin/QG1/QSG1/Q1" : '',
-"C16_EG_liq-admin/QG1/QSG1/Q2" : '',
+"C16_EG_liq__admin$QG1$QSG1$Q1" : [],
+"C16_EG_liq__admin$QG1$QSG1$Q2" : [],
 "C16_EG_liq-admin/QG1/QSG2" : [],
 "C16_EG_liq-admin/QG1/QSG2/Q1" : false,
 "selected63" : false,
 "C16_EG_liq-admin/QG1/QSG2/QSG1" : [],
-"C16_EG_liq-admin/QG1/QSG2/QSG1/Q1" : '',
+"C16_EG_liq__admin$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Assets being administered by liquidator</strong>
                             <p>Are the assets of the economic operator being administered by a liquidator or by the court? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected61" name="check-button" inline="true" switch>
                                                      <b>[{{ selected61?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C16_EG_liq-admin/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected62" name="check-button" inline="true" switch>
                                                      <b>[{{ selected62?'Yes':'No' }}]</b>
@@ -1321,25 +1357,23 @@ Vue.component("v4.0.0-CC16",
                                             
                                         <div v-if="selected62">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C16_EG_liq__admin$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C16_EG_liq__admin$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected63" name="check-button" inline="true" switch>
                                                      <b>[{{ selected63?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected63">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C16_EG_liq__admin$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1359,26 +1393,29 @@ Vue.component("v4.0.0-CC17",
 "C17_EG_susp-act/QG1/Q1" : false,
 "selected65" : false,
 "C17_EG_susp-act/QG1/QSG1" : [],
-"C17_EG_susp-act/QG1/QSG1/Q1" : '',
-"C17_EG_susp-act/QG1/QSG1/Q2" : '',
+"C17_EG_susp__act$QG1$QSG1$Q1" : [],
+"C17_EG_susp__act$QG1$QSG1$Q2" : [],
 "C17_EG_susp-act/QG1/QSG2" : [],
 "C17_EG_susp-act/QG1/QSG2/Q1" : false,
 "selected66" : false,
 "C17_EG_susp-act/QG1/QSG2/QSG1" : [],
-"C17_EG_susp-act/QG1/QSG2/QSG1/Q1" : '',
+"C17_EG_susp__act$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Business activities are suspended</strong>
                             <p>Are the business activities of the economic operator suspended? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected64" name="check-button" inline="true" switch>
                                                      <b>[{{ selected64?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C17_EG_susp-act/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected65" name="check-button" inline="true" switch>
                                                      <b>[{{ selected65?'Yes':'No' }}]</b>
@@ -1386,25 +1423,23 @@ Vue.component("v4.0.0-CC17",
                                             
                                         <div v-if="selected65">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C17_EG_susp__act$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Indicate reasons for being nevertheless to perform the contract" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C17_EG_susp__act$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected66" name="check-button" inline="true" switch>
                                                      <b>[{{ selected66?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected66">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C17_EG_susp__act$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1424,30 +1459,33 @@ Vue.component("v4.0.0-CC18",
 "C18_EG_prof-misconduct/QG1/Q1" : false,
 "selected68" : false,
 "C18_EG_prof-misconduct/QG1/QSG1" : [],
-"C18_EG_prof-misconduct/QG1/QSG1/Q1" : '',
+"C18_EG_prof__misconduct$QG1$QSG1$Q1" : [],
 "C18_EG_prof-misconduct/QG1/QSG1/QSG1" : [],
 "C18_EG_prof-misconduct/QG1/QSG1/QSG1/Q1" : false,
 "selected69" : false,
 "C18_EG_prof-misconduct/QG1/QSG1/QSG1/QSG1" : [],
-"C18_EG_prof-misconduct/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C18_EG_prof__misconduct$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C18_EG_prof-misconduct/QG1/QSG2" : [],
 "C18_EG_prof-misconduct/QG1/QSG2/Q1" : false,
 "selected70" : false,
 "C18_EG_prof-misconduct/QG1/QSG2/QSG1" : [],
-"C18_EG_prof-misconduct/QG1/QSG2/QSG1/Q1" : '',
+"C18_EG_prof__misconduct$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Guilty of grave professional misconduct</strong>
                             <p>Is the economic operator guilty of grave professional misconduct? Where applicable, see definitions in national law, the relevant notice or the procurement documents.</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected67" name="check-button" inline="true" switch>
                                                      <b>[{{ selected67?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C18_EG_prof-misconduct/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected68" name="check-button" inline="true" switch>
                                                      <b>[{{ selected68?'Yes':'No' }}]</b>
@@ -1455,20 +1493,20 @@ Vue.component("v4.0.0-CC18",
                                             
                                         <div v-if="selected68">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C18_EG_prof__misconduct$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability <b-form-checkbox v-model="selected69" name="check-button" inline="true" switch>
                                                      <b>[{{ selected69?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected69">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C18_EG_prof__misconduct$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected70" name="check-button" inline="true" switch>
@@ -1476,11 +1514,9 @@ Vue.component("v4.0.0-CC18",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected70">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C18_EG_prof__misconduct$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1500,30 +1536,33 @@ Vue.component("v4.0.0-CC19",
 "C19_EG_distorsion/QG1/Q1" : false,
 "selected72" : false,
 "C19_EG_distorsion/QG1/QSG1" : [],
-"C19_EG_distorsion/QG1/QSG1/Q1" : '',
+"C19_EG_distorsion$QG1$QSG1$Q1" : [],
 "C19_EG_distorsion/QG1/QSG1/QSG1" : [],
 "C19_EG_distorsion/QG1/QSG1/QSG1/Q1" : false,
 "selected73" : false,
 "C19_EG_distorsion/QG1/QSG1/QSG1/QSG1" : [],
-"C19_EG_distorsion/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C19_EG_distorsion$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C19_EG_distorsion/QG1/QSG2" : [],
 "C19_EG_distorsion/QG1/QSG2/Q1" : false,
 "selected74" : false,
 "C19_EG_distorsion/QG1/QSG2/QSG1" : [],
-"C19_EG_distorsion/QG1/QSG2/QSG1/Q1" : '',
+"C19_EG_distorsion$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Agreements with other economic operators aimed at distorting competition</strong>
                             <p>Has the economic operator entered into agreements with other economic operators aimed at distorting competition?</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected71" name="check-button" inline="true" switch>
                                                      <b>[{{ selected71?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C19_EG_distorsion/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected72" name="check-button" inline="true" switch>
                                                      <b>[{{ selected72?'Yes':'No' }}]</b>
@@ -1531,20 +1570,20 @@ Vue.component("v4.0.0-CC19",
                                             
                                         <div v-if="selected72">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C19_EG_distorsion$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability <b-form-checkbox v-model="selected73" name="check-button" inline="true" switch>
                                                      <b>[{{ selected73?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected73">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C19_EG_distorsion$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected74" name="check-button" inline="true" switch>
@@ -1552,11 +1591,9 @@ Vue.component("v4.0.0-CC19",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected74">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C19_EG_distorsion$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1576,25 +1613,28 @@ Vue.component("v4.0.0-CC20",
 "C20_EG_partic-confl/QG1/Q1" : false,
 "selected76" : false,
 "C20_EG_partic-confl/QG1/QSG1" : [],
-"C20_EG_partic-confl/QG1/QSG1/Q1" : '',
+"C20_EG_partic__confl$QG1$QSG1$Q1" : [],
 "C20_EG_partic-confl/QG1/QSG2" : [],
 "C20_EG_partic-confl/QG1/QSG2/Q1" : false,
 "selected77" : false,
 "C20_EG_partic-confl/QG1/QSG2/QSG1" : [],
-"C20_EG_partic-confl/QG1/QSG2/QSG1/Q1" : '',
+"C20_EG_partic__confl$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Conflict of interest due to its participation in the procurement procedure</strong>
                             <p>Is the economic operator aware of any conflict of interest, as indicated in national law, the relevant notice or in the ESPD, the relevant notice or due to its participation in the procurement procedure?</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected75" name="check-button" inline="true" switch>
                                                      <b>[{{ selected75?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C20_EG_partic-confl/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected76" name="check-button" inline="true" switch>
                                                      <b>[{{ selected76?'Yes':'No' }}]</b>
@@ -1602,21 +1642,19 @@ Vue.component("v4.0.0-CC20",
                                             
                                         <div v-if="selected76">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C20_EG_partic__confl$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected77" name="check-button" inline="true" switch>
                                                      <b>[{{ selected77?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected77">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C20_EG_partic__confl$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1636,25 +1674,28 @@ Vue.component("v4.0.0-CC21",
 "C21_EG_prep-confl/QG1/Q1" : false,
 "selected79" : false,
 "C21_EG_prep-confl/QG1/QSG1" : [],
-"C21_EG_prep-confl/QG1/QSG1/Q1" : '',
+"C21_EG_prep__confl$QG1$QSG1$Q1" : [],
 "C21_EG_prep-confl/QG1/QSG2" : [],
 "C21_EG_prep-confl/QG1/QSG2/Q1" : false,
 "selected80" : false,
 "C21_EG_prep-confl/QG1/QSG2/QSG1" : [],
-"C21_EG_prep-confl/QG1/QSG2/QSG1/Q1" : '',
+"C21_EG_prep__confl$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Direct or indirect involvement in the preparation of this procurement procedure</strong>
                             <p>Has the economic operator or an undertaking related to it advised the contracting authority or contracting entity or otherwise been involved in the preparation of the procurement procedure?</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected78" name="check-button" inline="true" switch>
                                                      <b>[{{ selected78?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C21_EG_prep-confl/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected79" name="check-button" inline="true" switch>
                                                      <b>[{{ selected79?'Yes':'No' }}]</b>
@@ -1662,21 +1703,19 @@ Vue.component("v4.0.0-CC21",
                                             
                                         <div v-if="selected79">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C21_EG_prep__confl$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected80" name="check-button" inline="true" switch>
                                                      <b>[{{ selected80?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected80">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C21_EG_prep__confl$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1696,30 +1735,33 @@ Vue.component("v4.0.0-CC22",
 "C22_EG_sanction/QG1/Q1" : false,
 "selected82" : false,
 "C22_EG_sanction/QG1/QSG1" : [],
-"C22_EG_sanction/QG1/QSG1/Q1" : '',
+"C22_EG_sanction$QG1$QSG1$Q1" : [],
 "C22_EG_sanction/QG1/QSG1/QSG1" : [],
 "C22_EG_sanction/QG1/QSG1/QSG1/Q1" : false,
 "selected83" : false,
 "C22_EG_sanction/QG1/QSG1/QSG1/QSG1" : [],
-"C22_EG_sanction/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C22_EG_sanction$QG1$QSG1$QSG1$QSG1$Q1" : [],
 "C22_EG_sanction/QG1/QSG2" : [],
 "C22_EG_sanction/QG1/QSG2/Q1" : false,
 "selected84" : false,
 "C22_EG_sanction/QG1/QSG2/QSG1" : [],
-"C22_EG_sanction/QG1/QSG2/QSG1/Q1" : '',
+"C22_EG_sanction$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Early termination, damages or other comparable sanctions</strong>
                             <p>Has the economic operator experienced that a prior public contract, a prior contract with a contracting entity or a prior concession contract was terminated early, or that damages or other comparable sanctions were imposed in connection with that prior contract?</p>
-                            <div>
+                            <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected81" name="check-button" inline="true" switch>
                                                      <b>[{{ selected81?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C22_EG_sanction/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected82" name="check-button" inline="true" switch>
                                                      <b>[{{ selected82?'Yes':'No' }}]</b>
@@ -1727,20 +1769,20 @@ Vue.component("v4.0.0-CC22",
                                             
                                         <div v-if="selected82">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C22_EG_sanction$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Have you taken measures to demonstrate your reliability (Self-Cleaning)? <b-form-checkbox v-model="selected83" name="check-button" inline="true" switch>
                                                      <b>[{{ selected83?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected83">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C22_EG_sanction$QG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div></div>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected84" name="check-button" inline="true" switch>
@@ -1748,11 +1790,9 @@ Vue.component("v4.0.0-CC22",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected84">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C22_EG_sanction$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1775,20 +1815,23 @@ Vue.component("v4.0.0-CC23",
 "C23_EG_misrepresent/QG1/QSG1/Q1" : false,
 "selected87" : false,
 "C23_EG_misrepresent/QG1/QSG1/QSG1" : [],
-"C23_EG_misrepresent/QG1/QSG1/QSG1/Q1" : '',
+"C23_EG_misrepresent$QG1$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
                             template: `<div>
                             <strong>Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure</strong>
                             <p>Can the economic operator confirm that:</p>
-                            <em>a) It has been guilty of serious misrepresentation in supplying the information required for the verification of the absence of grounds for exclusion or the fulfilment of the selection criteria,</em><em>b) It has withheld such information,</em><em>c) It has not been able, without delay, to submit the supporting documents required by a contracting authority or contracting entity, and</em><em>d) It has undertaken to unduly influence the decision making process of the contracting authority or contracting entity, to obtain confidential information that may confer upon it undue advantages in the procurement procedure or to negligently provide misleading information that may have a material influence on decisions concerning exclusion, selection or award?</em><div>
+                            <em>a) It has been guilty of serious misrepresentation in supplying the information required for the verification of the absence of grounds for exclusion or the fulfilment of the selection criteria,</em><em>b) It has withheld such information,</em><em>c) It has not been able, without delay, to submit the supporting documents required by a contracting authority or contracting entity, and</em><em>d) It has undertaken to unduly influence the decision making process of the contracting authority or contracting entity, to obtain confidential information that may confer upon it undue advantages in the procurement procedure or to negligently provide misleading information that may have a material influence on decisions concerning exclusion, selection or award?</em><div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected85" name="check-button" inline="true" switch>
                                                      <b>[{{ selected85?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C23_EG_misrepresent/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="selected86" name="check-button" inline="true" switch>
                                                      <b>[{{ selected86?'Yes':'No' }}]</b>
@@ -1799,11 +1842,9 @@ Vue.component("v4.0.0-CC23",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected87">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C23_EG_misrepresent$QG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -1824,7 +1865,7 @@ Vue.component("v4.0.0-CC24",
 "C24_EG_nati-ground/QG1/QSG1/QSG1/Q1" : false,
 "selected89" : false,
 "C24_EG_nati-ground/QG1/QSG1/QSG1/QSG1" : [],
-"C24_EG_nati-ground/QG1/QSG1/QSG1/QSG1/Q1" : '',
+"C24_EG_nati__ground$QG1$QSG1$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -1832,7 +1873,7 @@ Vue.component("v4.0.0-CC24",
                             <strong>Purely national exclusion grounds</strong>
                             <p>Other exclusion grounds that may be foreseen in the national legislation of the contracting authority's or contracting entity's Member State. Has the economic operator breached its obligations relating to the purely national grounds of exclusion, which are specified in the relevant notice or in the procurement documents?</p>
                             <em>LEGISLATION</em>
-                        <div><em>CAPTION</em><div><em>[Text describing the national criterion]</em><em>[Type of evidence from e-Certis]</em>
+                        <div><em>CAPTION</em><div><b-card footer-tag="footer"><em>[Text describing the national criterion]</em><em>[Type of evidence from e-Certis]</em>
                                             <br/>[Q] Your answer? <b-form-checkbox v-model="selected88" name="check-button" inline="true" switch>
                                                      <b>[{{ selected88?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
@@ -1842,12 +1883,13 @@ Vue.component("v4.0.0-CC24",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected89">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C24_EG_nati__ground$QG1$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C24_EG_nati-ground/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div>
                         </div>
                     </div>`
                         })
@@ -1875,20 +1917,20 @@ Vue.component("v4.0.0-CC25",
 "C25_SC_prof-regist/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected92" : false,
 "C25_SC_prof-regist/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C25_SC_prof-regist/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C25_SC_prof-regist/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C25_SC_prof__regist$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C25_SC_prof__regist$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C25_SC_prof-regist/RG1/RSG1/QSG2" : [],
 "C25_SC_prof-regist/RG1/RSG1/QSG2/Q1" : false,
 "selected93" : false,
 "C25_SC_prof-regist/RG1/RSG1/QSG2/QSG1" : [],
-"C25_SC_prof-regist/RG1/RSG1/QSG2/QSG1/Q1" : '',
+"C25_SC_prof__regist$RG1$RSG1$QSG2$QSG1$Q1" : [],
 "C25_SC_prof-regist/RG1/RSG1/QSG2/QSG2" : [],
-"C25_SC_prof-regist/RG1/RSG1/QSG2/QSG2/Q1" : '',
+"C25_SC_prof__regist$RG1$RSG1$QSG2$QSG2$Q1" : [],
 "C25_SC_prof-regist/RG1/RSG1/QSG2/QSG3" : [],
 "C25_SC_prof-regist/RG1/RSG1/QSG2/QSG3/Q1" : false,
 "selected94" : false,
 "C25_SC_prof-regist/RG1/RSG1/QSG2/QSG3/QSG1" : [],
-"C25_SC_prof-regist/RG1/RSG1/QSG2/QSG3/QSG1/Q1" : '',
+"C25_SC_prof__regist$RG1$RSG1$QSG2$QSG3$QSG1$Q1" : [],
 
                                 }
                             },
@@ -1898,13 +1940,16 @@ Vue.component("v4.0.0-CC25",
                             <p>It is enrolled in relevant professional registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC25 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected90" name="check-button" inline="true" switch>
                                                      <b>[{{ selected90?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C25_SC_prof-regist/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C25"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -1942,14 +1987,14 @@ Vue.component("v4.0.0-CC25",
                                             
                                         <div v-if="selected92">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C25_SC_prof__regist$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C25_SC_prof__regist$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected93" name="check-button" inline="true" switch>
@@ -1958,33 +2003,31 @@ Vue.component("v4.0.0-CC25",
                                             
                                         <div v-if="selected93">
                                         
-                                            <b-form-group label="[Q] Registration number" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Registration number" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C25_SC_prof__regist$RG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         <div v-if="!selected93">
                                         
-                                            <b-form-group label="[Q] Reasons why your are not registered" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Reasons why your are not registered" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C25_SC_prof__regist$RG1$RSG1$QSG2$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected94" name="check-button" inline="true" switch>
                                                      <b>[{{ selected94?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected94">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C25_SC_prof__regist$RG1$RSG1$QSG2$QSG3$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C25_SC_prof-regist/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C25_SC_prof-regist/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -2014,20 +2057,20 @@ Vue.component("v4.0.0-CC26",
 "C26_SC_trade-regist/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected97" : false,
 "C26_SC_trade-regist/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C26_SC_trade-regist/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C26_SC_trade-regist/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C26_SC_trade__regist$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C26_SC_trade__regist$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C26_SC_trade-regist/RG1/RSG1/QSG2" : [],
 "C26_SC_trade-regist/RG1/RSG1/QSG2/Q1" : false,
 "selected98" : false,
 "C26_SC_trade-regist/RG1/RSG1/QSG2/QSG1" : [],
-"C26_SC_trade-regist/RG1/RSG1/QSG2/QSG1/Q1" : '',
+"C26_SC_trade__regist$RG1$RSG1$QSG2$QSG1$Q1" : [],
 "C26_SC_trade-regist/RG1/RSG1/QSG2/QSG2" : [],
-"C26_SC_trade-regist/RG1/RSG1/QSG2/QSG2/Q1" : '',
+"C26_SC_trade__regist$RG1$RSG1$QSG2$QSG2$Q1" : [],
 "C26_SC_trade-regist/RG1/RSG1/QSG2/QSG3" : [],
 "C26_SC_trade-regist/RG1/RSG1/QSG2/QSG3/Q1" : false,
 "selected99" : false,
 "C26_SC_trade-regist/RG1/RSG1/QSG2/QSG3/QSG1" : [],
-"C26_SC_trade-regist/RG1/RSG1/QSG2/QSG3/QSG1/Q1" : '',
+"C26_SC_trade__regist$RG1$RSG1$QSG2$QSG3$QSG1$Q1" : [],
 
                                 }
                             },
@@ -2037,13 +2080,16 @@ Vue.component("v4.0.0-CC26",
                             <p>It is enrolled in trade registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC26 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected95" name="check-button" inline="true" switch>
                                                      <b>[{{ selected95?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C26_SC_trade-regist/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C26"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2086,14 +2132,14 @@ Vue.component("v4.0.0-CC26",
                                             
                                         <div v-if="selected97">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C26_SC_trade__regist$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C26_SC_trade__regist$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected98" name="check-button" inline="true" switch>
@@ -2102,33 +2148,31 @@ Vue.component("v4.0.0-CC26",
                                             
                                         <div v-if="selected98">
                                         
-                                            <b-form-group label="[Q] Registration number" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Registration number" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C26_SC_trade__regist$RG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         <div v-if="!selected98">
                                         
-                                            <b-form-group label="[Q] Reasons why your are not registered" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Reasons why your are not registered" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C26_SC_trade__regist$RG1$RSG1$QSG2$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected99" name="check-button" inline="true" switch>
                                                      <b>[{{ selected99?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected99">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C26_SC_trade__regist$RG1$RSG1$QSG2$QSG3$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C26_SC_trade-regist/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C26_SC_trade-regist/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -2146,7 +2190,7 @@ Vue.component("v4.0.0-CC27",
 "C27_SC_authorisation/SBC1/QG1/Q1" : false,
 "selected100" : false,
 "C27_SC_authorisation/SBC1/QG1/QSG1" : [],
-"C27_SC_authorisation/SBC1/QG1/QSG1/Q1" : '',
+"C27_SC_authorisation$SBC1$QG1$QSG1$Q1" : [],
 "C27_SC_authorisation/SBC1/QG1/QSG1/Q2" : false,
 "selected101" : false,
 "C27_SC_authorisation/RG1" : [],
@@ -2162,20 +2206,20 @@ Vue.component("v4.0.0-CC27",
 "C27_SC_authorisation/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected103" : false,
 "C27_SC_authorisation/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C27_SC_authorisation/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C27_SC_authorisation/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C27_SC_authorisation$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C27_SC_authorisation$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C27_SC_authorisation/RG1/RSG1/QSG2" : [],
 "C27_SC_authorisation/RG1/RSG1/QSG2/Q1" : false,
 "selected104" : false,
 "C27_SC_authorisation/RG1/RSG1/QSG2/QSG1" : [],
-"C27_SC_authorisation/RG1/RSG1/QSG2/QSG1/Q1" : '',
+"C27_SC_authorisation$RG1$RSG1$QSG2$QSG1$Q1" : [],
 "C27_SC_authorisation/RG1/RSG1/QSG2/QSG2" : [],
-"C27_SC_authorisation/RG1/RSG1/QSG2/QSG2/Q1" : '',
+"C27_SC_authorisation$RG1$RSG1$QSG2$QSG2$Q1" : [],
 "C27_SC_authorisation/RG1/RSG1/QSG2/QSG3" : [],
 "C27_SC_authorisation/RG1/RSG1/QSG2/QSG3/Q1" : false,
 "selected105" : false,
 "C27_SC_authorisation/RG1/RSG1/QSG2/QSG3/QSG1" : [],
-"C27_SC_authorisation/RG1/RSG1/QSG2/QSG3/QSG1/Q1" : '',
+"C27_SC_authorisation$RG1$RSG1$QSG2$QSG3$QSG1$Q1" : [],
 
                                 }
                             },
@@ -2185,24 +2229,30 @@ Vue.component("v4.0.0-CC27",
                             <p>Is a particular authorisation of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC27 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected100" name="check-button" inline="true" switch>
                                                      <b>[{{ selected100?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected100">
-                                        
-                                            <b-form-group label="[Q] If yes, please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] If yes, please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C27_SC_authorisation$SBC1$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                             <br/>[Q] Indicate whether the economic operator has it <b-form-checkbox v-model="selected101" name="check-button" inline="true" switch>
                                                      <b>[{{ selected101?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
-                                            
+                                            <template #footer>
+                    <b-button variant="success" @click="renderHTML('C27_SC_authorisation/SBC1/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div>
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C27_SC_authorisation/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C27"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2245,14 +2295,14 @@ Vue.component("v4.0.0-CC27",
                                             
                                         <div v-if="selected103">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C27_SC_authorisation$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C27_SC_authorisation$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected104" name="check-button" inline="true" switch>
@@ -2261,33 +2311,31 @@ Vue.component("v4.0.0-CC27",
                                             
                                         <div v-if="selected104">
                                         
-                                            <b-form-group label="[Q] Registration number" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Registration number" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C27_SC_authorisation$RG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         <div v-if="!selected104">
                                         
-                                            <b-form-group label="[Q] Reasons why your are not registered" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Reasons why your are not registered" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C27_SC_authorisation$RG1$RSG1$QSG2$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected105" name="check-button" inline="true" switch>
                                                      <b>[{{ selected105?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected105">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C27_SC_authorisation$RG1$RSG1$QSG2$QSG3$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C27_SC_authorisation/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C27_SC_authorisation/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -2305,7 +2353,7 @@ Vue.component("v4.0.0-CC28",
 "C28_SC_membership/SBC1/QG1/Q1" : false,
 "selected106" : false,
 "C28_SC_membership/SBC1/QG1/QSG1" : [],
-"C28_SC_membership/SBC1/QG1/QSG1/Q1" : '',
+"C28_SC_membership$SBC1$QG1$QSG1$Q1" : [],
 "C28_SC_membership/SBC1/QG1/QSG1/Q2" : false,
 "selected107" : false,
 "C28_SC_membership/RG1" : [],
@@ -2321,20 +2369,20 @@ Vue.component("v4.0.0-CC28",
 "C28_SC_membership/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected109" : false,
 "C28_SC_membership/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C28_SC_membership/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C28_SC_membership/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C28_SC_membership$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C28_SC_membership$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C28_SC_membership/RG1/RSG1/QSG2" : [],
 "C28_SC_membership/RG1/RSG1/QSG2/Q1" : false,
 "selected110" : false,
 "C28_SC_membership/RG1/RSG1/QSG2/QSG1" : [],
-"C28_SC_membership/RG1/RSG1/QSG2/QSG1/Q1" : '',
+"C28_SC_membership$RG1$RSG1$QSG2$QSG1$Q1" : [],
 "C28_SC_membership/RG1/RSG1/QSG2/QSG2" : [],
-"C28_SC_membership/RG1/RSG1/QSG2/QSG2/Q1" : '',
+"C28_SC_membership$RG1$RSG1$QSG2$QSG2$Q1" : [],
 "C28_SC_membership/RG1/RSG1/QSG2/QSG3" : [],
 "C28_SC_membership/RG1/RSG1/QSG2/QSG3/Q1" : false,
 "selected111" : false,
 "C28_SC_membership/RG1/RSG1/QSG2/QSG3/QSG1" : [],
-"C28_SC_membership/RG1/RSG1/QSG2/QSG3/QSG1/Q1" : '',
+"C28_SC_membership$RG1$RSG1$QSG2$QSG3$QSG1$Q1" : [],
 
                                 }
                             },
@@ -2344,24 +2392,30 @@ Vue.component("v4.0.0-CC28",
                             <p>Is a particular membership of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC28 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected106" name="check-button" inline="true" switch>
                                                      <b>[{{ selected106?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected106">
-                                        
-                                            <b-form-group label="[Q] If yes, please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] If yes, please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C28_SC_membership$SBC1$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                             <br/>[Q] Indicate whether the economic operator has it <b-form-checkbox v-model="selected107" name="check-button" inline="true" switch>
                                                      <b>[{{ selected107?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
-                                            
+                                            <template #footer>
+                    <b-button variant="success" @click="renderHTML('C28_SC_membership/SBC1/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div>
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C28_SC_membership/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C28"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2404,14 +2458,14 @@ Vue.component("v4.0.0-CC28",
                                             
                                         <div v-if="selected109">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C28_SC_membership$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C28_SC_membership$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected110" name="check-button" inline="true" switch>
@@ -2420,33 +2474,31 @@ Vue.component("v4.0.0-CC28",
                                             
                                         <div v-if="selected110">
                                         
-                                            <b-form-group label="[Q] Registration number" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Registration number" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C28_SC_membership$RG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         <div v-if="!selected110">
                                         
-                                            <b-form-group label="[Q] Reasons why your are not registered" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Reasons why your are not registered" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C28_SC_membership$RG1$RSG1$QSG2$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected111" name="check-button" inline="true" switch>
                                                      <b>[{{ selected111?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected111">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C28_SC_membership$RG1$RSG1$QSG2$QSG3$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C28_SC_membership/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C28_SC_membership/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -2477,23 +2529,23 @@ Vue.component("v4.0.0-CC29",
 "C29_SC_gen-year-to/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected114" : false,
 "C29_SC_gen-year-to/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C29_SC_gen-year-to/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C29_SC_gen-year-to/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C29_SC_gen__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C29_SC_gen__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C29_SC_gen-year-to/RG1/RSG1/QSG2" : [],
-"C29_SC_gen-year-to/RG1/RSG1/QSG2/Q1" : '',
-"C29_SC_gen-year-to/RG1/RSG1/QSG2/Q2" : '',
+"C29_SC_gen__year__to$RG1$RSG1$QSG2$Q1" : [],
+"C29_SC_gen__year__to$RG1$RSG1$QSG2$Q2" : [],
 "C29_SC_gen-year-to/RG1/RSG1/QSG2/QSG1" : [],
 "C29_SC_gen-year-to/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected115" : false,
 "C29_SC_gen-year-to/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C29_SC_gen-year-to/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C29_SC_gen__year__to$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 "C29_SC_gen-year-to/RG1/RSG1/QSG3" : [],
-"C29_SC_gen-year-to/RG1/RSG1/QSG3/Q1" : '',
+"C29_SC_gen__year__to$RG1$RSG1$QSG3$Q1" : [],
 "C29_SC_gen-year-to/RG1/RSG1/QSG3/QSG1" : [],
 "C29_SC_gen-year-to/RG1/RSG1/QSG3/QSG1/Q1" : false,
 "selected116" : false,
 "C29_SC_gen-year-to/RG1/RSG1/QSG3/QSG1/QSG1" : [],
-"C29_SC_gen-year-to/RG1/RSG1/QSG3/QSG1/QSG1/Q1" : '',
+"C29_SC_gen__year__to$RG1$RSG1$QSG3$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -2503,13 +2555,16 @@ Vue.component("v4.0.0-CC29",
                             <p>Its general yearly turnover for the number of financial years required in the relevant notice, the in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC29 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected112" name="check-button" inline="true" switch>
                                                      <b>[{{ selected112?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C29_SC_gen-year-to/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C29"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2557,54 +2612,53 @@ Vue.component("v4.0.0-CC29",
                                             
                                         <div v-if="selected114">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C29_SC_gen__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C29_SC_gen__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
-                                        </div>
-                                            <b-form-group label="[Q] Start date; End date" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group><div>
+                                        </div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Start date; End date" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C29_SC_gen__year__to$RG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C29_SC_gen__year__to$RG1$RSG1$QSG2$Q2[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected115" name="check-button" inline="true" switch>
                                                      <b>[{{ selected115?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected115">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div>
-                                            <b-form-group label="[Q] In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C29_SC_gen__year__to$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C29_SC_gen-year-to/RG1/RSG1/QSG2')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
+                                <b-form-group label="[Q] In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C29_SC_gen__year__to$RG1$RSG1$QSG3$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected116" name="check-button" inline="true" switch>
                                                      <b>[{{ selected116?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected116">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C29_SC_gen__year__to$RG1$RSG1$QSG3$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C29_SC_gen-year-to/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C29_SC_gen-year-to/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -2634,23 +2688,23 @@ Vue.component("v4.0.0-CC30",
 "C30_SC_aver-year-to/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected119" : false,
 "C30_SC_aver-year-to/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C30_SC_aver-year-to/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C30_SC_aver-year-to/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C30_SC_aver__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C30_SC_aver__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C30_SC_aver-year-to/RG1/RSG1/QSG2" : [],
-"C30_SC_aver-year-to/RG1/RSG1/QSG2/Q1" : '',
-"C30_SC_aver-year-to/RG1/RSG1/QSG2/Q2" : '',
+"C30_SC_aver__year__to$RG1$RSG1$QSG2$Q1" : [],
+"C30_SC_aver__year__to$RG1$RSG1$QSG2$Q2" : [],
 "C30_SC_aver-year-to/RG1/RSG1/QSG2/QSG1" : [],
 "C30_SC_aver-year-to/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected120" : false,
 "C30_SC_aver-year-to/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C30_SC_aver-year-to/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C30_SC_aver__year__to$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 "C30_SC_aver-year-to/RG1/RSG1/QSG3" : [],
-"C30_SC_aver-year-to/RG1/RSG1/QSG3/Q1" : '',
+"C30_SC_aver__year__to$RG1$RSG1$QSG3$Q1" : [],
 "C30_SC_aver-year-to/RG1/RSG1/QSG3/QSG1" : [],
 "C30_SC_aver-year-to/RG1/RSG1/QSG3/QSG1/Q1" : false,
 "selected121" : false,
 "C30_SC_aver-year-to/RG1/RSG1/QSG3/QSG1/QSG1" : [],
-"C30_SC_aver-year-to/RG1/RSG1/QSG3/QSG1/QSG1/Q1" : '',
+"C30_SC_aver__year__to$RG1$RSG1$QSG3$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -2660,13 +2714,16 @@ Vue.component("v4.0.0-CC30",
                             <p>Its average yearly turnover for the number of years required in the relevant notice, the procurement documents or the ESPD is as follows:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC30 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected117" name="check-button" inline="true" switch>
                                                      <b>[{{ selected117?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C30_SC_aver-year-to/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C30"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2709,51 +2766,47 @@ Vue.component("v4.0.0-CC30",
                                             
                                         <div v-if="selected119">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C30_SC_aver__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C30_SC_aver__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Average for the required period" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Additional information" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Average for the required period" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C30_SC_aver__year__to$RG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Additional information" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C30_SC_aver__year__to$RG1$RSG1$QSG2$Q2[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected120" name="check-button" inline="true" switch>
                                                      <b>[{{ selected120?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected120">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C30_SC_aver__year__to$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
-                                            <b-form-group label="[Q] In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C30_SC_aver__year__to$RG1$RSG1$QSG3$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected121" name="check-button" inline="true" switch>
                                                      <b>[{{ selected121?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected121">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C30_SC_aver__year__to$RG1$RSG1$QSG3$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C30_SC_aver-year-to/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -2784,23 +2837,23 @@ Vue.component("v4.0.0-CC31",
 "C31_SC_spec-aver-to/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected124" : false,
 "C31_SC_spec-aver-to/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C31_SC_spec-aver-to/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C31_SC_spec-aver-to/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C31_SC_spec__aver__to$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C31_SC_spec__aver__to$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C31_SC_spec-aver-to/RG1/RSG1/QSG2" : [],
-"C31_SC_spec-aver-to/RG1/RSG1/QSG2/Q1" : '',
-"C31_SC_spec-aver-to/RG1/RSG1/QSG2/Q2" : '',
+"C31_SC_spec__aver__to$RG1$RSG1$QSG2$Q1" : [],
+"C31_SC_spec__aver__to$RG1$RSG1$QSG2$Q2" : [],
 "C31_SC_spec-aver-to/RG1/RSG1/QSG2/QSG1" : [],
 "C31_SC_spec-aver-to/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected125" : false,
 "C31_SC_spec-aver-to/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C31_SC_spec-aver-to/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C31_SC_spec__aver__to$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 "C31_SC_spec-aver-to/RG1/RSG1/QSG3" : [],
-"C31_SC_spec-aver-to/RG1/RSG1/QSG3/Q1" : '',
+"C31_SC_spec__aver__to$RG1$RSG1$QSG3$Q1" : [],
 "C31_SC_spec-aver-to/RG1/RSG1/QSG3/QSG1" : [],
 "C31_SC_spec-aver-to/RG1/RSG1/QSG3/QSG1/Q1" : false,
 "selected126" : false,
 "C31_SC_spec-aver-to/RG1/RSG1/QSG3/QSG1/QSG1" : [],
-"C31_SC_spec-aver-to/RG1/RSG1/QSG3/QSG1/QSG1/Q1" : '',
+"C31_SC_spec__aver__to$RG1$RSG1$QSG3$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -2810,13 +2863,16 @@ Vue.component("v4.0.0-CC31",
                             <p>Its specific average yearly turnover in the business area covered by the contract for the number of years required in the relevant notice, the in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC31 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected122" name="check-button" inline="true" switch>
                                                      <b>[{{ selected122?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C31_SC_spec-aver-to/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C31"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2864,51 +2920,47 @@ Vue.component("v4.0.0-CC31",
                                             
                                         <div v-if="selected124">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C31_SC_spec__aver__to$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C31_SC_spec__aver__to$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Start date; End date" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Start date; End date" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C31_SC_spec__aver__to$RG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C31_SC_spec__aver__to$RG1$RSG1$QSG2$Q2[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected125" name="check-button" inline="true" switch>
                                                      <b>[{{ selected125?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected125">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C31_SC_spec__aver__to$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
-                                            <b-form-group label="[Q] In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C31_SC_spec__aver__to$RG1$RSG1$QSG3$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected126" name="check-button" inline="true" switch>
                                                      <b>[{{ selected126?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected126">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C31_SC_spec__aver__to$RG1$RSG1$QSG3$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C31_SC_spec-aver-to/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -2939,23 +2991,23 @@ Vue.component("v4.0.0-CC32",
 "C32_SC_spec-year-to/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected129" : false,
 "C32_SC_spec-year-to/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C32_SC_spec-year-to/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C32_SC_spec-year-to/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C32_SC_spec__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C32_SC_spec__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C32_SC_spec-year-to/RG1/RSG1/QSG2" : [],
-"C32_SC_spec-year-to/RG1/RSG1/QSG2/Q1" : '',
-"C32_SC_spec-year-to/RG1/RSG1/QSG2/Q2" : '',
+"C32_SC_spec__year__to$RG1$RSG1$QSG2$Q1" : [],
+"C32_SC_spec__year__to$RG1$RSG1$QSG2$Q2" : [],
 "C32_SC_spec-year-to/RG1/RSG1/QSG2/QSG1" : [],
 "C32_SC_spec-year-to/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected130" : false,
 "C32_SC_spec-year-to/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C32_SC_spec-year-to/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C32_SC_spec__year__to$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 "C32_SC_spec-year-to/RG1/RSG1/QSG3" : [],
-"C32_SC_spec-year-to/RG1/RSG1/QSG3/Q1" : '',
+"C32_SC_spec__year__to$RG1$RSG1$QSG3$Q1" : [],
 "C32_SC_spec-year-to/RG1/RSG1/QSG3/QSG1" : [],
 "C32_SC_spec-year-to/RG1/RSG1/QSG3/QSG1/Q1" : false,
 "selected131" : false,
 "C32_SC_spec-year-to/RG1/RSG1/QSG3/QSG1/QSG1" : [],
-"C32_SC_spec-year-to/RG1/RSG1/QSG3/QSG1/QSG1/Q1" : '',
+"C32_SC_spec__year__to$RG1$RSG1$QSG3$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -2965,13 +3017,16 @@ Vue.component("v4.0.0-CC32",
                             <p>Its specific yearly turnover in the business area covered by the contract for the number of financial years required in the relevant notice, in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC32 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected127" name="check-button" inline="true" switch>
                                                      <b>[{{ selected127?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C32_SC_spec-year-to/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C32"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3019,51 +3074,50 @@ Vue.component("v4.0.0-CC32",
                                             
                                         <div v-if="selected129">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C32_SC_spec__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C32_SC_spec__year__to$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
-                                        </div>
-                                            <b-form-group label="[Q] Start date; End date" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group><div>
+                                        </div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Start date; End date" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C32_SC_spec__year__to$RG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C32_SC_spec__year__to$RG1$RSG1$QSG2$Q2[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected130" name="check-button" inline="true" switch>
                                                      <b>[{{ selected130?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected130">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div>
-                                            <b-form-group label="[Q] In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C32_SC_spec__year__to$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C32_SC_spec-year-to/RG1/RSG1/QSG2')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
+                                <b-form-group label="[Q] In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C32_SC_spec__year__to$RG1$RSG1$QSG3$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected131" name="check-button" inline="true" switch>
                                                      <b>[{{ selected131?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected131">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C32_SC_spec__year__to$RG1$RSG1$QSG3$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C32_SC_spec-year-to/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -3093,15 +3147,15 @@ Vue.component("v4.0.0-CC34",
 "C34_SC_finan-rat/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected133" : false,
 "C34_SC_finan-rat/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C34_SC_finan-rat/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C34_SC_finan-rat/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C34_SC_finan__rat$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C34_SC_finan__rat$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C34_SC_finan-rat/RG1/RSG1/QSG2" : [],
-"C34_SC_finan-rat/RG1/RSG1/QSG2/Q1" : '',
+"C34_SC_finan__rat$RG1$RSG1$QSG2$Q1" : [],
 "C34_SC_finan-rat/RG1/RSG1/QSG2/QSG1" : [],
 "C34_SC_finan-rat/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected134" : false,
 "C34_SC_finan-rat/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C34_SC_finan-rat/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C34_SC_finan__rat$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -3152,7 +3206,7 @@ Vue.component("v4.0.0-CC34",
                     <b-form-input placeholder="MINIMUM_QUANTITY"></b-form-input>
                     </b-form-group>
                     <template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C34_SC_finan-rat/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div>
                                             <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="selected132" name="check-button" inline="true" switch>
@@ -3167,35 +3221,33 @@ Vue.component("v4.0.0-CC34",
                                             
                                         <div v-if="selected133">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C34_SC_finan__rat$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C34_SC_finan__rat$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Please provide your ratio" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please provide your ratio" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY" v-model="C34_SC_finan__rat$RG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected134" name="check-button" inline="true" switch>
                                                      <b>[{{ selected134?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected134">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C34_SC_finan__rat$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C34_SC_finan-rat/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C34_SC_finan-rat/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -3225,10 +3277,10 @@ Vue.component("v4.0.0-CC35",
 "C35_SC_indem-insu/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected137" : false,
 "C35_SC_indem-insu/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C35_SC_indem-insu/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C35_SC_indem-insu/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C35_SC_indem__insu$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C35_SC_indem__insu$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C35_SC_indem-insu/RG1/RSG1/QSG2" : [],
-"C35_SC_indem-insu/RG1/RSG1/QSG2/Q1" : '',
+"C35_SC_indem__insu$RG1$RSG1$QSG2$Q1" : [],
 "C35_SC_indem-insu/RG1/RSG1/QSG2/Q2" : false,
 "selected138" : false,
 "C35_SC_indem-insu/RG1/RSG1/QSG2/Q3" : false,
@@ -3237,7 +3289,7 @@ Vue.component("v4.0.0-CC35",
 "C35_SC_indem-insu/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected140" : false,
 "C35_SC_indem-insu/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C35_SC_indem-insu/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C35_SC_indem__insu$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -3247,13 +3299,16 @@ Vue.component("v4.0.0-CC35",
                             <p>The insured amount in its professional risk indemnity insurance is the following:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC35 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected135" name="check-button" inline="true" switch>
                                                      <b>[{{ selected135?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C35_SC_indem-insu/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C35"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3296,20 +3351,20 @@ Vue.component("v4.0.0-CC35",
                                             
                                         <div v-if="selected137">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C35_SC_indem__insu$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C35_SC_indem__insu$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C35_SC_indem__insu$RG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
                                             <br/>[Q] As an EO I will commit to obtain the minimum amount required <b-form-checkbox v-model="selected138" name="check-button" inline="true" switch>
                                                      <b>[{{ selected138?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
@@ -3323,16 +3378,14 @@ Vue.component("v4.0.0-CC35",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected140">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C35_SC_indem__insu$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C35_SC_indem-insu/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C35_SC_indem-insu/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -3354,38 +3407,38 @@ Vue.component("v4.0.0-CC36",
 "lotid_C36" : window.espd_model['CC36'].lots,
 "C36_SC_finan-requ/RG1/RSG1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1" : [],
-"opt_C36_SC_finan_requ" : [{"text":"Economic or Financial","value":0},{"text":"Rating","value":1},{"text":"Descriptive","value":2}],
-"val_C36_SC_finan_requ" : 3,
+"opt_C36_SC_finan__req" : [{"text":"Economic or Financial","value":0},{"text":"Rating","value":1},{"text":"Descriptive","value":2}],
+"val_C36_SC_finan__req" : 0,
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/RQ1/R1/R1/R1/R1" : '',
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/RQ2/R1/R1/R1/R1" : '',
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/RQ3/R1/R1/R1/R1" : '',
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/QSG1" : [],
-"C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/QSG1/Q1" : '',
+"C36_SC_finan__requ$RG1$RSG1$RSG1$RSG1$QSG1$Q1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/QSG1/QSG1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected143" : false,
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
+"C36_SC_finan__requ$RG1$RSG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2/RQ1/R1/R1/R1" : '',
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2/RQ2/R1/R1/R1" : '',
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2/QSG1" : [],
-"C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2/QSG1/Q1" : '',
+"C36_SC_finan__requ$RG1$RSG1$RSG1$RSG2$QSG1$Q1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2/QSG1/QSG1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/Q1" : false,
 "selected144" : false,
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/QSG1" : [],
-"C36_SC_finan-requ/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/QSG1/Q1" : '',
+"C36_SC_finan__requ$RG1$RSG1$RSG1$RSG2$QSG1$QSG1$QSG1$Q1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG3" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG3/RQ1/R1/R1/R1" : '',
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG3/QSG1" : [],
-"C36_SC_finan-requ/RG1/RSG1/RSG1/RSG3/QSG1/Q1" : '',
+"C36_SC_finan__requ$RG1$RSG1$RSG1$RSG3$QSG1$Q1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG3/QSG1/QSG1" : [],
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/Q1" : false,
 "selected145" : false,
 "C36_SC_finan-requ/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/QSG1" : [],
-"C36_SC_finan-requ/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/QSG1/Q1" : '',
+"C36_SC_finan__requ$RG1$RSG1$RSG1$RSG3$QSG1$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -3395,13 +3448,16 @@ Vue.component("v4.0.0-CC36",
                             <p>Concerning the other economic or financial requirements, if any, that may have been specified in the relevant notice or in the ESPD, the economic operator declares that:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC36 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected141" name="check-button" inline="true" switch>
                                                      <b>[{{ selected141?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C36_SC_finan-requ/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C36"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3424,13 +3480,13 @@ Vue.component("v4.0.0-CC36",
                         <div><b-card footer-tag="footer"><em>undefined</em><div><b-form-group label-class="font-weight-bold"  label="[R] Select the type of requirement (Economic or Financial; Rating; Descriptive)" v-slot="{ ariaDescribedby }">
                                     <b-form-radio-group
                                         id="radio-group-142"
-                                        v-model="val_C36_SC_finan_requ"
-                                        :options="opt_C36_SC_finan_requ"
+                                        v-model="val_C36_SC_finan__req"
+                                        :options="opt_C36_SC_finan__req"
                                         :aria-describedby="ariaDescribedby"
                                         name="radio-options"
                                     ></b-form-radio-group>
                                     </b-form-group>
-                                    <template v-if="val_C36_SC_finan_requ===6"><div><b-card footer-tag="footer">
+                                    <template v-if="val_C36_SC_finan__req===0"><div><b-card footer-tag="footer">
                     <b-form-group label-class="font-weight-bold" label="[R] Description of the economic or financial requirement"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
@@ -3446,24 +3502,22 @@ Vue.component("v4.0.0-CC36",
                     <b-form-input placeholder="PERIOD"></b-form-input>
                     </b-form-group>
                     
-                                            <b-form-group label="[Q] Amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C36_SC_finan__requ$RG1$RSG1$RSG1$RSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected143" name="check-button" inline="true" switch>
                                                      <b>[{{ selected143?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected143">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C36_SC_finan__requ$RG1$RSG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C36_SC_finan-requ/RG1/RSG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
-                        </b-card></div></template><template v-if="val_C36_SC_finan_requ===7"><div>
+                        </b-card></div></template><template v-if="val_C36_SC_finan__req===1"><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Rating scheme description"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
@@ -3474,45 +3528,41 @@ Vue.component("v4.0.0-CC36",
                     <b-form-input placeholder="MINIMUM_QUANTITY"></b-form-input>
                     </b-form-group>
                     
-                                            <b-form-group label="[Q] Rating" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Rating" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY" v-model="C36_SC_finan__requ$RG1$RSG1$RSG1$RSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected144" name="check-button" inline="true" switch>
                                                      <b>[{{ selected144?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected144">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div></template><template v-if="val_C36_SC_finan_requ===8"><div>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C36_SC_finan__requ$RG1$RSG1$RSG1$RSG2$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div></div></template><template v-if="val_C36_SC_finan__req===2"><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Descriptive requirement"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
                     
-                                            <b-form-group label="[Q] [Description]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] [Description]" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C36_SC_finan__requ$RG1$RSG1$RSG1$RSG3$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected145" name="check-button" inline="true" switch>
                                                      <b>[{{ selected145?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected145">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C36_SC_finan__requ$RG1$RSG1$RSG1$RSG3$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div></div></template></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C36_SC_finan-requ/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C36_SC_finan-requ/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -3539,23 +3589,23 @@ Vue.component("v4.0.0-CC37",
 "C37_SC_work-perform/RG1/RSG1/RSG1/RSG1/RQ1/R1/R1" : '',
 "C37_SC_work-perform/RG1/RSG1/QSG1" : [],
 "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1" : [],
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1" : '',
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q2" : '',
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q3" : '',
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q4" : '',
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q5" : '',
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q1" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q2" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q3" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q4" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q5" : [],
 "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q6" : false,
 "selected147" : false,
 "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3" : '',
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4" : '',
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4" : [],
 "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG2" : [],
 "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG2/Q1" : false,
 "selected148" : false,
 "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG2/QSG1" : [],
-"C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG2/QSG1/Q1" : '',
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -3565,13 +3615,16 @@ Vue.component("v4.0.0-CC37",
                             <p>For public works contracts only: During the reference period, the economic operator has performed the following works of the specified type. Contracting authorities may require up to five years and allow experience dating from more than five years.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC37 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected146" name="check-button" inline="true" switch>
                                                      <b>[{{ selected146?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C37_SC_work-perform/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C37"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3601,59 +3654,66 @@ Vue.component("v4.0.0-CC37",
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
-                    </div></div><em>CAPTION</em><div>
-                                            <b-form-group label="[Q] Reference description" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Total amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Activity of the economic operator" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Specific amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Period (Start and End dates)" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
+                    </div></div><b-card footer-tag="footer"><em>CAPTION</em><div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Reference description" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Total amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Activity of the economic operator" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Specific amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Period (Start and End dates)" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q5[0]"></b-form-input>
+                                </b-form-group>
                                             <br/>[Q] Confidential <b-form-checkbox v-model="selected147" name="check-button" inline="true" switch>
                                                      <b>[{{ selected147?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
-                                            <div>
-                                            <b-form-group label="[Q] Recipient name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact person name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact email" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact telephone" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group></div><div>
+                                            <div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Recipient name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact person name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact email" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact telephone" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><template #footer>
+                    <b-button variant="success" @click="renderHTML('C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected148" name="check-button" inline="true" switch>
                                                      <b>[{{ selected148?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected148">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C37_SC_work-perform/RG1/RSG1/QSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C37_SC_work-perform/RG1/RSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C37_SC_work-perform/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -3680,23 +3740,23 @@ Vue.component("v4.0.0-CC38",
 "C38_SC_supply-perform/RG1/RSG1/RSG1/RSG1/RQ1/R1/R1" : '',
 "C38_SC_supply-perform/RG1/RSG1/QSG1" : [],
 "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1" : [],
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1" : '',
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q2" : '',
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q3" : '',
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q4" : '',
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q5" : '',
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q1" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q2" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q3" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q4" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q5" : [],
 "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q6" : false,
 "selected150" : false,
 "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3" : '',
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4" : '',
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4" : [],
 "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG2" : [],
 "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG2/Q1" : false,
 "selected151" : false,
 "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG2/QSG1" : [],
-"C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG2/QSG1/Q1" : '',
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -3706,13 +3766,16 @@ Vue.component("v4.0.0-CC38",
                             <p>For public supply contracts only: During the reference period, the economic operator has delivered the following principal deliveries of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC38 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected149" name="check-button" inline="true" switch>
                                                      <b>[{{ selected149?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C38_SC_supply-perform/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C38"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3742,59 +3805,66 @@ Vue.component("v4.0.0-CC38",
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
-                    </div></div><em>CAPTION</em><div>
-                                            <b-form-group label="[Q] Reference description" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Total amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Activity of the economic operator" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Specific amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Period (Start and End dates)" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
+                    </div></div><b-card footer-tag="footer"><em>CAPTION</em><div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Reference description" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Total amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Activity of the economic operator" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Specific amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Period (Start and End dates)" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q5[0]"></b-form-input>
+                                </b-form-group>
                                             <br/>[Q] Confidential <b-form-checkbox v-model="selected150" name="check-button" inline="true" switch>
                                                      <b>[{{ selected150?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
-                                            <div>
-                                            <b-form-group label="[Q] Recipient name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact person name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact email" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact telephone" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group></div><div>
+                                            <div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Recipient name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact person name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact email" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact telephone" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><template #footer>
+                    <b-button variant="success" @click="renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected151" name="check-button" inline="true" switch>
                                                      <b>[{{ selected151?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected151">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C38_SC_supply-perform/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -3821,23 +3891,23 @@ Vue.component("v4.0.0-CC39",
 "C39_SC_service-perform/RG1/RSG1/RSG1/RSG1/RQ1/R1/R1" : '',
 "C39_SC_service-perform/RG1/RSG1/QSG1" : [],
 "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1" : [],
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1" : '',
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q2" : '',
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q3" : '',
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q4" : '',
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q5" : '',
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q1" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q2" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q3" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q4" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q5" : [],
 "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q6" : false,
 "selected153" : false,
 "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3" : '',
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4" : '',
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4" : [],
 "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG2" : [],
 "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG2/Q1" : false,
 "selected154" : false,
 "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG2/QSG1" : [],
-"C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG2/QSG1/Q1" : '',
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -3847,13 +3917,16 @@ Vue.component("v4.0.0-CC39",
                             <p>For public service contracts only: During the reference period, the economic operator has provided the following main services of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC39 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected152" name="check-button" inline="true" switch>
                                                      <b>[{{ selected152?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C39_SC_service-perform/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C39"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3883,59 +3956,66 @@ Vue.component("v4.0.0-CC39",
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
-                    </div></div><em>CAPTION</em><div>
-                                            <b-form-group label="[Q] Reference description" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Total amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Activity of the economic operator" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Specific amount" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Period (Start and End dates)" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
+                    </div></div><b-card footer-tag="footer"><em>CAPTION</em><div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Reference description" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Total amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Activity of the economic operator" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Specific amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Period (Start and End dates)" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q5[0]"></b-form-input>
+                                </b-form-group>
                                             <br/>[Q] Confidential <b-form-checkbox v-model="selected153" name="check-button" inline="true" switch>
                                                      <b>[{{ selected153?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
-                                            <div>
-                                            <b-form-group label="[Q] Recipient name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact person name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact email" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Contact telephone" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group></div><div>
+                                            <div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Recipient name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact person name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact email" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Contact telephone" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group><template #footer>
+                    <b-button variant="success" @click="renderHTML('C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected154" name="check-button" inline="true" switch>
                                                      <b>[{{ selected154?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected154">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C39_SC_service-perform/RG1/RSG1/QSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C39_SC_service-perform/RG1/RSG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C39_SC_service-perform/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -3965,31 +4045,31 @@ Vue.component("v4.0.0-CC40",
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected157" : false,
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2" : [],
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1" : [],
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q1" : '',
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q2" : '',
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q3" : '',
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q4" : '',
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q5" : '',
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q6" : '',
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q1" : [],
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q2" : [],
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q3" : [],
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q4" : [],
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q5" : [],
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q6" : [],
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/QSG1" : [],
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1" : false,
 "selected158" : false,
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1" : [],
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1/Q1" : '',
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$QSG1$Q1" : [],
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3" : [],
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1" : [],
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1/Q1" : '',
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1/Q2" : '',
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1/Q3" : '',
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q1" : [],
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q2" : [],
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q3" : [],
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1/QSG1" : [],
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/Q1" : false,
 "selected159" : false,
 "C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/QSG1" : [],
-"C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/QSG1/Q1" : '',
+"C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -3999,13 +4079,16 @@ Vue.component("v4.0.0-CC40",
                             <p>It can call upon the following technicians or technical bodies, especially those responsible for quality control. For technicians or technical bodies not belonging directly to the economic operator's undertaking but on whose capacities the economic operator relies as set out under Part II, Section C, separate ESPD forms must be filled in.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC40 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected155" name="check-button" inline="true" switch>
                                                      <b>[{{ selected155?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C40_SC_qual-cont-tech/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C40"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4043,78 +4126,80 @@ Vue.component("v4.0.0-CC40",
                                             
                                         <div v-if="selected157">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
-                                        </div><em>CAPTION</em><div>
-                                            <b-form-group label="[Q] First name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Last name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Profession" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Experience" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Other information" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] How long with EO" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
-                                            </b-form-group><div>
+                                        </div><em>CAPTION</em><div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] First name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Last name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Profession" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Experience" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Other information" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q5[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] How long with EO" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY_YEAR" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q6[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected158" name="check-button" inline="true" switch>
                                                      <b>[{{ selected158?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected158">
-                                        
-                                            <b-form-group label="[Q] Evidence supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div><em>CAPTION</em><div>
-                                            <b-form-group label="[Q] Name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Experience area" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Other information" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-form-group label="[Q] Evidence supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG2/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><em>CAPTION</em><div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Experience area" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Other information" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected159" name="check-button" inline="true" switch>
                                                      <b>[{{ selected159?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected159">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C40_SC_qual-cont-tech/RG1/RSG1/RSG1/QSG3/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C40_SC_qual-cont-tech/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C40_SC_qual-cont-tech/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -4144,31 +4229,31 @@ Vue.component("v4.0.0-CC41",
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected162" : false,
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG2" : [],
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1" : [],
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q1" : '',
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q2" : '',
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q3" : '',
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q4" : '',
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q5" : '',
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/Q6" : '',
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q1" : [],
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q2" : [],
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q3" : [],
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q4" : [],
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q5" : [],
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q6" : [],
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/QSG1" : [],
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1" : false,
 "selected163" : false,
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1" : [],
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1/Q1" : '',
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$QSG1$Q1" : [],
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG3" : [],
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1" : [],
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1/Q1" : '',
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1/Q2" : '',
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1/Q3" : '',
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q1" : [],
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q2" : [],
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q3" : [],
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1/QSG1" : [],
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/Q1" : false,
 "selected164" : false,
 "C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/QSG1" : [],
-"C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/QSG1/Q1" : '',
+"C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -4178,13 +4263,16 @@ Vue.component("v4.0.0-CC41",
                             <p>In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC41 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected160" name="check-button" inline="true" switch>
                                                      <b>[{{ selected160?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C41_SC_work-tech/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C41"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4222,78 +4310,80 @@ Vue.component("v4.0.0-CC41",
                                             
                                         <div v-if="selected162">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
-                                        </div><em>CAPTION</em><div>
-                                            <b-form-group label="[Q] First name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Last name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Profession" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Experience" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Other information" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] How long with EO" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
-                                            </b-form-group><div>
+                                        </div><em>CAPTION</em><div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] First name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Last name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Profession" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Experience" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Other information" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q5[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] How long with EO" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY_YEAR" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$Q6[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected163" name="check-button" inline="true" switch>
                                                      <b>[{{ selected163?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected163">
-                                        
-                                            <b-form-group label="[Q] Evidence supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div><em>CAPTION</em><div>
-                                            <b-form-group label="[Q] Name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Experience area" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Other information" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                        <b-form-group label="[Q] Evidence supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C41_SC_work-tech/RG1/RSG1/RSG1/QSG2/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><em>CAPTION</em><div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Experience area" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Other information" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected164" name="check-button" inline="true" switch>
                                                      <b>[{{ selected164?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected164">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C41_SC_work-tech/RG1/RSG1/RSG1/QSG3/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C41_SC_work-tech/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C41_SC_work-tech/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -4323,15 +4413,15 @@ Vue.component("v4.0.0-CC42",
 "C42_SC_qual-facil/RG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected167" : false,
 "C42_SC_qual-facil/RG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C42_SC_qual-facil/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C42_SC_qual-facil/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C42_SC_qual__facil$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C42_SC_qual__facil$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C42_SC_qual-facil/RG1/RSG1/RSG1/QSG2" : [],
-"C42_SC_qual-facil/RG1/RSG1/RSG1/QSG2/Q1" : '',
+"C42_SC_qual__facil$RG1$RSG1$RSG1$QSG2$Q1" : [],
 "C42_SC_qual-facil/RG1/RSG1/RSG1/QSG2/QSG1" : [],
 "C42_SC_qual-facil/RG1/RSG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected168" : false,
 "C42_SC_qual-facil/RG1/RSG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C42_SC_qual-facil/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C42_SC_qual__facil$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -4341,13 +4431,16 @@ Vue.component("v4.0.0-CC42",
                             <p>It uses the following technical facilities and measures for ensuring quality and its study and research facilities are as follows:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC42 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected165" name="check-button" inline="true" switch>
                                                      <b>[{{ selected165?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C42_SC_qual-facil/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C42"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4385,35 +4478,33 @@ Vue.component("v4.0.0-CC42",
                                             
                                         <div v-if="selected167">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C42_SC_qual__facil$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C42_SC_qual__facil$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C42_SC_qual__facil$RG1$RSG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected168" name="check-button" inline="true" switch>
                                                      <b>[{{ selected168?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected168">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C42_SC_qual__facil$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C42_SC_qual-facil/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C42_SC_qual-facil/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -4443,15 +4534,15 @@ Vue.component("v4.0.0-CC43",
 "C43_SC_research-fac/RG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected171" : false,
 "C43_SC_research-fac/RG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C43_SC_research-fac/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C43_SC_research-fac/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C43_SC_research__fac$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C43_SC_research__fac$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C43_SC_research-fac/RG1/RSG1/RSG1/QSG2" : [],
-"C43_SC_research-fac/RG1/RSG1/RSG1/QSG2/Q1" : '',
+"C43_SC_research__fac$RG1$RSG1$RSG1$QSG2$Q1" : [],
 "C43_SC_research-fac/RG1/RSG1/RSG1/QSG2/QSG1" : [],
 "C43_SC_research-fac/RG1/RSG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected172" : false,
 "C43_SC_research-fac/RG1/RSG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C43_SC_research-fac/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C43_SC_research__fac$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -4461,13 +4552,16 @@ Vue.component("v4.0.0-CC43",
                             <p>It uses the following study and research facilities are as follows:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC43 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected169" name="check-button" inline="true" switch>
                                                      <b>[{{ selected169?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C43_SC_research-fac/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C43"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4505,35 +4599,33 @@ Vue.component("v4.0.0-CC43",
                                             
                                         <div v-if="selected171">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C43_SC_research__fac$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C43_SC_research__fac$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C43_SC_research__fac$RG1$RSG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected172" name="check-button" inline="true" switch>
                                                      <b>[{{ selected172?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected172">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C43_SC_research__fac$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C43_SC_research-fac/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C43_SC_research-fac/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -4563,15 +4655,15 @@ Vue.component("v4.0.0-CC44",
 "C44_SC_chain-manage/RG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected175" : false,
 "C44_SC_chain-manage/RG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C44_SC_chain-manage/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C44_SC_chain-manage/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C44_SC_chain__manage$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C44_SC_chain__manage$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C44_SC_chain-manage/RG1/RSG1/RSG1/QSG2" : [],
-"C44_SC_chain-manage/RG1/RSG1/RSG1/QSG2/Q1" : '',
+"C44_SC_chain__manage$RG1$RSG1$RSG1$QSG2$Q1" : [],
 "C44_SC_chain-manage/RG1/RSG1/RSG1/QSG2/QSG1" : [],
 "C44_SC_chain-manage/RG1/RSG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected176" : false,
 "C44_SC_chain-manage/RG1/RSG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C44_SC_chain-manage/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C44_SC_chain__manage$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -4581,13 +4673,16 @@ Vue.component("v4.0.0-CC44",
                             <p>It will be able to apply the following supply chain management and tracking systems when performing the contract:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC44 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected173" name="check-button" inline="true" switch>
                                                      <b>[{{ selected173?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C44_SC_chain-manage/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C44"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4625,35 +4720,33 @@ Vue.component("v4.0.0-CC44",
                                             
                                         <div v-if="selected175">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C44_SC_chain__manage$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C44_SC_chain__manage$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C44_SC_chain__manage$RG1$RSG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected176" name="check-button" inline="true" switch>
                                                      <b>[{{ selected176?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected176">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C44_SC_chain__manage$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C44_SC_chain-manage/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C44_SC_chain-manage/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -4683,15 +4776,15 @@ Vue.component("v4.0.0-CC45",
 "C45_SC_envir-measure/RG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected179" : false,
 "C45_SC_envir-measure/RG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C45_SC_envir-measure/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C45_SC_envir-measure/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C45_SC_envir__measure$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C45_SC_envir__measure$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C45_SC_envir-measure/RG1/RSG1/RSG1/QSG2" : [],
-"C45_SC_envir-measure/RG1/RSG1/RSG1/QSG2/Q1" : '',
+"C45_SC_envir__measure$RG1$RSG1$RSG1$QSG2$Q1" : [],
 "C45_SC_envir-measure/RG1/RSG1/RSG1/QSG2/QSG1" : [],
 "C45_SC_envir-measure/RG1/RSG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected180" : false,
 "C45_SC_envir-measure/RG1/RSG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C45_SC_envir-measure/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C45_SC_envir__measure$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -4701,13 +4794,16 @@ Vue.component("v4.0.0-CC45",
                             <p>The economic operator will be able to apply the following environmental management measures when performing the contract:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC45 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected177" name="check-button" inline="true" switch>
                                                      <b>[{{ selected177?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C45_SC_envir-measure/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C45"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4745,35 +4841,33 @@ Vue.component("v4.0.0-CC45",
                                             
                                         <div v-if="selected179">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C45_SC_envir__measure$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C45_SC_envir__measure$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C45_SC_envir__measure$RG1$RSG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected180" name="check-button" inline="true" switch>
                                                      <b>[{{ selected180?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected180">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C45_SC_envir__measure$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C45_SC_envir-measure/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C45_SC_envir-measure/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -4803,15 +4897,15 @@ Vue.component("v4.0.0-CC46",
 "C46_SC_tech-equip/RG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected183" : false,
 "C46_SC_tech-equip/RG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C46_SC_tech-equip/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C46_SC_tech-equip/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C46_SC_tech__equip$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C46_SC_tech__equip$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C46_SC_tech-equip/RG1/RSG1/RSG1/QSG2" : [],
-"C46_SC_tech-equip/RG1/RSG1/RSG1/QSG2/Q1" : '',
+"C46_SC_tech__equip$RG1$RSG1$RSG1$QSG2$Q1" : [],
 "C46_SC_tech-equip/RG1/RSG1/RSG1/QSG2/QSG1" : [],
 "C46_SC_tech-equip/RG1/RSG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected184" : false,
 "C46_SC_tech-equip/RG1/RSG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C46_SC_tech-equip/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C46_SC_tech__equip$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -4821,13 +4915,16 @@ Vue.component("v4.0.0-CC46",
                             <p>The following tools, plant or technical equipment will be available to it for performing the contract:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC46 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected181" name="check-button" inline="true" switch>
                                                      <b>[{{ selected181?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C46_SC_tech-equip/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C46"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4865,35 +4962,33 @@ Vue.component("v4.0.0-CC46",
                                             
                                         <div v-if="selected183">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C46_SC_tech__equip$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C46_SC_tech__equip$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C46_SC_tech__equip$RG1$RSG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected184" name="check-button" inline="true" switch>
                                                      <b>[{{ selected184?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected184">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C46_SC_tech__equip$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C46_SC_tech-equip/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C46_SC_tech-equip/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -4923,24 +5018,24 @@ Vue.component("v4.0.0-CC47",
 "C47_SC_qualification/RG1/RSG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected187" : false,
 "C47_SC_qualification/RG1/RSG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C47_SC_qualification/RG1/RSG1/RSG1/QSG2" : [],
 "C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1" : [],
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q1" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q2" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q3" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q4" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q5" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q6" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q7" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q8" : '',
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/Q9" : '',
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q1" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q2" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q3" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q4" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q5" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q6" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q7" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q8" : [],
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q9" : [],
 "C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/QSG1" : [],
 "C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1" : false,
 "selected188" : false,
 "C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1" : [],
-"C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1/Q1" : '',
+"C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -4950,13 +5045,16 @@ Vue.component("v4.0.0-CC47",
                             <p>The following educational and professional qualifications are held by the service provider or the contractor itself, and/or (depending on the requirements set out in the relevant notice or the in the ESPD, the relevant notice or by its managerial staff.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC47 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected185" name="check-button" inline="true" switch>
                                                      <b>[{{ selected185?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C47_SC_qualification/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C47"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4994,67 +5092,68 @@ Vue.component("v4.0.0-CC47",
                                             
                                         <div v-if="selected187">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
-                                        </div><em>CAPTION</em><div>
-                                            <b-form-group label="[Q] First name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Last name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Please describe the educational or professional qualification" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] If possible please indicate the ESCO identifier for this qualification" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="URL"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] If possible please describe the ESCO qualification" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Qualification name" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Qualification number" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUAL_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Qualification issuing date" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DATE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Qualification issuing body" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                        </div><em>CAPTION</em><div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] First name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Last name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Please describe the educational or professional qualification" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] If possible please indicate the ESCO identifier for this qualification" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="URL" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q4[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] If possible please describe the ESCO qualification" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q5[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Qualification name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q6[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Qualification number" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUAL_IDENTIFIER" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q7[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Qualification issuing date" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DATE" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q8[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Qualification issuing body" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$Q9[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected188" name="check-button" inline="true" switch>
                                                      <b>[{{ selected188?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected188">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C47_SC_qualification/RG1/RSG1/RSG1/QSG2/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C47_SC_qualification/RG1/RSG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C47_SC_qualification/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -5083,8 +5182,8 @@ Vue.component("v4.0.0-CC48",
 "C48_SC_spec-req-check/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected191" : false,
 "C48_SC_spec-req-check/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C48_SC_spec-req-check/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C48_SC_spec-req-check/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C48_SC_spec__req__check$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C48_SC_spec__req__check$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C48_SC_spec-req-check/RG1/RSG1/QSG2" : [],
 "C48_SC_spec-req-check/RG1/RSG1/QSG2/Q1" : false,
 "selected192" : false,
@@ -5092,7 +5191,7 @@ Vue.component("v4.0.0-CC48",
 "C48_SC_spec-req-check/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected193" : false,
 "C48_SC_spec-req-check/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C48_SC_spec-req-check/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C48_SC_spec__req__check$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5102,13 +5201,16 @@ Vue.component("v4.0.0-CC48",
                             <p>For complex products or services to be supplied or, exceptionally, for products or services which are required for a special purpose: The economic operator will allow checks to be conducted on the production capacities or the technical capacity of the economic operator and, where necessary, on the means of study and research which are available to it and on the quality control measures? The check is to be performed by the contracting authority or, in case the latter consents to this, on its behalf by a competent official body of the country in which the supplier or service provider is established.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC48 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected189" name="check-button" inline="true" switch>
                                                      <b>[{{ selected189?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C48_SC_spec-req-check/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C48"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5146,14 +5248,14 @@ Vue.component("v4.0.0-CC48",
                                             
                                         <div v-if="selected191">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C48_SC_spec__req__check$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C48_SC_spec__req__check$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                                             <br/>[Q] Do you allow checks? <b-form-checkbox v-model="selected192" name="check-button" inline="true" switch>
@@ -5165,16 +5267,14 @@ Vue.component("v4.0.0-CC48",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected193">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C48_SC_spec__req__check$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C48_SC_spec-req-check/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C48_SC_spec-req-check/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -5204,16 +5304,16 @@ Vue.component("v4.0.0-CC49",
 "C49_SC_manage-staff/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected196" : false,
 "C49_SC_manage-staff/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C49_SC_manage-staff/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C49_SC_manage-staff/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C49_SC_manage__staff$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C49_SC_manage__staff$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C49_SC_manage-staff/RG1/RSG1/QSG2" : [],
-"C49_SC_manage-staff/RG1/RSG1/QSG2/Q1" : '',
-"C49_SC_manage-staff/RG1/RSG1/QSG2/Q2" : '',
+"C49_SC_manage__staff$RG1$RSG1$QSG2$Q1" : [],
+"C49_SC_manage__staff$RG1$RSG1$QSG2$Q2" : [],
 "C49_SC_manage-staff/RG1/RSG1/QSG2/QSG1" : [],
 "C49_SC_manage-staff/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected197" : false,
 "C49_SC_manage-staff/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C49_SC_manage-staff/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C49_SC_manage__staff$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5223,13 +5323,16 @@ Vue.component("v4.0.0-CC49",
                             <p>The economic operator’s number of managerial staff for the last three years were as follows:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC49 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected194" name="check-button" inline="true" switch>
                                                      <b>[{{ selected194?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C49_SC_manage-staff/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C49"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5272,36 +5375,37 @@ Vue.component("v4.0.0-CC49",
                                             
                                         <div v-if="selected196">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C49_SC_manage__staff$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C49_SC_manage__staff$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
-                                        </div>
-                                            <b-form-group label="[Q] Year" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Number" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_INTEGER"></b-form-input>
-                                            </b-form-group><div>
+                                        </div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Year" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY_YEAR" v-model="C49_SC_manage__staff$RG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Number" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY_INTEGER" v-model="C49_SC_manage__staff$RG1$RSG1$QSG2$Q2[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected197" name="check-button" inline="true" switch>
                                                      <b>[{{ selected197?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected197">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C49_SC_manage__staff$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C49_SC_manage-staff/RG1/RSG1/QSG2')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C49_SC_manage-staff/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -5331,16 +5435,16 @@ Vue.component("v4.0.0-CC50",
 "C50_SC_year-manpower/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected200" : false,
 "C50_SC_year-manpower/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C50_SC_year-manpower/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C50_SC_year-manpower/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C50_SC_year__manpower$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C50_SC_year__manpower$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C50_SC_year-manpower/RG1/RSG1/QSG2" : [],
-"C50_SC_year-manpower/RG1/RSG1/QSG2/Q1" : '',
-"C50_SC_year-manpower/RG1/RSG1/QSG2/Q2" : '',
+"C50_SC_year__manpower$RG1$RSG1$QSG2$Q1" : [],
+"C50_SC_year__manpower$RG1$RSG1$QSG2$Q2" : [],
 "C50_SC_year-manpower/RG1/RSG1/QSG2/QSG1" : [],
 "C50_SC_year-manpower/RG1/RSG1/QSG2/QSG1/Q1" : false,
 "selected201" : false,
 "C50_SC_year-manpower/RG1/RSG1/QSG2/QSG1/QSG1" : [],
-"C50_SC_year-manpower/RG1/RSG1/QSG2/QSG1/QSG1/Q1" : '',
+"C50_SC_year__manpower$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5350,13 +5454,16 @@ Vue.component("v4.0.0-CC50",
                             <p>The economic operator’s average annual manpower for the last three years were as follows:</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC50 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected198" name="check-button" inline="true" switch>
                                                      <b>[{{ selected198?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C50_SC_year-manpower/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C50"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5399,36 +5506,37 @@ Vue.component("v4.0.0-CC50",
                                             
                                         <div v-if="selected200">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C50_SC_year__manpower$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C50_SC_year__manpower$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
-                                        </div>
-                                            <b-form-group label="[Q] Year" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Number" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_INTEGER"></b-form-input>
-                                            </b-form-group><div>
+                                        </div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Year" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY_YEAR" v-model="C50_SC_year__manpower$RG1$RSG1$QSG2$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Number" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY_INTEGER" v-model="C50_SC_year__manpower$RG1$RSG1$QSG2$Q2[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected201" name="check-button" inline="true" switch>
                                                      <b>[{{ selected201?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected201">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </div></div></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C50_SC_year__manpower$RG1$RSG1$QSG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
+                                        </div></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C50_SC_year-manpower/RG1/RSG1/QSG2')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card></div><template #footer>
+                    <b-button variant="success" @click="renderHTML('C50_SC_year-manpower/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -5452,15 +5560,15 @@ Vue.component("v4.0.0-CC51",
 "C51_SC_suncont-port/QG1/QSG1/Q1" : false,
 "selected204" : false,
 "C51_SC_suncont-port/QG1/QSG1/QSG1" : [],
-"C51_SC_suncont-port/QG1/QSG1/QSG1/Q1" : '',
-"C51_SC_suncont-port/QG1/QSG1/QSG1/Q2" : '',
+"C51_SC_suncont__port$QG1$QSG1$QSG1$Q1" : [],
+"C51_SC_suncont__port$QG1$QSG1$QSG1$Q2" : [],
 "C51_SC_suncont-port/QG2" : [],
-"C51_SC_suncont-port/QG2/Q1" : '',
+"C51_SC_suncont__port$QG2$Q1" : [],
 "C51_SC_suncont-port/QG2/QSG1" : [],
 "C51_SC_suncont-port/QG2/QSG1/Q1" : false,
 "selected205" : false,
 "C51_SC_suncont-port/QG2/QSG1/QSG1" : [],
-"C51_SC_suncont-port/QG2/QSG1/QSG1/Q1" : '',
+"C51_SC_suncont__port$QG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5470,13 +5578,16 @@ Vue.component("v4.0.0-CC51",
                             <p>The economic operator intends possibly to subcontract the following proportion (i.e. percentage) of the contract. Please note that if the economic operator has decided to subcontract a part of the contract and relies on the subcontractor’s capacities to perform that part, then please fill in a separate ESPD for such subcontractors, see Part II, Section C above.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC51 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected202" name="check-button" inline="true" switch>
                                                      <b>[{{ selected202?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C51_SC_suncont-port/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="selected203" name="check-button" inline="true" switch>
                                                      <b>[{{ selected203?'Yes':'No' }}]</b>
@@ -5490,32 +5601,30 @@ Vue.component("v4.0.0-CC51",
                                             
                                         <div v-if="selected204">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C51_SC_suncont__port$QG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C51_SC_suncont__port$QG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                         </div>
                         <div>
-                                            <b-form-group label="[Q] Please specify" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please specify" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C51_SC_suncont__port$QG2$Q1[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected205" name="check-button" inline="true" switch>
                                                      <b>[{{ selected205?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected205">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C51_SC_suncont__port$QG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div></template>
                     </div>`
@@ -5539,8 +5648,8 @@ Vue.component("v4.0.0-CC52",
 "C52_SC_wo-autent/QG1/QSG1/Q1" : false,
 "selected208" : false,
 "C52_SC_wo-autent/QG1/QSG1/QSG1" : [],
-"C52_SC_wo-autent/QG1/QSG1/QSG1/Q1" : '',
-"C52_SC_wo-autent/QG1/QSG1/QSG1/Q2" : '',
+"C52_SC_wo__autent$QG1$QSG1$QSG1$Q1" : [],
+"C52_SC_wo__autent$QG1$QSG1$QSG1$Q2" : [],
 "C52_SC_wo-autent/QG2" : [],
 "C52_SC_wo-autent/QG2/Q1" : false,
 "selected209" : false,
@@ -5548,7 +5657,7 @@ Vue.component("v4.0.0-CC52",
 "C52_SC_wo-autent/QG2/QSG1/Q1" : false,
 "selected210" : false,
 "C52_SC_wo-autent/QG2/QSG1/QSG1" : [],
-"C52_SC_wo-autent/QG2/QSG1/QSG1/Q1" : '',
+"C52_SC_wo__autent$QG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5558,13 +5667,16 @@ Vue.component("v4.0.0-CC52",
                             <p>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied, which do not need to be accompanied by certifications of authenticity.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC52 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected206" name="check-button" inline="true" switch>
                                                      <b>[{{ selected206?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C52_SC_wo-autent/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="selected207" name="check-button" inline="true" switch>
                                                      <b>[{{ selected207?'Yes':'No' }}]</b>
@@ -5578,14 +5690,14 @@ Vue.component("v4.0.0-CC52",
                                             
                                         <div v-if="selected208">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C52_SC_wo__autent$QG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C52_SC_wo__autent$QG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                         </div>
@@ -5599,11 +5711,9 @@ Vue.component("v4.0.0-CC52",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected210">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C52_SC_wo__autent$QG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div></template>
                     </div>`
@@ -5627,8 +5737,8 @@ Vue.component("v4.0.0-CC53",
 "C53_SC_w-autent/QG1/QSG1/Q1" : false,
 "selected213" : false,
 "C53_SC_w-autent/QG1/QSG1/QSG1" : [],
-"C53_SC_w-autent/QG1/QSG1/QSG1/Q1" : '',
-"C53_SC_w-autent/QG1/QSG1/QSG1/Q2" : '',
+"C53_SC_w__autent$QG1$QSG1$QSG1$Q1" : [],
+"C53_SC_w__autent$QG1$QSG1$QSG1$Q2" : [],
 "C53_SC_w-autent/QG2" : [],
 "C53_SC_w-autent/QG2/Q1" : false,
 "selected214" : false,
@@ -5636,7 +5746,7 @@ Vue.component("v4.0.0-CC53",
 "C53_SC_w-autent/QG2/QSG1/Q1" : false,
 "selected215" : false,
 "C53_SC_w-autent/QG2/QSG1/QSG1" : [],
-"C53_SC_w-autent/QG2/QSG1/QSG1/Q1" : '',
+"C53_SC_w__autent$QG2$QSG1$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5646,13 +5756,16 @@ Vue.component("v4.0.0-CC53",
                             <p>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied and will provide certifications of authenticity where applicable.</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC53 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected211" name="check-button" inline="true" switch>
                                                      <b>[{{ selected211?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em>
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C53_SC_w-autent/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="selected212" name="check-button" inline="true" switch>
                                                      <b>[{{ selected212?'Yes':'No' }}]</b>
@@ -5666,14 +5779,14 @@ Vue.component("v4.0.0-CC53",
                                             
                                         <div v-if="selected213">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C53_SC_w__autent$QG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C53_SC_w__autent$QG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                         </div>
@@ -5687,11 +5800,9 @@ Vue.component("v4.0.0-CC53",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected215">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C53_SC_w__autent$QG2$QSG1$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div></template>
                     </div>`
@@ -5720,18 +5831,18 @@ Vue.component("v4.0.0-CC54",
 "C54_SC_qa-certif-inst/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected218" : false,
 "C54_SC_qa-certif-inst/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C54_SC_qa-certif-inst/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C54_SC_qa-certif-inst/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C54_SC_qa__certif__inst$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C54_SC_qa__certif__inst$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C54_SC_qa-certif-inst/RG1/RSG1/QSG2" : [],
 "C54_SC_qa-certif-inst/RG1/RSG1/QSG2/Q1" : false,
 "selected219" : false,
 "C54_SC_qa-certif-inst/RG1/RSG1/QSG2/QSG1" : [],
-"C54_SC_qa-certif-inst/RG1/RSG1/QSG2/QSG1/Q1" : '',
+"C54_SC_qa__certif__inst$RG1$RSG1$QSG2$QSG1$Q1" : [],
 "C54_SC_qa-certif-inst/RG1/RSG1/QSG2/QSG2" : [],
 "C54_SC_qa-certif-inst/RG1/RSG1/QSG2/QSG2/Q1" : false,
 "selected220" : false,
 "C54_SC_qa-certif-inst/RG1/RSG1/QSG2/QSG2/QSG1" : [],
-"C54_SC_qa-certif-inst/RG1/RSG1/QSG2/QSG2/QSG1/Q1" : '',
+"C54_SC_qa__certif__inst$RG1$RSG1$QSG2$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5741,13 +5852,16 @@ Vue.component("v4.0.0-CC54",
                             <p>Can the economic operator provide the required certificates drawn up by official quality control institutes or agencies of recognised competence attesting the conformity of products clearly identified by references to the technical specifications or standards, which are set out in the relevant notice or the in the ESPD, the relevant notice or ?</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC54 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected216" name="check-button" inline="true" switch>
                                                      <b>[{{ selected216?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C54_SC_qa-certif-inst/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C54"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5785,14 +5899,14 @@ Vue.component("v4.0.0-CC54",
                                             
                                         <div v-if="selected218">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C54_SC_qa__certif__inst$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C54_SC_qa__certif__inst$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                                             <br/>[Q] Your answer? <b-form-checkbox v-model="selected219" name="check-button" inline="true" switch>
@@ -5801,26 +5915,24 @@ Vue.component("v4.0.0-CC54",
                                             
                                         <div v-if="!selected219">
                                         
-                                            <b-form-group label="[Q] If not, please explain why and state which other means of proof can be provided:" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] If not, please explain why and state which other means of proof can be provided:" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C54_SC_qa__certif__inst$RG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected220" name="check-button" inline="true" switch>
                                                      <b>[{{ selected220?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected220">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C54_SC_qa__certif__inst$RG1$RSG1$QSG2$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C54_SC_qa-certif-inst/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C54_SC_qa-certif-inst/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -5849,18 +5961,18 @@ Vue.component("v4.0.0-CC55",
 "C55_SC_qu-certif-indep/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected223" : false,
 "C55_SC_qu-certif-indep/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C55_SC_qu-certif-indep/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C55_SC_qu-certif-indep/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C55_SC_qu__certif__indep$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C55_SC_qu__certif__indep$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C55_SC_qu-certif-indep/RG1/RSG1/QSG2" : [],
 "C55_SC_qu-certif-indep/RG1/RSG1/QSG2/Q1" : false,
 "selected224" : false,
 "C55_SC_qu-certif-indep/RG1/RSG1/QSG2/QSG1" : [],
-"C55_SC_qu-certif-indep/RG1/RSG1/QSG2/QSG1/Q1" : '',
+"C55_SC_qu__certif__indep$RG1$RSG1$QSG2$QSG1$Q1" : [],
 "C55_SC_qu-certif-indep/RG1/RSG1/QSG2/QSG2" : [],
 "C55_SC_qu-certif-indep/RG1/RSG1/QSG2/QSG2/Q1" : false,
 "selected225" : false,
 "C55_SC_qu-certif-indep/RG1/RSG1/QSG2/QSG2/QSG1" : [],
-"C55_SC_qu-certif-indep/RG1/RSG1/QSG2/QSG2/QSG1/Q1" : '',
+"C55_SC_qu__certif__indep$RG1$RSG1$QSG2$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5870,13 +5982,16 @@ Vue.component("v4.0.0-CC55",
                             <p>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required quality assurance standards, including accessibility for disabled persons?</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC55 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected221" name="check-button" inline="true" switch>
                                                      <b>[{{ selected221?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C55_SC_qu-certif-indep/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C55"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5914,14 +6029,14 @@ Vue.component("v4.0.0-CC55",
                                             
                                         <div v-if="selected223">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C55_SC_qu__certif__indep$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C55_SC_qu__certif__indep$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                                             <br/>[Q] Your answer? <b-form-checkbox v-model="selected224" name="check-button" inline="true" switch>
@@ -5930,26 +6045,24 @@ Vue.component("v4.0.0-CC55",
                                             
                                         <div v-if="!selected224">
                                         
-                                            <b-form-group label="[Q] If not, please explain why and state which other means of proof can be provided:" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] If not, please explain why and state which other means of proof can be provided:" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C55_SC_qu__certif__indep$RG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected225" name="check-button" inline="true" switch>
                                                      <b>[{{ selected225?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected225">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C55_SC_qu__certif__indep$RG1$RSG1$QSG2$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C55_SC_qu-certif-indep/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C55_SC_qu-certif-indep/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -5978,18 +6091,18 @@ Vue.component("v4.0.0-CC56",
 "C56_SC_envir-certif-indep/RG1/RSG1/QSG1/QSG1/Q1" : false,
 "selected228" : false,
 "C56_SC_envir-certif-indep/RG1/RSG1/QSG1/QSG1/QSG1" : [],
-"C56_SC_envir-certif-indep/RG1/RSG1/QSG1/QSG1/QSG1/Q1" : '',
-"C56_SC_envir-certif-indep/RG1/RSG1/QSG1/QSG1/QSG1/Q2" : '',
+"C56_SC_envir__certif__indep$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
+"C56_SC_envir__certif__indep$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
 "C56_SC_envir-certif-indep/RG1/RSG1/QSG2" : [],
 "C56_SC_envir-certif-indep/RG1/RSG1/QSG2/Q1" : false,
 "selected229" : false,
 "C56_SC_envir-certif-indep/RG1/RSG1/QSG2/QSG1" : [],
-"C56_SC_envir-certif-indep/RG1/RSG1/QSG2/QSG1/Q1" : '',
+"C56_SC_envir__certif__indep$RG1$RSG1$QSG2$QSG1$Q1" : [],
 "C56_SC_envir-certif-indep/RG1/RSG1/QSG2/QSG2" : [],
 "C56_SC_envir-certif-indep/RG1/RSG1/QSG2/QSG2/Q1" : false,
 "selected230" : false,
 "C56_SC_envir-certif-indep/RG1/RSG1/QSG2/QSG2/QSG1" : [],
-"C56_SC_envir-certif-indep/RG1/RSG1/QSG2/QSG2/QSG1/Q1" : '',
+"C56_SC_envir__certif__indep$RG1$RSG1$QSG2$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -5999,13 +6112,16 @@ Vue.component("v4.0.0-CC56",
                             <p>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required environmental management systems or standards?</p>
                         </b-form-checkbox>
                         <template v-if="cb_CC56 ==='OK'">
-                        <div>
+                        <div><b-card footer-tag="footer">
                         <div><em>[Additional information; e.g. no evidences online]</em>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="selected226" name="check-button" inline="true" switch>
                                                      <b>[{{ selected226?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
+                        </div><template #footer>
+                        <b-button variant="success" @click="renderHTML('C56_SC_envir-certif-indep/SBC1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        </template>
+                        </b-card></div><em>LEGISLATION</em><div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="lotid_C56"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -6043,14 +6159,14 @@ Vue.component("v4.0.0-CC56",
                                             
                                         <div v-if="selected228">
                                         
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C56_SC_envir__certif__indep$RG1$RSG1$QSG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C56_SC_envir__certif__indep$RG1$RSG1$QSG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div>
                                         </div>
                                             <br/>[Q] Your answer? <b-form-checkbox v-model="selected229" name="check-button" inline="true" switch>
@@ -6059,26 +6175,24 @@ Vue.component("v4.0.0-CC56",
                                             
                                         <div v-if="!selected229">
                                         
-                                            <b-form-group label="[Q] If not, please explain why and state which other means of proof can be provided:" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] If not, please explain why and state which other means of proof can be provided:" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C56_SC_envir__certif__indep$RG1$RSG1$QSG2$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available online? <b-form-checkbox v-model="selected230" name="check-button" inline="true" switch>
                                                      <b>[{{ selected230?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected230">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C56_SC_envir__certif__indep$RG1$RSG1$QSG2$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div><template #footer>
-                        <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button variant="success" @click="renderHTML('C56_SC_envir-certif-indep/RG1/RSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card></div><template #footer>
-                    <b-button variant="success"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="renderHTML('C56_SC_envir-certif-indep/RG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div></template>
                     </div>`
@@ -6095,13 +6209,13 @@ Vue.component("v4.0.0-CC57",
 "C57_OT_shelt-worksh/QG1/Q1" : false,
 "selected231" : false,
 "C57_OT_shelt-worksh/QG1/QSG1" : [],
-"C57_OT_shelt-worksh/QG1/QSG1/Q1" : '',
-"C57_OT_shelt-worksh/QG1/QSG1/Q2" : '',
+"C57_OT_shelt__worksh$QG1$QSG1$Q1" : [],
+"C57_OT_shelt__worksh$QG1$QSG1$Q2" : [],
 "C57_OT_shelt-worksh/QG1/QSG2" : [],
 "C57_OT_shelt-worksh/QG1/QSG2/Q1" : false,
 "selected232" : false,
 "C57_OT_shelt-worksh/QG1/QSG2/QSG1" : [],
-"C57_OT_shelt-worksh/QG1/QSG2/QSG1/Q1" : '',
+"C57_OT_shelt__worksh$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -6116,25 +6230,23 @@ Vue.component("v4.0.0-CC57",
                                             
                                         <div v-if="selected231">
                                         
-                                            <b-form-group label="[Q] What is the corresponding percentage of disabled or disadvantaged workers?" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERCENTAGE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] If required, please provide details on whether the employees concerned belong to a specific category of disabled or disadvantaged workers?" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] What is the corresponding percentage of disabled or disadvantaged workers?" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERCENTAGE" v-model="C57_OT_shelt__worksh$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] If required, please provide details on whether the employees concerned belong to a specific category of disabled or disadvantaged workers?" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C57_OT_shelt__worksh$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected232" name="check-button" inline="true" switch>
                                                      <b>[{{ selected232?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected232">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C57_OT_shelt__worksh$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -6154,9 +6266,9 @@ Vue.component("v4.0.0-CC58",
 "C58_OT_registered/QG1/QSG1/Q1" : false,
 "selected234" : false,
 "C58_OT_registered/QG1/QSG1/QSG1" : [],
-"C58_OT_registered/QG1/QSG1/QSG1/Q1" : '',
-"C58_OT_registered/QG1/QSG1/QSG1/Q2" : '',
-"C58_OT_registered/QG1/QSG1/QSG1/Q3" : '',
+"C58_OT_registered$QG1$QSG1$QSG1$Q1" : [],
+"C58_OT_registered$QG1$QSG1$QSG1$Q2" : [],
+"C58_OT_registered$QG1$QSG1$QSG1$Q3" : [],
 "C58_OT_registered/QG1/QSG1/QSG1/QSG1" : [],
 "C58_OT_registered/QG1/QSG1/QSG1/QSG1/Q1" : false,
 "selected235" : false,
@@ -6167,7 +6279,7 @@ Vue.component("v4.0.0-CC58",
 "C58_OT_registered/QG1/QSG1/QSG3/Q1" : false,
 "selected237" : false,
 "C58_OT_registered/QG1/QSG1/QSG3/QSG1" : [],
-"C58_OT_registered/QG1/QSG1/QSG3/QSG1/Q1" : '',
+"C58_OT_registered$QG1$QSG1$QSG3$QSG1$Q1" : [],
 "C58_OT_registered/QG1/QSG2" : [],
 
                                 }
@@ -6189,18 +6301,18 @@ Vue.component("v4.0.0-CC58",
                                             
                                         <div v-if="selected234">
                                         
-                                            <b-form-group label="[Q] Please provide the name of the list or certificate and the relevant registration or certification number, if applicable" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] If the certificate of registration or certification is available electronically, please state where" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="URL"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Please state the references on which the registration or certification is based, and, where applicable, the classification obtained in the official list" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group><div>
+                                <b-form-group label="[Q] Please provide the name of the list or certificate and the relevant registration or certification number, if applicable" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C58_OT_registered$QG1$QSG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] If the certificate of registration or certification is available electronically, please state where" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="URL" v-model="C58_OT_registered$QG1$QSG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Please state the references on which the registration or certification is based, and, where applicable, the classification obtained in the official list" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C58_OT_registered$QG1$QSG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group><div>
                                             <br/>[Q] Does the registration or certification cover all of the required selection criteria? <b-form-checkbox v-model="selected235" name="check-button" inline="true" switch>
                                                      <b>[{{ selected235?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
@@ -6218,11 +6330,9 @@ Vue.component("v4.0.0-CC58",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected237">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C58_OT_registered$QG1$QSG1$QSG3$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                                         </div>
                                         <div v-if="!selected233">
@@ -6243,14 +6353,14 @@ Vue.component("v4.0.0-CC59",
 "C59_OT_eo-group/QG1/Q1" : false,
 "selected238" : false,
 "C59_OT_eo-group/QG1/QSG1" : [],
-"C59_OT_eo-group/QG1/QSG1/Q1" : '',
-"C59_OT_eo-group/QG1/QSG1/Q2" : '',
-"C59_OT_eo-group/QG1/QSG1/Q3" : '',
+"C59_OT_eo__group$QG1$QSG1$Q1" : [],
+"C59_OT_eo__group$QG1$QSG1$Q2" : [],
+"C59_OT_eo__group$QG1$QSG1$Q3" : [],
 "C59_OT_eo-group/QG1/QSG2" : [],
 "C59_OT_eo-group/QG1/QSG2/Q1" : false,
 "selected239" : false,
 "C59_OT_eo-group/QG1/QSG2/QSG1" : [],
-"C59_OT_eo-group/QG1/QSG2/QSG1/Q1" : '',
+"C59_OT_eo__group$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -6265,29 +6375,27 @@ Vue.component("v4.0.0-CC59",
                                             
                                         <div v-if="selected238">
                                         
-                                            <b-form-group label="[Q] Please indicate the role of the economic operator in the group (leader, responsible for specific tasks...)" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="CODE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Please identify the other economic operators participating in the procurement procedure together" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Where applicable, name of the participating group:" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please indicate the role of the economic operator in the group (leader, responsible for specific tasks...)" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="CODE" v-model="C59_OT_eo__group$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Please identify the other economic operators participating in the procurement procedure together" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C59_OT_eo__group$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Where applicable, name of the participating group:" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C59_OT_eo__group$QG1$QSG1$Q3[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected239" name="check-button" inline="true" switch>
                                                      <b>[{{ selected239?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected239">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C59_OT_eo__group$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -6304,13 +6412,13 @@ Vue.component("v4.0.0-CC60",
 "C60_OT_relied/QG1/Q1" : false,
 "selected240" : false,
 "C60_OT_relied/QG1/QSG1" : [],
-"C60_OT_relied/QG1/QSG1/Q1" : '',
-"C60_OT_relied/QG1/QSG1/Q2" : '',
+"C60_OT_relied$QG1$QSG1$Q1" : [],
+"C60_OT_relied$QG1$QSG1$Q2" : [],
 "C60_OT_relied/QG1/QSG2" : [],
 "C60_OT_relied/QG1/QSG2/Q1" : false,
 "selected241" : false,
 "C60_OT_relied/QG1/QSG2/QSG1" : [],
-"C60_OT_relied/QG1/QSG2/QSG1/Q1" : '',
+"C60_OT_relied$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -6324,26 +6432,27 @@ Vue.component("v4.0.0-CC60",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected240">
-                                        
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C60_OT_relied$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C60_OT_relied$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group><template #footer>
+                    <b-button variant="success" @click="renderHTML('C60_OT_relied/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected241" name="check-button" inline="true" switch>
                                                      <b>[{{ selected241?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected241">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C60_OT_relied$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -6360,13 +6469,13 @@ Vue.component("v4.0.0-CC61",
 "C61_OT_subco-ent/QG1/Q1" : false,
 "selected242" : false,
 "C61_OT_subco-ent/QG1/QSG1" : [],
-"C61_OT_subco-ent/QG1/QSG1/Q1" : '',
-"C61_OT_subco-ent/QG1/QSG1/Q2" : '',
+"C61_OT_subco__ent$QG1$QSG1$Q1" : [],
+"C61_OT_subco__ent$QG1$QSG1$Q2" : [],
 "C61_OT_subco-ent/QG1/QSG2" : [],
 "C61_OT_subco-ent/QG1/QSG2/Q1" : false,
 "selected243" : false,
 "C61_OT_subco-ent/QG1/QSG2/QSG1" : [],
-"C61_OT_subco-ent/QG1/QSG2/QSG1/Q1" : '',
+"C61_OT_subco__ent$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -6380,26 +6489,27 @@ Vue.component("v4.0.0-CC61",
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected242">
-                                        
-                                            <b-form-group label="[Q] Name of the entity" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] ID of the subcontractor" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-card footer-tag="footer">
+                                <b-form-group label="[Q] Name of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C61_OT_subco__ent$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] ID of the subcontractor" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="C61_OT_subco__ent$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group><template #footer>
+                    <b-button variant="success" @click="renderHTML('C61_OT_subco-ent/QG1/QSG1')"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    </template>
+                    </b-card>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected243" name="check-button" inline="true" switch>
                                                      <b>[{{ selected243?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected243">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C61_OT_subco__ent$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -6416,12 +6526,12 @@ Vue.component("v4.0.0-CC63",
 "C63_OT_staff-red/QG1/Q1" : false,
 "selected244" : false,
 "C63_OT_staff-red/QG1/QSG1" : [],
-"C63_OT_staff-red/QG1/QSG1/Q1" : '',
+"C63_OT_staff__red$QG1$QSG1$Q1" : [],
 "C63_OT_staff-red/QG1/QSG2" : [],
 "C63_OT_staff-red/QG1/QSG2/Q1" : false,
 "selected245" : false,
 "C63_OT_staff-red/QG1/QSG2/QSG1" : [],
-"C63_OT_staff-red/QG1/QSG2/QSG1/Q1" : '',
+"C63_OT_staff__red$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -6436,21 +6546,19 @@ Vue.component("v4.0.0-CC63",
                                             
                                         <div v-if="selected244">
                                         
-                                            <b-form-group label="[Q] Please describe them" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Please describe them" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="C63_OT_staff__red$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected245" name="check-button" inline="true" switch>
                                                      <b>[{{ selected245?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected245">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C63_OT_staff__red$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`
@@ -6467,13 +6575,13 @@ Vue.component("v4.0.0-CC65",
 "C65_OT_sme/QG1/Q1" : false,
 "selected246" : false,
 "C65_OT_sme/QG1/QSG1" : [],
-"C65_OT_sme/QG1/QSG1/Q1" : '',
-"C65_OT_sme/QG1/QSG1/Q2" : '',
+"C65_OT_sme$QG1$QSG1$Q1" : [],
+"C65_OT_sme$QG1$QSG1$Q2" : [],
 "C65_OT_sme/QG1/QSG2" : [],
 "C65_OT_sme/QG1/QSG2/Q1" : false,
 "selected247" : false,
 "C65_OT_sme/QG1/QSG2/QSG1" : [],
-"C65_OT_sme/QG1/QSG2/QSG1/Q1" : '',
+"C65_OT_sme$QG1$QSG2$QSG1$Q1" : [],
 
                                 }
                             },
@@ -6488,25 +6596,23 @@ Vue.component("v4.0.0-CC65",
                                             
                                         <div v-if="selected246">
                                         
-                                            <b-form-group label="[Q] Number of employees" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_INTEGER"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="[Q] Turnover" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
+                                <b-form-group label="[Q] Number of employees" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="QUANTITY_INTEGER" v-model="C65_OT_sme$QG1$QSG1$Q1[0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Turnover" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="C65_OT_sme$QG1$QSG1$Q2[0]"></b-form-input>
+                                </b-form-group>
                                         </div><div>
                                             <br/>[Q] Is this information available electronically? <b-form-checkbox v-model="selected247" name="check-button" inline="true" switch>
                                                      <b>[{{ selected247?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
                                         <div v-if="selected247">
-                                        
-                                            <b-form-group label="[Q] Evidence Supplied" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
+                                        <b-form-group label="[Q] Evidence Supplied" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                            <b-form-tags v-model="C65_OT_sme$QG1$QSG2$QSG1$Q1" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div></div>
                         </div>
                     </div>`

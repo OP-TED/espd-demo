@@ -1,3 +1,5 @@
+
+
 // 1. Create a vue root instance
 window.app = new Vue({
 	i18n,

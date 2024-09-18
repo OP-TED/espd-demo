@@ -81,56 +81,50 @@ Vue.component("codelists", {
                 'table': [],
                 'fields': {}
             }
-            const parser = new DOMParser();
-            function nsResolver(prefix) {
-                const ns = {
-                    xs: "http://www.w3.org/2001/XMLSchema",
-                    fn: "http://www.w3.org/2005/xpath-functions",
-                    ss: "urn:schemas-microsoft-com:office:spreadsheet",
-                    gc: "http://docs.oasis-open.org/codelist/ns/genericode/1.0/",
-                    xsi: "http://www.w3.org/2001/XMLSchema-instance"
-                };
-                return ns[prefix] || null;
-            }
-            const gcXML = parser.parseFromString(this.sources[event], "text/xml");
-            this.crt_list.ShortName = gcXML.evaluate('/gc:CodeList/Identification/ShortName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.LongName = gcXML.evaluate('/gc:CodeList/Identification/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.ListID = gcXML.evaluate('/gc:CodeList/Identification/LongName[@Identifier="listId"]', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.Version = gcXML.evaluate('/gc:CodeList/Identification/Version', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.CanonicalUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.CanonicalVersionUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalVersionUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.LocationUri = gcXML.evaluate('/gc:CodeList/Identification/LocationUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.AgencyLongName = gcXML.evaluate('/gc:CodeList/Identification/Agency/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier/@Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-            this.crt_list.type = (this.crt_list.LocationUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
+
+            let gcJSON = xmlbuilder2.create(this.sources[event]).end({ format: 'object' })
+            this.crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
+            this.crt_list.LongName = gcJSON['gc:CodeList']['Identification']['LongName'][0]
+            this.crt_list.ListID = gcJSON['gc:CodeList']['Identification']['LongName'][1]['#']
+            this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
+            this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
+            this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicaVersionlUri']
+            this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
+            this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']['Agency']['LongName']
+            this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']['Agency']['Identifier']['@Identifier']
+            this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
             this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
-            //get SimpleCodeList and populate fields
-            const scl = gcXML.evaluate('/gc:CodeList/SimpleCodeList/Row', gcXML, nsResolver, XPathResult.ANY_TYPE, null)
-            let node = null
-            while (node = scl.iterateNext()) {
-                if (node.hasChildNodes()) {
-                    let children = node.childNodes, nodename = ''
-                    for (const n of children) {
-                        if (n.nextSibling && n.nextSibling.attributes) {
-                            let key = n.nextSibling.getAttribute('ColumnRef'), val = n.nextSibling.getElementsByTagName('SimpleValue')[0].textContent
-                            switch (key.toLowerCase()) {
-                                case 'code':
-                                    nodename = val
-                                    if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[val] = {}
-                                    this.crt_list.fields[nodename]["Code"] = val
-                                    break;
-                                case 'status':
-                                    this.crt_list.fields[nodename]["Status"] = val
-                                    break;
-                                default:
-                                    this.crt_list.fields[nodename][key.replace('name-', '').replace('_label', '')] = val
-                                    break;
+            gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
+                let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] : '__PLACEHOLDER__'
+                element['Value'].forEach(elm => {
+                    if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[nodename] = {}
+                    switch (elm['@ColumnRef'].toLowerCase()) {
+                        case 'code':
+                            this.crt_list.fields[nodename]["Code"] = elm['SimpleValue']
+                            break;
+
+                        case 'name':
+                            if (nodename == '__PLACEHOLDER__') nodename = elm['SimpleValue']
+                            if (Object.hasOwn(this.crt_list.fields, '__PLACEHOLDER__')) {
+                                this.crt_list.fields[nodename] = this.crt_list.fields['__PLACEHOLDER__']
+                                delete this.crt_list.fields['__PLACEHOLDER__']
                             }
-                        }
+                            this.crt_list.fields[nodename]["Name"] = elm['SimpleValue']
+                            break;
+
+                        case 'status':
+                            this.crt_list.fields[nodename]["Status"] = elm['SimpleValue']
+                            break;
+
+                        default:
+                            //check for specific labels
+                            this.crt_list.fields[nodename][elm['@ColumnRef'].replace('name-', '').replace('_label', '')] = elm['SimpleValue']
+                            break;
                     }
-                }
-            }
+                })
+
+            });
 
             this.crt_list.table = []
             for (const fld in this.crt_list.fields) {
@@ -182,56 +176,51 @@ Vue.component("codelists", {
                     'table': [],
                     'fields': {}
                 }
-                const parser = new DOMParser();
-                function nsResolver(prefix) {
-                    const ns = {
-                        xs: "http://www.w3.org/2001/XMLSchema",
-                        fn: "http://www.w3.org/2005/xpath-functions",
-                        ss: "urn:schemas-microsoft-com:office:spreadsheet",
-                        gc: "http://docs.oasis-open.org/codelist/ns/genericode/1.0/",
-                        xsi: "http://www.w3.org/2001/XMLSchema-instance"
-                    };
-                    return ns[prefix] || null;
-                }
-                const gcXML = parser.parseFromString(this.sources[this.codelist], "text/xml");
-                this.crt_list.ShortName = gcXML.evaluate('/gc:CodeList/Identification/ShortName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.LongName = gcXML.evaluate('/gc:CodeList/Identification/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.ListID = gcXML.evaluate('/gc:CodeList/Identification/LongName[@Identifier="listId"]', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.Version = gcXML.evaluate('/gc:CodeList/Identification/Version', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.CanonicalUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.CanonicalVersionUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalVersionUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.LocationUri = gcXML.evaluate('/gc:CodeList/Identification/LocationUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.AgencyLongName = gcXML.evaluate('/gc:CodeList/Identification/Agency/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier/@Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+
+
+                let gcJSON = xmlbuilder2.create(this.sources[this.codelist]).end({ format: 'object' })
+                this.crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
+                this.crt_list.LongName = gcJSON['gc:CodeList']['Identification']['LongName'][0]
+                this.crt_list.ListID = gcJSON['gc:CodeList']['Identification']['LongName'][1]['#']
+                this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
+                this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
+                this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicaVersionlUri']
+                this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
+                this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']['Agency']['LongName']
+                this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']['Agency']['Identifier']['@Identifier']
                 this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
                 this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
-                //get SimpleCodeList and populate fields
-                const scl = gcXML.evaluate('/gc:CodeList/SimpleCodeList/Row', gcXML, nsResolver, XPathResult.ANY_TYPE, null)
-                let node = null
-                while (node = scl.iterateNext()) {
-                    if (node.hasChildNodes()) {
-                        let children = node.childNodes, nodename = ''
-                        for (const n of children) {
-                            if (n.nextSibling && n.nextSibling.attributes) {
-                                let key = n.nextSibling.getAttribute('ColumnRef'), val = n.nextSibling.getElementsByTagName('SimpleValue')[0].textContent
-                                switch (key) {
-                                    case 'code':
-                                        nodename = val
-                                        if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[val] = {}
-                                        this.crt_list.fields[nodename]["Code"] = val
-                                        break;
-                                    case 'status':
-                                        this.crt_list.fields[nodename]["Status"] = val
-                                        break;
-                                    default:
-                                        this.crt_list.fields[nodename][key.replace('name-', '').replace('_label', '')] = val
-                                        break;
+                gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
+                    let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] : '__PLACEHOLDER__'
+                    element['Value'].forEach(elm => {
+                        if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[nodename] = {}
+                        switch (elm['@ColumnRef'].toLowerCase()) {
+                            case 'code':
+                                this.crt_list.fields[nodename]["Code"] = elm['SimpleValue']
+                                break;
+
+                            case 'name':
+                                if (nodename == '__PLACEHOLDER__') nodename = elm['SimpleValue']
+                                if (Object.hasOwn(this.crt_list.fields, '__PLACEHOLDER__')) {
+                                    this.crt_list.fields[nodename] = this.crt_list.fields['__PLACEHOLDER__']
+                                    delete this.crt_list.fields['__PLACEHOLDER__']
                                 }
-                            }
+                                this.crt_list.fields[nodename]["Name"] = elm['SimpleValue']
+                                break;
+
+                            case 'status':
+                                this.crt_list.fields[nodename]["Status"] = elm['SimpleValue']
+                                break;
+
+                            default:
+                                //check for specific labels
+                                this.crt_list.fields[nodename][elm['@ColumnRef'].replace('name-', '').replace('_label', '')] = elm['SimpleValue']
+                                break;
                         }
-                    }
-                }
+                    })
+
+                });
 
                 this.crt_list.table = []
                 for (const fld in this.crt_list.fields) {
@@ -295,7 +284,7 @@ Vue.component("codelists", {
                         data = await thecall.text()
                         if (thecall.ok) {
                             this.sources[elm] = data
-                            //console.log(data);
+                            //console.log(JSON.stringify(xmlbuilder2.create(data).end({format: 'object'}), null, 4));
                         }
                     }
 
@@ -319,56 +308,50 @@ Vue.component("codelists", {
                         'table': [],
                         'fields': {}
                     }
-                    const parser = new DOMParser();
-                    function nsResolver(prefix) {
-                        const ns = {
-                            xs: "http://www.w3.org/2001/XMLSchema",
-                            fn: "http://www.w3.org/2005/xpath-functions",
-                            ss: "urn:schemas-microsoft-com:office:spreadsheet",
-                            gc: "http://docs.oasis-open.org/codelist/ns/genericode/1.0/",
-                            xsi: "http://www.w3.org/2001/XMLSchema-instance"
-                        };
-                        return ns[prefix] || null;
-                    }
-                    const gcXML = parser.parseFromString(this.sources[this.codelist], "text/xml");
-                    this.crt_list.ShortName = gcXML.evaluate('/gc:CodeList/Identification/ShortName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.LongName = gcXML.evaluate('/gc:CodeList/Identification/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.ListID = gcXML.evaluate('/gc:CodeList/Identification/LongName[@Identifier="listId"]', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.Version = gcXML.evaluate('/gc:CodeList/Identification/Version', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.CanonicalUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.CanonicalVersionUri = gcXML.evaluate('/gc:CodeList/Identification/CanonicalVersionUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.LocationUri = gcXML.evaluate('/gc:CodeList/Identification/LocationUri', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.AgencyLongName = gcXML.evaluate('/gc:CodeList/Identification/Agency/LongName', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
-                    this.crt_list.AgencyIdentifier = gcXML.evaluate('/gc:CodeList/Identification/Agency/Identifier/@Identifier', gcXML, nsResolver, XPathResult.STRING_TYPE, null).stringValue
+
+                    let gcJSON = xmlbuilder2.create(this.sources[this.codelist]).end({ format: 'object' })
+                    this.crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
+                    this.crt_list.LongName = gcJSON['gc:CodeList']['Identification']['LongName'][0]
+                    this.crt_list.ListID = gcJSON['gc:CodeList']['Identification']['LongName'][1]['#']
+                    this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
+                    this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
+                    this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicaVersionlUri']
+                    this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
+                    this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']['Agency']['LongName']
+                    this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']['Agency']['Identifier']['@Identifier']
                     this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
                     this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
-                    //get SimpleCodeList and populate fields
-                    const scl = gcXML.evaluate('/gc:CodeList/SimpleCodeList/Row', gcXML, nsResolver, XPathResult.ANY_TYPE, null)
-                    let node = null
-                    while (node = scl.iterateNext()) {
-                        if (node.hasChildNodes()) {
-                            let children = node.childNodes, nodename = ''
-                            for (const n of children) {
-                                if (n.nextSibling && n.nextSibling.attributes) {
-                                    let key = n.nextSibling.getAttribute('ColumnRef'), val = n.nextSibling.getElementsByTagName('SimpleValue')[0].textContent
-                                    switch (key.toLowerCase()) {
-                                        case 'code':
-                                            nodename = val
-                                            if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[val] = {}
-                                            this.crt_list.fields[nodename]["Code"] = val
-                                            break;
-                                        case 'status':
-                                            this.crt_list.fields[nodename]["Status"] = val
-                                            break;
-                                        default:
-                                            this.crt_list.fields[nodename][key.replace('name-', '').replace('_label', '')] = val
-                                            break;
+                    gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
+                        let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] : '__PLACEHOLDER__'
+                        element['Value'].forEach(elm => {
+                            if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[nodename] = {}
+                            switch (elm['@ColumnRef'].toLowerCase()) {
+                                case 'code':
+                                    this.crt_list.fields[nodename]["Code"] = elm['SimpleValue']
+                                    break;
+
+                                case 'name':
+                                    if (nodename == '__PLACEHOLDER__') nodename = elm['SimpleValue']
+                                    if (Object.hasOwn(this.crt_list.fields, '__PLACEHOLDER__')) {
+                                        this.crt_list.fields[nodename] = this.crt_list.fields['__PLACEHOLDER__']
+                                        delete this.crt_list.fields['__PLACEHOLDER__']
                                     }
-                                }
+                                    this.crt_list.fields[nodename]["Name"] = elm['SimpleValue']
+                                    break;
+
+                                case 'status':
+                                    this.crt_list.fields[nodename]["Status"] = elm['SimpleValue']
+                                    break;
+
+                                default:
+                                    //check for specific labels
+                                    this.crt_list.fields[nodename][elm['@ColumnRef'].replace('name-', '').replace('_label', '')] = elm['SimpleValue']
+                                    break;
                             }
-                        }
-                    }
+                        })
+
+                    });
 
                     this.crt_list.table = []
                     for (const fld in this.crt_list.fields) {
@@ -437,7 +420,7 @@ Vue.component("codelists", {
             <b-form-input id="input-type" v-model="crt_list.type"></b-form-input>
         </b-form-group>
 
-        <b-table striped hover responsive :items="crt_list.table" :fields="details_fields">
+        <b-table striped hover responsive :items="crt_list.table" :fields="details_fields" :no-local-sorting=true>
         <template #cell(show_details)="row">
             <b-button pill variant="warning" size="sm" @click="row.toggleDetails" class="mr-2">
                 {{ row.detailsShowing ? 'Close' : 'Details'}}

@@ -64,7 +64,9 @@ Vue.component("codelists", {
     },
 
     methods: {
+
         selectCodeList(event) {
+            this.loading = true
             //transform XML to JSON
             this.crt_list = {
                 'ShortName': '',
@@ -84,23 +86,28 @@ Vue.component("codelists", {
 
             let gcJSON = xmlbuilder2.create(this.sources[event]).end({ format: 'object' })
             this.crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
-            this.crt_list.LongName = gcJSON['gc:CodeList']['Identification']['LongName'][0]
-            this.crt_list.ListID = gcJSON['gc:CodeList']['Identification']['LongName'][1]['#']
+            this.crt_list.LongName = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName'])?gcJSON['gc:CodeList']['Identification']['LongName'][0]:gcJSON['gc:CodeList']['Identification']['LongName']['#']
+            this.crt_list.ListID = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName'])?gcJSON['gc:CodeList']['Identification']['LongName'][1]['#']:gcJSON['gc:CodeList']['Identification']['LongName']['#']
             this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
             this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
             this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicaVersionlUri']
             this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
-            this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']['Agency']['LongName']
-            this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']['Agency']['Identifier']['@Identifier']
+            this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['LongName']??''
+            this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['Identifier']?.['@Identifier']??''
             this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
             this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
             gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
-                let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] : '__PLACEHOLDER__'
+                let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] :
+                ( element['Value'][0]['@ColumnRef'].toLowerCase() == 'code' ? element['Value'][0]['SimpleValue'] :'__PLACEHOLDER__')
                 element['Value'].forEach(elm => {
                     if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[nodename] = {}
                     switch (elm['@ColumnRef'].toLowerCase()) {
                         case 'code':
+                            if (Object.hasOwn(this.crt_list.fields, '__PLACEHOLDER__')) {
+                                this.crt_list.fields[nodename] = this.crt_list.fields['__PLACEHOLDER__']
+                                delete this.crt_list.fields['__PLACEHOLDER__']
+                            }
                             this.crt_list.fields[nodename]["Code"] = elm['SimpleValue']
                             break;
 
@@ -130,6 +137,7 @@ Vue.component("codelists", {
             for (const fld in this.crt_list.fields) {
                 this.crt_list.table.push(this.crt_list.fields[fld])
             }
+            this.loading = false
 
         },
 
@@ -141,7 +149,7 @@ Vue.component("codelists", {
             this.sources = {}
 
             const getData = async () => {
-                this.loading = true
+                
                 this.codelists = this.raw_data[this.version]
 
                 //load only the 1st version lists
@@ -155,78 +163,8 @@ Vue.component("codelists", {
                         //console.log(data);
                     }
                 }
-
                 this.codelist = this.codelists[0]
-                const toplevelfields = ['ShortName', 'LongName', 'ListID', 'Version',
-                    'CanonicalUri', 'CanonicalVersionUri', 'LocaltionUri',
-                    'AgencyLongName', 'AgencyIdentifier', 'type', 'name']
-                //transform XML to JSON
-                this.crt_list = {
-                    'ShortName': '',
-                    'LongName': '',
-                    'ListID': '',
-                    'Version': '',
-                    'CanonicalUri': '',
-                    'CanonicalVersionUri': '',
-                    'LocationUri': '',
-                    'AgencyLongName': '',
-                    'AgencyIdentifier': '',
-                    'type': '',
-                    'name': '',
-                    'table': [],
-                    'fields': {}
-                }
-
-
-                let gcJSON = xmlbuilder2.create(this.sources[this.codelist]).end({ format: 'object' })
-                this.crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
-                this.crt_list.LongName = gcJSON['gc:CodeList']['Identification']['LongName'][0]
-                this.crt_list.ListID = gcJSON['gc:CodeList']['Identification']['LongName'][1]['#']
-                this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
-                this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
-                this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicaVersionlUri']
-                this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
-                this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']['Agency']['LongName']
-                this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']['Agency']['Identifier']['@Identifier']
-                this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
-                this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
-
-                gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
-                    let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] : '__PLACEHOLDER__'
-                    element['Value'].forEach(elm => {
-                        if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[nodename] = {}
-                        switch (elm['@ColumnRef'].toLowerCase()) {
-                            case 'code':
-                                this.crt_list.fields[nodename]["Code"] = elm['SimpleValue']
-                                break;
-
-                            case 'name':
-                                if (nodename == '__PLACEHOLDER__') nodename = elm['SimpleValue']
-                                if (Object.hasOwn(this.crt_list.fields, '__PLACEHOLDER__')) {
-                                    this.crt_list.fields[nodename] = this.crt_list.fields['__PLACEHOLDER__']
-                                    delete this.crt_list.fields['__PLACEHOLDER__']
-                                }
-                                this.crt_list.fields[nodename]["Name"] = elm['SimpleValue']
-                                break;
-
-                            case 'status':
-                                this.crt_list.fields[nodename]["Status"] = elm['SimpleValue']
-                                break;
-
-                            default:
-                                //check for specific labels
-                                this.crt_list.fields[nodename][elm['@ColumnRef'].replace('name-', '').replace('_label', '')] = elm['SimpleValue']
-                                break;
-                        }
-                    })
-
-                });
-
-                this.crt_list.table = []
-                for (const fld in this.crt_list.fields) {
-                    this.crt_list.table.push(this.crt_list.fields[fld])
-                }
-                this.loading = false
+                this.selectCodeList(this.codelist)
             }
             getData()
         },
@@ -255,7 +193,6 @@ Vue.component("codelists", {
 
         const getData = async () => {
             try {
-                this.loading = true
                 let thecall = await fetch(`${dataURL}/codelist.json`)
                 let data = await thecall.json()
                 if (thecall.ok) {
@@ -284,81 +221,11 @@ Vue.component("codelists", {
                         data = await thecall.text()
                         if (thecall.ok) {
                             this.sources[elm] = data
-                            //console.log(JSON.stringify(xmlbuilder2.create(data).end({format: 'object'}), null, 4));
+                            //console.log(JSON.stringify(xmlbuilder2.create(data).end({ format: 'object' }), null, 4));
                         }
                     }
-
                     this.codelist = this.codelists[0]
-                    const toplevelfields = ['ShortName', 'LongName', 'ListID', 'Version',
-                        'CanonicalUri', 'CanonicalVersionUri', 'LocaltionUri',
-                        'AgencyLongName', 'AgencyIdentifier', 'type', 'name']
-                    //transform XML to JSON
-                    this.crt_list = {
-                        'ShortName': '',
-                        'LongName': '',
-                        'ListID': '',
-                        'Version': '',
-                        'CanonicalUri': '',
-                        'CanonicalVersionUri': '',
-                        'LocationUri': '',
-                        'AgencyLongName': '',
-                        'AgencyIdentifier': '',
-                        'type': '',
-                        'name': '',
-                        'table': [],
-                        'fields': {}
-                    }
-
-                    let gcJSON = xmlbuilder2.create(this.sources[this.codelist]).end({ format: 'object' })
-                    this.crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
-                    this.crt_list.LongName = gcJSON['gc:CodeList']['Identification']['LongName'][0]
-                    this.crt_list.ListID = gcJSON['gc:CodeList']['Identification']['LongName'][1]['#']
-                    this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
-                    this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
-                    this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicaVersionlUri']
-                    this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
-                    this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']['Agency']['LongName']
-                    this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']['Agency']['Identifier']['@Identifier']
-                    this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
-                    this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
-
-                    gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
-                        let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] : '__PLACEHOLDER__'
-                        element['Value'].forEach(elm => {
-                            if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[nodename] = {}
-                            switch (elm['@ColumnRef'].toLowerCase()) {
-                                case 'code':
-                                    this.crt_list.fields[nodename]["Code"] = elm['SimpleValue']
-                                    break;
-
-                                case 'name':
-                                    if (nodename == '__PLACEHOLDER__') nodename = elm['SimpleValue']
-                                    if (Object.hasOwn(this.crt_list.fields, '__PLACEHOLDER__')) {
-                                        this.crt_list.fields[nodename] = this.crt_list.fields['__PLACEHOLDER__']
-                                        delete this.crt_list.fields['__PLACEHOLDER__']
-                                    }
-                                    this.crt_list.fields[nodename]["Name"] = elm['SimpleValue']
-                                    break;
-
-                                case 'status':
-                                    this.crt_list.fields[nodename]["Status"] = elm['SimpleValue']
-                                    break;
-
-                                default:
-                                    //check for specific labels
-                                    this.crt_list.fields[nodename][elm['@ColumnRef'].replace('name-', '').replace('_label', '')] = elm['SimpleValue']
-                                    break;
-                            }
-                        })
-
-                    });
-
-                    this.crt_list.table = []
-                    for (const fld in this.crt_list.fields) {
-                        this.crt_list.table.push(this.crt_list.fields[fld])
-                    }
-                    this.loading = false
-
+                    this.selectCodeList(this.codelist)
                 }
             } catch (error) {
                 console.log("Error!", error)

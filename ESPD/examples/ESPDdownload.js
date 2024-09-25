@@ -262,9 +262,9 @@ Vue.component('ESPDdownload',{
     <div class="accordion" role="tablist">
         <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-s1 variant="info">A: The Economic Operator Declaration</b-button>
+            <b-button block v-b-toggle.accordion-fn2 variant="info">A: The Economic Operator Declaration</b-button>
         </b-card-header>
-        <b-collapse id="accordion-s1" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-fn2" accordion="my-accordion" role="tabpanel">
             <b-card-body v-if="window.espd_doc.role=='eo'" v-for="item in espd_structure['partV']['A']">
                 <component v-bind:is="item"></component>
             </b-card-body>

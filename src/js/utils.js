@@ -560,6 +560,6 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
  * 
  * @param {string} part - the JSON path to be rendered as HTML
  */
-function renderHTML(part) {
-  console.log(part)
+function renderHTML(part, data_load) {
+  console.log(part, data_load)
 }

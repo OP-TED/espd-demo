@@ -59,14 +59,34 @@ Vue.component("codelists", {
             ],
             theFile: '',
             loading: true,
+            timeout: null,
             show: true
         }
     },
+    beforeDestroy() {
+        this.clearTimeout()
+    },
 
     methods: {
+        clearTimeout() {
+            if (this.timeout) {
+                clearTimeout(this.timeout)
+                this.timeout = null
+            }
+        },
+        setTimeout(callback) {
+            this.clearTimeout()
+            this.timeout = setTimeout(() => {
+                this.clearTimeout()
+                callback()
+            }, 3000)
+        },
 
-        selectCodeList(event) {
-            this.loading = true
+        loadCodeList(item){
+
+            this.setTimeout(() => {
+                this.loading = false
+            })
             //transform XML to JSON
             this.crt_list = {
                 'ShortName': '',
@@ -84,22 +104,22 @@ Vue.component("codelists", {
                 'fields': {}
             }
 
-            let gcJSON = xmlbuilder2.create(this.sources[event]).end({ format: 'object' })
+            let gcJSON = xmlbuilder2.create(this.sources[item]).end({ format: 'object' })
             this.crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
-            this.crt_list.LongName = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName'])?gcJSON['gc:CodeList']['Identification']['LongName'][0]:gcJSON['gc:CodeList']['Identification']['LongName']['#']
-            this.crt_list.ListID = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName'])?gcJSON['gc:CodeList']['Identification']['LongName'][1]['#']:gcJSON['gc:CodeList']['Identification']['LongName']['#']
+            this.crt_list.LongName = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName']) ? gcJSON['gc:CodeList']['Identification']['LongName'][0] : gcJSON['gc:CodeList']['Identification']['LongName']['#']
+            this.crt_list.ListID = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName']) ? gcJSON['gc:CodeList']['Identification']['LongName'][1]['#'] : gcJSON['gc:CodeList']['Identification']['LongName']['#']
             this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
             this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
             this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicalVersionlUri']
             this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
-            this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['LongName']??''
-            this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['Identifier']?.['@Identifier']??''
+            this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['LongName'] ?? ''
+            this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['Identifier']?.['@Identifier'] ?? ''
             this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
             this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
             gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
                 let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] :
-                ( element['Value'][0]['@ColumnRef'].toLowerCase() == 'code' ? element['Value'][0]['SimpleValue'] :'__PLACEHOLDER__')
+                    (element['Value'][0]['@ColumnRef'].toLowerCase() == 'code' ? element['Value'][0]['SimpleValue'] : '__PLACEHOLDER__')
                 element['Value'].forEach(elm => {
                     if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[nodename] = {}
                     switch (elm['@ColumnRef'].toLowerCase()) {
@@ -137,8 +157,11 @@ Vue.component("codelists", {
             for (const fld in this.crt_list.fields) {
                 this.crt_list.table.push(this.crt_list.fields[fld])
             }
-            this.loading = false
+        },
 
+        selectCodeList(event) {
+            this.loading = true
+            this.loadCodeList(event)
         },
 
         selectVersion(event) {
@@ -149,7 +172,8 @@ Vue.component("codelists", {
             this.sources = {}
 
             const getData = async () => {
-                
+
+                this.loading = true
                 this.codelists = this.raw_data[this.version]
 
                 //load only the 1st version lists
@@ -164,7 +188,7 @@ Vue.component("codelists", {
                     }
                 }
                 this.codelist = this.codelists[0]
-                this.selectCodeList(this.codelist)
+                this.loadCodeList(this.codelist)
             }
             getData()
         },
@@ -192,6 +216,7 @@ Vue.component("codelists", {
         const dataURL = ['ESPD/codelists/']
 
         const getData = async () => {
+            this.loading = true
             try {
                 let thecall = await fetch(`${dataURL}/codelist.json`)
                 let data = await thecall.json()
@@ -225,7 +250,7 @@ Vue.component("codelists", {
                         }
                     }
                     this.codelist = this.codelists[0]
-                    this.selectCodeList(this.codelist)
+                    this.loadCodeList(this.codelist)
                 }
             } catch (error) {
                 console.log("Error!", error)
@@ -236,6 +261,9 @@ Vue.component("codelists", {
     },
 
     template: `
+    <template>
+    <div>
+    <b-overlay :show="loading" rounded="sm">
 
     <b-card title="ESPD Code Lists" footer-tag="footer">
 
@@ -243,12 +271,6 @@ Vue.component("codelists", {
             <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
         </b-form-group>
 
-        <div v-if="loading">
-            <div class="d-flex justify-content-center mb-3">
-                <b-spinner label="Loading Code List data ..."></b-spinner>
-            </div>
-        </div>
-        <div v-else>
         <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="Code list" label-for="input-codelist">
             <b-form-select id="input-codelist" v-model="codelist" :options="codelists" @change="selectCodeList($event)"></b-form-select>
         </b-form-group>
@@ -299,7 +321,6 @@ Vue.component("codelists", {
             </b-card>
         </template>
         </b-table>
-        </div>
 
         <template #footer>
             <b-row v-if="!loading">
@@ -309,6 +330,8 @@ Vue.component("codelists", {
             </b-row>
         </template>
     </b-card>
-
+    </b-overlay>
+    </div>
+    </template>
     `
 });

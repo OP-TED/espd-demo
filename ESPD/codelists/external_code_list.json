@@ -158,5 +158,30 @@
         "folder": "v4.0.0",
         "filename": "ResponseDataType.gc",
         "uri": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v4.0.0/codelists/gc/ResponseDataType.gc"
+    },
+    {
+        "folder": "v4.0.0",
+        "filename": "AccessRight.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/access-right/20240612-0/xml/gc/AccessRight.gc"
+    },
+    {
+        "folder": "v4.0.0",
+        "filename": "Country.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/country/20240925-0/xml/gc/Country.gc"
+    },
+    {
+        "folder": "v4.0.0",
+        "filename": "Criterion.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/criterion/20240612-0/xml/gc/Criterion.gc"
+    },
+    {
+        "folder": "v4.0.0",
+        "filename": "EconomicOperatorSize.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/economic-operator-size/20240612-0/xml/gc/EconomicOperatorSize.gc"
+    },
+    {
+        "folder": "v4.0.0",
+        "filename": "Language.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/language/20240925-0/xml/gc/Language.gc"
     }
 ]

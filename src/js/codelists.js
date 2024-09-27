@@ -110,7 +110,7 @@ Vue.component("codelists", {
             this.crt_list.ListID = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName']) ? gcJSON['gc:CodeList']['Identification']['LongName'][1]['#'] : gcJSON['gc:CodeList']['Identification']['LongName']['#']
             this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
             this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
-            this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicalVersionlUri']
+            this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicalVersionUri']
             this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
             this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['LongName'] ?? ''
             this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['Identifier']?.['@Identifier'] ?? ''

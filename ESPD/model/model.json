@@ -252,252 +252,252 @@
         ],
         "v4.0.0": [
             {
-                "value": "CC1 - EG",
-                "text": "CC1 - EG - Participation in a criminal organisation"
+                "value": "v4.0.0 - C1 - EG",
+                "text": "C1 - EG - Participation in a criminal organisation"
             },
             {
-                "value": "CC2 - EG",
-                "text": "CC2 - EG - Corruption"
+                "value": "v4.0.0 - C2 - EG",
+                "text": "C2 - EG - Corruption"
             },
             {
-                "value": "CC3 - EG",
-                "text": "CC3 - EG - Fraud"
+                "value": "v4.0.0 - C3 - EG",
+                "text": "C3 - EG - Fraud"
             },
             {
-                "value": "CC4 - EG",
-                "text": "CC4 - EG - Terrorist offences or offences linked to terrorist activities"
+                "value": "v4.0.0 - C4 - EG",
+                "text": "C4 - EG - Terrorist offences or offences linked to terrorist activities"
             },
             {
-                "value": "CC5 - EG",
-                "text": "CC5 - EG - Money laundering or terrorist financing"
+                "value": "v4.0.0 - C5 - EG",
+                "text": "C5 - EG - Money laundering or terrorist financing"
             },
             {
-                "value": "CC6 - EG",
-                "text": "CC6 - EG - Child labour and other forms of trafficking in human beings"
+                "value": "v4.0.0 - C6 - EG",
+                "text": "C6 - EG - Child labour and other forms of trafficking in human beings"
             },
             {
-                "value": "CC7 - EG",
-                "text": "CC7 - EG - Payment of taxes"
+                "value": "v4.0.0 - C7 - EG",
+                "text": "C7 - EG - Payment of taxes"
             },
             {
-                "value": "CC8 - EG",
-                "text": "CC8 - EG - Payment of social security contributions"
+                "value": "v4.0.0 - C8 - EG",
+                "text": "C8 - EG - Payment of social security contributions"
             },
             {
-                "value": "CC9 - EG",
-                "text": "CC9 - EG - Breaching of obligations in the fields of environmental law"
+                "value": "v4.0.0 - C9 - EG",
+                "text": "C9 - EG - Breaching of obligations in the fields of environmental law"
             },
             {
-                "value": "CC10 - EG",
-                "text": "CC10 - EG - Breaching of obligations in the fields of social law"
+                "value": "v4.0.0 - C10 - EG",
+                "text": "C10 - EG - Breaching of obligations in the fields of social law"
             },
             {
-                "value": "CC11 - EG",
-                "text": "CC11 - EG - Breaching of obligations in the fields of labour law"
+                "value": "v4.0.0 - C11 - EG",
+                "text": "C11 - EG - Breaching of obligations in the fields of labour law"
             },
             {
-                "value": "CC12 - EG",
-                "text": "CC12 - EG - Bankruptcy"
+                "value": "v4.0.0 - C12 - EG",
+                "text": "C12 - EG - Bankruptcy"
             },
             {
-                "value": "CC13 - EG",
-                "text": "CC13 - EG - Insolvency"
+                "value": "v4.0.0 - C13 - EG",
+                "text": "C13 - EG - Insolvency"
             },
             {
-                "value": "CC14 - EG",
-                "text": "CC14 - EG - Arrangement with creditors"
+                "value": "v4.0.0 - C14 - EG",
+                "text": "C14 - EG - Arrangement with creditors"
             },
             {
-                "value": "CC15 - EG",
-                "text": "CC15 - EG - Analogous situation like bankruptcy under national law"
+                "value": "v4.0.0 - C15 - EG",
+                "text": "C15 - EG - Analogous situation like bankruptcy under national law"
             },
             {
-                "value": "CC16 - EG",
-                "text": "CC16 - EG - Assets being administered by liquidator"
+                "value": "v4.0.0 - C16 - EG",
+                "text": "C16 - EG - Assets being administered by liquidator"
             },
             {
-                "value": "CC17 - EG",
-                "text": "CC17 - EG - Business activities are suspended"
+                "value": "v4.0.0 - C17 - EG",
+                "text": "C17 - EG - Business activities are suspended"
             },
             {
-                "value": "CC18 - EG",
-                "text": "CC18 - EG - Guilty of grave professional misconduct"
+                "value": "v4.0.0 - C18 - EG",
+                "text": "C18 - EG - Guilty of grave professional misconduct"
             },
             {
-                "value": "CC19 - EG",
-                "text": "CC19 - EG - Agreements with other economic operators aimed at distorting competition"
+                "value": "v4.0.0 - C19 - EG",
+                "text": "C19 - EG - Agreements with other economic operators aimed at distorting competition"
             },
             {
-                "value": "CC20 - EG",
-                "text": "CC20 - EG - Conflict of interest due to its participation in the procurement procedure"
+                "value": "v4.0.0 - C20 - EG",
+                "text": "C20 - EG - Conflict of interest due to its participation in the procurement procedure"
             },
             {
-                "value": "CC21 - EG",
-                "text": "CC21 - EG - Direct or indirect involvement in the preparation of this procurement procedure"
+                "value": "v4.0.0 - C21 - EG",
+                "text": "C21 - EG - Direct or indirect involvement in the preparation of this procurement procedure"
             },
             {
-                "value": "CC22 - EG",
-                "text": "CC22 - EG - Early termination, damages or other comparable sanctions"
+                "value": "v4.0.0 - C22 - EG",
+                "text": "C22 - EG - Early termination, damages or other comparable sanctions"
             },
             {
-                "value": "CC23 - EG",
-                "text": "CC23 - EG - Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure"
+                "value": "v4.0.0 - C23 - EG",
+                "text": "C23 - EG - Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure"
             },
             {
-                "value": "CC24 - EG",
-                "text": "CC24 - EG - Purely national exclusion grounds"
+                "value": "v4.0.0 - C24 - EG",
+                "text": "C24 - EG - Purely national exclusion grounds"
             },
             {
-                "value": "CC25 - SC",
-                "text": "CC25 - SC - Enrolment in a relevant professional register"
+                "value": "v4.0.0 - C25 - SC",
+                "text": "C25 - SC - Enrolment in a relevant professional register"
             },
             {
-                "value": "CC26 - SC",
-                "text": "CC26 - SC - Enrolment in a trade register"
+                "value": "v4.0.0 - C26 - SC",
+                "text": "C26 - SC - Enrolment in a trade register"
             },
             {
-                "value": "CC27 - SC",
-                "text": "CC27 - SC - For service contracts: authorisation of particular organisation needed"
+                "value": "v4.0.0 - C27 - SC",
+                "text": "C27 - SC - For service contracts: authorisation of particular organisation needed"
             },
             {
-                "value": "CC28 - SC",
-                "text": "CC28 - SC - For service contracts: membership of particular organisation needed"
+                "value": "v4.0.0 - C28 - SC",
+                "text": "C28 - SC - For service contracts: membership of particular organisation needed"
             },
             {
-                "value": "CC29 - SC",
-                "text": "CC29 - SC - General yearly turnover"
+                "value": "v4.0.0 - C29 - SC",
+                "text": "C29 - SC - General yearly turnover"
             },
             {
-                "value": "CC30 - SC",
-                "text": "CC30 - SC - Average yearly turnover"
+                "value": "v4.0.0 - C30 - SC",
+                "text": "C30 - SC - Average yearly turnover"
             },
             {
-                "value": "CC31 - SC",
-                "text": "CC31 - SC - Specific average turnover"
+                "value": "v4.0.0 - C31 - SC",
+                "text": "C31 - SC - Specific average turnover"
             },
             {
-                "value": "CC32 - SC",
-                "text": "CC32 - SC - Specific yearly turnover"
+                "value": "v4.0.0 - C32 - SC",
+                "text": "C32 - SC - Specific yearly turnover"
             },
             {
-                "value": "CC34 - SC",
-                "text": "CC34 - SC - Financial ratio"
+                "value": "v4.0.0 - C34 - SC",
+                "text": "C34 - SC - Financial ratio"
             },
             {
-                "value": "CC35 - SC",
-                "text": "CC35 - SC - Professional risk indemnity insurance"
+                "value": "v4.0.0 - C35 - SC",
+                "text": "C35 - SC - Professional risk indemnity insurance"
             },
             {
-                "value": "CC36 - SC",
-                "text": "CC36 - SC - Other economic or financial requirements"
+                "value": "v4.0.0 - C36 - SC",
+                "text": "C36 - SC - Other economic or financial requirements"
             },
             {
-                "value": "CC37 - SC",
-                "text": "CC37 - SC - For works contracts: performance of works of the specified type"
+                "value": "v4.0.0 - C37 - SC",
+                "text": "C37 - SC - For works contracts: performance of works of the specified type"
             },
             {
-                "value": "CC38 - SC",
-                "text": "CC38 - SC - For supply contracts: performance of deliveries of the specified type"
+                "value": "v4.0.0 - C38 - SC",
+                "text": "C38 - SC - For supply contracts: performance of deliveries of the specified type"
             },
             {
-                "value": "CC39 - SC",
-                "text": "CC39 - SC - For service contracts: performance of services of the specified type"
+                "value": "v4.0.0 - C39 - SC",
+                "text": "C39 - SC - For service contracts: performance of services of the specified type"
             },
             {
-                "value": "CC40 - SC",
-                "text": "CC40 - SC - Technicians or technical bodies for quality control"
+                "value": "v4.0.0 - C40 - SC",
+                "text": "C40 - SC - Technicians or technical bodies for quality control"
             },
             {
-                "value": "CC41 - SC",
-                "text": "CC41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:"
+                "value": "v4.0.0 - C41 - SC",
+                "text": "C41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:"
             },
             {
-                "value": "CC42 - SC",
-                "text": "CC42 - SC - Technical facilities and measures for ensuring quality"
+                "value": "v4.0.0 - C42 - SC",
+                "text": "C42 - SC - Technical facilities and measures for ensuring quality"
             },
             {
-                "value": "CC43 - SC",
-                "text": "CC43 - SC - Study and research facilities"
+                "value": "v4.0.0 - C43 - SC",
+                "text": "C43 - SC - Study and research facilities"
             },
             {
-                "value": "CC44 - SC",
-                "text": "CC44 - SC - Supply chain management"
+                "value": "v4.0.0 - C44 - SC",
+                "text": "C44 - SC - Supply chain management"
             },
             {
-                "value": "CC45 - SC",
-                "text": "CC45 - SC - Environmental management measures"
+                "value": "v4.0.0 - C45 - SC",
+                "text": "C45 - SC - Environmental management measures"
             },
             {
-                "value": "CC46 - SC",
-                "text": "CC46 - SC - Tools, plant or technical equipment"
+                "value": "v4.0.0 - C46 - SC",
+                "text": "C46 - SC - Tools, plant or technical equipment"
             },
             {
-                "value": "CC47 - SC",
-                "text": "CC47 - SC - Educational and professional qualifications"
+                "value": "v4.0.0 - C47 - SC",
+                "text": "C47 - SC - Educational and professional qualifications"
             },
             {
-                "value": "CC48 - SC",
-                "text": "CC48 - SC - Special requierements check"
+                "value": "v4.0.0 - C48 - SC",
+                "text": "C48 - SC - Special requierements check"
             },
             {
-                "value": "CC49 - SC",
-                "text": "CC49 - SC - Number of managerial staff"
+                "value": "v4.0.0 - C49 - SC",
+                "text": "C49 - SC - Number of managerial staff"
             },
             {
-                "value": "CC50 - SC",
-                "text": "CC50 - SC - Average annual manpower"
+                "value": "v4.0.0 - C50 - SC",
+                "text": "C50 - SC - Average annual manpower"
             },
             {
-                "value": "CC51 - SC",
-                "text": "CC51 - SC - Subcontracting proportion"
+                "value": "v4.0.0 - C51 - SC",
+                "text": "C51 - SC - Subcontracting proportion"
             },
             {
-                "value": "CC52 - SC",
-                "text": "CC52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity"
+                "value": "v4.0.0 - C52 - SC",
+                "text": "C52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity"
             },
             {
-                "value": "CC53 - SC",
-                "text": "CC53 - SC - For supply contracts: samples, descriptions or photographs with certification of authenticity"
+                "value": "v4.0.0 - C53 - SC",
+                "text": "C53 - SC - For supply contracts: samples, descriptions or photographs with certification of authenticity"
             },
             {
-                "value": "CC54 - SC",
-                "text": "CC54 - SC - For supply contracts: certificates by quality control institutes"
+                "value": "v4.0.0 - C54 - SC",
+                "text": "C54 - SC - For supply contracts: certificates by quality control institutes"
             },
             {
-                "value": "CC55 - SC",
-                "text": "CC55 - SC - Certificates by independent bodies about quality assurance standards"
+                "value": "v4.0.0 - C55 - SC",
+                "text": "C55 - SC - Certificates by independent bodies about quality assurance standards"
             },
             {
-                "value": "CC56 - SC",
-                "text": "CC56 - SC - Certificates by independent bodies about environmental management systems or standards"
+                "value": "v4.0.0 - C56 - SC",
+                "text": "C56 - SC - Certificates by independent bodies about environmental management systems or standards"
             },
             {
-                "value": "CC57 - OT",
-                "text": "CC57 - OT - Economic operator is a sheltered workshop"
+                "value": "v4.0.0 - C57 - OT",
+                "text": "C57 - OT - Economic operator is a sheltered workshop"
             },
             {
-                "value": "CC58 - OT",
-                "text": "CC58 - OT - Economic operator registered in a pre qualification system"
+                "value": "v4.0.0 - C58 - OT",
+                "text": "C58 - OT - Economic operator registered in a pre qualification system"
             },
             {
-                "value": "CC59 - OT",
-                "text": "CC59 - OT - Economic Operator together with others"
+                "value": "v4.0.0 - C59 - OT",
+                "text": "C59 - OT - Economic Operator together with others"
             },
             {
-                "value": "CC60 - OT",
-                "text": "CC60 - OT - Relied on entities"
+                "value": "v4.0.0 - C60 - OT",
+                "text": "C60 - OT - Relied on entities"
             },
             {
-                "value": "CC61 - OT",
-                "text": "CC61 - OT - Not relied on entities"
+                "value": "v4.0.0 - C61 - OT",
+                "text": "C61 - OT - Not relied on entities"
             },
             {
-                "value": "CC63 - OT",
-                "text": "CC63 - OT - Reduction of the number of qualified candidates"
+                "value": "v4.0.0 - C63 - OT",
+                "text": "C63 - OT - Reduction of the number of qualified candidates"
             },
             {
-                "value": "CC65 - OT",
-                "text": "CC65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise"
+                "value": "v4.0.0 - C65 - OT",
+                "text": "C65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise"
             }
         ]
     }

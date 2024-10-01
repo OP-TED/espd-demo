@@ -46,7 +46,7 @@ Vue.component('exclusionGrounds', {
         </b-card-header>
         <b-collapse id="accordion-e1" accordion="my-accordion" role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIII']['A']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item" :ref="item"></component>
             </b-card-body>
         </b-collapse>
         </b-card>
@@ -57,7 +57,7 @@ Vue.component('exclusionGrounds', {
         </b-card-header>
         <b-collapse id="accordion-e2" accordion="my-accordion" role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIII']['B']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item" :ref="item"></component>
             </b-card-body>
         </b-collapse>
         </b-card>
@@ -68,7 +68,7 @@ Vue.component('exclusionGrounds', {
         </b-card-header>
         <b-collapse id="accordion-e3" accordion="my-accordion" role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIII']['C']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item" :ref="item"></component>
             </b-card-body>
         </b-collapse>
         </b-card>
@@ -79,7 +79,7 @@ Vue.component('exclusionGrounds', {
         </b-card-header>
         <b-collapse id="accordion-e4" accordion="my-accordion" role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIII']['D']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item" :ref="item"></component>
             </b-card-body>
         </b-collapse>
         </b-card>

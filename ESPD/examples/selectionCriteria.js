@@ -59,7 +59,7 @@ Vue.component('selectionCriteria', {
         </b-card-header>
         <b-collapse id="accordion-s1" accordion="my-accordion" role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIV']['A']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item"  :ref="item"></component>
             </b-card-body>
         </b-collapse>
         </b-card>
@@ -70,7 +70,7 @@ Vue.component('selectionCriteria', {
         </b-card-header>
         <b-collapse id="accordion-s2" accordion="my-accordion" role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIV']['B']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item"  :ref="item"></component>
             </b-card-body>
         </b-collapse>
         </b-card>
@@ -81,7 +81,7 @@ Vue.component('selectionCriteria', {
         </b-card-header>
         <b-collapse id="accordion-s3" accordion="my-accordion" role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIV']['C']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item"  :ref="item"></component>
             </b-card-body>
         </b-collapse>
         </b-card>
@@ -92,7 +92,7 @@ Vue.component('selectionCriteria', {
         </b-card-header>
         <b-collapse id="accordion-s4" accordion="my-accordion" role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIV']['D']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item"  :ref="item"></component>
             </b-card-body>
         </b-collapse>
         </b-card>

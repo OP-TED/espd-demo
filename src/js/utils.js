@@ -25,6 +25,111 @@ function showToast(message, title = 'Message from server', type = 'info', href =
     })
 }
 
+/**
+ * PouchDB global variable - browser persistent storage
+ */
+
+var GlobalPouchDB = new PouchDB('espd_demo')
+
+/**
+ * Upsert document in PouchDB
+ *  - update if existing
+ *  - insert if not existing
+ * 
+ * @param {string} docid - _id of the document 
+ * @param {*} docdata - object containing data
+ * @returns OK | NOK
+ */
+const pdb_upsert = async (docid, docdata) => {
+  try {
+    const tmp_doc = await GlobalPouchDB.get(docid)
+    const response = await GlobalPouchDB.put({ _id: docid, _rev: tmp_doc._rev, data: docdata })
+    console.log(response)
+    return 'OK'
+  } catch (error) {
+    if (error.status == '404') {
+      try {
+        const response = await GlobalPouchDB.put({ _id: docid, data: docdata })
+        console.log(response)
+        return 'OK'
+      } catch (err) {
+        console.log(err)
+        return 'KO'
+      }
+    }
+    console.log(error)
+    return 'KO'
+  }
+}
+
+/**
+ * Load data - the general structure
+ * {
+ *  _id: [code_lists | espd_meta | espd_edm_v3.3.0 | espd_edm_v4.0.0 | uuid]
+ *  data: <object with specific data>
+ * }
+ */
+const loadData = async () => {
+  try {
+
+    let myCall = await fetch('ESPD/codelists/codelist.json')
+    let data = await myCall.json()
+    if (myCall.ok) {
+      //store code_lists in PouchDB
+      const response = await pdb_upsert('code_lists', data.code_lists)
+      console.log(response);
+    }
+
+    myCall = await fetch('ESPD/examples/espd.json')
+    data = await myCall.json()
+    if (myCall.ok) {
+      const response = await pdb_upsert('espd_meta', data.versions)
+      console.log(response)
+    }
+
+    myCall = await fetch('ESPD/model/espd_edm_v3.3.0.json')
+    data = await myCall.json()
+    if (myCall.ok) {
+      const response = await pdb_upsert('espd_edm_v3.3.0', data)
+      console.log(response)
+    }
+
+    myCall = await fetch('ESPD/model/espd_edm_v4.0.0.json')
+    data = await myCall.json()
+    if (myCall.ok) {
+      const response = await pdb_upsert('espd_edm_v4.0.0', data)
+      console.log(response)
+    }
+
+    myCall = await fetch('ESPD/uuid/uuid.json')
+    data = await myCall.json()
+    if (myCall.ok) {
+      const response = await pdb_upsert('uuid', data.uuid_files)
+      console.log(response)
+    }
+  } catch (error) {
+    console.log(error)
+
+  }
+}
+loadData()
+
+
+/**
+ * Setup Web Worker
+ */
+var webConsultant = null
+if (window.Worker) {
+  console.log('Web Worker enbaled!');
+
+  webConsultant = new Worker("src/js/worker.js")
+  webConsultant.postMessage("INIT")
+
+  webConsultant.onmessage = (e) => {
+    console.log(e.data);
+
+  }
+}
 //function to fetch a remote file for inclusion in ZIP archive
 function urlToPromise(url) {
   return new Promise(function (resolve, reject) {
@@ -170,12 +275,12 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
               .ele('@cbc', 'Name').txt(element.name).up()
               .ele('@cbc', 'Description').txt(element.description).up()
 
-              //add lots here cac:ProcurementProjectLot
-              for (let index = 0; index < element.lots.length; index++) {
-                tmp = tmp.ele('@cac', 'ProcurementProjectLotReference')
-                .ele('@cbc', 'ID', {'schemeID': "Criterion", 'schemeAgencyID':"OP", 'schemeVersionID':schemeVersionID}).txt(element.lots[index]).up()
-                .up()    
-              }
+            //add lots here cac:ProcurementProjectLot
+            for (let index = 0; index < element.lots.length; index++) {
+              tmp = tmp.ele('@cac', 'ProcurementProjectLotReference')
+                .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "OP", 'schemeVersionID': schemeVersionID }).txt(element.lots[index]).up()
+                .up()
+            }
           } else {
             tmp = part.com(` Criterion: ${element.name} `)
               .ele('@cac', 'TenderingCriterion')
@@ -559,7 +664,62 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
  * Each criteria is a root level entry
  * 
  * @param {string} part - the JSON path to be rendered as HTML
+ * @param {object} data_load  - the data collected from the corresponding fragment
+ * 
+ * @returns - HTML with the part populated with data that can be inserted into the page
  */
 function renderHTML(part, data_load) {
   console.log(part, data_load)
+  let result = `${part}::${Date.now()}`
+
+  //build HTML fragment for each part based on the ESPD EDM corresponding structure
+  let tag = `${part.substring(0, part.indexOf('_'))}`, target = part.split('/'), dest = window.espd_model[tag]
+  //store the data on window.espd_data
+  //mimic cardinality so that when building the response path
+  let root = target[0].substring(0, target[0].indexOf('_'))
+  if(!Object.hasOwn(window.espd_data, root)) window.espd_data[root] = {}
+
+  for (let index = 1; index < target.length; index++) {
+    //TODO - build the reccursion path elements Rx
+    dest = dest.components[target[index]]
+  }
+  console.log(dest)
+
+  result = `<div class="card">
+  <div class="card-body">
+  `
+  for (const key in dest.components) {
+    if (Object.hasOwn(dest.components, key)) {
+      const element = dest.components[key]
+
+      switch (element.type) {
+        case 'QUESTION':
+          result += `[Q] ${element.description} :: ${element.responsepath}<br/>`
+          break;
+      
+        default:
+          console.log(`Unknown element ${element.type}`);
+          
+          break;
+      }
+      
+    }
+  }
+
+  result += `  
+     </div>
+     <div class="card-footer">
+     <button onclick="deleteHTML('${part}')" type="button" class="btn btn-outline-danger">
+     Delete
+    </button>
+  </div>
+  </div>
+  `
+  
+  return result
+}
+
+function deleteHTML(part) {
+  console.log(part);
+  
 }

@@ -75,6 +75,7 @@ Vue.component("startComponent", {
                     data = await thecall.json()
                     if (thecall.ok) {
                         window.espd_model = data
+                        window.espd_data = {}
                     }
                 }
             } catch (error) {

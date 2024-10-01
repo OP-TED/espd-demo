@@ -284,7 +284,7 @@ Vue.component('procedureComponent', {
             </b-card-body> 
                    
             <b-card-body v-for="item in espd_structure['partII']['A']">
-                <component v-bind:is="item"></component>
+                <component v-bind:is="item"  :ref="item"></component>
             </b-card-body>
 
             </b-collapse>
@@ -350,7 +350,7 @@ Vue.component('procedureComponent', {
             </b-card-header>
             <b-collapse id="accordion-p6" accordion="my-accordion" role="tabpanel">
                 <b-card-body v-for="item in espd_structure['partII']['C']">
-                    <component v-bind:is="item"></component>
+                    <component v-bind:is="item"  :ref="item"></component>
                 </b-card-body>
             </b-collapse>
             </b-card>
@@ -361,7 +361,7 @@ Vue.component('procedureComponent', {
             </b-card-header>
             <b-collapse id="accordion-p7" accordion="my-accordion" role="tabpanel">
                 <b-card-body v-for="item in espd_structure['partII']['D']">
-                    <component v-bind:is="item"></component>
+                    <component v-bind:is="item"  :ref="item"></component>
                 </b-card-body>
             </b-collapse>
             </b-card>

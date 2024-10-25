@@ -152,19 +152,19 @@ program
     })
 
     .command("process_model", "Process all models as options")
-    .option('--ESPD_version [crtv]', 'ESPD version', { default: 'v4.0.0' })
+    .option('--ESPD_version [espdVersion]', 'ESPD version', { default: 'v4.0.0' })
     .action(({ logger, args, options }) => {
-        let crtv = options.crtv
-        log(chalk.blue.bold('Process all models as options'), chalk.red(`${ESPD_version} :: ${crtv}`));
+        let espdVersion = options.espdVersion
+        log(chalk.blue.bold('Process all models as options'), chalk.red(`${ESPD_version} :: ${espdVersion}`));
         log('\n')
 
-        let model_file = require(`./ESPD/model/espd_edm_${crtv}.json`)
+        let model_file = require(`./ESPD/model/espd_edm_${espdVersion}.json`)
         if (!Object.hasOwn(extModel, 'models')) extModel.models = {}
-        if (!Object.hasOwn(extModel.models, crtv)) extModel.models[crtv] = []
+        extModel.models[espdVersion] = []
 
         for (const key in model_file) {
             if (Object.hasOwn(model_file, key)) {
-                extModel.models[crtv].push({ value: model_file[key].tag, text: `${model_file[key].tag} - ${model_file[key].name}` })
+                extModel.models[espdVersion].push({ value: `${espdVersion} - ${model_file[key].tag}`, text: `${model_file[key].tag} - ${model_file[key].name}` })
             }
         }
         log(extModel)

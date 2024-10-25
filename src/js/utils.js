@@ -753,3 +753,11 @@ function deleteHTML(part) {
   console.log(part);
   window.app.$children[6].$refs['procedureComponent'].$refs['v4.0.0-C61'][0]._data[`html_${stringToProperty(part)}`]=''
 }
+
+
+/**
+ * Save global state for ESPD Example
+ */
+function saveData(data){
+  
+}

@@ -3,9 +3,11 @@ Vue.component("startComponent", {
         return {
             raw_data: null,
             versions: [{ value: null, text: 'Select an option' }],
-            espd_version: null,
-            role: null,
-            country: null,
+            exp: {
+                espd_version: null,
+                role: null,
+                country: null
+            },
             role_opt: [
                 { value: 'ca', text: 'Contracting authority - ESPD Request' },
                 { value: 'eo', text: 'Economic operator - ESPD Response' }
@@ -17,22 +19,10 @@ Vue.component("startComponent", {
         }
     },
 
-    watch: {
-        espd_version: function (oldV, newV) {
-            window.espd_doc.espd_version = oldV
-        },
-        country: function (oldV, newV) {
-            window.espd_doc.country = oldV
-        },
-        role: function (oldV, newV) {
-            window.espd_doc.role = oldV
-        }
-    },
-
     methods: {
         selectVersion(event){
-            this.espd_version = event
-            window.espd_doc.espd_version = this.espd_version
+            this.exp.espd_version = event
+            window.espd_doc.espd_version = this.exp.espd_version
 
             const getData = async () => {
                 try {
@@ -51,7 +41,7 @@ Vue.component("startComponent", {
     },
 
     beforeDestroy(){
-        console.log(this.espd_version);
+        console.log(this.exp);
         
     },
 
@@ -68,12 +58,12 @@ Vue.component("startComponent", {
                     for (const key in window.raw_data) {
                         if (Object.hasOwn(window.raw_data, key)) {
                             this.versions.push(key)
-                            this.espd_version = this.versions[0]
-                            window.espd_doc.espd_version = this.espd_version
+                            this.exp.espd_version = this.versions[0]
+                            window.espd_doc.espd_version = this.exp.espd_version
                         }
                     }
-                    this.role = 'ca'
-                    this.country = 'EUR'
+                    this.exp.role = 'ca'
+                    this.exp.country = 'EUR'
 
                     //load the model too
                     thecall = await fetch(`${window.raw_data[window.espd_doc.espd_version].model.source}`)
@@ -111,15 +101,15 @@ Vue.component("startComponent", {
         <b-collapse id="accordion-st1" visible accordion="my-accordion" role="tabpanel">
             <b-card-body>
                 <b-form-group id="fieldset-espd" label-cols-sm="4" label-cols-lg="3" description="Select ESPD version" label="ESPD version" label-for="sel-espd">
-                    <b-form-select id="sel-espd" v-model="espd_version" :options="versions" @change="selectVersion($event)"></b-form-select>
+                    <b-form-select id="sel-espd" v-model="exp.espd_version" :options="versions" @change="selectVersion($event)"></b-form-select>
                 </b-form-group>
                 
                 <b-form-group id="fieldset-role" label-cols-sm="4" label-cols-lg="3" description="Select your role" label="Select your role" label-for="sel-role">
-                    <b-form-select id="sel-role" v-model="role" :options="role_opt"></b-form-select>
+                    <b-form-select id="sel-role" v-model="exp.role" :options="role_opt"></b-form-select>
                 </b-form-group>
 
                 <b-form-group id="fieldset-country" label-cols-sm="4" label-cols-lg="3" description="Select your country" label="Country" label-for="sel-country">
-                <b-form-select id="sel-country" v-model="country" :options="country_list"></b-form-select>
+                <b-form-select id="sel-country" v-model="exp.country" :options="country_list"></b-form-select>
                 </b-form-group>  
             </b-card-body>
         </b-collapse>

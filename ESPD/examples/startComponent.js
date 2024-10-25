@@ -31,6 +31,8 @@ Vue.component("startComponent", {
                     let data = await thecall.json()
                     if (thecall.ok) {
                         window.espd_model = data
+                        //build the components for this version on demand
+                        //factoryComponents()
                     }
                 } catch (error) {
                     console.log(error)
@@ -40,9 +42,9 @@ Vue.component("startComponent", {
         }
     },
 
-    beforeDestroy(){
-        console.log(this.exp);
-        
+    updated(){
+        saveData(this.exp)
+        this.$store.commit('savekv', {key:'start', value:this.exp})  
     },
 
     created(){
@@ -64,13 +66,16 @@ Vue.component("startComponent", {
                     }
                     this.exp.role = 'ca'
                     this.exp.country = 'EUR'
-
+                    window.espd_doc.role = this.exp.role
+                    window.espd_doc.country = this.exp.country
                     //load the model too
                     thecall = await fetch(`${window.raw_data[window.espd_doc.espd_version].model.source}`)
                     data = await thecall.json()
                     if (thecall.ok) {
                         window.espd_model = data
                         window.espd_data = {}
+                        //create the components for this version based on the model
+                        //factoryComponents()
                     }
                 }
             } catch (error) {
@@ -91,8 +96,8 @@ Vue.component("startComponent", {
                     </div>
                 </b-col>
             </b-row>
-    <b-row>
-        <b-col>
+            <b-row>
+                <b-col>
     <div class="accordion" role="tablist">
         <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
@@ -115,9 +120,9 @@ Vue.component("startComponent", {
         </b-collapse>
         </b-card>
     </div>
-    </b-col>
-    </b-row>
-    </b-container>
+                </b-col>
+            </b-row>
+        </b-container>
     </template>
     `
 

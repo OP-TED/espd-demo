@@ -6,17 +6,11 @@ Vue.component('procedureComponent', {
                 partII: { A: [], B: [], C: [], D: []}
             },
             meta_espd_doc: window.raw_data[window.espd_doc.espd_version],
-            espd_model: window.espd_model,
-            show: true
+            espd_model: window.espd_model
         }
     },
 
-    methods: {
-        updateData(componentdata){
-            console.log(componentdata)
-        }
-    },
-    created() {
+    created() {        
         //Build the UI part for each Criteria
         for (const key in this.meta_espd_doc.partI) {
             if (Object.hasOwn(this.meta_espd_doc.partI, key)) {
@@ -137,7 +131,7 @@ Vue.component('procedureComponent', {
             </b-card-header>
             <b-collapse id="accordion-p7" accordion="my-accordion" role="tabpanel">
                 <b-card-body v-for="item in espd_structure['partII']['D']">
-                    <component v-bind:is="item"  :ref="item" @updatedata="updateData" v-bind:espd_model="espd_model"></component>
+                    <component v-bind:is="item"  :ref="item"></component>
                 </b-card-body>
             </b-collapse>
             </b-card>

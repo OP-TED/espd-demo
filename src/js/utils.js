@@ -1,17 +1,3 @@
-//Create i18n instance with options
-const i18n = new VueI18n({
-  locale: 'eu', // set locale
-  fallbackLocale: 'eu', // set fallback locale
-  messages, // set locale messages
-  // If you need to specify other options, you can set other options
-})
-
-if (localStorage.getItem("language")) {
-  i18n.locale = localStorage.getItem("language");
-} else {
-  sessionStorage.setItem("language", i18n.feedbackLocale);
-}
-
 /**
  * Auxiliary function for Bootsrap toast messages
  * 
@@ -759,5 +745,39 @@ function deleteHTML(part) {
  * Save global state for ESPD Example
  */
 function saveData(data){
+  //console.log(data)
+  for (const key in data) {
+    if (Object.hasOwn(data, key)) {
+      window.espd_doc[key] = data[key]
+    }
+  }
+}
+
+function processData(data){
+  console.log(data);
   
 }
+
+function factoryComponents(){
+
+  console.log(window.espd_doc.espd_version, window.espd_model)
+  let crt = window.espd_model["C1"], tmpl = `<div>
+    <strong>${crt.name}</strong>
+    <p>${crt.description}</p>
+  </div>`
+
+  Vue.component(`${window.espd_doc.espd_version}-C1`,{
+    template: tmpl
+  })
+
+  /*
+  Vue.component(name, function (resolve, reject) {
+    setTimeout(function () {
+      // Pass the component definition to the resolve callback
+      resolve({ template: templ})
+    }, 100)}
+  )
+    */
+}
+
+

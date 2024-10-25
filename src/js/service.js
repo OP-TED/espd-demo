@@ -17,6 +17,7 @@ Vue.component("service", {
     methods: {
         nextStep() {
             //Get the data from child components using $refs, check and merge with data from window
+            /*
             let key = this.steps[this.crt_step].component
             switch (key) {
                 case 'startComponent':
@@ -36,6 +37,7 @@ Vue.component("service", {
                     console.log(key)
                     break;
             }
+            */
             this.crt_step = Math.min(this.crt_step + 1, this.steps.length - 1)
 
         },
@@ -75,6 +77,7 @@ Vue.component("service", {
         </b-col>
         </b-row>
         </b-container>
+        </div>
     </b-card> 
     `
 });

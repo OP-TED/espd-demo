@@ -9514,7 +9514,6 @@
                                                 "components": {
                                                     "Q1": {
                                                         "type": "QUESTION",
-                                                        "name": "Name",
                                                         "description": "Name",
                                                         "sellervalue": "[Name of the technical body]",
                                                         "cardinality": "1",
@@ -9527,7 +9526,6 @@
                                                     },
                                                     "Q2": {
                                                         "type": "QUESTION",
-                                                        "name": "Experience area",
                                                         "description": "Experience area",
                                                         "sellervalue": "[Description  of the area of expertise]",
                                                         "cardinality": "0..1",
@@ -9540,7 +9538,6 @@
                                                     },
                                                     "Q3": {
                                                         "type": "QUESTION",
-                                                        "name": "Other information",
                                                         "description": "Other information",
                                                         "sellervalue": "[Additional information]",
                                                         "cardinality": "0..1",
@@ -9561,7 +9558,6 @@
                                                         "components": {
                                                             "Q1": {
                                                                 "type": "QUESTION",
-                                                                "name": "Is this information available online?",
                                                                 "description": "Is this information available online?",
                                                                 "sellervalue": "true",
                                                                 "cardinality": "1",
@@ -9582,7 +9578,6 @@
                                                                 "components": {
                                                                     "Q1": {
                                                                         "type": "QUESTION",
-                                                                        "name": "Evidence Supplied",
                                                                         "description": "Evidence Supplied",
                                                                         "sellervalue": "EVIDENCE-ID",
                                                                         "cardinality": "1..n",
@@ -9612,7 +9607,7 @@
     "C41": {
         "tag": "C41 - SC",
         "type": "CRITERION",
-        "name": "In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:",
+        "name": "For works contracts: technicians or technical bodies to carry out the work",
         "description": "In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:",
         "elementUUID": "c599c130-b29f-461e-a187-4e16c7d40db7",
         "elementcode": "work-tech",
@@ -9621,7 +9616,7 @@
         "components": {
             "SBC1": {
                 "type": "SUBCRITERION",
-                "name": "[Description of the National Criterion]",
+                "name": "[Name of the National Criterion]",
                 "description": "[Description of the National Criterion]",
                 "sellervalue": "[Description of the National Criterion ]",
                 "cardinality": "0..n",
@@ -9640,7 +9635,6 @@
                         "components": {
                             "CA1": {
                                 "type": "CAPTION",
-                                "name": "[Additional information; e.g. no evidences online]",
                                 "description": "[Additional information; e.g. no evidences online]",
                                 "cardinality": "1",
                                 "propertydatatype": "NONE",
@@ -9649,7 +9643,6 @@
                             },
                             "Q1": {
                                 "type": "QUESTION",
-                                "name": "Your Answer",
                                 "description": "Your Answer",
                                 "cardinality": "1",
                                 "propertydatatype": "INDICATOR",
@@ -9672,7 +9665,6 @@
             },
             "RG1": {
                 "type": "REQUIREMENT_GROUP",
-                "name": "Requirement Group to define different lots with different requirements",
                 "description": "Requirement Group to define different lots with different requirements",
                 "cardinality": "1..n",
                 "elementUUID": "aee59647-1e48-402a-9e75-666703fc0a70",
@@ -9682,7 +9674,6 @@
                 "components": {
                     "RQ1": {
                         "type": "REQUIREMENT",
-                        "name": "LOT Identifier",
                         "description": "LOT Identifier",
                         "buyervalue": "LOT-0000",
                         "cardinality": "1..n",
@@ -9700,7 +9691,6 @@
                         "components": {
                             "CA1": {
                                 "type": "CAPTION",
-                                "name": "[Additional information; e.g. no evidences online]",
                                 "description": "[Additional information; e.g. no evidences online]",
                                 "buyervalue": "[Additional information; e.g. no evidences online]",
                                 "cardinality": "1",
@@ -9718,7 +9708,6 @@
                                 "components": {
                                     "RQ1": {
                                         "type": "REQUIREMENT",
-                                        "name": "Requirement",
                                         "description": "Requirement",
                                         "buyervalue": "Technical User Support Group",
                                         "cardinality": "1",
@@ -9736,7 +9725,6 @@
                                         "components": {
                                             "Q1": {
                                                 "type": "QUESTION",
-                                                "name": "Does the EO fulfil the criteria by itself?",
                                                 "description": "Does the EO fulfil the criteria by itself?",
                                                 "sellervalue": "true",
                                                 "cardinality": "1",
@@ -9757,7 +9745,6 @@
                                                 "components": {
                                                     "Q1": {
                                                         "type": "QUESTION",
-                                                        "name": "In the case of no – Relied upon or not",
                                                         "description": "In the case of no – Relied upon or not",
                                                         "sellervalue": "true",
                                                         "cardinality": "1",
@@ -9778,7 +9765,6 @@
                                                         "components": {
                                                             "Q1": {
                                                                 "type": "QUESTION",
-                                                                "name": "Name of the entity",
                                                                 "description": "Name of the entity",
                                                                 "sellervalue": "[Name]",
                                                                 "cardinality": "1",
@@ -9791,7 +9777,6 @@
                                                             },
                                                             "Q2": {
                                                                 "type": "QUESTION",
-                                                                "name": "ID of the entity",
                                                                 "description": "ID of the entity",
                                                                 "sellervalue": "[ID]",
                                                                 "cardinality": "1",
@@ -9825,7 +9810,6 @@
                                             },
                                             "QSG1": {
                                                 "type": "QUESTION_SUBGROUP",
-                                                "name": "Technician",
                                                 "description": "Technician",
                                                 "cardinality": "0..n",
                                                 "elementUUID": "52ffcf91-3598-438f-8c3d-faf97da02602",
@@ -9835,7 +9819,6 @@
                                                 "components": {
                                                     "Q1": {
                                                         "type": "QUESTION",
-                                                        "name": "First name",
                                                         "description": "First name",
                                                         "sellervalue": "Paula",
                                                         "cardinality": "0..1",
@@ -9848,7 +9831,6 @@
                                                     },
                                                     "Q2": {
                                                         "type": "QUESTION",
-                                                        "name": "Last name",
                                                         "description": "Last name",
                                                         "sellervalue": "Keen",
                                                         "cardinality": "0..1",
@@ -9861,7 +9843,6 @@
                                                     },
                                                     "Q3": {
                                                         "type": "QUESTION",
-                                                        "name": "Profession",
                                                         "description": "Profession",
                                                         "sellervalue": "IT Consultant",
                                                         "cardinality": "1",
@@ -9874,7 +9855,6 @@
                                                     },
                                                     "Q4": {
                                                         "type": "QUESTION",
-                                                        "name": "Experience",
                                                         "description": "Experience",
                                                         "sellervalue": "21 years as IT Consultant for the Public Sector, namely for the European Commission",
                                                         "cardinality": "0..1",
@@ -9887,7 +9867,6 @@
                                                     },
                                                     "Q5": {
                                                         "type": "QUESTION",
-                                                        "name": "Other information",
                                                         "description": "Other information",
                                                         "cardinality": "0..1",
                                                         "propertydatatype": "DESCRIPTION",
@@ -9899,7 +9878,6 @@
                                                     },
                                                     "Q6": {
                                                         "type": "QUESTION",
-                                                        "name": "How long with EO",
                                                         "description": "How long with EO",
                                                         "sellervalue": "120",
                                                         "cardinality": "0..1",
@@ -9920,7 +9898,6 @@
                                                         "components": {
                                                             "Q1": {
                                                                 "type": "QUESTION",
-                                                                "name": "Is this information available online?",
                                                                 "description": "Is this information available online?",
                                                                 "sellervalue": "true",
                                                                 "cardinality": "1",
@@ -9941,7 +9918,6 @@
                                                                 "components": {
                                                                     "Q1": {
                                                                         "type": "QUESTION",
-                                                                        "name": "Evidence supplied",
                                                                         "description": "Evidence supplied",
                                                                         "sellervalue": "http://dod gov usa/sat/it/soft/prk?id=1121233",
                                                                         "cardinality": "1..n",
@@ -9977,7 +9953,6 @@
                                             },
                                             "QSG1": {
                                                 "type": "QUESTION_SUBGROUP",
-                                                "name": "Technical body",
                                                 "description": "Technical body",
                                                 "cardinality": "0..n",
                                                 "elementUUID": "70e28455-d0e1-47e7-9caa-ead3b7df7644",
@@ -9987,7 +9962,6 @@
                                                 "components": {
                                                     "Q1": {
                                                         "type": "QUESTION",
-                                                        "name": "Name",
                                                         "description": "Name",
                                                         "sellervalue": "[Name of the technical body]",
                                                         "cardinality": "1",
@@ -10000,7 +9974,6 @@
                                                     },
                                                     "Q2": {
                                                         "type": "QUESTION",
-                                                        "name": "Experience area",
                                                         "description": "Experience area",
                                                         "sellervalue": "[Description  of the area of expertise]",
                                                         "cardinality": "0..1",
@@ -10013,7 +9986,6 @@
                                                     },
                                                     "Q3": {
                                                         "type": "QUESTION",
-                                                        "name": "Other information",
                                                         "description": "Other information",
                                                         "sellervalue": "[Additional information]",
                                                         "cardinality": "0..1",
@@ -10034,7 +10006,6 @@
                                                         "components": {
                                                             "Q1": {
                                                                 "type": "QUESTION",
-                                                                "name": "Is this information available online?",
                                                                 "description": "Is this information available online?",
                                                                 "sellervalue": "true",
                                                                 "cardinality": "1",
@@ -10055,7 +10026,6 @@
                                                                 "components": {
                                                                     "Q1": {
                                                                         "type": "QUESTION",
-                                                                        "name": "Evidence Supplied",
                                                                         "description": "Evidence Supplied",
                                                                         "sellervalue": "EVIDENCE-ID",
                                                                         "cardinality": "1..n",

@@ -50,6 +50,11 @@ Vue.component("startComponent", {
         }
     },
 
+    beforeDestroy(){
+        console.log(this.espd_version);
+        
+    },
+
     created(){
         const dataURL = ['ESPD/examples/']
 
@@ -88,16 +93,16 @@ Vue.component("startComponent", {
 
     template: `
     <template>
-    <b-conatiner>
+        <b-conatiner>
+            <b-row>
+                <b-col>
+                    <div>
+                        <h6>Start</h6>
+                    </div>
+                </b-col>
+            </b-row>
     <b-row>
-    <b-col>
-    <div>
-    <h6>Start</h6>
-    </div>
-    </b-col>
-    </b-row>
-    <b-row>
-    <b-col>
+        <b-col>
     <div class="accordion" role="tablist">
         <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">

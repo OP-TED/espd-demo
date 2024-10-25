@@ -7,8 +7,7 @@ Vue.component("v4.0.0-C1",
                         { 
                             data(){
                                 return {
-                                "html_C1_EG_crime__org$SBC1": '', 
-"html_C1_EG_crime__org$QG1$QSG1": '', 
+                                "html_C1_EG_crime__org$QG1$QSG1": '', 
 
                                 exp:{
                                 "C1_EG_crime__org$SBC1$QG1$Q1" : false,
@@ -28,16 +27,13 @@ Vue.component("v4.0.0-C1",
                             template: `<div>
                             <strong>Participation in a criminal organisation</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for participation in a criminal organisation, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Council Framework Decision 2008/841/JHA of 24 October 2008 on the fight against organised crime (OJ L 300, 11.11.2008, p. 42).</p>
-                            <div><div v-html="html_C1_EG_crime__org$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C1_EG_crime__org$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C1_EG_crime__org$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C1_EG_crime__org$SBC1 = renderHTML('C1_EG_crime-org/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C1_EG_crime__org$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C1_EG_crime__org$QG1']?'Yes':'No' }}]</b>
@@ -96,8 +92,7 @@ Vue.component("v4.0.0-C2",
                         { 
                             data(){
                                 return {
-                                "html_C2_EG_corruption$SBC1": '', 
-"html_C2_EG_corruption$QG1$QSG1": '', 
+                                "html_C2_EG_corruption$QG1$QSG1": '', 
 
                                 exp:{
                                 "C2_EG_corruption$SBC1$QG1$Q1" : false,
@@ -117,16 +112,13 @@ Vue.component("v4.0.0-C2",
                             template: `<div>
                             <strong>Corruption</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for corruption, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 3 of the Convention on the fight against corruption involving officials of the European Communities or officials of Member States of the European Union, OJ C 195, 25.6.1997, p. 1, and in Article 2(1) of Council Framework Decision 2003/568/JHA of 22 July 2003 on combating corruption in the private sector (OJ L 192, 31.7.2003, p. 54). This exclusion ground also includes corruption as defined in the national law of the contracting authority (contracting entity) or the economic operator.</p>
-                            <div><div v-html="html_C2_EG_corruption$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C2_EG_corruption$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C2_EG_corruption$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C2_EG_corruption$SBC1 = renderHTML('C2_EG_corruption/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C2_EG_corruption$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C2_EG_corruption$QG1']?'Yes':'No' }}]</b>
@@ -185,8 +177,7 @@ Vue.component("v4.0.0-C3",
                         { 
                             data(){
                                 return {
-                                "html_C3_EG_fraud$SBC1": '', 
-"html_C3_EG_fraud$QG1$QSG1": '', 
+                                "html_C3_EG_fraud$QG1$QSG1": '', 
 
                                 exp:{
                                 "C3_EG_fraud$SBC1$QG1$Q1" : false,
@@ -206,16 +197,13 @@ Vue.component("v4.0.0-C3",
                             template: `<div>
                             <strong>Fraud</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for fraud, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? Within the meaning of Article 1 of the Convention on the protection of the European Communities' financial interests (OJ C 316, 27.11.1995, p. 48).</p>
-                            <div><div v-html="html_C3_EG_fraud$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C3_EG_fraud$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C3_EG_fraud$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C3_EG_fraud$SBC1 = renderHTML('C3_EG_fraud/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C3_EG_fraud$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C3_EG_fraud$QG1']?'Yes':'No' }}]</b>
@@ -274,8 +262,7 @@ Vue.component("v4.0.0-C4",
                         { 
                             data(){
                                 return {
-                                "html_C4_EG_terr__offence$SBC1": '', 
-"html_C4_EG_terr__offence$QG1$QSG1": '', 
+                                "html_C4_EG_terr__offence$QG1$QSG1": '', 
 
                                 exp:{
                                 "C4_EG_terr__offence$SBC1$QG1$Q1" : false,
@@ -295,16 +282,13 @@ Vue.component("v4.0.0-C4",
                             template: `<div>
                             <strong>Terrorist offences or offences linked to terrorist activities</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for terrorist offences or offences linked to terrorist activities, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Articles 1 and 3 of Council Framework Decision of 13 June 2002 on combating terrorism (OJ L 164, 22.6.2002, p. 3). This exclusion ground also includes inciting or aiding or abetting or attempting to commit an offence, as referred to in Article 4 of that Framework Decision.</p>
-                            <div><div v-html="html_C4_EG_terr__offence$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C4_EG_terr__offence$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C4_EG_terr__offence$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C4_EG_terr__offence$SBC1 = renderHTML('C4_EG_terr-offence/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C4_EG_terr__offence$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C4_EG_terr__offence$QG1']?'Yes':'No' }}]</b>
@@ -363,8 +347,7 @@ Vue.component("v4.0.0-C5",
                         { 
                             data(){
                                 return {
-                                "html_C5_EG_finan__laund$SBC1": '', 
-"html_C5_EG_finan__laund$QG1$QSG1": '', 
+                                "html_C5_EG_finan__laund$QG1$QSG1": '', 
 
                                 exp:{
                                 "C5_EG_finan__laund$SBC1$QG1$Q1" : false,
@@ -384,16 +367,13 @@ Vue.component("v4.0.0-C5",
                             template: `<div>
                             <strong>Money laundering or terrorist financing</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for money laundering or terrorist financing, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 1 of Directive 2005/60/EC of the European Parliament and of the Council of 26 October 2005 on the prevention of the use of the financial system for the purpose of money laundering and terrorist financing (OJ L 309, 25.11.2005, p. 15).</p>
-                            <div><div v-html="html_C5_EG_finan__laund$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C5_EG_finan__laund$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C5_EG_finan__laund$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C5_EG_finan__laund$SBC1 = renderHTML('C5_EG_finan-laund/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C5_EG_finan__laund$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C5_EG_finan__laund$QG1']?'Yes':'No' }}]</b>
@@ -452,8 +432,7 @@ Vue.component("v4.0.0-C6",
                         { 
                             data(){
                                 return {
-                                "html_C6_EG_human__traffic$SBC1": '', 
-"html_C6_EG_human__traffic$QG1$QSG1": '', 
+                                "html_C6_EG_human__traffic$QG1$QSG1": '', 
 
                                 exp:{
                                 "C6_EG_human__traffic$SBC1$QG1$Q1" : false,
@@ -473,16 +452,13 @@ Vue.component("v4.0.0-C6",
                             template: `<div>
                             <strong>Child labour and other forms of trafficking in human beings</strong>
                             <p>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for child labour and other forms of trafficking in human beings, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Directive 2011/36/EU of the European Parliament and of the Council of 5 April 2011 on preventing and combating trafficking in human beings and protecting its victims, and replacing Council Framework Decision 2002/629/JHA (OJ L 101, 15.4.2011, p. 1).</p>
-                            <div><div v-html="html_C6_EG_human__traffic$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C6_EG_human__traffic$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C6_EG_human__traffic$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C6_EG_human__traffic$SBC1 = renderHTML('C6_EG_human-traffic/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C6_EG_human__traffic$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C6_EG_human__traffic$QG1']?'Yes':'No' }}]</b>
@@ -541,8 +517,7 @@ Vue.component("v4.0.0-C7",
                         { 
                             data(){
                                 return {
-                                "html_C7_EG_tax__pay$SBC1": '', 
-
+                                
                                 exp:{
                                 "C7_EG_tax__pay$SBC1$QG1$Q1" : false,
 "C7_EG_tax__pay$RG1$RQ1$R1" : '',
@@ -566,16 +541,13 @@ Vue.component("v4.0.0-C7",
                             template: `<div>
                             <strong>Payment of taxes</strong>
                             <p>Has the economic operator breached its obligations relating to the payment of taxes, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</p>
-                            <div><div v-html="html_C7_EG_tax__pay$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C7_EG_tax__pay$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C7_EG_tax__pay$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C7_EG_tax__pay$SBC1 = renderHTML('C7_EG_tax-pay/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div>
+                        </div></div><em>LEGISLATION</em><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Minimum Amount Threshold"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_AMOUNT"></b-form-input>
@@ -660,8 +632,7 @@ Vue.component("v4.0.0-C8",
                         { 
                             data(){
                                 return {
-                                "html_C8_EG_socsec__pay$SBC1": '', 
-
+                                
                                 exp:{
                                 "C8_EG_socsec__pay$SBC1$QG1$Q1" : false,
 "C8_EG_socsec__pay$RG1$RQ1$R1" : '',
@@ -685,16 +656,13 @@ Vue.component("v4.0.0-C8",
                             template: `<div>
                             <strong>Payment of social security contributions</strong>
                             <p>Has the economic operator breached its obligations relating to the payment of social security contributions, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</p>
-                            <div><div v-html="html_C8_EG_socsec__pay$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C8_EG_socsec__pay$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C8_EG_socsec__pay$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C8_EG_socsec__pay$SBC1 = renderHTML('C8_EG_socsec-pay/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div>
+                        </div></div><em>LEGISLATION</em><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Minimum Amount Threshold"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_AMOUNT"></b-form-input>
@@ -779,8 +747,7 @@ Vue.component("v4.0.0-C9",
                         { 
                             data(){
                                 return {
-                                "html_C9_EG_envir__law$SBC1": '', 
-
+                                
                                 exp:{
                                 "C9_EG_envir__law$SBC1$QG1$Q1" : false,
 "C9_EG_envir__law$QG1$Q1" : false,
@@ -795,16 +762,13 @@ Vue.component("v4.0.0-C9",
                             template: `<div>
                             <strong>Breaching of obligations in the fields of environmental law</strong>
                             <p>Has the economic operator, to its knowledge, breached its obligations in the fields of environmental law? As referred to for the purposes of this procurement in national law, in the ESPD, the relevant notice or the in the ESPD, the relevant notice or , in Article 18(2) of Directive 2014/24/EU or in the ESPD.</p>
-                            <div><div v-html="html_C9_EG_envir__law$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C9_EG_envir__law$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C9_EG_envir__law$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C9_EG_envir__law$SBC1 = renderHTML('C9_EG_envir-law/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C9_EG_envir__law$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C9_EG_envir__law$QG1']?'Yes':'No' }}]</b>
@@ -844,8 +808,7 @@ Vue.component("v4.0.0-C10",
                         { 
                             data(){
                                 return {
-                                "html_C10_EG_socsec__law$SBC1": '', 
-
+                                
                                 exp:{
                                 "C10_EG_socsec__law$SBC1$QG1$Q1" : false,
 "C10_EG_socsec__law$QG1$Q1" : false,
@@ -860,16 +823,13 @@ Vue.component("v4.0.0-C10",
                             template: `<div>
                             <strong>Breaching of obligations in the fields of social law</strong>
                             <p>Has the economic operator, to its knowledge, breached its obligations in the fields of social law? As referred to for the purposes of this procurement in national law, in the ESPD, the relevant notice or the in the ESPD, the relevant notice or in Article 18(2) of Directive 2014/24/EU.</p>
-                            <div><div v-html="html_C10_EG_socsec__law$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C10_EG_socsec__law$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C10_EG_socsec__law$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C10_EG_socsec__law$SBC1 = renderHTML('C10_EG_socsec-law/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C10_EG_socsec__law$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C10_EG_socsec__law$QG1']?'Yes':'No' }}]</b>
@@ -909,8 +869,7 @@ Vue.component("v4.0.0-C11",
                         { 
                             data(){
                                 return {
-                                "html_C11_EG_labour__law$SBC1": '', 
-
+                                
                                 exp:{
                                 "C11_EG_labour__law$SBC1$QG1$Q1" : false,
 "C11_EG_labour__law$QG1$Q1" : false,
@@ -925,16 +884,13 @@ Vue.component("v4.0.0-C11",
                             template: `<div>
                             <strong>Breaching of obligations in the fields of labour law</strong>
                             <p>Has the economic operator, to its knowledge, breached its obligations in the fields of labour law? As referred to for the purposes of this procurement in national law, in the relevant notice or the in the ESPD, the relevant notice or in Article 18(2) of Directive 2014/24/EU.</p>
-                            <div><div v-html="html_C11_EG_labour__law$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C11_EG_labour__law$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C11_EG_labour__law$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C11_EG_labour__law$SBC1 = renderHTML('C11_EG_labour-law/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C11_EG_labour__law$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C11_EG_labour__law$QG1']?'Yes':'No' }}]</b>
@@ -974,8 +930,7 @@ Vue.component("v4.0.0-C12",
                         { 
                             data(){
                                 return {
-                                "html_C12_EG_bankruptcy$SBC1": '', 
-
+                                
                                 exp:{
                                 "C12_EG_bankruptcy$SBC1$QG1$Q1" : false,
 "C12_EG_bankruptcy$QG1$Q1" : false,
@@ -990,16 +945,13 @@ Vue.component("v4.0.0-C12",
                             template: `<div>
                             <strong>Bankruptcy</strong>
                             <p>Is the economic operator bankrupt? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div><div v-html="html_C12_EG_bankruptcy$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C12_EG_bankruptcy$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C12_EG_bankruptcy$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C12_EG_bankruptcy$SBC1 = renderHTML('C12_EG_bankruptcy/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C12_EG_bankruptcy$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C12_EG_bankruptcy$QG1']?'Yes':'No' }}]</b>
@@ -1036,8 +988,7 @@ Vue.component("v4.0.0-C13",
                         { 
                             data(){
                                 return {
-                                "html_C13_EG_insolvency$SBC1": '', 
-
+                                
                                 exp:{
                                 "C13_EG_insolvency$SBC1$QG1$Q1" : false,
 "C13_EG_insolvency$QG1$Q1" : false,
@@ -1052,16 +1003,13 @@ Vue.component("v4.0.0-C13",
                             template: `<div>
                             <strong>Insolvency</strong>
                             <p>Is the economic operator the subject of insolvency or winding-up? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div><div v-html="html_C13_EG_insolvency$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C13_EG_insolvency$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C13_EG_insolvency$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C13_EG_insolvency$SBC1 = renderHTML('C13_EG_insolvency/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C13_EG_insolvency$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C13_EG_insolvency$QG1']?'Yes':'No' }}]</b>
@@ -1098,8 +1046,7 @@ Vue.component("v4.0.0-C14",
                         { 
                             data(){
                                 return {
-                                "html_C14_EG_cred__arran$SBC1": '', 
-
+                                
                                 exp:{
                                 "C14_EG_cred__arran$SBC1$QG1$Q1" : false,
 "C14_EG_cred__arran$QG1$Q1" : false,
@@ -1114,16 +1061,13 @@ Vue.component("v4.0.0-C14",
                             template: `<div>
                             <strong>Arrangement with creditors</strong>
                             <p>Is the economic operator in arrangement with creditors? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div><div v-html="html_C14_EG_cred__arran$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C14_EG_cred__arran$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C14_EG_cred__arran$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C14_EG_cred__arran$SBC1 = renderHTML('C14_EG_cred-arran/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C14_EG_cred__arran$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C14_EG_cred__arran$QG1']?'Yes':'No' }}]</b>
@@ -1160,8 +1104,7 @@ Vue.component("v4.0.0-C15",
                         { 
                             data(){
                                 return {
-                                "html_C15_EG_bankr__nat$SBC1": '', 
-
+                                
                                 exp:{
                                 "C15_EG_bankr__nat$SBC1$QG1$Q1" : false,
 "C15_EG_bankr__nat$QG1$Q1" : false,
@@ -1176,16 +1119,13 @@ Vue.component("v4.0.0-C15",
                             template: `<div>
                             <strong>Analogous situation like bankruptcy under national law</strong>
                             <p>Is the economic operator in any analogous situation like bankruptcy arising from a similar procedure under national laws and regulations? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div><div v-html="html_C15_EG_bankr__nat$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C15_EG_bankr__nat$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C15_EG_bankr__nat$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C15_EG_bankr__nat$SBC1 = renderHTML('C15_EG_bankr-nat/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C15_EG_bankr__nat$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C15_EG_bankr__nat$QG1']?'Yes':'No' }}]</b>
@@ -1222,8 +1162,7 @@ Vue.component("v4.0.0-C16",
                         { 
                             data(){
                                 return {
-                                "html_C16_EG_liq__admin$SBC1": '', 
-
+                                
                                 exp:{
                                 "C16_EG_liq__admin$SBC1$QG1$Q1" : false,
 "C16_EG_liq__admin$QG1$Q1" : false,
@@ -1238,16 +1177,13 @@ Vue.component("v4.0.0-C16",
                             template: `<div>
                             <strong>Assets being administered by liquidator</strong>
                             <p>Are the assets of the economic operator being administered by a liquidator or by the court? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div><div v-html="html_C16_EG_liq__admin$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C16_EG_liq__admin$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C16_EG_liq__admin$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C16_EG_liq__admin$SBC1 = renderHTML('C16_EG_liq-admin/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C16_EG_liq__admin$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C16_EG_liq__admin$QG1']?'Yes':'No' }}]</b>
@@ -1284,8 +1220,7 @@ Vue.component("v4.0.0-C17",
                         { 
                             data(){
                                 return {
-                                "html_C17_EG_susp__act$SBC1": '', 
-
+                                
                                 exp:{
                                 "C17_EG_susp__act$SBC1$QG1$Q1" : false,
 "C17_EG_susp__act$QG1$Q1" : false,
@@ -1300,16 +1235,13 @@ Vue.component("v4.0.0-C17",
                             template: `<div>
                             <strong>Business activities are suspended</strong>
                             <p>Are the business activities of the economic operator suspended? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</p>
-                            <div><div v-html="html_C17_EG_susp__act$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C17_EG_susp__act$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C17_EG_susp__act$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C17_EG_susp__act$SBC1 = renderHTML('C17_EG_susp-act/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C17_EG_susp__act$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C17_EG_susp__act$QG1']?'Yes':'No' }}]</b>
@@ -1346,8 +1278,7 @@ Vue.component("v4.0.0-C18",
                         { 
                             data(){
                                 return {
-                                "html_C18_EG_prof__misconduct$SBC1": '', 
-
+                                
                                 exp:{
                                 "C18_EG_prof__misconduct$SBC1$QG1$Q1" : false,
 "C18_EG_prof__misconduct$QG1$Q1" : false,
@@ -1363,16 +1294,13 @@ Vue.component("v4.0.0-C18",
                             template: `<div>
                             <strong>Guilty of grave professional misconduct</strong>
                             <p>Is the economic operator guilty of grave professional misconduct? Where applicable, see definitions in national law, the relevant notice or the procurement documents.</p>
-                            <div><div v-html="html_C18_EG_prof__misconduct$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C18_EG_prof__misconduct$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C18_EG_prof__misconduct$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C18_EG_prof__misconduct$SBC1 = renderHTML('C18_EG_prof-misconduct/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C18_EG_prof__misconduct$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C18_EG_prof__misconduct$QG1']?'Yes':'No' }}]</b>
@@ -1416,8 +1344,7 @@ Vue.component("v4.0.0-C19",
                         { 
                             data(){
                                 return {
-                                "html_C19_EG_distorsion$SBC1": '', 
-
+                                
                                 exp:{
                                 "C19_EG_distorsion$SBC1$QG1$Q1" : false,
 "C19_EG_distorsion$QG1$Q1" : false,
@@ -1433,16 +1360,13 @@ Vue.component("v4.0.0-C19",
                             template: `<div>
                             <strong>Agreements with other economic operators aimed at distorting competition</strong>
                             <p>Has the economic operator entered into agreements with other economic operators aimed at distorting competition?</p>
-                            <div><div v-html="html_C19_EG_distorsion$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C19_EG_distorsion$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C19_EG_distorsion$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C19_EG_distorsion$SBC1 = renderHTML('C19_EG_distorsion/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C19_EG_distorsion$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C19_EG_distorsion$QG1']?'Yes':'No' }}]</b>
@@ -1486,8 +1410,7 @@ Vue.component("v4.0.0-C20",
                         { 
                             data(){
                                 return {
-                                "html_C20_EG_partic__confl$SBC1": '', 
-
+                                
                                 exp:{
                                 "C20_EG_partic__confl$SBC1$QG1$Q1" : false,
 "C20_EG_partic__confl$QG1$Q1" : false,
@@ -1501,16 +1424,13 @@ Vue.component("v4.0.0-C20",
                             template: `<div>
                             <strong>Conflict of interest due to its participation in the procurement procedure</strong>
                             <p>Is the economic operator aware of any conflict of interest, as indicated in national law, the relevant notice or in the ESPD, the relevant notice or due to its participation in the procurement procedure?</p>
-                            <div><div v-html="html_C20_EG_partic__confl$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C20_EG_partic__confl$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C20_EG_partic__confl$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C20_EG_partic__confl$SBC1 = renderHTML('C20_EG_partic-confl/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C20_EG_partic__confl$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C20_EG_partic__confl$QG1']?'Yes':'No' }}]</b>
@@ -1543,8 +1463,7 @@ Vue.component("v4.0.0-C21",
                         { 
                             data(){
                                 return {
-                                "html_C21_EG_prep__confl$SBC1": '', 
-
+                                
                                 exp:{
                                 "C21_EG_prep__confl$SBC1$QG1$Q1" : false,
 "C21_EG_prep__confl$QG1$Q1" : false,
@@ -1558,16 +1477,13 @@ Vue.component("v4.0.0-C21",
                             template: `<div>
                             <strong>Direct or indirect involvement in the preparation of this procurement procedure</strong>
                             <p>Has the economic operator or an undertaking related to it advised the contracting authority or contracting entity or otherwise been involved in the preparation of the procurement procedure?</p>
-                            <div><div v-html="html_C21_EG_prep__confl$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C21_EG_prep__confl$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C21_EG_prep__confl$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C21_EG_prep__confl$SBC1 = renderHTML('C21_EG_prep-confl/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C21_EG_prep__confl$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C21_EG_prep__confl$QG1']?'Yes':'No' }}]</b>
@@ -1600,8 +1516,7 @@ Vue.component("v4.0.0-C22",
                         { 
                             data(){
                                 return {
-                                "html_C22_EG_sanction$SBC1": '', 
-
+                                
                                 exp:{
                                 "C22_EG_sanction$SBC1$QG1$Q1" : false,
 "C22_EG_sanction$QG1$Q1" : false,
@@ -1617,16 +1532,13 @@ Vue.component("v4.0.0-C22",
                             template: `<div>
                             <strong>Early termination, damages or other comparable sanctions</strong>
                             <p>Has the economic operator experienced that a prior public contract, a prior contract with a contracting entity or a prior concession contract was terminated early, or that damages or other comparable sanctions were imposed in connection with that prior contract?</p>
-                            <div><div v-html="html_C22_EG_sanction$SBC1"></div><b-card footer-tag="footer">
+                            <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C22_EG_sanction$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C22_EG_sanction$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C22_EG_sanction$SBC1 = renderHTML('C22_EG_sanction/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C22_EG_sanction$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C22_EG_sanction$QG1']?'Yes':'No' }}]</b>
@@ -1670,8 +1582,7 @@ Vue.component("v4.0.0-C23",
                         { 
                             data(){
                                 return {
-                                "html_C23_EG_misrepresent$SBC1": '', 
-
+                                
                                 exp:{
                                 "C23_EG_misrepresent$SBC1$QG1$Q1" : false,
 "C23_EG_misrepresent$QG1$Q1" : false,
@@ -1684,16 +1595,13 @@ Vue.component("v4.0.0-C23",
                             template: `<div>
                             <strong>Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure</strong>
                             <p>Can the economic operator confirm that:</p>
-                            <div>a) It has been guilty of serious misrepresentation in supplying the information required for the verification of the absence of grounds for exclusion or the fulfilment of the selection criteria,</div><div>b) It has withheld such information,</div><div>c) It has not been able, without delay, to submit the supporting documents required by a contracting authority or contracting entity, and</div><div>d) It has undertaken to unduly influence the decision making process of the contracting authority or contracting entity, to obtain confidential information that may confer upon it undue advantages in the procurement procedure or to negligently provide misleading information that may have a material influence on decisions concerning exclusion, selection or award?</div><div><div v-html="html_C23_EG_misrepresent$SBC1"></div><b-card footer-tag="footer">
+                            <div>a) It has been guilty of serious misrepresentation in supplying the information required for the verification of the absence of grounds for exclusion or the fulfilment of the selection criteria,</div><div>b) It has withheld such information,</div><div>c) It has not been able, without delay, to submit the supporting documents required by a contracting authority or contracting entity, and</div><div>d) It has undertaken to unduly influence the decision making process of the contracting authority or contracting entity, to obtain confidential information that may confer upon it undue advantages in the procurement procedure or to negligently provide misleading information that may have a material influence on decisions concerning exclusion, selection or award?</div><div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C23_EG_misrepresent$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C23_EG_misrepresent$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C23_EG_misrepresent$SBC1 = renderHTML('C23_EG_misrepresent/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Your answer <b-form-checkbox v-model="exp['C23_EG_misrepresent$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C23_EG_misrepresent$QG1']?'Yes':'No' }}]</b>
@@ -1761,8 +1669,7 @@ Vue.component("v4.0.0-C25",
                         { 
                             data(){
                                 return {
-                                "html_C25_SC_prof__regist$SBC1": '', 
-"html_C25_SC_prof__regist$RG1": '', 
+                                "html_C25_SC_prof__regist$RG1": '', 
 "html_C25_SC_prof__regist$RG1$RSG1": '', 
 
                                 exp:{
@@ -1790,16 +1697,13 @@ Vue.component("v4.0.0-C25",
                             <p>It is enrolled in relevant professional registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C25'] ==='OK'">
-                        <div><div v-html="html_C25_SC_prof__regist$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C25_SC_prof__regist$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C25_SC_prof__regist$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C25_SC_prof__regist$SBC1 = renderHTML('C25_SC_prof-regist/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C25_SC_prof__regist$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C25_SC_prof__regist$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C25']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -1890,8 +1794,7 @@ Vue.component("v4.0.0-C26",
                         { 
                             data(){
                                 return {
-                                "html_C26_SC_trade__regist$SBC1": '', 
-"html_C26_SC_trade__regist$RG1": '', 
+                                "html_C26_SC_trade__regist$RG1": '', 
 "html_C26_SC_trade__regist$RG1$RSG1": '', 
 
                                 exp:{
@@ -1920,16 +1823,13 @@ Vue.component("v4.0.0-C26",
                             <p>It is enrolled in trade registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C26'] ==='OK'">
-                        <div><div v-html="html_C26_SC_trade__regist$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C26_SC_trade__regist$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C26_SC_trade__regist$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C26_SC_trade__regist$SBC1 = renderHTML('C26_SC_trade-regist/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C26_SC_trade__regist$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C26_SC_trade__regist$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C26']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2025,8 +1925,7 @@ Vue.component("v4.0.0-C27",
                         { 
                             data(){
                                 return {
-                                "html_C27_SC_authorisation$SBC1": '', 
-"html_C27_SC_authorisation$SBC1$QG1$QSG1": '', 
+                                "html_C27_SC_authorisation$SBC1$QG1$QSG1": '', 
 "html_C27_SC_authorisation$RG1": '', 
 "html_C27_SC_authorisation$RG1$RSG1": '', 
 
@@ -2058,7 +1957,7 @@ Vue.component("v4.0.0-C27",
                             <p>Is a particular authorisation of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C27'] ==='OK'">
-                        <div><div v-html="html_C27_SC_authorisation$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C27_SC_authorisation$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C27_SC_authorisation$SBC1$QG1']?'Yes':'No' }}]</b>
@@ -2078,10 +1977,7 @@ Vue.component("v4.0.0-C27",
                     </template>
                     </b-card>
                                         </div>
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C27_SC_authorisation$SBC1 = renderHTML('C27_SC_authorisation/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C27_SC_authorisation$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C27_SC_authorisation$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C27']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2177,8 +2073,7 @@ Vue.component("v4.0.0-C28",
                         { 
                             data(){
                                 return {
-                                "html_C28_SC_membership$SBC1": '', 
-"html_C28_SC_membership$SBC1$QG1$QSG1": '', 
+                                "html_C28_SC_membership$SBC1$QG1$QSG1": '', 
 "html_C28_SC_membership$RG1": '', 
 "html_C28_SC_membership$RG1$RSG1": '', 
 
@@ -2210,7 +2105,7 @@ Vue.component("v4.0.0-C28",
                             <p>Is a particular membership of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C28'] ==='OK'">
-                        <div><div v-html="html_C28_SC_membership$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C28_SC_membership$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C28_SC_membership$SBC1$QG1']?'Yes':'No' }}]</b>
@@ -2230,10 +2125,7 @@ Vue.component("v4.0.0-C28",
                     </template>
                     </b-card>
                                         </div>
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C28_SC_membership$SBC1 = renderHTML('C28_SC_membership/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C28_SC_membership$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C28_SC_membership$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C28']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2329,8 +2221,7 @@ Vue.component("v4.0.0-C29",
                         { 
                             data(){
                                 return {
-                                "html_C29_SC_gen__year__to$SBC1": '', 
-"html_C29_SC_gen__year__to$RG1": '', 
+                                "html_C29_SC_gen__year__to$RG1": '', 
 "html_C29_SC_gen__year__to$RG1$RSG1": '', 
 "html_C29_SC_gen__year__to$RG1$RSG1$QSG2": '', 
 
@@ -2363,16 +2254,13 @@ Vue.component("v4.0.0-C29",
                             <p>Its general yearly turnover for the number of financial years required in the relevant notice, the in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C29'] ==='OK'">
-                        <div><div v-html="html_C29_SC_gen__year__to$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C29_SC_gen__year__to$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C29_SC_gen__year__to$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C29_SC_gen__year__to$SBC1 = renderHTML('C29_SC_gen-year-to/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C29_SC_gen__year__to$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C29_SC_gen__year__to$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C29']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2479,8 +2367,7 @@ Vue.component("v4.0.0-C30",
                         { 
                             data(){
                                 return {
-                                "html_C30_SC_aver__year__to$SBC1": '', 
-"html_C30_SC_aver__year__to$RG1": '', 
+                                "html_C30_SC_aver__year__to$RG1": '', 
 
                                 exp:{
                                 "cb_C30": window.espd_model['C30'].selected, 
@@ -2510,16 +2397,13 @@ Vue.component("v4.0.0-C30",
                             <p>Its average yearly turnover for the number of years required in the relevant notice, the procurement documents or the ESPD is as follows:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C30'] ==='OK'">
-                        <div><div v-html="html_C30_SC_aver__year__to$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C30_SC_aver__year__to$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C30_SC_aver__year__to$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C30_SC_aver__year__to$SBC1 = renderHTML('C30_SC_aver-year-to/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C30_SC_aver__year__to$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C30_SC_aver__year__to$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C30']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2615,8 +2499,7 @@ Vue.component("v4.0.0-C31",
                         { 
                             data(){
                                 return {
-                                "html_C31_SC_spec__aver__to$SBC1": '', 
-"html_C31_SC_spec__aver__to$RG1": '', 
+                                "html_C31_SC_spec__aver__to$RG1": '', 
 
                                 exp:{
                                 "cb_C31": window.espd_model['C31'].selected, 
@@ -2647,16 +2530,13 @@ Vue.component("v4.0.0-C31",
                             <p>Its specific average yearly turnover in the business area covered by the contract for the number of years required in the relevant notice, the in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C31'] ==='OK'">
-                        <div><div v-html="html_C31_SC_spec__aver__to$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C31_SC_spec__aver__to$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C31_SC_spec__aver__to$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C31_SC_spec__aver__to$SBC1 = renderHTML('C31_SC_spec-aver-to/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C31_SC_spec__aver__to$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C31_SC_spec__aver__to$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C31']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -2757,8 +2637,7 @@ Vue.component("v4.0.0-C32",
                         { 
                             data(){
                                 return {
-                                "html_C32_SC_spec__year__to$SBC1": '', 
-"html_C32_SC_spec__year__to$RG1": '', 
+                                "html_C32_SC_spec__year__to$RG1": '', 
 "html_C32_SC_spec__year__to$RG1$RSG1$QSG2": '', 
 
                                 exp:{
@@ -2790,16 +2669,13 @@ Vue.component("v4.0.0-C32",
                             <p>Its specific yearly turnover in the business area covered by the contract for the number of financial years required in the relevant notice, in the ESPD, the relevant notice or the ESPD is as follows:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C32'] ==='OK'">
-                        <div><div v-html="html_C32_SC_spec__year__to$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C32_SC_spec__year__to$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C32_SC_spec__year__to$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C32_SC_spec__year__to$SBC1 = renderHTML('C32_SC_spec-year-to/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C32_SC_spec__year__to$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C32_SC_spec__year__to$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C32']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3027,8 +2903,7 @@ Vue.component("v4.0.0-C35",
                         { 
                             data(){
                                 return {
-                                "html_C35_SC_indem__insu$SBC1": '', 
-"html_C35_SC_indem__insu$RG1": '', 
+                                "html_C35_SC_indem__insu$RG1": '', 
 "html_C35_SC_indem__insu$RG1$RSG1": '', 
 
                                 exp:{
@@ -3057,16 +2932,13 @@ Vue.component("v4.0.0-C35",
                             <p>The insured amount in its professional risk indemnity insurance is the following:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C35'] ==='OK'">
-                        <div><div v-html="html_C35_SC_indem__insu$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C35_SC_indem__insu$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C35_SC_indem__insu$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C35_SC_indem__insu$SBC1 = renderHTML('C35_SC_indem-insu/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C35_SC_indem__insu$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C35_SC_indem__insu$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C35']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3156,8 +3028,7 @@ Vue.component("v4.0.0-C36",
                         { 
                             data(){
                                 return {
-                                "html_C36_SC_finan__requ$SBC1": '', 
-"html_C36_SC_finan__requ$RG1": '', 
+                                "html_C36_SC_finan__requ$RG1": '', 
 "html_C36_SC_finan__requ$RG1$RSG1": '', 
 "opt_C36_SC_finan__req" : [{"text":"Economic or Financial","value":0},{"text":"Rating","value":1},{"text":"Descriptive","value":2}],
 "C36_SC_finan__requ$RG1$RSG1$RSG1$RQ1$R1$R1$R1" : 0,
@@ -3194,16 +3065,13 @@ Vue.component("v4.0.0-C36",
                             <p>Concerning the other economic or financial requirements, if any, that may have been specified in the relevant notice or in the ESPD, the economic operator declares that:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C36'] ==='OK'">
-                        <div><div v-html="html_C36_SC_finan__requ$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C36_SC_finan__requ$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C36_SC_finan__requ$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C36_SC_finan__requ$SBC1 = renderHTML('C36_SC_finan-requ/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C36_SC_finan__requ$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C36_SC_finan__requ$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C36']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3321,8 +3189,7 @@ Vue.component("v4.0.0-C37",
                         { 
                             data(){
                                 return {
-                                "html_C37_SC_work__perform$SBC1": '', 
-"html_C37_SC_work__perform$RG1": '', 
+                                "html_C37_SC_work__perform$RG1": '', 
 "html_C37_SC_work__perform$RG1$RSG1$QSG1": '', 
 "html_C37_SC_work__perform$RG1$RSG1$QSG1$QSG1": '', 
 "html_C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1": '', 
@@ -3356,16 +3223,13 @@ Vue.component("v4.0.0-C37",
                             <p>For public works contracts only: During the reference period, the economic operator has performed the following works of the specified type. Contracting authorities may require up to five years and allow experience dating from more than five years.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C37'] ==='OK'">
-                        <div><div v-html="html_C37_SC_work__perform$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C37_SC_work__perform$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C37_SC_work__perform$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C37_SC_work__perform$SBC1 = renderHTML('C37_SC_work-perform/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C37_SC_work__perform$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C37_SC_work__perform$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C37']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3467,8 +3331,7 @@ Vue.component("v4.0.0-C38",
                         { 
                             data(){
                                 return {
-                                "html_C38_SC_supply__perform$SBC1": '', 
-"html_C38_SC_supply__perform$RG1": '', 
+                                "html_C38_SC_supply__perform$RG1": '', 
 "html_C38_SC_supply__perform$RG1$RSG1$QSG1": '', 
 "html_C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1": '', 
 "html_C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1": '', 
@@ -3502,16 +3365,13 @@ Vue.component("v4.0.0-C38",
                             <p>For public supply contracts only: During the reference period, the economic operator has delivered the following principal deliveries of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C38'] ==='OK'">
-                        <div><div v-html="html_C38_SC_supply__perform$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C38_SC_supply__perform$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C38_SC_supply__perform$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C38_SC_supply__perform$SBC1 = renderHTML('C38_SC_supply-perform/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C38_SC_supply__perform$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C38_SC_supply__perform$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C38']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3613,8 +3473,7 @@ Vue.component("v4.0.0-C39",
                         { 
                             data(){
                                 return {
-                                "html_C39_SC_service__perform$SBC1": '', 
-"html_C39_SC_service__perform$RG1": '', 
+                                "html_C39_SC_service__perform$RG1": '', 
 "html_C39_SC_service__perform$RG1$RSG1$QSG1": '', 
 "html_C39_SC_service__perform$RG1$RSG1$QSG1$QSG1": '', 
 "html_C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1": '', 
@@ -3648,16 +3507,13 @@ Vue.component("v4.0.0-C39",
                             <p>For public service contracts only: During the reference period, the economic operator has provided the following main services of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C39'] ==='OK'">
-                        <div><div v-html="html_C39_SC_service__perform$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C39_SC_service__perform$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C39_SC_service__perform$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C39_SC_service__perform$SBC1 = renderHTML('C39_SC_service-perform/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C39_SC_service__perform$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C39_SC_service__perform$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C39']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3759,8 +3615,7 @@ Vue.component("v4.0.0-C40",
                         { 
                             data(){
                                 return {
-                                "html_C40_SC_qual__cont__tech$SBC1": '', 
-"html_C40_SC_qual__cont__tech$RG1": '', 
+                                "html_C40_SC_qual__cont__tech$RG1": '', 
 "html_C40_SC_qual__cont__tech$RG1$RSG1$RSG1": '', 
 "html_C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG2$QSG1": '', 
 "html_C40_SC_qual__cont__tech$RG1$RSG1$RSG1$QSG3$QSG1": '', 
@@ -3798,16 +3653,13 @@ Vue.component("v4.0.0-C40",
                             <p>It can call upon the following technicians or technical bodies, especially those responsible for quality control. For technicians or technical bodies not belonging directly to the economic operator's undertaking but on whose capacities the economic operator relies as set out under Part II, Section C, separate ESPD forms must be filled in.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C40'] ==='OK'">
-                        <div><div v-html="html_C40_SC_qual__cont__tech$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C40_SC_qual__cont__tech$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C40_SC_qual__cont__tech$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C40_SC_qual__cont__tech$SBC1 = renderHTML('C40_SC_qual-cont-tech/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C40_SC_qual__cont__tech$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C40_SC_qual__cont__tech$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C40']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -3925,14 +3777,13 @@ Vue.component("v4.0.0-C40",
                         })
 
 /**
- * Component - C41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:
+ * Component - C41 - SC - For works contracts: technicians or technical bodies to carry out the work
  */
 Vue.component("v4.0.0-C41",
                         { 
                             data(){
                                 return {
-                                "html_C41_SC_work__tech$SBC1": '', 
-"html_C41_SC_work__tech$RG1": '', 
+                                "html_C41_SC_work__tech$RG1": '', 
 "html_C41_SC_work__tech$RG1$RSG1$RSG1": '', 
 "html_C41_SC_work__tech$RG1$RSG1$RSG1$QSG2$QSG1": '', 
 "html_C41_SC_work__tech$RG1$RSG1$RSG1$QSG3$QSG1": '', 
@@ -3966,20 +3817,17 @@ Vue.component("v4.0.0-C41",
                             },
                             template: `<div>
                         <b-form-checkbox id="checkbox-C41" v-model="exp['cb_C41']" :disabled="window.espd_doc.role === 'eo'" name="checkbox-C41" value="OK" unchecked-value="KO">
-                            <strong>In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:</strong>
+                            <strong>For works contracts: technicians or technical bodies to carry out the work</strong>
                             <p>In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C41'] ==='OK'">
-                        <div><div v-html="html_C41_SC_work__tech$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C41_SC_work__tech$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C41_SC_work__tech$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C41_SC_work__tech$SBC1 = renderHTML('C41_SC_work-tech/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C41_SC_work__tech$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C41_SC_work__tech$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C41']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4103,8 +3951,7 @@ Vue.component("v4.0.0-C42",
                         { 
                             data(){
                                 return {
-                                "html_C42_SC_qual__facil$SBC1": '', 
-"html_C42_SC_qual__facil$RG1": '', 
+                                "html_C42_SC_qual__facil$RG1": '', 
 "html_C42_SC_qual__facil$RG1$RSG1$RSG1": '', 
 
                                 exp:{
@@ -4130,16 +3977,13 @@ Vue.component("v4.0.0-C42",
                             <p>It uses the following technical facilities and measures for ensuring quality and its study and research facilities are as follows:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C42'] ==='OK'">
-                        <div><div v-html="html_C42_SC_qual__facil$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C42_SC_qual__facil$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C42_SC_qual__facil$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C42_SC_qual__facil$SBC1 = renderHTML('C42_SC_qual-facil/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C42_SC_qual__facil$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C42_SC_qual__facil$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C42']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4216,8 +4060,7 @@ Vue.component("v4.0.0-C43",
                         { 
                             data(){
                                 return {
-                                "html_C43_SC_research__fac$SBC1": '', 
-"html_C43_SC_research__fac$RG1": '', 
+                                "html_C43_SC_research__fac$RG1": '', 
 "html_C43_SC_research__fac$RG1$RSG1$RSG1": '', 
 
                                 exp:{
@@ -4243,16 +4086,13 @@ Vue.component("v4.0.0-C43",
                             <p>It uses the following study and research facilities are as follows:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C43'] ==='OK'">
-                        <div><div v-html="html_C43_SC_research__fac$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C43_SC_research__fac$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C43_SC_research__fac$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C43_SC_research__fac$SBC1 = renderHTML('C43_SC_research-fac/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C43_SC_research__fac$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C43_SC_research__fac$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C43']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4329,8 +4169,7 @@ Vue.component("v4.0.0-C44",
                         { 
                             data(){
                                 return {
-                                "html_C44_SC_chain__manage$SBC1": '', 
-"html_C44_SC_chain__manage$RG1": '', 
+                                "html_C44_SC_chain__manage$RG1": '', 
 "html_C44_SC_chain__manage$RG1$RSG1$RSG1": '', 
 
                                 exp:{
@@ -4356,16 +4195,13 @@ Vue.component("v4.0.0-C44",
                             <p>It will be able to apply the following supply chain management and tracking systems when performing the contract:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C44'] ==='OK'">
-                        <div><div v-html="html_C44_SC_chain__manage$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C44_SC_chain__manage$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C44_SC_chain__manage$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C44_SC_chain__manage$SBC1 = renderHTML('C44_SC_chain-manage/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C44_SC_chain__manage$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C44_SC_chain__manage$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C44']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4442,8 +4278,7 @@ Vue.component("v4.0.0-C45",
                         { 
                             data(){
                                 return {
-                                "html_C45_SC_envir__measure$SBC1": '', 
-"html_C45_SC_envir__measure$RG1": '', 
+                                "html_C45_SC_envir__measure$RG1": '', 
 "html_C45_SC_envir__measure$RG1$RSG1$RSG1": '', 
 
                                 exp:{
@@ -4469,16 +4304,13 @@ Vue.component("v4.0.0-C45",
                             <p>The economic operator will be able to apply the following environmental management measures when performing the contract:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C45'] ==='OK'">
-                        <div><div v-html="html_C45_SC_envir__measure$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C45_SC_envir__measure$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C45_SC_envir__measure$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C45_SC_envir__measure$SBC1 = renderHTML('C45_SC_envir-measure/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C45_SC_envir__measure$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C45_SC_envir__measure$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C45']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4555,8 +4387,7 @@ Vue.component("v4.0.0-C46",
                         { 
                             data(){
                                 return {
-                                "html_C46_SC_tech__equip$SBC1": '', 
-"html_C46_SC_tech__equip$RG1": '', 
+                                "html_C46_SC_tech__equip$RG1": '', 
 "html_C46_SC_tech__equip$RG1$RSG1$RSG1": '', 
 
                                 exp:{
@@ -4582,16 +4413,13 @@ Vue.component("v4.0.0-C46",
                             <p>The following tools, plant or technical equipment will be available to it for performing the contract:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C46'] ==='OK'">
-                        <div><div v-html="html_C46_SC_tech__equip$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C46_SC_tech__equip$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C46_SC_tech__equip$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C46_SC_tech__equip$SBC1 = renderHTML('C46_SC_tech-equip/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C46_SC_tech__equip$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C46_SC_tech__equip$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C46']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4668,8 +4496,7 @@ Vue.component("v4.0.0-C47",
                         { 
                             data(){
                                 return {
-                                "html_C47_SC_qualification$SBC1": '', 
-"html_C47_SC_qualification$RG1": '', 
+                                "html_C47_SC_qualification$RG1": '', 
 "html_C47_SC_qualification$RG1$RSG1$RSG1": '', 
 "html_C47_SC_qualification$RG1$RSG1$RSG1$QSG2$QSG1": '', 
 
@@ -4704,16 +4531,13 @@ Vue.component("v4.0.0-C47",
                             <p>The following educational and professional qualifications are held by the service provider or the contractor itself, and/or (depending on the requirements set out in the relevant notice or the in the ESPD, the relevant notice or by its managerial staff.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C47'] ==='OK'">
-                        <div><div v-html="html_C47_SC_qualification$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C47_SC_qualification$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C47_SC_qualification$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C47_SC_qualification$SBC1 = renderHTML('C47_SC_qualification/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C47_SC_qualification$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C47_SC_qualification$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C47']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4825,8 +4649,7 @@ Vue.component("v4.0.0-C48",
                         { 
                             data(){
                                 return {
-                                "html_C48_SC_spec__req__check$SBC1": '', 
-"html_C48_SC_spec__req__check$RG1": '', 
+                                "html_C48_SC_spec__req__check$RG1": '', 
 "html_C48_SC_spec__req__check$RG1$RSG1": '', 
 
                                 exp:{
@@ -4852,16 +4675,13 @@ Vue.component("v4.0.0-C48",
                             <p>For complex products or services to be supplied or, exceptionally, for products or services which are required for a special purpose: The economic operator will allow checks to be conducted on the production capacities or the technical capacity of the economic operator and, where necessary, on the means of study and research which are available to it and on the quality control measures? The check is to be performed by the contracting authority or, in case the latter consents to this, on its behalf by a competent official body of the country in which the supplier or service provider is established.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C48'] ==='OK'">
-                        <div><div v-html="html_C48_SC_spec__req__check$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C48_SC_spec__req__check$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C48_SC_spec__req__check$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C48_SC_spec__req__check$SBC1 = renderHTML('C48_SC_spec-req-check/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C48_SC_spec__req__check$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C48_SC_spec__req__check$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C48']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -4938,8 +4758,7 @@ Vue.component("v4.0.0-C49",
                         { 
                             data(){
                                 return {
-                                "html_C49_SC_manage__staff$SBC1": '', 
-"html_C49_SC_manage__staff$RG1": '', 
+                                "html_C49_SC_manage__staff$RG1": '', 
 "html_C49_SC_manage__staff$RG1$RSG1$QSG2": '', 
 
                                 exp:{
@@ -4967,16 +4786,13 @@ Vue.component("v4.0.0-C49",
                             <p>The economic operator’s number of managerial staff for the last three years were as follows:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C49'] ==='OK'">
-                        <div><div v-html="html_C49_SC_manage__staff$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C49_SC_manage__staff$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C49_SC_manage__staff$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C49_SC_manage__staff$SBC1 = renderHTML('C49_SC_manage-staff/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C49_SC_manage__staff$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C49_SC_manage__staff$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C49']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5062,8 +4878,7 @@ Vue.component("v4.0.0-C50",
                         { 
                             data(){
                                 return {
-                                "html_C50_SC_year__manpower$SBC1": '', 
-"html_C50_SC_year__manpower$RG1": '', 
+                                "html_C50_SC_year__manpower$RG1": '', 
 "html_C50_SC_year__manpower$RG1$RSG1$QSG2": '', 
 
                                 exp:{
@@ -5091,16 +4906,13 @@ Vue.component("v4.0.0-C50",
                             <p>The economic operator’s average annual manpower for the last three years were as follows:</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C50'] ==='OK'">
-                        <div><div v-html="html_C50_SC_year__manpower$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C50_SC_year__manpower$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C50_SC_year__manpower$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C50_SC_year__manpower$SBC1 = renderHTML('C50_SC_year-manpower/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C50_SC_year__manpower$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C50_SC_year__manpower$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C50']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5186,8 +4998,7 @@ Vue.component("v4.0.0-C51",
                         { 
                             data(){
                                 return {
-                                "html_C51_SC_suncont__port$SBC1": '', 
-
+                                
                                 exp:{
                                 "cb_C51": window.espd_model['C51'].selected, 
 "C51_SC_suncont__port$SBC1$QG1$Q1" : false,
@@ -5208,16 +5019,13 @@ Vue.component("v4.0.0-C51",
                             <p>The economic operator intends possibly to subcontract the following proportion (i.e. percentage) of the contract. Please note that if the economic operator has decided to subcontract a part of the contract and relies on the subcontractor’s capacities to perform that part, then please fill in a separate ESPD for such subcontractors, see Part II, Section C above.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C51'] ==='OK'">
-                        <div><div v-html="html_C51_SC_suncont__port$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C51_SC_suncont__port$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C51_SC_suncont__port$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C51_SC_suncont__port$SBC1 = renderHTML('C51_SC_suncont-port/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="exp['C51_SC_suncont__port$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C51_SC_suncont__port$QG1']?'Yes':'No' }}]</b>
@@ -5267,8 +5075,7 @@ Vue.component("v4.0.0-C52",
                         { 
                             data(){
                                 return {
-                                "html_C52_SC_wo__autent$SBC1": '', 
-
+                                
                                 exp:{
                                 "cb_C52": window.espd_model['C52'].selected, 
 "C52_SC_wo__autent$SBC1$QG1$Q1" : false,
@@ -5289,16 +5096,13 @@ Vue.component("v4.0.0-C52",
                             <p>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied, which do not need to be accompanied by certifications of authenticity.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C52'] ==='OK'">
-                        <div><div v-html="html_C52_SC_wo__autent$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C52_SC_wo__autent$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C52_SC_wo__autent$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C52_SC_wo__autent$SBC1 = renderHTML('C52_SC_wo-autent/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="exp['C52_SC_wo__autent$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C52_SC_wo__autent$QG1']?'Yes':'No' }}]</b>
@@ -5348,8 +5152,7 @@ Vue.component("v4.0.0-C53",
                         { 
                             data(){
                                 return {
-                                "html_C53_SC_w__autent$SBC1": '', 
-
+                                
                                 exp:{
                                 "cb_C53": window.espd_model['C53'].selected, 
 "C53_SC_w__autent$SBC1$QG1$Q1" : false,
@@ -5370,16 +5173,13 @@ Vue.component("v4.0.0-C53",
                             <p>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied and will provide certifications of authenticity where applicable.</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C53'] ==='OK'">
-                        <div><div v-html="html_C53_SC_w__autent$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C53_SC_w__autent$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C53_SC_w__autent$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C53_SC_w__autent$SBC1 = renderHTML('C53_SC_w-autent/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em>
+                        </div></div><em>LEGISLATION</em>
                         <div>
                                             <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="exp['C53_SC_w__autent$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C53_SC_w__autent$QG1']?'Yes':'No' }}]</b>
@@ -5429,8 +5229,7 @@ Vue.component("v4.0.0-C54",
                         { 
                             data(){
                                 return {
-                                "html_C54_SC_qa__certif__inst$SBC1": '', 
-"html_C54_SC_qa__certif__inst$RG1": '', 
+                                "html_C54_SC_qa__certif__inst$RG1": '', 
 "html_C54_SC_qa__certif__inst$RG1$RSG1": '', 
 
                                 exp:{
@@ -5457,16 +5256,13 @@ Vue.component("v4.0.0-C54",
                             <p>Can the economic operator provide the required certificates drawn up by official quality control institutes or agencies of recognised competence attesting the conformity of products clearly identified by references to the technical specifications or standards, which are set out in the relevant notice or the in the ESPD, the relevant notice or ?</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C54'] ==='OK'">
-                        <div><div v-html="html_C54_SC_qa__certif__inst$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C54_SC_qa__certif__inst$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C54_SC_qa__certif__inst$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C54_SC_qa__certif__inst$SBC1 = renderHTML('C54_SC_qa-certif-inst/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C54_SC_qa__certif__inst$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C54_SC_qa__certif__inst$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C54']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5550,8 +5346,7 @@ Vue.component("v4.0.0-C55",
                         { 
                             data(){
                                 return {
-                                "html_C55_SC_qu__certif__indep$SBC1": '', 
-"html_C55_SC_qu__certif__indep$RG1": '', 
+                                "html_C55_SC_qu__certif__indep$RG1": '', 
 "html_C55_SC_qu__certif__indep$RG1$RSG1": '', 
 
                                 exp:{
@@ -5578,16 +5373,13 @@ Vue.component("v4.0.0-C55",
                             <p>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required quality assurance standards, including accessibility for disabled persons?</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C55'] ==='OK'">
-                        <div><div v-html="html_C55_SC_qu__certif__indep$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C55_SC_qu__certif__indep$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C55_SC_qu__certif__indep$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C55_SC_qu__certif__indep$SBC1 = renderHTML('C55_SC_qu-certif-indep/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C55_SC_qu__certif__indep$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C55_SC_qu__certif__indep$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C55']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>
@@ -5671,8 +5463,7 @@ Vue.component("v4.0.0-C56",
                         { 
                             data(){
                                 return {
-                                "html_C56_SC_envir__certif__indep$SBC1": '', 
-"html_C56_SC_envir__certif__indep$RG1": '', 
+                                "html_C56_SC_envir__certif__indep$RG1": '', 
 "html_C56_SC_envir__certif__indep$RG1$RSG1": '', 
 
                                 exp:{
@@ -5699,16 +5490,13 @@ Vue.component("v4.0.0-C56",
                             <p>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required environmental management systems or standards?</p>
                         </b-form-checkbox>
                         <template v-if="exp['cb_C56'] ==='OK'">
-                        <div><div v-html="html_C56_SC_envir__certif__indep$SBC1"></div><b-card footer-tag="footer">
+                        <div>
                         <div><div>[Additional information; e.g. no evidences online]</div>
                                             <br/>[Q] Your Answer <b-form-checkbox v-model="exp['C56_SC_envir__certif__indep$SBC1$QG1']" name="check-button" inline="true" switch>
                                                      <b>[{{ exp['C56_SC_envir__certif__indep$SBC1$QG1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                        </div><template #footer>
-                        <b-button variant="success" @click="html_C56_SC_envir__certif__indep$SBC1 = renderHTML('C56_SC_envir-certif-indep/SBC1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card></div><em>LEGISLATION</em><div><div v-html="html_C56_SC_envir__certif__indep$RG1"></div><b-card footer-tag="footer">
+                        </div></div><em>LEGISLATION</em><div><div v-html="html_C56_SC_envir__certif__indep$RG1"></div><b-card footer-tag="footer">
                         <b-form-group label-class="font-weight-bold" label="[R] LOT Identifier" label-for="tags-component-select_item">
                             <b-form-tags id="tags-component-select_item" v-model="exp['lotid_C56']"
                                 size="lg" class="mb-2" add-on-change no-outer-focus>

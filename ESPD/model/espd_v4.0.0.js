@@ -1,6 +1,6 @@
 /**
  * VueJS components for ESDP-EDM 
- * generated on 2024-10-01T19:03:39.933Z 
+ * generated on 2024-10-25T06:20:06.038Z 
  */
 
 
@@ -2988,7 +2988,7 @@ Vue.component("v4.0.0 - C40 - SC",
 
 /**
  * Version - v4.0.0
- * Component - C41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:
+ * Component - C41 - SC - For works contracts: technicians or technical bodies to carry out the work
  */
 Vue.component("v4.0.0 - C41 - SC",
                     { 
@@ -3002,14 +3002,14 @@ Vue.component("v4.0.0 - C41 - SC",
 }
                         },
                         template: `<div>
-                        <b-card title="C41 - SC - In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:">
+                        <b-card title="C41 - SC - For works contracts: technicians or technical bodies to carry out the work">
                             <b-card-text>In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:</b-card-text>
-                        <b-card><p>[Description of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p>
+                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text>
                                         <b-form-group> 
                                         QUESTION Your Answer [1] <b-form-checkbox id="radio-group-160" v-model="selected160" name="radio-options160" inline="true"  switch><b>({{ selected160?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                    </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card><p>Requirement Group to define different lots with different requirements <em>Requirement Group to define different lots with different requirements</em> [<em>1..n</em>]</p>
+                    </b-card></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>

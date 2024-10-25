@@ -12,7 +12,14 @@ if (localStorage.getItem("language")) {
   sessionStorage.setItem("language", i18n.feedbackLocale);
 }
 
-//Auxiliary function for Bootsrap toast messages
+/**
+ * Auxiliary function for Bootsrap toast messages
+ * 
+ * @param {string} message - the message to be displayed 
+ * @param {string} title - title of the window
+ * @param {string} type - type of message box
+ * @param {string} href - the link to be displayed
+ */
 function showToast(message, title = 'Message from server', type = 'info', href = '') {
   window.app.$bvToast.toast(message,
     {
@@ -249,6 +256,26 @@ function JS2XML(what, date = new Date()) {
   return result
 }
 
+/**
+ *  Transofrom a string into a JavaScript Property
+ *  JavaScript identfier can nontain Unicode letters, $, _ and digits, and may not start with a digit
+ */
+var stringToProperty = function(str){
+
+  const dict = [
+      { what_to_replace: '-', to_replace_with: '__'},
+      { what_to_replace: '/', to_replace_with: '$'},
+      { what_to_replace: '@', to_replace_with: '$$'}
+  ]
+
+  let result= str
+
+  for (const element of dict) {
+      result = result.replaceAll(element.what_to_replace, element.to_replace_with)
+  }
+
+  return result
+}
 
 /**
  * Render the elementes of JSON to XML ESPD Request, and ESPD Response - the Request part
@@ -678,14 +705,17 @@ function renderHTML(part, data_load) {
   //mimic cardinality so that when building the response path
   let root = target[0].substring(0, target[0].indexOf('_'))
   if(!Object.hasOwn(window.espd_data, root)) window.espd_data[root] = {}
-
+  let parent = window.espd_data[root]
   for (let index = 1; index < target.length; index++) {
     //TODO - build the reccursion path elements Rx
+    //Build an array of objects
+    if(!Object.hasOwn(parent, target[index])) parent[target[index]] = []
+    parent = parent[target[index]]
     dest = dest.components[target[index]]
   }
   console.log(dest)
 
-  result = `<div class="card">
+  result = `<div class="card mb-1" id='${part}'>
   <div class="card-body">
   `
   for (const key in dest.components) {
@@ -721,5 +751,5 @@ function renderHTML(part, data_load) {
 
 function deleteHTML(part) {
   console.log(part);
-  
+  window.app.$children[6].$refs['procedureComponent'].$refs['v4.0.0-C61'][0]._data[`html_${stringToProperty(part)}`]=''
 }

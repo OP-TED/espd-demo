@@ -32,7 +32,7 @@ Vue.component("startComponent", {
                     if (thecall.ok) {
                         window.espd_model = data
                         //build the components for this version on demand
-                        //factoryComponents()
+                        componentsFactory()
                     }
                 } catch (error) {
                     console.log(error)
@@ -43,8 +43,8 @@ Vue.component("startComponent", {
     },
 
     updated(){
-        saveData(this.exp)
         this.$store.commit('savekv', {key:'start', value:this.exp})  
+        window.espd_doc = this.exp
     },
 
     created(){
@@ -75,7 +75,7 @@ Vue.component("startComponent", {
                         window.espd_model = data
                         window.espd_data = {}
                         //create the components for this version based on the model
-                        //factoryComponents()
+                        componentsFactory()
                     }
                 }
             } catch (error) {

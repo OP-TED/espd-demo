@@ -75,8 +75,11 @@
 
     <!-- Translation file -->
     <script src="src/js/messages.js"></script>
-    <!-- Vuejs utility functions -->
+    
+    <!-- Utility library and functions -->
     <script src="src/js/utils.js"></script>
+    <script src="src/js/pdb.js"></script>
+    <script src="src/js/espd.js"></script>
 
     <!-- Vue components and application logic -->
     <script src="ESPD/model/espd_common.js"></script>
@@ -122,7 +125,7 @@
                 </b-nav>
               </div>
             <!-- Main content here -->
-            <component v-bind:is="mainComponent"></component>
+            <component v-bind:is="mainComponent" ref="mainComponent"></component>
         </main>
         <!--<footer class="footer">-->
             <!-- We want footer content here -->

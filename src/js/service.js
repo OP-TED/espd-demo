@@ -16,28 +16,6 @@ Vue.component("service", {
 
     methods: {
         nextStep() {
-            //Get the data from child components using $refs, check and merge with data from window
-            /*
-            let key = this.steps[this.crt_step].component
-            switch (key) {
-                case 'startComponent':
-                    console.log(this.$refs[key]._data)
-                    break;
-                case 'procedureComponent': case 'exclusionGrounds': case 'selectionCriteria': case 'ESPDdownload':
-                    console.log(this.$refs[key]._data)
-                    for (const el in window.espd_model) {
-                        if (Object.hasOwn(window.espd_model, el)) {
-                            const element = window.espd_model[el];
-                            if(Object.hasOwn(this.$refs[key].$refs, `${window.espd_doc.espd_version}-${el}`))
-                                console.log(this.$refs[key]?.$refs[`${window.espd_doc.espd_version}-${el}`][0]._data)
-                        }
-                    }
-                    break
-                default:
-                    console.log(key)
-                    break;
-            }
-            */
             this.crt_step = Math.min(this.crt_step + 1, this.steps.length - 1)
 
         },
@@ -47,7 +25,6 @@ Vue.component("service", {
     },
 
     created() {
-        if (window.espd_doc) delete window.espd_doc
         window.espd_doc = {}
     },
 

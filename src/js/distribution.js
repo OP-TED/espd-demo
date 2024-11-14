@@ -465,13 +465,12 @@ Vue.component("distribution", {
     template: `
   <b-card title="ESPD Distribution">
     <b-card-text>
-    Select the ESPD version and generate the ESPD Distribution ZIP files. The archives contain Code Lists and Model files. The Excel files can be downloaded separately.
+    Select the ESPD version and click the corresponding buttons to generate the ESPD Distribution ZIP files. The Excel files contain the Code Lists definition, and the ESPD EDM data structure. The archives contain Code Lists in GC format.
     </b-card-text>
-
-    <b-form-group label-cols="4" label-cols-lg="2" label-size="sm" label="ESPD version" label-for="input-espdversion">
+    <b-form-group label-cols="2" label-cols-lg="2" label-size="sm" content-cols="3" label="ESPD version" label-for="input-espdversion">
         <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
     </b-form-group>
-    
+
     <b-row>
         <b-col >
         Code Lists

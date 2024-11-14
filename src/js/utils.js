@@ -42,10 +42,11 @@ function showToast(message, title = 'Message from server', type = 'info', href =
   window.app.$bvToast.toast(message,
     {
       title: title,
-      toaster: 'b-toaster-bottom-center',
+      toaster: 'b-toaster-top-center',
       href: href,
       solid: true,
       variant: type,
+      noAutoHide: true,
       appendToast: true
     })
 }

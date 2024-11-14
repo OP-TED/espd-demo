@@ -44,7 +44,7 @@ Vue.component('exclusionGrounds', {
         <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-e1 variant="info">A: Grounds relating to criminal convictions</b-button>
         </b-card-header>
-        <b-collapse id="accordion-e1" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-e1" accordion="my-accordion" visible role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIII']['A']">
                 <component v-bind:is="item" :ref="item"></component>
             </b-card-body>

@@ -603,7 +603,10 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
 
                     Vue.component(`${window.espd_doc.espd_version}-${el}`, {
                         data() { return {...d}},
-                        template: `${result.template}`
+                        template: `${result.template}`,
+                        created(){
+                            window.espd_ds.get(el).save(el, this.exp)
+                        }
                     })
                 
             
@@ -956,6 +959,7 @@ class ESPD {
     structure = new Map()
     cardinalities = new Map()
     raw_data
+    static #tags = ['QUESTION', 'REQUIREMENT', 'REQUIREMENT_GROUP', 'REQUIREMENT_SUBGROUP', 'QUESTION_GROUP', 'QUESTION_SUBGROUP', 'SUBCRITERION']
 
     constructor(tag, obj){
         this.tag = tag
@@ -967,6 +971,28 @@ class ESPD {
 
     get tag(){
         return this.tag
+    }
+
+    save(path, obj){
+        console.log(path, obj)
+        if (path == this.tag){
+        //strore the entrire structure, only values, zero size arrays do not matter
+            for (const key in obj) {
+                if (Object.hasOwn(obj, key)) {
+                    const element = obj[key]
+                    if (!Array.isArray(element)){
+                        //store this value
+                        let target = path.split('/').slice(1) 
+                        //dest = window.espd_ds.get(tag).store
+                        //target.shift()
+                    }
+                }
+            }
+            
+        }else{
+        //add sub structure
+        }
+
     }
 
     #buildCardinalities(obj){
@@ -1004,7 +1030,7 @@ class ESPD {
         for (const key in obj) {
             if (Object.hasOwn(obj, key)) {
                 const element = obj[key];
-                if(['QUESTION', 'REQUIREMENT', 'REQUIREMENT_GROUP', 'REQUIREMENT_SUBGROUP', 'QUESTION_GROUP', 'QUESTION_SUBGROUP', 'SUBCRITERION'].indexOf(element.type) == -1) continue
+                if(ESPD.#tags.indexOf(element.type) == -1) continue
                 if(Object.hasOwn(element, 'components')){
                     result.set(key, [this.#buildStore(element.components)])
                 }else{

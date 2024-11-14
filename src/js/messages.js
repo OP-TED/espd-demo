@@ -5,11 +5,11 @@ const messages = {
         hello: 'Hello!'
       },
       mainmenu: {
-        distribution: 'Export',
-        codelists: 'Code Lists',
-        uuid: 'UUID',
-        model: 'View',
-        service: 'Examples'
+        distribution: 'Artefacts Export',
+        codelists: 'Explore Code Lists',
+        uuid: 'eCertis integration',
+        model: 'View ESDP model',
+        service: 'Generate ESPD Examples'
       }
     },
     fr: {

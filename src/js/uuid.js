@@ -86,7 +86,7 @@ Vue.component("uuid", {
             const eCertis_URL="https://ec.europa.eu/growth/tools-databases/ecertisrest/criteria/espd"
             const checkURL = async() => {
                 try {
-                    showToast('Cheking UUID in eCertis ... this may take a couple of minutes.','eCertis check','info','')
+                    showToast('Checking UUID in eCertis ... this may take a couple of minutes.','eCertis check','info','')
                     let thecall = await fetch(`${eCertis_URL}/${item.uuid.replace('\r','').trim()}`)
                     let thedata = await thecall.text()
                     if (thecall.ok){
@@ -110,12 +110,15 @@ Vue.component("uuid", {
     },
 
     template: `
-    <b-card title="ESPD UUID search">
+    <b-card title="ESPD Model search">
+    <b-card-text>
+    Use the Filter fileld to search by UUID, version number or any text. The data set includes only Selection Criteria and Exclusion Grounds. You can check the actual content in eCertis by clicking on the button to the right. 
+    </b-card-text>
         <b-row>
             <b-col sm="4" lg="4" md="4" class="mb-3">
                 <b-form-group label="Filter" label-for="filter-input" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
                     <b-input-group size="sm">
-                        <b-form-input id="filter-input" v-model="filter" type="search" placeholder="Type UUID to Search"></b-form-input>
+                        <b-form-input id="filter-input" v-model="filter" type="search" placeholder="Type UUID, version, on any text to Search"></b-form-input>
 
                     <b-input-group-append>
                         <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>

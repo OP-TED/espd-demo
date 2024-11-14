@@ -267,7 +267,7 @@ Vue.component("codelists", {
 
     <b-card title="ESPD Code Lists" footer-tag="footer">
     <b-card-text>
-    Select the ESPD version and the code list in order to explore the contents. At the bottom of the page you can view the translations for each entry of the code list.  
+    Select the ESPD version and the code list to explore the contents. At the bottom of the page, you can view the translations for each entry in the code list.
     </b-card-text>
     <b-row>
         <b-col lg="6">

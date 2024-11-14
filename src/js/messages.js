@@ -5,7 +5,7 @@ const messages = {
         hello: 'Hello!'
       },
       mainmenu: {
-        distribution: 'Artefacts Export',
+        distribution: 'Export Artifacts',
         codelists: 'Explore Code Lists',
         uuid: 'eCertis integration',
         model: 'View ESDP model',

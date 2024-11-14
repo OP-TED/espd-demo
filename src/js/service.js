@@ -34,7 +34,7 @@ Vue.component("service", {
     template: `
     <b-card title="ESPD Examples Generator">
         <b-card-text>
-        Select desired ESPD version and generate ESPD Request examples as Contracting Authority or ESPD Response examples Economic Operator. Fill in the corresponding fields and click Next to compete the forms. You can download the XML document at the end.
+        Select the desired ESPD version and generate either ESPD Request examples as a Contracting Authority, or ESPD Response examples as an Economic Operator. Fill in the corresponding fields and click Next to complete the forms. You can download the generated XML document at the end.
         </b-card-text>
 
         <div>

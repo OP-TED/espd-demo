@@ -54,7 +54,7 @@ Vue.component("model", {
   template: `
   <b-card title="ESPD Model viewer">
     <b-card-text>
-    Select the ESPD version and the Criterion and show the HTML represenation of the ESPD model.
+    Select the desired ESPD version and Criterion to show the HTML representation of the ESPD Model.    
     </b-card-text>
   <b-row>
     <b-col  lg="4">

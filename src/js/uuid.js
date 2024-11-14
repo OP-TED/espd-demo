@@ -110,15 +110,15 @@ Vue.component("uuid", {
     },
 
     template: `
-    <b-card title="ESPD Model search">
+    <b-card title="ESPD Model eCertis integration">
     <b-card-text>
-    Use the Filter fileld to search by UUID, version number or any text. The data set includes only Selection Criteria and Exclusion Grounds. You can check the actual content in eCertis by clicking on the button to the right. 
+    Use the Filter field to search by UUID, version number, or any other text. The data set only includes Selection Criteria and Exclusion Grounds. You can check the actual content in eCertis by clicking on the button to the right. 
     </b-card-text>
         <b-row>
             <b-col sm="4" lg="4" md="4" class="mb-3">
                 <b-form-group label="Filter" label-for="filter-input" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
                     <b-input-group size="sm">
-                        <b-form-input id="filter-input" v-model="filter" type="search" placeholder="Type UUID, version, on any text to Search"></b-form-input>
+                        <b-form-input id="filter-input" v-model="filter" type="search" placeholder="Type UUID, version, or any text to Search"></b-form-input>
 
                     <b-input-group-append>
                         <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>

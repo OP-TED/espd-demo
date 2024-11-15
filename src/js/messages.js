@@ -8,7 +8,7 @@ const messages = {
         distribution: 'Export Artifacts',
         codelists: 'Explore Code Lists',
         uuid: 'eCertis integration',
-        model: 'View ESDP model',
+        model: 'View ESPD model',
         service: 'Generate ESPD Examples'
       }
     },

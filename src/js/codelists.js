@@ -114,7 +114,7 @@ Vue.component("codelists", {
             this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
             this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['LongName'] ?? ''
             this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['Identifier']?.['@Identifier'] ?? ''
-            this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/ESPD/ESPD-EDM/')) ? 'technical' : 'external'
+            this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/')) ? 'technical' : 'external'
             this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
 
             gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {

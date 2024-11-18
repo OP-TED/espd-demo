@@ -29,64 +29,20 @@ Vue.component("codelists", {
                 'show_details'
             ],
             language_fields: [
-                "bul",
-                "spa",
-                "ces",
-                "dan",
-                "deu",
-                "est",
-                "ell",
-                "eng",
-                "fra",
-                "gle",
-                "hrv",
-                "ita",
-                "lav",
-                "lit",
-                "hun",
-                "mlt",
-                "nld",
-                "pol",
-                "por",
-                "ron",
-                "slk",
-                "slv",
-                "fin",
-                "swe"
+                "bul","spa","ces","dan","deu","est","ell","eng","fra","gle","hrv","ita","lav","lit","hun","mlt","nld","pol","por","ron","slk","slv","fin","swe"
             ],
             scl_fileds: [
                 'Code', 'Status'
             ],
             theFile: '',
             loading: true,
-            timeout: null,
             show: true
         }
     },
-    beforeDestroy() {
-        this.clearTimeout()
-    },
 
     methods: {
-        clearTimeout() {
-            if (this.timeout) {
-                clearTimeout(this.timeout)
-                this.timeout = null
-            }
-        },
-        setTimeout(callback) {
-            this.clearTimeout()
-            this.timeout = setTimeout(() => {
-                this.clearTimeout()
-                callback()
-            }, 3000)
-        },
-
-        loadCodeList(item){
-
-            this.setTimeout(() => {
-                this.loading = false
-            })
+        
+        loadCodeList(item){            
             //transform XML to JSON
             this.crt_list = {
                 'ShortName': '',
@@ -157,6 +113,8 @@ Vue.component("codelists", {
             for (const fld in this.crt_list.fields) {
                 this.crt_list.table.push(this.crt_list.fields[fld])
             }
+            this.loading = false
+
         },
 
         selectCodeList(event) {
@@ -170,10 +128,10 @@ Vue.component("codelists", {
             const dataURL = ['ESPD/codelists/']
             this.version = event
             this.sources = {}
+            this.loading = true
 
             const getData = async () => {
 
-                this.loading = true
                 this.codelists = this.raw_data[this.version]
 
                 //load only the 1st version lists

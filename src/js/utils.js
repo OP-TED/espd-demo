@@ -151,22 +151,101 @@ function JS2XML(what, date = new Date()) {
  * 
  * @param {string} str - the string to be transformed to JSON property 
  */
-function stringToProperty(str){
+function stringToProperty(str) {
 
   const dict = [
-      { what_to_replace: '-', to_replace_with: '__'},
-      { what_to_replace: '/', to_replace_with: '$'},
-      { what_to_replace: '@', to_replace_with: '$$'}
+    { what_to_replace: '-', to_replace_with: '__' },
+    { what_to_replace: '/', to_replace_with: '$' },
+    { what_to_replace: '@', to_replace_with: '$$' }
   ]
 
-  let result= str
+  let result = str
 
   for (const element of dict) {
-      result = result.replaceAll(element.what_to_replace, element.to_replace_with)
+    result = result.replaceAll(element.what_to_replace, element.to_replace_with)
   }
 
   return result
 }
 
+/**
+ * Transform XML GC format to JSON
+ * 
+ * @param {string} xmlsource - XML string to be converted to JSON 
+ */
+function gc2JSON(xmlsource) {
+  let crt_list = {
+    'ShortName': '',
+    'LongName': '',
+    'ListID': '',
+    'Version': '',
+    'CanonicalUri': '',
+    'CanonicalVersionUri': '',
+    'LocationUri': '',
+    'AgencyLongName': '',
+    'AgencyIdentifier': '',
+    'type': '',
+    'name': '',
+    'table': [],
+    'fields': {}
+  }
+
+  let gcJSON = xmlbuilder2.create(xmlsource).end({ format: 'object' })
+
+  crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
+  crt_list.LongName = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName']) ? gcJSON['gc:CodeList']['Identification']['LongName'][0] : gcJSON['gc:CodeList']['Identification']['LongName']['#']
+  crt_list.ListID = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName']) ? gcJSON['gc:CodeList']['Identification']['LongName'][1]['#'] : gcJSON['gc:CodeList']['Identification']['LongName']['#']
+  crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
+  crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
+  crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicalVersionUri']
+  crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
+  crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['LongName'] ?? ''
+  crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['Identifier']?.['@Identifier'] ?? ''
+  crt_list.type = (crt_list.CanonicalUri.startsWith('https://github.com/')) ? 'technical' : 'external'
+  crt_list.name = (crt_list.type == 'external') ? crt_list.LongName : crt_list.ListID
+
+  gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
+    let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] :
+      (element['Value'][0]['@ColumnRef'].toLowerCase() == 'code' ? element['Value'][0]['SimpleValue'] : '__PLACEHOLDER__')
+    element['Value'].forEach(elm => {
+      if (!Object.hasOwn(crt_list.fields, nodename)) crt_list.fields[nodename] = {}
+      switch (elm['@ColumnRef'].toLowerCase()) {
+        case 'code':
+          if (Object.hasOwn(crt_list.fields, '__PLACEHOLDER__')) {
+            crt_list.fields[nodename] = crt_list.fields['__PLACEHOLDER__']
+            delete crt_list.fields['__PLACEHOLDER__']
+          }
+          crt_list.fields[nodename]["Code"] = elm['SimpleValue']
+          break;
+
+        case 'name':
+          if (nodename == '__PLACEHOLDER__') nodename = elm['SimpleValue']
+          if (Object.hasOwn(crt_list.fields, '__PLACEHOLDER__')) {
+            crt_list.fields[nodename] = crt_list.fields['__PLACEHOLDER__']
+            delete crt_list.fields['__PLACEHOLDER__']
+          }
+          crt_list.fields[nodename]["Name"] = elm['SimpleValue']
+          break;
+
+        case 'status':
+          crt_list.fields[nodename]["Status"] = elm['SimpleValue']
+          break;
+
+        default:
+          //check for specific labels
+          crt_list.fields[nodename][elm['@ColumnRef'].replace('name-', '').replace('_label', '')] = elm['SimpleValue']
+          break;
+      }
+    })
+
+  });
+
+  crt_list.table = []
+  for (const fld in crt_list.fields) {
+    crt_list.table.push(crt_list.fields[fld])
+  }
+
+  return crt_list
+}
 
 

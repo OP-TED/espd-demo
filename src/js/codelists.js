@@ -42,84 +42,13 @@ Vue.component("codelists", {
 
     methods: {
         
-        loadCodeList(item){            
-            //transform XML to JSON
-            this.crt_list = {
-                'ShortName': '',
-                'LongName': '',
-                'ListID': '',
-                'Version': '',
-                'CanonicalUri': '',
-                'CanonicalVersionUri': '',
-                'LocationUri': '',
-                'AgencyLongName': '',
-                'AgencyIdentifier': '',
-                'type': '',
-                'name': '',
-                'table': [],
-                'fields': {}
-            }
-
-            let gcJSON = xmlbuilder2.create(this.sources[item]).end({ format: 'object' })
-            this.crt_list.ShortName = gcJSON['gc:CodeList']['Identification']['ShortName']
-            this.crt_list.LongName = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName']) ? gcJSON['gc:CodeList']['Identification']['LongName'][0] : gcJSON['gc:CodeList']['Identification']['LongName']['#']
-            this.crt_list.ListID = Array.isArray(gcJSON['gc:CodeList']['Identification']['LongName']) ? gcJSON['gc:CodeList']['Identification']['LongName'][1]['#'] : gcJSON['gc:CodeList']['Identification']['LongName']['#']
-            this.crt_list.Version = gcJSON['gc:CodeList']['Identification']['Version']
-            this.crt_list.CanonicalUri = gcJSON['gc:CodeList']['Identification']['CanonicalUri']
-            this.crt_list.CanonicalVersionUri = gcJSON['gc:CodeList']['Identification']['CanonicalVersionUri']
-            this.crt_list.LocationUri = gcJSON['gc:CodeList']['Identification']['LocationUri']
-            this.crt_list.AgencyLongName = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['LongName'] ?? ''
-            this.crt_list.AgencyIdentifier = gcJSON['gc:CodeList']['Identification']?.['Agency']?.['Identifier']?.['@Identifier'] ?? ''
-            this.crt_list.type = (this.crt_list.CanonicalUri.startsWith('https://github.com/')) ? 'technical' : 'external'
-            this.crt_list.name = (this.crt_list.type == 'external') ? this.crt_list.LongName : this.crt_list.ListID
-
-            gcJSON['gc:CodeList']['SimpleCodeList']['Row'].forEach(element => {
-                let nodename = element['Value'][1]['@ColumnRef'] == 'Name' ? element['Value'][1]['SimpleValue'] :
-                    (element['Value'][0]['@ColumnRef'].toLowerCase() == 'code' ? element['Value'][0]['SimpleValue'] : '__PLACEHOLDER__')
-                element['Value'].forEach(elm => {
-                    if (!Object.hasOwn(this.crt_list.fields, nodename)) this.crt_list.fields[nodename] = {}
-                    switch (elm['@ColumnRef'].toLowerCase()) {
-                        case 'code':
-                            if (Object.hasOwn(this.crt_list.fields, '__PLACEHOLDER__')) {
-                                this.crt_list.fields[nodename] = this.crt_list.fields['__PLACEHOLDER__']
-                                delete this.crt_list.fields['__PLACEHOLDER__']
-                            }
-                            this.crt_list.fields[nodename]["Code"] = elm['SimpleValue']
-                            break;
-
-                        case 'name':
-                            if (nodename == '__PLACEHOLDER__') nodename = elm['SimpleValue']
-                            if (Object.hasOwn(this.crt_list.fields, '__PLACEHOLDER__')) {
-                                this.crt_list.fields[nodename] = this.crt_list.fields['__PLACEHOLDER__']
-                                delete this.crt_list.fields['__PLACEHOLDER__']
-                            }
-                            this.crt_list.fields[nodename]["Name"] = elm['SimpleValue']
-                            break;
-
-                        case 'status':
-                            this.crt_list.fields[nodename]["Status"] = elm['SimpleValue']
-                            break;
-
-                        default:
-                            //check for specific labels
-                            this.crt_list.fields[nodename][elm['@ColumnRef'].replace('name-', '').replace('_label', '')] = elm['SimpleValue']
-                            break;
-                    }
-                })
-
-            });
-
-            this.crt_list.table = []
-            for (const fld in this.crt_list.fields) {
-                this.crt_list.table.push(this.crt_list.fields[fld])
-            }
-            this.loading = false
-
-        },
-
         selectCodeList(event) {
-            this.loading = true
-            this.loadCodeList(event)
+            //this.loading = true
+            this.crt_list = gc2JSON(this.sources[event])
+            this.$nextTick(function () {
+                //console.log(this.$el.textContent) // => 'updated'
+                this.loading = false
+              })
         },
 
         selectVersion(event) {
@@ -146,9 +75,12 @@ Vue.component("codelists", {
                     }
                 }
                 this.codelist = this.codelists[0]
-                this.loadCodeList(this.codelist)
+                this.crt_list = gc2JSON(this.sources[this.codelist])
+                this.loading = false
+
             }
             getData()
+
         },
 
         ViewXML() {
@@ -208,7 +140,9 @@ Vue.component("codelists", {
                         }
                     }
                     this.codelist = this.codelists[0]
-                    this.loadCodeList(this.codelist)
+                    this.crt_list = gc2JSON(this.sources[this.codelist])
+                    this.loading = false
+
                 }
             } catch (error) {
                 console.log("Error!", error)
@@ -221,22 +155,24 @@ Vue.component("codelists", {
     template: `
     <template>
     <div>
-    <b-overlay :show="loading" rounded="sm">
 
     <b-card title="ESPD Code Lists" footer-tag="footer">
     <b-card-text>
     Select the ESPD version and the code list to explore the contents. At the bottom of the page, you can view the translations for each entry in the code list.
     </b-card-text>
     <b-row>
-        <b-col lg="6">
+        <b-col lg="4">
         <b-form-group label-cols="2" label-cols-lg="2" label-size="sm" content-cols="3" label="ESPD version" label-for="input-espdversion">
             <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
         </b-form-group>
         </b-col>
-        <b-col lg="6">
+        <b-col lg="4">
         <b-form-group label-cols="2" label-cols-lg="2" label-size="sm" content-cols="3" label="Code list" label-for="input-codelist">
             <b-form-select id="input-codelist" v-model="codelist" :options="codelists" @change="selectCodeList($event)"></b-form-select>
         </b-form-group>
+        </b-col>
+        <b-col lg="4">
+        <em>Type: </em>{{crt_list.type}}
         </b-col>
     </b-row>
 
@@ -250,11 +186,7 @@ Vue.component("codelists", {
         <b>Location URI: </b>{{crt_list.LocationUri}}<br/>
         <b>Agency Long Name: </b>{{crt_list.AgencyLongName}}<br/>
         <b>Agency Identifier: </b>{{crt_list.AgencyIdentifier}}<br/>
-        <em>Type: </em>{{crt_list.type}}<br/>
-        <em>Name: </em>{{crt_list.name}}<br/>
-
     
-
         <b-table striped hover responsive :items="crt_list.table" :fields="details_fields" :no-local-sorting=true>
         <template #cell(show_details)="row">
             <b-button pill variant="warning" size="sm" @click="row.toggleDetails" class="mr-2">
@@ -276,6 +208,7 @@ Vue.component("codelists", {
             </b-row>
         </template>
     </b-card>
+    <b-overlay :show="loading" no-wrap>
     </b-overlay>
     </div>
     </template>

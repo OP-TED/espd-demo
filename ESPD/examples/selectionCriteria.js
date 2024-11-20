@@ -57,7 +57,7 @@ Vue.component('selectionCriteria', {
         <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-s1 variant="info">A: Suitability</b-button>
         </b-card-header>
-        <b-collapse id="accordion-s1" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-s1" accordion="my-accordion" visible role="tabpanel">
             <b-card-body v-for="item in espd_structure['partIV']['A']">
                 <component v-bind:is="item"  :ref="item"></component>
             </b-card-body>

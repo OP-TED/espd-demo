@@ -104,7 +104,7 @@ Vue.component("codelists", {
     Select the ESPD version and the code list to explore the contents. At the bottom of the page, you can view the translations for each entry in the code list.
     </b-card-text>
     <b-form-row class="mb-2" align-v="center">
-        <b-col class="text-right">
+        <b-col cols="2" class="text-right">
             <label class="mr-sm-2" for="input-espdversion">ESPD version</label>
         </b-col>
         <b-col cols="1">
@@ -116,7 +116,7 @@ Vue.component("codelists", {
         <b-col cols="3">
             <b-form-select id="input-codelist" size="sm" v-model="codelist" :options="codelists" @change="selectCodeList($event)"></b-form-select>
         </b-col>
-        <b-col lg="5">
+        <b-col lg="4">
             <em>Type: </em>{{crt_list.type}}
         </b-col>
     </b-form-row>
@@ -132,7 +132,7 @@ Vue.component("codelists", {
         <b>Agency Long Name: </b>{{crt_list.AgencyLongName}}<br/>
         <b>Agency Identifier: </b>{{crt_list.AgencyIdentifier}}<br/>
     
-        <b-table striped hover responsive :items="crt_list.table" :fields="details_fields" :no-local-sorting=true>
+        <b-table class="mt-2" striped hover responsive :items="crt_list.table" :fields="details_fields" :no-local-sorting=true>
         <template #cell(show_details)="row">
             <b-button pill variant="warning" size="sm" @click="row.toggleDetails" class="mr-2">
                 {{ row.detailsShowing ? 'Close' : 'Translations'}}

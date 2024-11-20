@@ -103,22 +103,24 @@ Vue.component("codelists", {
     <b-card-text>
     Select the ESPD version and the code list to explore the contents. At the bottom of the page, you can view the translations for each entry in the code list.
     </b-card-text>
-    <b-row>
-        <b-col lg="4">
-        <b-form-group label-cols="2" label-cols-lg="2" label-size="sm" content-cols="3" label="ESPD version" label-for="input-espdversion">
-            <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
-        </b-form-group>
+    <b-form-row class="mb-2" align-v="center">
+        <b-col class="text-right">
+            <label class="mr-sm-2" for="input-espdversion">ESPD version</label>
         </b-col>
-        <b-col lg="4">
-        <b-form-group label-cols="2" label-cols-lg="2" label-size="sm" content-cols="3" label="Code list" label-for="input-codelist">
-            <b-form-select id="input-codelist" v-model="codelist" :options="codelists" @change="selectCodeList($event)"></b-form-select>
-        </b-form-group>
+        <b-col cols="1">
+            <b-form-select id="input-espdversion" size="sm" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
         </b-col>
-        <b-col lg="4">
-        <em>Type: </em>{{crt_list.type}}
+        <b-col cols="2" class="text-right">
+            <label class="mr-sm-2" for="input-codelist">Code list</label>
         </b-col>
-    </b-row>
-
+        <b-col cols="3">
+            <b-form-select id="input-codelist" size="sm" v-model="codelist" :options="codelists" @change="selectCodeList($event)"></b-form-select>
+        </b-col>
+        <b-col lg="5">
+            <em>Type: </em>{{crt_list.type}}
+        </b-col>
+    </b-form-row>
+    
         <!-- Display read only data as static HTML -->
         <b>Short Name: </b>{{crt_list.ShortName}}
         <b> Long Name: </b>{{crt_list.LongName}}<br/>

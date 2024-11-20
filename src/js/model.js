@@ -56,19 +56,22 @@ Vue.component("model", {
     <b-card-text>
     Select the desired ESPD version and Criterion to show the HTML representation of the ESPD Model.    
     </b-card-text>
-  <b-row>
-    <b-col  lg="4">
-    <b-form-group label-cols="2" label-cols-lg="2" label-size="sm" content-cols="2" label="ESPD version" label-for="input-espdversion">
-            <b-form-select id="input-espdversion" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
-    </b-form-group>
+    
+  <b-form-row class="mb-2" align-v="center">
+    <b-col class="text-right">
+    <label class="mr-sm-2" for="input-espdversion">ESPD version</label>
     </b-col>
-    <b-col  lg="8">
-    <b-form-group label-cols="1" label-cols-lg="1" label-size="sm" content-cols="10" label="Cirterion" label-for="input-model">
-        <b-form-select id="input-model" v-model="model" :options="models" @change="selectModel($event)"></b-form-select>
-    </b-form-group>
+    <b-col cols="1">
+    <b-form-select id="input-espdversion" size="sm" v-model="version" :options="versions" @change="selectVersion($event)"></b-form-select>
     </b-col>
-  </b-row>
-    <comonent :is="model"></component>
+    <b-col cols="1" class="text-right">
+    <label class="mr-sm-2" for="input-model">Criterion</label>
+    </b-col>
+    <b-col cols="8">
+    <b-form-select id="input-model" size="sm" v-model="model" :options="models" @change="selectModel($event)"></b-form-select>
+  </b-col>
+  </b-form-row>
+    <component :is="model"></component>
   </b-card>  
     `
 });

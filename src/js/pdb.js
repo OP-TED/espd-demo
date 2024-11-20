@@ -7,7 +7,7 @@
  * PouchDB global variable - browser persistent storage
  */
 
-var GlobalPouchDB = new PouchDB('espd_demo', { auto_compaction: true})
+var GlobalPouchDB = new PouchDB('espd_demo', { auto_compaction: true })
 
 /**
  * Upsert document in PouchDB
@@ -56,18 +56,17 @@ const loadData = async () => {
       //store code_lists in PouchDB
       const response = await pdb_upsert('code_lists', data.code_lists)
       //get the files process them and store them as JSON document
-      for(const ver in data.code_lists) {
-          if (Object.hasOwn(data.code_lists, ver)) {
-             const fname_arr = data.code_lists[ver]
-             for (const fname of fname_arr) {
-              let thecall = await fetch(`ESPD/codelists/${ver}/${fname}.gc`)
-              let xmldata = await thecall.text()
-               if (thecall.ok) {
-                   const res = await pdb_upsert(`${ver}_${fname}`, {ver: ver, fname: fname, ... gc2JSON(xmldata)})
-               }
-               
-             }
-           }
+      for (const ver in data.code_lists) {
+        if (Object.hasOwn(data.code_lists, ver)) {
+          const fname_arr = data.code_lists[ver]
+          for (const fname of fname_arr) {
+            let thecall = await fetch(`ESPD/codelists/${ver}/${fname}.gc`)
+            let xmldata = await thecall.text()
+            if (thecall.ok) {
+              const res = await pdb_upsert(`${ver}_${fname}`, { ver: ver, fname: fname, ...gc2JSON(xmldata) })
+            }
+          }
+        }
       }
       console.log(response);
     }

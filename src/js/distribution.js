@@ -320,6 +320,7 @@ Vue.component("distribution", {
                     });
             }
         },
+        
         DownloadZIP(what) {
             if (what == 'codelist') {
                 //type == external => fetch; type == technical => build XML

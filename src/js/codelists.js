@@ -1,11 +1,7 @@
 Vue.component("codelists", {
     data() {
         return {
-            raw_data: {},
             codelist: null,
-            codelists: [],
-            sources: {},
-            versions: [],
             version: null,
             crt_list: {
                 'ShortName': '',
@@ -29,7 +25,7 @@ Vue.component("codelists", {
                 'show_details'
             ],
             language_fields: [
-                "bul","spa","ces","dan","deu","est","ell","eng","fra","gle","hrv","ita","lav","lit","hun","mlt","nld","pol","por","ron","slk","slv","fin","swe"
+                "bul", "spa", "ces", "dan", "deu", "est", "ell", "eng", "fra", "gle", "hrv", "ita", "lav", "lit", "hun", "mlt", "nld", "pol", "por", "ron", "slk", "slv", "fin", "swe"
             ],
             scl_fileds: [
                 'Code', 'Status'
@@ -40,47 +36,32 @@ Vue.component("codelists", {
         }
     },
 
+    computed: {
+        versions() {
+            return this.$store.state.esdp_versions
+        },
+        codelists() {
+            return this.$store.state.code_list[this.version]
+        }
+    },
+
     methods: {
-        
+
         selectCodeList(event) {
-            //this.loading = true
-            this.crt_list = gc2JSON(this.sources[event])
+            this.loading = true
+            this.crt_list = this.$store.state.cl_files[`${this.version}_${event}`]
             this.$nextTick(function () {
                 //console.log(this.$el.textContent) // => 'updated'
                 this.loading = false
-              })
+            })
         },
 
         selectVersion(event) {
-            //console.log(event);
-            //load the lista data from server
-            const dataURL = ['ESPD/codelists/']
-            this.version = event
-            this.sources = {}
             this.loading = true
-
-            const getData = async () => {
-
-                this.codelists = this.raw_data[this.version]
-
-                //load only the 1st version lists
-                //each time when the version or lists are changed 
-                for (const elm of this.codelists) {
-                    if (!Object.hasOwn(this.sources, elm)) this.sources[elm] = {}
-                    thecall = await fetch(`${dataURL}/${this.version}/${elm}.gc`)
-                    data = await thecall.text()
-                    if (thecall.ok) {
-                        this.sources[elm] = data
-                        //console.log(data);
-                    }
-                }
-                this.codelist = this.codelists[0]
-                this.crt_list = gc2JSON(this.sources[this.codelist])
-                this.loading = false
-
-            }
-            getData()
-
+            this.version = event
+            this.codelist = this.codelists[0]
+            this.crt_list = this.$store.state.cl_files[`${this.version}_${this.codelist}`]
+            this.loading = false
         },
 
         ViewXML() {
@@ -103,53 +84,15 @@ Vue.component("codelists", {
     },
 
     created() {
-        const dataURL = ['ESPD/codelists/']
-
-        const getData = async () => {
-            this.loading = true
-            try {
-                let thecall = await fetch(`${dataURL}/codelist.json`)
-                let data = await thecall.json()
-                if (thecall.ok) {
-                    this.raw_data = data.code_lists
-
-                    //console.log(data)
-                    this.versions = []
-                    //get the rest of the files
-                    for (const ver in this.raw_data) {
-                        if (Object.hasOwnProperty.call(this.raw_data, ver)) {
-                            const v = this.raw_data[ver];
-                            this.versions.push(ver)
-                            //console.log(v);
-                        }
-                    }
-                    this.versions.sort()
-                    this.version = this.versions[0]
-                    this.codelists = this.raw_data[this.versions[0]]
-
-                    //load only the 1st version lists
-                    //each time when the version or lists are changed 
-                    for (const elm of this.codelists) {
-                        if (!Object.hasOwn(this.sources, elm)) this.sources[elm] = {}
-                        thecall = await fetch(`${dataURL}/${this.version}/${elm}.gc`)
-                        //data is in XML format
-                        data = await thecall.text()
-                        if (thecall.ok) {
-                            this.sources[elm] = data
-                            //console.log(JSON.stringify(xmlbuilder2.create(data).end({ format: 'object' }), null, 4));
-                        }
-                    }
-                    this.codelist = this.codelists[0]
-                    this.crt_list = gc2JSON(this.sources[this.codelist])
-                    this.loading = false
-
-                }
-            } catch (error) {
-                console.log("Error!", error)
-            }
+        if (this.versions.length > 0) {
+            this.versions.sort()
+            this.version = this.versions[0]
+            this.codelist = this.codelists[0]
+            this.crt_list = this.$store.state.cl_files[`${this.version}_${this.codelist}`]
+            this.loading = false
+        } else {
+            console.log('Data initialization failed. Consult the log console for errors!')
         }
-
-        getData()
     },
 
     template: `

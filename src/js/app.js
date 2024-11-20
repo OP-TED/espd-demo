@@ -20,12 +20,30 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state() {
 		return {
-			espd_doc: {}
+			espd_doc: {},
+			code_list: {},
+			esdp_versions:[],
+			cl_files: {},
 		}
 	},
 	mutations: {
 		savekv(state, payload) {
 			state.espd_doc[payload.key] = payload.value
+		},
+		init_code_list(state) {
+			GlobalPouchDB.get('code_lists', function (err, doc) {
+				if (err) return console.log(err)
+				state.code_list=doc.data
+				state.esdp_versions = Object.keys(doc.data)
+				let keys = []
+				state.esdp_versions.forEach((v) => state.code_list[v].forEach((fn) => { keys.push(`${v}_${fn}`)}))
+				GlobalPouchDB.allDocs({include_docs: true, keys: keys}, function(err, response){
+					if (err) return console.log(err)
+					for (const element of response.rows) {
+						state.cl_files[element.doc._id] = element.doc.data
+					}
+				})
+			})
 		}
 	}
 })
@@ -56,5 +74,5 @@ window.app = new Vue({
 
 })
 
-
-
+window.app.showLayout({ currentHeader: 'publicHeader', mainComponent: 'home', currentFooter: 'publicFooter' })
+store.commit('init_code_list')

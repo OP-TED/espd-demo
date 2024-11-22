@@ -122,15 +122,15 @@ Vue.component("codelists", {
     </b-form-row>
     
         <!-- Display read only data as static HTML -->
-        <b>Short Name: </b>{{crt_list.ShortName}}
-        <b> Long Name: </b>{{crt_list.LongName}}<br/>
-        <b>List ID: </b>{{crt_list.ListID}}
-        <b> Version: </b>{{crt_list.Version}}<br/>
+        <b>Short Name: </b>{{crt_list.ShortName}}&nbsp;&nbsp;
+        <b>Long Name: </b>{{crt_list.LongName}}<br/>
+        <b>Agency Long Name: </b>{{crt_list.AgencyLongName}}&nbsp;&nbsp;
+        <b>Agency Identifier: </b>{{crt_list.AgencyIdentifier}}<br/>
+        <b>List ID: </b>{{crt_list.ListID}}&nbsp;&nbsp;
+        <b>Version: </b>{{crt_list.Version}}<br/>
         <b>Canonical URI: </b>{{crt_list.CanonicalUri}}<br/>
         <b>Canonical Version URI: </b>{{crt_list.CanonicalVersionUri}}<br/>
         <b>Location URI: </b>{{crt_list.LocationUri}}<br/>
-        <b>Agency Long Name: </b>{{crt_list.AgencyLongName}}<br/>
-        <b>Agency Identifier: </b>{{crt_list.AgencyIdentifier}}<br/>
     
         <b-table class="mt-2" striped hover responsive :items="crt_list.table" :fields="details_fields" :no-local-sorting=true>
         <template #cell(show_details)="row">

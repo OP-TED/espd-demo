@@ -615,21 +615,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
 
                 case 'SUBCRITERION':
                     result.template += `<div>`
-                    /*
-                    if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
-                        result.data_part += `"html_${stringToProperty(fragment[el].requestpath)}": '', \n`
-                        result.template += `<div v-html="html_${stringToProperty(fragment[el].requestpath)}"></div><b-card footer-tag="footer">`
-                    }
-                    */
-                    if (Object.hasOwn(fragment[el], 'components')) result = json2ESPD_v4(fragment[el].components, result)
-                    /*
-                    if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
-                        result.template += `<template #footer>
-                        <b-button variant="success" @click="html_${stringToProperty(fragment[el].requestpath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
-                        </template>
-                        </b-card>`
-                    }
-                    */
+                    if (Object.hasOwn(fragment[el], 'components')) result = json2ESPD_v4(fragment[el].components, result) 
                     result.template += `</div>`
                     break;
 
@@ -744,7 +730,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                                         //local_indicator = (result.sel_count + '').padStart(2, '0')
                                         local_indicator = `${stringToProperty(fragment[el].requestpath)}`
                                         result.template += `
-                                            <b-form-checkbox v-if="window.espd_doc.role == 'eo'" v-model="exp['${local_indicator}']" name="check-button" inline="true" switch>
+                                            <b-form-checkbox v-model="exp['${local_indicator}']" name="check-button" inline="true" switch>
                                                      [Q] ${tmp_cmp.description} <b>[{{ exp['${local_indicator}']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             `
@@ -809,7 +795,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                                         result.exp[`${stringToProperty(tmp_cmp.responsepath)}`] = false
                                         local_indicator_qsg = `${stringToProperty(tmp_cmp.responsepath)}`
                                         result.template += `
-                                            <b-form-checkbox  v-if="window.espd_doc.role == 'eo'" v-model="exp['${local_indicator_qsg}']" name="check-button" inline="true" switch>
+                                            <b-form-checkbox v-model="exp['${local_indicator_qsg}']" name="check-button" inline="true" switch>
                                                     [Q] ${tmp_cmp.description}  <b>[{{ exp['${local_indicator_qsg}']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             `

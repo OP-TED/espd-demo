@@ -555,7 +555,7 @@ function componentsFactory() {
 }
 
 /**
- * Auxiliary function to transform espd_json to Vue components that can be used in ESPD Response
+ * Auxiliary function to transform espd_json to Vue components that can be used in ESPD Examples
  * JSON to BootstrapVue for ESPD v4.0.0 tranformation
  * @param {*} fragment - JSON object to be processed
  * @param {*} result - JSON object to conserver the result
@@ -590,9 +590,8 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                             `
                     }
                     if (Object.hasOwn(fragment[el], 'components')) result = json2ESPD_v4(fragment[el].components, result)
-                    if (fragment[el].tag.endsWith('- SC')) result.template += `</template>`
-                    result.template += `
-                    </div>`
+                    if (fragment[el].tag.endsWith('- SC')) result.template += '</template>'
+                    result.template += '</div>'
                     //Produce Vue component
                     // exp: {} - is data that is exchanged at top level
                     // 
@@ -609,18 +608,17 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                         }
                     })
                 
-            
                     //DONE - return result
                     break;
 
                 case 'SUBCRITERION':
-                    result.template += `<div>`
+                    result.template += '<div>'
                     if (Object.hasOwn(fragment[el], 'components')) result = json2ESPD_v4(fragment[el].components, result) 
-                    result.template += `</div>`
+                    result.template += '</div>'
                     break;
 
                 case 'REQUIREMENT_GROUP':
-                    result.template += `<div>`
+                    result.template += '<div>'
                     if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                         result.data_part[`html_${stringToProperty(fragment[el].requestpath)}`] = ''
                         result.template += `<div v-html="html_${stringToProperty(fragment[el].requestpath)}"></div><b-card footer-tag="footer">`
@@ -630,16 +628,16 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
 
                     if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                         result.template += `<template #footer>
-                    <b-button variant="success" @click="html_${stringToProperty(fragment[el].requestpath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button size="sm" variant="success" @click="html_${stringToProperty(fragment[el].requestpath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card>`
                     }
-                    result.template += `</div>`
+                    result.template += '</div>'
 
                     break;
 
                 case 'REQUIREMENT_SUBGROUP':
-                    result.template += `<div>`
+                    result.template += '<div>'
 
                     if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                         result.data_part[`html_${stringToProperty(fragment[el].requestpath)}`]=''
@@ -668,15 +666,8 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                                         result[option_variable] = opt_var
                                         result.exp[`${select_variable}`] = result[option_variable][0].value
                                         result.template += `<b-form-group label-class="font-weight-bold"  label="[R] ${tmp_cmp.description}" v-slot="{ ariaDescribedby }">
-                                    <b-form-radio-group
-                                        id="radio-group-${local_indicator}"
-                                        v-model="exp.${select_variable}"
-                                        :options="${option_variable}"
-                                        :aria-describedby="ariaDescribedby"
-                                        name="radio-options"
-                                    ></b-form-radio-group>
-                                    </b-form-group>
-                                    `
+                                    <b-form-radio-group id="radio-group-${local_indicator}" v-model="exp.${select_variable}" :options="${option_variable}" :aria-describedby="ariaDescribedby" name="radio-options"></b-form-radio-group>
+                                    </b-form-group>`
                                     } else {
                                         //render normally this element
                                         result = json2ESPD_v4({ e: tmp_cmp }, result)
@@ -686,7 +677,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                                         //The section is shown depending on the value in elementcode field
                                         result.template += `<template v-if="exp.${select_variable}===${result[option_variable].find(ae => ae.text == tmp_cmp.elementcode).value}">`
                                         result = json2ESPD_v4({ e: tmp_cmp }, result)
-                                        result.template += `</template>`
+                                        result.template += '</template>'
                                     } else {
                                         //render normally this element
                                         result = json2ESPD_v4({ e: tmp_cmp }, result)
@@ -701,7 +692,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
 
                     if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                         result.template += `<template #footer>
-                        <b-button variant="success" @click="html_${stringToProperty(fragment[el].requestpath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                        <b-button size="sm" variant="success" @click="html_${stringToProperty(fragment[el].requestpath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                         </template>
                         </b-card>`
                     }
@@ -743,17 +734,14 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                                 if (['QUESTION_GROUP', 'QUESTION_SUBGROUP'].indexOf(tmp_cmp.type) != -1) {
                                     if (['ONTRUE', 'ONFALSE'].indexOf(tmp_cmp.elementcode) != -1) {
                                         result.template += `
-                                        <div v-if="window.espd_doc.role == 'eo' && ${tmp_cmp.elementcode == 'ONTRUE' ? '' : '!'}exp['${local_indicator}']">
-                                        `
+                                        <div v-if="window.espd_doc.role == 'eo' && ${tmp_cmp.elementcode == 'ONTRUE' ? '' : '!'}exp['${local_indicator}']">`
                                         result = json2ESPD_v4({ e: tmp_cmp }, result)
-                                        result.template += `
-                                        </div>`
                                     }
                                     if (tmp_cmp.elementcode == 'ON*') {
                                         result.template += `<div  v-if="window.espd_doc.role == 'eo'">`
                                         result = json2ESPD_v4({ e: tmp_cmp }, result)
-                                        result.template += '</div>'
                                     }
+                                    result.template += '</div>'
                                 }
 
                                 if (tmp_cmp.type == 'CAPTION') {
@@ -761,7 +749,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                                 }
 
                                 if (tmp_cmp.type == 'LEGISLATION') {
-                                    result.template += `<em>LEGISLATION</em>`
+                                    result.template += '<em>LEGISLATION</em>'
                                 }
                             }
                         }
@@ -769,7 +757,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
 
                     if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                         result.template += `<template #footer>
-                    <b-button variant="success" @click="html_${stringToProperty(fragment[el].requestpath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button size="sm" variant="success" @click="html_${stringToProperty(fragment[el].requestpath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card>`
                     }
@@ -822,7 +810,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                                 }
 
                                 if (tmp_cmp.type == 'LEGISLATION') {
-                                    result.template += `<em>LEGISLATION</em>`
+                                    result.template += '<em>LEGISLATION</em>'
                                 }
                             }
                         }
@@ -830,7 +818,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
 
                     if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                         result.template += `<template #footer>
-                    <b-button variant="success" @click="html_${stringToProperty(fragment[el].responsepath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button size="sm" variant="success" @click="html_${stringToProperty(fragment[el].responsepath)} = renderHTML('${fragment[el].requestpath}', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card>`
                     }
@@ -866,7 +854,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                     break;
 
                 case 'LEGISLATION':
-                    result.template += `<em>LEGISLATION</em>`
+                    result.template += '<em>LEGISLATION</em>'
                     break;
 
                 case 'ADDITIONAL_DESCRIPTION_LINE': case 'CAPTION':
@@ -923,6 +911,14 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
     }
 
     return result
+}
+
+/**
+ * Auxiliary function to transform the espd_json to Vue component for HTML visualisation
+ * JSON to BootstrapVue for ESPD v4.0.0
+ */
+function json2HTML_v4(fragment, result){
+    
 }
 
 /**

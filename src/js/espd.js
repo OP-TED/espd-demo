@@ -711,13 +711,13 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
 
                 case 'QUESTION_GROUP':
                     let local_indicator = ''
-                    result.template += `
-                        <div v-if="window.espd_doc.role == 'eo'">`
+                    result.template += `<div v-if="window.espd_doc.role == 'eo'">`
                     if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                         result.data_part[`html_${stringToProperty(fragment[el].requestpath)}`] = ''
                         result.template += `<div v-html="html_${stringToProperty(fragment[el].requestpath)}"></div>
                         <b-card  v-if="window.espd_doc.role == 'eo'" footer-tag="footer">`
                     }
+
                     if (Object.hasOwn(fragment[el], 'components')) {
                         for (const e in fragment[el].components) {
                             if (Object.hasOwn(fragment[el].components, e)) {
@@ -774,12 +774,12 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                     </b-card>`
                     }
 
-                    result.template += `
-                        </div>`
+                    result.template += '</div>'
                     break;
 
                 case 'QUESTION_SUBGROUP':
                     let local_indicator_qsg = ''
+                    result.template += `<div v-if="window.espd_doc.role == 'eo'">`
                     if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                         result.data_part[`html_${stringToProperty(fragment[el].responsepath)}`] = ''
                         result.template += `<div v-html="html_${stringToProperty(fragment[el].responsepath)}"></div>
@@ -790,15 +790,14 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                         for (const e in fragment[el].components) {
                             if (Object.hasOwn(fragment[el].components, e)) {
                                 let tmp_cmp = fragment[el].components[e]
+
                                 if (tmp_cmp.type == 'QUESTION') {
                                     if (tmp_cmp.propertydatatype == 'INDICATOR') {
                                         result.exp[`${stringToProperty(tmp_cmp.responsepath)}`] = false
                                         local_indicator_qsg = `${stringToProperty(tmp_cmp.responsepath)}`
-                                        result.template += `
-                                            <b-form-checkbox v-model="exp['${local_indicator_qsg}']" name="check-button" inline="true" switch>
-                                                    [Q] ${tmp_cmp.description}  <b>[{{ exp['${local_indicator_qsg}']?'Yes':'No' }}]</b>
-                                            </b-form-checkbox>
-                                            `
+                                        result.template += `<b-form-checkbox v-if="window.espd_doc.role == 'eo'" v-model="exp['${local_indicator_qsg}']" name="check-button" inline="true" switch>
+                                                            [Q] ${tmp_cmp.description}  <b>[{{ exp['${local_indicator_qsg}']?'Yes':'No' }}]</b>
+                                                            </b-form-checkbox>`
                                     } else {
                                         //render as usual
                                         result = json2ESPD_v4({ e: tmp_cmp }, result)
@@ -807,18 +806,15 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
 
                                 if (['QUESTION_GROUP', 'QUESTION_SUBGROUP'].indexOf(tmp_cmp.type) != -1) {
                                     if (['ONTRUE', 'ONFALSE'].indexOf(tmp_cmp.elementcode) != -1) {
-                                        result.template += `
-                                        <div v-if="window.espd_doc.role == 'eo' && ${tmp_cmp.elementcode == 'ONTRUE' ? '' : '!'}exp['${local_indicator_qsg}']">
-                                        `
+                                        result.template += `<div v-if="window.espd_doc.role == 'eo' && ${tmp_cmp.elementcode == 'ONTRUE' ? '' : '!'}exp['${local_indicator_qsg}']">`
                                         result = json2ESPD_v4({ e: tmp_cmp }, result)
-                                        result.template += `
-                                        </div>`
                                     }
                                     if (tmp_cmp.elementcode == 'ON*') {
-                                        result.template += `<div  v-if="window.espd_doc.role == 'eo'">`
+                                        result.template += `<div v-if="window.espd_doc.role == 'eo'">`
                                         result = json2ESPD_v4({ e: tmp_cmp }, result)
-                                        result.template += '</div>'
                                     }
+                                    result.template += '</div>'
+
                                 }
 
                                 if (tmp_cmp.type == 'CAPTION') {
@@ -838,6 +834,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                     </template>
                     </b-card>`
                     }
+                    result.template += `</div>`
                     break;
 
                 case 'QUESTION':
@@ -847,12 +844,12 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                         if (fragment[el].cardinality.toString().trim().endsWith('..n')) {
                             result.template += `<b-form-group  v-if="window.espd_doc.role == 'eo'" label="[Q] ${fragment[el].description}" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                            <b-form-tags v-model="exp['${stringToProperty(fragment[el].responsepath)}']" placeholder="Add value"></b-form-tags></b-form-group>`
+                            <b-form-tags size="sm" v-model="exp['${stringToProperty(fragment[el].responsepath)}']" placeholder="Add value"></b-form-tags></b-form-group>`
                         } else {
                             result.template += `
                                 <b-form-group  v-if="window.espd_doc.role == 'eo'" label="[Q] ${fragment[el].description}" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="${fragment[el].propertydatatype}" v-model="exp['${stringToProperty(fragment[el].responsepath)}'][0]"></b-form-input>
+                                <b-form-input size="sm"  placeholder="${fragment[el].propertydatatype}" v-model="exp['${stringToProperty(fragment[el].responsepath)}'][0]"></b-form-input>
                                 </b-form-group>`
                         }
                     } else {
@@ -911,7 +908,7 @@ function json2ESPD_v4(fragment, result = { sel_count: 0, template: ''}) {
                         result.template += `
                     <b-form-group label-class="font-weight-bold" label="[R] ${fragment[el].description}"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="${fragment[el].propertydatatype}"></b-form-input>
+                    <b-form-input size="sm"  placeholder="${fragment[el].propertydatatype}"></b-form-input>
                     </b-form-group>
                     `
                     }

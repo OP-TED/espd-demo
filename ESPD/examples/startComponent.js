@@ -106,15 +106,15 @@ Vue.component("startComponent", {
         <b-collapse id="accordion-st1" visible accordion="my-accordion" role="tabpanel">
             <b-card-body>
                 <b-form-group id="fieldset-espd" label-cols-sm="4" label-cols-lg="3" description="Select ESPD version" label="ESPD version" label-for="sel-espd">
-                    <b-form-select id="sel-espd" v-model="exp.espd_version" :options="versions" @change="selectVersion($event)"></b-form-select>
+                    <b-form-select size="sm" id="sel-espd" v-model="exp.espd_version" :options="versions" @change="selectVersion($event)"></b-form-select>
                 </b-form-group>
                 
                 <b-form-group id="fieldset-role" label-cols-sm="4" label-cols-lg="3" description="Select your role" label="Select your role" label-for="sel-role">
-                    <b-form-select id="sel-role" v-model="exp.role" :options="role_opt"></b-form-select>
+                    <b-form-select size="sm" id="sel-role" v-model="exp.role" :options="role_opt"></b-form-select>
                 </b-form-group>
 
                 <b-form-group id="fieldset-country" label-cols-sm="4" label-cols-lg="3" description="Select your country" label="Country" label-for="sel-country">
-                <b-form-select id="sel-country" v-model="exp.country" :options="country_list"></b-form-select>
+                <b-form-select size="sm" id="sel-country" v-model="exp.country" :options="country_list"></b-form-select>
                 </b-form-group>  
             </b-card-body>
         </b-collapse>

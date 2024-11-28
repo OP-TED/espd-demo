@@ -96,10 +96,7 @@ Vue.component("codelists", {
     },
 
     template: `
-    <template>
-    <div>
-
-    <b-card title="ESPD Code Lists" footer-tag="footer">
+    <b-card class="mt-2" title="ESPD Code Lists" footer-tag="footer">
     <b-card-text>
     Select the ESPD version and the code list to explore the contents. At the bottom of the page, you can view the translations for each entry in the code list.
     </b-card-text>
@@ -155,7 +152,5 @@ Vue.component("codelists", {
     </b-card>
     <b-overlay :show="loading" no-wrap>
     </b-overlay>
-    </div>
-    </template>
     `
 });

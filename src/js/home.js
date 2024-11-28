@@ -6,8 +6,8 @@ Vue.component("home",{
     },
 
     template: `
-    <b-container fluid class="m-auto">
-        <b-jumbotron class="mt-2">
+    
+        <b-jumbotron class="mt-2" >
             <template #header>ESPD Demo Site</template>
 
             <template #lead>
@@ -24,6 +24,5 @@ Vue.component("home",{
             </p>
 
         </b-jumbotron>
-    </b-container>
     `
 });

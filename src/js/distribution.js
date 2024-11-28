@@ -464,7 +464,7 @@ Vue.component("distribution", {
     },
 
     template: `
-  <b-card title="ESPD Artifacts Export">
+  <b-card class="mt-2" title="ESPD Artifacts Export">
     <b-card-text>
     Select the ESPD version and click the corresponding buttons to generate the ESPD Artifacts ZIP files. The Excel files contain the Code Lists definition, and the ESPD EDM data structure. The archives contain Code Lists in genericode (GC) format.
     </b-card-text>

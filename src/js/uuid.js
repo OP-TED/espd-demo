@@ -110,7 +110,7 @@ Vue.component("uuid", {
     },
 
     template: `
-    <b-card title="ESPD Model eCertis integration">
+    <b-card class="mt-2"  title="ESPD Model eCertis integration">
     <b-card-text>
     Use the Filter field to search by UUID, version number, or any other text. The data set only includes Selection Criteria and Exclusion Grounds. You can check the actual content in eCertis by clicking on the button to the right. 
     </b-card-text>

@@ -52,7 +52,7 @@ Vue.component("model", {
   },
 
   template: `
-  <b-card title="ESPD Model viewer">
+  <b-card class="mt-2" title="ESPD Model viewer">
     <b-card-text>
     Select the desired ESPD version and Criterion to show the HTML representation of the ESPD Model.    
     </b-card-text>

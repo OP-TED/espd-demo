@@ -117,14 +117,121 @@
             <!-- Top menu -->
             <div class="mx-3 my-2">
                 <b-nav tabs>
-                    <b-nav-item href="#" @click="doShow('distribution')">{{$t("mainmenu.distribution")}}</b-nav-item>
-                    <b-nav-item href="#" @click="doShow('codelists')">{{$t("mainmenu.codelists")}}</b-nav-item>
-                    <b-nav-item href="#" @click="doShow('uuid')">{{$t("mainmenu.uuid")}}</b-nav-item>
-                    <b-nav-item href="#" @click="doShow('model')">{{$t("mainmenu.model")}}</b-nav-item>
-                    <b-nav-item href="#" @click="doShow('service')">{{$t("mainmenu.service")}}</b-nav-item>
+                    <b-nav-item id="pov-distribution" href="#" @click="doShow('distribution')">{{$t("mainmenu.distribution")}}</b-nav-item>
+                    <b-nav-item id="pov-codelists" href="#" @click="doShow('codelists')">{{$t("mainmenu.codelists")}}</b-nav-item>
+                    <b-nav-item id="pov-uuid" href="#" @click="doShow('uuid')">{{$t("mainmenu.uuid")}}</b-nav-item>
+                    <b-nav-item id="pov-view" href="#" @click="doShow('model')">{{$t("mainmenu.model")}}</b-nav-item>
+                    <b-nav-item id="pov-examples" href="#" @click="doShow('service')">{{$t("mainmenu.service")}}</b-nav-item>
                 </b-nav>
                 <!-- Main content here -->
                 <component v-bind:is="mainComponent" ref="mainComponent"></component>
+
+                <b-popover target="pov-distribution" triggers="" :show.sync="povDistribution" placement="bottom" container="app" ref="povdist">
+                    <template #title>
+                    Section description
+                    </template>
+                    <div>
+                    <b-row class="my-2">
+                        <b-col>
+                        Export ESPD EDM artifacts allow you to select ESPD version and download Excel files for Code Lists and for Model and Data Structure.
+                        The Code Lists can be downloaded in XML gnericode format as archive. 
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col>
+                            <b-button @click="showNext(0)" size="sm" variant="warning">Cancel</b-button>
+                        </b-col>
+                        <b-col class="text-right">
+                            <b-button @click="showNext(1)" size="sm" variant="primary">Next</b-button>
+                        </b-col>
+                    </b-row>
+                    </div>
+                </b-popover>  
+
+                <b-popover target="pov-codelists" triggers="" :show.sync="povCodeLists" placement="bottom" container="app" ref="povcl">
+                    <template #title>
+                    Section description
+                    </template>
+                    <div>
+                    <b-row class="my-2">
+                        <b-col>
+                        Explore ESPD Code Lists in detail. You can select ESPD version and specific Code List. You can explore the elements.
+                        We have external (EU Vocabularies) and technical (ESPD) Code Lists. You can view and download each specific Code List. 
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col>
+                            <b-button @click="showNext(0)" size="sm" variant="warning">Cancel</b-button>
+                        </b-col>
+                        <b-col class="text-right">
+                            <b-button @click="showNext(2)" size="sm" variant="primary">Next</b-button>
+                        </b-col>
+                    </b-row>
+                    </div>
+                </b-popover>     
+                
+                <b-popover target="pov-uuid" triggers="" :show.sync="povUUID" placement="bottom" container="app" ref="povuuid">
+                    <template #title>
+                    Section description
+                    </template>
+                    <div>
+                    <b-row class="my-2">
+                        <b-col>
+                        Explore ESPD - eCERTIS integration for Exclusion Grounds and Selection Criteria for each ESPD version.
+                        You can check live the details for each criteria directly in eCertis.
+                        Extensive search based on any text part of the elements. 
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col>
+                            <b-button @click="showNext(0)" size="sm" variant="warning">Cancel</b-button>
+                        </b-col>
+                        <b-col class="text-right">
+                            <b-button @click="showNext(3)" size="sm" variant="primary">Next</b-button>
+                        </b-col>
+                    </b-row>
+                    </div>
+                </b-popover> 
+                <b-popover target="pov-view" triggers="" :show.sync="povView" placement="bottom" container="app" ref="povview">
+                    <template #title>
+                    Section description
+                    </template>
+                    <div>
+                    <b-row class="my-2">
+                        <b-col>
+                        View ESPD Model in web fotmat. You can explore and evaluate User Experience for ESPD versions that are not 
+                        implemented yet or do not have a publcly availavle ESPD Service. 
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col>
+                            <b-button @click="showNext(0)" size="sm" variant="warning">Cancel</b-button>
+                        </b-col>
+                        <b-col class="text-right">
+                            <b-button @click="showNext(4)" size="sm" variant="primary">Next</b-button>
+                        </b-col>
+                    </b-row>
+                    </div>
+                </b-popover>
+                <b-popover target="pov-examples" triggers="" :show.sync="povExamples" placement="bottom" container="app" ref="povexam">
+                    <template #title>
+                    Section description
+                    </template>
+                    <div>
+                    <b-row class="my-2">
+                        <b-col>
+                        Create ESPD Request and ESPD Response documents in order to test and evaluate the possible implemetation of latest
+                        ESPD version. We strongly recommend to updated to the latest version of ESPD. This section is developed for both
+                        ESPD Service Implementers and ESPD actors (Contractig Authority and Economic Operator). 
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col>
+                            <b-button @click="showNext(0)" size="sm" variant="warning">Done</b-button>
+                        </b-col>
+                    </b-row>
+                    </div>
+                </b-popover>  
         </div>
         </main>
         <!--<footer class="footer">-->

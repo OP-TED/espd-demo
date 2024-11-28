@@ -58,6 +58,11 @@ window.app = new Vue({
 		currentFooter: 'publicFooter',
 		mainComponent: 'home',
 		locales: ['eu', 'fr', 'ro'],
+		povDistribution: false,
+		povCodeLists: false,
+		povUUID: false,
+		povView: false,
+		povExamples: false
 	},
 
 	methods: {
@@ -70,6 +75,43 @@ window.app = new Vue({
 			this.showLayout({ currentHeader: 'publicHeader', mainComponent: component, currentFooter: 'publicFooter' })
 			console.log(`show ${component}`)
 		},
+		showNext(step){
+			this.povDistribution = false
+			this.povCodeLists = false
+			this.povUUID = false
+			this.povView = false
+			this.povExamples = false
+			switch (step) {
+				case 0:
+					//
+					break;
+				case 1:
+					this.povCodeLists = true
+					break;
+				case 2:
+					this.povUUID = true
+					break;
+				case 3:
+					this.povView = true
+					break;
+				case 4:
+					this.povExamples = true
+					break;
+										
+				default:
+					this.povDistribution = false
+					this.povCodeLists = false
+					this.povUUID = false
+					break;
+			}
+		}
+	},
+
+	mounted(){
+		this.$root.$on('bv::popover::show', bvEventObj => {
+			this[bvEventObj] = true
+			console.log('bvEventObj:', bvEventObj)
+		})
 	}
 
 })

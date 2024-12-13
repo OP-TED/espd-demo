@@ -2,20 +2,17 @@
 
 /*
  *
- * NodeJS application to check UUID duplicated in Excel for ESPD v3.3.0
+ * NodeJS application to handle Excel Code Lists and Model
+ * tranform them to JSON and save the structure in corresponding folders
  * 
  */
 
 var XLSX = require("xlsx")
 var chalk = require('chalk');
 var fs = require("fs")
-const { readFileSync } = require('fs');
 const axios = require("axios")
 const { HttpsProxyAgent } = require("https-proxy-agent")
-
 const { program } = require("@caporal/core");
-const path = require("path");
-const { type } = require("os");
 
 var in_excel_we_trust = [
     //"ESPD-CodeLists_v3.0.0.xlsx",

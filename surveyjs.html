@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Forms with SurveyJS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <!-- Required Stylesheets -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@2.23.0/dist/bootstrap-vue.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <!-- Blocked by Edge so getting rid of it
+       <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+       -->
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
+
+    <script src="https://unpkg.com/bootstrap-vue@2.23.0/dist/bootstrap-vue.js"></script>
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="https://unpkg.com/bootstrap-vue@2.23.0/dist/bootstrap-vue-icons.min.js"></script>
+
+    <!-- Extra libraries needed by BootstrapVue -->
+    <script src="https://unpkg.com/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/portal-vue@2.1.7/dist/portal-vue.umd.min.js"></script>
+
+    <!-- ... -->
+    <link href="https://unpkg.com/survey-core/defaultV2.min.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
+    <!-- <script type="text/javascript" src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script> -->
+    <script type="text/javascript" src="https://unpkg.com/survey-vue-ui/survey-vue-ui.min.js"></script>
+
+    <!-- ... -->
+
+
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <Survey :survey="survey" />
+        </template>
+    </div>
+
+    <script>
+        const surveyJson = new SurveyVue.Model(
+            {
+                "logoPosition": "right",
+                "pages": [
+                    {
+                        "name": "page1",
+                        "elements": [
+                            {
+                                "type": "boolean",
+                                "name": "question3",
+                                "title": "Your answer:",
+                                "isRequired": true
+                            },
+                            {
+                                "type": "paneldynamic",
+                                "name": "question2",
+                                "visibleIf": "{question3} = true",
+                                "templateElements": [
+                                    {
+                                        "type": "multipletext",
+                                        "name": "question1",
+                                        "title": "QSG",
+                                        "isRequired": true,
+                                        "items": [
+                                            {
+                                                "name": "text1",
+                                                "title": "some question"
+                                            },
+                                            {
+                                                "name": "text2",
+                                                "title": "another question"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "panelCount": 1,
+                                "minPanelCount": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        );
+
+        surveyJson.onComplete.add(function (sender, options) {
+            // Display the "Saving..." message (pass a string value to display a custom message)
+            console.log(JSON.stringify(sender.data))
+            options.showSaveInProgress();
+            options.showSaveSuccess();
+        });
+
+        // 1. Create a vue root instance
+        window.app = new Vue({
+            el: '#app',
+            data: {
+                survey: surveyJson
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

@@ -182,10 +182,18 @@ Vue.component("PII-SA", {
                 postcode: '',
                 contact_person: '',
                 telephone: '',
-                email: ''
+                email: '',
+                role: ''
             },
             country_list: [
                 { value: 'EUR', text: 'European Union' }
+            ],
+            role_list: [
+                { value: 'sole_entity', text:'Sole Tenderer'},
+                { value: 'consortium_leader', text:'Group Leader'},
+                { value: 'group_member', text:'Group member'},
+                { value: 'relied_upon', text:'Entity relied upon'},
+                { value: 'subcontractor', text:'Subcontractor'}
             ]
         }
     },
@@ -197,7 +205,6 @@ Vue.component("PII-SA", {
     created() {
         this.seller.country = window.espd_doc.country
         window.espd_doc.seller = this.seller
-
     },
     template: `
     <div>
@@ -231,6 +238,9 @@ Vue.component("PII-SA", {
     </b-form-group>
     <b-form-group id="flds-eoemail" label-cols-sm="4" label-cols-lg="3" description="Please specify Seller's contact email" label="E-mail" label-for="inp-eoemail">
         <b-form-input size="sm" id="inp-eoemail" v-model="seller.email"></b-form-input>
+    </b-form-group>
+    <b-form-group id="flds-eorole" label-cols-sm="4" label-cols-lg="3" description="Please select Seller's Role." label="Role" label-for="inp-eorole">
+        <b-form-select size="sm" id="inp-eorole" v-model="seller.role" :options="role_list"></b-form-select>
     </b-form-group>
     </div>
     `

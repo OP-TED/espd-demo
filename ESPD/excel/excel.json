@@ -15,7 +15,16 @@
             "model":{
                 "source" :"ESPD/model/espd_edm_v4.0.0.json"
             }
+        },
+        "v4.1.0":{
+            "codelists":{
+                "source": "ESPD/codelists/codelist.json"
+            },
+            "model":{
+                "source" :"ESPD/model/espd_edm_v4.1.0.json"
+            }
         }
+
     }
 
 }

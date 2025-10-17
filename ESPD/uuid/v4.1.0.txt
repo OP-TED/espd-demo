@@ -1,0 +1,62 @@
+EG-Convictions 	 crime-org 	 CRITERION-C1 	 005eb9ed-1347-4ca3-bb29-9bc0db64e1ab
+EG-Convictions 	 corruption 	 CRITERION-C2 	 c27b7c4e-c837-4529-b867-ed55ce639db5
+EG-Convictions 	 fraud 	 CRITERION-C3 	 297d2323-3ede-424e-94bc-a91561e6f320
+EG-Convictions 	 terr-offence 	 CRITERION-C4 	 d486fb70-86b3-4e75-97f2-0d71b5697c7d
+EG-Convictions 	 finan-laund 	 CRITERION-C5 	 47112079-6fec-47a3-988f-e561668c3aef
+EG-Convictions 	 human-traffic 	 CRITERION-C6 	  d789d01a-fe03-4ccd-9898-73f9cfa080d1
+EG-Contributions 	 tax-pay 	 CRITERION-C7 	 b61bbeb7-690e-4a40-bc68-d6d4ecfaa3d4
+EG-Contributions 	 socsec-pay 	 CRITERION-C8 	 7d85e333-bbab-49c0-be8d-c36d71a72f5e
+EG-Environ-Social-Labour_Law 	 envir-law 	 CRITERION-C9 	 a80ddb62-d25b-4e4e-ae22-3968460dc0a9
+EG-Environ-Social-Labour_Law 	 socsec-law 	 CRITERION-C10 	 a261a395-ed17-4939-9c75-b9ff1109ca6e
+EG-Environ-Social-Labour_Law 	 labour-law 	 CRITERION-C11 	 a34b70d6-c43d-4726-9a88-8e2b438424bf
+EG-Business 	 bankruptcy 	 CRITERION-C12 	 d3732c09-7d62-4edc-a172-241da6636e7c
+EG-Business 	 insolvency 	 CRITERION-C13 	 396f288a-e267-4c20-851a-ed4f7498f137
+EG-Business 	 cred-arran 	 CRITERION-C14 	 68918c7a-f5bc-4a1a-a62f-ad8983600d48
+EG-Business 	 bankr-nat 	 CRITERION-C15 	 daffa2a9-9f8f-4568-8be8-7b8bf306d096
+EG-Business 	 liq-admin 	 CRITERION-C16 	 8fda202a-0c37-41bb-9d7d-de3f49edbfcb
+EG-Business 	 susp-act 	 CRITERION-C17 	 166536e2-77f7-455c-b018-70582474e4f6
+EG-Misconduct 	 prof-misconduct 	 CRITERION-C18 	 514d3fde-1e3e-4dcd-b02a-9f984d5bbda3
+EG-Misconduct 	 distorsion 	 CRITERION-C19 	 56d13e3d-76e8-4f23-8af6-13e60a2ee356
+EG-Conflict_of_interest 	 partic-confl 	 CRITERION-C20 	 b1b5ac18-f393-4280-9659-1367943c1a2e
+EG-Conflict_of_interest 	 prep-confl 	 CRITERION-C21 	 61874050-5130-4f1c-a174-720939c7b483
+EG-Early_termination 	 sanction 	 CRITERION-C22 	 3293e92b-7f3e-42f1-bee6-a7641bb04251
+EG-Misrepresentation 	 misrepresent 	 CRITERION-C23 	 696a75b2-6107-428f-8b74-82affb67e184
+EG-Purely_national 	 nati-ground 	 CRITERION-C24 	 63adb07d-db1b-4ef0-a14e-a99785cf8cf6
+SC-Suitability-I 	 prof-regist 	 CRITERION-C25 	 6ee55a59-6adb-4c3a-b89f-e62a7ad7be7f
+SC-Suitability-I 	 trade-regist 	 CRITERION-C26 	 87b3fa26-3549-4f92-b8e0-3fd8f04bf5c7
+SC-Suitability-II 	 authorisation 	 CRITERION-C27 	 9eeb6d5c-0eb8-48e8-a4c5-5087a7c095a4
+SC-Suitability-II 	 membership 	 CRITERION-C28 	 73f10e36-ed7a-412e-995c-aa76463e3776
+SC-General_Yearly_Turnover 	 gen-year-to 	 CRITERION-C29 	 499efc97-2ac1-4af2-9e84-323c2ca67747
+SC-General_Average_Y_Turnover 	 aver-year-to 	 CRITERION-C30 	 b16cb9fc-6cb7-4585-9302-9533b415cf48
+SC-Specific_Average_Y_Turnover 	 spec-aver-to 	 CRITERION-C31 	 d3dfb714-f558-4512-bbc5-e456fa2339de
+SC-Specific_Yearly_Turnover 	 spec-year-to 	 CRITERION-C32 	 074f6031-55f9-4e99-b9a4-c4363e8bc315
+SC-Financial_ratios 	 finan-rat 	 CRITERION-C34 	 e4d37adc-08cd-4f4d-a8d8-32b62b0a1f46
+SC-Professional_risk_insurance 	 indem-insu 	 CRITERION-C35 	 7604bd40-4462-4086-8763-a50da51a869c
+SC-Other_economic_or_financial 	 finan-requ 	 CRITERION-C36 	 ab0e7f2e-6418-40e2-8870-6713123e41ad
+SC-References 	 work-perform 	 CRITERION-C37 	 cdd3bb3e-34a5-43d5-b668-2aab86a73822
+SC-References 	 supply-perform 	 CRITERION-C38 	 3a18a175-1863-4b1d-baef-588ce61960ca
+SC-References 	 service-perform 	 CRITERION-C39 	 5e506c16-26ab-4e32-bb78-b27f87dc0565
+SC-Abilities_1 (Persons) 	 qual-cont-tech 	 CRITERION-C40 	 3aaca389-4a7b-406b-a4b9-080845d127e7
+SC-Abilities_1 (Persons) 	 work-tech 	 CRITERION-C41 	 c599c130-b29f-461e-a187-4e16c7d40db7
+SC_Abilities_2 (Facilities,...) 	 qual-facil 	 CRITERION-C42 	 4bf996d9-439c-40c6-9ab9-980a48cb55a1
+SC_Abilities_2 (Facilities,...) 	 research-fac 	 CRITERION-C43 	 90a2e100-44cc-45d3-9970-69d6714f1596
+SC_Abilities_2 (Facilities,...) 	 chain-manage 	 CRITERION-C44 	 dc12a151-7fdf-4733-a8f0-30f667292e66
+SC_Abilities_2 (Facilities,...) 	 envir-measure 	 CRITERION-C45 	 9460457e-b43d-48a9-acd1-615de6ddd33e
+SC_Abilities_2 (Facilities,...) 	 tech-equip 	 CRITERION-C46 	 cc18c023-211d-484d-a32e-52f3f970285f
+SC_Abilities_3 (Education) 	 qualification 	 CRITERION-C47 	 07301031-2270-41af-8e7e-66fe0c777107
+SC-Abilities_4 (Checks) 	 spec-req-check 	 CRITERION-C48 	 c8809aa1-29b6-4f27-ae2f-27e612e394db
+SC-Abilities_5 (Staff) 	 manage-staff 	 CRITERION-C49 	 6346959b-e097-4ea1-89cd-d1b4c131ea4d
+SC-Abilities_5 (Staff) 	 year-manpower 	 CRITERION-C50 	 1f49b3f0-d50f-43f6-8b30-4bafab108b9b
+SC-Subcontracting_proportion 	 suncont-port 	 CRITERION-C51 	 612a1625-118d-4ea4-a6db-413184e7c0a8
+SC-Samples_certificates 	 wo-autent 	 CRITERION-C52 	 bdf0601d-2480-4250-b870-658d0ee95be6
+SC-Samples_certificates 	 w-autent 	 CRITERION-C53 	 7662b7a9-bcb8-4763-a0a7-7505d8e8470d
+SC-Quality_assurance 	 qa-certif-inst 	 CRITERION-C54 	 a7669d7d-9297-43e1-9d10-691a1660187c
+SC-Quality_assurance 	 qu-certif-indep 	 CRITERION-C55 	 d726bac9-e153-4e75-bfca-c5385587766d
+SC-Quality_assurance 	 envir-certif-indep 	 CRITERION-C56 	 8ed65e48-fd0d-444f-97bd-4f58da632999
+OTHER-EO-SHELTERED 	 shelt-worksh 	 CRITERION-C57 	 2043338f-a38a-490b-b3ec-2607cb25a017
+OTHER-EO-PQS 	 registered 	 CRITERION-C58 	 9b19e869-6c89-4cc4-bd6c-ac9ca8602165
+OTHER-EO-GROUPS 	 eo-group 	 CRITERION-C59 	 ee51100f-8e3e-40c9-8f8b-57d5a15be1f2
+OTHER-EO-RELIED_ON-ENTITIES 	 relied 	 CRITERION-C60 	 0d62c6ed-f074-4fcf-8e9f-f691351d52ad
+OTHER-EO-NOT_RELIED_ON-ENTITIES 	 subco-ent 	 CRITERION-C61 	 72c0c4b1-ca50-4667-9487-461f3eed4ed7
+OTHER.EO-REDUCTION-CANDIDATES 	 staff-red 	 CRITERION-C63 	 51c39ba9-0444-4967-afe9-36f753b30175
+OTHER-EO-SME 	 sme 	 CRITERION-C65 	 ede30cb7-70c2-4ead-ba11-22d0cac5ab7a

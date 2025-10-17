@@ -183,5 +183,85 @@
         "folder": "v4.0.0",
         "filename": "Language.gc",
         "uri": "http://publications.europa.eu/resource/distribution/language/20240925-0/xml/gc/Language.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "AccessRight.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/access-right/20250924-0/xml/gc/AccessRight.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "BooleanGUIControlType.gc",
+        "uri": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v4.1.0/codelists/gc/BooleanGUIControlType.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "Country.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/country/20250924-0/xml/gc/Country.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "Criterion.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/criterion/20240612-0/xml/gc/Criterion.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "CriterionElementType.gc",
+        "uri": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v4.1.0/codelists/gc/CriterionElementType.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "Currency.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/currency/20250924-0/xml/gc/Currency.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "DocRefContentType.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/docrefcontent-type/20250924-0/xml/gc/DocrefcontentType.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "EconomicOperatorSize.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/economic-operator-size/20250924-0/xml/gc/EconomicOperatorSize.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "EOIDType.gc",
+        "uri": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v4.1.0/codelists/gc/EOIDType.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "EoRoleType.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/eo-role-type/20211208-0/xml/gc/EoRoleType.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "FinancialRatioType.gc",
+        "uri": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v4.1.0/codelists/gc/FinancialRatioType.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "Language.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/language/20250618-0/xml/gc/Language.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "Occupation.gc",
+        "uri": "http://publications.europa.eu/resource/distribution/occupation/20221214-0/xml/gc/Occupation.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "ProfileExecutionID.gc",
+        "uri": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v4.1.0/codelists/gc/ProfileExecutionID.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "PropertyGroupType.gc",
+        "uri": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v4.1.0/codelists/gc/PropertyGroupType.gc"
+    },
+    {
+        "folder": "v4.1.0",
+        "filename": "ResponseDataType.gc",
+        "uri": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v4.1.0/codelists/gc/ResponseDataType.gc"
     }
 ]

@@ -35,6 +35,24 @@
             "ProfileExecutionID",
             "PropertyGroupType",
             "ResponseDataType"
+        ],
+        "v4.1.0": [
+            "AccessRight",
+            "BooleanGUIControlType",
+            "Country",
+            "Criterion",
+            "CriterionElementType",
+            "Currency",
+            "DocRefContentType",
+            "EconomicOperatorSize",
+            "EOIDType",
+            "EoRoleType",
+            "FinancialRatioType",
+            "Language",
+            "Occupation",
+            "ProfileExecutionID",
+            "PropertyGroupType",
+            "ResponseDataType"
         ]
     }
 }

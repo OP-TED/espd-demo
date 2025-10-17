@@ -536,7 +536,7 @@ function componentsFactory() {
         case 'v3.3.0':
             //not implemented
             break;
-        case 'v4.0.0':
+        case 'v4.0.0': case 'v4.1.0':
             //Build Vue UI components
             json2ESPD_v4(window.espd_model)
             //Build the underlying data structure

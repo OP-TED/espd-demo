@@ -92,6 +92,13 @@ const loadData = async () => {
       console.log(response)
     }
 
+    myCall = await fetch('ESPD/model/espd_edm_v4.1.0.json')
+    data = await myCall.json()
+    if (myCall.ok) {
+      const response = await pdb_upsert('espd_edm_v4.1.0', data)
+      console.log(response)
+    }
+
     myCall = await fetch('ESPD/uuid/uuid.json')
     data = await myCall.json()
     if (myCall.ok) {

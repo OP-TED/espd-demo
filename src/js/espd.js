@@ -36,19 +36,20 @@ const tag_map = {
  */
 function render_request(obj, part = window.espd_request, EG_FLAG = true) {
     let tmp = part, schemeVersionID = window.espd_doc.espd_version.substring(1)
+    
     for (const elm in obj) {
 
         if (Object.hasOwn(obj, elm)) {
             const element = obj[elm]
             switch (element.type) {
                 case "CRITERION":
-
+                    let c_id = (element.requestpath && element.requestpath.indexOf('_OT_') != -1)?element.requestpath:element.elementUUID
                     //All Selection Criteria must have a Lot
                     if (element.tag.endsWith('SC')) {
                         tmp = part.com(` Criterion: ${element.name} `)
                             .ele('@cac', 'TenderingCriterion')
-                            .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-                            .ele('@cbc', 'CriterionTypeCode', { 'listID': "http://publications.europa.eu/resource/authority/criterion", 'listAgencyID': "OP", 'listVersionID': "20230315-0" }).txt(element.elementcode).up()
+                            .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(c_id).up()
+                            .ele('@cbc', 'CriterionTypeCode', code_list_version[schemeVersionID].criterion).txt(element.elementcode).up()
                             .ele('@cbc', 'Name').txt(element.name).up()
                             .ele('@cbc', 'Description').txt(element.description).up()
 
@@ -61,8 +62,8 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
                     } else {
                         tmp = part.com(` Criterion: ${element.name} `)
                             .ele('@cac', 'TenderingCriterion')
-                            .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-                            .ele('@cbc', 'CriterionTypeCode', { 'listID': "http://publications.europa.eu/resource/authority/criterion", 'listAgencyID': "OP", 'listVersionID': "20230315-0" }).txt(element.elementcode).up()
+                            .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(c_id).up()
+                            .ele('@cbc', 'CriterionTypeCode', code_list_version[schemeVersionID].criterion).txt(element.elementcode).up()
                             .ele('@cbc', 'Name').txt(element.name).up()
                             .ele('@cbc', 'Description').txt(element.description).up()
                     }
@@ -73,7 +74,7 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
                     break;
                 case "SUBCRITERION":
                     tmp = part.ele('@cac', 'SubTenderingCriterion')
-                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
+                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.requestpath).up()
                         .ele('@cbc', 'Name').txt(element.name).up()
                         .ele('@cbc', 'Description').txt(element.description).up()
                     //create the inner elements
@@ -82,14 +83,14 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
                     break;
                 case "LEGISLATION":
                     tmp = part.ele('@cac', 'Legislation')
-                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
+                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.requestpath).up()
                         .ele('@cbc', 'Title').txt('[Legislation Title]').up()
                         .ele('@cbc', 'Description').txt('[Legislation Description]').up()
                         .ele('@cbc', 'JurisdictionLevel').txt('EU').up()
                         .ele('@cbc', 'Article').txt('[Article, e.g. Article 2.I.a]').up()
                         .ele('@cbc', 'URI').txt('http://eur-lex.europa.eu/').up()
                         .ele('@cac', 'Language')
-                        .ele('@cbc', 'LocaleCode', { 'listID': "http://publications.europa.eu/resource/authority/language", 'listAgencyID': "ISO", 'listVersionID': "20220928-0" }).txt('ENG').up()
+                        .ele('@cbc', 'LocaleCode', code_list_version[schemeVersionID].language).txt('ENG').up()
                         .up()
                         .up()
                     //create the inner elements
@@ -118,8 +119,8 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
                             break;
                     }
                     tmp = part.ele('@cac', 'TenderingCriterionPropertyGroup')
-                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-                        .ele('@cbc', 'PropertyGroupTypeCode', { 'listID': "property-group-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt(element.elementcode).up()
+                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.requestpath).up()
+                        .ele('@cbc', 'PropertyGroupTypeCode', code_list_version[schemeVersionID].property_group_type).txt(element.elementcode).up()
 
                     //create the inner elements
                     if (Object.hasOwn(element, 'components')) render_request(element.components, tmp, EG_FLAG)
@@ -135,8 +136,8 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
                             break;
                     }
                     tmp = part.ele('@cac', 'SubsidiaryTenderingCriterionPropertyGroup')
-                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-                        .ele('@cbc', 'PropertyGroupTypeCode', { 'listID': "property-group-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt(element.elementcode).up()
+                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.requestpath).up()
+                        .ele('@cbc', 'PropertyGroupTypeCode', code_list_version[schemeVersionID].property_group_type).txt(element.elementcode).up()
 
                     //create the inner elements
                     if (Object.hasOwn(element, 'components')) render_request(element.components, tmp, EG_FLAG)
@@ -145,21 +146,21 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
                 case "QUESTION": case "CAPTION":
                     element.elementUUID = crypto.randomUUID()
                     part.ele('@cac', 'TenderingCriterionProperty')
-                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
+                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.requestpath).up()
                         .ele('@cbc', 'Name').txt(element.name).up()
                         .ele('@cbc', 'Description').txt(element.description).up()
-                        .ele('@cbc', 'TypeCode', { 'listID': "criterion-element-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt(element.type).up()
-                        .ele('@cbc', 'ValueDataTypeCode', { 'listID': "response-data-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt(Object.hasOwn(element, 'propertydatatype') ? element.propertydatatype : 'NONE').up()
+                        .ele('@cbc', 'TypeCode', code_list_version[schemeVersionID].criterion_element_type).txt(element.type).up()
+                        .ele('@cbc', 'ValueDataTypeCode', code_list_version[schemeVersionID].response_data_type).txt(Object.hasOwn(element, 'propertydatatype') ? element.propertydatatype : 'NONE').up()
                         .up()
                     break;
                 case "REQUIREMENT":
                     element.elementUUID = crypto.randomUUID()
                     tmp = part.ele('@cac', 'TenderingCriterionProperty')
-                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
+                        .ele('@cbc', 'ID', { 'schemeID': 'Criterion', 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(element.requestpath).up()
                         .ele('@cbc', 'Name').txt(element.name).up()
                         .ele('@cbc', 'Description').txt(element.description).up()
-                        .ele('@cbc', 'TypeCode', { 'listID': "criterion-element-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt(element.type).up()
-                        .ele('@cbc', 'ValueDataTypeCode', { 'listID': "response-data-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt(Object.hasOwn(element, 'propertydatatype') ? element.propertydatatype : 'NONE').up()
+                        .ele('@cbc', 'TypeCode', code_list_version[schemeVersionID].criterion_element_type).txt(element.type).up()
+                        .ele('@cbc', 'ValueDataTypeCode', code_list_version[schemeVersionID].response_data_type).txt(Object.hasOwn(element, 'propertydatatype') ? element.propertydatatype : 'NONE').up()
                         .com(' No answer is expected here from the economic operator, as this is a REQUIREMENT issued by the contracting authority. Hence the element "cbc:ValueDataTypeCode" contains the type of value of the requirement issued by the contracting authority  ')
 
                     switch (element.propertydatatype) {
@@ -170,13 +171,13 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
                             tmp.ele('@cbc', 'ExpectedID', { 'schemeAgencyID': 'OP' }).txt(element.sellervalue).up()
                             break;
                         case 'CODE_BOOLEAN':
-                            tmp.ele('@cbc', 'ExpectedCode', { 'listID': 'boolean-gui-control-type', 'listAgencyID': 'OP', 'listVersionID': schemeVersionID }).txt(element.sellervalue).up()
+                            tmp.ele('@cbc', 'ExpectedCode', code_list_version[schemeVersionID].boolean_gui_control_type).txt(element.sellervalue).up()
                             break;
                         case 'CODE_COUNTRY':
-                            tmp.ele('@cbc', 'ExpectedCode', { 'listID': "http://publications.europa.eu/resource/authority/country", 'listName': "country", 'listAgencyID': "ISO", 'listVersionID': "20220928-0" }).txt(element.sellervalue).up()
+                            tmp.ele('@cbc', 'ExpectedCode', code_list_version[schemeVersionID].country).txt(element.sellervalue).up()
                             break;
                         case 'ECONOMIC_OPERATOR_ROLE_CODE':
-                            tmp.ele('@cbc', 'ExpectedCode', { 'listID': "http://publications.europa.eu/resource/authority/eo-role-type", 'listAgencyID': "OP", 'listVersionID': "20211208-0" }).txt(element.sellervalue).up()
+                            tmp.ele('@cbc', 'ExpectedCode', code_list_version[schemeVersionID].eo_role_type).txt(element.sellervalue).up()
                             break;
                         case 'DESCRIPTION':
                             tmp.ele('@cbc', 'ExpectedDescription').txt(element.sellervalue).up()
@@ -217,9 +218,9 @@ function render_request(obj, part = window.espd_request, EG_FLAG = true) {
                             break;
 
                         case 'CODE':
-                            if (element.codelist == 'Occupation') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "http://publications.europa.eu/resource/authority/occupation", 'listAgencyID': "EMPL", 'listVersionID': "20221214-0" }).txt('DV').up()
-                            if (element.codelist == 'FinancialRatioType') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "financial-ratio-type", 'listAgencyID': "OP", 'listVersionID': schemeVersionID }).txt('DV').up()
-                            if (element.codelist == 'EORoleType') tmp.ele('@cbc', 'ExpectedCode', { 'listID': "http://publications.europa.eu/resource/authority/eo-role-type", 'listAgencyID': "OP", 'listVersionID': "20211208-0" }).txt('DV').up()
+                            if (element.codelist == 'Occupation') tmp.ele('@cbc', 'ExpectedCode', code_list_version[schemeVersionID].occupation).txt('DV').up()
+                            if (element.codelist == 'FinancialRatioType') tmp.ele('@cbc', 'ExpectedCode', code_list_version[schemeVersionID].financial_ration_type).txt('DV').up()
+                            if (element.codelist == 'EORoleType') tmp.ele('@cbc', 'ExpectedCode', code_list_version[schemeVersionID].eo_role_type).txt('DV').up()
                             break;
 
                         default:
@@ -398,24 +399,24 @@ function render_response(obj, part = window.espd_response, crt_criterion = 'NONE
                         case 'CODE_COUNTRY':
                             tmp.ele('@cac', 'ResponseValue')
                                 .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-                                .ele('@cbc', 'ResponseCode', { 'listID': "http://publications.europa.eu/resource/authority/country", 'listName': "country", 'listAgencyID': "ISO", 'listVersionID': "20220928-0" }).txt('BEL').up()
+                                .ele('@cbc', 'ResponseCode', code_list_version[schemeVersionID].country).txt('BEL').up()
                                 .up()
                             break;
                         case 'CODE':
                             if (element.codelist == 'Occupation') {
                                 tmp.ele('@cac', 'ResponseValue')
                                     .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-                                    .ele('@cbc', 'ResponseCode', { 'listAgencyID': "EMPL", 'listVersionID': "20221214-0", 'listID': "http://publications.europa.eu/resource/authority/occupation" }).txt('dummy-value').up()
+                                    .ele('@cbc', 'ResponseCode', code_list_version[schemeVersionID].occupation).txt('dummy-value').up()
                                     .up()
                             } else if (element.codelist == 'FinancialRatioType') {
                                 tmp.ele('@cac', 'ResponseValue')
                                     .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-                                    .ele('@cbc', 'ResponseCode', { 'listAgencyID': "OP", 'listVersionID': schemeVersionID, 'listID': "financial-ratio-type" }).txt('dummy-value').up()
+                                    .ele('@cbc', 'ResponseCode', code_list_version[schemeVersionID].financial_ration_type).txt('dummy-value').up()
                                     .up()
                             } else if (element.codelist == 'EoRoleType') {
                                 tmp.ele('@cac', 'ResponseValue')
                                     .ele('@cbc', 'ID', { 'schemeID': "Criterion", 'schemeAgencyID': "XXXESPD-SERVICEXXX", 'schemeVersionID': schemeVersionID }).txt(element.elementUUID).up()
-                                    .ele('@cbc', 'ResponseCode', { 'listAgencyID': "OP", 'listVersionID': "20211208-0", 'listID': "http://publications.europa.eu/resource/authority/eo-role-type" }).txt('dummy-value').up()
+                                    .ele('@cbc', 'ResponseCode', code_list_version[schemeVersionID].eo_role_type).txt('dummy-value').up()
                                     .up()
                             }
 

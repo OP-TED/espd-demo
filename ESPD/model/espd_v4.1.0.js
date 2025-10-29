@@ -1,6 +1,6 @@
 /**
  * VueJS components for ESDP-EDM 
- * generated on 2025-10-17T15:39:19.118Z 
+ * generated on 2025-10-22T08:29:39.901Z 
  */
 
 
@@ -21,7 +21,7 @@ Vue.component("v4.1.0 - C1 - EG",
                         template: `<div>
                         <b-card title="C1 - EG - Participation in a criminal organisation">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for participation in a criminal organisation, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Council Framework Decision 2008/841/JHA of 24 October 2008 on the fight against organised crime (OJ L 300, 11.11.2008, p. 42).</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-01" v-model="selected01" name="radio-options01" inline="true"  switch><b>({{ selected01?'Yes':'No' }})</b></b-form-checkbox>
@@ -90,7 +90,7 @@ Vue.component("v4.1.0 - C2 - EG",
                         template: `<div>
                         <b-card title="C2 - EG - Corruption">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for corruption, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 3 of the Convention on the fight against corruption involving officials of the European Communities or officials of Member States of the European Union, OJ C 195, 25.6.1997, p. 1, and in Article 2(1) of Council Framework Decision 2003/568/JHA of 22 July 2003 on combating corruption in the private sector (OJ L 192, 31.7.2003, p. 54). This exclusion ground also includes corruption as defined in the national law of the contracting authority (contracting entity) or the economic operator.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-04" v-model="selected04" name="radio-options04" inline="true"  switch><b>({{ selected04?'Yes':'No' }})</b></b-form-checkbox>
@@ -159,7 +159,7 @@ Vue.component("v4.1.0 - C3 - EG",
                         template: `<div>
                         <b-card title="C3 - EG - Fraud">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for fraud, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? Within the meaning of Article 1 of the Convention on the protection of the European Communities financial interests (OJ C 316, 27.11.1995, p. 48).</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-07" v-model="selected07" name="radio-options07" inline="true"  switch><b>({{ selected07?'Yes':'No' }})</b></b-form-checkbox>
@@ -228,7 +228,7 @@ Vue.component("v4.1.0 - C4 - EG",
                         template: `<div>
                         <b-card title="C4 - EG - Terrorist offences or offences linked to terrorist activities">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for terrorist offences or offences linked to terrorist activities, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Articles 1 and 3 of Council Framework Decision of 13 June 2002 on combating terrorism (OJ L 164, 22.6.2002, p. 3). This exclusion ground also includes inciting or aiding or abetting or attempting to commit an offence, as referred to in Article 4 of that Framework Decision.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-10" v-model="selected10" name="radio-options10" inline="true"  switch><b>({{ selected10?'Yes':'No' }})</b></b-form-checkbox>
@@ -297,7 +297,7 @@ Vue.component("v4.1.0 - C5 - EG",
                         template: `<div>
                         <b-card title="C5 - EG - Money laundering or terrorist financing">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for money laundering or terrorist financing, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 1 of Directive 2005/60/EC of the European Parliament and of the Council of 26 October 2005 on the prevention of the use of the financial system for the purpose of money laundering and terrorist financing (OJ L 309, 25.11.2005, p. 15).</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-13" v-model="selected13" name="radio-options13" inline="true"  switch><b>({{ selected13?'Yes':'No' }})</b></b-form-checkbox>
@@ -366,7 +366,7 @@ Vue.component("v4.1.0 - C6 - EG",
                         template: `<div>
                         <b-card title="C6 - EG - Child labour and other forms of trafficking in human beings">
                             <b-card-text>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for child labour and other forms of trafficking in human beings, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Directive 2011/36/EU of the European Parliament and of the Council of 5 April 2011 on preventing and combating trafficking in human beings and protecting its victims, and replacing Council Framework Decision 2002/629/JHA (OJ L 101, 15.4.2011, p. 1).</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-16" v-model="selected16" name="radio-options16" inline="true"  switch><b>({{ selected16?'Yes':'No' }})</b></b-form-checkbox>
@@ -437,7 +437,7 @@ Vue.component("v4.1.0 - C7 - EG",
                         template: `<div>
                         <b-card title="C7 - EG - Payment of taxes">
                             <b-card-text>Has the economic operator breached its obligations relating to the payment of taxes, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - Minimum Amount Threshold [1]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_AMOUNT"></b-form-input>
@@ -538,7 +538,7 @@ Vue.component("v4.1.0 - C8 - EG",
                         template: `<div>
                         <b-card title="C8 - EG - Payment of social security contributions">
                             <b-card-text>Has the economic operator breached its obligations relating to the payment of social security contributions, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - Minimum Amount Threshold [1]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_AMOUNT"></b-form-input>
@@ -637,7 +637,7 @@ Vue.component("v4.1.0 - C9 - EG",
                         template: `<div>
                         <b-card title="C9 - EG - Breaching of obligations in the fields of environmental law">
                             <b-card-text>Has the economic operator, to its knowledge, breached its obligations in the fields of environmental law? As referred to for the purposes of this procurement in national law, in the relevant notice or the procurement documents or in Article 18(2) of Directive 2014/24/EU.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-29" v-model="selected29" name="radio-options29" inline="true"  switch><b>({{ selected29?'Yes':'No' }})</b></b-form-checkbox>
@@ -690,7 +690,7 @@ Vue.component("v4.1.0 - C10 - EG",
                         template: `<div>
                         <b-card title="C10 - EG - Breaching of obligations in the fields of social law">
                             <b-card-text>Has the economic operator, to its knowledge, breached its obligations in the fields of social law? As referred to for the purposes of this procurement in national law, in the relevant notice or the procurement documents or in Article 18(2) of Directive 2014/24/EU.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-32" v-model="selected32" name="radio-options32" inline="true"  switch><b>({{ selected32?'Yes':'No' }})</b></b-form-checkbox>
@@ -743,7 +743,7 @@ Vue.component("v4.1.0 - C11 - EG",
                         template: `<div>
                         <b-card title="C11 - EG - Breaching of obligations in the fields of labour law">
                             <b-card-text>Has the economic operator, to its knowledge, breached its obligations in the fields of labour law? As referred to for the purposes of this procurement in national law, in the relevant notice or the procurement documents or in Article 18(2) of Directive 2014/24/EU.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-35" v-model="selected35" name="radio-options35" inline="true"  switch><b>({{ selected35?'Yes':'No' }})</b></b-form-checkbox>
@@ -795,7 +795,7 @@ Vue.component("v4.1.0 - C12 - EG",
                         template: `<div>
                         <b-card title="C12 - EG - Bankruptcy">
                             <b-card-text>Is the economic operator bankrupt? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-38" v-model="selected38" name="radio-options38" inline="true"  switch><b>({{ selected38?'Yes':'No' }})</b></b-form-checkbox>
@@ -844,7 +844,7 @@ Vue.component("v4.1.0 - C13 - EG",
                         template: `<div>
                         <b-card title="C13 - EG - Insolvency">
                             <b-card-text>Is the economic operator the subject of insolvency or winding-up? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-40" v-model="selected40" name="radio-options40" inline="true"  switch><b>({{ selected40?'Yes':'No' }})</b></b-form-checkbox>
@@ -893,7 +893,7 @@ Vue.component("v4.1.0 - C14 - EG",
                         template: `<div>
                         <b-card title="C14 - EG - Arrangement with creditors">
                             <b-card-text>Is the economic operator in arrangement with creditors? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-42" v-model="selected42" name="radio-options42" inline="true"  switch><b>({{ selected42?'Yes':'No' }})</b></b-form-checkbox>
@@ -942,7 +942,7 @@ Vue.component("v4.1.0 - C15 - EG",
                         template: `<div>
                         <b-card title="C15 - EG - Analogous situation like bankruptcy under national law">
                             <b-card-text>Is the economic operator in any analogous situation like bankruptcy arising from a similar procedure under national laws and regulations? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-44" v-model="selected44" name="radio-options44" inline="true"  switch><b>({{ selected44?'Yes':'No' }})</b></b-form-checkbox>
@@ -991,7 +991,7 @@ Vue.component("v4.1.0 - C16 - EG",
                         template: `<div>
                         <b-card title="C16 - EG - Assets being administered by liquidator">
                             <b-card-text>Are the assets of the economic operator being administered by a liquidator or by the court? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-46" v-model="selected46" name="radio-options46" inline="true"  switch><b>({{ selected46?'Yes':'No' }})</b></b-form-checkbox>
@@ -1040,7 +1040,7 @@ Vue.component("v4.1.0 - C17 - EG",
                         template: `<div>
                         <b-card title="C17 - EG - Business activities are suspended">
                             <b-card-text>Are the business activities of the economic operator suspended? This information needs not be given if exclusion of economic operators in this case has been made mandatory under the applicable national law without any possibility of derogation where the economic operator is nevertheless able to perform the contract.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-48" v-model="selected48" name="radio-options48" inline="true"  switch><b>({{ selected48?'Yes':'No' }})</b></b-form-checkbox>
@@ -1090,7 +1090,7 @@ Vue.component("v4.1.0 - C18 - EG",
                         template: `<div>
                         <b-card title="C18 - EG - Guilty of grave professional misconduct">
                             <b-card-text>Is the economic operator guilty of grave professional misconduct? Where applicable, see definitions in national law, the relevant notice or the procurement documents.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-50" v-model="selected50" name="radio-options50" inline="true"  switch><b>({{ selected50?'Yes':'No' }})</b></b-form-checkbox>
@@ -1147,7 +1147,7 @@ Vue.component("v4.1.0 - C19 - EG",
                         template: `<div>
                         <b-card title="C19 - EG - Agreements with other economic operators aimed at distorting competition">
                             <b-card-text>Has the economic operator entered into agreements with other economic operators aimed at distorting competition?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-53" v-model="selected53" name="radio-options53" inline="true"  switch><b>({{ selected53?'Yes':'No' }})</b></b-form-checkbox>
@@ -1203,7 +1203,7 @@ Vue.component("v4.1.0 - C20 - EG",
                         template: `<div>
                         <b-card title="C20 - EG - Conflict of interest due to its participation in the procurement procedure">
                             <b-card-text>Is the economic operator aware of any conflict of interest, as indicated in national law, the relevant notice or the procurement documents due to its participation in the procurement procedure?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-56" v-model="selected56" name="radio-options56" inline="true"  switch><b>({{ selected56?'Yes':'No' }})</b></b-form-checkbox>
@@ -1248,7 +1248,7 @@ Vue.component("v4.1.0 - C21 - EG",
                         template: `<div>
                         <b-card title="C21 - EG - Direct or indirect involvement in the preparation of this procurement procedure">
                             <b-card-text>Has the economic operator or an undertaking related to it advised the contracting authority or contracting entity or otherwise been involved in the preparation of the procurement procedure?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-58" v-model="selected58" name="radio-options58" inline="true"  switch><b>({{ selected58?'Yes':'No' }})</b></b-form-checkbox>
@@ -1294,7 +1294,7 @@ Vue.component("v4.1.0 - C22 - EG",
                         template: `<div>
                         <b-card title="C22 - EG - Early termination, damages or other comparable sanctions">
                             <b-card-text>Has the economic operator experienced that a prior public contract, a prior contract with a contracting entity or a prior concession contract was terminated early, or that damages or other comparable sanctions were imposed in connection with that prior contract?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-60" v-model="selected60" name="radio-options60" inline="true"  switch><b>({{ selected60?'Yes':'No' }})</b></b-form-checkbox>
@@ -1350,7 +1350,7 @@ Vue.component("v4.1.0 - C23 - EG",
                         template: `<div>
                         <b-card title="C23 - EG - Guilty of misrepresentation, withheld information, unable to provide required documents and obtained confidential information of this procedure">
                             <b-card-text>Can the economic operator confirm that: a) It has been guilty of serious misrepresentation in supplying the information required for the verification of the absence of grounds for exclusion or the fulfilment of the selection criteria, b) It has withheld such information, c) It has not been able, without delay, to submit the supporting documents required by a contracting authority or contracting entity, and d) It has undertaken to unduly influence the decision making process of the contracting authority or contracting entity, to obtain confidential information that may confer upon it undue advantages in the procurement procedure or to negligently provide misleading information that may have a material influence on decisions concerning exclusion, selection or award?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer [1] <b-form-checkbox id="radio-group-63" v-model="selected63" name="radio-options63" inline="true"  switch><b>({{ selected63?'Yes':'No' }})</b></b-form-checkbox>
@@ -1387,7 +1387,7 @@ Vue.component("v4.1.0 - C24 - EG",
                         template: `<div>
                         <b-card title="C24 - EG - Purely national exclusion grounds">
                             <b-card-text>[Other exclusion grounds that may be foreseen in the national legislation of the contracting authority's or contracting entity's Member State. Has the economic operator breached its obligations relating to the purely national grounds of exclusion, which are specified in the relevant notice or in the procurement documents?]</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text>
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - undefined</b-card-text><b-card class="my-1"> <p>Cardinality [<em>1..n</em>]</p><b-card-text>CAPTION - [Text describing the national criterion]</b-card-text><b-card-text>CAPTION - [Type of evidence from e-Certis]</b-card-text>
                                             <b-form-group>
                                         QUESTION Your answer? [1] <b-form-checkbox id="radio-group-65" v-model="selected65" name="radio-options65" inline="true"  switch><b>({{ selected65?'Yes':'No' }})</b></b-form-checkbox>
@@ -1426,7 +1426,7 @@ Vue.component("v4.1.0 - C25 - SC",
                         template: `<div>
                         <b-card title="C25 - SC - Enrolment in a relevant professional register">
                             <b-card-text>It is enrolled in relevant professional registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -1509,7 +1509,7 @@ Vue.component("v4.1.0 - C26 - SC",
                         template: `<div>
                         <b-card title="C26 - SC - Enrolment in a trade register">
                             <b-card-text>It is enrolled in trade registers kept in the Member State of its establishment as described in Annex XI of Directive 2014/24/EU; economic operators from certain Member States may have to comply with other requirements set out in that Annex.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -1597,7 +1597,7 @@ Vue.component("v4.1.0 - C27 - SC",
                         template: `<div>
                         <b-card title="C27 - SC - For service contracts: authorisation of particular organisation needed">
                             <b-card-text>Is a particular authorisation of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -1685,7 +1685,7 @@ Vue.component("v4.1.0 - C28 - SC",
                         template: `<div>
                         <b-card title="C28 - SC - For service contracts: membership of particular organisation needed">
                             <b-card-text>Is a particular membership of a particular organisation needed in order to be able to perform the service in question in the country of establishment of the economic operator?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -1774,7 +1774,7 @@ Vue.component("v4.1.0 - C29 - SC",
                         template: `<div>
                         <b-card title="C29 - SC - General yearly turnover">
                             <b-card-text>The general yearly turnover for the number of financial years required in the relevant notice, the procurement documents is as follows:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -1883,7 +1883,7 @@ Vue.component("v4.1.0 - C30 - SC",
                         template: `<div>
                         <b-card title="C30 - SC - Average yearly turnover">
                             <b-card-text>Its average yearly turnover for the number of years required in the relevant notice, the procurement documents or the ESPD is as follows:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -1987,7 +1987,7 @@ Vue.component("v4.1.0 - C31 - SC",
                         template: `<div>
                         <b-card title="C31 - SC - Specific average turnover">
                             <b-card-text>The specific average yearly turnover in the business area covered by the contract for the number of years required in the relevant notice, the procurement documents is as follows:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2096,7 +2096,7 @@ Vue.component("v4.1.0 - C32 - SC",
                         template: `<div>
                         <b-card title="C32 - SC - Specific yearly turnover">
                             <b-card-text>The specific yearly turnover in the business area covered by the contract for the number of financial years required in the relevant notice, the procurement documents is as follows:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2203,7 +2203,7 @@ Vue.component("v4.1.0 - C34 - SC",
                         template: `<div>
                         <b-card title="C34 - SC - Financial ratio">
                             <b-card-text>Concerning the financial ratios specified in the relevant notice, the procurement documents, the economic operator declares that the actual values for the required ratios are as follows:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2287,7 +2287,7 @@ Vue.component("v4.1.0 - C35 - SC",
                         template: `<div>
                         <b-card title="C35 - SC - Professional risk indemnity insurance">
                             <b-card-text>The insured amount in its professional risk indemnity insurance is the following:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2380,7 +2380,7 @@ Vue.component("v4.1.0 - C36 - SC",
                         template: `<div>
                         <b-card title="C36 - SC - Other economic or financial requirements">
                             <b-card-text>Concerning the other economic or financial requirements, if any, that may have been specified in the relevant notice or the procurement documents, the economic operator declares that:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2488,7 +2488,7 @@ Vue.component("v4.1.0 - C37 - SC",
                         template: `<div>
                         <b-card title="C37 - SC - For works contracts: performance of works of the specified type">
                             <b-card-text>For public works contracts only: During the reference period, the economic operator has performed the following works of the specified type. Contracting authorities may require up to five years and allow experience dating from more than five years.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2572,7 +2572,7 @@ Vue.component("v4.1.0 - C38 - SC",
                         template: `<div>
                         <b-card title="C38 - SC - For supply contracts: performance of deliveries of the specified type">
                             <b-card-text>For public supply contracts only: During the reference period, the economic operator has delivered the following principal deliveries of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2656,7 +2656,7 @@ Vue.component("v4.1.0 - C39 - SC",
                         template: `<div>
                         <b-card title="C39 - SC - For service contracts: performance of services of the specified type">
                             <b-card-text>For public service contracts only: During the reference period, the economic operator has provided the following main services of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2743,7 +2743,7 @@ Vue.component("v4.1.0 - C40 - SC",
                         template: `<div>
                         <b-card title="C40 - SC - Technicians or technical bodies for quality control">
                             <b-card-text>It can call upon the following technicians or technical bodies, especially those responsible for quality control. For technicians or technical bodies not belonging directly to the economic operator's undertaking but on whose capacities the economic operator relies as set out under Part II, Section C, separate ESPD forms must be filled in.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2866,7 +2866,7 @@ Vue.component("v4.1.0 - C41 - SC",
                         template: `<div>
                         <b-card title="C41 - SC - For works contracts: technicians or technical bodies to carry out the work">
                             <b-card-text>In the case of public works contracts, the economic operator will be able to call on the following technicians or technical bodies to carry out the work:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -2987,7 +2987,7 @@ Vue.component("v4.1.0 - C42 - SC",
                         template: `<div>
                         <b-card title="C42 - SC - Technical facilities and measures for ensuring quality">
                             <b-card-text>It uses the following technical facilities and measures for ensuring quality and its study and research facilities are as follows:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3054,7 +3054,7 @@ Vue.component("v4.1.0 - C43 - SC",
                         template: `<div>
                         <b-card title="C43 - SC - Study and research facilities">
                             <b-card-text>It uses the following study and research facilities:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3121,7 +3121,7 @@ Vue.component("v4.1.0 - C44 - SC",
                         template: `<div>
                         <b-card title="C44 - SC - Supply chain management">
                             <b-card-text>It will be able to apply the following supply chain management and tracking systems when performing the contract:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3188,7 +3188,7 @@ Vue.component("v4.1.0 - C45 - SC",
                         template: `<div>
                         <b-card title="C45 - SC - Environmental management measures">
                             <b-card-text>The economic operator will be able to apply the following environmental management measures when performing the contract:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3255,7 +3255,7 @@ Vue.component("v4.1.0 - C46 - SC",
                         template: `<div>
                         <b-card title="C46 - SC - Tools, plant or technical equipment">
                             <b-card-text>The following tools, plant or technical equipment will be available to it for performing the contract:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3322,7 +3322,7 @@ Vue.component("v4.1.0 - C47 - SC",
                         template: `<div>
                         <b-card title="C47 - SC - Educational and professional qualifications">
                             <b-card-text>The following educational and professional qualifications are held by the service provider or the contractor itself, and/or (depending on the requirements set out in the relevant notice or the procurement documents) by its managerial staff.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3422,7 +3422,7 @@ Vue.component("v4.1.0 - C48 - SC",
                         template: `<div>
                         <b-card title="C48 - SC - Special requierements check">
                             <b-card-text>For complex products or services to be supplied or, exceptionally, for products or services which are required for a special purpose: The economic operator will allow checks to be conducted on the production capacities or the technical capacity of the economic operator and, where necessary, on the means of study and research which are available to it and on the quality control measures? The check is to be performed by the contracting authority or, in case the latter consents to this, on its behalf by a competent official body of the country in which the supplier or service provider is established.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3488,7 +3488,7 @@ Vue.component("v4.1.0 - C49 - SC",
                         template: `<div>
                         <b-card title="C49 - SC - Number of managerial staff">
                             <b-card-text>The economic operator’s number of managerial staff for the last three years were as follows:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3564,7 +3564,7 @@ Vue.component("v4.1.0 - C50 - SC",
                         template: `<div>
                         <b-card title="C50 - SC - Average annual manpower">
                             <b-card-text>The economic operator’s average annual manpower for the last three years were as follows:</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3640,7 +3640,7 @@ Vue.component("v4.1.0 - C51 - SC",
                         template: `<div>
                         <b-card title="C51 - SC - Subcontracting proportion">
                             <b-card-text>The economic operator intends possibly to subcontract the following proportion (i.e. percentage) of the contract. Please note that if the economic operator has decided to subcontract a part of the contract and relies on the subcontractor’s capacities to perform that part, then please fill in a separate ESPD for such subcontractors, see Part II, Section C above.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3703,7 +3703,7 @@ Vue.component("v4.1.0 - C52 - SC",
                         template: `<div>
                         <b-card title="C52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity">
                             <b-card-text>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied, which do not need to be accompanied by certifications of authenticity.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3765,7 +3765,7 @@ Vue.component("v4.1.0 - C53 - SC",
                         template: `<div>
                         <b-card title="C53 - SC - For supply contracts: samples, descriptions or photographs with certification of authenticity">
                             <b-card-text>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied and will provide certifications of authenticity where applicable.</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3827,7 +3827,7 @@ Vue.component("v4.1.0 - C54 - SC",
                         template: `<div>
                         <b-card title="C54 - SC - For supply contracts: certificates by quality control institutes">
                             <b-card-text>Can the economic operator provide the required certificates drawn up by official quality control institutes or agencies of recognised competence attesting the conformity of products clearly identified by references to the technical specifications or standards, which are set out in the relevant notice or the procurement documents?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3902,7 +3902,7 @@ Vue.component("v4.1.0 - C55 - SC",
                         template: `<div>
                         <b-card title="C55 - SC - Certificates by independent bodies about quality assurance standards">
                             <b-card-text>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required quality assurance standards, including accessibility for disabled persons?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
@@ -3977,7 +3977,7 @@ Vue.component("v4.1.0 - C56 - SC",
                         template: `<div>
                         <b-card title="C56 - SC - Certificates by independent bodies about environmental management systems or standards">
                             <b-card-text>Will the economic operator be able to produce certificates drawn up by independent bodies attesting that the economic operator complies with the required environmental management systems or standards?</b-card-text>
-                        <b-card><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>

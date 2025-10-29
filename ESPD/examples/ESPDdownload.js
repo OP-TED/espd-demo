@@ -14,7 +14,7 @@ Vue.component('ESPDdownload',{
 
     methods:{
         exportExample(){
-            let schemeVersionID = window.espd_doc.espd_version.substring(1)
+            let schemeVersionID = window.espd_doc.espd_version.substring(1)            
             //ESPD Request
             if(window.espd_doc.role == 'ca'){
                 window.espd_request= xmlbuilder2.create({
@@ -49,7 +49,7 @@ Vue.component('ESPDdownload',{
                 .com(' The version of the content of this document. If the document is modified the element cbc:PreviousVersionID should be instantiated ')
                 .ele('@cbc', 'VersionID', { 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(schemeVersionID).up()
                 .com(' The type of the procurement procedure; this information is provided by eForms and the concret notice per procedure. e.g. open = 	In open procedures any interested economic operator may submit a tender in response to a call for competition. ')
-                .ele('@cbc', 'ProcedureCode', { "listID": "Dummy_procurement-procedure-type", "listAgencyID": "OP", "listVersionID": "yyyymmdd-0" }).txt('Open').up()
+                .ele('@cbc', 'ProcedureCode', code_list_version[schemeVersionID].procedure_code).txt('Open').up()
         
                 window.espd_request.ele('@cac', 'ContractingParty')
                 .ele('@cbc', 'BuyerProfileURI').txt(window.espd_doc.publication.OJS_URL??'DV').up()
@@ -67,7 +67,7 @@ Vue.component('ESPDdownload',{
                 .ele('@cbc', 'CityName').txt(window.espd_doc.procurer.city??'DV').up()
                 .ele('@cbc', 'PostalZone').txt(window.espd_doc.procurer.postcode??'DV').up()
                 .ele('@cac', 'Country')
-                .ele('@cbc', 'IdentificationCode', { 'listID': "http://publications.europa.eu/resource/authority/country", 'listAgencyID': "ISO", 'listVersionID': "20220928-0" }).txt(window.espd_doc.procurer.country??'EU').up()
+                .ele('@cbc', 'IdentificationCode', code_list_version[schemeVersionID].country).txt(window.espd_doc.procurer.country??'EU').up()
                 .up()
                 .up()
                 .ele('@cac', 'Contact')
@@ -85,13 +85,13 @@ Vue.component('ESPDdownload',{
                 //add lots here cac:ProcurementProjectLot
                 for (let index = 1; index <= window.espd_doc.procedure.number_of_lots; index++) {
                     window.espd_request.ele('@cac', 'ProcurementProjectLot')
-                    .ele('@cbc', 'ID', {'schemeID': "Criterion", 'schemeAgencyID':"OP", 'schemeVersionID':schemeVersionID}).txt(`LOT-${index.toString().padStart(4,"0")}`).up()
+                    .ele('@cbc', 'ID', {'schemeID':"Criterion", 'schemeAgencyID':"OP", 'schemeVersionID':schemeVersionID}).txt(`LOT-${index.toString().padStart(4,"0")}`).up()
                     .up()    
                 }
 
                 render_request(window.espd_model)
 
-                download('ESPD_Request.xml', window.espd_request.end({prettyPrint: true}))
+                download(`ESPD_Request_v${schemeVersionID}.xml`, window.espd_request.end({prettyPrint: true}))
             
             }
 
@@ -129,7 +129,7 @@ Vue.component('ESPDdownload',{
                 .com(' The version of the content of this document. If the document is modified the element cbc:PreviousVersionID should be instantiated ')
                 .ele('@cbc', 'VersionID', { 'schemeAgencyID': 'OP', 'schemeVersionID': schemeVersionID }).txt(schemeVersionID).up()
                 .com(' The type of the procurement procedure; this information is provided by eForms and the concret notice per procedure. e.g. open = 	In open procedures any interested economic operator may submit a tender in response to a call for competition. ')
-                .ele('@cbc', 'ProcedureCode', { "listID": "Dummy_procurement-procedure-type", "listAgencyID": "OP", "listVersionID": "yyyymmdd-0" }).txt('Open').up()
+                .ele('@cbc', 'ProcedureCode', code_list_version[schemeVersionID].procedure_code).txt('Open').up()
         
                 window.espd_response.ele('@cac', 'ContractingParty')
                 .ele('@cbc', 'BuyerProfileURI').txt(window.espd_doc.publication.OJS_URL??'DV').up()
@@ -147,7 +147,7 @@ Vue.component('ESPDdownload',{
                 .ele('@cbc', 'CityName').txt(window.espd_doc.procurer.city??'DV').up()
                 .ele('@cbc', 'PostalZone').txt(window.espd_doc.procurer.postcode??'DV').up()
                 .ele('@cac', 'Country')
-                .ele('@cbc', 'IdentificationCode', { 'listID': "http://publications.europa.eu/resource/authority/country", 'listAgencyID': "ISO", 'listVersionID': "20220928-0" }).txt(window.espd_doc.procurer.country??'EU').up()
+                .ele('@cbc', 'IdentificationCode', code_list_version[schemeVersionID].country).txt(window.espd_doc.procurer.country??'EU').up()
                 .up()
                 .up()
                 .ele('@cac', 'Contact')
@@ -160,11 +160,11 @@ Vue.component('ESPDdownload',{
 
                 window.espd_response.ele('@cac', 'EconomicOperatorParty')
                 .ele('@cac', 'EconomicOperatorRole')
-                .ele('@cbc', 'RoleCode', { 'listID': "http://publications.europa.eu/resource/authority/eo-role-type", 'listAgencyID': "OP", 'listVersionID': "20211208-0" }).txt('group-mem').up()
+                .ele('@cbc', 'RoleCode', code_list_version[schemeVersionID].eo_role_type).txt('group-mem').up()
                 .up()
                 .ele('@cac', 'Party')
                 .ele('@cbc', 'WebsiteURI').txt('https://www.ProcurerWebsite.eu').up()
-                .ele('@cbc', 'IndustryClassificationCode', { 'listID': "http://publications.europa.eu/resource/authority/economic-operator-size", 'listAgencyID': "OP", 'listVersionID': "20220316-0" }).txt('sme').up()
+                .ele('@cbc', 'IndustryClassificationCode', code_list_version[schemeVersionID].economic_operator_size).txt('sme').up()
                 .ele('@cac', 'PartyIdentification')
                 .ele('@cbc', 'ID', { 'schemeAgencyID': "OP" }).txt('AD123456789').up()
                 .up()
@@ -176,7 +176,7 @@ Vue.component('ESPDdownload',{
                 .ele('@cbc', 'CityName').txt('__ProcurerCity__').up()
                 .ele('@cbc', 'PostalZone').txt('12345').up()
                 .ele('@cac', 'Country')
-                .ele('@cbc', 'IdentificationCode', { 'listID': "http://publications.europa.eu/resource/authority/country", 'listAgencyID': "ISO", 'listName': "country", 'listVersionID': "20220928-0" }).txt('BEL').up()
+                .ele('@cbc', 'IdentificationCode', code_list_version[schemeVersionID].country).txt('BEL').up()
                 .up()
                 .up()
                 .ele('@cac', 'Contact')
@@ -211,7 +211,7 @@ Vue.component('ESPDdownload',{
                 //Create evidence
                 window.espd_response.ele('@cac', 'Evidence')
                 .ele('@cbc', 'ID', { 'schemeAgencyID': "XXXAGENCYXXX" }).txt('EVIDENCE-001').up()
-                .ele('@cbc', 'ConfidentialityLevelCode', { 'listID': "http://publications.europa.eu/resource/authority/access-right", 'listAgencyID': "OP", 'listVersionID': "20220316-0" }).txt('CONFIDENTIAL').up()
+                .ele('@cbc', 'ConfidentialityLevelCode', code_list_version[schemeVersionID].access_right).txt('CONFIDENTIAL').up()
                 .ele('@cac', 'DocumentReference')
                 .ele('@cbc', 'ID', { 'schemeAgencyID': "XXXAGENCYXXX" }).txt('SAT-11121233').up()
                 .ele('@cac', 'Attachment')
@@ -229,7 +229,7 @@ Vue.component('ESPDdownload',{
                 .up()
                 .up()
 
-                download('ESPD_Response.xml', window.espd_response.end({prettyPrint: true}))
+                download(`ESPD_Response_v${schemeVersionID}.xml`, window.espd_response.end({prettyPrint: true}))
             }
         }
     },

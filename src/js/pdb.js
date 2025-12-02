@@ -22,7 +22,7 @@ const pdb_upsert = async (docid, docdata) => {
   try {
     const tmp_doc = await GlobalPouchDB.get(docid)
     const response = await GlobalPouchDB.put({ _id: docid, _rev: tmp_doc._rev, data: docdata })
-    console.log(response)
+    //console.log(response)
     return 'OK'
   } catch (error) {
     if (error.status == '404') {
@@ -68,28 +68,28 @@ const loadData = async () => {
           }
         }
       }
-      console.log(response);
+      //console.log(response);
     }
 
     myCall = await fetch('ESPD/examples/espd.json')
     data = await myCall.json()
     if (myCall.ok) {
       const response = await pdb_upsert('espd_meta', data.versions)
-      console.log(response)
+      //console.log(response)
     }
 
     myCall = await fetch('ESPD/model/espd_edm_v3.3.0.json')
     data = await myCall.json()
     if (myCall.ok) {
       const response = await pdb_upsert('espd_edm_v3.3.0', data)
-      console.log(response)
+      //console.log(response)
     }
 
     myCall = await fetch('ESPD/model/espd_edm_v4.0.0.json')
     data = await myCall.json()
     if (myCall.ok) {
       const response = await pdb_upsert('espd_edm_v4.0.0', data)
-      console.log(response)
+      //console.log(response)
     }
 
     myCall = await fetch('ESPD/model/espd_edm_v4.1.0.json')
@@ -103,7 +103,7 @@ const loadData = async () => {
     data = await myCall.json()
     if (myCall.ok) {
       const response = await pdb_upsert('uuid', data.uuid_files)
-      console.log(response)
+      //console.log(response)
     }
 
   } catch (error) {

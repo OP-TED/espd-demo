@@ -3197,10 +3197,10 @@ Vue.component("v4.1.0-C37",
                             data(){
                                 return {
                                 "html_C37_SC_work__perform$RG1": '', 
-"html_C37_SC_work__perform$RG1$RSG1$QSG1": '', 
-"html_C37_SC_work__perform$RG1$RSG1$QSG1$QSG1": '', 
-"html_C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1": '', 
 "html_C37_SC_work__perform$RG1$RSG1$QSG2": '', 
+"html_C37_SC_work__perform$RG1$RSG1$QSG2$QSG1": '', 
+"html_C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1": '', 
+"html_C37_SC_work__perform$RG1$RSG1$QSG3": '', 
 
                                 exp:{
                                 "cb_C37": window.espd_model['C37'].selected, 
@@ -3208,18 +3208,22 @@ Vue.component("v4.1.0-C37",
 "lotid_C37" : window.espd_model['C37'].lots,
 "C37_SC_work__perform$RG1$RSG1$RQ1$R1$R1" : '',
 "C37_SC_work__perform$RG1$RSG1$RSG1$RSG1$RQ1$R1$R1" : '',
-"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q1" : [],
-"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q2" : [],
-"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q3" : [],
-"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q4" : [],
-"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q5" : [],
-"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q6" : false,
+"C37_SC_work__perform$RG1$RSG1$QSG1$Q1" : false,
+"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q1" : false,
 "C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
 "C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
-"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3" : [],
-"C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4" : [],
-"C37_SC_work__perform$RG1$RSG1$QSG2$Q1" : false,
 "C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q1" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q2" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q3" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q4" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q5" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q6" : false,
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q2" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q3" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q4" : [],
+"C37_SC_work__perform$RG1$RSG1$QSG3$Q1" : false,
+"C37_SC_work__perform$RG1$RSG1$QSG3$QSG1$Q1" : [],
 
                                 }
                                 }
@@ -3255,71 +3259,93 @@ Vue.component("v4.1.0-C37",
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_QUANTITY_INTEGER"></b-form-input>
                     </b-form-group>
-                    <div><div>ADDITIONAL CAPTION</div><div>
+                    <div><div>[Description provided by the Buyer]</div><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Requirement"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
-                    </div></div><div v-html="html_C37_SC_work__perform$RG1$RSG1$QSG1"></div><b-card footer-tag="footer"><div>CAPTION</div><div><div v-html="html_C37_SC_work__perform$RG1$RSG1$QSG1$QSG1"></div><b-card footer-tag="footer">
-                                <b-form-group label="[Q] Reference description" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q1'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Total amount" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="AMOUNT" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Activity of the economic operator" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q3'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Specific amount" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="AMOUNT" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q4'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Period (Start and End dates)" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="PERIOD" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q5'][0]"></b-form-input>
-                                </b-form-group>
-                                            <br/>[Q] Confidential <b-form-checkbox v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q6']" name="check-button" inline="true" switch>
-                                                     <b>[{{ exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q6']?'Yes':'No' }}]</b>
+                    </div></div>
+                                            <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C37_SC_work__perform$RG1$RSG1$QSG1$Q1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
-                                            <div><div v-html="html_C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1"></div><b-card footer-tag="footer">
-                                <b-form-group label="[Q] Recipient name" 
+                                            
+                                        <div v-if="!exp['C37_SC_work__perform$RG1$RSG1$QSG1$Q1']">
+                                        
+                                            <br/>[Q] In the case of no – Relied upon or not <b-form-checkbox v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q1']?'Yes':'No' }}]</b>
+                                            </b-form-checkbox>
+                                            
+                                        <div v-if="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$Q1']">
+                                        
+                                <b-form-group label="[Q] Name of the entity" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                 <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1'][0]"></b-form-input>
                                 </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
+                                </b-form-group>
+                                        </div>
+                                        </div><div v-html="html_C37_SC_work__perform$RG1$RSG1$QSG2"></div><b-card footer-tag="footer"><div>CAPTION</div><div><div v-html="html_C37_SC_work__perform$RG1$RSG1$QSG2$QSG1"></div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Reference description" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q1'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Total amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q2'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Activity of the economic operator" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q3'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Specific amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q4'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Period (Start and End dates)" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q5'][0]"></b-form-input>
+                                </b-form-group>
+                                            <br/>[Q] Confidential <b-form-checkbox v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q6']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q6']?'Yes':'No' }}]</b>
+                                            </b-form-checkbox>
+                                            <div><div v-html="html_C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1"></div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Recipient name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q1'][0]"></b-form-input>
+                                </b-form-group>
                                 <b-form-group label="[Q] Contact person name" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q2'][0]"></b-form-input>
                                 </b-form-group>
                                 <b-form-group label="[Q] Contact email" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q3'][0]"></b-form-input>
                                 </b-form-group>
                                 <b-form-group label="[Q] Contact telephone" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q4'][0]"></b-form-input>
                                 </b-form-group><template #footer>
-                    <b-button variant="success" @click="html_C37_SC_work__perform$RG1$RSG1$QSG1$QSG1$QSG1 = renderHTML('C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$QSG1 = renderHTML('C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
-                    <b-button variant="success" @click="html_C37_SC_work__perform$RG1$RSG1$QSG1$QSG1 = renderHTML('C37_SC_work-perform/RG1/RSG1/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C37_SC_work__perform$RG1$RSG1$QSG2$QSG1 = renderHTML('C37_SC_work-perform/RG1/RSG1/QSG2/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
-                    <b-button variant="success" @click="html_C37_SC_work__perform$RG1$RSG1$QSG1 = renderHTML('C37_SC_work-perform/RG1/RSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C37_SC_work__perform$RG1$RSG1$QSG2 = renderHTML('C37_SC_work-perform/RG1/RSG1/QSG2', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
-                    </b-card><div v-html="html_C37_SC_work__perform$RG1$RSG1$QSG2"></div><b-card footer-tag="footer">
-                                            <br/>[Q] Is this information available online? <b-form-checkbox v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$Q1']" name="check-button" inline="true" switch>
-                                                     <b>[{{ exp['C37_SC_work__perform$RG1$RSG1$QSG2$Q1']?'Yes':'No' }}]</b>
+                    </b-card><div v-html="html_C37_SC_work__perform$RG1$RSG1$QSG3"></div><b-card footer-tag="footer">
+                                            <br/>[Q] Is this information available online? <b-form-checkbox v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG3$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C37_SC_work__perform$RG1$RSG1$QSG3$Q1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                                        <div v-if="exp['C37_SC_work__perform$RG1$RSG1$QSG2$Q1']">
+                                        <div v-if="exp['C37_SC_work__perform$RG1$RSG1$QSG3$Q1']">
                                         <b-form-group label="[Q] Evidence Supplied" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                            <b-form-tags v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG2$QSG1$Q1']" placeholder="Add value"></b-form-tags></b-form-group>
+                            <b-form-tags v-model="exp['C37_SC_work__perform$RG1$RSG1$QSG3$QSG1$Q1']" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div><template #footer>
-                    <b-button variant="success" @click="html_C37_SC_work__perform$RG1$RSG1$QSG2 = renderHTML('C37_SC_work-perform/RG1/RSG1/QSG2', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C37_SC_work__perform$RG1$RSG1$QSG3 = renderHTML('C37_SC_work-perform/RG1/RSG1/QSG3', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
                     <b-button variant="success" @click="html_C37_SC_work__perform$RG1 = renderHTML('C37_SC_work-perform/RG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
@@ -3336,10 +3362,10 @@ Vue.component("v4.1.0-C38",
                             data(){
                                 return {
                                 "html_C38_SC_supply__perform$RG1": '', 
-"html_C38_SC_supply__perform$RG1$RSG1$QSG1": '', 
-"html_C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1": '', 
-"html_C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1": '', 
 "html_C38_SC_supply__perform$RG1$RSG1$QSG2": '', 
+"html_C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1": '', 
+"html_C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1": '', 
+"html_C38_SC_supply__perform$RG1$RSG1$QSG3": '', 
 
                                 exp:{
                                 "cb_C38": window.espd_model['C38'].selected, 
@@ -3347,18 +3373,22 @@ Vue.component("v4.1.0-C38",
 "lotid_C38" : window.espd_model['C38'].lots,
 "C38_SC_supply__perform$RG1$RSG1$RQ1$R1$R1" : '',
 "C38_SC_supply__perform$RG1$RSG1$RSG1$RSG1$RQ1$R1$R1" : '',
-"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q1" : [],
-"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q2" : [],
-"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q3" : [],
-"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q4" : [],
-"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q5" : [],
-"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q6" : false,
+"C38_SC_supply__perform$RG1$RSG1$QSG1$Q1" : false,
+"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q1" : false,
 "C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
 "C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
-"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3" : [],
-"C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4" : [],
-"C38_SC_supply__perform$RG1$RSG1$QSG2$Q1" : false,
 "C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q1" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q2" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q3" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q4" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q5" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q6" : false,
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q2" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q3" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q4" : [],
+"C38_SC_supply__perform$RG1$RSG1$QSG3$Q1" : false,
+"C38_SC_supply__perform$RG1$RSG1$QSG3$QSG1$Q1" : [],
 
                                 }
                                 }
@@ -3394,71 +3424,93 @@ Vue.component("v4.1.0-C38",
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_QUANTITY_INTEGER"></b-form-input>
                     </b-form-group>
-                    <div><div>ADDITIONAL CAPTION</div><div>
+                    <div><div>[Description provided by the Buyer]</div><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Requirement"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
-                    </div></div><div v-html="html_C38_SC_supply__perform$RG1$RSG1$QSG1"></div><b-card footer-tag="footer"><div>CAPTION</div><div><div v-html="html_C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1"></div><b-card footer-tag="footer">
-                                <b-form-group label="[Q] Reference description" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q1'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Total amount" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="AMOUNT" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Activity of the economic operator" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q3'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Specific amount" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="AMOUNT" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q4'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Period (Start and End dates)" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="PERIOD" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q5'][0]"></b-form-input>
-                                </b-form-group>
-                                            <br/>[Q] Confidential <b-form-checkbox v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q6']" name="check-button" inline="true" switch>
-                                                     <b>[{{ exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q6']?'Yes':'No' }}]</b>
+                    </div></div>
+                                            <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C38_SC_supply__perform$RG1$RSG1$QSG1$Q1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
-                                            <div><div v-html="html_C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1"></div><b-card footer-tag="footer">
-                                <b-form-group label="[Q] Recipient name" 
+                                            
+                                        <div v-if="!exp['C38_SC_supply__perform$RG1$RSG1$QSG1$Q1']">
+                                        
+                                            <br/>[Q] In the case of no – Relied upon or not <b-form-checkbox v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q1']?'Yes':'No' }}]</b>
+                                            </b-form-checkbox>
+                                            
+                                        <div v-if="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$Q1']">
+                                        
+                                <b-form-group label="[Q] Name of the entity" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                 <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1'][0]"></b-form-input>
                                 </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
+                                </b-form-group>
+                                        </div>
+                                        </div><div v-html="html_C38_SC_supply__perform$RG1$RSG1$QSG2"></div><b-card footer-tag="footer"><div>CAPTION</div><div><div v-html="html_C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1"></div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Reference description" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q1'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Total amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q2'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Activity of the economic operator" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q3'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Specific amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q4'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Period (Start and End dates)" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q5'][0]"></b-form-input>
+                                </b-form-group>
+                                            <br/>[Q] Confidential <b-form-checkbox v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q6']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q6']?'Yes':'No' }}]</b>
+                                            </b-form-checkbox>
+                                            <div><div v-html="html_C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1"></div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Recipient name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q1'][0]"></b-form-input>
+                                </b-form-group>
                                 <b-form-group label="[Q] Contact person name" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q2'][0]"></b-form-input>
                                 </b-form-group>
                                 <b-form-group label="[Q] Contact email" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q3'][0]"></b-form-input>
                                 </b-form-group>
                                 <b-form-group label="[Q] Contact telephone" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q4'][0]"></b-form-input>
                                 </b-form-group><template #footer>
-                    <b-button variant="success" @click="html_C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1$QSG1 = renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$QSG1 = renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
-                    <b-button variant="success" @click="html_C38_SC_supply__perform$RG1$RSG1$QSG1$QSG1 = renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1 = renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
-                    <b-button variant="success" @click="html_C38_SC_supply__perform$RG1$RSG1$QSG1 = renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C38_SC_supply__perform$RG1$RSG1$QSG2 = renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG2', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
-                    </b-card><div v-html="html_C38_SC_supply__perform$RG1$RSG1$QSG2"></div><b-card footer-tag="footer">
-                                            <br/>[Q] Is this information available online? <b-form-checkbox v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$Q1']" name="check-button" inline="true" switch>
-                                                     <b>[{{ exp['C38_SC_supply__perform$RG1$RSG1$QSG2$Q1']?'Yes':'No' }}]</b>
+                    </b-card><div v-html="html_C38_SC_supply__perform$RG1$RSG1$QSG3"></div><b-card footer-tag="footer">
+                                            <br/>[Q] Is this information available online? <b-form-checkbox v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG3$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C38_SC_supply__perform$RG1$RSG1$QSG3$Q1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                                        <div v-if="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$Q1']">
+                                        <div v-if="exp['C38_SC_supply__perform$RG1$RSG1$QSG3$Q1']">
                                         <b-form-group label="[Q] Evidence Supplied" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                            <b-form-tags v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG2$QSG1$Q1']" placeholder="Add value"></b-form-tags></b-form-group>
+                            <b-form-tags v-model="exp['C38_SC_supply__perform$RG1$RSG1$QSG3$QSG1$Q1']" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div><template #footer>
-                    <b-button variant="success" @click="html_C38_SC_supply__perform$RG1$RSG1$QSG2 = renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG2', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C38_SC_supply__perform$RG1$RSG1$QSG3 = renderHTML('C38_SC_supply-perform/RG1/RSG1/QSG3', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
                     <b-button variant="success" @click="html_C38_SC_supply__perform$RG1 = renderHTML('C38_SC_supply-perform/RG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
@@ -3475,10 +3527,10 @@ Vue.component("v4.1.0-C39",
                             data(){
                                 return {
                                 "html_C39_SC_service__perform$RG1": '', 
-"html_C39_SC_service__perform$RG1$RSG1$QSG1": '', 
-"html_C39_SC_service__perform$RG1$RSG1$QSG1$QSG1": '', 
-"html_C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1": '', 
 "html_C39_SC_service__perform$RG1$RSG1$QSG2": '', 
+"html_C39_SC_service__perform$RG1$RSG1$QSG2$QSG1": '', 
+"html_C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1": '', 
+"html_C39_SC_service__perform$RG1$RSG1$QSG3": '', 
 
                                 exp:{
                                 "cb_C39": window.espd_model['C39'].selected, 
@@ -3486,18 +3538,22 @@ Vue.component("v4.1.0-C39",
 "lotid_C39" : window.espd_model['C39'].lots,
 "C39_SC_service__perform$RG1$RSG1$RQ1$R1$R1" : '',
 "C39_SC_service__perform$RG1$RSG1$RSG1$RSG1$RQ1$R1$R1" : '',
-"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q1" : [],
-"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q2" : [],
-"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q3" : [],
-"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q4" : [],
-"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q5" : [],
-"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q6" : false,
+"C39_SC_service__perform$RG1$RSG1$QSG1$Q1" : false,
+"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q1" : false,
 "C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1" : [],
 "C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2" : [],
-"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3" : [],
-"C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4" : [],
-"C39_SC_service__perform$RG1$RSG1$QSG2$Q1" : false,
 "C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q1" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q2" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q3" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q4" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q5" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q6" : false,
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q1" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q2" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q3" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q4" : [],
+"C39_SC_service__perform$RG1$RSG1$QSG3$Q1" : false,
+"C39_SC_service__perform$RG1$RSG1$QSG3$QSG1$Q1" : [],
 
                                 }
                                 }
@@ -3533,71 +3589,93 @@ Vue.component("v4.1.0-C39",
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_QUANTITY_INTEGER"></b-form-input>
                     </b-form-group>
-                    <div><div>ADDITIONAL CAPTION</div><div>
+                    <div><div>[Description provided by the Buyer]</div><div>
                     <b-form-group label-class="font-weight-bold" label="[R] Requirement"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
-                    </div></div><div v-html="html_C39_SC_service__perform$RG1$RSG1$QSG1"></div><b-card footer-tag="footer"><div>CAPTION</div><div><div v-html="html_C39_SC_service__perform$RG1$RSG1$QSG1$QSG1"></div><b-card footer-tag="footer">
-                                <b-form-group label="[Q] Reference description" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q1'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Total amount" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="AMOUNT" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Activity of the economic operator" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q3'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Specific amount" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="AMOUNT" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q4'][0]"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="[Q] Period (Start and End dates)" 
-                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="PERIOD" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q5'][0]"></b-form-input>
-                                </b-form-group>
-                                            <br/>[Q] Confidential <b-form-checkbox v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q6']" name="check-button" inline="true" switch>
-                                                     <b>[{{ exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q6']?'Yes':'No' }}]</b>
+                    </div></div>
+                                            <br/>[Q] Does the EO fulfil the criteria by itself? <b-form-checkbox v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C39_SC_service__perform$RG1$RSG1$QSG1$Q1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
-                                            <div><div v-html="html_C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1"></div><b-card footer-tag="footer">
-                                <b-form-group label="[Q] Recipient name" 
+                                            
+                                        <div v-if="!exp['C39_SC_service__perform$RG1$RSG1$QSG1$Q1']">
+                                        
+                                            <br/>[Q] In the case of no – Relied upon or not <b-form-checkbox v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q1']?'Yes':'No' }}]</b>
+                                            </b-form-checkbox>
+                                            
+                                        <div v-if="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$Q1']">
+                                        
+                                <b-form-group label="[Q] Name of the entity" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                 <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q1'][0]"></b-form-input>
                                 </b-form-group>
+                                <b-form-group label="[Q] ID of the entity" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
+                                </b-form-group>
+                                        </div>
+                                        </div><div v-html="html_C39_SC_service__perform$RG1$RSG1$QSG2"></div><b-card footer-tag="footer"><div>CAPTION</div><div><div v-html="html_C39_SC_service__perform$RG1$RSG1$QSG2$QSG1"></div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Reference description" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q1'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Total amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q2'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Activity of the economic operator" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q3'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Specific amount" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="AMOUNT" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q4'][0]"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="[Q] Period (Start and End dates)" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="PERIOD" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q5'][0]"></b-form-input>
+                                </b-form-group>
+                                            <br/>[Q] Confidential <b-form-checkbox v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q6']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q6']?'Yes':'No' }}]</b>
+                                            </b-form-checkbox>
+                                            <div><div v-html="html_C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1"></div><b-card footer-tag="footer">
+                                <b-form-group label="[Q] Recipient name" 
+                                label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q1'][0]"></b-form-input>
+                                </b-form-group>
                                 <b-form-group label="[Q] Contact person name" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q2'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q2'][0]"></b-form-input>
                                 </b-form-group>
                                 <b-form-group label="[Q] Contact email" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q3'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q3'][0]"></b-form-input>
                                 </b-form-group>
                                 <b-form-group label="[Q] Contact telephone" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1$Q4'][0]"></b-form-input>
+                                <b-form-input placeholder="DESCRIPTION" v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1$Q4'][0]"></b-form-input>
                                 </b-form-group><template #footer>
-                    <b-button variant="success" @click="html_C39_SC_service__perform$RG1$RSG1$QSG1$QSG1$QSG1 = renderHTML('C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$QSG1 = renderHTML('C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
-                    <b-button variant="success" @click="html_C39_SC_service__perform$RG1$RSG1$QSG1$QSG1 = renderHTML('C39_SC_service-perform/RG1/RSG1/QSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C39_SC_service__perform$RG1$RSG1$QSG2$QSG1 = renderHTML('C39_SC_service-perform/RG1/RSG1/QSG2/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
-                    <b-button variant="success" @click="html_C39_SC_service__perform$RG1$RSG1$QSG1 = renderHTML('C39_SC_service-perform/RG1/RSG1/QSG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C39_SC_service__perform$RG1$RSG1$QSG2 = renderHTML('C39_SC_service-perform/RG1/RSG1/QSG2', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
-                    </b-card><div v-html="html_C39_SC_service__perform$RG1$RSG1$QSG2"></div><b-card footer-tag="footer">
-                                            <br/>[Q] Is this information available online? <b-form-checkbox v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$Q1']" name="check-button" inline="true" switch>
-                                                     <b>[{{ exp['C39_SC_service__perform$RG1$RSG1$QSG2$Q1']?'Yes':'No' }}]</b>
+                    </b-card><div v-html="html_C39_SC_service__perform$RG1$RSG1$QSG3"></div><b-card footer-tag="footer">
+                                            <br/>[Q] Is this information available online? <b-form-checkbox v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG3$Q1']" name="check-button" inline="true" switch>
+                                                     <b>[{{ exp['C39_SC_service__perform$RG1$RSG1$QSG3$Q1']?'Yes':'No' }}]</b>
                                             </b-form-checkbox>
                                             
-                                        <div v-if="exp['C39_SC_service__perform$RG1$RSG1$QSG2$Q1']">
+                                        <div v-if="exp['C39_SC_service__perform$RG1$RSG1$QSG3$Q1']">
                                         <b-form-group label="[Q] Evidence Supplied" 
                                 label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                            <b-form-tags v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG2$QSG1$Q1']" placeholder="Add value"></b-form-tags></b-form-group>
+                            <b-form-tags v-model="exp['C39_SC_service__perform$RG1$RSG1$QSG3$QSG1$Q1']" placeholder="Add value"></b-form-tags></b-form-group>
                                         </div><template #footer>
-                    <b-button variant="success" @click="html_C39_SC_service__perform$RG1$RSG1$QSG2 = renderHTML('C39_SC_service-perform/RG1/RSG1/QSG2', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
+                    <b-button variant="success" @click="html_C39_SC_service__perform$RG1$RSG1$QSG3 = renderHTML('C39_SC_service-perform/RG1/RSG1/QSG3', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>
                     </template>
                     </b-card></div><template #footer>
                     <b-button variant="success" @click="html_C39_SC_service__perform$RG1 = renderHTML('C39_SC_service-perform/RG1', exp)"><b-icon icon="plus-square-fill" aria-hidden="true"></b-icon></b-button>

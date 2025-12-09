@@ -1,6 +1,6 @@
 /**
  * VueJS components for ESDP-EDM 
- * generated on 2025-10-22T08:29:39.901Z 
+ * generated on 2025-12-09T17:48:52.248Z 
  */
 
 
@@ -2482,7 +2482,9 @@ Vue.component("v4.1.0 - C37 - SC",
                         data(){
                             return {
  "selected115": true,
- "selected116": true
+ "selected116": true,
+ "selected117": true,
+ "selected118": true
 }
                         },
                         template: `<div>
@@ -2498,96 +2500,34 @@ Vue.component("v4.1.0 - C37 - SC",
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_QUANTITY_INTEGER"></b-form-input>
                     </b-form-group>
-                    <b-card><b-card-text>CAPTION - undefined</b-card-text><b-card>
+                    <b-card><b-card-text>CAPTION - [Description provided by the Buyer]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - Requirement [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
-                    </b-card></b-card><b-card-text>CAPTION - undefined</b-card-text><b-card class="my-1"> <p>Cardinality [<em>1..n</em>]</p>
-                                            <b-form-group label="QUESTION - Reference description [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Total amount [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Activity of the economic operator [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Specific amount [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="AMOUNT"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Period (Start and End dates) [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="PERIOD"></b-form-input>
-                                            </b-form-group>
+                    </b-card></b-card>
                                             <b-form-group>
-                                        QUESTION Confidential [0..1] <b-form-checkbox id="radio-group-115" v-model="selected115" name="radio-options115" inline="true"  switch><b>({{ selected115?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
-                                            <b-form-group label="QUESTION - Recipient name [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Contact person name [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Contact email [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Contact telephone [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group></b-card></b-card>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-115" v-model="selected115" name="radio-options115" inline="true"  switch><b>({{ selected115?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="!selected115">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-116" v-model="selected116" name="radio-options116" inline="true"  switch><b>({{ selected116?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-116" v-model="selected116" name="radio-options116" inline="true"  switch><b>({{ selected116?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
                                         <div v-if="selected116">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
                                             </b-form-group>
                                         </b-card>
-                                        </div></b-card></b-card></b-card>
-                    </div>`
-                    })
-
-/**
- * Version - v4.1.0
- * Component - C38 - SC - For supply contracts: performance of deliveries of the specified type
- */
-Vue.component("v4.1.0 - C38 - SC",
-                    { 
-                        data(){
-                            return {
- "selected117": true,
- "selected118": true
-}
-                        },
-                        template: `<div>
-                        <b-card title="C38 - SC - For supply contracts: performance of deliveries of the specified type">
-                            <b-card-text>For public supply contracts only: During the reference period, the economic operator has delivered the following principal deliveries of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</b-card-text>
-                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
-                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
-                    </b-form-group>
-                    <b-card>
-                    <b-form-group label="REQUIREMENT - Minimum number of references [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="MINIMUM_QUANTITY_INTEGER"></b-form-input>
-                    </b-form-group>
-                    <b-card><b-card-text>CAPTION - undefined</b-card-text><b-card>
-                    <b-form-group label="REQUIREMENT - Requirement [1..n]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                    </b-form-group>
-                    </b-card></b-card><b-card-text>CAPTION - undefined</b-card-text><b-card class="my-1"> <p>Cardinality [<em>1..n</em>]</p>
+                                        </div>
+                                        </b-card>
+                                        </div><b-card-text>CAPTION - undefined</b-card-text><b-card class="my-1"> <p>Cardinality [<em>1..n</em>]</p>
                                             <b-form-group label="QUESTION - Reference description [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
@@ -2643,19 +2583,21 @@ Vue.component("v4.1.0 - C38 - SC",
 
 /**
  * Version - v4.1.0
- * Component - C39 - SC - For service contracts: performance of services of the specified type
+ * Component - C38 - SC - For supply contracts: performance of deliveries of the specified type
  */
-Vue.component("v4.1.0 - C39 - SC",
+Vue.component("v4.1.0 - C38 - SC",
                     { 
                         data(){
                             return {
  "selected119": true,
- "selected120": true
+ "selected120": true,
+ "selected121": true,
+ "selected122": true
 }
                         },
                         template: `<div>
-                        <b-card title="C39 - SC - For service contracts: performance of services of the specified type">
-                            <b-card-text>For public service contracts only: During the reference period, the economic operator has provided the following main services of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</b-card-text>
+                        <b-card title="C38 - SC - For supply contracts: performance of deliveries of the specified type">
+                            <b-card-text>For public supply contracts only: During the reference period, the economic operator has delivered the following principal deliveries of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</b-card-text>
                         <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2666,12 +2608,34 @@ Vue.component("v4.1.0 - C39 - SC",
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="MINIMUM_QUANTITY_INTEGER"></b-form-input>
                     </b-form-group>
-                    <b-card><b-card-text>CAPTION - undefined</b-card-text><b-card>
+                    <b-card><b-card-text>CAPTION - [Description provided by the Buyer]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - Requirement [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
-                    </b-card></b-card><b-card-text>CAPTION - undefined</b-card-text><b-card class="my-1"> <p>Cardinality [<em>1..n</em>]</p>
+                    </b-card></b-card>
+                                            <b-form-group>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-119" v-model="selected119" name="radio-options119" inline="true"  switch><b>({{ selected119?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="!selected119">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-120" v-model="selected120" name="radio-options120" inline="true"  switch><b>({{ selected120?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected120">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div>
+                                        </b-card>
+                                        </div><b-card-text>CAPTION - undefined</b-card-text><b-card class="my-1"> <p>Cardinality [<em>1..n</em>]</p>
                                             <b-form-group label="QUESTION - Reference description [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
@@ -2693,7 +2657,7 @@ Vue.component("v4.1.0 - C39 - SC",
                                             <b-form-input placeholder="PERIOD"></b-form-input>
                                             </b-form-group>
                                             <b-form-group>
-                                        QUESTION Confidential [0..1] <b-form-checkbox id="radio-group-119" v-model="selected119" name="radio-options119" inline="true"  switch><b>({{ selected119?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Confidential [0..1] <b-form-checkbox id="radio-group-121" v-model="selected121" name="radio-options121" inline="true"  switch><b>({{ selected121?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group label="QUESTION - Recipient name [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2712,9 +2676,117 @@ Vue.component("v4.1.0 - C39 - SC",
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
                                             </b-form-group></b-card></b-card>
                                             <b-form-group>
-                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-120" v-model="selected120" name="radio-options120" inline="true"  switch><b>({{ selected120?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-122" v-model="selected122" name="radio-options122" inline="true"  switch><b>({{ selected122?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected120">
+                                        <div v-if="selected122">
+                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div></b-card></b-card></b-card>
+                    </div>`
+                    })
+
+/**
+ * Version - v4.1.0
+ * Component - C39 - SC - For service contracts: performance of services of the specified type
+ */
+Vue.component("v4.1.0 - C39 - SC",
+                    { 
+                        data(){
+                            return {
+ "selected123": true,
+ "selected124": true,
+ "selected125": true,
+ "selected126": true
+}
+                        },
+                        template: `<div>
+                        <b-card title="C39 - SC - For service contracts: performance of services of the specified type">
+                            <b-card-text>For public service contracts only: During the reference period, the economic operator has provided the following main services of the type specified. Contracting authorities may require up to three years and allow experience dating from more than three years.</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
+                    </b-form-group>
+                    <b-card>
+                    <b-form-group label="REQUIREMENT - Minimum number of references [1]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="MINIMUM_QUANTITY_INTEGER"></b-form-input>
+                    </b-form-group>
+                    <b-card><b-card-text>CAPTION - [Description provided by the Buyer]</b-card-text><b-card>
+                    <b-form-group label="REQUIREMENT - Requirement [1..n]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                    </b-form-group>
+                    </b-card></b-card>
+                                            <b-form-group>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-123" v-model="selected123" name="radio-options123" inline="true"  switch><b>({{ selected123?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="!selected123">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-124" v-model="selected124" name="radio-options124" inline="true"  switch><b>({{ selected124?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected124">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div>
+                                        </b-card>
+                                        </div><b-card-text>CAPTION - undefined</b-card-text><b-card class="my-1"> <p>Cardinality [<em>1..n</em>]</p>
+                                            <b-form-group label="QUESTION - Reference description [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Total amount [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="AMOUNT"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Activity of the economic operator [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Specific amount [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="AMOUNT"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Period (Start and End dates) [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="PERIOD"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group>
+                                        QUESTION Confidential [0..1] <b-form-checkbox id="radio-group-125" v-model="selected125" name="radio-options125" inline="true"  switch><b>({{ selected125?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                            <b-form-group label="QUESTION - Recipient name [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Contact person name [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Contact email [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Contact telephone [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group></b-card></b-card>
+                                            <b-form-group>
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-126" v-model="selected126" name="radio-options126" inline="true"  switch><b>({{ selected126?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected126">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2733,11 +2805,11 @@ Vue.component("v4.1.0 - C40 - SC",
                     { 
                         data(){
                             return {
- "selected121": true,
- "selected122": true,
- "selected123": true,
- "selected124": true,
- "selected125": true
+ "selected127": true,
+ "selected128": true,
+ "selected129": true,
+ "selected130": true,
+ "selected131": true
 }
                         },
                         template: `<div>
@@ -2755,14 +2827,14 @@ Vue.component("v4.1.0 - C40 - SC",
                     </b-form-group>
                     
                                             <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-121" v-model="selected121" name="radio-options121" inline="true"  switch><b>({{ selected121?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-127" v-model="selected127" name="radio-options127" inline="true"  switch><b>({{ selected127?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected121">
+                                        <div v-if="!selected127">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-122" v-model="selected122" name="radio-options122" inline="true"  switch><b>({{ selected122?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-128" v-model="selected128" name="radio-options128" inline="true"  switch><b>({{ selected128?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected122">
+                                        <div v-if="selected128">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2801,9 +2873,9 @@ Vue.component("v4.1.0 - C40 - SC",
                                             <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group>
-                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-123" v-model="selected123" name="radio-options123" inline="true"  switch><b>({{ selected123?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-129" v-model="selected129" name="radio-options129" inline="true"  switch><b>({{ selected129?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected123">
+                                        <div v-if="selected129">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2824,9 +2896,9 @@ Vue.component("v4.1.0 - C40 - SC",
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group>
-                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-124" v-model="selected124" name="radio-options124" inline="true"  switch><b>({{ selected124?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-130" v-model="selected130" name="radio-options130" inline="true"  switch><b>({{ selected130?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected124">
+                                        <div v-if="selected130">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2835,9 +2907,9 @@ Vue.component("v4.1.0 - C40 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-125" v-model="selected125" name="radio-options125" inline="true"  switch><b>({{ selected125?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-131" v-model="selected131" name="radio-options131" inline="true"  switch><b>({{ selected131?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected125">
+                                        <div v-if="selected131">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2856,11 +2928,11 @@ Vue.component("v4.1.0 - C41 - SC",
                     { 
                         data(){
                             return {
- "selected126": true,
- "selected127": true,
- "selected128": true,
- "selected129": true,
- "selected130": true
+ "selected132": true,
+ "selected133": true,
+ "selected134": true,
+ "selected135": true,
+ "selected136": true
 }
                         },
                         template: `<div>
@@ -2878,14 +2950,14 @@ Vue.component("v4.1.0 - C41 - SC",
                     </b-form-group>
                     
                                             <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-126" v-model="selected126" name="radio-options126" inline="true"  switch><b>({{ selected126?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-132" v-model="selected132" name="radio-options132" inline="true"  switch><b>({{ selected132?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected126">
+                                        <div v-if="!selected132">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-127" v-model="selected127" name="radio-options127" inline="true"  switch><b>({{ selected127?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-133" v-model="selected133" name="radio-options133" inline="true"  switch><b>({{ selected133?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected127">
+                                        <div v-if="selected133">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2924,9 +2996,9 @@ Vue.component("v4.1.0 - C41 - SC",
                                             <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group>
-                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-128" v-model="selected128" name="radio-options128" inline="true"  switch><b>({{ selected128?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-134" v-model="selected134" name="radio-options134" inline="true"  switch><b>({{ selected134?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected128">
+                                        <div v-if="selected134">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2947,9 +3019,9 @@ Vue.component("v4.1.0 - C41 - SC",
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                             <b-form-group>
-                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-129" v-model="selected129" name="radio-options129" inline="true"  switch><b>({{ selected129?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available online? [1] <b-form-checkbox id="radio-group-135" v-model="selected135" name="radio-options135" inline="true"  switch><b>({{ selected135?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected129">
+                                        <div v-if="selected135">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2958,9 +3030,9 @@ Vue.component("v4.1.0 - C41 - SC",
                                         </b-card>
                                         </div></b-card></b-card>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-130" v-model="selected130" name="radio-options130" inline="true"  switch><b>({{ selected130?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-136" v-model="selected136" name="radio-options136" inline="true"  switch><b>({{ selected136?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected130">
+                                        <div v-if="selected136">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -2979,148 +3051,14 @@ Vue.component("v4.1.0 - C42 - SC",
                     { 
                         data(){
                             return {
- "selected131": true,
- "selected132": true,
- "selected133": true
-}
-                        },
-                        template: `<div>
-                        <b-card title="C42 - SC - Technical facilities and measures for ensuring quality">
-                            <b-card-text>It uses the following technical facilities and measures for ensuring quality and its study and research facilities are as follows:</b-card-text>
-                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
-                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
-                    </b-form-group>
-                    <b-card><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text><b-card>
-                    <b-form-group label="REQUIREMENT - Requirement [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                    </b-form-group>
-                    
-                                            <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-131" v-model="selected131" name="radio-options131" inline="true"  switch><b>({{ selected131?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="!selected131">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-132" v-model="selected132" name="radio-options132" inline="true"  switch><b>({{ selected132?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="selected132">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        </b-card>
-                                        </div>
-                                            <b-form-group label="QUESTION - Please describe them [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-133" v-model="selected133" name="radio-options133" inline="true"  switch><b>({{ selected133?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="selected133">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card></b-card></b-card></b-card>
-                    </div>`
-                    })
-
-/**
- * Version - v4.1.0
- * Component - C43 - SC - Study and research facilities
- */
-Vue.component("v4.1.0 - C43 - SC",
-                    { 
-                        data(){
-                            return {
- "selected134": true,
- "selected135": true,
- "selected136": true
-}
-                        },
-                        template: `<div>
-                        <b-card title="C43 - SC - Study and research facilities">
-                            <b-card-text>It uses the following study and research facilities:</b-card-text>
-                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
-                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
-                    </b-form-group>
-                    <b-card><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text><b-card>
-                    <b-form-group label="REQUIREMENT - Requirement [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                    </b-form-group>
-                    
-                                            <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-134" v-model="selected134" name="radio-options134" inline="true"  switch><b>({{ selected134?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="!selected134">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-135" v-model="selected135" name="radio-options135" inline="true"  switch><b>({{ selected135?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="selected135">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        </b-card>
-                                        </div>
-                                            <b-form-group label="QUESTION - Please describe them [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-136" v-model="selected136" name="radio-options136" inline="true"  switch><b>({{ selected136?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="selected136">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card></b-card></b-card></b-card>
-                    </div>`
-                    })
-
-/**
- * Version - v4.1.0
- * Component - C44 - SC - Supply chain management
- */
-Vue.component("v4.1.0 - C44 - SC",
-                    { 
-                        data(){
-                            return {
  "selected137": true,
  "selected138": true,
  "selected139": true
 }
                         },
                         template: `<div>
-                        <b-card title="C44 - SC - Supply chain management">
-                            <b-card-text>It will be able to apply the following supply chain management and tracking systems when performing the contract:</b-card-text>
+                        <b-card title="C42 - SC - Technical facilities and measures for ensuring quality">
+                            <b-card-text>It uses the following technical facilities and measures for ensuring quality and its study and research facilities are as follows:</b-card-text>
                         <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3174,9 +3112,9 @@ Vue.component("v4.1.0 - C44 - SC",
 
 /**
  * Version - v4.1.0
- * Component - C45 - SC - Environmental management measures
+ * Component - C43 - SC - Study and research facilities
  */
-Vue.component("v4.1.0 - C45 - SC",
+Vue.component("v4.1.0 - C43 - SC",
                     { 
                         data(){
                             return {
@@ -3186,8 +3124,8 @@ Vue.component("v4.1.0 - C45 - SC",
 }
                         },
                         template: `<div>
-                        <b-card title="C45 - SC - Environmental management measures">
-                            <b-card-text>The economic operator will be able to apply the following environmental management measures when performing the contract:</b-card-text>
+                        <b-card title="C43 - SC - Study and research facilities">
+                            <b-card-text>It uses the following study and research facilities:</b-card-text>
                         <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3241,9 +3179,9 @@ Vue.component("v4.1.0 - C45 - SC",
 
 /**
  * Version - v4.1.0
- * Component - C46 - SC - Tools, plant or technical equipment
+ * Component - C44 - SC - Supply chain management
  */
-Vue.component("v4.1.0 - C46 - SC",
+Vue.component("v4.1.0 - C44 - SC",
                     { 
                         data(){
                             return {
@@ -3253,8 +3191,8 @@ Vue.component("v4.1.0 - C46 - SC",
 }
                         },
                         template: `<div>
-                        <b-card title="C46 - SC - Tools, plant or technical equipment">
-                            <b-card-text>The following tools, plant or technical equipment will be available to it for performing the contract:</b-card-text>
+                        <b-card title="C44 - SC - Supply chain management">
+                            <b-card-text>It will be able to apply the following supply chain management and tracking systems when performing the contract:</b-card-text>
                         <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3308,9 +3246,9 @@ Vue.component("v4.1.0 - C46 - SC",
 
 /**
  * Version - v4.1.0
- * Component - C47 - SC - Educational and professional qualifications
+ * Component - C45 - SC - Environmental management measures
  */
-Vue.component("v4.1.0 - C47 - SC",
+Vue.component("v4.1.0 - C45 - SC",
                     { 
                         data(){
                             return {
@@ -3320,8 +3258,8 @@ Vue.component("v4.1.0 - C47 - SC",
 }
                         },
                         template: `<div>
-                        <b-card title="C47 - SC - Educational and professional qualifications">
-                            <b-card-text>The following educational and professional qualifications are held by the service provider or the contractor itself, and/or (depending on the requirements set out in the relevant notice or the procurement documents) by its managerial staff.</b-card-text>
+                        <b-card title="C45 - SC - Environmental management measures">
+                            <b-card-text>The economic operator will be able to apply the following environmental management measures when performing the contract:</b-card-text>
                         <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3342,6 +3280,140 @@ Vue.component("v4.1.0 - C47 - SC",
                                         QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-147" v-model="selected147" name="radio-options147" inline="true"  switch><b>({{ selected147?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
                                         <div v-if="selected147">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div>
+                                        </b-card>
+                                        </div>
+                                            <b-form-group label="QUESTION - Please describe them [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-148" v-model="selected148" name="radio-options148" inline="true"  switch><b>({{ selected148?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected148">
+                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div></b-card></b-card></b-card></b-card>
+                    </div>`
+                    })
+
+/**
+ * Version - v4.1.0
+ * Component - C46 - SC - Tools, plant or technical equipment
+ */
+Vue.component("v4.1.0 - C46 - SC",
+                    { 
+                        data(){
+                            return {
+ "selected149": true,
+ "selected150": true,
+ "selected151": true
+}
+                        },
+                        template: `<div>
+                        <b-card title="C46 - SC - Tools, plant or technical equipment">
+                            <b-card-text>The following tools, plant or technical equipment will be available to it for performing the contract:</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
+                    </b-form-group>
+                    <b-card><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text><b-card>
+                    <b-form-group label="REQUIREMENT - Requirement [1]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                    </b-form-group>
+                    
+                                            <b-form-group>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-149" v-model="selected149" name="radio-options149" inline="true"  switch><b>({{ selected149?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="!selected149">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-150" v-model="selected150" name="radio-options150" inline="true"  switch><b>({{ selected150?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected150">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div>
+                                        </b-card>
+                                        </div>
+                                            <b-form-group label="QUESTION - Please describe them [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-151" v-model="selected151" name="radio-options151" inline="true"  switch><b>({{ selected151?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected151">
+                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div></b-card></b-card></b-card></b-card>
+                    </div>`
+                    })
+
+/**
+ * Version - v4.1.0
+ * Component - C47 - SC - Educational and professional qualifications
+ */
+Vue.component("v4.1.0 - C47 - SC",
+                    { 
+                        data(){
+                            return {
+ "selected152": true,
+ "selected153": true,
+ "selected154": true
+}
+                        },
+                        template: `<div>
+                        <b-card title="C47 - SC - Educational and professional qualifications">
+                            <b-card-text>The following educational and professional qualifications are held by the service provider or the contractor itself, and/or (depending on the requirements set out in the relevant notice or the procurement documents) by its managerial staff.</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
+                    </b-form-group>
+                    <b-card><b-card-text>CAPTION - [Additional information; e.g. no evidences online]</b-card-text><b-card>
+                    <b-form-group label="REQUIREMENT - Requirement [1]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                    </b-form-group>
+                    
+                                            <b-form-group>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-152" v-model="selected152" name="radio-options152" inline="true"  switch><b>({{ selected152?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="!selected152">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-153" v-model="selected153" name="radio-options153" inline="true"  switch><b>({{ selected153?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected153">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3392,9 +3464,9 @@ Vue.component("v4.1.0 - C47 - SC",
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
                                             </b-form-group></b-card>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-148" v-model="selected148" name="radio-options148" inline="true"  switch><b>({{ selected148?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-154" v-model="selected154" name="radio-options154" inline="true"  switch><b>({{ selected154?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected148">
+                                        <div v-if="selected154">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3413,10 +3485,10 @@ Vue.component("v4.1.0 - C48 - SC",
                     { 
                         data(){
                             return {
- "selected149": true,
- "selected150": true,
- "selected151": true,
- "selected152": true
+ "selected155": true,
+ "selected156": true,
+ "selected157": true,
+ "selected158": true
 }
                         },
                         template: `<div>
@@ -3434,14 +3506,14 @@ Vue.component("v4.1.0 - C48 - SC",
                     </b-form-group>
                     
                                             <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-149" v-model="selected149" name="radio-options149" inline="true"  switch><b>({{ selected149?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-155" v-model="selected155" name="radio-options155" inline="true"  switch><b>({{ selected155?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected149">
+                                        <div v-if="!selected155">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-150" v-model="selected150" name="radio-options150" inline="true"  switch><b>({{ selected150?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-156" v-model="selected156" name="radio-options156" inline="true"  switch><b>({{ selected156?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected150">
+                                        <div v-if="selected156">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3456,12 +3528,12 @@ Vue.component("v4.1.0 - C48 - SC",
                                         </b-card>
                                         </div>
                                             <b-form-group>
-                                        QUESTION Do you allow checks? [1] <b-form-checkbox id="radio-group-151" v-model="selected151" name="radio-options151" inline="true"  switch><b>({{ selected151?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Do you allow checks? [1] <b-form-checkbox id="radio-group-157" v-model="selected157" name="radio-options157" inline="true"  switch><b>({{ selected157?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-152" v-model="selected152" name="radio-options152" inline="true"  switch><b>({{ selected152?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-158" v-model="selected158" name="radio-options158" inline="true"  switch><b>({{ selected158?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected152">
+                                        <div v-if="selected158">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3480,9 +3552,9 @@ Vue.component("v4.1.0 - C49 - SC",
                     { 
                         data(){
                             return {
- "selected153": true,
- "selected154": true,
- "selected155": true
+ "selected159": true,
+ "selected160": true,
+ "selected161": true
 }
                         },
                         template: `<div>
@@ -3502,148 +3574,6 @@ Vue.component("v4.1.0 - C49 - SC",
                     <b-form-group label="REQUIREMENT - Additional information [0..1]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                    </b-form-group>
-                    
-                                            <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-153" v-model="selected153" name="radio-options153" inline="true"  switch><b>({{ selected153?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="!selected153">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-154" v-model="selected154" name="radio-options154" inline="true"  switch><b>({{ selected154?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="selected154">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        </b-card>
-                                        </div>
-                                            <b-form-group label="QUESTION - Year [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Number [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_INTEGER"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-155" v-model="selected155" name="radio-options155" inline="true"  switch><b>({{ selected155?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="selected155">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card></b-card></b-card>
-                    </div>`
-                    })
-
-/**
- * Version - v4.1.0
- * Component - C50 - SC - Average annual manpower
- */
-Vue.component("v4.1.0 - C50 - SC",
-                    { 
-                        data(){
-                            return {
- "selected156": true,
- "selected157": true,
- "selected158": true
-}
-                        },
-                        template: `<div>
-                        <b-card title="C50 - SC - Average annual manpower">
-                            <b-card-text>The economic operator’s average annual manpower for the last three years were as follows:</b-card-text>
-                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
-                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
-                    </b-form-group>
-                    <b-card>
-                    <b-form-group label="REQUIREMENT - Minimum number of years [1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="MINIMUM_QUANTITY_YEAR"></b-form-input>
-                    </b-form-group>
-                    
-                    <b-form-group label="REQUIREMENT - Additional information [0..1]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                    </b-form-group>
-                    
-                                            <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-156" v-model="selected156" name="radio-options156" inline="true"  switch><b>({{ selected156?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="!selected156">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-157" v-model="selected157" name="radio-options157" inline="true"  switch><b>({{ selected157?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="selected157">
-                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div>
-                                        </b-card>
-                                        </div>
-                                            <b-form-group label="QUESTION - Year [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Number [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="QUANTITY_INTEGER"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-158" v-model="selected158" name="radio-options158" inline="true"  switch><b>({{ selected158?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                        <div v-if="selected158">
-                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                        </b-card>
-                                        </div></b-card></b-card></b-card>
-                    </div>`
-                    })
-
-/**
- * Version - v4.1.0
- * Component - C51 - SC - Subcontracting proportion
- */
-Vue.component("v4.1.0 - C51 - SC",
-                    { 
-                        data(){
-                            return {
- "selected159": true,
- "selected160": true,
- "selected161": true
-}
-                        },
-                        template: `<div>
-                        <b-card title="C51 - SC - Subcontracting proportion">
-                            <b-card-text>The economic operator intends possibly to subcontract the following proportion (i.e. percentage) of the contract. Please note that if the economic operator has decided to subcontract a part of the contract and relies on the subcontractor’s capacities to perform that part, then please fill in a separate ESPD for such subcontractors, see Part II, Section C above.</b-card-text>
-                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
-                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
-                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
                     </b-form-group>
                     
                                             <b-form-group>
@@ -3668,9 +3598,13 @@ Vue.component("v4.1.0 - C51 - SC",
                                         </div>
                                         </b-card>
                                         </div>
-                                            <b-form-group label="QUESTION - Please specify [1]" 
+                                            <b-form-group label="QUESTION - Year [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Number [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="QUANTITY_INTEGER"></b-form-input>
                                             </b-form-group>
                                             <b-form-group>
                                         QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-161" v-model="selected161" name="radio-options161" inline="true"  switch><b>({{ selected161?'Yes':'No' }})</b></b-form-checkbox>
@@ -3682,31 +3616,40 @@ Vue.component("v4.1.0 - C51 - SC",
                                             <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
                                             </b-form-group>
                                         </b-card>
-                                        </div></b-card></b-card>
+                                        </div></b-card></b-card></b-card>
                     </div>`
                     })
 
 /**
  * Version - v4.1.0
- * Component - C52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity
+ * Component - C50 - SC - Average annual manpower
  */
-Vue.component("v4.1.0 - C52 - SC",
+Vue.component("v4.1.0 - C50 - SC",
                     { 
                         data(){
                             return {
  "selected162": true,
  "selected163": true,
- "selected164": true,
- "selected165": true
+ "selected164": true
 }
                         },
                         template: `<div>
-                        <b-card title="C52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity">
-                            <b-card-text>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied, which do not need to be accompanied by certifications of authenticity.</b-card-text>
+                        <b-card title="C50 - SC - Average annual manpower">
+                            <b-card-text>The economic operator’s average annual manpower for the last three years were as follows:</b-card-text>
                         <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
                     <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
                     label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                     <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
+                    </b-form-group>
+                    <b-card>
+                    <b-form-group label="REQUIREMENT - Minimum number of years [1]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="MINIMUM_QUANTITY_YEAR"></b-form-input>
+                    </b-form-group>
+                    
+                    <b-form-group label="REQUIREMENT - Additional information [0..1]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="DESCRIPTION"></b-form-input>
                     </b-form-group>
                     
                                             <b-form-group>
@@ -3731,13 +3674,142 @@ Vue.component("v4.1.0 - C52 - SC",
                                         </div>
                                         </b-card>
                                         </div>
+                                            <b-form-group label="QUESTION - Year [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="QUANTITY_YEAR"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Number [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="QUANTITY_INTEGER"></b-form-input>
+                                            </b-form-group>
                                             <b-form-group>
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-164" v-model="selected164" name="radio-options164" inline="true"  switch><b>({{ selected164?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-164" v-model="selected164" name="radio-options164" inline="true"  switch><b>({{ selected164?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected164">
+                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div></b-card></b-card></b-card>
+                    </div>`
+                    })
+
+/**
+ * Version - v4.1.0
+ * Component - C51 - SC - Subcontracting proportion
+ */
+Vue.component("v4.1.0 - C51 - SC",
+                    { 
+                        data(){
+                            return {
+ "selected165": true,
+ "selected166": true,
+ "selected167": true
+}
+                        },
+                        template: `<div>
+                        <b-card title="C51 - SC - Subcontracting proportion">
+                            <b-card-text>The economic operator intends possibly to subcontract the following proportion (i.e. percentage) of the contract. Please note that if the economic operator has decided to subcontract a part of the contract and relies on the subcontractor’s capacities to perform that part, then please fill in a separate ESPD for such subcontractors, see Part II, Section C above.</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
+                    </b-form-group>
+                    
+                                            <b-form-group>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-165" v-model="selected165" name="radio-options165" inline="true"  switch><b>({{ selected165?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="!selected165">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-166" v-model="selected166" name="radio-options166" inline="true"  switch><b>({{ selected166?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected166">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div>
+                                        </b-card>
+                                        </div>
+                                            <b-form-group label="QUESTION - Please specify [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-167" v-model="selected167" name="radio-options167" inline="true"  switch><b>({{ selected167?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected167">
+                                        <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div></b-card></b-card>
+                    </div>`
+                    })
+
+/**
+ * Version - v4.1.0
+ * Component - C52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity
+ */
+Vue.component("v4.1.0 - C52 - SC",
+                    { 
+                        data(){
+                            return {
+ "selected168": true,
+ "selected169": true,
+ "selected170": true,
+ "selected171": true
+}
+                        },
+                        template: `<div>
+                        <b-card title="C52 - SC - For supply contracts: samples, descriptions or photographs without certification of authenticity">
+                            <b-card-text>For public supply contracts: The economic operator will supply the required samples, descriptions or photographs of the products to be supplied, which do not need to be accompanied by certifications of authenticity.</b-card-text>
+                        <b-card>SUBCRITERION<br/><p>[Name of the National Criterion] <em>[Description of the National Criterion]</em> [<em>0..n</em>]</p></b-card><b-card-text class="my-1">LEGISLATION [<em>0..n</em>]</b-card-text><b-card>
+                    <b-form-group label="REQUIREMENT - LOT Identifier [1..n]"
+                    label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                    <b-form-input placeholder="LOT_IDENTIFIER"></b-form-input>
+                    </b-form-group>
+                    
+                                            <b-form-group>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-168" v-model="selected168" name="radio-options168" inline="true"  switch><b>({{ selected168?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="!selected168">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-169" v-model="selected169" name="radio-options169" inline="true"  switch><b>({{ selected169?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                        <div v-if="selected169">
+                                        <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                        </b-card>
+                                        </div>
+                                        </b-card>
+                                        </div>
+                                            <b-form-group>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-170" v-model="selected170" name="radio-options170" inline="true"  switch><b>({{ selected170?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-165" v-model="selected165" name="radio-options165" inline="true"  switch><b>({{ selected165?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-171" v-model="selected171" name="radio-options171" inline="true"  switch><b>({{ selected171?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected165">
+                                        <div v-if="selected171">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3756,10 +3828,10 @@ Vue.component("v4.1.0 - C53 - SC",
                     { 
                         data(){
                             return {
- "selected166": true,
- "selected167": true,
- "selected168": true,
- "selected169": true
+ "selected172": true,
+ "selected173": true,
+ "selected174": true,
+ "selected175": true
 }
                         },
                         template: `<div>
@@ -3772,14 +3844,14 @@ Vue.component("v4.1.0 - C53 - SC",
                     </b-form-group>
                     
                                             <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-166" v-model="selected166" name="radio-options166" inline="true"  switch><b>({{ selected166?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-172" v-model="selected172" name="radio-options172" inline="true"  switch><b>({{ selected172?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected166">
+                                        <div v-if="!selected172">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-167" v-model="selected167" name="radio-options167" inline="true"  switch><b>({{ selected167?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-173" v-model="selected173" name="radio-options173" inline="true"  switch><b>({{ selected173?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected167">
+                                        <div v-if="selected173">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3794,12 +3866,12 @@ Vue.component("v4.1.0 - C53 - SC",
                                         </b-card>
                                         </div>
                                             <b-form-group>
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-168" v-model="selected168" name="radio-options168" inline="true"  switch><b>({{ selected168?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-174" v-model="selected174" name="radio-options174" inline="true"  switch><b>({{ selected174?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-169" v-model="selected169" name="radio-options169" inline="true"  switch><b>({{ selected169?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-175" v-model="selected175" name="radio-options175" inline="true"  switch><b>({{ selected175?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected169">
+                                        <div v-if="selected175">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3818,10 +3890,10 @@ Vue.component("v4.1.0 - C54 - SC",
                     { 
                         data(){
                             return {
- "selected170": true,
- "selected171": true,
- "selected172": true,
- "selected173": true
+ "selected176": true,
+ "selected177": true,
+ "selected178": true,
+ "selected179": true
 }
                         },
                         template: `<div>
@@ -3839,14 +3911,14 @@ Vue.component("v4.1.0 - C54 - SC",
                     </b-form-group>
                     
                                             <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-170" v-model="selected170" name="radio-options170" inline="true"  switch><b>({{ selected170?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-176" v-model="selected176" name="radio-options176" inline="true"  switch><b>({{ selected176?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected170">
+                                        <div v-if="!selected176">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-171" v-model="selected171" name="radio-options171" inline="true"  switch><b>({{ selected171?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-177" v-model="selected177" name="radio-options177" inline="true"  switch><b>({{ selected177?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected171">
+                                        <div v-if="selected177">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3861,9 +3933,9 @@ Vue.component("v4.1.0 - C54 - SC",
                                         </b-card>
                                         </div>
                                             <b-form-group>
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-172" v-model="selected172" name="radio-options172" inline="true"  switch><b>({{ selected172?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-178" v-model="selected178" name="radio-options178" inline="true"  switch><b>({{ selected178?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected172">
+                                        <div v-if="!selected178">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - If not, please explain why and state which other means of proof can be provided: [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3872,9 +3944,9 @@ Vue.component("v4.1.0 - C54 - SC",
                                         </b-card>
                                         </div>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-173" v-model="selected173" name="radio-options173" inline="true"  switch><b>({{ selected173?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-179" v-model="selected179" name="radio-options179" inline="true"  switch><b>({{ selected179?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected173">
+                                        <div v-if="selected179">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3893,10 +3965,10 @@ Vue.component("v4.1.0 - C55 - SC",
                     { 
                         data(){
                             return {
- "selected174": true,
- "selected175": true,
- "selected176": true,
- "selected177": true
+ "selected180": true,
+ "selected181": true,
+ "selected182": true,
+ "selected183": true
 }
                         },
                         template: `<div>
@@ -3914,14 +3986,14 @@ Vue.component("v4.1.0 - C55 - SC",
                     </b-form-group>
                     
                                             <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-174" v-model="selected174" name="radio-options174" inline="true"  switch><b>({{ selected174?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-180" v-model="selected180" name="radio-options180" inline="true"  switch><b>({{ selected180?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected174">
+                                        <div v-if="!selected180">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-175" v-model="selected175" name="radio-options175" inline="true"  switch><b>({{ selected175?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-181" v-model="selected181" name="radio-options181" inline="true"  switch><b>({{ selected181?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected175">
+                                        <div v-if="selected181">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3936,9 +4008,9 @@ Vue.component("v4.1.0 - C55 - SC",
                                         </b-card>
                                         </div>
                                             <b-form-group>
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-176" v-model="selected176" name="radio-options176" inline="true"  switch><b>({{ selected176?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-182" v-model="selected182" name="radio-options182" inline="true"  switch><b>({{ selected182?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected176">
+                                        <div v-if="!selected182">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - If not, please explain why and state which other means of proof can be provided: [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3947,9 +4019,9 @@ Vue.component("v4.1.0 - C55 - SC",
                                         </b-card>
                                         </div>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-177" v-model="selected177" name="radio-options177" inline="true"  switch><b>({{ selected177?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-183" v-model="selected183" name="radio-options183" inline="true"  switch><b>({{ selected183?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected177">
+                                        <div v-if="selected183">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -3968,10 +4040,10 @@ Vue.component("v4.1.0 - C56 - SC",
                     { 
                         data(){
                             return {
- "selected178": true,
- "selected179": true,
- "selected180": true,
- "selected181": true
+ "selected184": true,
+ "selected185": true,
+ "selected186": true,
+ "selected187": true
 }
                         },
                         template: `<div>
@@ -3989,14 +4061,14 @@ Vue.component("v4.1.0 - C56 - SC",
                     </b-form-group>
                     
                                             <b-form-group>
-                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-178" v-model="selected178" name="radio-options178" inline="true"  switch><b>({{ selected178?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Does the EO fulfil the criteria by itself? [1] <b-form-checkbox id="radio-group-184" v-model="selected184" name="radio-options184" inline="true"  switch><b>({{ selected184?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected178">
+                                        <div v-if="!selected184">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-179" v-model="selected179" name="radio-options179" inline="true"  switch><b>({{ selected179?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION In the case of no – Relied upon or not [1] <b-form-checkbox id="radio-group-185" v-model="selected185" name="radio-options185" inline="true"  switch><b>({{ selected185?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected179">
+                                        <div v-if="selected185">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Name of the entity [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4011,9 +4083,9 @@ Vue.component("v4.1.0 - C56 - SC",
                                         </b-card>
                                         </div>
                                             <b-form-group>
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-180" v-model="selected180" name="radio-options180" inline="true"  switch><b>({{ selected180?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-186" v-model="selected186" name="radio-options186" inline="true"  switch><b>({{ selected186?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="!selected180">
+                                        <div v-if="!selected186">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - If not, please explain why and state which other means of proof can be provided: [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4022,9 +4094,9 @@ Vue.component("v4.1.0 - C56 - SC",
                                         </b-card>
                                         </div>
                                             <b-form-group>
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-181" v-model="selected181" name="radio-options181" inline="true"  switch><b>({{ selected181?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-187" v-model="selected187" name="radio-options187" inline="true"  switch><b>({{ selected187?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected181">
+                                        <div v-if="selected187">
                                         <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4043,8 +4115,8 @@ Vue.component("v4.1.0 - C57 - OT",
                     { 
                         data(){
                             return {
- "selected182": true,
- "selected183": true
+ "selected188": true,
+ "selected189": true
 }
                         },
                         template: `<div>
@@ -4053,9 +4125,9 @@ Vue.component("v4.1.0 - C57 - OT",
                         
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-182" v-model="selected182" name="radio-options182" inline="true"  switch><b>({{ selected182?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-188" v-model="selected188" name="radio-options188" inline="true"  switch><b>({{ selected188?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                    <div v-if="selected182">
+                                    <div v-if="selected188">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - What is the corresponding percentage of disabled or disadvantaged workers? [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4070,9 +4142,9 @@ Vue.component("v4.1.0 - C57 - OT",
                     </b-card>
                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                         <b-form-group> 
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-183" v-model="selected183" name="radio-options183" inline="true"  switch><b>({{ selected183?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-189" v-model="selected189" name="radio-options189" inline="true"  switch><b>({{ selected189?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                    <div v-if="selected183">
+                                    <div v-if="selected189">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4092,11 +4164,11 @@ Vue.component("v4.1.0 - C58 - OT",
                     { 
                         data(){
                             return {
- "selected184": true,
- "selected185": true,
- "selected186": true,
- "selected187": true,
- "selected188": true
+ "selected190": true,
+ "selected191": true,
+ "selected192": true,
+ "selected193": true,
+ "selected194": true
 }
                         },
                         template: `<div>
@@ -4105,14 +4177,14 @@ Vue.component("v4.1.0 - C58 - OT",
                         
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-184" v-model="selected184" name="radio-options184" inline="true"  switch><b>({{ selected184?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-190" v-model="selected190" name="radio-options190" inline="true"  switch><b>({{ selected190?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                    <div v-if="selected184">
+                                    <div v-if="selected190">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION Is the economic operator registered on an official list of approved economic operators or does it have an equivalent certificate? [1] <b-form-checkbox id="radio-group-185" v-model="selected185" name="radio-options185" inline="true"  switch><b>({{ selected185?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is the economic operator registered on an official list of approved economic operators or does it have an equivalent certificate? [1] <b-form-checkbox id="radio-group-191" v-model="selected191" name="radio-options191" inline="true"  switch><b>({{ selected191?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                        <div v-if="selected185">
+                                        <div v-if="selected191">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Please provide the name of the list or certificate and the relevant registration or certification number, if applicable [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4127,172 +4199,21 @@ Vue.component("v4.1.0 - C58 - OT",
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
                                             </b-form-group><b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION Does the registration or certification cover all of the required selection criteria? [1] <b-form-checkbox id="radio-group-186" v-model="selected186" name="radio-options186" inline="true"  switch><b>({{ selected186?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Does the registration or certification cover all of the required selection criteria? [1] <b-form-checkbox id="radio-group-192" v-model="selected192" name="radio-options192" inline="true"  switch><b>({{ selected192?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group></b-card>
                                         </b-card>
                                         </div>
-                                        <div v-if="!selected185">
+                                        <div v-if="!selected191">
                                         <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group>
-                                        QUESTION Will the economic operator be able to provide a certificate with regard to the payment of social security contributions and taxes or provide information enabling the contracting authority or contracting entity to obtaining it directly by accessing a national database in any Member State that is available free of charge? [1] <b-form-checkbox id="radio-group-187" v-model="selected187" name="radio-options187" inline="true"  switch><b>({{ selected187?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Will the economic operator be able to provide a certificate with regard to the payment of social security contributions and taxes or provide information enabling the contracting authority or contracting entity to obtaining it directly by accessing a national database in any Member State that is available free of charge? [1] <b-form-checkbox id="radio-group-193" v-model="selected193" name="radio-options193" inline="true"  switch><b>({{ selected193?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
                                         </b-card>
                                         </div>
                                     </b-card>
                                     </div>
-                                    <div v-if="!selected184">
+                                    <div v-if="!selected190">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p><b-card-text>CAPTION - The country of the economic operator does not have an official list of approved economic operators or an equivalent certificate (e.g. under a national (pre)qualification system).</b-card-text>
-                                    </b-card>
-                                    </div>
-                    </b-card>
-                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
-                                        <b-form-group> 
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-188" v-model="selected188" name="radio-options188" inline="true"  switch><b>({{ selected188?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                    <div v-if="selected188">
-                                    <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                    </b-card>
-                                    </div>
-                    </b-card></b-card>
-                    </div>`
-                    })
-
-/**
- * Version - v4.1.0
- * Component - C59 - OT - Economic Operator together with others
- */
-Vue.component("v4.1.0 - C59 - OT",
-                    { 
-                        data(){
-                            return {
- "selected189": true,
- "selected190": true
-}
-                        },
-                        template: `<div>
-                        <b-card title="C59 - OT - Economic Operator together with others">
-                            <b-card-text>Is the economic operator participating in the procurement procedure together with others?</b-card-text>
-                        
-                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <b-form-group> 
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-189" v-model="selected189" name="radio-options189" inline="true"  switch><b>({{ selected189?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                    <div v-if="selected189">
-                                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                            <b-form-group label="QUESTION - Please indicate the role of the economic operator in the group (leader, responsible for specific tasks...) [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="CODE"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Please identify the other economic operators participating in the procurement procedure together [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - Where applicable, name of the participating group: [0..1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                    </b-card>
-                                    </div>
-                    </b-card>
-                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
-                                        <b-form-group> 
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-190" v-model="selected190" name="radio-options190" inline="true"  switch><b>({{ selected190?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                    <div v-if="selected190">
-                                    <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                    </b-card>
-                                    </div>
-                    </b-card></b-card>
-                    </div>`
-                    })
-
-/**
- * Version - v4.1.0
- * Component - C60 - OT - Relied on entities
- */
-Vue.component("v4.1.0 - C60 - OT",
-                    { 
-                        data(){
-                            return {
- "selected191": true,
- "selected192": true
-}
-                        },
-                        template: `<div>
-                        <b-card title="C60 - OT - Relied on entities">
-                            <b-card-text>Does the economic operator rely on the capacities of other entities in order to meet the selection criteria set out under Part IV and the criteria and rules (if any) set out under Part V below?</b-card-text>
-                        
-                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <b-form-group> 
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-191" v-model="selected191" name="radio-options191" inline="true"  switch><b>({{ selected191?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                    <div v-if="selected191">
-                                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                    </b-card>
-                                    </div>
-                    </b-card>
-                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
-                                        <b-form-group> 
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-192" v-model="selected192" name="radio-options192" inline="true"  switch><b>({{ selected192?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                    <div v-if="selected192">
-                                    <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
-                                    </b-card>
-                                    </div>
-                    </b-card></b-card>
-                    </div>`
-                    })
-
-/**
- * Version - v4.1.0
- * Component - C61 - OT - Subcontracted entities
- */
-Vue.component("v4.1.0 - C61 - OT",
-                    { 
-                        data(){
-                            return {
- "selected193": true,
- "selected194": true
-}
-                        },
-                        template: `<div>
-                        <b-card title="C61 - OT - Subcontracted entities">
-                            <b-card-text>Does the economic operator intend to subcontract any share of the contract to third parties?</b-card-text>
-                        
-                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
-                                        <b-form-group> 
-                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-193" v-model="selected193" name="radio-options193" inline="true"  switch><b>({{ selected193?'Yes':'No' }})</b></b-form-checkbox>
-                                        </b-form-group>
-                                    <div v-if="selected193">
-                                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
-                                            <b-form-group label="QUESTION - Name of the entity [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
-                                            </b-form-group>
-                                            <b-form-group label="QUESTION - ID of the subcontractor [1]" 
-                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
-                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
-                                            </b-form-group>
                                     </b-card>
                                     </div>
                     </b-card>
@@ -4314,9 +4235,9 @@ Vue.component("v4.1.0 - C61 - OT",
 
 /**
  * Version - v4.1.0
- * Component - C63 - OT - Reduction of the number of qualified candidates
+ * Component - C59 - OT - Economic Operator together with others
  */
-Vue.component("v4.1.0 - C63 - OT",
+Vue.component("v4.1.0 - C59 - OT",
                     { 
                         data(){
                             return {
@@ -4325,16 +4246,24 @@ Vue.component("v4.1.0 - C63 - OT",
 }
                         },
                         template: `<div>
-                        <b-card title="C63 - OT - Reduction of the number of qualified candidates">
-                            <b-card-text>The economic operator declares that It meets the objective and non discriminatory criteria or rules to be applied in order to limit the number of candidates in the following way: in case certain certificates or other forms of documentary evidence are required, please indicate for each whether the economic operator has the required documents.</b-card-text>
+                        <b-card title="C59 - OT - Economic Operator together with others">
+                            <b-card-text>Is the economic operator participating in the procurement procedure together with others?</b-card-text>
                         
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer? [1] <b-form-checkbox id="radio-group-195" v-model="selected195" name="radio-options195" inline="true"  switch><b>({{ selected195?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
                                     <div v-if="selected195">
-                                    <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
-                                            <b-form-group label="QUESTION - Please describe them [1]" 
+                                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                            <b-form-group label="QUESTION - Please indicate the role of the economic operator in the group (leader, responsible for specific tasks...) [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="CODE"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Please identify the other economic operators participating in the procurement procedure together [0..1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - Where applicable, name of the participating group: [0..1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
                                             <b-form-input placeholder="DESCRIPTION"></b-form-input>
                                             </b-form-group>
@@ -4359,9 +4288,9 @@ Vue.component("v4.1.0 - C63 - OT",
 
 /**
  * Version - v4.1.0
- * Component - C65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise
+ * Component - C60 - OT - Relied on entities
  */
-Vue.component("v4.1.0 - C65 - OT",
+Vue.component("v4.1.0 - C60 - OT",
                     { 
                         data(){
                             return {
@@ -4370,14 +4299,157 @@ Vue.component("v4.1.0 - C65 - OT",
 }
                         },
                         template: `<div>
-                        <b-card title="C65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise">
-                            <b-card-text>Is the economic operator a Micro, a Small or Medium-sized Enterprise?</b-card-text>
+                        <b-card title="C60 - OT - Relied on entities">
+                            <b-card-text>Does the economic operator rely on the capacities of other entities in order to meet the selection criteria set out under Part IV and the criteria and rules (if any) set out under Part V below?</b-card-text>
                         
                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                         <b-form-group> 
                                         QUESTION Your answer? [1] <b-form-checkbox id="radio-group-197" v-model="selected197" name="radio-options197" inline="true"  switch><b>({{ selected197?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
                                     <div v-if="selected197">
+                                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                    </b-card>
+                                    </div>
+                    </b-card>
+                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                        <b-form-group> 
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-198" v-model="selected198" name="radio-options198" inline="true"  switch><b>({{ selected198?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                    <div v-if="selected198">
+                                    <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                    </b-card>
+                                    </div>
+                    </b-card></b-card>
+                    </div>`
+                    })
+
+/**
+ * Version - v4.1.0
+ * Component - C61 - OT - Subcontracted entities
+ */
+Vue.component("v4.1.0 - C61 - OT",
+                    { 
+                        data(){
+                            return {
+ "selected199": true,
+ "selected200": true
+}
+                        },
+                        template: `<div>
+                        <b-card title="C61 - OT - Subcontracted entities">
+                            <b-card-text>Does the economic operator intend to subcontract any share of the contract to third parties?</b-card-text>
+                        
+                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        <b-form-group> 
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-199" v-model="selected199" name="radio-options199" inline="true"  switch><b>({{ selected199?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                    <div v-if="selected199">
+                                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                            <b-form-group label="QUESTION - Name of the entity [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                            <b-form-group label="QUESTION - ID of the subcontractor [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="ECONOMIC_OPERATOR_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                    </b-card>
+                                    </div>
+                    </b-card>
+                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                        <b-form-group> 
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-200" v-model="selected200" name="radio-options200" inline="true"  switch><b>({{ selected200?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                    <div v-if="selected200">
+                                    <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                    </b-card>
+                                    </div>
+                    </b-card></b-card>
+                    </div>`
+                    })
+
+/**
+ * Version - v4.1.0
+ * Component - C63 - OT - Reduction of the number of qualified candidates
+ */
+Vue.component("v4.1.0 - C63 - OT",
+                    { 
+                        data(){
+                            return {
+ "selected201": true,
+ "selected202": true
+}
+                        },
+                        template: `<div>
+                        <b-card title="C63 - OT - Reduction of the number of qualified candidates">
+                            <b-card-text>The economic operator declares that It meets the objective and non discriminatory criteria or rules to be applied in order to limit the number of candidates in the following way: in case certain certificates or other forms of documentary evidence are required, please indicate for each whether the economic operator has the required documents.</b-card-text>
+                        
+                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        <b-form-group> 
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-201" v-model="selected201" name="radio-options201" inline="true"  switch><b>({{ selected201?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                    <div v-if="selected201">
+                                    <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Please describe them [1]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="DESCRIPTION"></b-form-input>
+                                            </b-form-group>
+                                    </b-card>
+                                    </div>
+                    </b-card>
+                    <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
+                                        <b-form-group> 
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-202" v-model="selected202" name="radio-options202" inline="true"  switch><b>({{ selected202?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                    <div v-if="selected202">
+                                    <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
+                                            <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
+                                            label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
+                                            <b-form-input placeholder="EVIDENCE_IDENTIFIER"></b-form-input>
+                                            </b-form-group>
+                                    </b-card>
+                                    </div>
+                    </b-card></b-card>
+                    </div>`
+                    })
+
+/**
+ * Version - v4.1.0
+ * Component - C65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise
+ */
+Vue.component("v4.1.0 - C65 - OT",
+                    { 
+                        data(){
+                            return {
+ "selected203": true,
+ "selected204": true
+}
+                        },
+                        template: `<div>
+                        <b-card title="C65 - OT - Economic Operator Micro, Small or Medium-sized Enterprise">
+                            <b-card-text>Is the economic operator a Micro, a Small or Medium-sized Enterprise?</b-card-text>
+                        
+                    <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
+                                        <b-form-group> 
+                                        QUESTION Your answer? [1] <b-form-checkbox id="radio-group-203" v-model="selected203" name="radio-options203" inline="true"  switch><b>({{ selected203?'Yes':'No' }})</b></b-form-checkbox>
+                                        </b-form-group>
+                                    <div v-if="selected203">
                                     <b-card class="my-1"> <p>Cardinality [<em>1</em>]</p>
                                             <b-form-group label="QUESTION - Number of employees [1]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">
@@ -4392,9 +4464,9 @@ Vue.component("v4.1.0 - C65 - OT",
                     </b-card>
                     <b-card class="my-1"> <p>Cardinality [<em>0..n</em>]</p>
                                         <b-form-group> 
-                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-198" v-model="selected198" name="radio-options198" inline="true"  switch><b>({{ selected198?'Yes':'No' }})</b></b-form-checkbox>
+                                        QUESTION Is this information available electronically? [1] <b-form-checkbox id="radio-group-204" v-model="selected204" name="radio-options204" inline="true"  switch><b>({{ selected204?'Yes':'No' }})</b></b-form-checkbox>
                                         </b-form-group>
-                                    <div v-if="selected198">
+                                    <div v-if="selected204">
                                     <b-card class="my-1"> <p>Cardinality [<em>0..1</em>]</p>
                                             <b-form-group label="QUESTION - Evidence Supplied [1..n]" 
                                             label-cols-sm="6" label-cols-lg="8" content-cols-sm content-cols-lg="4">

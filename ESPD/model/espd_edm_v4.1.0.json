@@ -6958,6 +6958,7 @@
                                 "components": {
                                     "CA1": {
                                         "type": "CAPTION",
+                                        "description": "[Description provided by the Buyer]",
                                         "cardinality": "0..1",
                                         "propertydatatype": "NONE",
                                         "requestpath": "C37_SC_work-perform/RG1/RSG1/RSG1/CA1",
@@ -6985,153 +6986,72 @@
                             },
                             "QSG1": {
                                 "type": "QUESTION_SUBGROUP",
-                                "cardinality": "1..n",
+                                "cardinality": "1",
                                 "elementcode": "ON*",
                                 "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1",
                                 "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1",
                                 "components": {
-                                    "CA2": {
-                                        "type": "CAPTION",
+                                    "Q1": {
+                                        "type": "QUESTION",
+                                        "description": "Does the EO fulfil the criteria by itself?",
+                                        "sellervalue": "true",
                                         "cardinality": "1",
-                                        "propertydatatype": "NONE",
-                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/CA1",
-                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/CA1"
+                                        "propertydatatype": "INDICATOR",
+                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/Q1/R1/R1",
+                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/Q1/R1/R1/RV"
                                     },
                                     "QSG2": {
                                         "type": "QUESTION_SUBGROUP",
-                                        "description": "Reference",
-                                        "cardinality": "1..n",
-                                        "elementcode": "ON*",
+                                        "cardinality": "1",
+                                        "elementcode": "ONFALSE",
                                         "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1",
                                         "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1",
                                         "components": {
-                                            "Q1": {
-                                                "type": "QUESTION",
-                                                "description": "Reference description",
-                                                "sellervalue": "DoD consultancy on IT convergence",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "DESCRIPTION",
-                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/R1/R1",
-                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/RV"
-                                            },
                                             "Q2": {
                                                 "type": "QUESTION",
-                                                "description": "Total amount",
-                                                "sellervalue": "150000",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "AMOUNT",
-                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q2/R1/R1/R1/R1",
-                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q3": {
-                                                "type": "QUESTION",
-                                                "description": "Activity of the economic operator",
-                                                "sellervalue": "Military satellite software development",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "DESCRIPTION",
-                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q3/R1/R1/R1/R1",
-                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q4": {
-                                                "type": "QUESTION",
-                                                "description": "Specific amount",
-                                                "sellervalue": "7591212",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "AMOUNT",
-                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q4/R1/R1/R1/R1",
-                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q5": {
-                                                "type": "QUESTION",
-                                                "description": "Period (Start and End dates)",
-                                                "sellervalue": "2016-01-01; 2017-01-01",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "PERIOD",
-                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q5/R1/R1/R1/R1",
-                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q5/R1/R1/R1/R1/RAP"
-                                            },
-                                            "Q6": {
-                                                "type": "QUESTION",
-                                                "description": "Confidential",
+                                                "description": "In the case of no – Relied upon or not",
                                                 "sellervalue": "true",
-                                                "cardinality": "0..1",
+                                                "cardinality": "1",
                                                 "propertydatatype": "INDICATOR",
-                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q6/R1/R1/R1/R1",
-                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q6/R1/R1/R1/R1/RV"
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1",
+                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/RV"
                                             },
                                             "QSG3": {
                                                 "type": "QUESTION_SUBGROUP",
-                                                "description": "Recipients",
-                                                "cardinality": "0..n",
-                                                "elementcode": "ON*",
+                                                "cardinality": "1",
+                                                "elementcode": "ONTRUE",
                                                 "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1",
                                                 "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1",
                                                 "components": {
-                                                    "Q7": {
+                                                    "Q3": {
                                                         "type": "QUESTION",
-                                                        "description": "Recipient name",
-                                                        "sellervalue": "USA Department of Defence",
-                                                        "cardinality": "0..1",
+                                                        "description": "Name of the entity",
+                                                        "sellervalue": "[Name]",
+                                                        "cardinality": "1",
                                                         "propertydatatype": "DESCRIPTION",
                                                         "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
                                                         "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
-                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/R1",
+                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1",
                                                         "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
-                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/R1/RV"
+                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/RV"
                                                     },
-                                                    "Q8": {
+                                                    "Q4": {
                                                         "type": "QUESTION",
-                                                        "description": "Contact person name",
-                                                        "sellervalue": "General Patton Junior",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
+                                                        "description": "ID of the entity",
+                                                        "sellervalue": "[ID]",
+                                                        "cardinality": "1",
+                                                        "propertydatatype": "ECONOMIC_OPERATOR_IDENTIFIER",
                                                         "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
                                                         "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
-                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/R1",
+                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1",
                                                         "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
-                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/R1/RV"
-                                                    },
-                                                    "Q9": {
-                                                        "type": "QUESTION",
-                                                        "description": "Contact email",
-                                                        "sellervalue": "patton junior@dod gov usa",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
-                                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/R1",
-                                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/R1/RV"
-                                                    },
-                                                    "Q10": {
-                                                        "type": "QUESTION",
-                                                        "description": "Contact telephone",
-                                                        "sellervalue": "+34934947700",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
-                                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/R1",
-                                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/R1/RV"
+                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/RV"
                                                     }
                                                 }
                                             }
@@ -7141,41 +7061,197 @@
                             },
                             "QSG4": {
                                 "type": "QUESTION_SUBGROUP",
-                                "cardinality": "0..n",
+                                "cardinality": "1..n",
                                 "elementcode": "ON*",
                                 "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2",
                                 "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2",
                                 "components": {
-                                    "Q11": {
+                                    "CA2": {
+                                        "type": "CAPTION",
+                                        "cardinality": "1",
+                                        "propertydatatype": "NONE",
+                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/CA1",
+                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/CA1"
+                                    },
+                                    "QSG5": {
+                                        "type": "QUESTION_SUBGROUP",
+                                        "description": "Reference",
+                                        "cardinality": "1..n",
+                                        "elementcode": "ON*",
+                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1",
+                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1",
+                                        "components": {
+                                            "Q5": {
+                                                "type": "QUESTION",
+                                                "description": "Reference description",
+                                                "sellervalue": "DoD consultancy on IT convergence",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "DESCRIPTION",
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/R1",
+                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q6": {
+                                                "type": "QUESTION",
+                                                "description": "Total amount",
+                                                "sellervalue": "150000",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "AMOUNT",
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q2/R1/R1/R1/R1",
+                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q2/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q7": {
+                                                "type": "QUESTION",
+                                                "description": "Activity of the economic operator",
+                                                "sellervalue": "Military satellite software development",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "DESCRIPTION",
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q3/R1/R1/R1/R1",
+                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q3/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q8": {
+                                                "type": "QUESTION",
+                                                "description": "Specific amount",
+                                                "sellervalue": "7591212",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "AMOUNT",
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q4/R1/R1/R1/R1",
+                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q4/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q9": {
+                                                "type": "QUESTION",
+                                                "description": "Period (Start and End dates)",
+                                                "sellervalue": "2016-01-01; 2017-01-01",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "PERIOD",
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q5/R1/R1/R1/R1",
+                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q5/R1/R1/R1/R1/RAP"
+                                            },
+                                            "Q10": {
+                                                "type": "QUESTION",
+                                                "description": "Confidential",
+                                                "sellervalue": "true",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "INDICATOR",
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q6/R1/R1/R1/R1",
+                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q6/R1/R1/R1/R1/RV"
+                                            },
+                                            "QSG6": {
+                                                "type": "QUESTION_SUBGROUP",
+                                                "description": "Recipients",
+                                                "cardinality": "0..n",
+                                                "elementcode": "ON*",
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1",
+                                                "components": {
+                                                    "Q11": {
+                                                        "type": "QUESTION",
+                                                        "description": "Recipient name",
+                                                        "sellervalue": "USA Department of Defence",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q12": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact person name",
+                                                        "sellervalue": "General Patton Junior",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q13": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact email",
+                                                        "sellervalue": "patton junior@dod gov usa",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q14": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact telephone",
+                                                        "sellervalue": "+34934947700",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4/R1/R1/R1/R1/R1/RV"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "QSG7": {
+                                "type": "QUESTION_SUBGROUP",
+                                "cardinality": "0..n",
+                                "elementcode": "ON*",
+                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG3",
+                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG3",
+                                "components": {
+                                    "Q15": {
                                         "type": "QUESTION",
                                         "description": "Is this information available online?",
                                         "sellervalue": "true",
                                         "cardinality": "1",
                                         "propertydatatype": "INDICATOR",
-                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/Q1/R1/R1/R1",
-                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG2/Q1/R1/R1/R1/RV"
+                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG3/Q1/R1/R1/R1",
+                                        "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsecontent3": "C37_SC_work-perform/RG1/RSG1/QSG3/Q1/R1/R1/R1/RV"
                                     },
-                                    "QSG5": {
+                                    "QSG8": {
                                         "type": "QUESTION_SUBGROUP",
                                         "cardinality": "0..1",
                                         "elementcode": "ONTRUE",
-                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1",
-                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1",
+                                        "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG3/QSG1",
+                                        "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG3/QSG1",
                                         "components": {
-                                            "Q12": {
+                                            "Q16": {
                                                 "type": "QUESTION",
                                                 "description": "Evidence Supplied",
                                                 "sellervalue": "EVIDENCE-ID",
                                                 "cardinality": "1..n",
                                                 "propertydatatype": "EVIDENCE_IDENTIFIER",
-                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1",
-                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsecontent3": "EVIDENCE-ID/C37_SC_work-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/RES"
+                                                "requestpath": "C37_SC_work-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsepath": "C37_SC_work-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsecontent1": "C37_SC_work-perform/RG1/RSG1/QSG3/QSG1/Q1/R1/R1/R1",
+                                                "responsecontent2": "C37_SC_work-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsecontent3": "EVIDENCE-ID/C37_SC_work-perform/RG1/RSG1/QSG3/QSG1/Q1/R1/R1/R1/RES"
                                             }
                                         }
                                     }
@@ -7254,6 +7330,7 @@
                                 "components": {
                                     "CA1": {
                                         "type": "CAPTION",
+                                        "description": "[Description provided by the Buyer]",
                                         "cardinality": "0..1",
                                         "propertydatatype": "NONE",
                                         "requestpath": "C38_SC_supply-perform/RG1/RSG1/RSG1/CA1",
@@ -7281,153 +7358,72 @@
                             },
                             "QSG1": {
                                 "type": "QUESTION_SUBGROUP",
-                                "cardinality": "1..n",
+                                "cardinality": "1",
                                 "elementcode": "ON*",
                                 "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1",
                                 "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1",
                                 "components": {
-                                    "CA2": {
-                                        "type": "CAPTION",
+                                    "Q1": {
+                                        "type": "QUESTION",
+                                        "description": "Does the EO fulfil the criteria by itself?",
+                                        "sellervalue": "true",
                                         "cardinality": "1",
-                                        "propertydatatype": "NONE",
-                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/CA1",
-                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/CA1"
+                                        "propertydatatype": "INDICATOR",
+                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/Q1/R1/R1",
+                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/Q1/R1/R1/RV"
                                     },
                                     "QSG2": {
                                         "type": "QUESTION_SUBGROUP",
-                                        "description": "Reference",
-                                        "cardinality": "1..n",
-                                        "elementcode": "ON*",
+                                        "cardinality": "1",
+                                        "elementcode": "ONFALSE",
                                         "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1",
                                         "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1",
                                         "components": {
-                                            "Q1": {
-                                                "type": "QUESTION",
-                                                "description": "Reference description",
-                                                "sellervalue": "DoD consultancy on IT convergence",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "DESCRIPTION",
-                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/R1/R1",
-                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/RV"
-                                            },
                                             "Q2": {
                                                 "type": "QUESTION",
-                                                "description": "Total amount",
-                                                "sellervalue": "150000",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "AMOUNT",
-                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q2/R1/R1/R1/R1",
-                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q3": {
-                                                "type": "QUESTION",
-                                                "description": "Activity of the economic operator",
-                                                "sellervalue": "Military satellite software development",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "DESCRIPTION",
-                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q3/R1/R1/R1/R1",
-                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q4": {
-                                                "type": "QUESTION",
-                                                "description": "Specific amount",
-                                                "sellervalue": "7591212",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "AMOUNT",
-                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q4/R1/R1/R1/R1",
-                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q5": {
-                                                "type": "QUESTION",
-                                                "description": "Period (Start and End dates)",
-                                                "sellervalue": "2016-01-01; 2017-01-01",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "PERIOD",
-                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q5/R1/R1/R1/R1",
-                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q5/R1/R1/R1/R1/RAP"
-                                            },
-                                            "Q6": {
-                                                "type": "QUESTION",
-                                                "description": "Confidential",
+                                                "description": "In the case of no – Relied upon or not",
                                                 "sellervalue": "true",
-                                                "cardinality": "0..1",
+                                                "cardinality": "1",
                                                 "propertydatatype": "INDICATOR",
-                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q6/R1/R1/R1/R1",
-                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q6/R1/R1/R1/R1/RV"
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1",
+                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/RV"
                                             },
                                             "QSG3": {
                                                 "type": "QUESTION_SUBGROUP",
-                                                "description": "Recipients",
-                                                "cardinality": "0..n",
-                                                "elementcode": "ON*",
+                                                "cardinality": "1",
+                                                "elementcode": "ONTRUE",
                                                 "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1",
                                                 "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1",
                                                 "components": {
-                                                    "Q7": {
+                                                    "Q3": {
                                                         "type": "QUESTION",
-                                                        "description": "Recipient name",
-                                                        "sellervalue": "USA Department of Defence",
-                                                        "cardinality": "0..1",
+                                                        "description": "Name of the entity",
+                                                        "sellervalue": "[Name]",
+                                                        "cardinality": "1",
                                                         "propertydatatype": "DESCRIPTION",
                                                         "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
                                                         "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
-                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/R1",
+                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1",
                                                         "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
-                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/R1/RV"
+                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/RV"
                                                     },
-                                                    "Q8": {
+                                                    "Q4": {
                                                         "type": "QUESTION",
-                                                        "description": "Contact person name",
-                                                        "sellervalue": "General Patton Junior",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
+                                                        "description": "ID of the entity",
+                                                        "sellervalue": "[ID]",
+                                                        "cardinality": "1",
+                                                        "propertydatatype": "ECONOMIC_OPERATOR_IDENTIFIER",
                                                         "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
                                                         "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
-                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/R1",
+                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1",
                                                         "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
-                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/R1/RV"
-                                                    },
-                                                    "Q9": {
-                                                        "type": "QUESTION",
-                                                        "description": "Contact email",
-                                                        "sellervalue": "patton junior@dod gov usa",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
-                                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/R1",
-                                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/R1/RV"
-                                                    },
-                                                    "Q10": {
-                                                        "type": "QUESTION",
-                                                        "description": "Contact telephone",
-                                                        "sellervalue": "+34934947700",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
-                                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/R1",
-                                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/R1/RV"
+                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/RV"
                                                     }
                                                 }
                                             }
@@ -7437,41 +7433,197 @@
                             },
                             "QSG4": {
                                 "type": "QUESTION_SUBGROUP",
-                                "cardinality": "0..n",
+                                "cardinality": "1..n",
                                 "elementcode": "ON*",
                                 "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2",
                                 "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2",
                                 "components": {
-                                    "Q11": {
+                                    "CA2": {
+                                        "type": "CAPTION",
+                                        "cardinality": "1",
+                                        "propertydatatype": "NONE",
+                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/CA1",
+                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/CA1"
+                                    },
+                                    "QSG5": {
+                                        "type": "QUESTION_SUBGROUP",
+                                        "description": "Reference",
+                                        "cardinality": "1..n",
+                                        "elementcode": "ON*",
+                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1",
+                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1",
+                                        "components": {
+                                            "Q5": {
+                                                "type": "QUESTION",
+                                                "description": "Reference description",
+                                                "sellervalue": "DoD consultancy on IT convergence",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "DESCRIPTION",
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/R1",
+                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q6": {
+                                                "type": "QUESTION",
+                                                "description": "Total amount",
+                                                "sellervalue": "150000",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "AMOUNT",
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q2/R1/R1/R1/R1",
+                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q2/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q7": {
+                                                "type": "QUESTION",
+                                                "description": "Activity of the economic operator",
+                                                "sellervalue": "Military satellite software development",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "DESCRIPTION",
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q3/R1/R1/R1/R1",
+                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q3/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q8": {
+                                                "type": "QUESTION",
+                                                "description": "Specific amount",
+                                                "sellervalue": "7591212",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "AMOUNT",
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q4/R1/R1/R1/R1",
+                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q4/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q9": {
+                                                "type": "QUESTION",
+                                                "description": "Period (Start and End dates)",
+                                                "sellervalue": "2016-01-01; 2017-01-01",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "PERIOD",
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q5/R1/R1/R1/R1",
+                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q5/R1/R1/R1/R1/RAP"
+                                            },
+                                            "Q10": {
+                                                "type": "QUESTION",
+                                                "description": "Confidential",
+                                                "sellervalue": "true",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "INDICATOR",
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q6/R1/R1/R1/R1",
+                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q6/R1/R1/R1/R1/RV"
+                                            },
+                                            "QSG6": {
+                                                "type": "QUESTION_SUBGROUP",
+                                                "description": "Recipients",
+                                                "cardinality": "0..n",
+                                                "elementcode": "ON*",
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1",
+                                                "components": {
+                                                    "Q11": {
+                                                        "type": "QUESTION",
+                                                        "description": "Recipient name",
+                                                        "sellervalue": "USA Department of Defence",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q12": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact person name",
+                                                        "sellervalue": "General Patton Junior",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q13": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact email",
+                                                        "sellervalue": "patton junior@dod gov usa",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q14": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact telephone",
+                                                        "sellervalue": "+34934947700",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4/R1/R1/R1/R1/R1/RV"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "QSG7": {
+                                "type": "QUESTION_SUBGROUP",
+                                "cardinality": "0..n",
+                                "elementcode": "ON*",
+                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG3",
+                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG3",
+                                "components": {
+                                    "Q15": {
                                         "type": "QUESTION",
                                         "description": "Is this information available online?",
                                         "sellervalue": "true",
                                         "cardinality": "1",
                                         "propertydatatype": "INDICATOR",
-                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/Q1/R1/R1/R1",
-                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG2/Q1/R1/R1/R1/RV"
+                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG3/Q1/R1/R1/R1",
+                                        "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsecontent3": "C38_SC_supply-perform/RG1/RSG1/QSG3/Q1/R1/R1/R1/RV"
                                     },
-                                    "QSG5": {
+                                    "QSG8": {
                                         "type": "QUESTION_SUBGROUP",
                                         "cardinality": "0..1",
                                         "elementcode": "ONTRUE",
-                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1",
-                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1",
+                                        "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG3/QSG1",
+                                        "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG3/QSG1",
                                         "components": {
-                                            "Q12": {
+                                            "Q16": {
                                                 "type": "QUESTION",
                                                 "description": "Evidence Supplied",
                                                 "sellervalue": "EVIDENCE-ID",
                                                 "cardinality": "1..n",
                                                 "propertydatatype": "EVIDENCE_IDENTIFIER",
-                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1",
-                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsecontent3": "EVIDENCE-ID/C38_SC_supply-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/RES"
+                                                "requestpath": "C38_SC_supply-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsepath": "C38_SC_supply-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsecontent1": "C38_SC_supply-perform/RG1/RSG1/QSG3/QSG1/Q1/R1/R1/R1",
+                                                "responsecontent2": "C38_SC_supply-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsecontent3": "EVIDENCE-ID/C38_SC_supply-perform/RG1/RSG1/QSG3/QSG1/Q1/R1/R1/R1/RES"
                                             }
                                         }
                                     }
@@ -7550,6 +7702,7 @@
                                 "components": {
                                     "CA1": {
                                         "type": "CAPTION",
+                                        "description": "[Description provided by the Buyer]",
                                         "cardinality": "0..1",
                                         "propertydatatype": "NONE",
                                         "requestpath": "C39_SC_service-perform/RG1/RSG1/RSG1/CA1",
@@ -7577,153 +7730,72 @@
                             },
                             "QSG1": {
                                 "type": "QUESTION_SUBGROUP",
-                                "cardinality": "1..n",
+                                "cardinality": "1",
                                 "elementcode": "ON*",
                                 "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1",
                                 "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1",
                                 "components": {
-                                    "CA2": {
-                                        "type": "CAPTION",
+                                    "Q1": {
+                                        "type": "QUESTION",
+                                        "description": "Does the EO fulfil the criteria by itself?",
+                                        "sellervalue": "true",
                                         "cardinality": "1",
-                                        "propertydatatype": "NONE",
-                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/CA1",
-                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/CA1"
+                                        "propertydatatype": "INDICATOR",
+                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/Q1/R1/R1",
+                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/Q1",
+                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/Q1/R1/R1/RV"
                                     },
                                     "QSG2": {
                                         "type": "QUESTION_SUBGROUP",
-                                        "description": "Reference",
-                                        "cardinality": "1..n",
-                                        "elementcode": "ON*",
+                                        "cardinality": "1",
+                                        "elementcode": "ONFALSE",
                                         "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1",
                                         "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1",
                                         "components": {
-                                            "Q1": {
-                                                "type": "QUESTION",
-                                                "description": "Reference description",
-                                                "sellervalue": "DoD consultancy on IT convergence",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "DESCRIPTION",
-                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/R1/R1",
-                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1",
-                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/RV"
-                                            },
                                             "Q2": {
                                                 "type": "QUESTION",
-                                                "description": "Total amount",
-                                                "sellervalue": "150000",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "AMOUNT",
-                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q2/R1/R1/R1/R1",
-                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q2",
-                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q3": {
-                                                "type": "QUESTION",
-                                                "description": "Activity of the economic operator",
-                                                "sellervalue": "Military satellite software development",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "DESCRIPTION",
-                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q3/R1/R1/R1/R1",
-                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q3",
-                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q4": {
-                                                "type": "QUESTION",
-                                                "description": "Specific amount",
-                                                "sellervalue": "7591212",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "AMOUNT",
-                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q4/R1/R1/R1/R1",
-                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q4",
-                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/RV"
-                                            },
-                                            "Q5": {
-                                                "type": "QUESTION",
-                                                "description": "Period (Start and End dates)",
-                                                "sellervalue": "2016-01-01; 2017-01-01",
-                                                "cardinality": "0..1",
-                                                "propertydatatype": "PERIOD",
-                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q5/R1/R1/R1/R1",
-                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q5",
-                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q5/R1/R1/R1/R1/RAP"
-                                            },
-                                            "Q6": {
-                                                "type": "QUESTION",
-                                                "description": "Confidential",
+                                                "description": "In the case of no – Relied upon or not",
                                                 "sellervalue": "true",
-                                                "cardinality": "0..1",
+                                                "cardinality": "1",
                                                 "propertydatatype": "INDICATOR",
-                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q6/R1/R1/R1/R1",
-                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q6",
-                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q6/R1/R1/R1/R1/RV"
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1",
+                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1",
+                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/Q1/R1/R1/RV"
                                             },
                                             "QSG3": {
                                                 "type": "QUESTION_SUBGROUP",
-                                                "description": "Recipients",
-                                                "cardinality": "0..n",
-                                                "elementcode": "ON*",
+                                                "cardinality": "1",
+                                                "elementcode": "ONTRUE",
                                                 "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1",
                                                 "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1",
                                                 "components": {
-                                                    "Q7": {
+                                                    "Q3": {
                                                         "type": "QUESTION",
-                                                        "description": "Recipient name",
-                                                        "sellervalue": "USA Department of Defence",
-                                                        "cardinality": "0..1",
+                                                        "description": "Name of the entity",
+                                                        "sellervalue": "[Name]",
+                                                        "cardinality": "1",
                                                         "propertydatatype": "DESCRIPTION",
                                                         "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
                                                         "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
-                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/R1",
+                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1",
                                                         "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
-                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/R1/R1/R1/RV"
+                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1/R1/RV"
                                                     },
-                                                    "Q8": {
+                                                    "Q4": {
                                                         "type": "QUESTION",
-                                                        "description": "Contact person name",
-                                                        "sellervalue": "General Patton Junior",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
+                                                        "description": "ID of the entity",
+                                                        "sellervalue": "[ID]",
+                                                        "cardinality": "1",
+                                                        "propertydatatype": "ECONOMIC_OPERATOR_IDENTIFIER",
                                                         "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
                                                         "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
-                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/R1",
+                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1",
                                                         "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
-                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/R1/R1/R1/RV"
-                                                    },
-                                                    "Q9": {
-                                                        "type": "QUESTION",
-                                                        "description": "Contact email",
-                                                        "sellervalue": "patton junior@dod gov usa",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
-                                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/R1",
-                                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3",
-                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q3/R1/R1/R1/R1/R1/RV"
-                                                    },
-                                                    "Q10": {
-                                                        "type": "QUESTION",
-                                                        "description": "Contact telephone",
-                                                        "sellervalue": "+34934947700",
-                                                        "cardinality": "0..1",
-                                                        "propertydatatype": "DESCRIPTION",
-                                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/R1",
-                                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4",
-                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q4/R1/R1/R1/R1/R1/RV"
+                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1/R1/RV"
                                                     }
                                                 }
                                             }
@@ -7733,41 +7805,197 @@
                             },
                             "QSG4": {
                                 "type": "QUESTION_SUBGROUP",
-                                "cardinality": "0..n",
+                                "cardinality": "1..n",
                                 "elementcode": "ON*",
                                 "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2",
                                 "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2",
                                 "components": {
-                                    "Q11": {
+                                    "CA2": {
+                                        "type": "CAPTION",
+                                        "cardinality": "1",
+                                        "propertydatatype": "NONE",
+                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/CA1",
+                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/CA1"
+                                    },
+                                    "QSG5": {
+                                        "type": "QUESTION_SUBGROUP",
+                                        "description": "Reference",
+                                        "cardinality": "1..n",
+                                        "elementcode": "ON*",
+                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1",
+                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1",
+                                        "components": {
+                                            "Q5": {
+                                                "type": "QUESTION",
+                                                "description": "Reference description",
+                                                "sellervalue": "DoD consultancy on IT convergence",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "DESCRIPTION",
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/R1",
+                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1",
+                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q6": {
+                                                "type": "QUESTION",
+                                                "description": "Total amount",
+                                                "sellervalue": "150000",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "AMOUNT",
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q2/R1/R1/R1/R1",
+                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q2",
+                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q2/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q7": {
+                                                "type": "QUESTION",
+                                                "description": "Activity of the economic operator",
+                                                "sellervalue": "Military satellite software development",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "DESCRIPTION",
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q3/R1/R1/R1/R1",
+                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q3",
+                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q3/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q8": {
+                                                "type": "QUESTION",
+                                                "description": "Specific amount",
+                                                "sellervalue": "7591212",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "AMOUNT",
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q4/R1/R1/R1/R1",
+                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q4",
+                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q4/R1/R1/R1/R1/RV"
+                                            },
+                                            "Q9": {
+                                                "type": "QUESTION",
+                                                "description": "Period (Start and End dates)",
+                                                "sellervalue": "2016-01-01; 2017-01-01",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "PERIOD",
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q5/R1/R1/R1/R1",
+                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q5",
+                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q5/R1/R1/R1/R1/RAP"
+                                            },
+                                            "Q10": {
+                                                "type": "QUESTION",
+                                                "description": "Confidential",
+                                                "sellervalue": "true",
+                                                "cardinality": "0..1",
+                                                "propertydatatype": "INDICATOR",
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q6/R1/R1/R1/R1",
+                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q6",
+                                                "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q6/R1/R1/R1/R1/RV"
+                                            },
+                                            "QSG6": {
+                                                "type": "QUESTION_SUBGROUP",
+                                                "description": "Recipients",
+                                                "cardinality": "0..n",
+                                                "elementcode": "ON*",
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1",
+                                                "components": {
+                                                    "Q11": {
+                                                        "type": "QUESTION",
+                                                        "description": "Recipient name",
+                                                        "sellervalue": "USA Department of Defence",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
+                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q12": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact person name",
+                                                        "sellervalue": "General Patton Junior",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2",
+                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q2/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q13": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact email",
+                                                        "sellervalue": "patton junior@dod gov usa",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3",
+                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q3/R1/R1/R1/R1/R1/RV"
+                                                    },
+                                                    "Q14": {
+                                                        "type": "QUESTION",
+                                                        "description": "Contact telephone",
+                                                        "sellervalue": "+34934947700",
+                                                        "cardinality": "0..1",
+                                                        "propertydatatype": "DESCRIPTION",
+                                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4/R1/R1/R1/R1/R1",
+                                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4",
+                                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/QSG1/Q4/R1/R1/R1/R1/R1/RV"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "QSG7": {
+                                "type": "QUESTION_SUBGROUP",
+                                "cardinality": "0..n",
+                                "elementcode": "ON*",
+                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG3",
+                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG3",
+                                "components": {
+                                    "Q15": {
                                         "type": "QUESTION",
                                         "description": "Is this information available online?",
                                         "sellervalue": "true",
                                         "cardinality": "1",
                                         "propertydatatype": "INDICATOR",
-                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/Q1/R1/R1/R1",
-                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/Q1",
-                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG2/Q1/R1/R1/R1/RV"
+                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG3/Q1/R1/R1/R1",
+                                        "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG3/Q1",
+                                        "responsecontent3": "C39_SC_service-perform/RG1/RSG1/QSG3/Q1/R1/R1/R1/RV"
                                     },
-                                    "QSG5": {
+                                    "QSG8": {
                                         "type": "QUESTION_SUBGROUP",
                                         "cardinality": "0..1",
                                         "elementcode": "ONTRUE",
-                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1",
-                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1",
+                                        "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG3/QSG1",
+                                        "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG3/QSG1",
                                         "components": {
-                                            "Q12": {
+                                            "Q16": {
                                                 "type": "QUESTION",
                                                 "description": "Evidence Supplied",
                                                 "sellervalue": "EVIDENCE-ID",
                                                 "cardinality": "1..n",
                                                 "propertydatatype": "EVIDENCE_IDENTIFIER",
-                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1",
-                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1",
-                                                "responsecontent3": "EVIDENCE-ID/C39_SC_service-perform/RG1/RSG1/QSG2/QSG1/Q1/R1/R1/R1/RES"
+                                                "requestpath": "C39_SC_service-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsepath": "C39_SC_service-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsecontent1": "C39_SC_service-perform/RG1/RSG1/QSG3/QSG1/Q1/R1/R1/R1",
+                                                "responsecontent2": "C39_SC_service-perform/RG1/RSG1/QSG3/QSG1/Q1",
+                                                "responsecontent3": "EVIDENCE-ID/C39_SC_service-perform/RG1/RSG1/QSG3/QSG1/Q1/R1/R1/R1/RES"
                                             }
                                         }
                                     }
@@ -7823,6 +8051,7 @@
                     },
                     "RSG1": {
                         "type": "REQUIREMENT_SUBGROUP",
+                        "description": "[Description provided by the Buyer]",
                         "cardinality": "1",
                         "elementcode": "ON*",
                         "requestpath": "C40_SC_qual-cont-tech/RG1/RSG1",

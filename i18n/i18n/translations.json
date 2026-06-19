@@ -1,0 +1,50 @@
+{
+  "_comment": "This manifest documents the translation file structure. It is not part of a formal standard but follows conventions from i18next (folder/namespace layout) and the eForms SDK (language metadata and key patterns).",
+  "defaultLanguage": "en",
+  "languages": [
+    {
+      "code": "en",
+      "name": "English",
+      "threeLetterCode": "eng"
+    }
+  ],
+  "namespaces": [
+    "espd.common",
+    "espd.part1",
+    "espd.part2",
+    "espd.part3",
+    "espd.part4",
+    "espd.part5",
+    "espd.part6"
+  ],
+  "loadPath": "/{language}/{namespace}.json",
+  "keyConvention": {
+    "description": "Keys are derived deterministically from the ESPD-EDM data model structure. The renderer computes the key at runtime from the stable section ID and request path — no key storage needed in the data model itself.",
+    "stableIdRule": "For sections with a unique code (not 'OT'), use the code field. For OT-type entries (shared code 'OT'), use the tag field (e.g. OT65, OT57) as the stable identifier.",
+    "patterns": {
+      "part.title.{partNumber}": "Heading for a form part (I through VI)",
+      "part.description.{partNumber}": "Short description of a form part",
+      "section.title.{partNumber}.{sectionLetter}": "Sub-section heading (e.g. III.A, IV.B)",
+      "criterion.name.{stableId}": "Human-readable name of a criterion or form section",
+      "criterion.description.{stableId}": "Longer description of a criterion (when different from name)",
+      "question.label.{stableId}.{pathSegments}": "Label for a form field. pathSegments is the requestpath after the first segment, with '/' replaced by '.'",
+      "legislation.title.{stableId}.{pathSegments}": "Title of a referenced legislation",
+      "caption.label.{stableId}.{pathSegments}": "Informational caption text (no input widget)",
+      "ui.{elementName}": "Shared UI element text (buttons, validation messages, etc.)"
+    },
+    "examples": [
+      {
+        "note": "Criterion with unique code",
+        "requestpath": "C01_exg-crim-part/QG1/QSG1/Q1",
+        "stableId": "exg-crim-part",
+        "derivedKey": "question.label.exg-crim-part.QG1.QSG1.Q1"
+      },
+      {
+        "note": "OT-type entry (tag as stable ID)",
+        "requestpath": "OT65_Economic Operator Micro, Small or Medium-sized Enterprise/QG1/Q1",
+        "stableId": "OT65",
+        "derivedKey": "question.label.OT65.QG1.Q1"
+      }
+    ]
+  }
+}

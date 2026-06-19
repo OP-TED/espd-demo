@@ -1,0 +1,16 @@
+{
+  "criterion.name.cs-declaration-accuracy": "CS01_cs-declaration-accuracy",
+  "criterion.description.cs-declaration-accuracy": "Declaration of accuracy and truthfulness",
+  "question.label.cs-declaration-accuracy.QG1.Q1": "The economic operator formally declares that the information stated in Parts II - V above is accurate and correct and has been provided in full awareness of the consequences of serious misrepresentation.",
+  "criterion.name.cs-declaration-evidence": "CS02_cs-declaration-evidence",
+  "criterion.description.cs-declaration-evidence": "Declaration of ability to provide evidence",
+  "question.label.cs-declaration-evidence.QG1.Q1": "The economic operator formally declares that it is able to provide the certificates and other forms of documentary evidence referred to, upon request and without delay.",
+  "criterion.name.cs-declaration-access": "CS03_cs-declaration-access",
+  "criterion.description.cs-declaration-access": "Declaration of consent for access to supporting documents",
+  "question.label.cs-declaration-access.QG1.Q1": "The economic operator formally gives its consent to allow the contracting authority or contracting entity to access documents supporting the information provided in this ESPD, for the purposes of verifying said information.",
+  "criterion.name.cs-signature": "CS04_cs-signature",
+  "criterion.description.cs-signature": "Signature, date and place",
+  "question.label.cs-signature.QG1.Q1": "Date",
+  "question.label.cs-signature.QG1.Q2": "Place",
+  "question.label.cs-signature.QG1.Q3": "Signature"
+}

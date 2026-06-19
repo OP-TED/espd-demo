@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESPD Service — European Single Procurement Document</title>
+  <meta name="description" content="Create and manage European Single Procurement Documents (ESPD) for public procurement procedures.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <link rel="stylesheet" href="/css/espd.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="container-fluid espd-header">
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><strong>ESPD Service</strong></li>
+      </ul>
+      <ul>
+        <li>
+          <select id="language-select" aria-label="Language">
+            <option value="en" selected>English</option>
+          </select>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="container">
+    <!-- Landing / Role Selection -->
+    <section id="landing-page" aria-labelledby="landing-heading">
+      <hgroup>
+        <h1 id="landing-heading">European Single Procurement Document (ESPD)</h1>
+        <p>Create an ESPD Request or Response for EU public procurement procedures.</p>
+      </hgroup>
+
+      <div class="grid" id="role-selection">
+        <article>
+          <header>Contracting Authority</header>
+          <p>Create an ESPD Request defining the exclusion grounds and selection criteria for a procurement procedure.</p>
+          <footer>
+            <button id="btn-role-ca" class="contrast">Create ESPD Request</button>
+          </footer>
+        </article>
+        <article>
+          <header>Economic Operator</header>
+          <p>Fill in an ESPD Response to declare your suitability for a public procurement procedure.</p>
+          <footer>
+            <button id="btn-role-eo">Create ESPD Response</button>
+          </footer>
+        </article>
+      </div>
+
+      <details>
+        <summary>Import existing ESPD</summary>
+        <div class="espd-import-area">
+          <p>Load a previously saved ESPD document (XML) to continue editing.</p>
+          <input type="file" id="import-file" accept=".xml,.json" aria-label="Select ESPD file to import">
+          <button id="btn-import" class="secondary">Import</button>
+        </div>
+      </details>
+    </section>
+
+    <!-- Wizard Container (hidden until role selected) -->
+    <section id="wizard-container" hidden aria-labelledby="wizard-heading">
+      <h2 id="wizard-heading" class="visually-hidden">ESPD Form Wizard</h2>
+
+      <!-- Progress / Step Navigation -->
+      <nav id="wizard-nav" aria-label="Form steps">
+        <ol class="espd-steps" role="list">
+          <!-- Populated dynamically -->
+        </ol>
+      </nav>
+
+      <!-- Form Content Area -->
+      <form id="espd-form" novalidate>
+        <div id="form-content" role="region" aria-live="polite" aria-label="Current form section">
+          <!-- Rendered dynamically by renderer.js -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <footer class="espd-form-footer">
+          <div class="espd-form-actions-left">
+            <button type="button" id="btn-prev" class="secondary outline" disabled>← Previous</button>
+          </div>
+          <div class="espd-form-actions-right">
+            <button type="button" id="btn-overview" class="secondary">Overview</button>
+            <button type="button" id="btn-next">Next →</button>
+            <button type="button" id="btn-download" class="contrast" hidden>Download XML</button>
+          </div>
+        </footer>
+      </form>
+    </section>
+
+    <!-- Overview Modal -->
+    <dialog id="overview-dialog">
+      <article>
+        <header>
+          <button aria-label="Close" rel="prev" id="btn-close-overview"></button>
+          <h3>ESPD Overview</h3>
+        </header>
+        <div id="overview-content">
+          <!-- Populated dynamically -->
+        </div>
+        <footer>
+          <button id="btn-close-overview-footer" class="secondary">Close</button>
+          <button id="btn-download-overview" class="contrast">Download XML</button>
+        </footer>
+      </article>
+    </dialog>
+  </main>
+
+  <footer class="container-fluid espd-footer">
+    <small>
+      Based on ESPD-EDM v3.1.0 | Commission Implementing Regulation (EU) 2016/7 |
+      <a href="https://docs.ted.europa.eu/ESPD-EDM/latest/" target="_blank" rel="noopener">Documentation</a>
+    </small>
+  </footer>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

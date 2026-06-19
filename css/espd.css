@@ -1,0 +1,307 @@
+/* ESPD Service — Custom styles on top of Pico CSS */
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 0.5rem 1rem;
+  background: var(--pico-primary);
+  color: var(--pico-primary-inverse);
+  z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Visually hidden but accessible to screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Header */
+.espd-header {
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  margin-bottom: 2rem;
+}
+
+/* Footer */
+.espd-footer {
+  margin-top: 3rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--pico-muted-border-color);
+  text-align: center;
+}
+
+/* Step navigation (wizard) */
+.espd-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0;
+  margin: 0 0 2rem;
+  list-style: none;
+  counter-reset: step-counter;
+}
+.espd-steps li {
+  counter-increment: step-counter;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.espd-steps li a,
+.espd-steps li span {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--pico-border-radius);
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-align: center;
+  border: 1px solid var(--pico-muted-border-color);
+  color: var(--pico-muted-color);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.espd-steps li a::before,
+.espd-steps li span::before {
+  content: counter(step-counter) ". ";
+  font-weight: 600;
+}
+.espd-steps li.active a,
+.espd-steps li.active span {
+  background: var(--pico-primary);
+  color: var(--pico-primary-inverse);
+  border-color: var(--pico-primary);
+}
+.espd-steps li.completed a,
+.espd-steps li.completed span {
+  border-color: var(--pico-primary);
+  color: var(--pico-primary);
+}
+.espd-steps li a:hover,
+.espd-steps li span:hover {
+  border-color: var(--pico-primary);
+}
+
+/* Form footer with navigation */
+.espd-form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--pico-muted-border-color);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.espd-form-actions-left,
+.espd-form-actions-right {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Criterion card styling */
+.espd-criterion {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+}
+.espd-criterion-header {
+  margin-bottom: 1rem;
+}
+.espd-criterion-header h3 {
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+.espd-criterion-header p {
+  color: var(--pico-muted-color);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* Question group */
+.espd-question-group {
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+
+/* Question subgroup (conditional, indented) */
+.espd-question-subgroup {
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--pico-muted-border-color);
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.espd-question-subgroup[hidden] {
+  display: none;
+}
+
+/* Individual question field */
+.espd-field {
+  margin-bottom: 1rem;
+}
+.espd-field label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+.espd-field .field-description {
+  font-size: 0.85rem;
+  color: var(--pico-muted-color);
+  margin-bottom: 0.25rem;
+}
+
+/* Indicator (Yes/No) radio group */
+.espd-indicator-group {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.espd-indicator-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* Repeating group controls */
+.espd-repeatable {
+  position: relative;
+}
+.espd-repeatable-instance {
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px dashed var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  position: relative;
+}
+.espd-repeatable-instance .btn-remove-instance {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+.btn-add-instance {
+  margin-top: 0.5rem;
+}
+
+/* Legislation reference */
+.espd-legislation {
+  background: var(--pico-card-background-color);
+  padding: 0.75rem 1rem;
+  border-radius: var(--pico-border-radius);
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+.espd-legislation summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Caption (informational, no input) */
+.espd-caption {
+  padding: 0.5rem 0.75rem;
+  background: var(--pico-card-background-color);
+  border-left: 3px solid var(--pico-primary);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Import area */
+.espd-import-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Section title within a part */
+.espd-section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--pico-primary);
+}
+
+/* Part header */
+.espd-part-header {
+  margin-bottom: 2rem;
+}
+.espd-part-header h2 {
+  margin-bottom: 0.25rem;
+}
+.espd-part-header p {
+  color: var(--pico-muted-color);
+}
+
+/* Requirement (buyer-set) styling */
+.espd-requirement {
+  background: var(--pico-card-background-color);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--pico-border-radius);
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--pico-muted-border-color);
+}
+.espd-requirement .req-label {
+  font-weight: 600;
+}
+.espd-requirement .req-value {
+  margin-left: 0.5rem;
+}
+
+/* Validation error */
+.espd-field[aria-invalid="true"] input,
+.espd-field[aria-invalid="true"] select,
+.espd-field[aria-invalid="true"] textarea {
+  border-color: var(--pico-del-color);
+}
+.espd-field .error-message {
+  color: var(--pico-del-color);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .espd-steps {
+    flex-direction: column;
+  }
+  .espd-steps li a::before,
+  .espd-steps li span::before {
+    content: "Part " counter(step-counter) ": ";
+  }
+  .espd-form-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .espd-form-actions-left,
+  .espd-form-actions-right {
+    justify-content: center;
+  }
+  .espd-indicator-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

@@ -2,8 +2,6 @@
 
 A European Single Procurement Document (ESPD) service implementation using plain HTML, CSS, and JavaScript. No framework dependencies — just static files served directly.
 
-Based on ESPD-EDM v3.1.0 and Commission Implementing Regulation (EU) 2016/7.
-
 ## Features
 
 - **Two roles**: Contracting Authority (ESPD Request) and Economic Operator (ESPD Response)

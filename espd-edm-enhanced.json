@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "European Single Procurement Document - Exchange Data Model (Enhanced)",
-    "version": "3.1.0",
+    "version": "5.0.0",
     "description": "Complete ESPD form data model including all six parts: Procedure Information (Part I), Economic Operator Information (Part II), Exclusion Grounds (Part III), Selection Criteria (Part IV), Reduction of Qualified Candidates (Part V), and Concluding Statements (Part VI).",
     "basedOn": "Commission Implementing Regulation (EU) 2016/7 and Directive 2014/24/EU",
     "generatedDate": "2026-06-18"

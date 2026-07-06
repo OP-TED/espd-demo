@@ -1,6 +1,6 @@
 # ESPD Service
 
-A European Single Procurement Document (ESPD) service implementation using plain HTML, CSS, and JavaScript. No framework dependencies — just static files served directly.
+A European Single Procurement Document (ESPD) service implementation using plain HTML, CSS, and JavaScript.
 
 ## Features
 
@@ -72,8 +72,8 @@ The `espd-edm-enhanced.json` file defines:
 
 ## Future Work
 
+- repeating group instances (cardinality 1..n)
+- data binding
+- validation 
 - eCertis API integration (placeholder in `js/ecertis.js`)
-- Additional languages (add folders under `i18n/i18n/{lang}/`)
-- PDF export
-- Repeating group instances (cardinality 1..n)
-- Server-side persistence
+- additional languages? (add folders under `i18n/i18n/{lang}/`)

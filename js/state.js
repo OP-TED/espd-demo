@@ -92,8 +92,10 @@ export function getCurrentStep() {
  * @param {*} value - The value to store
  */
 export function setAnswer(path, value) {
+  const oldValue = state.answers[path];
   state.answers[path] = value;
   state.metadata.lastModified = new Date().toISOString();
+  console.debug('[ESPD state]', path, ':', oldValue, '→', value);
   persist();
 }
 

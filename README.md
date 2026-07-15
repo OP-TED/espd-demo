@@ -61,6 +61,8 @@ The `espd-edm-enhanced.json` file defines:
 - **Property data types**: INDICATOR, DESCRIPTION, DATE, URL, AMOUNT, CODE_COUNTRY, PERCENTAGE, etc.
 - **Conditional codes**: ON* (always visible), ONTRUE (show when parent = yes), ONFALSE (show when parent = no)
 
+A decomposed version of this model is available in [`espd-edm/`](./espd-edm/) — split by Part (I–VI) into separate files for easier navigation, maintenance, and tooling. See the [ESPD-EDM README](./espd-edm/README.md) for details.
+
 ## Accessibility
 
 - Skip link to main content

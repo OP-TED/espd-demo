@@ -1,0 +1,183 @@
+{
+  "part": "I",
+  "title": "Information concerning the procurement procedure and the contracting authority or contracting entity",
+  "description": "Information about publication, identity of the procurer, and the procurement procedure",
+  "filledBy": {
+    "request": "Buyer",
+    "response": "Economic Operator (identifying the ESPD Request)"
+  },
+  "sections": [
+    {
+      "tag": "PI01",
+      "type": "PROCEDURE_INFO",
+      "code": "proc-publication-info",
+      "name": "PI01_proc-publication-info",
+      "description": "Information about publication",
+      "part": "I",
+      "partTitle": "Information concerning the procurement procedure and the contracting authority",
+      "cardinality": "1",
+      "components": [
+        {
+          "tag": "QG1",
+          "type": "QUESTION_GROUP",
+          "cardinality": "1",
+          "components": [
+            {
+              "tag": "Q1",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "Official Journal of the EU (OJ S number, date, heading or reference of the notice)",
+              "propertydatatype": "DESCRIPTION",
+              "requestpath": "PI01_proc-publication-info/QG1/Q1",
+              "responsepath": "PI01_proc-publication-info/QG1/Q1/R1",
+              "contentpath": "PI01_proc-publication-info/QG1/Q1/R1/RV"
+            },
+            {
+              "tag": "Q2",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "Notice number in the OJ S",
+              "propertydatatype": "DESCRIPTION",
+              "requestpath": "PI01_proc-publication-info/QG1/Q2",
+              "responsepath": "PI01_proc-publication-info/QG1/Q2/R1",
+              "contentpath": "PI01_proc-publication-info/QG1/Q2/R1/RV"
+            },
+            {
+              "tag": "Q3",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "If the relevant notice was published in the OJ S, provide the TED notice URL",
+              "propertydatatype": "URL",
+              "requestpath": "PI01_proc-publication-info/QG1/Q3",
+              "responsepath": "PI01_proc-publication-info/QG1/Q3/R1",
+              "contentpath": "PI01_proc-publication-info/QG1/Q3/R1/RV"
+            }
+          ],
+          "requestpath": "PI01_proc-publication-info/QG1",
+          "responsepath": "PI01_proc-publication-info/QG1",
+          "code": "ON*"
+        }
+      ],
+      "requestpath": "PI01_proc-publication-info",
+      "responsepath": "PI01_proc-publication-info"
+    },
+    {
+      "tag": "PI02",
+      "type": "PROCEDURE_INFO",
+      "code": "proc-procurer-id",
+      "name": "PI02_proc-procurer-id",
+      "description": "Identity of the procurer",
+      "part": "I",
+      "partTitle": "Information concerning the procurement procedure and the contracting authority",
+      "cardinality": "1",
+      "components": [
+        {
+          "tag": "QG1",
+          "type": "QUESTION_GROUP",
+          "cardinality": "1",
+          "components": [
+            {
+              "tag": "Q1",
+              "type": "QUESTION",
+              "cardinality": "1",
+              "description": "Official name of the contracting authority or contracting entity",
+              "propertydatatype": "DESCRIPTION",
+              "requestpath": "PI02_proc-procurer-id/QG1/Q1",
+              "responsepath": "PI02_proc-procurer-id/QG1/Q1/R1",
+              "contentpath": "PI02_proc-procurer-id/QG1/Q1/R1/RV"
+            },
+            {
+              "tag": "Q2",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "Country",
+              "propertydatatype": "CODE_COUNTRY",
+              "requestpath": "PI02_proc-procurer-id/QG1/Q2",
+              "responsepath": "PI02_proc-procurer-id/QG1/Q2/R1",
+              "contentpath": "PI02_proc-procurer-id/QG1/Q2/R1/RV"
+            },
+            {
+              "tag": "Q3",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "Identifier of the procurer (e.g. national ID)",
+              "propertydatatype": "IDENTIFIER",
+              "requestpath": "PI02_proc-procurer-id/QG1/Q3",
+              "responsepath": "PI02_proc-procurer-id/QG1/Q3/R1",
+              "contentpath": "PI02_proc-procurer-id/QG1/Q3/R1/RV"
+            }
+          ],
+          "requestpath": "PI02_proc-procurer-id/QG1",
+          "responsepath": "PI02_proc-procurer-id/QG1",
+          "code": "ON*"
+        }
+      ],
+      "requestpath": "PI02_proc-procurer-id",
+      "responsepath": "PI02_proc-procurer-id"
+    },
+    {
+      "tag": "PI03",
+      "type": "PROCEDURE_INFO",
+      "code": "proc-procedure-info",
+      "name": "PI03_proc-procedure-info",
+      "description": "Information about the procurement procedure",
+      "part": "I",
+      "partTitle": "Information concerning the procurement procedure and the contracting authority",
+      "cardinality": "1",
+      "components": [
+        {
+          "tag": "QG1",
+          "type": "QUESTION_GROUP",
+          "cardinality": "1",
+          "components": [
+            {
+              "tag": "Q1",
+              "type": "QUESTION",
+              "cardinality": "1",
+              "description": "Title or short description of the procurement procedure",
+              "propertydatatype": "DESCRIPTION",
+              "requestpath": "PI03_proc-procedure-info/QG1/Q1",
+              "responsepath": "PI03_proc-procedure-info/QG1/Q1/R1",
+              "contentpath": "PI03_proc-procedure-info/QG1/Q1/R1/RV"
+            },
+            {
+              "tag": "Q2",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "File reference number attributed by the contracting authority or contracting entity",
+              "propertydatatype": "DESCRIPTION",
+              "requestpath": "PI03_proc-procedure-info/QG1/Q2",
+              "responsepath": "PI03_proc-procedure-info/QG1/Q2/R1",
+              "contentpath": "PI03_proc-procedure-info/QG1/Q2/R1/RV"
+            },
+            {
+              "tag": "Q3",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "Description of the procurement",
+              "propertydatatype": "DESCRIPTION",
+              "requestpath": "PI03_proc-procedure-info/QG1/Q3",
+              "responsepath": "PI03_proc-procedure-info/QG1/Q3/R1",
+              "contentpath": "PI03_proc-procedure-info/QG1/Q3/R1/RV"
+            },
+            {
+              "tag": "Q4",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "Type of procedure",
+              "propertydatatype": "CODE",
+              "requestpath": "PI03_proc-procedure-info/QG1/Q4",
+              "responsepath": "PI03_proc-procedure-info/QG1/Q4/R1",
+              "contentpath": "PI03_proc-procedure-info/QG1/Q4/R1/RV"
+            }
+          ],
+          "requestpath": "PI03_proc-procedure-info/QG1",
+          "responsepath": "PI03_proc-procedure-info/QG1",
+          "code": "ON*"
+        }
+      ],
+      "requestpath": "PI03_proc-procedure-info",
+      "responsepath": "PI03_proc-procedure-info"
+    }
+  ]
+}

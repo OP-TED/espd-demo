@@ -1,0 +1,167 @@
+{
+  "part": "VI",
+  "title": "Concluding statements",
+  "description": "Legal declarations of accuracy, ability to provide evidence, consent for document access, and signature",
+  "filledBy": {
+    "request": "Not applicable",
+    "response": "Economic Operator"
+  },
+  "sections": [
+    {
+      "tag": "CS01",
+      "type": "CONCLUDING_STATEMENT",
+      "code": "cs-declaration-accuracy",
+      "name": "CS01_cs-declaration-accuracy",
+      "description": "Declaration of accuracy and truthfulness",
+      "part": "VI",
+      "partTitle": "Concluding statements",
+      "cardinality": "1",
+      "components": [
+        {
+          "tag": "QG1",
+          "type": "QUESTION_GROUP",
+          "cardinality": "1",
+          "components": [
+            {
+              "tag": "Q1",
+              "type": "QUESTION",
+              "cardinality": "1",
+              "description": "The economic operator formally declares that the information stated in Parts II - V above is accurate and correct and has been provided in full awareness of the consequences of serious misrepresentation.",
+              "propertydatatype": "INDICATOR",
+              "requestpath": "CS01_cs-declaration-accuracy/QG1/Q1",
+              "responsepath": "CS01_cs-declaration-accuracy/QG1/Q1/R1",
+              "contentpath": "CS01_cs-declaration-accuracy/QG1/Q1/R1/RV"
+            }
+          ],
+          "requestpath": "CS01_cs-declaration-accuracy/QG1",
+          "responsepath": "CS01_cs-declaration-accuracy/QG1",
+          "code": "ON*"
+        }
+      ],
+      "requestpath": "CS01_cs-declaration-accuracy",
+      "responsepath": "CS01_cs-declaration-accuracy"
+    },
+    {
+      "tag": "CS02",
+      "type": "CONCLUDING_STATEMENT",
+      "code": "cs-declaration-evidence",
+      "name": "CS02_cs-declaration-evidence",
+      "description": "Declaration of ability to provide evidence",
+      "part": "VI",
+      "partTitle": "Concluding statements",
+      "cardinality": "1",
+      "components": [
+        {
+          "tag": "QG1",
+          "type": "QUESTION_GROUP",
+          "cardinality": "1",
+          "components": [
+            {
+              "tag": "Q1",
+              "type": "QUESTION",
+              "cardinality": "1",
+              "description": "The economic operator formally declares that it is able to provide the certificates and other forms of documentary evidence referred to, upon request and without delay.",
+              "propertydatatype": "INDICATOR",
+              "requestpath": "CS02_cs-declaration-evidence/QG1/Q1",
+              "responsepath": "CS02_cs-declaration-evidence/QG1/Q1/R1",
+              "contentpath": "CS02_cs-declaration-evidence/QG1/Q1/R1/RV"
+            }
+          ],
+          "requestpath": "CS02_cs-declaration-evidence/QG1",
+          "responsepath": "CS02_cs-declaration-evidence/QG1",
+          "code": "ON*"
+        }
+      ],
+      "requestpath": "CS02_cs-declaration-evidence",
+      "responsepath": "CS02_cs-declaration-evidence"
+    },
+    {
+      "tag": "CS03",
+      "type": "CONCLUDING_STATEMENT",
+      "code": "cs-declaration-access",
+      "name": "CS03_cs-declaration-access",
+      "description": "Declaration of consent for access to supporting documents",
+      "part": "VI",
+      "partTitle": "Concluding statements",
+      "cardinality": "1",
+      "components": [
+        {
+          "tag": "QG1",
+          "type": "QUESTION_GROUP",
+          "cardinality": "1",
+          "components": [
+            {
+              "tag": "Q1",
+              "type": "QUESTION",
+              "cardinality": "1",
+              "description": "The economic operator formally gives its consent to allow the contracting authority or contracting entity to access documents supporting the information provided in this ESPD, for the purposes of verifying said information.",
+              "propertydatatype": "INDICATOR",
+              "requestpath": "CS03_cs-declaration-access/QG1/Q1",
+              "responsepath": "CS03_cs-declaration-access/QG1/Q1/R1",
+              "contentpath": "CS03_cs-declaration-access/QG1/Q1/R1/RV"
+            }
+          ],
+          "requestpath": "CS03_cs-declaration-access/QG1",
+          "responsepath": "CS03_cs-declaration-access/QG1",
+          "code": "ON*"
+        }
+      ],
+      "requestpath": "CS03_cs-declaration-access",
+      "responsepath": "CS03_cs-declaration-access"
+    },
+    {
+      "tag": "CS04",
+      "type": "CONCLUDING_STATEMENT",
+      "code": "cs-signature",
+      "name": "CS04_cs-signature",
+      "description": "Signature, date and place",
+      "part": "VI",
+      "partTitle": "Concluding statements",
+      "cardinality": "1",
+      "components": [
+        {
+          "tag": "QG1",
+          "type": "QUESTION_GROUP",
+          "cardinality": "1",
+          "components": [
+            {
+              "tag": "Q1",
+              "type": "QUESTION",
+              "cardinality": "1",
+              "description": "Date",
+              "propertydatatype": "DATE",
+              "requestpath": "CS04_cs-signature/QG1/Q1",
+              "responsepath": "CS04_cs-signature/QG1/Q1/R1",
+              "contentpath": "CS04_cs-signature/QG1/Q1/R1/RV"
+            },
+            {
+              "tag": "Q2",
+              "type": "QUESTION",
+              "cardinality": "1",
+              "description": "Place",
+              "propertydatatype": "DESCRIPTION",
+              "requestpath": "CS04_cs-signature/QG1/Q2",
+              "responsepath": "CS04_cs-signature/QG1/Q2/R1",
+              "contentpath": "CS04_cs-signature/QG1/Q2/R1/RV"
+            },
+            {
+              "tag": "Q3",
+              "type": "QUESTION",
+              "cardinality": "1",
+              "description": "Signature",
+              "propertydatatype": "DESCRIPTION",
+              "requestpath": "CS04_cs-signature/QG1/Q3",
+              "responsepath": "CS04_cs-signature/QG1/Q3/R1",
+              "contentpath": "CS04_cs-signature/QG1/Q3/R1/RV"
+            }
+          ],
+          "requestpath": "CS04_cs-signature/QG1",
+          "responsepath": "CS04_cs-signature/QG1",
+          "code": "ON*"
+        }
+      ],
+      "requestpath": "CS04_cs-signature",
+      "responsepath": "CS04_cs-signature"
+    }
+  ]
+}

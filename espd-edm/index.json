@@ -1,0 +1,46 @@
+{
+  "title": "European Single Procurement Document - Exchange Data Model (Enhanced)",
+  "version": "5.0.0",
+  "parts": [
+    {
+      "part": "I",
+      "title": "Information concerning the procurement procedure and the contracting authority or contracting entity",
+      "file": "parts/part-I-procedure.json",
+      "sectionCount": 3
+    },
+    {
+      "part": "II",
+      "title": "Information concerning the economic operator",
+      "file": "parts/part-II-operator.json",
+      "sectionCount": 9
+    },
+    {
+      "part": "III",
+      "title": "Exclusion grounds",
+      "file": "parts/part-III-exclusion.json",
+      "sectionCount": 25
+    },
+    {
+      "part": "IV",
+      "title": "Selection criteria",
+      "file": "parts/part-IV-selection.json",
+      "sectionCount": 30
+    },
+    {
+      "part": "V",
+      "title": "Reduction of the number of qualified candidates",
+      "file": "parts/part-V-reduction.json",
+      "sectionCount": 1
+    },
+    {
+      "part": "VI",
+      "title": "Concluding statements",
+      "file": "parts/part-VI-concluding.json",
+      "sectionCount": 4
+    }
+  ],
+  "schemas": {
+    "datatypes": "schemas/datatypes.json"
+  },
+  "metadata": "metadata.json"
+}

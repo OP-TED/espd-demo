@@ -198,7 +198,8 @@
       "responsepath": "C01_exg-crim-part",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "A: Grounds relating to criminal convictions"
+      "sectionTitle": "A: Grounds relating to criminal convictions",
+      "mandatoryInRequest": true
     },
     {
       "tag": "C02",
@@ -390,7 +391,8 @@
       "responsepath": "C02_exg-crim-corrpt",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "A: Grounds relating to criminal convictions"
+      "sectionTitle": "A: Grounds relating to criminal convictions",
+      "mandatoryInRequest": true
     },
     {
       "tag": "C03",
@@ -582,7 +584,8 @@
       "responsepath": "C03_exg-crim-fraud",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "A: Grounds relating to criminal convictions"
+      "sectionTitle": "A: Grounds relating to criminal convictions",
+      "mandatoryInRequest": true
     },
     {
       "tag": "C04",
@@ -774,7 +777,8 @@
       "responsepath": "C04_exg-crim-terror",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "A: Grounds relating to criminal convictions"
+      "sectionTitle": "A: Grounds relating to criminal convictions",
+      "mandatoryInRequest": true
     },
     {
       "tag": "C05",
@@ -966,7 +970,8 @@
       "responsepath": "C05_exg-crim-laund",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "A: Grounds relating to criminal convictions"
+      "sectionTitle": "A: Grounds relating to criminal convictions",
+      "mandatoryInRequest": true
     },
     {
       "tag": "C06",
@@ -1158,7 +1163,8 @@
       "responsepath": "C06_exg-crim-traffick",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "A: Grounds relating to criminal convictions"
+      "sectionTitle": "A: Grounds relating to criminal convictions",
+      "mandatoryInRequest": true
     },
     {
       "tag": "C07",
@@ -1455,7 +1461,8 @@
       "responsepath": "C07_exg-pmt-bre-tax",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "B: Grounds relating to the payment of taxes or social security contributions"
+      "sectionTitle": "B: Grounds relating to the payment of taxes or social security contributions",
+      "mandatoryInRequest": true
     },
     {
       "tag": "C08",
@@ -1752,7 +1759,8 @@
       "responsepath": "C08_exg-pmt-bre-ssc",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "B: Grounds relating to the payment of taxes or social security contributions"
+      "sectionTitle": "B: Grounds relating to the payment of taxes or social security contributions",
+      "mandatoryInRequest": true
     },
     {
       "tag": "C09",
@@ -1890,7 +1898,8 @@
       "responsepath": "C09_exg-mis-bre-env-law",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C10",
@@ -2028,7 +2037,8 @@
       "responsepath": "C10_exg-mis-bre-soc-law",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C11",
@@ -2166,7 +2176,8 @@
       "responsepath": "C11_exg-mis-bre-lab-law",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C12",
@@ -2294,7 +2305,8 @@
       "responsepath": "C12_exg-sitn-bankr",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C13",
@@ -2422,7 +2434,8 @@
       "responsepath": "C13_exg-sitn-insolvency",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C14",
@@ -2550,7 +2563,8 @@
       "responsepath": "C14_exg-sitn-cred-arran",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C15",
@@ -2678,7 +2692,8 @@
       "responsepath": "C15_exg-sitn-other",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C16",
@@ -2806,7 +2821,8 @@
       "responsepath": "C16_exg-sitn-liq-admin",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C17",
@@ -2934,7 +2950,8 @@
       "responsepath": "C17_exg-sitn-as-susp",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C18",
@@ -3093,7 +3110,8 @@
       "responsepath": "C18_exg-mis-exg-mis-misconduct",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C19",
@@ -3252,7 +3270,8 @@
       "responsepath": "C19_exg-mis-distortion",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C20",
@@ -3369,7 +3388,8 @@
       "responsepath": "C20_exg-mis-partic-confl",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C21",
@@ -3486,7 +3506,8 @@
       "responsepath": "C21_exg-mis-prep-confl",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C22",
@@ -3645,7 +3666,8 @@
       "responsepath": "C22_exg-mis-sanction",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C23",
@@ -3741,7 +3763,8 @@
       "responsepath": "C23_exg-mis-misrepresent",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C67",
@@ -3837,7 +3860,8 @@
       "responsepath": "C67_exg-mis-unrel-sec",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+      "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+      "mandatoryInRequest": false
     },
     {
       "tag": "C24",
@@ -3970,7 +3994,8 @@
       "responsepath": "C24_exg-natl-bre-nat-law",
       "part": "III",
       "partTitle": "Exclusion grounds",
-      "sectionTitle": "D: Purely national exclusion grounds"
+      "sectionTitle": "D: Purely national exclusion grounds",
+      "mandatoryInRequest": false
     }
   ]
 }

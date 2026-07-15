@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "validate": "node validate.cjs",
+    "test": "node test-mandatory.cjs",
     "compare": "node compare.cjs",
     "compare:extract": "node compare-extract.cjs"
   },

@@ -105,7 +105,8 @@
       "requestpath": "OT63_OT",
       "responsepath": "OT63_OT",
       "part": "V",
-      "partTitle": "Reduction of the number of qualified candidates"
+      "partTitle": "Reduction of the number of qualified candidates",
+      "mandatoryInRequest": false
     }
   ]
 }

@@ -412,7 +412,8 @@
       "responsepath": "OT65_OT",
       "part": "II",
       "partTitle": "Information concerning the economic operator",
-      "sectionTitle": "A: Information about the economic operator"
+      "sectionTitle": "A: Information about the economic operator",
+      "mandatoryInRequest": false
     },
     {
       "tag": "OT57",
@@ -523,7 +524,8 @@
       "responsepath": "OT57_OT",
       "part": "II",
       "partTitle": "Information concerning the economic operator",
-      "sectionTitle": "A: Information about the economic operator"
+      "sectionTitle": "A: Information about the economic operator",
+      "mandatoryInRequest": false
     },
     {
       "tag": "OT58",
@@ -727,7 +729,8 @@
       "responsepath": "OT58_OT",
       "part": "II",
       "partTitle": "Information concerning the economic operator",
-      "sectionTitle": "A: Information about the economic operator"
+      "sectionTitle": "A: Information about the economic operator",
+      "mandatoryInRequest": false
     },
     {
       "tag": "OT59",
@@ -849,7 +852,8 @@
       "responsepath": "OT59_OT",
       "part": "II",
       "partTitle": "Information concerning the economic operator",
-      "sectionTitle": "A: Information about the economic operator"
+      "sectionTitle": "A: Information about the economic operator",
+      "mandatoryInRequest": false
     },
     {
       "tag": "OT60",
@@ -960,7 +964,8 @@
       "responsepath": "OT60_OT",
       "part": "II",
       "partTitle": "Information concerning the economic operator",
-      "sectionTitle": "A: Information about the economic operator"
+      "sectionTitle": "A: Information about the economic operator",
+      "mandatoryInRequest": false
     },
     {
       "tag": "OT61",
@@ -1071,7 +1076,8 @@
       "responsepath": "OT61_OT",
       "part": "II",
       "partTitle": "Information concerning the economic operator",
-      "sectionTitle": "A: Information about the economic operator"
+      "sectionTitle": "A: Information about the economic operator",
+      "mandatoryInRequest": false
     }
   ]
 }

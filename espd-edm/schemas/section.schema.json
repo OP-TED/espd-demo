@@ -80,7 +80,20 @@
     "responsepath": {
       "type": "string",
       "description": "Root response path for this section"
+    },
+    "mandatoryInRequest": {
+      "type": "boolean",
+      "description": "Indicates whether the criterion must always be included in an ESPD Request and cannot be deselected by the Contracting Authority."
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "type": { "const": "CRITERION" }
+    },
+    "required": ["type"]
+  },
+  "then": {
+    "required": ["mandatoryInRequest"]
+  }
 }

@@ -601,7 +601,8 @@
           "responsepath": "OT65_OT",
           "part": "II",
           "partTitle": "Information concerning the economic operator",
-          "sectionTitle": "A: Information about the economic operator"
+          "sectionTitle": "A: Information about the economic operator",
+          "mandatoryInRequest": false
         },
         {
           "tag": "OT57",
@@ -712,7 +713,8 @@
           "responsepath": "OT57_OT",
           "part": "II",
           "partTitle": "Information concerning the economic operator",
-          "sectionTitle": "A: Information about the economic operator"
+          "sectionTitle": "A: Information about the economic operator",
+          "mandatoryInRequest": false
         },
         {
           "tag": "OT58",
@@ -916,7 +918,8 @@
           "responsepath": "OT58_OT",
           "part": "II",
           "partTitle": "Information concerning the economic operator",
-          "sectionTitle": "A: Information about the economic operator"
+          "sectionTitle": "A: Information about the economic operator",
+          "mandatoryInRequest": false
         },
         {
           "tag": "OT59",
@@ -1038,7 +1041,8 @@
           "responsepath": "OT59_OT",
           "part": "II",
           "partTitle": "Information concerning the economic operator",
-          "sectionTitle": "A: Information about the economic operator"
+          "sectionTitle": "A: Information about the economic operator",
+          "mandatoryInRequest": false
         },
         {
           "tag": "OT60",
@@ -1149,7 +1153,8 @@
           "responsepath": "OT60_OT",
           "part": "II",
           "partTitle": "Information concerning the economic operator",
-          "sectionTitle": "A: Information about the economic operator"
+          "sectionTitle": "A: Information about the economic operator",
+          "mandatoryInRequest": false
         },
         {
           "tag": "OT61",
@@ -1260,7 +1265,8 @@
           "responsepath": "OT61_OT",
           "part": "II",
           "partTitle": "Information concerning the economic operator",
-          "sectionTitle": "A: Information about the economic operator"
+          "sectionTitle": "A: Information about the economic operator",
+          "mandatoryInRequest": false
         }
       ]
     },
@@ -1462,7 +1468,8 @@
           "responsepath": "C01_exg-crim-part",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "A: Grounds relating to criminal convictions"
+          "sectionTitle": "A: Grounds relating to criminal convictions",
+          "mandatoryInRequest": true
         },
         {
           "tag": "C02",
@@ -1654,7 +1661,8 @@
           "responsepath": "C02_exg-crim-corrpt",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "A: Grounds relating to criminal convictions"
+          "sectionTitle": "A: Grounds relating to criminal convictions",
+          "mandatoryInRequest": true
         },
         {
           "tag": "C03",
@@ -1846,7 +1854,8 @@
           "responsepath": "C03_exg-crim-fraud",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "A: Grounds relating to criminal convictions"
+          "sectionTitle": "A: Grounds relating to criminal convictions",
+          "mandatoryInRequest": true
         },
         {
           "tag": "C04",
@@ -2038,7 +2047,8 @@
           "responsepath": "C04_exg-crim-terror",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "A: Grounds relating to criminal convictions"
+          "sectionTitle": "A: Grounds relating to criminal convictions",
+          "mandatoryInRequest": true
         },
         {
           "tag": "C05",
@@ -2230,7 +2240,8 @@
           "responsepath": "C05_exg-crim-laund",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "A: Grounds relating to criminal convictions"
+          "sectionTitle": "A: Grounds relating to criminal convictions",
+          "mandatoryInRequest": true
         },
         {
           "tag": "C06",
@@ -2422,7 +2433,8 @@
           "responsepath": "C06_exg-crim-traffick",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "A: Grounds relating to criminal convictions"
+          "sectionTitle": "A: Grounds relating to criminal convictions",
+          "mandatoryInRequest": true
         },
         {
           "tag": "C07",
@@ -2719,7 +2731,8 @@
           "responsepath": "C07_exg-pmt-bre-tax",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "B: Grounds relating to the payment of taxes or social security contributions"
+          "sectionTitle": "B: Grounds relating to the payment of taxes or social security contributions",
+          "mandatoryInRequest": true
         },
         {
           "tag": "C08",
@@ -3016,7 +3029,8 @@
           "responsepath": "C08_exg-pmt-bre-ssc",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "B: Grounds relating to the payment of taxes or social security contributions"
+          "sectionTitle": "B: Grounds relating to the payment of taxes or social security contributions",
+          "mandatoryInRequest": true
         },
         {
           "tag": "C09",
@@ -3154,7 +3168,8 @@
           "responsepath": "C09_exg-mis-bre-env-law",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C10",
@@ -3292,7 +3307,8 @@
           "responsepath": "C10_exg-mis-bre-soc-law",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C11",
@@ -3430,7 +3446,8 @@
           "responsepath": "C11_exg-mis-bre-lab-law",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C12",
@@ -3558,7 +3575,8 @@
           "responsepath": "C12_exg-sitn-bankr",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C13",
@@ -3686,7 +3704,8 @@
           "responsepath": "C13_exg-sitn-insolvency",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C14",
@@ -3814,7 +3833,8 @@
           "responsepath": "C14_exg-sitn-cred-arran",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C15",
@@ -3942,7 +3962,8 @@
           "responsepath": "C15_exg-sitn-other",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C16",
@@ -4070,7 +4091,8 @@
           "responsepath": "C16_exg-sitn-liq-admin",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C17",
@@ -4198,7 +4220,8 @@
           "responsepath": "C17_exg-sitn-as-susp",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C18",
@@ -4357,7 +4380,8 @@
           "responsepath": "C18_exg-mis-exg-mis-misconduct",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C19",
@@ -4516,7 +4540,8 @@
           "responsepath": "C19_exg-mis-distortion",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C20",
@@ -4633,7 +4658,8 @@
           "responsepath": "C20_exg-mis-partic-confl",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C21",
@@ -4750,7 +4776,8 @@
           "responsepath": "C21_exg-mis-prep-confl",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C22",
@@ -4909,7 +4936,8 @@
           "responsepath": "C22_exg-mis-sanction",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C23",
@@ -5005,7 +5033,8 @@
           "responsepath": "C23_exg-mis-misrepresent",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C67",
@@ -5101,7 +5130,8 @@
           "responsepath": "C67_exg-mis-unrel-sec",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct"
+          "sectionTitle": "C: Grounds relating to insolvency, conflicts of interests or professional misconduct",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C24",
@@ -5234,7 +5264,8 @@
           "responsepath": "C24_exg-natl-bre-nat-law",
           "part": "III",
           "partTitle": "Exclusion grounds",
-          "sectionTitle": "D: Purely national exclusion grounds"
+          "sectionTitle": "D: Purely national exclusion grounds",
+          "mandatoryInRequest": false
         }
       ]
     },
@@ -5259,7 +5290,8 @@
               "cardinality": "1..n",
               "requestpath": "C25_slc-suit-reg-prof/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C25_slc-suit-reg-prof/PPLR1"
+              "responsepath": "C25_slc-suit-reg-prof/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -5506,7 +5538,8 @@
           "responsepath": "C25_slc-suit-reg-prof",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "A: Suitability"
+          "sectionTitle": "A: Suitability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C26",
@@ -5521,7 +5554,8 @@
               "cardinality": "1..n",
               "requestpath": "C26_slc-suit-reg-trade/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C26_slc-suit-reg-trade/PPLR1"
+              "responsepath": "C26_slc-suit-reg-trade/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -5779,7 +5813,8 @@
           "responsepath": "C26_slc-suit-reg-trade",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "A: Suitability"
+          "sectionTitle": "A: Suitability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C66",
@@ -5794,7 +5829,8 @@
               "cardinality": "1..n",
               "requestpath": "C66_slc-suit-auth-mbrshp/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C66_slc-suit-auth-mbrshp/PPLR1"
+              "responsepath": "C66_slc-suit-auth-mbrshp/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -6031,7 +6067,8 @@
           "responsepath": "C66_slc-suit-auth-mbrshp",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "A: Suitability"
+          "sectionTitle": "A: Suitability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C29",
@@ -6046,7 +6083,8 @@
               "cardinality": "1..n",
               "requestpath": "C29_slc-stand-to-gen/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C29_slc-stand-to-gen/PPLR1"
+              "responsepath": "C29_slc-stand-to-gen/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -6389,7 +6427,8 @@
           "responsepath": "C29_slc-stand-to-gen",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "B: Economic and financial standing"
+          "sectionTitle": "B: Economic and financial standing",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C30",
@@ -6404,7 +6443,8 @@
               "cardinality": "1..n",
               "requestpath": "C30_slc-stand-to-avg/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C30_slc-stand-to-avg/PPLR1"
+              "responsepath": "C30_slc-stand-to-avg/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -6736,7 +6776,8 @@
           "responsepath": "C30_slc-stand-to-avg",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "B: Economic and financial standing"
+          "sectionTitle": "B: Economic and financial standing",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C31",
@@ -6751,7 +6792,8 @@
               "cardinality": "1..n",
               "requestpath": "C31_slc-stand-to-spec-avg/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C31_slc-stand-to-spec-avg/PPLR1"
+              "responsepath": "C31_slc-stand-to-spec-avg/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -7094,7 +7136,8 @@
           "responsepath": "C31_slc-stand-to-spec-avg",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "B: Economic and financial standing"
+          "sectionTitle": "B: Economic and financial standing",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C32",
@@ -7109,7 +7152,8 @@
               "cardinality": "1..n",
               "requestpath": "C32_slc-stand-to-spec/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C32_slc-stand-to-spec/PPLR1"
+              "responsepath": "C32_slc-stand-to-spec/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -7451,7 +7495,8 @@
           "responsepath": "C32_slc-stand-to-spec",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "B: Economic and financial standing"
+          "sectionTitle": "B: Economic and financial standing",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C34",
@@ -7466,7 +7511,8 @@
               "cardinality": "1..n",
               "requestpath": "C34_slc-stand-ratio/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C34_slc-stand-ratio/PPLR1"
+              "responsepath": "C34_slc-stand-ratio/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -7714,7 +7760,8 @@
           "responsepath": "C34_slc-stand-ratio",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "B: Economic and financial standing"
+          "sectionTitle": "B: Economic and financial standing",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C35",
@@ -7729,7 +7776,8 @@
               "cardinality": "1..n",
               "requestpath": "C35_slc-stand-ins/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C35_slc-stand-ins/PPLR1"
+              "responsepath": "C35_slc-stand-ins/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -7967,7 +8015,8 @@
           "responsepath": "C35_slc-stand-ins",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "B: Economic and financial standing"
+          "sectionTitle": "B: Economic and financial standing",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C36",
@@ -7982,7 +8031,8 @@
               "cardinality": "1..n",
               "requestpath": "C36_slc-stand-other/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C36_slc-stand-other/PPLR1"
+              "responsepath": "C36_slc-stand-other/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -8354,7 +8404,8 @@
           "responsepath": "C36_slc-stand-other",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "B: Economic and financial standing"
+          "sectionTitle": "B: Economic and financial standing",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C37",
@@ -8369,7 +8420,8 @@
               "cardinality": "1..n",
               "requestpath": "C37_slc-abil-ref-work/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C37_slc-abil-ref-work/PPLR1"
+              "responsepath": "C37_slc-abil-ref-work/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -8722,7 +8774,8 @@
           "responsepath": "C37_slc-abil-ref-work",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C38",
@@ -8737,7 +8790,8 @@
               "cardinality": "1..n",
               "requestpath": "C38_slc-abil-ref-supply/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C38_slc-abil-ref-supply/PPLR1"
+              "responsepath": "C38_slc-abil-ref-supply/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -9090,7 +9144,8 @@
           "responsepath": "C38_slc-abil-ref-supply",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C39",
@@ -9105,7 +9160,8 @@
               "cardinality": "1..n",
               "requestpath": "C39_slc-abil-ref-services/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C39_slc-abil-ref-services/PPLR1"
+              "responsepath": "C39_slc-abil-ref-services/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -9458,7 +9514,8 @@
           "responsepath": "C39_slc-abil-ref-services",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C40",
@@ -9473,7 +9530,8 @@
               "cardinality": "1..n",
               "requestpath": "C40_slc-abil-staff-tech-ctrl/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C40_slc-abil-staff-tech-ctrl/PPLR1"
+              "responsepath": "C40_slc-abil-staff-tech-ctrl/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -9919,7 +9977,8 @@
           "responsepath": "C40_slc-abil-staff-tech-ctrl",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C41",
@@ -9934,7 +9993,8 @@
               "cardinality": "1..n",
               "requestpath": "C41_slc-abil-staff-tech-work/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C41_slc-abil-staff-tech-work/PPLR1"
+              "responsepath": "C41_slc-abil-staff-tech-work/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -10378,7 +10438,8 @@
           "responsepath": "C41_slc-abil-staff-tech-work",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C42",
@@ -10393,7 +10454,8 @@
               "cardinality": "1..n",
               "requestpath": "C42_slc-abil-mgmt-qual/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C42_slc-abil-mgmt-qual/PPLR1"
+              "responsepath": "C42_slc-abil-mgmt-qual/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -10617,7 +10679,8 @@
           "responsepath": "C42_slc-abil-mgmt-qual",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C43",
@@ -10632,7 +10695,8 @@
               "cardinality": "1..n",
               "requestpath": "C43_slc-abil-facil-res/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C43_slc-abil-facil-res/PPLR1"
+              "responsepath": "C43_slc-abil-facil-res/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -10856,7 +10920,8 @@
           "responsepath": "C43_slc-abil-facil-res",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C44",
@@ -10871,7 +10936,8 @@
               "cardinality": "1..n",
               "requestpath": "C44_slc-abil-mgmt-supply/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C44_slc-abil-mgmt-supply/PPLR1"
+              "responsepath": "C44_slc-abil-mgmt-supply/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -11095,7 +11161,8 @@
           "responsepath": "C44_slc-abil-mgmt-supply",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C45",
@@ -11110,7 +11177,8 @@
               "cardinality": "1..n",
               "requestpath": "C45_slc-abil-mgmt-env/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C45_slc-abil-mgmt-env/PPLR1"
+              "responsepath": "C45_slc-abil-mgmt-env/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -11334,7 +11402,8 @@
           "responsepath": "C45_slc-abil-mgmt-env",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C46",
@@ -11349,7 +11418,8 @@
               "cardinality": "1..n",
               "requestpath": "C46_slc-abil-facil-tools/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C46_slc-abil-facil-tools/PPLR1"
+              "responsepath": "C46_slc-abil-facil-tools/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -11573,7 +11643,8 @@
           "responsepath": "C46_slc-abil-facil-tools",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C47",
@@ -11588,7 +11659,8 @@
               "cardinality": "1..n",
               "requestpath": "C47_slc-abil-staff-qual/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C47_slc-abil-staff-qual/PPLR1"
+              "responsepath": "C47_slc-abil-staff-qual/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -11919,7 +11991,8 @@
           "responsepath": "C47_slc-abil-staff-qual",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C48",
@@ -11934,7 +12007,8 @@
               "cardinality": "1..n",
               "requestpath": "C48_slc-abil-check/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C48_slc-abil-check/PPLR1"
+              "responsepath": "C48_slc-abil-check/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -12139,7 +12213,8 @@
           "responsepath": "C48_slc-abil-check",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C49",
@@ -12154,7 +12229,8 @@
               "cardinality": "1..n",
               "requestpath": "C49_slc-abil-staff-yrly-no-mgmt/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C49_slc-abil-staff-yrly-no-mgmt/PPLR1"
+              "responsepath": "C49_slc-abil-staff-yrly-no-mgmt/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -12381,7 +12457,8 @@
           "responsepath": "C49_slc-abil-staff-yrly-no-mgmt",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C50",
@@ -12396,7 +12473,8 @@
               "cardinality": "1..n",
               "requestpath": "C50_slc-abil-staff-yrly-avg-mp/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C50_slc-abil-staff-yrly-avg-mp/PPLR1"
+              "responsepath": "C50_slc-abil-staff-yrly-avg-mp/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -12623,7 +12701,8 @@
           "responsepath": "C50_slc-abil-staff-yrly-avg-mp",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C51",
@@ -12638,7 +12717,8 @@
               "cardinality": "1..n",
               "requestpath": "C51_slc-abil-subc/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C51_slc-abil-subc/PPLR1"
+              "responsepath": "C51_slc-abil-subc/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -12832,7 +12912,8 @@
           "responsepath": "C51_slc-abil-subc",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C52",
@@ -12847,7 +12928,8 @@
               "cardinality": "1..n",
               "requestpath": "C52_slc-abil-qual-smp-wo-autent/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C52_slc-abil-qual-smp-wo-autent/PPLR1"
+              "responsepath": "C52_slc-abil-qual-smp-wo-autent/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -13041,7 +13123,8 @@
           "responsepath": "C52_slc-abil-qual-smp-wo-autent",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C53",
@@ -13056,7 +13139,8 @@
               "cardinality": "1..n",
               "requestpath": "C53_slc-abil-qual-smp-w-autent/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C53_slc-abil-qual-smp-w-autent/PPLR1"
+              "responsepath": "C53_slc-abil-qual-smp-w-autent/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -13250,7 +13334,8 @@
           "responsepath": "C53_slc-abil-qual-smp-w-autent",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C54",
@@ -13265,7 +13350,8 @@
               "cardinality": "1..n",
               "requestpath": "C54_slc-abil-qual-inst/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C54_slc-abil-qual-inst/PPLR1"
+              "responsepath": "C54_slc-abil-qual-inst/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -13491,7 +13577,8 @@
           "responsepath": "C54_slc-abil-qual-inst",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "C: Technical and professional ability"
+          "sectionTitle": "C: Technical and professional ability",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C55",
@@ -13506,7 +13593,8 @@
               "cardinality": "1..n",
               "requestpath": "C55_slc-sche-qu-cert-indep/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C55_slc-sche-qu-cert-indep/PPLR1"
+              "responsepath": "C55_slc-sche-qu-cert-indep/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -13732,7 +13820,8 @@
           "responsepath": "C55_slc-sche-qu-cert-indep",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "D: Quality assurance schemes and environmental management standards"
+          "sectionTitle": "D: Quality assurance schemes and environmental management standards",
+          "mandatoryInRequest": false
         },
         {
           "tag": "C56",
@@ -13747,7 +13836,8 @@
               "cardinality": "1..n",
               "requestpath": "C56_slc-sche-env-cert-indep/PPLR1",
               "description": "PPLR1",
-              "responsepath": "C56_slc-sche-env-cert-indep/PPLR1"
+              "responsepath": "C56_slc-sche-env-cert-indep/PPLR1",
+              "mandatoryInRequest": false
             },
             {
               "tag": "SBC1",
@@ -13973,7 +14063,8 @@
           "responsepath": "C56_slc-sche-env-cert-indep",
           "part": "IV",
           "partTitle": "Selection criteria",
-          "sectionTitle": "D: Quality assurance schemes and environmental management standards"
+          "sectionTitle": "D: Quality assurance schemes and environmental management standards",
+          "mandatoryInRequest": false
         }
       ]
     },
@@ -14082,7 +14173,8 @@
           "requestpath": "OT63_OT",
           "responsepath": "OT63_OT",
           "part": "V",
-          "partTitle": "Reduction of the number of qualified candidates"
+          "partTitle": "Reduction of the number of qualified candidates",
+          "mandatoryInRequest": false
         }
       ]
     },

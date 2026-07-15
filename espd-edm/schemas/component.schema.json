@@ -87,6 +87,10 @@
       "type": "string",
       "description": "Path to the leaf response value"
     },
+    "mandatoryInRequest": {
+      "type": "boolean",
+      "description": "Indicates whether the criterion must always be included in an ESPD Request and cannot be deselected by the Contracting Authority."
+    },
     "components": {
       "type": "array",
       "items": {
@@ -95,5 +99,14 @@
       "description": "Nested child components (recursive)"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "type": { "const": "CRITERION" }
+    },
+    "required": ["type"]
+  },
+  "then": {
+    "required": ["mandatoryInRequest"]
+  }
 }

@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/part.schema.json",
   "part": "I",
   "title": "Information concerning the procurement procedure and the contracting authority or contracting entity",
   "description": "Information about publication, identity of the procurer, and the procurement procedure",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/part.schema.json",
   "part": "VI",
   "title": "Concluding statements",
   "description": "Legal declarations of accuracy, ability to provide evidence, consent for document access, and signature",

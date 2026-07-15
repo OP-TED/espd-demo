@@ -1,4 +1,5 @@
 {
+  "$schema": "schemas/metadata.schema.json",
   "title": "European Single Procurement Document - Exchange Data Model (Enhanced)",
   "version": "5.0.0",
   "description": "Complete ESPD form data model including all six parts: Procedure Information (Part I), Economic Operator Information (Part II), Exclusion Grounds (Part III), Selection Criteria (Part IV), Reduction of Qualified Candidates (Part V), and Concluding Statements (Part VI).",

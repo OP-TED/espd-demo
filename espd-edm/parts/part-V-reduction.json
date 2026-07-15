@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/part.schema.json",
   "part": "V",
   "title": "Reduction of the number of qualified candidates",
   "description": "Information where the contracting authority has specified objective and non-discriminatory criteria or rules to limit the number of candidates invited to tender or to conduct a dialogue",

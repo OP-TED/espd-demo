@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/part.schema.json",
   "part": "III",
   "title": "Exclusion grounds",
   "description": "Grounds relating to criminal convictions, payment of taxes/social security, insolvency/conflicts/misconduct, and national exclusion grounds",

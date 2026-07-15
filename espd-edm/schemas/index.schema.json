@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "index.schema.json",
+  "title": "ESPD-EDM Index",
+  "description": "Manifest file linking all ESPD-EDM parts and schemas together",
+  "type": "object",
+  "required": [
+    "title",
+    "version",
+    "parts",
+    "schemas",
+    "metadata"
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "part",
+          "title",
+          "$ref",
+          "sectionCount"
+        ],
+        "properties": {
+          "part": {
+            "type": "string",
+            "enum": [
+              "I",
+              "II",
+              "III",
+              "IV",
+              "V",
+              "VI"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "$ref": {
+            "type": "string",
+            "description": "Relative path to the part file"
+          },
+          "sectionCount": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 6,
+      "maxItems": 6
+    },
+    "schemas": {
+      "type": "object",
+      "properties": {
+        "datatypes": {
+          "type": "string",
+          "description": "Relative path to datatypes file"
+        }
+      }
+    },
+    "metadata": {
+      "type": "string",
+      "description": "Relative path to metadata file"
+    }
+  },
+  "additionalProperties": false
+}

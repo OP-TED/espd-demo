@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/part.schema.json",
   "part": "II",
   "title": "Information concerning the economic operator",
   "description": "Information about the economic operator, representatives, reliance on other entities, and subcontractors",

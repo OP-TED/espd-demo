@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "part.schema.json",
+  "title": "ESPD Part",
+  "description": "One of the six ESPD standard form parts (I-VI)",
+  "type": "object",
+  "required": [
+    "part",
+    "title",
+    "filledBy",
+    "sections"
+  ],
+  "properties": {
+    "part": {
+      "type": "string",
+      "enum": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI"
+      ],
+      "description": "Part number"
+    },
+    "title": {
+      "type": "string",
+      "description": "Official part title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Summary of the part content"
+    },
+    "filledBy": {
+      "type": "object",
+      "required": [
+        "request",
+        "response"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "description": "Who fills this in the ESPD Request"
+        },
+        "response": {
+          "type": "string",
+          "description": "Who fills this in the ESPD Response"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Roles responsible for filling this part"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "section.schema.json"
+      },
+      "minItems": 1,
+      "description": "Sections within this part"
+    }
+  },
+  "additionalProperties": false
+}

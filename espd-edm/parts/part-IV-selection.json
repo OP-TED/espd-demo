@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/part.schema.json",
   "part": "IV",
   "title": "Selection criteria",
   "description": "Criteria regarding suitability, economic/financial standing, technical/professional ability, and quality/environmental management",

@@ -6,7 +6,7 @@ A European Single Procurement Document (ESPD) service implementation using plain
 
 - **Two roles**: Contracting Authority (ESPD Request) and Economic Operator (ESPD Response)
 - **Six-part wizard**: Step-by-step form covering all ESPD parts (I–VI)
-- **Dynamic rendering**: Form generated from `espd-edm-enhanced.json` data model
+- **Dynamic rendering**: Form generated from decomposed `espd-edm/` data model (loaded via `index.json`)
 - **Conditional logic**: ONTRUE/ONFALSE visibility based on indicator answers
 - **Persistent state**: Answers saved to localStorage, restored on reload
 - **XML export**: Generate UBL-compliant ESPD Request/Response XML
@@ -45,7 +45,11 @@ Then open http://localhost:3000 in your browser.
 │   └── i18n/
 │       ├── translations.json   # i18n manifest and key conventions
 │       └── en/                 # English translations (per-part)
-├── espd-edm-enhanced.json      # ESPD-EDM data model (all 6 parts)
+├── espd-edm/                    # ESPD-EDM data model (decomposed parts + schemas)
+│   ├── index.json              # Manifest linking all parts
+│   ├── metadata.json           # Version, title, legal basis
+│   ├── parts/                  # One file per ESPD part (I–VI)
+│   └── schemas/                # JSON Schemas for validation
 └── package.json                # Dev server only (serve)
 ```
 
@@ -55,7 +59,7 @@ Uses [Pico CSS](https://picocss.com/) (CDN) — a minimal, semantic CSS framewor
 
 ## Data Model
 
-The `espd-edm-enhanced.json` file defines:
+The `espd-edm/` directory defines the data model in decomposed form:
 - **6 parts** with sections, criteria, and question hierarchies
 - **Component types**: CRITERION, QUESTION_GROUP, QUESTION_SUBGROUP, QUESTION, REQUIREMENT, LEGISLATION, CAPTION, etc.
 - **Property data types**: INDICATOR, DESCRIPTION, DATE, URL, AMOUNT, CODE_COUNTRY, PERCENTAGE, etc.

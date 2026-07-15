@@ -1,15 +1,48 @@
 /**
  * Model module — loads and provides access to the ESPD-EDM data model.
+ * Loads the decomposed model from espd-edm/index.json and its referenced parts.
  */
+
+const MODEL_BASE = '/espd-edm';
 
 let espdModel = null;
 
 /**
- * Load the ESPD-EDM enhanced JSON model.
+ * Load the ESPD-EDM model from the decomposed index + part files.
  */
 export async function loadModel() {
-  const resp = await fetch('/espd-edm-enhanced.json');
-  espdModel = await resp.json();
+  // Load the index manifest
+  const indexResp = await fetch(`${MODEL_BASE}/index.json`);
+  const index = await indexResp.json();
+
+  // Load metadata
+  const metaResp = await fetch(`${MODEL_BASE}/${index.metadata}`);
+  const metadata = await metaResp.json();
+
+  // Load all parts in parallel
+  const partEntries = await Promise.all(
+    index.parts.map(async (entry) => {
+      const resp = await fetch(`${MODEL_BASE}/${entry.$ref}`);
+      const partData = await resp.json();
+      return {
+        key: entry.part,
+        data: {
+          title: partData.title,
+          description: partData.description,
+          filledBy: partData.filledBy,
+          sections: partData.sections
+        }
+      };
+    })
+  );
+
+  // Assemble into the same shape the rest of the app expects
+  const parts = {};
+  for (const { key, data } of partEntries) {
+    parts[key] = data;
+  }
+
+  espdModel = { metadata, parts };
   return espdModel;
 }
 

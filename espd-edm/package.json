@@ -4,7 +4,9 @@
   "description": "ESPD-EDM data model — structured representation of the full ESPD standard form",
   "private": true,
   "scripts": {
-    "validate": "node validate.cjs"
+    "validate": "node validate.cjs",
+    "compare": "node compare.cjs",
+    "compare:extract": "node compare-extract.cjs"
   },
   "devDependencies": {
     "ajv": "^8.17.1",

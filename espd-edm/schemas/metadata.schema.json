@@ -12,6 +12,10 @@
     "generatedDate"
   ],
   "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
     "title": {
       "type": "string",
       "description": "Full title of the data model"

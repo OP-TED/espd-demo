@@ -11,6 +11,10 @@
     "sections"
   ],
   "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
     "part": {
       "type": "string",
       "enum": [

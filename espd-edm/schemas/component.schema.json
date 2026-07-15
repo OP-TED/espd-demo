@@ -16,19 +16,22 @@
     "type": {
       "type": "string",
       "enum": [
-        "QUESTION_GROUP",
-        "QUESTION",
-        "QUESTION_SUBGROUP",
-        "SUBCRITERION",
-        "LEGISLATION",
         "CAPTION",
-        "REQUIREMENT"
+        "CRITERION",
+        "LEGISLATION",
+        "QUESTION",
+        "QUESTION_GROUP",
+        "QUESTION_SUBGROUP",
+        "REQUIREMENT",
+        "REQUIREMENT_GROUP",
+        "REQUIREMENT_SUBGROUP",
+        "SUBCRITERION"
       ],
       "description": "Component type"
     },
     "cardinality": {
       "type": "string",
-      "pattern": "^(0|1)(\\.\\.( 1|n))?$",
+      "pattern": "^(0|1)(\\.\\.(1|n))?$",
       "description": "Cardinality constraint (e.g. 1, 0..1, 1..n, 0..n)"
     },
     "description": {

@@ -63,6 +63,7 @@
     },
     "cardinality": {
       "type": "string",
+      "pattern": "^(0|1)(\\.\\.(1|n))?$",
       "description": "Cardinality of the section itself"
     },
     "components": {

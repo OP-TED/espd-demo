@@ -971,7 +971,7 @@
     {
       "tag": "C06",
       "type": "CRITERION",
-      "uuid": " d789d01a-fe03-4ccd-9898-73f9cfa080d1",
+      "uuid": "d789d01a-fe03-4ccd-9898-73f9cfa080d1",
       "code": "exg-crim-traffick",
       "cardinality": "1",
       "components": [

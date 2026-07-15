@@ -1,0 +1,13 @@
+{
+  "name": "espd-edm",
+  "version": "5.0.0",
+  "description": "ESPD-EDM data model — structured representation of the full ESPD standard form",
+  "private": true,
+  "scripts": {
+    "validate": "node validate.cjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

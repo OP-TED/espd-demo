@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "serve .",
     "build": "echo 'No build step needed - static files'",
-    "test:e2e": "npx playwright test"
+    "test:e2e": "playwright test --config=playwright.config.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",

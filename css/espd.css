@@ -51,8 +51,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
-  padding: 0;
-  margin: 0 0 2rem;
+  padding: 0.4rem 0.75rem;
+  margin: 0;
   list-style: none;
 }
 .espd-steps li {
@@ -61,12 +61,12 @@
 .espd-steps li a,
 .espd-steps li span {
   display: block;
-  padding: 0.5rem 0.75rem;
+  padding: 0.35rem 0.6rem;
   border-radius: var(--pico-border-radius);
   text-decoration: none;
   font-size: 0.85rem;
   text-align: center;
-  border: 1px solid var(--pico-muted-border-color);
+  border: 1px solid transparent;
   color: var(--pico-muted-color);
   background: transparent;
   cursor: pointer;
@@ -300,17 +300,23 @@
    Persistent Navigation UX — Wizard Header, Badges, Continue Card
    ============================================= */
 
-/* Wizard Header — compact bar showing document context and actions */
+/* Wizard Navigation Bar — combined header + step progress */
+.espd-wizard-nav-bar {
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-card-background-color);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+/* Wizard Header — context row inside the nav bar */
 .espd-wizard-header {
   display: flex !important;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.4rem 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-  background: var(--pico-card-background-color);
+  border-bottom: 1px solid var(--pico-muted-border-color);
 }
 
 .espd-wizard-header__context {

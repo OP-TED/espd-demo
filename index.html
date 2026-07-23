@@ -36,15 +36,15 @@
     <section id="wizard-container" hidden aria-labelledby="wizard-heading">
       <h2 id="wizard-heading" class="visually-hidden">ESPD Form Wizard</h2>
 
-      <!-- Persistent Wizard Header (rendered by wizard-header.js) -->
-      <div class="espd-wizard-header"></div>
-
-      <!-- Progress / Step Navigation -->
-      <nav id="wizard-nav" aria-label="Form steps">
-        <ol class="espd-steps" role="list">
-          <!-- Populated dynamically -->
-        </ol>
-      </nav>
+      <!-- Combined wizard navigation: context + step progress -->
+      <div class="espd-wizard-nav-bar">
+        <div class="espd-wizard-header"></div>
+        <nav id="wizard-nav" aria-label="Form steps">
+          <ol class="espd-steps" role="list">
+            <!-- Populated dynamically -->
+          </ol>
+        </nav>
+      </div>
 
       <!-- Form Content Area -->
       <form id="espd-form" novalidate>

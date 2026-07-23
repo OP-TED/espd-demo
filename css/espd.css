@@ -31,7 +31,11 @@
 /* Header */
 .espd-header {
   border-bottom: 1px solid var(--pico-muted-border-color);
-  margin-bottom: 2rem;
+  padding: 0.2rem 1rem;
+  margin-bottom: 1rem;
+}
+.espd-header nav {
+  margin-bottom: 0;
 }
 
 /* Footer */
@@ -296,15 +300,14 @@
    Persistent Navigation UX — Wizard Header, Badges, Continue Card
    ============================================= */
 
-/* Wizard Header — flexbox layout, context left and actions right */
+/* Wizard Header — compact bar showing document context and actions */
 .espd-wizard-header {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  margin-bottom: 1rem;
   border: 1px solid var(--pico-muted-border-color);
   border-radius: var(--pico-border-radius);
   background: var(--pico-card-background-color);
@@ -313,26 +316,26 @@
 .espd-wizard-header__context {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .espd-wizard-header__role {
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--pico-color);
 }
 
 .espd-wizard-header__actions {
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
 }
 
 .espd-wizard-header__actions button {
   margin-bottom: 0;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.85rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
 }
 
 /* Document Type Badge — base styling */
@@ -483,18 +486,11 @@
 
 @media (max-width: 768px) {
   .espd-wizard-header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
   }
 
   .espd-wizard-header__actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .espd-wizard-header__actions button {
-    flex: 1;
-    text-align: center;
+    flex-wrap: wrap;
   }
 
   .espd-continue-card header {

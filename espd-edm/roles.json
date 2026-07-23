@@ -44,8 +44,8 @@
   "eoRoles": [
     {
       "id": "sole-tenderer",
-      "label": "Sole Tenderer",
-      "description": "An economic operator submitting a tender individually.",
+      "label": "Sole tenderer",
+      "description": "Economic operator which has submitted a tender without being part of a group of economic operators.",
       "documentType": "response",
       "formBehavior": {
         "visibleParts": ["I", "II", "III", "IV", "V", "VI"],
@@ -64,8 +64,8 @@
     },
     {
       "id": "group-lead",
-      "label": "Group Leader",
-      "description": "The lead member of a group of economic operators submitting a joint tender.",
+      "label": "Group leader",
+      "description": "Economic operator which is the leader of a group of economic operators.",
       "documentType": "response",
       "formBehavior": {
         "visibleParts": ["I", "II", "III", "IV", "V", "VI"],
@@ -84,8 +84,8 @@
     },
     {
       "id": "group-mem",
-      "label": "Group Member",
-      "description": "A non-lead member of a group of economic operators submitting a joint tender.",
+      "label": "Group member",
+      "description": "Economic operator, which is a member of a group of economic operators, without being the leader.",
       "documentType": "response",
       "formBehavior": {
         "visibleParts": ["I", "II", "III", "IV", "VI"],
@@ -104,8 +104,8 @@
     },
     {
       "id": "oeron",
-      "label": "Other Entity (Relied Upon)",
-      "description": "An entity whose capacities the main tenderer relies on to meet selection criteria.",
+      "label": "Other entity (relied upon)",
+      "description": "Economic operator (who is not a subcontractor) on which the tenderer relies upon, to meet selection criteria.",
       "documentType": "response",
       "formBehavior": {
         "visibleParts": ["I", "II", "III", "VI"],
@@ -125,7 +125,7 @@
     {
       "id": "subcont",
       "label": "Subcontractor",
-      "description": "A subcontractor who will carry out part of the contract on behalf of the main tenderer.",
+      "description": "Economic operator to whom the contractor assigns a share of the contract.",
       "documentType": "response",
       "formBehavior": {
         "visibleParts": ["I", "II", "III", "VI"],

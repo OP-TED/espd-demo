@@ -46,7 +46,8 @@ export function renderWizardHeader({ container, documentType, roleLabel, onHome,
   const badgeText = formatBadgeText(documentType);
   const ariaLabel = buildBadgeAriaLabel(documentType, roleLabel);
 
-  container.setAttribute('role', 'banner');
+  container.setAttribute('role', 'navigation');
+  container.setAttribute('aria-label', 'Wizard actions');
   container.innerHTML = `
     <div class="espd-wizard-header__context">
       <span class="espd-doc-badge ${badgeModifier}" aria-label="${ariaLabel}">
@@ -54,11 +55,11 @@ export function renderWizardHeader({ container, documentType, roleLabel, onHome,
       </span>
       <span class="espd-wizard-header__role">${roleLabel}</span>
     </div>
-    <nav class="espd-wizard-header__actions" aria-label="Wizard actions">
+    <div class="espd-wizard-header__actions">
       <button type="button" class="outline secondary" data-action="home">Home</button>
       <button type="button" class="outline secondary" data-action="new">New</button>
       <button type="button" class="outline secondary" data-action="import">Import</button>
-    </nav>
+    </div>
   `;
 
   // Wire up action buttons

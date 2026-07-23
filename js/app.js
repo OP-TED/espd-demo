@@ -391,8 +391,8 @@ function renderStep(index) {
   renderPart(partData, part.key, role, container);
   updateStepNav();
 
-  // Scroll to top of form
-  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Scroll to top of wizard (including header)
+  document.getElementById('wizard-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   // Announce to screen readers
   const heading = container.querySelector('h2');

@@ -198,7 +198,7 @@ describe('wizard-header.js', () => {
         onImport: () => {}
       });
 
-      assert.strictEqual(container.attributes['role'], 'banner');
+      assert.strictEqual(container.attributes['role'], 'navigation');
     });
 
     it('wires onHome callback to Home button', () => {
@@ -249,7 +249,7 @@ describe('wizard-header.js', () => {
       assert.ok(called, 'onImport should be called when Import button is clicked');
     });
 
-    it('renders nav with aria-label="Wizard actions"', () => {
+    it('has aria-label="Wizard actions" on the container', () => {
       renderWizardHeader({
         container,
         documentType: 'request',
@@ -259,9 +259,9 @@ describe('wizard-header.js', () => {
         onImport: () => {}
       });
 
-      assert.ok(
-        container.innerHTML.includes('aria-label="Wizard actions"'),
-        'should have nav with aria-label "Wizard actions"'
+      assert.strictEqual(
+        container.attributes['aria-label'],
+        'Wizard actions'
       );
     });
   });

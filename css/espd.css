@@ -50,12 +50,9 @@
   padding: 0;
   margin: 0 0 2rem;
   list-style: none;
-  counter-reset: step-counter;
 }
 .espd-steps li {
-  counter-increment: step-counter;
-  flex: 1 1 0;
-  min-width: 0;
+  flex: 0 1 auto;
 }
 .espd-steps li a,
 .espd-steps li span {
@@ -71,13 +68,6 @@
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.espd-steps li a::before,
-.espd-steps li span::before {
-  content: counter(step-counter) ". ";
-  font-weight: 600;
 }
 .espd-steps li.active a,
 .espd-steps li.active span {
@@ -286,10 +276,6 @@
 @media (max-width: 768px) {
   .espd-steps {
     flex-direction: column;
-  }
-  .espd-steps li a::before,
-  .espd-steps li span::before {
-    content: "Part " counter(step-counter) ": ";
   }
   .espd-form-footer {
     flex-direction: column;

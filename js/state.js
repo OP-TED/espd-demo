@@ -166,6 +166,24 @@ export function setAnswers(answers) {
 }
 
 /**
+ * Check whether the current session has any user-entered answers.
+ * Used to decide whether to show the "New" confirmation dialog.
+ * @returns {boolean}
+ */
+export function hasAnswers() {
+  if (!state.answers || typeof state.answers !== 'object') return false;
+  return Object.keys(state.answers).length > 0;
+}
+
+/**
+ * Check whether a saved session exists (role is set).
+ * @returns {boolean}
+ */
+export function hasSession() {
+  return state.role !== null;
+}
+
+/**
  * Persist state to localStorage.
  */
 function persist() {

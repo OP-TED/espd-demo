@@ -1,15 +1,22 @@
 /**
  * ESPD Service — Main application module.
  * Initializes the app, manages wizard navigation, and wires up events.
+ *
+ * Navigation flow:
+ *   App Load → Home Page (always)
+ *   Home Page → Continue (restore wizard) | New ESPD (path selector) | Import
+ *   Wizard Header → Home | New (with confirmation if answers exist) | Import
  */
 
 import { loadLanguage, t } from './i18n.js';
-import { loadModel, getParts, getPart, getPartsForRole, getRoles, getRoleById } from './model.js';
-import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, resetState, getAnswers } from './state.js';
+import { loadModel, getPart, getPartsForRole, getRoles, getRoleById } from './model.js';
+import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, resetState, getAnswers, hasAnswers, hasSession } from './state.js';
 import { renderPart } from './renderer.js';
-import { validatePart, showValidationErrors, clearValidationErrors } from './validation.js';
 import { downloadXml, generateXml } from './xml-export.js';
 import { importXmlFile } from './xml-import.js';
+import { renderHomePage } from './home.js';
+import { renderPathSelector } from './path-selector.js';
+import { renderWizardHeader, updateWizardHeader } from './wizard-header.js';
 
 let wizardParts = []; // Parts available for current role
 
@@ -29,77 +36,219 @@ async function init() {
   // Wire up event listeners
   setupEventListeners();
 
-  // Render role cards from roles.json
-  renderRoleCards();
+  // Always show Home Page on load (Requirement 1.1)
+  showHomePage();
+}
 
-  // If we have a saved role, restore the wizard
+// ─── Navigation Functions ─────────────────────────────────────────────────────
+
+/**
+ * Show the Home Page.
+ * Displays the landing page with Continue Card (if session exists), New ESPD, and Import.
+ * Does NOT clear localStorage (Requirement 3.5).
+ */
+function showHomePage() {
+  const landingPage = document.getElementById('landing-page');
+  const wizardContainer = document.getElementById('wizard-container');
+
+  // Toggle visibility
+  landingPage.hidden = false;
+  wizardContainer.hidden = true;
+
+  // Get current session state and role data
   const state = getState();
-  if (state.role) {
-    showWizard(state.role);
-  }
-}
+  const roleData = state.role ? getRoleById(state.role) : null;
 
-/**
- * Render role selection cards dynamically from roles.json.
- */
-function renderRoleCards() {
-  const roles = getRoles();
-  if (!roles) return;
-
-  const buyerContainer = document.getElementById('buyer-roles');
-  const eoContainer = document.getElementById('eo-roles');
-
-  // Render buyer-type cards
-  for (const role of roles.buyerTypes) {
-    buyerContainer.appendChild(createRoleCard(role, 'contrast'));
-  }
-
-  // Render EO role cards
-  for (const role of roles.eoRoles) {
-    eoContainer.appendChild(createRoleCard(role, ''));
-  }
-}
-
-/**
- * Create a role selection card element.
- * @param {object} role - The role entry from roles.json
- * @param {string} buttonClass - CSS class for the button (e.g., 'contrast')
- * @returns {HTMLElement}
- */
-function createRoleCard(role, buttonClass) {
-  const article = document.createElement('article');
-
-  const header = document.createElement('header');
-  header.textContent = role.label;
-  article.appendChild(header);
-
-  const desc = document.createElement('p');
-  desc.textContent = role.description;
-  article.appendChild(desc);
-
-  const footer = document.createElement('footer');
-  const btn = document.createElement('button');
-  btn.textContent = role.documentType === 'request' ? 'Create ESPD Request' : 'Create ESPD Response';
-  btn.setAttribute('aria-label', `Select role: ${role.label}`);
-  if (buttonClass) btn.className = buttonClass;
-  btn.addEventListener('click', () => {
-    resetState();
-    setRole(role.id);
-    showWizard(role.id);
+  // Render home page into landing container
+  renderHomePage({
+    container: landingPage,
+    session: state,
+    roleData,
+    onContinue: () => {
+      // Restore wizard with existing role (Requirement 1.3)
+      showWizard(state.role);
+    },
+    onNewEspd: () => {
+      // Show path selector for new ESPD creation
+      showPathSelector();
+    },
+    onImport: (file) => {
+      // Trigger import from home page
+      handleImportFile(file);
+    }
   });
-  footer.appendChild(btn);
-  article.appendChild(footer);
-
-  return article;
 }
+
+/**
+ * Show the Path Selector (two-step role selection).
+ * Renders into the landing page container.
+ * Requirements: 2.1, 2.2, 2.3, 2.4
+ */
+function showPathSelector() {
+  const landingPage = document.getElementById('landing-page');
+  const wizardContainer = document.getElementById('wizard-container');
+
+  // Toggle visibility: show landing, hide wizard
+  landingPage.hidden = false;
+  wizardContainer.hidden = true;
+
+  const roles = getRoles();
+
+  renderPathSelector({
+    container: landingPage,
+    roles,
+    onRoleSelected: (roleId) => {
+      // Reset state for clean session, set new role (Requirement 2.4)
+      resetState();
+      setRole(roleId);
+      showWizard(roleId);
+    },
+    onCancel: () => {
+      // Return to home page
+      showHomePage();
+    }
+  });
+}
+
+/**
+ * Show the wizard interface for the selected role.
+ * @param {string} roleId - The full role id (e.g., 'sole-tenderer')
+ */
+function showWizard(roleId) {
+  const landingPage = document.getElementById('landing-page');
+  const wizardContainer = document.getElementById('wizard-container');
+
+  // Hide landing, show wizard
+  landingPage.hidden = true;
+  wizardContainer.hidden = false;
+
+  // Get parts for this role (filtered by formBehavior.visibleParts)
+  wizardParts = getPartsForRole(roleId);
+
+  // Render the persistent wizard header (Requirements 3.1, 3.2, 3.3, 3.4, 5.1, 5.2)
+  const headerContainer = wizardContainer.querySelector('.espd-wizard-header');
+  const role = getRoleById(roleId);
+  const documentType = role?.documentType || 'request';
+  const roleLabel = role?.label || 'Unknown Role';
+
+  renderWizardHeader({
+    container: headerContainer,
+    documentType,
+    roleLabel,
+    onHome: () => {
+      // Navigate home without clearing localStorage (Requirement 3.5)
+      showHomePage();
+    },
+    onNew: () => {
+      // Check if confirmation is needed (Requirement 6.1, 6.4)
+      if (hasAnswers()) {
+        // Show confirmation dialog
+        const dialog = document.getElementById('confirm-new-dialog');
+        dialog.showModal();
+      } else {
+        // No answers — go directly to path selector (Requirement 6.4)
+        showPathSelector();
+      }
+    },
+    onImport: () => {
+      // Trigger file import from within the wizard
+      triggerImportFromWizard();
+    }
+  });
+
+  // Build step navigation
+  buildStepNav();
+
+  // Render the current step
+  const step = getCurrentStep();
+  renderStep(step);
+}
+
+// ─── Import Logic ─────────────────────────────────────────────────────────────
+
+/**
+ * Trigger file import from the wizard header.
+ * Creates a temporary file input, or reuses one, to select a file.
+ */
+function triggerImportFromWizard() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.xml,.json';
+  input.style.display = 'none';
+  document.body.appendChild(input);
+
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    if (file) {
+      handleImportFile(file);
+    }
+    document.body.removeChild(input);
+  });
+
+  input.click();
+}
+
+/**
+ * Handle importing a file with session overwrite warning.
+ * Requirements: 4.3, 4.4, 4.5
+ * @param {File} file - The file to import
+ */
+async function handleImportFile(file) {
+  // If a session with answers exists, warn before overwriting (Requirement 4.5)
+  if (hasSession() && hasAnswers()) {
+    const proceed = confirm('Importing will replace your current session. Do you want to continue?');
+    if (!proceed) return;
+  }
+
+  const result = await importXmlFile(file);
+
+  if (result.success) {
+    // On successful import, update wizard header and show wizard (Requirement 4.3)
+    const importedRole = getRoleById(result.role);
+    const docType = importedRole?.documentType || 'request';
+    const label = importedRole?.label || 'Unknown Role';
+
+    updateWizardHeader({ documentType: docType, roleLabel: label });
+    showWizard(result.role);
+  } else {
+    // On failure, display an error message (Requirement 4.4)
+    alert(`Import failed: ${result.message}`);
+  }
+}
+
+// ─── Confirmation Dialog Logic ────────────────────────────────────────────────
+
+/**
+ * Wire up the confirmation dialog for "New ESPD" action.
+ * Requirements: 6.1, 6.2, 6.3, 6.4
+ */
+function setupConfirmDialog() {
+  const dialog = document.getElementById('confirm-new-dialog');
+  const btnOk = document.getElementById('btn-confirm-new-ok');
+  const btnCancel = document.getElementById('btn-confirm-new-cancel');
+
+  // Confirm: reset state and show path selector (Requirement 6.2)
+  btnOk.addEventListener('click', () => {
+    dialog.close();
+    resetState();
+    showPathSelector();
+  });
+
+  // Cancel: close dialog, return to wizard unchanged (Requirement 6.3)
+  btnCancel.addEventListener('click', () => {
+    dialog.close();
+  });
+
+  // Escape key dismissal is handled natively by <dialog> — fires 'cancel' event
+  // which closes the dialog, leaving wizard unchanged (Requirement 6.3)
+}
+
+// ─── Event Listeners ──────────────────────────────────────────────────────────
 
 /**
  * Set up all DOM event listeners.
  */
 function setupEventListeners() {
-  // Import
-  document.getElementById('btn-import').addEventListener('click', handleImport);
-
   // Wizard navigation
   document.getElementById('btn-prev').addEventListener('click', goToPrevStep);
   document.getElementById('btn-next').addEventListener('click', goToNextStep);
@@ -130,27 +279,12 @@ function setupEventListeners() {
       goToPrevStep();
     }
   });
+
+  // Wire up confirmation dialog buttons (Requirements 6.1–6.4)
+  setupConfirmDialog();
 }
 
-/**
- * Show the wizard interface for the selected role.
- * @param {string} roleId - The full role id (e.g., 'sole-tenderer')
- */
-function showWizard(roleId) {
-  // Hide landing, show wizard
-  document.getElementById('landing-page').hidden = true;
-  document.getElementById('wizard-container').hidden = false;
-
-  // Get parts for this role (filtered by formBehavior.visibleParts)
-  wizardParts = getPartsForRole(roleId);
-
-  // Build step navigation
-  buildStepNav();
-
-  // Render the current step
-  const step = getCurrentStep();
-  renderStep(step);
-}
+// ─── Wizard Navigation ────────────────────────────────────────────────────────
 
 /**
  * Build the step navigation bar.
@@ -275,27 +409,7 @@ function renderCurrentStep() {
   renderStep(getCurrentStep());
 }
 
-/**
- * Handle file import.
- */
-async function handleImport() {
-  const fileInput = document.getElementById('import-file');
-  const file = fileInput.files[0];
-
-  if (!file) {
-    alert('Please select a file to import.');
-    return;
-  }
-
-  const result = await importXmlFile(file);
-
-  if (result.success) {
-    alert(result.message);
-    showWizard(result.role);
-  } else {
-    alert(`Import failed: ${result.message}`);
-  }
-}
+// ─── Overview Dialog ──────────────────────────────────────────────────────────
 
 /**
  * Show the overview dialog with a summary of all parts.
@@ -304,7 +418,6 @@ function showOverview() {
   const dialog = document.getElementById('overview-dialog');
   const content = document.getElementById('overview-content');
   const answers = getAnswers();
-  const role = getRole();
 
   let html = '';
 
@@ -364,7 +477,8 @@ function countQuestionsSimple(sections, answers) {
   return { answered, total };
 }
 
-// Initialize the application
+// ─── Application Init ─────────────────────────────────────────────────────────
+
 init().catch(err => {
   console.error('Failed to initialize ESPD Service:', err);
   document.getElementById('main-content').innerHTML = `

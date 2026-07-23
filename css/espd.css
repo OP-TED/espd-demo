@@ -305,3 +305,224 @@
     gap: 0.5rem;
   }
 }
+
+/* =============================================
+   Persistent Navigation UX — Wizard Header, Badges, Continue Card
+   ============================================= */
+
+/* Wizard Header — flexbox layout, context left and actions right */
+.espd-wizard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-card-background-color);
+}
+
+.espd-wizard-header__context {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.espd-wizard-header__role {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--pico-color);
+}
+
+.espd-wizard-header__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.espd-wizard-header__actions button {
+  margin-bottom: 0;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* Document Type Badge — base styling */
+.espd-doc-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--pico-border-radius);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* Request badge — blue/primary tone */
+.espd-doc-badge--request {
+  background: hsl(214, 80%, 92%);
+  color: hsl(214, 60%, 30%);
+  border: 1px solid hsl(214, 50%, 75%);
+}
+
+/* Response badge — green/success tone */
+.espd-doc-badge--response {
+  background: hsl(152, 60%, 90%);
+  color: hsl(152, 50%, 25%);
+  border: 1px solid hsl(152, 40%, 70%);
+}
+
+/* Continue Card */
+.espd-continue-card {
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  padding: 0;
+  overflow: hidden;
+}
+
+.espd-continue-card header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  background: var(--pico-card-background-color);
+}
+
+.espd-continue-card__role {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.espd-continue-card__details {
+  padding: 1rem 1.25rem;
+}
+
+.espd-continue-card__details p {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--pico-muted-color);
+}
+
+.espd-continue-card__details p:last-child {
+  margin-bottom: 0;
+}
+
+.espd-continue-card footer {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid var(--pico-muted-border-color);
+}
+
+.espd-continue-card footer button {
+  margin-bottom: 0;
+}
+
+/* Home Actions — "New ESPD" button area */
+.espd-home-actions {
+  margin: 1.5rem 0;
+}
+
+.espd-home-actions button {
+  margin-bottom: 0;
+}
+
+/* Import Area — prominent display */
+.espd-import-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-card-background-color);
+}
+
+.espd-import-area h3 {
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.espd-import-area p {
+  margin-bottom: 0.5rem;
+  color: var(--pico-muted-color);
+  font-size: 0.9rem;
+}
+
+/* Import Controls — file input + button row */
+.espd-import-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.espd-import-controls input[type="file"] {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.espd-import-controls button {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+/* Path Selector Navigation Links */
+.espd-path-selector__cancel,
+.espd-path-selector__back {
+  margin: 1rem 0;
+}
+
+.espd-path-selector__cancel a,
+.espd-path-selector__back a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--pico-muted-color);
+  transition: color 0.15s;
+}
+
+.espd-path-selector__cancel a:hover,
+.espd-path-selector__back a:hover {
+  color: var(--pico-primary);
+}
+
+/* =============================================
+   Responsive Adjustments — Navigation Components
+   ============================================= */
+
+@media (max-width: 768px) {
+  .espd-wizard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .espd-wizard-header__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .espd-wizard-header__actions button {
+    flex: 1;
+    text-align: center;
+  }
+
+  .espd-continue-card header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .espd-import-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .espd-import-controls input[type="file"] {
+    width: 100%;
+  }
+}

@@ -27,39 +27,17 @@
   </header>
 
   <main id="main-content" class="container">
-    <!-- Landing / Role Selection -->
+    <!-- Landing / Home Page (content rendered dynamically by home.js) -->
     <section id="landing-page" aria-labelledby="landing-heading">
-      <hgroup>
-        <h1 id="landing-heading">European Single Procurement Document (ESPD)</h1>
-        <p>Create an ESPD Request or Response for EU public procurement procedures.</p>
-      </hgroup>
-
-      <div class="grid" id="role-selection">
-        <div id="buyer-roles">
-          <h3>Buyer Side</h3>
-          <p><small>Create an ESPD Request defining the criteria for a procurement procedure.</small></p>
-          <!-- Populated dynamically from roles.json by app.js -->
-        </div>
-        <div id="eo-roles">
-          <h3>Economic Operator Side</h3>
-          <p><small>Fill in an ESPD Response to declare your suitability for a procurement procedure.</small></p>
-          <!-- Populated dynamically from roles.json by app.js -->
-        </div>
-      </div>
-
-      <details>
-        <summary>Import existing ESPD</summary>
-        <div class="espd-import-area">
-          <p>Load a previously saved ESPD document (XML) to continue editing.</p>
-          <input type="file" id="import-file" accept=".xml,.json" aria-label="Select ESPD file to import">
-          <button id="btn-import" class="secondary">Import</button>
-        </div>
-      </details>
+      <h1 id="landing-heading" class="visually-hidden">European Single Procurement Document (ESPD)</h1>
     </section>
 
     <!-- Wizard Container (hidden until role selected) -->
     <section id="wizard-container" hidden aria-labelledby="wizard-heading">
       <h2 id="wizard-heading" class="visually-hidden">ESPD Form Wizard</h2>
+
+      <!-- Persistent Wizard Header (rendered by wizard-header.js) -->
+      <header class="espd-wizard-header"></header>
 
       <!-- Progress / Step Navigation -->
       <nav id="wizard-nav" aria-label="Form steps">
@@ -101,6 +79,20 @@
         <footer>
           <button id="btn-close-overview-footer" class="secondary">Close</button>
           <button id="btn-download-overview" class="contrast">Download XML</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Confirmation Dialog for New ESPD -->
+    <dialog id="confirm-new-dialog">
+      <article>
+        <header>
+          <h3>Start New ESPD?</h3>
+        </header>
+        <p>You have unsaved work in your current session. Starting a new ESPD will discard all progress.</p>
+        <footer>
+          <button id="btn-confirm-new-cancel" class="secondary">Cancel</button>
+          <button id="btn-confirm-new-ok" class="contrast">Discard &amp; Continue</button>
         </footer>
       </article>
     </dialog>

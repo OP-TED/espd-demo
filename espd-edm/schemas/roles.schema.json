@@ -1,0 +1,113 @@
+{
+  "$id": "roles.schema.json",
+  "title": "ESPD-EDM Roles Registry",
+  "description": "Defines buyer types and economic operator roles that drive form behavior, visibility, and XML encoding",
+  "type": "object",
+  "required": ["buyerTypes", "eoRoles"],
+  "properties": {
+    "buyerTypes": {
+      "type": "array",
+      "description": "Buyer-side roles (Contracting Authority, Contracting Entity)",
+      "items": { "$ref": "#/$defs/buyerRoleEntry" },
+      "minItems": 1
+    },
+    "eoRoles": {
+      "type": "array",
+      "description": "Economic Operator roles from the EoRoleType codelist",
+      "items": { "$ref": "#/$defs/eoRoleEntry" },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "partKey": {
+      "type": "string",
+      "enum": ["I", "II", "III", "IV", "V", "VI"]
+    },
+    "exclusionRule": {
+      "type": "string",
+      "enum": ["mandatory", "optional"]
+    },
+    "formBehavior": {
+      "type": "object",
+      "required": ["visibleParts", "editableParts", "exclusionGroundRules"],
+      "properties": {
+        "visibleParts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/partKey" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "editableParts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/partKey" },
+          "uniqueItems": true
+        },
+        "exclusionGroundRules": {
+          "type": "object",
+          "required": ["criminal", "payment", "misconduct", "national"],
+          "properties": {
+            "criminal": { "$ref": "#/$defs/exclusionRule" },
+            "payment": { "$ref": "#/$defs/exclusionRule" },
+            "misconduct": { "$ref": "#/$defs/exclusionRule" },
+            "national": { "$ref": "#/$defs/exclusionRule" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "xmlMapping": {
+      "type": "object",
+      "required": ["element", "code"],
+      "properties": {
+        "element": {
+          "type": "string",
+          "description": "XPath-like element path in UBL XML where the role code is encoded"
+        },
+        "code": {
+          "type": "string",
+          "description": "The code value to emit in the XML element"
+        }
+      },
+      "additionalProperties": false
+    },
+    "baseRoleEntry": {
+      "type": "object",
+      "required": ["id", "label", "description", "documentType", "formBehavior", "xmlMapping"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "documentType": { "type": "string", "enum": ["request", "response"] },
+        "formBehavior": { "$ref": "#/$defs/formBehavior" },
+        "xmlMapping": { "$ref": "#/$defs/xmlMapping" }
+      },
+      "additionalProperties": false
+    },
+    "buyerRoleEntry": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRoleEntry" },
+        {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string", "enum": ["contracting-authority", "contracting-entity"] },
+            "documentType": { "const": "request" }
+          }
+        }
+      ]
+    },
+    "eoRoleEntry": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRoleEntry" },
+        {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string", "enum": ["sole-tenderer", "group-lead", "group-mem", "oeron", "subcont"] },
+            "documentType": { "const": "response" }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -4,7 +4,7 @@
  */
 
 import { loadLanguage, t } from './i18n.js';
-import { loadModel, getParts, getPart, getPartsForRole } from './model.js';
+import { loadModel, getParts, getPart, getPartsForRole, getRoles, getRoleById } from './model.js';
 import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, resetState, getAnswers } from './state.js';
 import { renderPart } from './renderer.js';
 import { validatePart, showValidationErrors, clearValidationErrors } from './validation.js';
@@ -29,6 +29,9 @@ async function init() {
   // Wire up event listeners
   setupEventListeners();
 
+  // Render role cards from roles.json
+  renderRoleCards();
+
   // If we have a saved role, restore the wizard
   const state = getState();
   if (state.role) {
@@ -37,22 +40,63 @@ async function init() {
 }
 
 /**
+ * Render role selection cards dynamically from roles.json.
+ */
+function renderRoleCards() {
+  const roles = getRoles();
+  if (!roles) return;
+
+  const buyerContainer = document.getElementById('buyer-roles');
+  const eoContainer = document.getElementById('eo-roles');
+
+  // Render buyer-type cards
+  for (const role of roles.buyerTypes) {
+    buyerContainer.appendChild(createRoleCard(role, 'contrast'));
+  }
+
+  // Render EO role cards
+  for (const role of roles.eoRoles) {
+    eoContainer.appendChild(createRoleCard(role, ''));
+  }
+}
+
+/**
+ * Create a role selection card element.
+ * @param {object} role - The role entry from roles.json
+ * @param {string} buttonClass - CSS class for the button (e.g., 'contrast')
+ * @returns {HTMLElement}
+ */
+function createRoleCard(role, buttonClass) {
+  const article = document.createElement('article');
+
+  const header = document.createElement('header');
+  header.textContent = role.label;
+  article.appendChild(header);
+
+  const desc = document.createElement('p');
+  desc.textContent = role.description;
+  article.appendChild(desc);
+
+  const footer = document.createElement('footer');
+  const btn = document.createElement('button');
+  btn.textContent = role.documentType === 'request' ? 'Create ESPD Request' : 'Create ESPD Response';
+  btn.setAttribute('aria-label', `Select role: ${role.label}`);
+  if (buttonClass) btn.className = buttonClass;
+  btn.addEventListener('click', () => {
+    resetState();
+    setRole(role.id);
+    showWizard(role.id);
+  });
+  footer.appendChild(btn);
+  article.appendChild(footer);
+
+  return article;
+}
+
+/**
  * Set up all DOM event listeners.
  */
 function setupEventListeners() {
-  // Role selection
-  document.getElementById('btn-role-ca').addEventListener('click', () => {
-    resetState();
-    setRole('ca');
-    showWizard('ca');
-  });
-
-  document.getElementById('btn-role-eo').addEventListener('click', () => {
-    resetState();
-    setRole('eo');
-    showWizard('eo');
-  });
-
   // Import
   document.getElementById('btn-import').addEventListener('click', handleImport);
 
@@ -70,10 +114,9 @@ function setupEventListeners() {
     closeOverview();
   });
 
-  // Language switcher (placeholder for future languages)
+  // Language switcher
   document.getElementById('language-select').addEventListener('change', async (e) => {
     await loadLanguage(e.target.value);
-    // Re-render current step
     renderCurrentStep();
   });
 
@@ -91,14 +134,15 @@ function setupEventListeners() {
 
 /**
  * Show the wizard interface for the selected role.
+ * @param {string} roleId - The full role id (e.g., 'sole-tenderer')
  */
-function showWizard(role) {
+function showWizard(roleId) {
   // Hide landing, show wizard
   document.getElementById('landing-page').hidden = true;
   document.getElementById('wizard-container').hidden = false;
 
-  // Get parts for this role
-  wizardParts = getPartsForRole(role);
+  // Get parts for this role (filtered by formBehavior.visibleParts)
+  wizardParts = getPartsForRole(roleId);
 
   // Build step navigation
   buildStepNav();
@@ -268,14 +312,6 @@ function showOverview() {
     const partData = getPart(part.key);
     html += `<h4>Part ${part.key}: ${t('part.title.' + part.key, partData.title)}</h4>`;
 
-    // Count answered questions
-    let answered = 0;
-    let total = 0;
-    countQuestions(partData.sections, answers, { answered: 0, total: 0 }, (counts) => {
-      answered = counts.answered;
-      total = counts.total;
-    });
-
     const questionCounts = countQuestionsSimple(partData.sections, answers);
     html += `<p><small>${questionCounts.answered} of ${questionCounts.total} questions answered</small></p>`;
   }
@@ -326,14 +362,6 @@ function countQuestionsSimple(sections, answers) {
   }
 
   return { answered, total };
-}
-
-/**
- * Compatibility wrapper for countQuestions.
- */
-function countQuestions(sections, answers, counts, callback) {
-  const result = countQuestionsSimple(sections, answers);
-  callback(result);
 }
 
 // Initialize the application

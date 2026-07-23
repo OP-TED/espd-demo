@@ -1,0 +1,146 @@
+{
+  "buyerTypes": [
+    {
+      "id": "contracting-authority",
+      "label": "Contracting Authority",
+      "description": "A contracting authority subject to Directive 2014/24/EU creating an ESPD Request.",
+      "documentType": "request",
+      "formBehavior": {
+        "visibleParts": ["I", "III", "IV", "V", "VI"],
+        "editableParts": ["I", "III", "IV", "V"],
+        "exclusionGroundRules": {
+          "criminal": "mandatory",
+          "payment": "mandatory",
+          "misconduct": "optional",
+          "national": "optional"
+        }
+      },
+      "xmlMapping": {
+        "element": "cac:ContractingParty/cac:ContractingPartyType/cbc:PartyTypeCode",
+        "code": "cont-auth"
+      }
+    },
+    {
+      "id": "contracting-entity",
+      "label": "Contracting Entity",
+      "description": "A contracting entity subject to Directive 2014/25/EU (utilities: water, energy, transport, postal services) creating an ESPD Request.",
+      "documentType": "request",
+      "formBehavior": {
+        "visibleParts": ["I", "III", "IV", "V", "VI"],
+        "editableParts": ["I", "III", "IV", "V"],
+        "exclusionGroundRules": {
+          "criminal": "optional",
+          "payment": "optional",
+          "misconduct": "optional",
+          "national": "optional"
+        }
+      },
+      "xmlMapping": {
+        "element": "cac:ContractingParty/cac:ContractingPartyType/cbc:PartyTypeCode",
+        "code": "cont-ent"
+      }
+    }
+  ],
+  "eoRoles": [
+    {
+      "id": "sole-tenderer",
+      "label": "Sole Tenderer",
+      "description": "An economic operator submitting a tender individually.",
+      "documentType": "response",
+      "formBehavior": {
+        "visibleParts": ["I", "II", "III", "IV", "V", "VI"],
+        "editableParts": ["II", "III", "IV", "V", "VI"],
+        "exclusionGroundRules": {
+          "criminal": "mandatory",
+          "payment": "mandatory",
+          "misconduct": "mandatory",
+          "national": "mandatory"
+        }
+      },
+      "xmlMapping": {
+        "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
+        "code": "sole-tenderer"
+      }
+    },
+    {
+      "id": "group-lead",
+      "label": "Group Leader",
+      "description": "The lead member of a group of economic operators submitting a joint tender.",
+      "documentType": "response",
+      "formBehavior": {
+        "visibleParts": ["I", "II", "III", "IV", "V", "VI"],
+        "editableParts": ["II", "III", "IV", "V", "VI"],
+        "exclusionGroundRules": {
+          "criminal": "mandatory",
+          "payment": "mandatory",
+          "misconduct": "mandatory",
+          "national": "mandatory"
+        }
+      },
+      "xmlMapping": {
+        "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
+        "code": "group-lead"
+      }
+    },
+    {
+      "id": "group-mem",
+      "label": "Group Member",
+      "description": "A non-lead member of a group of economic operators submitting a joint tender.",
+      "documentType": "response",
+      "formBehavior": {
+        "visibleParts": ["I", "II", "III", "IV", "VI"],
+        "editableParts": ["II", "III", "IV", "VI"],
+        "exclusionGroundRules": {
+          "criminal": "mandatory",
+          "payment": "mandatory",
+          "misconduct": "mandatory",
+          "national": "mandatory"
+        }
+      },
+      "xmlMapping": {
+        "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
+        "code": "group-mem"
+      }
+    },
+    {
+      "id": "oeron",
+      "label": "Other Entity (Relied Upon)",
+      "description": "An entity whose capacities the main tenderer relies on to meet selection criteria.",
+      "documentType": "response",
+      "formBehavior": {
+        "visibleParts": ["I", "II", "III", "VI"],
+        "editableParts": ["II", "III", "VI"],
+        "exclusionGroundRules": {
+          "criminal": "mandatory",
+          "payment": "mandatory",
+          "misconduct": "mandatory",
+          "national": "mandatory"
+        }
+      },
+      "xmlMapping": {
+        "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
+        "code": "oeron"
+      }
+    },
+    {
+      "id": "subcont",
+      "label": "Subcontractor",
+      "description": "A subcontractor who will carry out part of the contract on behalf of the main tenderer.",
+      "documentType": "response",
+      "formBehavior": {
+        "visibleParts": ["I", "II", "III", "VI"],
+        "editableParts": ["II", "III", "VI"],
+        "exclusionGroundRules": {
+          "criminal": "mandatory",
+          "payment": "mandatory",
+          "misconduct": "mandatory",
+          "national": "mandatory"
+        }
+      },
+      "xmlMapping": {
+        "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
+        "code": "subcont"
+      }
+    }
+  ]
+}

@@ -4,8 +4,25 @@
 
 const STORAGE_KEY = 'espd-service-state';
 
+/** All valid role ids from the roles registry */
+const VALID_ROLE_IDS = [
+  'contracting-authority',
+  'contracting-entity',
+  'sole-tenderer',
+  'group-lead',
+  'group-mem',
+  'oeron',
+  'subcont'
+];
+
+/** Legacy role id migration map */
+const LEGACY_MIGRATION = {
+  'ca': 'contracting-authority',
+  'eo': 'sole-tenderer'
+};
+
 let state = {
-  role: null,        // 'ca' or 'eo'
+  role: null,        // Full role id (e.g., 'sole-tenderer', 'contracting-authority')
   currentStep: 0,    // index into parts array
   answers: {},       // keyed by contentpath
   metadata: {
@@ -16,18 +33,42 @@ let state = {
 
 /**
  * Initialize state, restoring from localStorage if available.
+ * Performs legacy migration and validation.
  */
 export function initState() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     try {
       state = JSON.parse(saved);
+      migrateState();
     } catch (e) {
       console.warn('Failed to restore state from localStorage', e);
       resetState();
     }
   }
   return state;
+}
+
+/**
+ * Migrate legacy role values and validate the current role id.
+ * - Converts 'ca' → 'contracting-authority', 'eo' → 'sole-tenderer'
+ * - Resets state if role id is unrecognized
+ */
+function migrateState() {
+  if (!state.role) return;
+
+  // Migrate legacy values
+  if (LEGACY_MIGRATION[state.role]) {
+    state.role = LEGACY_MIGRATION[state.role];
+    persist();
+    return;
+  }
+
+  // Validate current role id
+  if (!VALID_ROLE_IDS.includes(state.role)) {
+    console.warn(`Unknown role id "${state.role}", resetting state`);
+    resetState();
+  }
 }
 
 /**
@@ -56,6 +97,7 @@ export function getState() {
 
 /**
  * Set the user role and persist.
+ * @param {string} role - Full role id (e.g., 'sole-tenderer', 'contracting-authority')
  */
 export function setRole(role) {
   state.role = role;
@@ -65,7 +107,8 @@ export function setRole(role) {
 }
 
 /**
- * Get the current role.
+ * Get the current role id.
+ * @returns {string|null} The role id or null if not set
  */
 export function getRole() {
   return state.role;
@@ -88,7 +131,7 @@ export function getCurrentStep() {
 
 /**
  * Set an answer value by its content path.
- * @param {string} path - The contentpath from the model (e.g. "PI01_proc-publication-info/QG1/Q1/R1/RV")
+ * @param {string} path - The contentpath from the model
  * @param {*} value - The value to store
  */
 export function setAnswer(path, value) {
@@ -147,3 +190,6 @@ export function importState(imported) {
   state = { ...state, ...imported };
   persist();
 }
+
+// Export constants for testing
+export { VALID_ROLE_IDS, LEGACY_MIGRATION };

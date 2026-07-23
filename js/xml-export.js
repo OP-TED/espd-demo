@@ -1,10 +1,10 @@
 /**
  * XML Export module — generates ESPD UBL XML from collected form state.
- * Based on the ESPD-EDM UBL 2.3 structure.
+ * Based on the ESPD-EDM UBL 2.4 structure.
  */
 
 import { getState, getAnswers } from './state.js';
-import { getModel } from './model.js';
+import { getModel, getRoleById } from './model.js';
 
 const UBL_NS = 'urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2';
 const CAC_NS = 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2';
@@ -13,25 +13,31 @@ const ESPD_REQ_NS = 'urn:oasis:names:specification:ubl:schema:xsd:QualificationA
 
 /**
  * Generate ESPD XML document from the current state.
+ * Uses the role's documentType to determine request vs response.
  * @returns {string} XML string
  */
 export function generateXml() {
   const state = getState();
   const model = getModel();
   const answers = getAnswers();
-  const role = state.role;
+  const roleId = state.role;
+  const roleConfig = getRoleById(roleId);
 
-  if (role === 'ca') {
-    return generateRequestXml(model, answers);
+  if (!roleConfig) {
+    throw new Error(`Cannot generate XML: unknown role "${roleId}"`);
+  }
+
+  if (roleConfig.documentType === 'request') {
+    return generateRequestXml(model, answers, roleConfig);
   } else {
-    return generateResponseXml(model, answers);
+    return generateResponseXml(model, answers, roleConfig);
   }
 }
 
 /**
- * Generate ESPD Request XML (Contracting Authority).
+ * Generate ESPD Request XML (Buyer roles).
  */
-function generateRequestXml(model, answers) {
+function generateRequestXml(model, answers, roleConfig) {
   const now = new Date().toISOString().split('T')[0];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -40,22 +46,36 @@ function generateRequestXml(model, answers) {
   xmlns:cac="${CAC_NS}"
   xmlns:cbc="${CBC_NS}">
 
-  <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
-  <cbc:CustomizationID>urn:fdc:espd:ver3.1.0</cbc:CustomizationID>
-  <cbc:ProfileID>ESPD-EDMv3.1.0</cbc:ProfileID>
+  <cbc:UBLVersionID>2.4</cbc:UBLVersionID>
+  <cbc:CustomizationID>urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
+  <cbc:ProfileID>ESPD-EDMv5.0.0</cbc:ProfileID>
   <cbc:ID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:ID>
   <cbc:IssueDate>${now}</cbc:IssueDate>
   <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>
   <cbc:QualificationApplicationTypeCode listID="QualificationApplicationType">ESPD Request</cbc:QualificationApplicationTypeCode>
 
-  <!-- Contracting Authority -->
+  <!-- Contracting Party -->
   <cac:ContractingParty>
-    <cac:Party>
+`;
+
+  // Encode buyer type from role config
+  if (roleConfig.xmlMapping) {
+    xml += `    <cac:ContractingPartyType>
+      <cbc:PartyTypeCode>${escXml(roleConfig.xmlMapping.code)}</cbc:PartyTypeCode>
+    </cac:ContractingPartyType>
+`;
+  } else {
+    console.warn('Role missing xmlMapping, skipping PartyTypeCode encoding');
+  }
+
+  xml += `    <cac:Party>
       <cac:PartyName>
         <cbc:Name>${escXml(answers['PI02_proc-procurer-id/QG1/Q1/R1/RV'] || '')}</cbc:Name>
       </cac:PartyName>
       <cac:PostalAddress>
-        <cbc:CountrySubentityCode>${escXml(answers['PI02_proc-procurer-id/QG1/Q2/R1/RV'] || '')}</cbc:CountrySubentityCode>
+        <cac:Country>
+          <cbc:IdentificationCode>${escXml(answers['PI02_proc-procurer-id/QG1/Q2/R1/RV'] || '')}</cbc:IdentificationCode>
+        </cac:Country>
       </cac:PostalAddress>
     </cac:Party>
   </cac:ContractingParty>
@@ -77,9 +97,9 @@ function generateRequestXml(model, answers) {
 }
 
 /**
- * Generate ESPD Response XML (Economic Operator).
+ * Generate ESPD Response XML (Economic Operator roles).
  */
-function generateResponseXml(model, answers) {
+function generateResponseXml(model, answers, roleConfig) {
   const now = new Date().toISOString().split('T')[0];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -88,9 +108,9 @@ function generateResponseXml(model, answers) {
   xmlns:cac="${CAC_NS}"
   xmlns:cbc="${CBC_NS}">
 
-  <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
-  <cbc:CustomizationID>urn:fdc:espd:ver3.1.0</cbc:CustomizationID>
-  <cbc:ProfileID>ESPD-EDMv3.1.0</cbc:ProfileID>
+  <cbc:UBLVersionID>2.4</cbc:UBLVersionID>
+  <cbc:CustomizationID>urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
+  <cbc:ProfileID>ESPD-EDMv5.0.0</cbc:ProfileID>
   <cbc:ID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:ID>
   <cbc:IssueDate>${now}</cbc:IssueDate>
   <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>
@@ -98,7 +118,19 @@ function generateResponseXml(model, answers) {
 
   <!-- Economic Operator -->
   <cac:EconomicOperatorParty>
-    <cac:Party>
+`;
+
+  // Encode EO role from role config
+  if (roleConfig.xmlMapping) {
+    xml += `    <cac:EconomicOperatorRole>
+      <cbc:RoleCode>${escXml(roleConfig.xmlMapping.code)}</cbc:RoleCode>
+    </cac:EconomicOperatorRole>
+`;
+  } else {
+    console.warn('Role missing xmlMapping, skipping RoleCode encoding');
+  }
+
+  xml += `    <cac:Party>
       <cac:PartyName>
         <cbc:Name>${escXml(answers['EO01_eo-info-general/QG1/Q1/R1/RV'] || '')}</cbc:Name>
       </cac:PartyName>
@@ -296,7 +328,8 @@ function renderResponseValueXml(datatype, value, indent) {
 export function downloadXml() {
   const xml = generateXml();
   const state = getState();
-  const filename = state.role === 'ca' ? 'espd-request.xml' : 'espd-response.xml';
+  const roleConfig = getRoleById(state.role);
+  const filename = roleConfig?.documentType === 'request' ? 'espd-request.xml' : 'espd-response.xml';
 
   const blob = new Blob([xml], { type: 'application/xml' });
   const url = URL.createObjectURL(blob);

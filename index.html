@@ -35,20 +35,16 @@
       </hgroup>
 
       <div class="grid" id="role-selection">
-        <article>
-          <header>Contracting Authority</header>
-          <p>Create an ESPD Request defining the exclusion grounds and selection criteria for a procurement procedure.</p>
-          <footer>
-            <button id="btn-role-ca" class="contrast">Create ESPD Request</button>
-          </footer>
-        </article>
-        <article>
-          <header>Economic Operator</header>
-          <p>Fill in an ESPD Response to declare your suitability for a public procurement procedure.</p>
-          <footer>
-            <button id="btn-role-eo">Create ESPD Response</button>
-          </footer>
-        </article>
+        <div id="buyer-roles">
+          <h3>Buyer Side</h3>
+          <p><small>Create an ESPD Request defining the criteria for a procurement procedure.</small></p>
+          <!-- Populated dynamically from roles.json by app.js -->
+        </div>
+        <div id="eo-roles">
+          <h3>Economic Operator Side</h3>
+          <p><small>Fill in an ESPD Response to declare your suitability for a procurement procedure.</small></p>
+          <!-- Populated dynamically from roles.json by app.js -->
+        </div>
       </div>
 
       <details>

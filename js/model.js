@@ -1,11 +1,24 @@
 /**
  * Model module — loads and provides access to the ESPD-EDM data model.
  * Loads the decomposed model from espd-edm/index.json and its referenced parts.
+ * Loads role definitions from roles.json for form behavior configuration.
  */
 
 const MODEL_BASE = '/espd-edm';
 
 let espdModel = null;
+let rolesData = null;
+
+/**
+ * Mapping of Part III section code prefixes to exclusion ground categories.
+ */
+const EXCLUSION_CATEGORY_MAP = {
+  'exg-crim': 'criminal',
+  'exg-pmt': 'payment',
+  'exg-mis': 'misconduct',
+  'exg-sitn': 'misconduct',
+  'exg-natl': 'national'
+};
 
 /**
  * Load the ESPD-EDM model from the decomposed index + part files.
@@ -18,6 +31,17 @@ export async function loadModel() {
   // Load metadata
   const metaResp = await fetch(`${MODEL_BASE}/${index.metadata}`);
   const metadata = await metaResp.json();
+
+  // Load roles if available
+  if (index.roles) {
+    try {
+      const rolesResp = await fetch(`${MODEL_BASE}/${index.roles}`);
+      rolesData = await rolesResp.json();
+    } catch (e) {
+      console.warn('Failed to load roles.json, falling back to default behavior', e);
+      rolesData = null;
+    }
+  }
 
   // Load all parts in parallel
   const partEntries = await Promise.all(
@@ -61,6 +85,32 @@ export function getMetadata() {
 }
 
 /**
+ * Get the roles registry data.
+ * @returns {{ buyerTypes: Array, eoRoles: Array } | null}
+ */
+export function getRoles() {
+  return rolesData;
+}
+
+/**
+ * Find a role configuration by its id.
+ * Searches both buyerTypes and eoRoles arrays.
+ * @param {string} id - The role id (e.g., 'sole-tenderer', 'contracting-authority')
+ * @returns {object|null} The role entry or null if not found
+ */
+export function getRoleById(id) {
+  if (!rolesData) return null;
+
+  const buyer = rolesData.buyerTypes.find(r => r.id === id);
+  if (buyer) return buyer;
+
+  const eo = rolesData.eoRoles.find(r => r.id === id);
+  if (eo) return eo;
+
+  return null;
+}
+
+/**
  * Get all parts as an ordered array.
  */
 export function getParts() {
@@ -90,27 +140,68 @@ export function getSections(partKey) {
 
 /**
  * Determine which parts are relevant for a given role.
- * CA (Contracting Authority): fills Part I (procedure info)
- * EO (Economic Operator): fills Parts I (read-only), II-VI
+ * Uses formBehavior.visibleParts from the role registry.
+ * Falls back to showing all parts if role is not found.
+ * @param {string} roleId - The role id
+ * @returns {Array} Array of part objects with key property
  */
-export function getPartsForRole(role) {
+export function getPartsForRole(roleId) {
   const allParts = getParts();
-  if (role === 'ca') {
-    // CA fills Part I and defines criteria for III and IV
+  const role = getRoleById(roleId);
+
+  if (!role) {
+    // Fallback: show all parts
     return allParts;
   }
-  // EO fills all parts
-  return allParts;
+
+  const visibleKeys = role.formBehavior.visibleParts;
+  return allParts.filter(part => visibleKeys.includes(part.key));
 }
 
 /**
  * Check if a part is editable for a given role.
+ * Uses formBehavior.editableParts from the role registry.
+ * @param {string} partKey - The part key (e.g., 'I', 'II')
+ * @param {string} roleId - The role id
+ * @returns {boolean}
  */
-export function isPartEditable(partKey, role) {
-  if (role === 'ca') {
-    // CA primarily edits Part I (procedure info); Parts III-IV (selecting criteria)
-    return ['I', 'III', 'IV', 'V'].includes(partKey);
+export function isPartEditable(partKey, roleId) {
+  const role = getRoleById(roleId);
+
+  if (!role) {
+    // Fallback: all parts editable
+    return true;
   }
-  // EO edits Parts II-VI; Part I is read-only (from the request)
-  return ['II', 'III', 'IV', 'V', 'VI'].includes(partKey);
+
+  return role.formBehavior.editableParts.includes(partKey);
 }
+
+/**
+ * Get the exclusion ground rules for a role.
+ * @param {string} roleId - The role id
+ * @returns {object|null} The exclusionGroundRules object or null
+ */
+export function getExclusionRules(roleId) {
+  const role = getRoleById(roleId);
+  if (!role) return null;
+  return role.formBehavior.exclusionGroundRules;
+}
+
+/**
+ * Determine the exclusion ground category for a section code.
+ * @param {string} sectionCode - The section code (e.g., 'exg-crim-part', 'exg-pmt-bre-tax')
+ * @returns {string|null} The category ('criminal', 'payment', 'misconduct', 'national') or null
+ */
+export function getExclusionCategory(sectionCode) {
+  if (!sectionCode) return null;
+
+  for (const [prefix, category] of Object.entries(EXCLUSION_CATEGORY_MAP)) {
+    if (sectionCode.startsWith(prefix)) {
+      return category;
+    }
+  }
+  return null;
+}
+
+// Export the category map for testing
+export { EXCLUSION_CATEGORY_MAP };

@@ -2,6 +2,7 @@
   "$schema": "schemas/index.schema.json",
   "title": "European Single Procurement Document - Exchange Data Model (Enhanced)",
   "version": "5.0.0",
+  "roles": "roles.json",
   "parts": [
     {
       "part": "I",

@@ -58,7 +58,7 @@ function migrateState() {
   if (!state.role) return;
 
   // Migrate legacy values
-  if (LEGACY_MIGRATION[state.role]) {
+  if (Object.hasOwn(LEGACY_MIGRATION, state.role)) {
     state.role = LEGACY_MIGRATION[state.role];
     persist();
     return;

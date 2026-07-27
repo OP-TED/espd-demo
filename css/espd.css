@@ -559,3 +559,79 @@
     width: 100%;
   }
 }
+
+
+/* TED Lookup Button & Messages */
+.espd-lookup-btn {
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+
+.espd-lookup-msg {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.espd-lookup-msg--error {
+  color: var(--pico-del-color, #c62828);
+}
+
+.espd-lookup-msg--success {
+  color: var(--pico-ins-color, #2e7d32);
+}
+
+.espd-lookup-msg--info {
+  color: var(--pico-muted-color);
+  font-style: italic;
+}
+
+
+/* Radio Input Group (Part I publication reference) */
+.espd-radio-input-group {
+  border: none;
+  padding: 0;
+}
+
+.espd-radio-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  transition: border-color 0.2s, background-color 0.2s, opacity 0.2s;
+}
+
+.espd-radio-input-row--active {
+  border-color: var(--pico-primary);
+  background-color: var(--pico-primary-focus);
+}
+
+.espd-radio-input-row:not(.espd-radio-input-row--active) {
+  opacity: 0.6;
+}
+
+.espd-radio-input-row input[type="radio"] {
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.espd-radio-input-row .espd-field {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.espd-radio-input-row .espd-field label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.espd-radio-input-row .espd-field input,
+.espd-radio-input-row .espd-field select {
+  margin-bottom: 0;
+}
+
+.espd-input-dimmed {
+  opacity: 0.5;
+}

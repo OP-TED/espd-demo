@@ -40,6 +40,20 @@ export function generateXml() {
 function generateRequestXml(model, answers, roleConfig) {
   const now = new Date().toISOString().split('T')[0];
 
+  // Resolve Part I fields
+  const officialName = answers['PI02_proc-procurer-id/QG1/Q1/R1/RV'] || '';
+  const country = answers['PI02_proc-procurer-id/QG1/Q2/R1/RV'] || '';
+  const procurerId = answers['PI02_proc-procurer-id/QG1/Q3/R1/RV'] || '';
+  const title = answers['PI03_proc-procedure-info/QG1/Q1/R1/RV'] || '';
+  const fileReference = answers['PI03_proc-procedure-info/QG1/Q2/R1/RV'] || '';
+  const description = answers['PI03_proc-procedure-info/QG1/Q3/R1/RV'] || '';
+  const procedureType = answers['PI03_proc-procedure-info/QG1/Q4/R1/RV'] || '';
+
+  // Publication reference fields
+  const noticeNumber = answers['PI01_proc-pub-ref/QG1/Q1/R1/RV'] || '';
+  const tedUrl = answers['PI01_proc-pub-ref/QG1/Q2/R1/RV'] || '';
+  const nationalRef = answers['PI01_proc-pub-ref/QG1/Q3/R1/RV'] || '';
+
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <espd:QualificationApplicationRequest
   xmlns:espd="${ESPD_REQ_NS}"
@@ -50,31 +64,45 @@ function generateRequestXml(model, answers, roleConfig) {
   <cbc:CustomizationID>urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
   <cbc:ProfileID>ESPD-EDMv5.0.0</cbc:ProfileID>
   <cbc:ID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:ID>
+  <cbc:ContractFolderID>${escXml(fileReference)}</cbc:ContractFolderID>
   <cbc:IssueDate>${now}</cbc:IssueDate>
-  <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>
+  <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>`;
+
+  if (procedureType) {
+    xml += `
+  <cbc:ProcedureCode>${escXml(procedureType)}</cbc:ProcedureCode>`;
+  }
+
+  xml += `
   <cbc:QualificationApplicationTypeCode listID="QualificationApplicationType">ESPD Request</cbc:QualificationApplicationTypeCode>
 
   <!-- Contracting Party -->
   <cac:ContractingParty>
 `;
 
-  // Encode buyer type from role config
   if (roleConfig.xmlMapping) {
     xml += `    <cac:ContractingPartyType>
       <cbc:PartyTypeCode>${escXml(roleConfig.xmlMapping.code)}</cbc:PartyTypeCode>
     </cac:ContractingPartyType>
 `;
-  } else {
-    console.warn('Role missing xmlMapping, skipping PartyTypeCode encoding');
   }
 
   xml += `    <cac:Party>
-      <cac:PartyName>
-        <cbc:Name>${escXml(answers['PI02_proc-procurer-id/QG1/Q1/R1/RV'] || '')}</cbc:Name>
+`;
+
+  if (procurerId) {
+    xml += `      <cac:PartyIdentification>
+        <cbc:ID>${escXml(procurerId)}</cbc:ID>
+      </cac:PartyIdentification>
+`;
+  }
+
+  xml += `      <cac:PartyName>
+        <cbc:Name>${escXml(officialName)}</cbc:Name>
       </cac:PartyName>
       <cac:PostalAddress>
         <cac:Country>
-          <cbc:IdentificationCode>${escXml(answers['PI02_proc-procurer-id/QG1/Q2/R1/RV'] || '')}</cbc:IdentificationCode>
+          <cbc:IdentificationCode>${escXml(country)}</cbc:IdentificationCode>
         </cac:Country>
       </cac:PostalAddress>
     </cac:Party>
@@ -82,12 +110,56 @@ function generateRequestXml(model, answers, roleConfig) {
 
   <!-- Procurement Project -->
   <cac:ProcurementProject>
-    <cbc:Name>${escXml(answers['PI03_proc-procedure-info/QG1/Q1/R1/RV'] || '')}</cbc:Name>
-    <cbc:Description>${escXml(answers['PI03_proc-procedure-info/QG1/Q3/R1/RV'] || '')}</cbc:Description>
-    <cbc:ProcurementTypeCode>${escXml(answers['PI03_proc-procedure-info/QG1/Q4/R1/RV'] || '')}</cbc:ProcurementTypeCode>
+    <cbc:Name>${escXml(title)}</cbc:Name>`;
+
+  if (description) {
+    xml += `
+    <cbc:Description>${escXml(description)}</cbc:Description>`;
+  }
+
+  xml += `
   </cac:ProcurementProject>
 
 `;
+
+  // Additional Document Reference (TED notice or national publication)
+  if (noticeNumber) {
+    xml += `  <cac:AdditionalDocumentReference>
+    <cbc:ID>${escXml(noticeNumber)}</cbc:ID>
+    <cbc:DocumentTypeCode listID="DocRefContentType">TED_CN</cbc:DocumentTypeCode>`;
+    if (tedUrl) {
+      xml += `
+    <cac:Attachment>
+      <cac:ExternalReference>
+        <cbc:URI>${escXml(tedUrl)}</cbc:URI>
+      </cac:ExternalReference>
+    </cac:Attachment>`;
+    }
+    xml += `
+  </cac:AdditionalDocumentReference>
+
+`;
+  } else if (tedUrl && !noticeNumber) {
+    // URL provided without explicit notice number — still reference it
+    xml += `  <cac:AdditionalDocumentReference>
+    <cbc:ID>${escXml(tedUrl)}</cbc:ID>
+    <cbc:DocumentTypeCode listID="DocRefContentType">TED_CN</cbc:DocumentTypeCode>
+    <cac:Attachment>
+      <cac:ExternalReference>
+        <cbc:URI>${escXml(tedUrl)}</cbc:URI>
+      </cac:ExternalReference>
+    </cac:Attachment>
+  </cac:AdditionalDocumentReference>
+
+`;
+  } else if (nationalRef) {
+    xml += `  <cac:AdditionalDocumentReference>
+    <cbc:ID>${escXml(nationalRef)}</cbc:ID>
+    <cbc:DocumentTypeCode listID="DocRefContentType">NATIONAL</cbc:DocumentTypeCode>
+  </cac:AdditionalDocumentReference>
+
+`;
+  }
 
   // Render criteria (Parts III, IV, V)
   xml += renderCriteriaXml(model, answers, 'request');

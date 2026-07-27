@@ -7,6 +7,7 @@ import { t, deriveQuestionKey, deriveCriterionNameKey, deriveCriterionDescKey, d
 import { getAnswer, setAnswer } from './state.js';
 import { getCodelist, CURRENCY_CODES } from './codelists.js';
 import { applyConditionalLogic } from './conditional.js';
+import { lookupNotice, deriveTedUrl } from './ted-lookup.js';
 
 /**
  * Render a full part into the form content area.
@@ -45,6 +46,227 @@ export function renderPart(part, partKey, role, container) {
 
   // Apply conditional logic after rendering
   applyConditionalLogic(container);
+
+  // Part I–specific enhancements
+  if (partKey === 'I') {
+    renderRadioInputGroups(container);
+    enhancePartIWithLookup(container, role);
+  }
+}
+
+/**
+ * Render sections with uiType "radio-input-group" as radio buttons with inline inputs.
+ * Selecting a radio enables its input and disables the others.
+ * @param {HTMLElement} container - The rendered Part container
+ */
+function renderRadioInputGroups(container) {
+  // Find sections marked as radio-input-group by looking for the rendered section
+  // that corresponds to the PI01 publication reference section.
+  // We identify it by the contentpaths of its child fields.
+  const pubRefFields = [
+    'PI01_proc-pub-ref/QG1/Q1/R1/RV',
+    'PI01_proc-pub-ref/QG1/Q2/R1/RV',
+    'PI01_proc-pub-ref/QG1/Q3/R1/RV'
+  ];
+
+  const fieldEls = pubRefFields.map(path => container.querySelector(`[data-contentpath="${path}"]`)).filter(Boolean);
+  if (fieldEls.length === 0) return;
+
+  // Find the parent question group that contains these fields
+  const groupEl = fieldEls[0]?.closest('.espd-question-group');
+  if (!groupEl) return;
+
+  // Add radio-input-group class for styling
+  groupEl.classList.add('espd-radio-input-group');
+
+  const radioName = 'pub-ref-type';
+  let activeIndex = 0; // Default: first option (TED notice number)
+
+  // Wrap each field in a radio-row
+  fieldEls.forEach((fieldEl, index) => {
+    const row = document.createElement('div');
+    row.className = 'espd-radio-input-row';
+    if (index === activeIndex) row.classList.add('espd-radio-input-row--active');
+
+    // Create radio button
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = radioName;
+    radio.value = String(index);
+    radio.id = `${radioName}-${index}`;
+    radio.checked = index === activeIndex;
+    radio.setAttribute('aria-label', `Select: ${fieldEl.querySelector('label')?.textContent || ''}`);
+
+    // Insert radio before the field content
+    fieldEl.parentNode.insertBefore(row, fieldEl);
+    row.appendChild(radio);
+    row.appendChild(fieldEl);
+
+    // Disable inputs in non-active rows
+    const input = fieldEl.querySelector('input, select, textarea');
+    if (input && index !== activeIndex) {
+      input.disabled = true;
+      input.classList.add('espd-input-dimmed');
+    }
+
+    // Radio change handler
+    radio.addEventListener('change', () => {
+      // Update all rows
+      const allRows = groupEl.querySelectorAll('.espd-radio-input-row');
+      allRows.forEach((r, i) => {
+        const inp = r.querySelector('.espd-field input, .espd-field select, .espd-field textarea');
+        if (i === index) {
+          r.classList.add('espd-radio-input-row--active');
+          if (inp) {
+            inp.disabled = false;
+            inp.classList.remove('espd-input-dimmed');
+            inp.focus();
+          }
+        } else {
+          r.classList.remove('espd-radio-input-row--active');
+          if (inp) {
+            inp.disabled = true;
+            inp.classList.add('espd-input-dimmed');
+          }
+        }
+      });
+    });
+  });
+}
+
+/**
+ * Part I–specific: render the publication reference section as a radio-input-group
+ * and add "Look up" buttons for TED fields.
+ * For EO roles, marks all Part I fields as read-only.
+ * @param {HTMLElement} container - The rendered Part I container
+ * @param {string} role - The current role id
+ */
+function enhancePartIWithLookup(container, role) {
+  // Determine if this is an EO role (read-only mode)
+  const isEoRole = role && ['sole-tenderer', 'group-lead', 'group-mem', 'oeron', 'subcont'].includes(role);
+
+  if (isEoRole) {
+    // Make all fields read-only for EO roles
+    container.querySelectorAll('input, select, textarea').forEach(el => {
+      el.disabled = true;
+      el.setAttribute('aria-readonly', 'true');
+    });
+    return;
+  }
+
+  // Add "Look up" buttons to the TED notice number and TED URL fields
+  const lookupFields = [
+    { contentpath: 'PI01_proc-pub-ref/QG1/Q1/R1/RV', type: 'number' },
+    { contentpath: 'PI01_proc-pub-ref/QG1/Q2/R1/RV', type: 'url' }
+  ];
+
+  for (const { contentpath, type } of lookupFields) {
+    const field = container.querySelector(`[data-contentpath="${contentpath}"]`);
+    if (!field) continue;
+
+    const input = field.querySelector('input');
+    if (!input) continue;
+
+    // Create "Look up" button
+    const lookupBtn = document.createElement('button');
+    lookupBtn.type = 'button';
+    lookupBtn.className = 'secondary outline espd-lookup-btn';
+    lookupBtn.textContent = 'Look up';
+    lookupBtn.setAttribute('aria-label', `Look up procurement details from TED using ${type}`);
+
+    // Create message area
+    const msgEl = document.createElement('small');
+    msgEl.className = 'espd-lookup-msg';
+    msgEl.setAttribute('role', 'status');
+    msgEl.setAttribute('aria-live', 'polite');
+
+    // Insert button inline with input
+    const inputWrapper = input.parentElement;
+    inputWrapper.style.display = 'flex';
+    inputWrapper.style.gap = '0.5rem';
+    inputWrapper.style.alignItems = 'flex-start';
+    inputWrapper.appendChild(lookupBtn);
+    field.appendChild(msgEl);
+
+    // Wire up click handler
+    lookupBtn.addEventListener('click', async () => {
+      const rawValue = input.value.trim();
+      msgEl.textContent = '';
+      msgEl.className = 'espd-lookup-msg';
+
+      if (!rawValue) {
+        msgEl.textContent = `Please enter a ${type === 'number' ? 'notice number' : 'TED URL'}.`;
+        msgEl.classList.add('espd-lookup-msg--error');
+        return;
+      }
+
+      // Extract notice number from URL if needed
+      let noticeNumber = rawValue;
+      if (type === 'url') {
+        const match = rawValue.match(/\/notice\/([^/]+)/);
+        if (match) {
+          noticeNumber = match[1];
+        } else {
+          msgEl.textContent = 'Could not extract notice number from URL. Expected format: https://ted.europa.eu/en/notice/{number}/...';
+          msgEl.classList.add('espd-lookup-msg--error');
+          return;
+        }
+      }
+
+      lookupBtn.disabled = true;
+      lookupBtn.textContent = 'Looking up…';
+
+      const result = await lookupNotice(noticeNumber);
+
+      lookupBtn.disabled = false;
+      lookupBtn.textContent = 'Look up';
+
+      if (result.success && result.data) {
+        // Auto-populate fields
+        const fieldMap = {
+          'PI02_proc-procurer-id/QG1/Q1/R1/RV': result.data.officialName,
+          'PI02_proc-procurer-id/QG1/Q2/R1/RV': result.data.country,
+          'PI03_proc-procedure-info/QG1/Q1/R1/RV': result.data.title,
+          'PI03_proc-procedure-info/QG1/Q4/R1/RV': result.data.procedureType
+        };
+
+        for (const [path, value] of Object.entries(fieldMap)) {
+          if (value) {
+            setAnswer(path, value);
+            const el = container.querySelector(`[data-contentpath="${path}"] input, [data-contentpath="${path}"] select`);
+            if (el) el.value = value;
+          }
+        }
+
+        // Cross-populate: if user entered number, fill URL; if URL, fill number
+        if (type === 'number') {
+          const url = deriveTedUrl(noticeNumber);
+          setAnswer('PI01_proc-pub-ref/QG1/Q2/R1/RV', url);
+          const urlInput = container.querySelector('[data-contentpath="PI01_proc-pub-ref/QG1/Q2/R1/RV"] input');
+          if (urlInput) urlInput.value = url;
+        } else {
+          setAnswer('PI01_proc-pub-ref/QG1/Q1/R1/RV', noticeNumber);
+          const numInput = container.querySelector('[data-contentpath="PI01_proc-pub-ref/QG1/Q1/R1/RV"] input');
+          if (numInput) numInput.value = noticeNumber;
+        }
+
+        msgEl.textContent = 'Notice found. Fields auto-populated.';
+        msgEl.classList.add('espd-lookup-msg--success');
+      } else {
+        // Graceful degradation
+        msgEl.textContent = result.error || 'Lookup failed. Please enter details manually.';
+        msgEl.classList.add('espd-lookup-msg--info');
+
+        // Still cross-populate the number/URL pair
+        if (type === 'number') {
+          const url = deriveTedUrl(noticeNumber);
+          setAnswer('PI01_proc-pub-ref/QG1/Q2/R1/RV', url);
+          const urlInput = container.querySelector('[data-contentpath="PI01_proc-pub-ref/QG1/Q2/R1/RV"] input');
+          if (urlInput) urlInput.value = url;
+        }
+      }
+    });
+  }
 }
 
 /**
@@ -184,7 +406,7 @@ function renderQuestion(question, section, role) {
 
   switch (question.propertydatatype) {
     case 'INDICATOR':
-      el.appendChild(renderIndicator(inputId, labelText, contentpath, isRequired, currentValue));
+      el.appendChild(renderIndicator(inputId, labelText, contentpath, isRequired, currentValue, question.labels));
       break;
     case 'CODE_COUNTRY':
       el.appendChild(renderSelect(inputId, labelText, contentpath, isRequired, currentValue, 'CODE_COUNTRY'));
@@ -242,8 +464,17 @@ function renderQuestion(question, section, role) {
 
 /**
  * Render an INDICATOR (Yes/No radio buttons).
+ * @param {string} id - Input element id prefix
+ * @param {string} label - Legend label text
+ * @param {string} contentpath - State path for the answer
+ * @param {boolean} required - Whether the field is required
+ * @param {string} value - Current value ('true' or 'false')
+ * @param {object} [customLabels] - Optional custom labels: { true: "...", false: "..." }
  */
-function renderIndicator(id, label, contentpath, required, value) {
+function renderIndicator(id, label, contentpath, required, value, customLabels) {
+  const yesLabel = customLabels?.true || t('ui.yes', 'Yes');
+  const noLabel = customLabels?.false || t('ui.no', 'No');
+
   const wrapper = document.createElement('fieldset');
   wrapper.className = 'espd-indicator-wrapper';
   wrapper.setAttribute('role', 'radiogroup');
@@ -266,13 +497,13 @@ function renderIndicator(id, label, contentpath, required, value) {
         ${value === 'true' || value === true ? 'checked' : ''}
         data-contentpath="${contentpath}"
         ${required ? 'required' : ''}>
-      ${t('ui.yes', 'Yes')}
+      ${yesLabel}
     </label>
     <label for="${noId}">
       <input type="radio" id="${noId}" name="${id}" value="false"
         ${value === 'false' || value === false ? 'checked' : ''}
         data-contentpath="${contentpath}">
-      ${t('ui.no', 'No')}
+      ${noLabel}
     </label>
   `;
 

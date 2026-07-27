@@ -92,6 +92,7 @@ function renderStep1({ container, roles, onRoleSelected, onCancel }) {
 
 /**
  * Render Step 2: specific role selection for the chosen path.
+ * Uses radio buttons for role selection with a single Continue button.
  */
 function renderStep2({ container, path, roleEntries, roles, onRoleSelected, onCancel }) {
   container.innerHTML = '';
@@ -118,24 +119,64 @@ function renderStep2({ container, path, roleEntries, roles, onRoleSelected, onCa
   backNav.appendChild(backLink);
   container.appendChild(backNav);
 
-  // Role cards
-  const grid = document.createElement('div');
-  grid.className = 'grid';
+  // Radio group for role selection
+  const fieldset = document.createElement('fieldset');
+  fieldset.setAttribute('role', 'radiogroup');
+  fieldset.setAttribute('aria-label', `${pathLabel} role selection`);
+
+  let selectedRoleId = roleEntries[0]?.id || null;
 
   for (const role of roleEntries) {
-    const card = createRoleCard({
-      role,
-      onClick: () => onRoleSelected(role.id)
+    const label = document.createElement('label');
+    label.className = 'espd-role-radio';
+
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'espd-role';
+    radio.value = role.id;
+    if (role.id === selectedRoleId) radio.checked = true;
+    radio.addEventListener('change', () => {
+      selectedRoleId = role.id;
     });
-    grid.appendChild(card);
+
+    const textWrapper = document.createElement('span');
+    textWrapper.className = 'espd-role-radio__text';
+
+    const labelText = document.createElement('strong');
+    labelText.textContent = role.label;
+
+    const descText = document.createElement('small');
+    descText.textContent = role.description;
+
+    textWrapper.appendChild(labelText);
+    textWrapper.appendChild(document.createElement('br'));
+    textWrapper.appendChild(descText);
+
+    label.appendChild(radio);
+    label.appendChild(textWrapper);
+    fieldset.appendChild(label);
   }
 
-  container.appendChild(grid);
+  container.appendChild(fieldset);
 
-  // Set focus to first interactive element (Requirement 7.3)
+  // Continue button
+  const actions = document.createElement('div');
+  actions.className = 'espd-path-selector__actions';
+  const continueBtn = document.createElement('button');
+  continueBtn.textContent = path === 'buyer' ? 'Create ESPD Request' : 'Create ESPD Response';
+  continueBtn.className = 'contrast';
+  continueBtn.addEventListener('click', () => {
+    if (selectedRoleId) {
+      onRoleSelected(selectedRoleId);
+    }
+  });
+  actions.appendChild(continueBtn);
+  container.appendChild(actions);
+
+  // Set focus to first radio (Requirement 7.3)
   requestAnimationFrame(() => {
-    const firstInteractive = container.querySelector('a, button');
-    if (firstInteractive) firstInteractive.focus();
+    const firstRadio = container.querySelector('input[type="radio"]');
+    if (firstRadio) firstRadio.focus();
   });
 }
 

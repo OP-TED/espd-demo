@@ -116,6 +116,8 @@ export async function lookupNotice(noticeNumber) {
           'publication-number',
           'buyer-name',
           'buyer-country',
+          'buyer-identifier',
+          'organisation-identifier-buyer',
           'notice-title',
           'procedure-type',
           'contract-nature'
@@ -154,9 +156,12 @@ export async function lookupNotice(noticeNumber) {
     const data = {
       officialName: extractField(notice, 'buyer-name'),
       country: extractField(notice, 'buyer-country'),
+      buyerId: extractField(notice, 'organisation-identifier-buyer') || extractField(notice, 'buyer-identifier'),
       title: extractField(notice, 'notice-title'),
       procedureType: mapProcedureType(extractField(notice, 'procedure-type'))
     };
+
+    console.debug('[TED Lookup] Extracted data:', JSON.stringify(data));
 
     return { success: true, data };
 

@@ -112,6 +112,8 @@
               "description": "Procurer identifier type",
               "propertydatatype": "CODE_EOID_TYPE",
               "code": "QUESTION",
+              "group": "procurer-id",
+              "groupLabel": "Procurer identifier",
               "requestpath": "PI02_proc-procurer-id/QG1/Q3",
               "responsepath": "PI02_proc-procurer-id/QG1/Q3/R1",
               "contentpath": "PI02_proc-procurer-id/QG1/Q3/R1/RV"
@@ -123,6 +125,7 @@
               "description": "Procurer identifier",
               "propertydatatype": "IDENTIFIER",
               "code": "QUESTION",
+              "group": "procurer-id",
               "requestpath": "PI02_proc-procurer-id/QG1/Q4",
               "responsepath": "PI02_proc-procurer-id/QG1/Q4/R1",
               "contentpath": "PI02_proc-procurer-id/QG1/Q4/R1/RV"

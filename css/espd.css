@@ -637,3 +637,19 @@
 .espd-input-dimmed {
   opacity: 0.5;
 }
+
+
+/* Field group (fieldset with legend) */
+.espd-field-group {
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: var(--pico-spacing);
+}
+
+.espd-field-group legend {
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
+  color: var(--pico-color);
+}

@@ -226,6 +226,7 @@ function enhancePartIWithLookup(container, role) {
         const fieldMap = {
           'PI02_proc-procurer-id/QG1/Q1/R1/RV': result.data.officialName,
           'PI02_proc-procurer-id/QG1/Q2/R1/RV': result.data.country,
+          'PI02_proc-procurer-id/QG1/Q4/R1/RV': result.data.buyerId,
           'PI03_proc-procedure-info/QG1/Q1/R1/RV': result.data.title,
           'PI03_proc-procedure-info/QG1/Q3/R1/RV': result.data.procedureType
         };
@@ -362,9 +363,35 @@ function renderQuestionGroup(group, section, role, depth) {
   el.dataset.groupPath = group.responsepath || '';
 
   if (group.components) {
-    for (const child of group.components) {
-      const childEl = renderComponent(child, section, role, depth + 1);
-      if (childEl) el.appendChild(childEl);
+    let i = 0;
+    while (i < group.components.length) {
+      const child = group.components[i];
+
+      // Check if this component starts a field group (fieldset with legend)
+      if (child.group) {
+        const groupName = child.group;
+        const groupLabel = child.groupLabel || groupName;
+
+        const fieldset = document.createElement('fieldset');
+        fieldset.className = 'espd-field-group';
+        fieldset.dataset.fieldGroup = groupName;
+
+        const legend = document.createElement('legend');
+        legend.textContent = groupLabel;
+        fieldset.appendChild(legend);
+
+        // Collect all consecutive components with the same group
+        while (i < group.components.length && group.components[i].group === groupName) {
+          const childEl = renderComponent(group.components[i], section, role, depth + 1);
+          if (childEl) fieldset.appendChild(childEl);
+          i++;
+        }
+        el.appendChild(fieldset);
+      } else {
+        const childEl = renderComponent(child, section, role, depth + 1);
+        if (childEl) el.appendChild(childEl);
+        i++;
+      }
     }
   }
 

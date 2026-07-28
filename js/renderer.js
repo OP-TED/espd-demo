@@ -425,6 +425,9 @@ function renderQuestion(question, section, role) {
     case 'CODE_BOOLEAN':
       el.appendChild(renderSelect(inputId, labelText, contentpath, isRequired, currentValue, 'CODE_BOOLEAN'));
       break;
+    case 'CODE_EOID_TYPE':
+      el.appendChild(renderSelect(inputId, labelText, contentpath, isRequired, currentValue, 'CODE_EOID_TYPE'));
+      break;
     case 'DATE':
       el.appendChild(renderDateField(inputId, labelText, contentpath, isRequired, currentValue));
       break;

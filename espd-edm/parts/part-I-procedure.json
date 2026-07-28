@@ -109,12 +109,23 @@
               "tag": "Q3",
               "type": "QUESTION",
               "cardinality": "0..1",
-              "description": "Procurer identifier (e.g. VAT number, national ID)",
-              "propertydatatype": "IDENTIFIER",
+              "description": "Procurer identifier type",
+              "propertydatatype": "CODE_EOID_TYPE",
               "code": "QUESTION",
               "requestpath": "PI02_proc-procurer-id/QG1/Q3",
               "responsepath": "PI02_proc-procurer-id/QG1/Q3/R1",
               "contentpath": "PI02_proc-procurer-id/QG1/Q3/R1/RV"
+            },
+            {
+              "tag": "Q4",
+              "type": "QUESTION",
+              "cardinality": "0..1",
+              "description": "Procurer identifier",
+              "propertydatatype": "IDENTIFIER",
+              "code": "QUESTION",
+              "requestpath": "PI02_proc-procurer-id/QG1/Q4",
+              "responsepath": "PI02_proc-procurer-id/QG1/Q4/R1",
+              "contentpath": "PI02_proc-procurer-id/QG1/Q4/R1/RV"
             }
           ],
           "requestpath": "PI02_proc-procurer-id/QG1",

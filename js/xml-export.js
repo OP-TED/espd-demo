@@ -43,7 +43,8 @@ function generateRequestXml(model, answers, roleConfig) {
   // Resolve Part I fields
   const officialName = answers['PI02_proc-procurer-id/QG1/Q1/R1/RV'] || '';
   const country = answers['PI02_proc-procurer-id/QG1/Q2/R1/RV'] || '';
-  const procurerId = answers['PI02_proc-procurer-id/QG1/Q3/R1/RV'] || '';
+  const procurerIdType = answers['PI02_proc-procurer-id/QG1/Q3/R1/RV'] || '';
+  const procurerId = answers['PI02_proc-procurer-id/QG1/Q4/R1/RV'] || '';
   const title = answers['PI03_proc-procedure-info/QG1/Q1/R1/RV'] || '';
   const fileReference = answers['PI03_proc-procedure-info/QG1/Q2/R1/RV'] || '';
   const procedureType = answers['PI03_proc-procedure-info/QG1/Q3/R1/RV'] || '';
@@ -90,8 +91,9 @@ function generateRequestXml(model, answers, roleConfig) {
 `;
 
   if (procurerId) {
+    const schemeAttr = procurerIdType ? ` schemeID="${escXml(procurerIdType)}"` : '';
     xml += `      <cac:PartyIdentification>
-        <cbc:ID>${escXml(procurerId)}</cbc:ID>
+        <cbc:ID${schemeAttr}>${escXml(procurerId)}</cbc:ID>
       </cac:PartyIdentification>
 `;
   }

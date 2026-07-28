@@ -100,6 +100,18 @@ export const CURRENCY_CODES = [
 ];
 
 /**
+ * Economic Operator / Procurer Identifier Type.
+ * Source: ESPD-EDM codelist EOIDType.gc
+ */
+export const EOID_TYPES = [
+  { code: 'VAT', name: 'VAT number' },
+  { code: 'NATIONAL', name: 'National Identifier' },
+  { code: 'LEI', name: 'Legal Entity Identifier' },
+  { code: 'BRIS', name: 'Business Registry European Unique Identifier' },
+  { code: 'DUNS', name: 'Duns & Bradstreet number' }
+];
+
+/**
  * Get a codelist by the property data type name.
  */
 export function getCodelist(propertydatatype) {
@@ -110,6 +122,8 @@ export function getCodelist(propertydatatype) {
       return PROCEDURE_TYPES;
     case 'CODE_BOOLEAN':
       return BOOLEAN_CODES;
+    case 'CODE_EOID_TYPE':
+      return EOID_TYPES;
     default:
       return null;
   }

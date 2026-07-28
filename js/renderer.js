@@ -4,16 +4,26 @@
  */
 
 import { t, deriveQuestionKey, deriveCriterionNameKey, deriveCriterionDescKey, deriveLegislationKey, deriveCaptionKey, deriveRequirementKey } from './i18n.js';
-import { getAnswer, setAnswer } from './state.js';
+import { getAnswer, setAnswer, getInclusionState, setInclusionState, initInclusionStates } from './state.js';
 import { getCodelist, CURRENCY_CODES } from './codelists.js';
 import { applyConditionalLogic } from './conditional.js';
 import { lookupNotice, deriveTedUrl, extractNoticeNumberFromUrl } from './ted-lookup.js';
+import { getRoleById, isCriterionMandatory } from './model.js';
 
 /**
  * Render a full part into the form content area.
  */
 export function renderPart(part, partKey, role, container) {
   container.innerHTML = '';
+
+  // Branch: buyer roles see criteria selection view for Parts III and IV
+  if ((partKey === 'III' || partKey === 'IV') && role) {
+    const roleConfig = getRoleById(role);
+    if (roleConfig && roleConfig.documentType === 'request') {
+      renderCriteriaSelectionView(part, partKey, role, container);
+      return;
+    }
+  }
 
   // Part header
   const header = document.createElement('div');
@@ -53,6 +63,173 @@ export function renderPart(part, partKey, role, container) {
     enhancePartIWithLookup(container, role);
   }
 }
+
+// ─── Criteria Selection View (Buyer Mode) ─────────────────────────────────────
+
+/**
+ * Render Parts III/IV as a criteria selection checklist for buyer roles.
+ * Shows each criterion as a card with checkbox (include/exclude).
+ * Does NOT render EO-facing QUESTION fields.
+ */
+function renderCriteriaSelectionView(part, partKey, role, container) {
+  // Part header
+  const header = document.createElement('div');
+  header.className = 'espd-part-header';
+  header.innerHTML = `
+    <h2>Part ${partKey}: ${t('part.title.' + partKey, part.title)}</h2>
+    <p>${t('part.description.' + partKey, part.description || '')}</p>
+  `;
+  container.appendChild(header);
+
+  // Initialise mandatory criteria to included
+  initInclusionStates(part.sections, role, isCriterionMandatory);
+
+  // Render sections as checklist items
+  let currentSectionTitle = null;
+
+  for (const section of part.sections) {
+    if (section.type !== 'CRITERION') continue;
+
+    // Section sub-heading
+    if (section.sectionTitle && section.sectionTitle !== currentSectionTitle) {
+      currentSectionTitle = section.sectionTitle;
+      const sectionHeading = document.createElement('h3');
+      sectionHeading.className = 'espd-section-title';
+      sectionHeading.textContent = section.sectionTitle;
+      container.appendChild(sectionHeading);
+    }
+
+    // Render the criterion as a checklist item
+    const item = renderCriterionChecklistItem(section, role, partKey);
+    container.appendChild(item);
+  }
+}
+
+/**
+ * Render a single criterion as a checklist item (card with checkbox).
+ * @param {object} section - The criterion section from the model
+ * @param {string} role - The active role id
+ * @param {string} partKey - The part key ('III' or 'IV')
+ * @returns {HTMLElement}
+ */
+function renderCriterionChecklistItem(section, role, partKey) {
+  const mandatory = isCriterionMandatory(section.code, role);
+  const included = mandatory || getInclusionState(section.tag, section.code) === true;
+
+  const card = document.createElement('div');
+  card.className = `criterion-card${mandatory ? ' criterion-card--mandatory' : ''}`;
+
+  // Checkbox + label row
+  const checkboxId = `criterion-${section.tag}`;
+  const headerRow = document.createElement('div');
+  headerRow.className = 'criterion-card__header';
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.id = checkboxId;
+  checkbox.checked = included;
+  if (mandatory) {
+    checkbox.disabled = true;
+    checkbox.setAttribute('aria-describedby', `${checkboxId}-mandatory-help`);
+  }
+
+  const label = document.createElement('label');
+  label.setAttribute('for', checkboxId);
+  label.className = 'criterion-card__label';
+  label.textContent = section.name || section.tag;
+
+  headerRow.appendChild(checkbox);
+  headerRow.appendChild(label);
+
+  // Mandatory indicator
+  if (mandatory) {
+    const indicator = document.createElement('span');
+    indicator.className = 'criterion-mandatory-indicator';
+    indicator.textContent = 'Required by regulation';
+    indicator.id = `${checkboxId}-mandatory-help`;
+    headerRow.appendChild(indicator);
+  }
+
+  card.appendChild(headerRow);
+
+  // Description
+  if (section.description) {
+    const desc = document.createElement('p');
+    desc.className = 'criterion-card__description';
+    desc.textContent = section.description;
+    card.appendChild(desc);
+  }
+
+  // For Part IV: render REQUIREMENT fields when included
+  if (partKey === 'IV' && section.components) {
+    const reqContainer = document.createElement('div');
+    reqContainer.className = 'criterion-requirements';
+    reqContainer.hidden = !included;
+
+    for (const comp of section.components) {
+      if (comp.type === 'REQUIREMENT_GROUP' || comp.type === 'REQUIREMENT_SUBGROUP') {
+        renderRequirementComponents(comp, reqContainer);
+      }
+    }
+
+    if (reqContainer.children.length > 0) {
+      card.appendChild(reqContainer);
+    }
+  }
+
+  // Event listener for non-mandatory checkboxes
+  if (!mandatory) {
+    checkbox.addEventListener('change', () => {
+      setInclusionState(section.tag, section.code, checkbox.checked);
+
+      // Toggle requirement visibility for Part IV
+      const reqSection = card.querySelector('.criterion-requirements');
+      if (reqSection) {
+        reqSection.hidden = !checkbox.checked;
+      }
+    });
+  }
+
+  return card;
+}
+
+/**
+ * Render REQUIREMENT components (for buyer-set thresholds in Part IV).
+ * Skips QUESTION components.
+ */
+function renderRequirementComponents(group, container) {
+  if (!group.components) return;
+
+  for (const comp of group.components) {
+    if (comp.type === 'REQUIREMENT') {
+      const el = document.createElement('div');
+      el.className = 'espd-field';
+      el.dataset.contentpath = comp.contentpath || '';
+
+      const label = comp.description || '';
+      const contentpath = comp.contentpath || '';
+      const inputId = `field-${contentpath.replace(/[/\s]/g, '-')}`;
+      const currentValue = getAnswer(contentpath) || '';
+
+      el.innerHTML = `
+        <label for="${inputId}">${label}</label>
+        <input type="text" id="${inputId}" data-contentpath="${contentpath}" value="${currentValue}" aria-label="${label}">
+      `;
+
+      const input = el.querySelector('input');
+      if (input) {
+        input.addEventListener('input', () => setAnswer(contentpath, input.value));
+      }
+
+      container.appendChild(el);
+    } else if (comp.type === 'REQUIREMENT_GROUP' || comp.type === 'REQUIREMENT_SUBGROUP') {
+      renderRequirementComponents(comp, container);
+    }
+    // Skip QUESTION, QUESTION_GROUP, QUESTION_SUBGROUP
+  }
+}
+
+// ─── Part I–specific enhancements ─────────────────────────────────────────────
 
 /**
  * Render sections with uiType "radio-input-group" as radio buttons with inline inputs.

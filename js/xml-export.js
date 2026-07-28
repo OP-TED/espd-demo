@@ -3,8 +3,8 @@
  * Based on the ESPD-EDM UBL 2.4 structure.
  */
 
-import { getState, getAnswers } from './state.js';
-import { getModel, getRoleById } from './model.js';
+import { getState, getAnswers, getInclusionState } from './state.js';
+import { getModel, getRoleById, isCriterionMandatory } from './model.js';
 
 const UBL_NS = 'urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2';
 const CAC_NS = 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2';
@@ -156,7 +156,7 @@ function generateRequestXml(model, answers, roleConfig) {
   }
 
   // Render criteria (Parts III, IV, V)
-  xml += renderCriteriaXml(model, answers, 'request');
+  xml += renderCriteriaXml(model, answers, 'request', roleConfig.id);
 
   xml += `</espd:QualificationApplicationRequest>`;
   return xml;
@@ -226,8 +226,9 @@ function generateResponseXml(model, answers, roleConfig) {
 
 /**
  * Render all criteria as XML elements.
+ * In request mode, only emits criteria that are included (or mandatory).
  */
-function renderCriteriaXml(model, answers, mode) {
+function renderCriteriaXml(model, answers, mode, roleId) {
   let xml = '';
   const parts = ['III', 'IV', 'V'];
 
@@ -237,12 +238,26 @@ function renderCriteriaXml(model, answers, mode) {
 
     for (const section of part.sections) {
       if (section.type === 'CRITERION') {
+        // In request mode, filter by inclusion state
+        if (mode === 'request' && !shouldEmitCriterion(section, roleId)) {
+          continue;
+        }
         xml += renderSingleCriterionXml(section, answers, mode);
       }
     }
   }
 
   return xml;
+}
+
+/**
+ * Determine if a criterion should be emitted in the Request XML.
+ * Always emits mandatory criteria. Otherwise checks inclusion state.
+ */
+function shouldEmitCriterion(section, roleId) {
+  if (isCriterionMandatory(section.code, roleId)) return true;
+  const included = getInclusionState(section.tag, section.code);
+  return included === true;
 }
 
 /**

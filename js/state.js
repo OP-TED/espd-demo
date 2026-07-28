@@ -209,5 +209,66 @@ export function importState(imported) {
   persist();
 }
 
+// ─── Inclusion State (Buyer Criteria Selection) ───────────────────────────────
+
+const INCLUSION_PREFIX = 'inclusion:';
+
+/**
+ * Get the inclusion state for a criterion.
+ * @param {string} tag - Section tag (e.g., "C01")
+ * @param {string} code - Section code (e.g., "exg-crim-part")
+ * @returns {boolean|undefined} true/false if explicitly set, undefined if not set
+ */
+export function getInclusionState(tag, code) {
+  const key = `${INCLUSION_PREFIX}${tag}_${code}`;
+  const val = state.answers[key];
+  if (val === true || val === false) return val;
+  return undefined;
+}
+
+/**
+ * Set the inclusion state for a criterion.
+ * @param {string} tag - Section tag
+ * @param {string} code - Section code
+ * @param {boolean} included - Whether the criterion is included
+ */
+export function setInclusionState(tag, code, included) {
+  const key = `${INCLUSION_PREFIX}${tag}_${code}`;
+  state.answers[key] = included;
+  state.metadata.lastModified = new Date().toISOString();
+  persist();
+}
+
+/**
+ * Clear all inclusion state entries from answers.
+ * Called during form reset.
+ */
+export function clearInclusionStates() {
+  for (const key of Object.keys(state.answers)) {
+    if (key.startsWith(INCLUSION_PREFIX)) {
+      delete state.answers[key];
+    }
+  }
+  persist();
+}
+
+/**
+ * Initialise inclusion states: force mandatory criteria to true.
+ * Should be called when rendering the criteria selection view.
+ * @param {Array} sections - Array of criterion section objects from the part model
+ * @param {string} roleId - The active role id
+ * @param {function} isMandatoryFn - Function(sectionCode, roleId) => boolean
+ */
+export function initInclusionStates(sections, roleId, isMandatoryFn) {
+  for (const section of sections) {
+    if (section.type !== 'CRITERION') continue;
+    if (isMandatoryFn(section.code, roleId)) {
+      const key = `${INCLUSION_PREFIX}${section.tag}_${section.code}`;
+      state.answers[key] = true;
+    }
+  }
+  persist();
+}
+
 // Export constants for testing
 export { VALID_ROLE_IDS, LEGACY_MIGRATION };

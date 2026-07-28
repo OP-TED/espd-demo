@@ -653,3 +653,65 @@
   padding: 0 0.5rem;
   color: var(--pico-color);
 }
+
+
+/* Criteria Selection View (Buyer Mode) */
+.criterion-card {
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.criterion-card--mandatory {
+  background-color: var(--pico-primary-focus);
+  border-color: var(--pico-primary);
+}
+
+.criterion-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.criterion-card__header input[type="checkbox"] {
+  flex-shrink: 0;
+  margin: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.criterion-card__label {
+  font-weight: 600;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.criterion-mandatory-indicator {
+  font-size: 0.75rem;
+  color: var(--pico-primary);
+  background-color: var(--pico-primary-focus);
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.criterion-card__description {
+  margin: 0.5rem 0 0 2rem;
+  font-size: 0.85rem;
+  color: var(--pico-muted-color);
+  line-height: 1.4;
+}
+
+.criterion-requirements {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-left: 2rem;
+  border-left: 3px solid var(--pico-primary-focus);
+  background-color: var(--pico-card-background-color, #fff);
+}
+
+.criterion-requirements .espd-field {
+  margin-bottom: 0.5rem;
+}

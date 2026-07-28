@@ -203,5 +203,23 @@ export function getExclusionCategory(sectionCode) {
   return null;
 }
 
+/**
+ * Determine if a criterion is mandatory for a given role.
+ * A criterion is mandatory if its exclusion category is mapped to "mandatory"
+ * in the role's exclusionGroundRules.
+ * @param {string} sectionCode - The section code (e.g., 'exg-crim-part')
+ * @param {string} roleId - The role id (e.g., 'contracting-authority')
+ * @returns {boolean} true if the criterion is mandatory for this role
+ */
+export function isCriterionMandatory(sectionCode, roleId) {
+  const category = getExclusionCategory(sectionCode);
+  if (!category) return false;
+
+  const rules = getExclusionRules(roleId);
+  if (!rules) return false;
+
+  return rules[category] === 'mandatory';
+}
+
 // Export the category map for testing
 export { EXCLUSION_CATEGORY_MAP };

@@ -623,8 +623,10 @@
 }
 
 .espd-radio-input-row .espd-field label {
+  display: block;
   margin-bottom: 0.25rem;
   font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .espd-radio-input-row .espd-field input,

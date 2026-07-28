@@ -165,24 +165,13 @@
             {
               "tag": "Q3",
               "type": "QUESTION",
-              "cardinality": "0..1",
-              "description": "Description of the procurement",
-              "propertydatatype": "DESCRIPTION",
+              "cardinality": "1",
+              "description": "Type of procedure",
+              "propertydatatype": "CODE",
               "code": "QUESTION",
               "requestpath": "PI03_proc-procedure-info/QG1/Q3",
               "responsepath": "PI03_proc-procedure-info/QG1/Q3/R1",
               "contentpath": "PI03_proc-procedure-info/QG1/Q3/R1/RV"
-            },
-            {
-              "tag": "Q4",
-              "type": "QUESTION",
-              "cardinality": "0..1",
-              "description": "Type of procedure",
-              "propertydatatype": "CODE",
-              "code": "QUESTION",
-              "requestpath": "PI03_proc-procedure-info/QG1/Q4",
-              "responsepath": "PI03_proc-procedure-info/QG1/Q4/R1",
-              "contentpath": "PI03_proc-procedure-info/QG1/Q4/R1/RV"
             }
           ],
           "requestpath": "PI03_proc-procedure-info/QG1",

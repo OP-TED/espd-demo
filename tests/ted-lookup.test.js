@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import fc from 'fast-check';
-import { isValidNoticeNumber, deriveTedUrl, lookupNotice } from '../js/ted-lookup.js';
+import { isValidNoticeNumber, deriveTedUrl, lookupNotice, extractNoticeNumberFromUrl } from '../js/ted-lookup.js';
 
 // Generators for valid notice number formats
 const legacyNoticeArb = fc.tuple(
@@ -60,18 +60,6 @@ describe('Feature: part-i-ux-redesign, Property 3: Valid notice numbers pass for
       { numRuns: 200 }
     );
   });
-
-  it('valid numbers do not trigger format error in lookupNotice', async () => {
-    await fc.assert(
-      fc.asyncProperty(validNoticeArb, async (noticeNumber) => {
-        const result = await lookupNotice(noticeNumber);
-        // Should not contain a format error — it may fail for other reasons (stub)
-        assert.ok(!result.error?.includes('Invalid notice number format'),
-          `"${noticeNumber}" should not trigger format error`);
-      }),
-      { numRuns: 100 }
-    );
-  });
 });
 
 describe('Feature: part-i-ux-redesign, Property 4: Invalid notice numbers are rejected', () => {
@@ -104,20 +92,7 @@ describe('Feature: part-i-ux-redesign, Property 4: Invalid notice numbers are re
   });
 });
 
-describe('Feature: part-i-ux-redesign, Property 5: Stub lookup always returns failure', () => {
-  it('lookupNotice resolves with success=false for all valid notice numbers', async () => {
-    await fc.assert(
-      fc.asyncProperty(validNoticeArb, async (noticeNumber) => {
-        const result = await lookupNotice(noticeNumber);
-        assert.strictEqual(result.success, false,
-          `Stub should never succeed for "${noticeNumber}"`);
-        assert.ok(typeof result.error === 'string' && result.error.length > 0,
-          'Should have a non-empty error message');
-      }),
-      { numRuns: 200 }
-    );
-  });
-
+describe('Feature: part-i-ux-redesign, Property 5: lookupNotice returns well-formed results', () => {
   it('lookupNotice always returns a Promise', () => {
     fc.assert(
       fc.property(validNoticeArb, (noticeNumber) => {
@@ -126,5 +101,52 @@ describe('Feature: part-i-ux-redesign, Property 5: Stub lookup always returns fa
       }),
       { numRuns: 50 }
     );
+  });
+
+  it('lookupNotice with invalid format returns synchronously-resolved failure', async () => {
+    await fc.assert(
+      fc.asyncProperty(invalidNoticeArb, async (badInput) => {
+        const result = await lookupNotice(badInput);
+        assert.strictEqual(result.success, false);
+        assert.ok(result.error?.includes('Invalid notice number format'));
+      }),
+      { numRuns: 50 }
+    );
+  });
+});
+
+
+describe('Feature: part-i-ux-redesign, URL extraction', () => {
+  it('extracts notice number from valid TED URLs', () => {
+    fc.assert(
+      fc.property(legacyNoticeArb, (noticeNumber) => {
+        const url = `https://ted.europa.eu/en/notice/${noticeNumber}/html`;
+        const extracted = extractNoticeNumberFromUrl(url);
+        assert.strictEqual(extracted, noticeNumber,
+          `Should extract "${noticeNumber}" from "${url}"`);
+      }),
+      { numRuns: 100 }
+    );
+  });
+
+  it('extracts notice number from URLs without trailing path', () => {
+    fc.assert(
+      fc.property(legacyNoticeArb, (noticeNumber) => {
+        const url = `https://ted.europa.eu/en/notice/${noticeNumber}`;
+        const extracted = extractNoticeNumberFromUrl(url);
+        assert.strictEqual(extracted, noticeNumber);
+      }),
+      { numRuns: 50 }
+    );
+  });
+
+  it('returns null for non-TED URLs', () => {
+    assert.strictEqual(extractNoticeNumberFromUrl('https://example.com'), null);
+    assert.strictEqual(extractNoticeNumberFromUrl(''), null);
+    assert.strictEqual(extractNoticeNumberFromUrl(null), null);
+  });
+
+  it('returns null for URLs with invalid notice number format', () => {
+    assert.strictEqual(extractNoticeNumberFromUrl('https://ted.europa.eu/en/notice/invalid/html'), null);
   });
 });

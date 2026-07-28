@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "serve .",
+    "dev": "node dev-server.js",
     "build": "echo 'No build step needed - static files'",
     "test": "node --test tests/",
     "test:e2e": "playwright test --config=playwright.config.js"
@@ -15,5 +15,8 @@
     "ajv": "^8.20.0",
     "fast-check": "^4.9.0",
     "serve": "^14.2.0"
+  },
+  "dependencies": {
+    "https-proxy-agent": "^7.0.6"
   }
 }

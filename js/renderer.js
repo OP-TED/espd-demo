@@ -7,7 +7,7 @@ import { t, deriveQuestionKey, deriveCriterionNameKey, deriveCriterionDescKey, d
 import { getAnswer, setAnswer } from './state.js';
 import { getCodelist, CURRENCY_CODES } from './codelists.js';
 import { applyConditionalLogic } from './conditional.js';
-import { lookupNotice, deriveTedUrl } from './ted-lookup.js';
+import { lookupNotice, deriveTedUrl, extractNoticeNumberFromUrl } from './ted-lookup.js';
 
 /**
  * Render a full part into the form content area.
@@ -203,9 +203,9 @@ function enhancePartIWithLookup(container, role) {
       // Extract notice number from URL if needed
       let noticeNumber = rawValue;
       if (type === 'url') {
-        const match = rawValue.match(/\/notice\/([^/]+)/);
-        if (match) {
-          noticeNumber = match[1];
+        const extracted = extractNoticeNumberFromUrl(rawValue);
+        if (extracted) {
+          noticeNumber = extracted;
         } else {
           msgEl.textContent = 'Could not extract notice number from URL. Expected format: https://ted.europa.eu/en/notice/{number}/...';
           msgEl.classList.add('espd-lookup-msg--error');
@@ -227,14 +227,22 @@ function enhancePartIWithLookup(container, role) {
           'PI02_proc-procurer-id/QG1/Q1/R1/RV': result.data.officialName,
           'PI02_proc-procurer-id/QG1/Q2/R1/RV': result.data.country,
           'PI03_proc-procedure-info/QG1/Q1/R1/RV': result.data.title,
-          'PI03_proc-procedure-info/QG1/Q4/R1/RV': result.data.procedureType
+          'PI03_proc-procedure-info/QG1/Q3/R1/RV': result.data.procedureType
         };
 
         for (const [path, value] of Object.entries(fieldMap)) {
           if (value) {
             setAnswer(path, value);
-            const el = container.querySelector(`[data-contentpath="${path}"] input, [data-contentpath="${path}"] select`);
-            if (el) el.value = value;
+            const el = container.querySelector(
+              `[data-contentpath="${path}"] input, [data-contentpath="${path}"] select, [data-contentpath="${path}"] textarea, ` +
+              `input[data-contentpath="${path}"], select[data-contentpath="${path}"], textarea[data-contentpath="${path}"]`
+            );
+            if (el) {
+              el.value = value;
+              el.dispatchEvent(new Event('input', { bubbles: true }));
+            } else {
+              console.warn('[TED Lookup] Could not find DOM element for path:', path);
+            }
           }
         }
 
@@ -550,27 +558,15 @@ function renderSelect(id, label, contentpath, required, value, codelistType) {
  */
 function renderTextField(id, label, contentpath, required, value) {
   const wrapper = document.createElement('div');
-  const isLong = label.length > 80;
 
-  if (isLong) {
-    wrapper.innerHTML = `
-      <label for="${id}">
-        ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-      </label>
-      <textarea id="${id}" data-contentpath="${contentpath}" ${required ? 'required' : ''} rows="3" aria-label="${escapeHtml(label)}">${escapeHtml(value)}</textarea>
-    `;
-    const textarea = wrapper.querySelector('textarea');
-    textarea.addEventListener('input', () => setAnswer(contentpath, textarea.value));
-  } else {
-    wrapper.innerHTML = `
-      <label for="${id}">
-        ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-      </label>
-      <input type="text" id="${id}" data-contentpath="${contentpath}" value="${escapeHtml(value)}" ${required ? 'required' : ''} aria-label="${escapeHtml(label)}">
-    `;
-    const input = wrapper.querySelector('input');
-    input.addEventListener('input', () => setAnswer(contentpath, input.value));
-  }
+  wrapper.innerHTML = `
+    <label for="${id}">
+      ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
+    </label>
+    <input type="text" id="${id}" data-contentpath="${contentpath}" value="${escapeHtml(value)}" ${required ? 'required' : ''} aria-label="${escapeHtml(label)}">
+  `;
+  const input = wrapper.querySelector('input');
+  input.addEventListener('input', () => setAnswer(contentpath, input.value));
 
   return wrapper;
 }

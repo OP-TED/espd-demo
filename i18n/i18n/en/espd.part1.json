@@ -1,15 +1,14 @@
 {
-  "criterion.name.proc-publication-info": "Information about publication",
-  "question.label.proc-publication-info.QG1.Q1": "Official Journal of the EU (OJ S number, date, heading or reference of the notice)",
-  "question.label.proc-publication-info.QG1.Q2": "Notice number in the OJ S",
-  "question.label.proc-publication-info.QG1.Q3": "If the relevant notice was published in the OJ S, provide the TED notice URL",
+  "criterion.name.proc-pub-ref": "Information about publication",
+  "question.label.proc-pub-ref.QG1.Q1": "TED notice number",
+  "question.label.proc-pub-ref.QG1.Q2": "TED notice URL",
+  "question.label.proc-pub-ref.QG1.Q3": "National publication reference",
   "criterion.name.proc-procurer-id": "Identity of the procurer",
   "question.label.proc-procurer-id.QG1.Q1": "Official name of the contracting authority or contracting entity",
   "question.label.proc-procurer-id.QG1.Q2": "Country",
-  "question.label.proc-procurer-id.QG1.Q3": "Identifier of the procurer (e.g. national ID)",
-  "criterion.name.proc-procedure-info": "Information about the procurement procedure",
-  "question.label.proc-procedure-info.QG1.Q1": "Title or short description of the procurement procedure",
-  "question.label.proc-procedure-info.QG1.Q2": "File reference number attributed by the contracting authority or contracting entity",
-  "question.label.proc-procedure-info.QG1.Q3": "Description of the procurement",
-  "question.label.proc-procedure-info.QG1.Q4": "Type of procedure"
+  "question.label.proc-procurer-id.QG1.Q3": "Procurer identifier (e.g. VAT number, national ID)",
+  "criterion.name.proc-procedure-info": "Procurement procedure",
+  "question.label.proc-procedure-info.QG1.Q1": "Title or short description of the procurement",
+  "question.label.proc-procedure-info.QG1.Q2": "File reference number",
+  "question.label.proc-procedure-info.QG1.Q3": "Type of procedure"
 }

@@ -46,8 +46,7 @@ function generateRequestXml(model, answers, roleConfig) {
   const procurerId = answers['PI02_proc-procurer-id/QG1/Q3/R1/RV'] || '';
   const title = answers['PI03_proc-procedure-info/QG1/Q1/R1/RV'] || '';
   const fileReference = answers['PI03_proc-procedure-info/QG1/Q2/R1/RV'] || '';
-  const description = answers['PI03_proc-procedure-info/QG1/Q3/R1/RV'] || '';
-  const procedureType = answers['PI03_proc-procedure-info/QG1/Q4/R1/RV'] || '';
+  const procedureType = answers['PI03_proc-procedure-info/QG1/Q3/R1/RV'] || '';
 
   // Publication reference fields
   const noticeNumber = answers['PI01_proc-pub-ref/QG1/Q1/R1/RV'] || '';
@@ -110,14 +109,7 @@ function generateRequestXml(model, answers, roleConfig) {
 
   <!-- Procurement Project -->
   <cac:ProcurementProject>
-    <cbc:Name>${escXml(title)}</cbc:Name>`;
-
-  if (description) {
-    xml += `
-    <cbc:Description>${escXml(description)}</cbc:Description>`;
-  }
-
-  xml += `
+    <cbc:Name>${escXml(title)}</cbc:Name>
   </cac:ProcurementProject>
 
 `;

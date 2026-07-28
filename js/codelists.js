@@ -4,65 +4,71 @@
  */
 
 /**
- * EU Member States + EEA countries (ISO 3166-1 alpha-2).
+ * EU Member States + EEA countries (ISO 3166-1 alpha-3).
+ * Source: EU Vocabularies authority table
+ * http://publications.europa.eu/resource/authority/country
+ * Matches ESPD-EDM/codelists/Country.gc
  */
 export const COUNTRY_CODES = [
-  { code: 'AT', name: 'Austria' },
-  { code: 'BE', name: 'Belgium' },
-  { code: 'BG', name: 'Bulgaria' },
-  { code: 'HR', name: 'Croatia' },
-  { code: 'CY', name: 'Cyprus' },
-  { code: 'CZ', name: 'Czechia' },
-  { code: 'DK', name: 'Denmark' },
-  { code: 'EE', name: 'Estonia' },
-  { code: 'FI', name: 'Finland' },
-  { code: 'FR', name: 'France' },
-  { code: 'DE', name: 'Germany' },
-  { code: 'GR', name: 'Greece' },
-  { code: 'HU', name: 'Hungary' },
-  { code: 'IE', name: 'Ireland' },
-  { code: 'IT', name: 'Italy' },
-  { code: 'LV', name: 'Latvia' },
-  { code: 'LT', name: 'Lithuania' },
-  { code: 'LU', name: 'Luxembourg' },
-  { code: 'MT', name: 'Malta' },
-  { code: 'NL', name: 'Netherlands' },
-  { code: 'PL', name: 'Poland' },
-  { code: 'PT', name: 'Portugal' },
-  { code: 'RO', name: 'Romania' },
-  { code: 'SK', name: 'Slovakia' },
-  { code: 'SI', name: 'Slovenia' },
-  { code: 'ES', name: 'Spain' },
-  { code: 'SE', name: 'Sweden' },
+  { code: 'AUT', name: 'Austria' },
+  { code: 'BEL', name: 'Belgium' },
+  { code: 'BGR', name: 'Bulgaria' },
+  { code: 'HRV', name: 'Croatia' },
+  { code: 'CYP', name: 'Cyprus' },
+  { code: 'CZE', name: 'Czechia' },
+  { code: 'DNK', name: 'Denmark' },
+  { code: 'EST', name: 'Estonia' },
+  { code: 'FIN', name: 'Finland' },
+  { code: 'FRA', name: 'France' },
+  { code: 'DEU', name: 'Germany' },
+  { code: 'GRC', name: 'Greece' },
+  { code: 'HUN', name: 'Hungary' },
+  { code: 'IRL', name: 'Ireland' },
+  { code: 'ITA', name: 'Italy' },
+  { code: 'LVA', name: 'Latvia' },
+  { code: 'LTU', name: 'Lithuania' },
+  { code: 'LUX', name: 'Luxembourg' },
+  { code: 'MLT', name: 'Malta' },
+  { code: 'NLD', name: 'Netherlands' },
+  { code: 'POL', name: 'Poland' },
+  { code: 'PRT', name: 'Portugal' },
+  { code: 'ROU', name: 'Romania' },
+  { code: 'SVK', name: 'Slovakia' },
+  { code: 'SVN', name: 'Slovenia' },
+  { code: 'ESP', name: 'Spain' },
+  { code: 'SWE', name: 'Sweden' },
   // EEA
-  { code: 'IS', name: 'Iceland' },
-  { code: 'LI', name: 'Liechtenstein' },
-  { code: 'NO', name: 'Norway' },
+  { code: 'ISL', name: 'Iceland' },
+  { code: 'LIE', name: 'Liechtenstein' },
+  { code: 'NOR', name: 'Norway' },
   // Other commonly included
-  { code: 'CH', name: 'Switzerland' },
-  { code: 'UK', name: 'United Kingdom' },
-  { code: 'AL', name: 'Albania' },
-  { code: 'BA', name: 'Bosnia and Herzegovina' },
-  { code: 'GE', name: 'Georgia' },
-  { code: 'MD', name: 'Moldova' },
-  { code: 'ME', name: 'Montenegro' },
-  { code: 'MK', name: 'North Macedonia' },
-  { code: 'RS', name: 'Serbia' },
-  { code: 'TR', name: 'Turkey' },
-  { code: 'UA', name: 'Ukraine' }
+  { code: 'CHE', name: 'Switzerland' },
+  { code: 'GBR', name: 'United Kingdom' },
+  { code: 'ALB', name: 'Albania' },
+  { code: 'BIH', name: 'Bosnia and Herzegovina' },
+  { code: 'GEO', name: 'Georgia' },
+  { code: 'MDA', name: 'Moldova' },
+  { code: 'MNE', name: 'Montenegro' },
+  { code: 'MKD', name: 'North Macedonia' },
+  { code: 'SRB', name: 'Serbia' },
+  { code: 'TUR', name: 'Türkiye' },
+  { code: 'UKR', name: 'Ukraine' }
 ];
 
 /**
  * Procedure types used in ESPD Part I.
+ * Source: EU Vocabularies authority table
+ * http://publications.europa.eu/resource/authority/procurement-procedure-type
+ * Codes match eForms and TED API values.
  */
 export const PROCEDURE_TYPES = [
-  { code: 'OPEN', name: 'Open procedure' },
-  { code: 'RESTRICTED', name: 'Restricted procedure' },
-  { code: 'COMPETITIVE_NEGOTIATION', name: 'Competitive procedure with negotiation' },
-  { code: 'COMPETITIVE_DIALOGUE', name: 'Competitive dialogue' },
-  { code: 'INNOVATION_PARTNERSHIP', name: 'Innovation partnership' },
-  { code: 'NEGOTIATED_WO_PUBLICATION', name: 'Negotiated procedure without prior publication' },
-  { code: 'OTHER', name: 'Other' }
+  { code: 'open', name: 'Open procedure' },
+  { code: 'restricted', name: 'Restricted procedure' },
+  { code: 'neg-w-call', name: 'Negotiated with prior call for competition' },
+  { code: 'comp-dial', name: 'Competitive dialogue' },
+  { code: 'innovation', name: 'Innovation partnership' },
+  { code: 'neg-wo-call', name: 'Negotiated without prior call for competition' },
+  { code: 'comp-tend', name: 'Competitive tendering' }
 ];
 
 /**

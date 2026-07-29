@@ -44,7 +44,7 @@ const server = createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
 
   // Handle CORS preflight for the proxy
-  if (req.method === 'OPTIONS' && url.pathname.startsWith('/api/ted/')) {
+  if (req.method === 'OPTIONS' && (url.pathname.startsWith('/api/ted/') || url.pathname.startsWith('/api/itb/'))) {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -52,6 +52,12 @@ const server = createServer(async (req, res) => {
       'Access-Control-Max-Age': '86400'
     });
     res.end();
+    return;
+  }
+
+  // Proxy: /api/itb/* → https://www.itb.ec.europa.eu/espd/api/*
+  if (url.pathname.startsWith('/api/itb/')) {
+    await proxyItbApi(req, res, url);
     return;
   }
 
@@ -147,6 +153,75 @@ async function proxyTedApi(req, res, url) {
       'Access-Control-Allow-Origin': '*'
     });
     res.end(JSON.stringify({ error: `Proxy error: ${err.message}` }));
+  }
+}
+
+/**
+ * Proxy requests to the ITB ESPD Validator API.
+ * Mirrors the TED proxy pattern.
+ */
+async function proxyItbApi(req, res, url) {
+  const itbPath = url.pathname.replace('/api/itb/', '/xml/rest/espd/api/');
+  const itbUrl = `https://www.itb.ec.europa.eu${itbPath}`;
+
+  try {
+    let body = '';
+    for await (const chunk of req) {
+      body += chunk;
+    }
+
+    const parsedUrl = new URL(itbUrl);
+    const options = {
+      hostname: parsedUrl.hostname,
+      port: 443,
+      path: parsedUrl.pathname + parsedUrl.search,
+      method: req.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      agent: proxyAgent || undefined
+    };
+
+    const itbResp = await new Promise((resolve, reject) => {
+      const proxyReq = httpsRequest(options, (proxyRes) => {
+        let data = '';
+        proxyRes.on('data', chunk => { data += chunk; });
+        proxyRes.on('end', () => {
+          resolve({
+            status: proxyRes.statusCode,
+            contentType: proxyRes.headers['content-type'] || 'application/json',
+            body: data
+          });
+        });
+      });
+
+      proxyReq.on('error', reject);
+      proxyReq.setTimeout(30000, () => {
+        proxyReq.destroy(new Error('Request timeout'));
+      });
+
+      if (body && req.method !== 'GET') {
+        proxyReq.write(body);
+      }
+      proxyReq.end();
+    });
+
+    res.writeHead(itbResp.status, {
+      'Content-Type': itbResp.contentType,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Accept'
+    });
+    res.end(itbResp.body);
+
+  } catch (err) {
+    console.error('ITB proxy error:', err.message);
+    res.writeHead(502, {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify({ error: `ITB proxy error: ${err.message}` }));
   }
 }
 

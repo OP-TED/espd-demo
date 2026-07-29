@@ -14,6 +14,7 @@ import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, 
 import { renderPart } from './renderer.js';
 import { downloadXml, generateXml } from './xml-export.js';
 import { importXmlFile } from './xml-import.js';
+import { validateXml } from './itb-validation.js';
 import { renderHomePage } from './home.js';
 import { renderPathSelector } from './path-selector.js';
 import { renderWizardHeader, updateWizardHeader } from './wizard-header.js';
@@ -254,6 +255,11 @@ function setupEventListeners() {
   document.getElementById('btn-next').addEventListener('click', goToNextStep);
   document.getElementById('btn-overview').addEventListener('click', showOverview);
   document.getElementById('btn-download').addEventListener('click', () => downloadXml());
+  document.getElementById('btn-validate').addEventListener('click', handleValidateClick);
+
+  // Validation dialog
+  document.getElementById('btn-close-validation').addEventListener('click', closeValidationDialog);
+  document.getElementById('btn-close-validation-footer').addEventListener('click', closeValidationDialog);
 
   // Overview dialog
   document.getElementById('btn-close-overview').addEventListener('click', closeOverview);
@@ -338,13 +344,16 @@ function updateStepNav() {
   const isLastStep = currentStep === wizardParts.length - 1;
   const btnNext = document.getElementById('btn-next');
   const btnDownload = document.getElementById('btn-download');
+  const btnValidate = document.getElementById('btn-validate');
 
   if (isLastStep) {
     btnNext.hidden = true;
     btnDownload.hidden = false;
+    btnValidate.hidden = false;
   } else {
     btnNext.hidden = false;
     btnDownload.hidden = true;
+    btnValidate.hidden = true;
   }
 }
 
@@ -447,6 +456,100 @@ function showOverview() {
 function closeOverview() {
   const dialog = document.getElementById('overview-dialog');
   dialog.close();
+}
+
+// ─── Validation ───────────────────────────────────────────────────────────────
+
+/**
+ * Handle the "Validate XML" button click.
+ */
+async function handleValidateClick() {
+  const btn = document.getElementById('btn-validate');
+  btn.disabled = true;
+  btn.setAttribute('aria-busy', 'true');
+  btn.textContent = 'Validating…';
+
+  try {
+    const xml = generateXml();
+    const state = getState();
+    const roleConfig = getRoleById(state.role);
+    const documentType = roleConfig?.documentType || 'request';
+
+    const result = await validateXml(xml, documentType);
+    showValidationResults(result);
+  } catch (err) {
+    showValidationResults({
+      success: false,
+      status: 'ERROR',
+      errors: [{ description: err.message || 'Unexpected error', location: '', test: '', level: 'error' }],
+      warnings: [],
+      errorCount: 1,
+      warningCount: 0,
+      message: 'An error occurred while generating or validating the XML.'
+    });
+  } finally {
+    btn.disabled = false;
+    btn.removeAttribute('aria-busy');
+    btn.textContent = 'Validate XML';
+  }
+}
+
+/**
+ * Display validation results in the dialog.
+ */
+function showValidationResults(result) {
+  const dialog = document.getElementById('validation-dialog');
+  const content = document.getElementById('validation-content');
+
+  let html = '';
+
+  if (result.success) {
+    html += `<p class="validation-success">✓ ${escHtml(result.message)}</p>`;
+  } else {
+    html += `<p class="validation-summary">${escHtml(result.message)}</p>`;
+
+    if (result.errors.length > 0) {
+      html += '<h4>Errors</h4><ul class="validation-errors">';
+      for (const err of result.errors) {
+        html += `<li class="validation-item validation-item--error">
+          <p>${escHtml(err.description)}</p>
+          ${err.location ? `<code class="validation-location">${escHtml(err.location)}</code>` : ''}
+        </li>`;
+      }
+      html += '</ul>';
+    }
+
+    if (result.warnings.length > 0) {
+      html += '<h4>Warnings</h4><ul class="validation-warnings">';
+      for (const warn of result.warnings) {
+        html += `<li class="validation-item validation-item--warning">
+          <p>${escHtml(warn.description)}</p>
+          ${warn.location ? `<code class="validation-location">${escHtml(warn.location)}</code>` : ''}
+        </li>`;
+      }
+      html += '</ul>';
+    }
+  }
+
+  content.innerHTML = html;
+  dialog.showModal();
+}
+
+/**
+ * Close the validation dialog and return focus to the validate button.
+ */
+function closeValidationDialog() {
+  const dialog = document.getElementById('validation-dialog');
+  dialog.close();
+  document.getElementById('btn-validate').focus();
+}
+
+/**
+ * Escape HTML for safe insertion.
+ */
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 /**

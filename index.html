@@ -61,6 +61,7 @@
             <button type="button" id="btn-overview" class="secondary">Overview</button>
             <button type="button" id="btn-next">Next →</button>
             <button type="button" id="btn-download" class="contrast" hidden>Download XML</button>
+            <button type="button" id="btn-validate" class="secondary" hidden aria-label="Validate XML against ESPD rules">Validate XML</button>
           </div>
         </footer>
       </form>
@@ -79,6 +80,22 @@
         <footer>
           <button id="btn-close-overview-footer" class="secondary">Close</button>
           <button id="btn-download-overview" class="contrast">Download XML</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Validation Result Dialog -->
+    <dialog id="validation-dialog" aria-labelledby="validation-dialog-heading">
+      <article>
+        <header>
+          <button aria-label="Close" rel="prev" id="btn-close-validation"></button>
+          <h3 id="validation-dialog-heading">Validation Result</h3>
+        </header>
+        <div id="validation-content">
+          <!-- Populated dynamically -->
+        </div>
+        <footer>
+          <button id="btn-close-validation-footer" class="secondary">Close</button>
         </footer>
       </article>
     </dialog>

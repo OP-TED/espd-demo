@@ -715,3 +715,50 @@
 .criterion-requirements .espd-field {
   margin-bottom: 0.5rem;
 }
+
+
+/* Validation Results */
+.validation-success {
+  color: var(--pico-ins-color, #2e7d32);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.validation-summary {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.validation-errors,
+.validation-warnings {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.validation-item {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--pico-border-radius);
+  border-left: 4px solid;
+}
+
+.validation-item--error {
+  border-left-color: var(--pico-del-color, #c62828);
+  background-color: color-mix(in srgb, var(--pico-del-color, #c62828) 5%, transparent);
+}
+
+.validation-item--warning {
+  border-left-color: #f9a825;
+  background-color: color-mix(in srgb, #f9a825 5%, transparent);
+}
+
+.validation-item p {
+  margin: 0 0 0.25rem 0;
+}
+
+.validation-location {
+  font-size: 0.8rem;
+  color: var(--pico-muted-color);
+  word-break: break-all;
+}

@@ -30,7 +30,7 @@ test.describe('Contracting Authority — full ESPD Request flow', () => {
     // PI02: Procurer identity
     await fillField(page, 'PI02_proc-procurer-id/QG1/Q1/R1/RV', 'European Commission — DG DIGIT');
     await selectField(page, 'PI02_proc-procurer-id/QG1/Q2/R1/RV', 'BE');
-    await fillField(page, 'PI02_proc-procurer-id/QG1/Q3/R1/RV', 'BE-0123456789');
+    await fillField(page, 'PI02_proc-procurer-id/QG1/Q4/R1/RV', 'BE-0123456789');
 
     // PI03: Procedure info
     await fillField(page, 'PI03_proc-procedure-info/QG1/Q1/R1/RV', 'Supply of IT Equipment and Services 2026');

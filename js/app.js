@@ -253,21 +253,12 @@ function setupEventListeners() {
   // Wizard navigation
   document.getElementById('btn-prev').addEventListener('click', goToPrevStep);
   document.getElementById('btn-next').addEventListener('click', goToNextStep);
-  document.getElementById('btn-overview').addEventListener('click', showOverview);
   document.getElementById('btn-download').addEventListener('click', () => downloadXml());
   document.getElementById('btn-validate').addEventListener('click', handleValidateClick);
 
   // Validation dialog
   document.getElementById('btn-close-validation').addEventListener('click', closeValidationDialog);
   document.getElementById('btn-close-validation-footer').addEventListener('click', closeValidationDialog);
-
-  // Overview dialog
-  document.getElementById('btn-close-overview').addEventListener('click', closeOverview);
-  document.getElementById('btn-close-overview-footer').addEventListener('click', closeOverview);
-  document.getElementById('btn-download-overview').addEventListener('click', () => {
-    downloadXml();
-    closeOverview();
-  });
 
   // Language switcher
   document.getElementById('language-select').addEventListener('change', async (e) => {
@@ -418,46 +409,6 @@ function renderCurrentStep() {
   renderStep(getCurrentStep());
 }
 
-// ─── Overview Dialog ──────────────────────────────────────────────────────────
-
-/**
- * Show the overview dialog with a summary of all parts.
- */
-function showOverview() {
-  const dialog = document.getElementById('overview-dialog');
-  const content = document.getElementById('overview-content');
-  const answers = getAnswers();
-
-  let html = '';
-
-  for (const part of wizardParts) {
-    const partData = getPart(part.key);
-    html += `<h4>Part ${part.key}: ${t('part.title.' + part.key, partData.title)}</h4>`;
-
-    const questionCounts = countQuestionsSimple(partData.sections, answers);
-    html += `<p><small>${questionCounts.answered} of ${questionCounts.total} questions answered</small></p>`;
-  }
-
-  // Show XML preview size
-  try {
-    const xml = generateXml();
-    html += `<hr><p><small>Generated XML size: ${(xml.length / 1024).toFixed(1)} KB</small></p>`;
-  } catch (e) {
-    html += `<hr><p><small>XML generation preview not available</small></p>`;
-  }
-
-  content.innerHTML = html;
-  dialog.showModal();
-}
-
-/**
- * Close the overview dialog.
- */
-function closeOverview() {
-  const dialog = document.getElementById('overview-dialog');
-  dialog.close();
-}
-
 // ─── Validation ───────────────────────────────────────────────────────────────
 
 /**
@@ -550,34 +501,6 @@ function closeValidationDialog() {
 function escHtml(str) {
   if (!str) return '';
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-/**
- * Simple count of questions and answered questions in sections.
- */
-function countQuestionsSimple(sections, answers) {
-  let answered = 0;
-  let total = 0;
-
-  function walk(components) {
-    if (!components) return;
-    for (const comp of components) {
-      if (comp.type === 'QUESTION' && comp.contentpath) {
-        total++;
-        const val = answers[comp.contentpath];
-        if (val !== undefined && val !== null && val !== '') {
-          answered++;
-        }
-      }
-      if (comp.components) walk(comp.components);
-    }
-  }
-
-  for (const section of sections) {
-    walk(section.components);
-  }
-
-  return { answered, total };
 }
 
 // ─── Application Init ─────────────────────────────────────────────────────────

@@ -58,7 +58,6 @@
             <button type="button" id="btn-prev" class="secondary outline" disabled>← Previous</button>
           </div>
           <div class="espd-form-actions-right">
-            <button type="button" id="btn-overview" class="secondary">Overview</button>
             <button type="button" id="btn-next">Next →</button>
             <button type="button" id="btn-download" class="contrast" hidden>Download XML</button>
             <button type="button" id="btn-validate" class="secondary" hidden aria-label="Validate XML against ESPD rules">Validate XML</button>
@@ -66,23 +65,6 @@
         </footer>
       </form>
     </section>
-
-    <!-- Overview Modal -->
-    <dialog id="overview-dialog">
-      <article>
-        <header>
-          <button aria-label="Close" rel="prev" id="btn-close-overview"></button>
-          <h3>ESPD Overview</h3>
-        </header>
-        <div id="overview-content">
-          <!-- Populated dynamically -->
-        </div>
-        <footer>
-          <button id="btn-close-overview-footer" class="secondary">Close</button>
-          <button id="btn-download-overview" class="contrast">Download XML</button>
-        </footer>
-      </article>
-    </dialog>
 
     <!-- Validation Result Dialog -->
     <dialog id="validation-dialog" aria-labelledby="validation-dialog-heading">

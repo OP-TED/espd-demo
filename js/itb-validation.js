@@ -48,6 +48,16 @@ export function resolveValidationType(documentType) {
 /**
  * Parse an ITB validation report JSON into a normalized ValidationResult.
  * Never throws — handles malformed input gracefully.
+ *
+ * ITB response format:
+ * {
+ *   result: "SUCCESS" | "FAILURE",
+ *   counters: { nrOfErrors, nrOfWarnings, nrOfAssertions },
+ *   reports: { error: [...], warning: [...] },
+ *   overview: { profileID },
+ *   date: "..."
+ * }
+ *
  * @param {*} report - Raw ITB API response (may be null/undefined/malformed)
  * @returns {ValidationResult}
  */
@@ -65,24 +75,23 @@ export function parseValidationReport(report) {
   }
 
   const result = report.result || 'FAILURE';
-  const items = report.reportItems || [];
-  const errors = [];
-  const warnings = [];
+  const reports = report.reports || {};
+  const rawErrors = reports.error || [];
+  const rawWarnings = reports.warning || [];
 
-  for (const item of items) {
-    const normalized = {
-      description: item.description || 'Unknown issue',
-      location: item.location || '',
-      test: item.test || '',
-      level: item.level || 'error'
-    };
+  const errors = rawErrors.map(item => ({
+    description: item.description || 'Unknown error',
+    location: item.location || '',
+    test: item.test || '',
+    level: 'error'
+  }));
 
-    if (normalized.level === 'warning' || normalized.level === 'info') {
-      warnings.push(normalized);
-    } else {
-      errors.push(normalized);
-    }
-  }
+  const warnings = rawWarnings.map(item => ({
+    description: item.description || 'Unknown warning',
+    location: item.location || '',
+    test: item.test || '',
+    level: 'warning'
+  }));
 
   return {
     success: result === 'SUCCESS',

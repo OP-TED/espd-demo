@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import fc from 'fast-check';
-import { isValidNoticeNumber, deriveTedUrl, lookupNotice, extractNoticeNumberFromUrl } from '../js/ted-lookup.js';
+import { isValidNoticeNumber, deriveTedUrl, deriveTedLinks, TED_LINK_TYPE, lookupNotice, extractNoticeNumberFromUrl } from '../js/ted-lookup.js';
 
 // Generators for valid notice number formats
 const legacyNoticeArb = fc.tuple(
@@ -18,13 +18,47 @@ const invalidNoticeArb = fc.string({ minLength: 1, maxLength: 50 })
   .filter(s => !/^\d{1,8}-\d{4}$/.test(s) && !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s));
 
 describe('Feature: part-i-ux-redesign, Property 2: TED URL derivation is deterministic', () => {
-  it('deriveTedUrl returns the expected pattern for any valid notice number', () => {
+  it('deriveTedUrl returns the xml pattern by default for any valid notice number', () => {
     fc.assert(
       fc.property(validNoticeArb, (noticeNumber) => {
         const url = deriveTedUrl(noticeNumber);
         assert.strictEqual(url, `https://ted.europa.eu/en/notice/${noticeNumber.trim()}/xml`);
       }),
       { numRuns: 200 }
+    );
+  });
+
+  it('deriveTedUrl supports all TED_LINK_TYPE variants', () => {
+    fc.assert(
+      fc.property(legacyNoticeArb, (noticeNumber) => {
+        const trimmed = noticeNumber.trim();
+        assert.strictEqual(deriveTedUrl(noticeNumber, TED_LINK_TYPE.NOTICE_PAGE),
+          `https://ted.europa.eu/en/notice/-/detail/${trimmed}`);
+        assert.strictEqual(deriveTedUrl(noticeNumber, TED_LINK_TYPE.HTML),
+          `https://ted.europa.eu/en/notice/${trimmed}/html`);
+        assert.strictEqual(deriveTedUrl(noticeNumber, TED_LINK_TYPE.PDF),
+          `https://ted.europa.eu/en/notice/${trimmed}/pdf`);
+        assert.strictEqual(deriveTedUrl(noticeNumber, TED_LINK_TYPE.PDFS),
+          `https://ted.europa.eu/en/notice/${trimmed}/pdfs`);
+        assert.strictEqual(deriveTedUrl(noticeNumber, TED_LINK_TYPE.XML),
+          `https://ted.europa.eu/en/notice/${trimmed}/xml`);
+      }),
+      { numRuns: 100 }
+    );
+  });
+
+  it('deriveTedLinks returns all five URL variants', () => {
+    fc.assert(
+      fc.property(validNoticeArb, (noticeNumber) => {
+        const links = deriveTedLinks(noticeNumber);
+        const trimmed = noticeNumber.trim();
+        assert.strictEqual(links.noticePage, `https://ted.europa.eu/en/notice/-/detail/${trimmed}`);
+        assert.strictEqual(links.html, `https://ted.europa.eu/en/notice/${trimmed}/html`);
+        assert.strictEqual(links.pdf, `https://ted.europa.eu/en/notice/${trimmed}/pdf`);
+        assert.strictEqual(links.pdfs, `https://ted.europa.eu/en/notice/${trimmed}/pdfs`);
+        assert.strictEqual(links.xml, `https://ted.europa.eu/en/notice/${trimmed}/xml`);
+      }),
+      { numRuns: 100 }
     );
   });
 
@@ -129,6 +163,34 @@ describe('Feature: part-i-ux-redesign, URL extraction', () => {
     );
   });
 
+  it('extracts notice number from -/detail/ notice page URLs', () => {
+    fc.assert(
+      fc.property(legacyNoticeArb, (noticeNumber) => {
+        const url = `https://ted.europa.eu/en/notice/-/detail/${noticeNumber}`;
+        const extracted = extractNoticeNumberFromUrl(url);
+        assert.strictEqual(extracted, noticeNumber,
+          `Should extract "${noticeNumber}" from detail URL "${url}"`);
+      }),
+      { numRuns: 100 }
+    );
+  });
+
+  it('extracts notice number from all supported URL formats', () => {
+    const number = '310364-2026';
+    const urls = [
+      `https://ted.europa.eu/en/notice/-/detail/${number}`,
+      `https://ted.europa.eu/en/notice/${number}/html`,
+      `https://ted.europa.eu/en/notice/${number}/pdf`,
+      `https://ted.europa.eu/en/notice/${number}/pdfs`,
+      `https://ted.europa.eu/en/notice/${number}/xml`,
+      `https://ted.europa.eu/en/notice/${number}`
+    ];
+    for (const url of urls) {
+      assert.strictEqual(extractNoticeNumberFromUrl(url), number,
+        `Should extract "${number}" from "${url}"`);
+    }
+  });
+
   it('extracts notice number from URLs without trailing path', () => {
     fc.assert(
       fc.property(legacyNoticeArb, (noticeNumber) => {
@@ -148,5 +210,6 @@ describe('Feature: part-i-ux-redesign, URL extraction', () => {
 
   it('returns null for URLs with invalid notice number format', () => {
     assert.strictEqual(extractNoticeNumberFromUrl('https://ted.europa.eu/en/notice/invalid/html'), null);
+    assert.strictEqual(extractNoticeNumberFromUrl('https://ted.europa.eu/en/notice/-/detail/invalid'), null);
   });
 });

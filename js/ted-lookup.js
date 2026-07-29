@@ -42,26 +42,77 @@ export function isValidNoticeNumber(noticeNumber) {
 }
 
 /**
- * Derive the TED publication URL from a notice number.
+ * Supported TED notice link types.
+ * @readonly
+ * @enum {string}
+ */
+export const TED_LINK_TYPE = Object.freeze({
+  /** Notice detail page: /notice/-/detail/{number} */
+  NOTICE_PAGE: 'notice-page',
+  /** HTML rendition: /notice/{number}/html */
+  HTML: 'html',
+  /** PDF rendition: /notice/{number}/pdf */
+  PDF: 'pdf',
+  /** Signed PDF: /notice/{number}/pdfs */
+  PDFS: 'pdfs',
+  /** XML source: /notice/{number}/xml */
+  XML: 'xml'
+});
+
+/**
+ * Derive a TED publication URL from a notice number.
  * @param {string} noticeNumber - A valid notice number
+ * @param {string} [type='xml'] - One of the TED_LINK_TYPE values (defaults to 'xml')
  * @returns {string} The TED notice URL
  */
-export function deriveTedUrl(noticeNumber) {
+export function deriveTedUrl(noticeNumber, type) {
   const trimmed = noticeNumber.trim();
-  return `${TED_NOTICE_BASE_URL}/${trimmed}/xml`;
+  if (type === TED_LINK_TYPE.NOTICE_PAGE) {
+    return `${TED_NOTICE_BASE_URL}/-/detail/${trimmed}`;
+  }
+  const suffix = type || TED_LINK_TYPE.XML;
+  return `${TED_NOTICE_BASE_URL}/${trimmed}/${suffix}`;
+}
+
+/**
+ * Derive all TED notice link variants for a given notice number.
+ * @param {string} noticeNumber - A valid notice number
+ * @returns {{ noticePage: string, html: string, pdf: string, pdfs: string, xml: string }}
+ */
+export function deriveTedLinks(noticeNumber) {
+  const trimmed = noticeNumber.trim();
+  return {
+    noticePage: `${TED_NOTICE_BASE_URL}/-/detail/${trimmed}`,
+    html: `${TED_NOTICE_BASE_URL}/${trimmed}/html`,
+    pdf: `${TED_NOTICE_BASE_URL}/${trimmed}/pdf`,
+    pdfs: `${TED_NOTICE_BASE_URL}/${trimmed}/pdfs`,
+    xml: `${TED_NOTICE_BASE_URL}/${trimmed}/xml`
+  };
 }
 
 /**
  * Extract a notice number from a TED URL.
  * Supports formats like:
- *   https://ted.europa.eu/en/notice/123456-2024
+ *   https://ted.europa.eu/en/notice/-/detail/123456-2024  (notice page)
+ *   https://ted.europa.eu/en/notice/123456-2024           (bare)
  *   https://ted.europa.eu/en/notice/123456-2024/html
+ *   https://ted.europa.eu/en/notice/123456-2024/pdf
+ *   https://ted.europa.eu/en/notice/123456-2024/pdfs
  *   https://ted.europa.eu/en/notice/123456-2024/xml
  * @param {string} url - The TED URL
  * @returns {string|null} The extracted notice number or null if not parseable
  */
 export function extractNoticeNumberFromUrl(url) {
   if (!url || typeof url !== 'string') return null;
+
+  // Try the notice page format first: /notice/-/detail/{number}
+  const detailMatch = url.match(/\/notice\/-\/detail\/([^/?#]+)/);
+  if (detailMatch && detailMatch[1]) {
+    const candidate = detailMatch[1].trim();
+    if (isValidNoticeNumber(candidate)) return candidate;
+  }
+
+  // Then try the standard format: /notice/{number} or /notice/{number}/{suffix}
   const match = url.match(/\/notice\/([^/]+)/);
   if (match && match[1]) {
     const candidate = match[1].trim();

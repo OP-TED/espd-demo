@@ -116,6 +116,9 @@ function generateRequestXml(model, answers, roleConfig) {
 
 `;
 
+  // Render criteria (Parts III, IV, V) — must come before AdditionalDocumentReference per XSD
+  xml += renderCriteriaXml(model, answers, 'request', roleConfig.id);
+
   // Additional Document Reference (TED notice or national publication)
   if (noticeNumber) {
     xml += `  <cac:AdditionalDocumentReference>
@@ -134,7 +137,6 @@ function generateRequestXml(model, answers, roleConfig) {
 
 `;
   } else if (tedUrl && !noticeNumber) {
-    // URL provided without explicit notice number — still reference it
     xml += `  <cac:AdditionalDocumentReference>
     <cbc:ID>${escXml(tedUrl)}</cbc:ID>
     <cbc:DocumentTypeCode listID="DocRefContentType">TED_CN</cbc:DocumentTypeCode>
@@ -154,9 +156,6 @@ function generateRequestXml(model, answers, roleConfig) {
 
 `;
   }
-
-  // Render criteria (Parts III, IV, V)
-  xml += renderCriteriaXml(model, answers, 'request', roleConfig.id);
 
   xml += `</espd:QualificationApplicationRequest>`;
   return xml;
@@ -252,12 +251,14 @@ function renderCriteriaXml(model, answers, mode, roleId) {
 
 /**
  * Determine if a criterion should be emitted in the Request XML.
- * Always emits mandatory criteria. Otherwise checks inclusion state.
+ * Always emits mandatory criteria. If no explicit inclusion state exists
+ * (user hasn't interacted with criteria selection), emits all criteria by default.
  */
 function shouldEmitCriterion(section, roleId) {
   if (isCriterionMandatory(section.code, roleId)) return true;
   const included = getInclusionState(section.tag, section.code);
-  return included === true;
+  // If no explicit state set (undefined), include by default
+  return included !== false;
 }
 
 /**

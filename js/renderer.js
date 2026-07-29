@@ -7,7 +7,7 @@ import { t, deriveQuestionKey, deriveCriterionNameKey, deriveCriterionDescKey, d
 import { getAnswer, setAnswer, getInclusionState, setInclusionState, initInclusionStates } from './state.js';
 import { getCodelist, CURRENCY_CODES } from './codelists.js';
 import { applyConditionalLogic } from './conditional.js';
-import { lookupNotice, deriveTedUrl, extractNoticeNumberFromUrl } from './ted-lookup.js';
+import { lookupNotice, deriveTedUrl, deriveTedLinks, extractNoticeNumberFromUrl } from './ted-lookup.js';
 import { getRoleById, isCriterionMandatory } from './model.js';
 
 /**

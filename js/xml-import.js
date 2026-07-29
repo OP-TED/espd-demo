@@ -39,14 +39,19 @@ export function importXmlString(xmlString) {
 
     let role;
     if (localName.includes('Request')) {
-      role = 'ca';
+      // Detect specific buyer role from PartyTypeCode
+      role = detectBuyerRole(doc);
     } else if (localName.includes('Response')) {
       role = 'eo';
     } else {
       // Try the QualificationApplicationTypeCode element
       const typeCode = doc.querySelector('QualificationApplicationTypeCode');
       if (typeCode) {
-        role = typeCode.textContent.includes('Request') ? 'ca' : 'eo';
+        if (typeCode.textContent.includes('Request')) {
+          role = detectBuyerRole(doc);
+        } else {
+          role = 'eo';
+        }
       } else {
         return { role: null, success: false, message: 'Cannot determine ESPD document type' };
       }
@@ -59,14 +64,30 @@ export function importXmlString(xmlString) {
     const answers = extractAnswers(doc, role);
     setAnswers(answers);
 
+    const isRequest = role === 'contracting-authority' || role === 'contracting-entity';
     return {
       role,
       success: true,
-      message: `Successfully imported ESPD ${role === 'ca' ? 'Request' : 'Response'} with ${Object.keys(answers).length} data fields.`
+      message: `Successfully imported ESPD ${isRequest ? 'Request' : 'Response'} with ${Object.keys(answers).length} data fields.`
     };
   } catch (e) {
     return { role: null, success: false, message: `Import error: ${e.message}` };
   }
+}
+
+/**
+ * Detect the specific buyer role from a Request XML by examining PartyTypeCode.
+ * Falls back to 'contracting-authority' if the code cannot be determined.
+ * @param {Document} doc - The parsed XML document
+ * @returns {string} The role id ('contracting-authority' or 'contracting-entity')
+ */
+function detectBuyerRole(doc) {
+  const partyTypeCode = getTextContent(doc, 'ContractingParty ContractingPartyType PartyTypeCode');
+  if (partyTypeCode === 'cont-ent') {
+    return 'contracting-entity';
+  }
+  // Default to contracting-authority (covers 'cont-auth' and missing element)
+  return 'contracting-authority';
 }
 
 /**
@@ -75,7 +96,7 @@ export function importXmlString(xmlString) {
 function extractAnswers(doc, role) {
   const answers = {};
 
-  if (role === 'ca') {
+  if (role === 'contracting-authority' || role === 'contracting-entity') {
     extractRequestAnswers(doc, answers);
   } else {
     extractResponseAnswers(doc, answers);

@@ -12,6 +12,16 @@ const CBC_NS = 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponen
 const ESPD_REQ_NS = 'urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationRequest-2';
 
 /**
+ * The CriterionTypeCode is the internal section code (e.g. 'exg-crim-part', 'slc-suit-reg-prof').
+ * Per the ESPD-EDM v5.0.0 Schematron (espd-validation-schematron), the CriterionTypeCode
+ * must match the section codes defined in the ESPD-EDM criterion data structure.
+ * BR-REQ-30 checks: exg-crim-part, exg-crim-corrpt, exg-crim-fraud, exg-crim-terror,
+ *                    exg-crim-laund, exg-crim-traffick, exg-pmt-bre-tax, exg-pmt-bre-ssc
+ * BR-LOT-41 checks: slc-* codes must have ProcurementProjectLotReference
+ * BR-LOT-40 checks: exg-* codes must NOT have ProcurementProjectLotReference
+ */
+
+/**
  * Generate ESPD XML document from the current state.
  * Uses the role's documentType to determine request vs response.
  * @returns {string} XML string
@@ -59,21 +69,18 @@ function generateRequestXml(model, answers, roleConfig) {
   xmlns:cac="${CAC_NS}"
   xmlns:cbc="${CBC_NS}">
 
-  <cbc:UBLVersionID>2.4</cbc:UBLVersionID>
-  <cbc:CustomizationID>urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
-  <cbc:ProfileID>ESPD-EDMv5.0.0</cbc:ProfileID>
+  <cbc:UBLVersionID schemeAgencyID="OASIS-UBL-TC">2.4</cbc:UBLVersionID>
+  <cbc:CustomizationID schemeAgencyID="EU-COM-OP">urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
+  <cbc:ProfileID schemeAgencyID="EU-COM-OP">ESPD-EDMv5.0.0</cbc:ProfileID>
   <cbc:ID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:ID>
-  <cbc:ContractFolderID>${escXml(fileReference)}</cbc:ContractFolderID>
+  <cbc:UUID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:UUID>
+  <cbc:ContractFolderID schemeAgencyID="EU-COM-OP">${escXml(fileReference || 'Unknown')}</cbc:ContractFolderID>
   <cbc:IssueDate>${now}</cbc:IssueDate>
-  <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>`;
-
-  if (procedureType) {
-    xml += `
-  <cbc:ProcedureCode>${escXml(procedureType)}</cbc:ProcedureCode>`;
-  }
+  <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>
+  <cbc:ProcedureCode listID="ProcedureType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(procedureType || 'open')}</cbc:ProcedureCode>`;
 
   xml += `
-  <cbc:QualificationApplicationTypeCode listID="QualificationApplicationType">ESPD Request</cbc:QualificationApplicationTypeCode>
+  <cbc:QualificationApplicationTypeCode listID="QualificationApplicationType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">ESPD Request</cbc:QualificationApplicationTypeCode>
 
   <!-- Contracting Party -->
   <cac:ContractingParty>
@@ -91,7 +98,7 @@ function generateRequestXml(model, answers, roleConfig) {
 
   if (procurerId) {
     xml += `      <cac:PartyIdentification>
-        <cbc:ID>${escXml(procurerId)}</cbc:ID>
+        <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(procurerId)}</cbc:ID>
       </cac:PartyIdentification>
 `;
   }
@@ -101,7 +108,7 @@ function generateRequestXml(model, answers, roleConfig) {
       </cac:PartyName>
       <cac:PostalAddress>
         <cac:Country>
-          <cbc:IdentificationCode>${escXml(country)}</cbc:IdentificationCode>
+          <cbc:IdentificationCode listID="CountryCodeIdentifier" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(country)}</cbc:IdentificationCode>
         </cac:Country>
       </cac:PostalAddress>
     </cac:Party>
@@ -120,8 +127,8 @@ function generateRequestXml(model, answers, roleConfig) {
   // Additional Document Reference (TED notice or national publication)
   if (noticeNumber) {
     xml += `  <cac:AdditionalDocumentReference>
-    <cbc:ID>${escXml(noticeNumber)}</cbc:ID>
-    <cbc:DocumentTypeCode listID="DocRefContentType">TED_CN</cbc:DocumentTypeCode>`;
+    <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(noticeNumber)}</cbc:ID>
+    <cbc:DocumentTypeCode listID="DocRefContentType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">TED_CN</cbc:DocumentTypeCode>`;
     if (tedUrl) {
       xml += `
     <cac:Attachment>
@@ -136,8 +143,8 @@ function generateRequestXml(model, answers, roleConfig) {
 `;
   } else if (tedUrl && !noticeNumber) {
     xml += `  <cac:AdditionalDocumentReference>
-    <cbc:ID>${escXml(tedUrl)}</cbc:ID>
-    <cbc:DocumentTypeCode listID="DocRefContentType">TED_CN</cbc:DocumentTypeCode>
+    <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(tedUrl)}</cbc:ID>
+    <cbc:DocumentTypeCode listID="DocRefContentType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">TED_CN</cbc:DocumentTypeCode>
     <cac:Attachment>
       <cac:ExternalReference>
         <cbc:URI>${escXml(tedUrl)}</cbc:URI>
@@ -148,8 +155,8 @@ function generateRequestXml(model, answers, roleConfig) {
 `;
   } else if (nationalRef) {
     xml += `  <cac:AdditionalDocumentReference>
-    <cbc:ID>${escXml(nationalRef)}</cbc:ID>
-    <cbc:DocumentTypeCode listID="DocRefContentType">NATIONAL</cbc:DocumentTypeCode>
+    <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(nationalRef)}</cbc:ID>
+    <cbc:DocumentTypeCode listID="DocRefContentType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">NATIONAL</cbc:DocumentTypeCode>
   </cac:AdditionalDocumentReference>
 
 `;
@@ -171,13 +178,19 @@ function generateResponseXml(model, answers, roleConfig) {
   xmlns:cac="${CAC_NS}"
   xmlns:cbc="${CBC_NS}">
 
-  <cbc:UBLVersionID>2.4</cbc:UBLVersionID>
-  <cbc:CustomizationID>urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
-  <cbc:ProfileID>ESPD-EDMv5.0.0</cbc:ProfileID>
+  <cbc:UBLVersionID schemeAgencyID="OASIS-UBL-TC">2.4</cbc:UBLVersionID>
+  <cbc:CustomizationID schemeAgencyID="EU-COM-OP">urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
+  <cbc:ProfileID schemeAgencyID="EU-COM-OP">ESPD-EDMv5.0.0</cbc:ProfileID>
   <cbc:ID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:ID>
+  <cbc:UUID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:UUID>
   <cbc:IssueDate>${now}</cbc:IssueDate>
   <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>
-  <cbc:QualificationApplicationTypeCode listID="QualificationApplicationType">ESPD Response</cbc:QualificationApplicationTypeCode>
+  <cbc:QualificationApplicationTypeCode listID="QualificationApplicationType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">ESPD Response</cbc:QualificationApplicationTypeCode>
+
+  <!-- Procurement Project Lot (BR-LOT-10: mandatory, exactly one) -->
+  <cac:ProcurementProjectLot>
+    <cbc:ID schemeAgencyID="EU-COM-OP">LOT-0000</cbc:ID>
+  </cac:ProcurementProjectLot>
 
   <!-- Economic Operator -->
   <cac:EconomicOperatorParty>
@@ -193,7 +206,14 @@ function generateResponseXml(model, answers, roleConfig) {
     console.warn('Role missing xmlMapping, skipping RoleCode encoding');
   }
 
+  const eoId = answers['EO01_eo-info-general/QG1/Q2/R1/RV'] || answers['EO01_eo-info-general/QG1/Q3/R1/RV'] || generateUUID();
+  const eoSize = answers['EO01_eo-info-general/QG1/Q10/R1/RV'] || 'sme';
+
   xml += `    <cac:Party>
+      <cbc:IndustryClassificationCode listID="EconomicOperatorSize" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(eoSize)}</cbc:IndustryClassificationCode>
+      <cac:PartyIdentification>
+        <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(eoId)}</cbc:ID>
+      </cac:PartyIdentification>
       <cac:PartyName>
         <cbc:Name>${escXml(answers['EO01_eo-info-general/QG1/Q1/R1/RV'] || '')}</cbc:Name>
       </cac:PartyName>
@@ -202,7 +222,7 @@ function generateResponseXml(model, answers, roleConfig) {
         <cbc:CityName>${escXml(answers['EO01_eo-info-general/QG1/Q6/R1/RV'] || '')}</cbc:CityName>
         <cbc:PostalZone>${escXml(answers['EO01_eo-info-general/QG1/Q5/R1/RV'] || '')}</cbc:PostalZone>
         <cac:Country>
-          <cbc:IdentificationCode>${escXml(answers['EO01_eo-info-general/QG1/Q7/R1/RV'] || '')}</cbc:IdentificationCode>
+          <cbc:IdentificationCode listID="CountryCodeIdentifier" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(answers['EO01_eo-info-general/QG1/Q7/R1/RV'] || '')}</cbc:IdentificationCode>
         </cac:Country>
       </cac:PostalAddress>
       <cac:Contact>
@@ -263,11 +283,22 @@ function shouldEmitCriterion(section, roleId) {
  * Render a single criterion to XML.
  */
 function renderSingleCriterionXml(section, answers, mode) {
-  let xml = `  <cac:TenderingCriterion>
-    <cbc:ID schemeID="CriteriaTaxonomy">${escXml(section.uuid || section.tag)}</cbc:ID>
-    <cbc:Name>${escXml(section.name || section.description || '')}</cbc:Name>
-    <cbc:Description>${escXml(section.description || '')}</cbc:Description>
-`;
+  const criterionTypeCode = section.code || '';
+  const isSelectionCriterion = section.code && section.code.startsWith('slc-');
+  let xml = `  <cac:TenderingCriterion>\n`;
+  xml += `    <cbc:ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-OP">${escXml(section.uuid || section.tag)}</cbc:ID>\n`;
+  if (criterionTypeCode) {
+    xml += `    <cbc:CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(criterionTypeCode)}</cbc:CriterionTypeCode>\n`;
+  }
+  xml += `    <cbc:Name>${escXml(section.name || section.description || '')}</cbc:Name>\n`;
+  xml += `    <cbc:Description>${escXml(section.description || '')}</cbc:Description>\n`;
+
+  // Selection criteria require at least one ProcurementProjectLotReference (BR-LOT-41)
+  if (isSelectionCriterion) {
+    xml += `    <cac:ProcurementProjectLotReference>\n`;
+    xml += `      <cbc:ID schemeAgencyID="EU-COM-OP">LOT-0000</cbc:ID>\n`;
+    xml += `    </cac:ProcurementProjectLotReference>\n`;
+  }
 
   // Render property groups
   if (section.components) {
@@ -286,17 +317,21 @@ function renderPropertyGroupsXml(components, answers, mode, indent = '    ') {
 
   for (const comp of components) {
     if (comp.type === 'QUESTION_GROUP' || comp.type === 'REQUIREMENT_GROUP') {
-      xml += `${indent}<cac:TenderingCriterionPropertyGroup>
-${indent}  <cbc:ID>${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>
-`;
+      xml += `${indent}<cac:TenderingCriterionPropertyGroup>\n`;
+      xml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>\n`;
+      if (comp.code) {
+        xml += `${indent}  <cbc:PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(comp.code)}</cbc:PropertyGroupTypeCode>\n`;
+      }
       if (comp.components) {
         xml += renderPropertiesXml(comp.components, answers, mode, indent + '  ');
       }
       xml += `${indent}</cac:TenderingCriterionPropertyGroup>\n`;
     } else if (comp.type === 'QUESTION_SUBGROUP' || comp.type === 'REQUIREMENT_SUBGROUP') {
-      xml += `${indent}<cac:SubsidiaryTenderingCriterionPropertyGroup>
-${indent}  <cbc:ID>${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>
-`;
+      xml += `${indent}<cac:SubsidiaryTenderingCriterionPropertyGroup>\n`;
+      xml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>\n`;
+      if (comp.code) {
+        xml += `${indent}  <cbc:PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(comp.code)}</cbc:PropertyGroupTypeCode>\n`;
+      }
       if (comp.components) {
         xml += renderPropertiesXml(comp.components, answers, mode, indent + '  ');
       }
@@ -309,38 +344,57 @@ ${indent}  <cbc:ID>${escXml(comp.responsepath || comp.requestpath || '')}</cbc:I
 
 /**
  * Render properties (questions/requirements) as XML.
+ * Per XSD, TenderingCriterionProperty elements must appear before
+ * SubsidiaryTenderingCriterionPropertyGroup elements, and at least one
+ * TenderingCriterionProperty is required per group.
+ * Per Schematron BR-TC-18..21: ID, Description, TypeCode, ValueDataTypeCode are mandatory.
  */
 function renderPropertiesXml(components, answers, mode, indent) {
-  let xml = '';
+  let propertiesXml = '';
+  let groupsXml = '';
 
   for (const comp of components) {
     if (comp.type === 'QUESTION') {
-      xml += `${indent}<cac:TenderingCriterionProperty>
-${indent}  <cbc:ID>${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>
-${indent}  <cbc:Description>${escXml(comp.description || '')}</cbc:Description>
-`;
+      const valueDataType = comp.propertydatatype || 'DESCRIPTION';
+      propertiesXml += `${indent}<cac:TenderingCriterionProperty>\n`;
+      propertiesXml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>\n`;
+      propertiesXml += `${indent}  <cbc:Description>${escXml(comp.description || '')}</cbc:Description>\n`;
+      propertiesXml += `${indent}  <cbc:TypeCode listID="CriterionElementType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">QUESTION</cbc:TypeCode>\n`;
+      propertiesXml += `${indent}  <cbc:ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(valueDataType)}</cbc:ValueDataTypeCode>\n`;
 
       if (mode === 'response' && comp.contentpath) {
         const value = answers[comp.contentpath];
         if (value !== undefined && value !== null && value !== '') {
-          xml += renderResponseValueXml(comp.propertydatatype, value, indent + '  ');
+          propertiesXml += renderResponseValueXml(comp.propertydatatype, value, indent + '  ');
         }
       }
 
-      xml += `${indent}</cac:TenderingCriterionProperty>\n`;
+      propertiesXml += `${indent}</cac:TenderingCriterionProperty>\n`;
     } else if (comp.type === 'REQUIREMENT') {
-      xml += `${indent}<cac:TenderingCriterionProperty>
-${indent}  <cbc:ID>${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>
-${indent}  <cbc:Description>${escXml(comp.description || '')}</cbc:Description>
-${indent}  <cbc:TypeCode>REQUIREMENT</cbc:TypeCode>
-${indent}</cac:TenderingCriterionProperty>\n`;
+      const valueDataType = comp.propertydatatype || 'DESCRIPTION';
+      propertiesXml += `${indent}<cac:TenderingCriterionProperty>\n`;
+      propertiesXml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>\n`;
+      propertiesXml += `${indent}  <cbc:Description>${escXml(comp.description || '')}</cbc:Description>\n`;
+      propertiesXml += `${indent}  <cbc:TypeCode listID="CriterionElementType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">REQUIREMENT</cbc:TypeCode>\n`;
+      propertiesXml += `${indent}  <cbc:ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(valueDataType)}</cbc:ValueDataTypeCode>\n`;
+      propertiesXml += `${indent}</cac:TenderingCriterionProperty>\n`;
     } else if (comp.type === 'QUESTION_SUBGROUP' || comp.type === 'QUESTION_GROUP' ||
                comp.type === 'REQUIREMENT_GROUP' || comp.type === 'REQUIREMENT_SUBGROUP') {
-      xml += renderPropertyGroupsXml([comp], answers, mode, indent);
+      groupsXml += renderPropertyGroupsXml([comp], answers, mode, indent);
     }
   }
 
-  return xml;
+  // XSD requires at least one TenderingCriterionProperty per group
+  if (!propertiesXml && groupsXml) {
+    propertiesXml = `${indent}<cac:TenderingCriterionProperty>\n`;
+    propertiesXml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">placeholder</cbc:ID>\n`;
+    propertiesXml += `${indent}  <cbc:Description></cbc:Description>\n`;
+    propertiesXml += `${indent}  <cbc:TypeCode listID="CriterionElementType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">QUESTION</cbc:TypeCode>\n`;
+    propertiesXml += `${indent}  <cbc:ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">NONE</cbc:ValueDataTypeCode>\n`;
+    propertiesXml += `${indent}</cac:TenderingCriterionProperty>\n`;
+  }
+
+  return propertiesXml + groupsXml;
 }
 
 /**

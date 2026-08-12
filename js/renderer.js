@@ -9,6 +9,7 @@ import { getCodelist, CURRENCY_CODES } from './codelists.js';
 import { applyConditionalLogic } from './conditional.js';
 import { lookupNotice, deriveTedUrl, deriveTedLinks, extractNoticeNumberFromUrl } from './ted-lookup.js';
 import { getRoleById, isCriterionMandatory } from './model.js';
+import { features } from './features.js';
 
 /**
  * Render a full part into the form content area.
@@ -330,6 +331,9 @@ function enhancePartIWithLookup(container, role) {
     });
     return;
   }
+
+  // Skip TED lookup enhancement when feature is disabled (serverless mode)
+  if (!features.tedLookup) return;
 
   // Add "Look up" buttons to the TED notice number and TED URL fields
   const lookupFields = [

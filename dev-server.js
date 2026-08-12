@@ -78,6 +78,8 @@ async function proxyTedApi(req, res, url) {
   const tedPath = url.pathname.replace('/api/ted/', '/');
   const tedUrl = `${TED_API_BASE}${tedPath}${url.search}`;
 
+  console.log(`[TED API] ${req.method} ${tedUrl}`);
+
   try {
     // Collect request body
     let body = '';
@@ -137,6 +139,12 @@ async function proxyTedApi(req, res, url) {
       proxyReq.end();
     });
 
+    // Log non-OK responses from TED API
+    if (tedResp.status >= 400) {
+      console.error(`[TED API Error] ${req.method} ${tedUrl} → HTTP ${tedResp.status}`);
+      console.error(`[TED API Error] Response body: ${tedResp.body.substring(0, 500)}`);
+    }
+
     // Return with CORS headers
     res.writeHead(tedResp.status, {
       'Content-Type': tedResp.contentType,
@@ -147,7 +155,10 @@ async function proxyTedApi(req, res, url) {
     res.end(tedResp.body);
 
   } catch (err) {
-    console.error('TED proxy error:', err.message);
+    console.error(`[TED API Error] ${req.method} ${tedUrl} → Network error: ${err.message}`);
+    if (err.stack) {
+      console.error(`[TED API Error] Stack: ${err.stack}`);
+    }
     res.writeHead(502, {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'

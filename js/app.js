@@ -18,6 +18,7 @@ import { validateXml } from './itb-validation.js';
 import { renderHomePage } from './home.js';
 import { renderPathSelector } from './path-selector.js';
 import { renderWizardHeader, updateWizardHeader } from './wizard-header.js';
+import { features } from './features.js';
 
 let wizardParts = []; // Parts available for current role
 
@@ -340,7 +341,7 @@ function updateStepNav() {
   if (isLastStep) {
     btnNext.hidden = true;
     btnDownload.hidden = false;
-    btnValidate.hidden = false;
+    btnValidate.hidden = !features.itbValidation;
   } else {
     btnNext.hidden = false;
     btnDownload.hidden = true;

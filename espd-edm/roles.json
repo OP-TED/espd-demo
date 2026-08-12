@@ -9,8 +9,8 @@
         "visibleParts": ["I", "III", "IV", "V", "VI"],
         "editableParts": ["I", "III", "IV", "V"],
         "exclusionGroundRules": {
-          "criminal": "mandatory",
-          "payment": "mandatory",
+          "criminal": "optional",
+          "payment": "optional",
           "misconduct": "optional",
           "national": "optional"
         }

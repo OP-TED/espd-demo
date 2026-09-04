@@ -161,8 +161,8 @@ function renderCriterionChecklistItem(section, role, partKey) {
     card.appendChild(desc);
   }
 
-  // For Part IV: render REQUIREMENT fields when included
-  if (partKey === 'IV' && section.components) {
+  // Render REQUIREMENT fields when criterion is included (buyer-set thresholds)
+  if ((partKey === 'III' || partKey === 'IV') && section.components) {
     const reqContainer = document.createElement('div');
     reqContainer.className = 'criterion-requirements';
     reqContainer.hidden = !included;
@@ -183,7 +183,7 @@ function renderCriterionChecklistItem(section, role, partKey) {
     checkbox.addEventListener('change', () => {
       setInclusionState(section.tag, section.code, checkbox.checked);
 
-      // Toggle requirement visibility for Part IV
+      // Toggle requirement visibility
       const reqSection = card.querySelector('.criterion-requirements');
       if (reqSection) {
         reqSection.hidden = !checkbox.checked;

@@ -1,0 +1,103 @@
+{
+  "$comment": "EXPERIMENTAL — form-structure lens for Part I. This describes HOW the Part I instance data is presented and collected: section grouping, field ordering, UI control hints, labels (as i18n keys), which role fills each field, and conditional visibility. It references the instance-data model by dotted path (`dataPath`) and deliberately carries NO XML/serialization concerns and does NOT redeclare the data shape (that lives in instance-data/part-I.schema.json).",
+
+  "part": "I",
+  "titleKey": "part1.title",
+  "sections": [
+    {
+      "id": "publication",
+      "titleKey": "part1.publication.title",
+      "descriptionKey": "part1.publication.description",
+      "filledBy": "contractingAuthority",
+      "$comment": "PI01 — one-of identification. The tagged instance shape (publication.type) drives a single-choice control; each option reveals its own value field.",
+      "control": {
+        "uiType": "radio-input-group",
+        "choicePath": "partI.publication.type",
+        "valuePath": "partI.publication.value",
+        "options": [
+          {
+            "value": "tedNoticeNumber",
+            "labelKey": "part1.publication.tedNoticeNumber",
+            "valueControl": { "uiType": "text", "lookup": true }
+          },
+          {
+            "value": "tedNoticeUrl",
+            "labelKey": "part1.publication.tedNoticeUrl",
+            "valueControl": { "uiType": "url", "lookup": true }
+          },
+          {
+            "value": "nationalReference",
+            "labelKey": "part1.publication.nationalReference",
+            "valueControl": { "uiType": "text" }
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "contractingAuthority",
+      "titleKey": "part1.contractingAuthority.title",
+      "descriptionKey": "part1.contractingAuthority.description",
+      "filledBy": "contractingAuthority",
+      "$comment": "PI02 — identity of the procurer.",
+      "fields": [
+        {
+          "dataPath": "partI.contractingAuthority.officialName",
+          "labelKey": "part1.contractingAuthority.officialName",
+          "uiType": "text",
+          "required": true
+        },
+        {
+          "dataPath": "partI.contractingAuthority.country",
+          "labelKey": "part1.contractingAuthority.country",
+          "uiType": "select",
+          "codeList": "country",
+          "required": true
+        },
+        {
+          "dataPath": "partI.contractingAuthority.identifier.value",
+          "labelKey": "part1.contractingAuthority.identifier.value",
+          "uiType": "text",
+          "required": false
+        },
+        {
+          "dataPath": "partI.contractingAuthority.identifier.scheme",
+          "labelKey": "part1.contractingAuthority.identifier.scheme",
+          "uiType": "text",
+          "required": false,
+          "$comment": "Visible only once an identifier value is being entered.",
+          "visibleWhen": { "path": "partI.contractingAuthority.identifier.value", "isPresent": true }
+        }
+      ]
+    },
+
+    {
+      "id": "procedure",
+      "titleKey": "part1.procedure.title",
+      "descriptionKey": "part1.procedure.description",
+      "filledBy": "contractingAuthority",
+      "$comment": "PI03 — the procurement procedure itself.",
+      "fields": [
+        {
+          "dataPath": "partI.procedure.title",
+          "labelKey": "part1.procedure.title",
+          "uiType": "text",
+          "required": true
+        },
+        {
+          "dataPath": "partI.procedure.fileReference",
+          "labelKey": "part1.procedure.fileReference",
+          "uiType": "text",
+          "required": true
+        },
+        {
+          "dataPath": "partI.procedure.procedureType",
+          "labelKey": "part1.procedure.procedureType",
+          "uiType": "select",
+          "codeList": "procurement-procedure-type",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

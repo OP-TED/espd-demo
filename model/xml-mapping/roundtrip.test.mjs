@@ -18,7 +18,7 @@ function load(rel) {
 const spec = load('part-I.mapping.json');
 
 const cases = [
-  { name: 'tedNoticeNumber (default example)', instance: load('../part-I.example.json') },
+  { name: 'tedNoticeNumber (default example)', instance: load('../instance-data/part-I.example.json') },
   {
     name: 'tedNoticeUrl variant',
     instance: {

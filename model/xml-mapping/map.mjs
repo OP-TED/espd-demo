@@ -3,7 +3,7 @@
 // Dependency-free and environment-neutral: builds an intermediate tree of plain
 // objects, then serializes. The same tree builder could target the browser DOM.
 //
-// Usage: node map.mjs ../part-I.example.json part-I.mapping.json
+// Usage: node map.mjs ../instance-data/part-I.example.json part-I.mapping.json
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -117,7 +117,7 @@ function serialize(node, indent = '') {
 
 // --- run ------------------------------------------------------------------
 
-const instancePath = process.argv[2] || '../part-I.example.json';
+const instancePath = process.argv[2] || '../instance-data/part-I.example.json';
 const mappingPath = process.argv[3] || 'part-I.mapping.json';
 
 const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, instancePath), 'utf8'));

@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import Ajv from '../node_modules/ajv/dist/2020.js';
+import Ajv from '../../node_modules/ajv/dist/2020.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const part = process.argv[2] || 'part-I';

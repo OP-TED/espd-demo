@@ -28,40 +28,45 @@
   "$defs": {
     "publication": {
       "type": "object",
-      "description": "How the procurement procedure is identified (PI01). Exactly one identification method is provided, expressed as a tagged shape.",
-      "oneOf": [
-        {
-          "properties": {
-            "type": { "const": "tedNoticeNumber" },
-            "value": {
-              "type": "string",
-              "description": "The TED (Tenders Electronic Daily) notice number."
-            }
-          },
-          "required": ["type", "value"],
-          "additionalProperties": false
+      "description": "How the procurement procedure is identified (PI01). Modeled as a single typed publication reference, mirroring UBL cac:AdditionalDocumentReference. The `type` is a DocrefcontentType code stating where the notice was published (TED, national/regional journal, ...); `identifier` and optional `url` are two facets of that same reference — not alternatives.",
+      "properties": {
+        "reference": { "$ref": "#/$defs/publicationReference" }
+      },
+      "required": ["reference"],
+      "additionalProperties": false
+    },
+
+    "publicationReference": {
+      "type": "object",
+      "description": "A single publication reference to the notice that identifies the procedure. Maps to one UBL cac:AdditionalDocumentReference.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "DocrefcontentType code identifying where/what kind of document the notice is (e.g. TED_CN, NOJCN, ROJCN). Maps to cbc:DocumentTypeCode, which the ESPD Schematron BR-COM-10-03 makes mandatory.",
+          "enum": ["TED_CN", "NOJCN", "ROJCN"]
         },
-        {
-          "properties": {
-            "type": { "const": "tedNoticeUrl" },
-            "value": {
-              "type": "string",
-              "description": "The URL of the notice published on TED."
-            }
-          },
-          "required": ["type", "value"],
-          "additionalProperties": false
+        "identifier": {
+          "type": "string",
+          "description": "The notice identifier/number. Maps to cbc:ID."
         },
+        "url": {
+          "type": "string",
+          "description": "Optional URL locating the notice. Maps to cac:Attachment/cac:ExternalReference/cbc:URI."
+        }
+      },
+      "required": ["type", "identifier"],
+      "additionalProperties": false,
+      "allOf": [
         {
-          "properties": {
-            "type": { "const": "nationalReference" },
-            "value": {
-              "type": "string",
-              "description": "A national publication reference, used when the procedure was not published on TED."
-            }
+          "$comment": "ESPD Schematron BR-COM-10-01 (fatal): when the notice is a TED contract notice, the identifier must follow the Publications Office scheme YYYY/S NNN-NNNNNN.",
+          "if": {
+            "properties": { "type": { "const": "TED_CN" } }
           },
-          "required": ["type", "value"],
-          "additionalProperties": false
+          "then": {
+            "properties": {
+              "identifier": { "pattern": "^[0-9]{4}/S [0-9]{3}-[0-9]{6}$" }
+            }
+          }
         }
       ]
     },

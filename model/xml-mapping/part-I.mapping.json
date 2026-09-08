@@ -47,22 +47,24 @@
     },
 
     {
-      "$comment": "PI01 — publication is a tagged one-of; each variant maps to its own UBL slot, guarded by the tag. Exactly one fires, and the tag is restored on import.",
-      "from": "partI.publication.value",
-      "to": "cac:AdditionalDocumentReference/cbc:ID",
-      "attributes": { "schemeID": "TED-NOTICE-NUMBER" },
-      "when": { "path": "partI.publication.type", "equals": "tedNoticeNumber" }
+      "$comment": "PI01 — publication reference. A single typed reference maps to one cac:AdditionalDocumentReference. Notice identifier and URL are two facets of the same reference (they map together, not as alternatives).",
+      "from": "partI.publication.reference.identifier",
+      "to": "cac:AdditionalDocumentReference/cbc:ID"
     },
     {
-      "from": "partI.publication.value",
-      "to": "cac:ContractingParty/cac:Party/cbc:WebsiteURI",
-      "when": { "path": "partI.publication.type", "equals": "tedNoticeUrl" }
+      "$comment": "DocumentTypeCode is mandatory (Schematron BR-COM-10-03) and, as a code, requires listID/listAgencyID/listVersionID (BR-OTH-01).",
+      "from": "partI.publication.reference.type",
+      "to": "cac:AdditionalDocumentReference/cbc:DocumentTypeCode",
+      "attributes": {
+        "listID": "docrefcontent-type",
+        "listAgencyID": "OP",
+        "listVersionID": "20250319-0"
+      }
     },
     {
-      "from": "partI.publication.value",
-      "to": "cac:AdditionalDocumentReference/cbc:ID",
-      "attributes": { "schemeID": "NATIONAL-REFERENCE" },
-      "when": { "path": "partI.publication.type", "equals": "nationalReference" }
+      "$comment": "Optional notice URL, nested inside the same AdditionalDocumentReference.",
+      "from": "partI.publication.reference.url",
+      "to": "cac:AdditionalDocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI"
     }
   ]
 }

@@ -1,8 +1,11 @@
 {
   "partI": {
     "publication": {
-      "type": "tedNoticeNumber",
-      "value": "2024/S 123-456789"
+      "reference": {
+        "type": "TED_CN",
+        "identifier": "2024/S 123-456789",
+        "url": "https://ted.europa.eu/udl?uri=TED:NOTICE:456789-2024"
+      }
     },
     "contractingAuthority": {
       "officialName": "Ministerio de Hacienda",

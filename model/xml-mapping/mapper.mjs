@@ -158,8 +158,9 @@ export function map(spec, data) {
  * in the browser this would be replaced by DOMParser.
  */
 export function parseXml(xml) {
-  // strip declaration and comments
-  let s = xml.replace(/<\?xml[\s\S]*?\?>/g, '').replace(/<!--[\s\S]*?-->/g, '');
+  // strip a leading UTF-8/UTF-16 BOM (common when files are written by shells),
+  // then the XML declaration and comments
+  let s = xml.replace(/^\uFEFF/, '').replace(/<\?xml[\s\S]*?\?>/g, '').replace(/<!--[\s\S]*?-->/g, '');
   let pos = 0;
   const stack = [];
   let root = null;

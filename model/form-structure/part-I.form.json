@@ -9,29 +9,30 @@
       "titleKey": "part1.publication.title",
       "descriptionKey": "part1.publication.description",
       "filledBy": "contractingAuthority",
-      "$comment": "PI01 — one-of identification. The tagged instance shape (publication.type) drives a single-choice control; each option reveals its own value field.",
-      "control": {
-        "uiType": "radio-input-group",
-        "choicePath": "partI.publication.type",
-        "valuePath": "partI.publication.value",
-        "options": [
-          {
-            "value": "tedNoticeNumber",
-            "labelKey": "part1.publication.tedNoticeNumber",
-            "valueControl": { "uiType": "text", "lookup": true }
-          },
-          {
-            "value": "tedNoticeUrl",
-            "labelKey": "part1.publication.tedNoticeUrl",
-            "valueControl": { "uiType": "url", "lookup": true }
-          },
-          {
-            "value": "nationalReference",
-            "labelKey": "part1.publication.nationalReference",
-            "valueControl": { "uiType": "text" }
-          }
-        ]
-      }
+      "$comment": "PI01 — a single typed publication reference. The user picks where the notice was published (type), then supplies the notice number and, optionally, its URL. When type is TED_CN, the number/url support TED lookup.",
+      "fields": [
+        {
+          "dataPath": "partI.publication.reference.type",
+          "labelKey": "part1.publication.type",
+          "uiType": "select",
+          "codeList": "docrefcontent-type",
+          "required": true
+        },
+        {
+          "dataPath": "partI.publication.reference.identifier",
+          "labelKey": "part1.publication.identifier",
+          "uiType": "text",
+          "required": true,
+          "lookup": true
+        },
+        {
+          "dataPath": "partI.publication.reference.url",
+          "labelKey": "part1.publication.url",
+          "uiType": "url",
+          "required": false,
+          "lookup": true
+        }
+      ]
     },
 
     {

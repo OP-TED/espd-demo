@@ -18,12 +18,12 @@ function load(rel) {
 const spec = load('part-I.mapping.json');
 
 const cases = [
-  { name: 'tedNoticeNumber (default example)', instance: load('../instance-data/part-I.example.json') },
+  { name: 'TED_CN with number + url (default example)', instance: load('../instance-data/part-I.example.json') },
   {
-    name: 'tedNoticeUrl variant',
+    name: 'TED_CN without url (identifier only)',
     instance: {
       partI: {
-        publication: { type: 'tedNoticeUrl', value: 'https://ted.europa.eu/notice/456789-2024' },
+        publication: { reference: { type: 'TED_CN', identifier: '2024/S 200-654321' } },
         contractingAuthority: {
           officialName: 'Agence des Marchés',
           country: 'FR',
@@ -34,10 +34,10 @@ const cases = [
     }
   },
   {
-    name: 'nationalReference variant (shares element path with tedNoticeNumber, distinguished by schemeID)',
+    name: 'NOJCN national journal reference',
     instance: {
       partI: {
-        publication: { type: 'nationalReference', value: 'BOE-2024-99' },
+        publication: { reference: { type: 'NOJCN', identifier: 'BOE-2024-99', url: 'https://boe.es/notice/2024-99' } },
         contractingAuthority: {
           officialName: 'Ayuntamiento de Madrid',
           country: 'ES',

@@ -1,0 +1,56 @@
+{
+  "$comment": "EXPERIMENTAL — declarative mapping from the canonical Part I instance-data model to UBL QualificationApplicationRequest XML. This is data, not code: each rule connects a source path in the instance JSON to a target element path in the UBL tree. A small interpreter (map.mjs) walks these rules to build the XML. Kept deliberately separate from both the instance model and the form definition.",
+
+  "target": {
+    "root": "QualificationApplicationRequest",
+    "namespaces": {
+      "": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationRequest-2",
+      "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    }
+  },
+
+  "rules": [
+    {
+      "$comment": "PI03 — file reference number → ContractFolderID",
+      "from": "partI.procedure.fileReference",
+      "to": "cbc:ContractFolderID"
+    },
+    {
+      "$comment": "PI03 — procurement title → ContractName",
+      "from": "partI.procedure.title",
+      "to": "cbc:ContractName"
+    },
+    {
+      "$comment": "PI03 — procedure type (bare code) → ProcedureCode with listID",
+      "from": "partI.procedure.procedureType",
+      "to": "cbc:ProcedureCode",
+      "attributes": { "listID": "procurement-procedure-type" }
+    },
+
+    {
+      "$comment": "PI02 — contracting authority official name → ContractingParty/Party/PartyName/Name",
+      "from": "partI.contractingAuthority.officialName",
+      "to": "cac:ContractingParty/cac:Party/cac:PartyName/cbc:Name"
+    },
+    {
+      "$comment": "PI02 — contracting authority identifier value → PartyIdentification/ID, scheme → schemeID attribute",
+      "from": "partI.contractingAuthority.identifier.value",
+      "to": "cac:ContractingParty/cac:Party/cac:PartyIdentification/cbc:ID",
+      "attributes": { "schemeID": { "from": "partI.contractingAuthority.identifier.scheme" } }
+    },
+    {
+      "$comment": "PI02 — country (bare code) → PostalAddress/Country/IdentificationCode with listID",
+      "from": "partI.contractingAuthority.country",
+      "to": "cac:ContractingParty/cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode",
+      "attributes": { "listID": "country" }
+    },
+
+    {
+      "$comment": "PI01 — publication. Only emitted when the tagged type is tedNoticeUrl; mapped to the Party WebsiteURI slot.",
+      "from": "partI.publication.value",
+      "to": "cac:ContractingParty/cac:Party/cbc:WebsiteURI",
+      "when": { "path": "partI.publication.type", "equals": "tedNoticeUrl" }
+    }
+  ]
+}

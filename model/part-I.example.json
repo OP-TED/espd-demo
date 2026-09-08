@@ -1,0 +1,21 @@
+{
+  "partI": {
+    "publication": {
+      "type": "tedNoticeNumber",
+      "value": "2024/S 123-456789"
+    },
+    "contractingAuthority": {
+      "officialName": "Ministerio de Hacienda",
+      "country": "ES",
+      "identifier": {
+        "value": "ES-A12345678",
+        "scheme": "VAT"
+      }
+    },
+    "procedure": {
+      "title": "Supply of office equipment for regional offices",
+      "fileReference": "EXP-2024-0042",
+      "procedureType": "open"
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "$id": "part-I.schema.json",
+  "title": "ESPD Instance Data — Part I",
+  "description": "EXPERIMENTAL canonical instance-data model for Part I of the ESPD standard form: the actual data entered about the procurement procedure and the contracting authority. This models instance data only — it is deliberately independent of the form definition, UI, and XML serialization. Values that map to code lists are represented as bare codes for now.",
+  "type": "object",
+  "properties": {
+    "partI": {
+      "type": "object",
+      "description": "Information concerning the procurement procedure and the contracting authority or contracting entity.",
+      "properties": {
+        "publication": {
+          "$ref": "#/$defs/publication"
+        },
+        "contractingAuthority": {
+          "$ref": "#/$defs/contractingAuthority"
+        },
+        "procedure": {
+          "$ref": "#/$defs/procedure"
+        }
+      },
+      "required": ["publication", "contractingAuthority", "procedure"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["partI"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "publication": {
+      "type": "object",
+      "description": "How the procurement procedure is identified (PI01). Exactly one identification method is provided, expressed as a tagged shape.",
+      "oneOf": [
+        {
+          "properties": {
+            "type": { "const": "tedNoticeNumber" },
+            "value": {
+              "type": "string",
+              "description": "The TED (Tenders Electronic Daily) notice number."
+            }
+          },
+          "required": ["type", "value"],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "type": { "const": "tedNoticeUrl" },
+            "value": {
+              "type": "string",
+              "description": "The URL of the notice published on TED."
+            }
+          },
+          "required": ["type", "value"],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "type": { "const": "nationalReference" },
+            "value": {
+              "type": "string",
+              "description": "A national publication reference, used when the procedure was not published on TED."
+            }
+          },
+          "required": ["type", "value"],
+          "additionalProperties": false
+        }
+      ]
+    },
+
+    "contractingAuthority": {
+      "type": "object",
+      "description": "Identity of the procurer (PI02). Aligned to espd:ContractingAuthority / epo:Buyer.",
+      "properties": {
+        "officialName": {
+          "type": "string",
+          "description": "Official name of the contracting authority or contracting entity."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country of the contracting authority, as a bare country code."
+        },
+        "identifier": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "required": ["officialName", "country"],
+      "additionalProperties": false
+    },
+
+    "procedure": {
+      "type": "object",
+      "description": "The procurement procedure itself (PI03). Aligned to espd:Procedure / epo:Procedure.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title or short description of the procurement."
+        },
+        "fileReference": {
+          "type": "string",
+          "description": "The contracting authority's file reference number for the procedure."
+        },
+        "procedureType": {
+          "type": "string",
+          "description": "Type of procedure, as a bare code."
+        }
+      },
+      "required": ["title", "fileReference", "procedureType"],
+      "additionalProperties": false
+    },
+
+    "identifier": {
+      "type": "object",
+      "description": "A structured identifier carrying both the value and the scheme it belongs to.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The identifier value."
+        },
+        "scheme": {
+          "type": "string",
+          "description": "The identifier scheme (e.g. VAT, a national registration scheme)."
+        }
+      },
+      "required": ["value", "scheme"],
+      "additionalProperties": false
+    }
+  }
+}

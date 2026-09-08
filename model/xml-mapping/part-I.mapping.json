@@ -47,10 +47,22 @@
     },
 
     {
-      "$comment": "PI01 — publication. Only emitted when the tagged type is tedNoticeUrl; mapped to the Party WebsiteURI slot.",
+      "$comment": "PI01 — publication is a tagged one-of; each variant maps to its own UBL slot, guarded by the tag. Exactly one fires, and the tag is restored on import.",
+      "from": "partI.publication.value",
+      "to": "cac:AdditionalDocumentReference/cbc:ID",
+      "attributes": { "schemeID": "TED-NOTICE-NUMBER" },
+      "when": { "path": "partI.publication.type", "equals": "tedNoticeNumber" }
+    },
+    {
       "from": "partI.publication.value",
       "to": "cac:ContractingParty/cac:Party/cbc:WebsiteURI",
       "when": { "path": "partI.publication.type", "equals": "tedNoticeUrl" }
+    },
+    {
+      "from": "partI.publication.value",
+      "to": "cac:AdditionalDocumentReference/cbc:ID",
+      "attributes": { "schemeID": "NATIONAL-REFERENCE" },
+      "when": { "path": "partI.publication.type", "equals": "nationalReference" }
     }
   ]
 }

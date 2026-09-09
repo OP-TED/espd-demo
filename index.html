@@ -103,6 +103,9 @@
     </small>
   </footer>
 
+  <!-- Runtime config: sets window.__ESPD_SERVERLESS__ before the app boots.
+       Overwritten by the `build:pages` script for static deployments. -->
+  <script src="/js/runtime-config.js"></script>
   <script type="module" src="/js/app.js"></script>
 </body>
 </html>

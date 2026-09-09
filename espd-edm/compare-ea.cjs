@@ -13,7 +13,7 @@
  *
  * Sources:
  *   - EA output:  espd-tools/EAtoJSON/outputs/espd-edm.json
- *   - Sandbox:    espd-service-sandbox/espd-edm/parts/*.json
+ *   - Sandbox:    espd-edm-reference-implementation/espd-edm/parts/*.json
  */
 
 const fs = require('fs');

@@ -21,7 +21,9 @@ const namespaces = [
 export async function loadLanguage(lang = 'en') {
   currentLanguage = lang;
   const promises = namespaces.map(async (ns) => {
-    const url = `/i18n/i18n/${lang}/${ns}.json`;
+    // Relative (no leading slash) so it resolves against the page directory,
+    // working both at the domain root and under a subpath deployment.
+    const url = `i18n/i18n/${lang}/${ns}.json`;
     try {
       const resp = await fetch(url);
       if (resp.ok) {

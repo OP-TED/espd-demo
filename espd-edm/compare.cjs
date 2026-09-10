@@ -10,8 +10,8 @@
  *
  * Compares:
  *   - ESPD-EDM/criterion/espd-edm.json (source, flat array)
- *   - espd-service-sandbox/espd-edm/parts/part-III-exclusion.json (Part III)
- *   - espd-service-sandbox/espd-edm/parts/part-IV-selection.json (Part IV)
+ *   - espd-edm-reference-implementation/espd-edm/parts/part-III-exclusion.json (Part III)
+ *   - espd-edm-reference-implementation/espd-edm/parts/part-IV-selection.json (Part IV)
  */
 
 const fs = require('fs');

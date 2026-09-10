@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ESPD Service — European Single Procurement Document</title>
+  <!-- Resolve all relative URLs (assets + fetch()) against this document's
+       directory, so the app works both at the domain root (local dev) and
+       under a subpath (e.g. GitLab Pages project sites). Must come before
+       any other resource references in <head>. -->
+  <base href="./">
+  <title>ESPD-EDM Reference Implementation — European Single Procurement Document</title>
   <meta name="description" content="Create and manage European Single Procurement Documents (ESPD) for public procurement procedures.">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-  <link rel="stylesheet" href="/css/espd.css">
+  <link rel="stylesheet" href="css/espd.css">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -14,7 +19,7 @@
   <header class="container-fluid espd-header">
     <nav aria-label="Main navigation">
       <ul>
-        <li><strong>ESPD Service</strong></li>
+        <li><strong>ESPD-EDM Reference Implementation</strong></li>
       </ul>
       <ul>
         <li>
@@ -103,6 +108,9 @@
     </small>
   </footer>
 
-  <script type="module" src="/js/app.js"></script>
+  <!-- Runtime config: sets window.__ESPD_SERVERLESS__ before the app boots.
+       Overwritten by the `build:pages` script for static deployments. -->
+  <script src="js/runtime-config.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

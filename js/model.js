@@ -4,7 +4,9 @@
  * Loads role definitions from roles.json for form behavior configuration.
  */
 
-const MODEL_BASE = '/espd-edm';
+// Relative (no leading slash) so it works both at the domain root (local dev)
+// and under a subpath deployment (e.g. GitLab Pages project sites).
+const MODEL_BASE = 'espd-edm';
 
 let espdModel = null;
 let rolesData = null;

@@ -1,6 +1,6 @@
 /**
  * Compares the EAtoJSON output (new conceptual model export) against the
- * sandbox espd-edm model (structured part files).
+ * reference implementation espd-edm model (structured part files).
  *
  * Usage:
  *   node compare-ea.cjs [options]
@@ -13,7 +13,7 @@
  *
  * Sources:
  *   - EA output:  espd-tools/EAtoJSON/outputs/espd-edm.json
- *   - Sandbox:    espd-service-sandbox/espd-edm/parts/*.json
+ *   - reference implementation:    espd-edm-reference-implementation/espd-edm/parts/*.json
  */
 
 const fs = require('fs');
@@ -31,7 +31,7 @@ const workspaceRoot = path.resolve(__dirname, '..', '..');
 const eaFile = path.resolve(workspaceRoot, 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
 const partsDir = path.join(__dirname, 'parts');
 
-// --- Part mapping: EA uses "partI", sandbox uses "I" ---
+// --- Part mapping: EA uses "partI", reference implementation uses "I" ---
 const EA_PART_MAP = {
   partI: 'I',
   partII: 'II',
@@ -75,7 +75,7 @@ function flattenEA(eaParts) {
   return result;
 }
 
-// --- Load sandbox parts and flatten ---
+// --- Load reference implementation parts and flatten ---
 function loadSandboxParts(filter) {
   const result = new Map(); // tag -> { ...section, _sandboxPart }
   const partsToLoad = filter ? [filter] : Object.keys(PART_FILES);

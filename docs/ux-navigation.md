@@ -1,10 +1,10 @@
 # UX Decisions: Navigation & Session Management
 
-This document captures the user-experience decisions behind the ESPD Service sandbox's navigation, headers, and session handling. It exists so future contributors understand *why* the layout is structured the way it is, not just *how*.
+This document captures the user-experience decisions behind the ESPD-EDM Reference Implementation's navigation, headers, and session handling. It exists so future contributors understand *why* the layout is structured the way it is, not just *how*.
 
 ## Context
 
-The ESPD Service helps two kinds of users produce two different documents:
+The ESPD-EDM Reference Implementation helps two kinds of users produce two different documents:
 
 - **Buyers** (Contracting Authority, Contracting Entity) create an **ESPD Request**.
 - **Economic Operators** (Sole tenderer, Group leader, Group member, Other entity relied upon, Subcontractor) create an **ESPD Response**.
@@ -47,7 +47,7 @@ The form is a multi-step wizard across Parts I–VI, where the visible parts dep
 
 ### 6. Site header and wizard navigation are separate
 
-**Decision:** The site header ("ESPD Service" branding + language selector) is a distinct, always-visible component. It is **not** merged with the wizard navigation.
+**Decision:** The site header ("ESPD-EDM Reference Implementation" branding + language selector) is a distinct, always-visible component. It is **not** merged with the wizard navigation.
 
 **Why:** The site header is application-level chrome (branding, language). The wizard navigation is task-level context (which document, which role, which step). They are semantically different, so they are visually separate. The site header is kept compact to conserve vertical space.
 

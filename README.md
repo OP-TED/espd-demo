@@ -167,3 +167,25 @@ A decomposed version of this model is available in [`espd-edm/`](./espd-edm/) �
 
 Add the unit tests (`npm test`) and e2e tests (`npm run test:e2e`) as a gating
 stage in `.gitlab-ci.yml` that must pass before the `pages` deploy job runs.
+
+### TODO: move exclusion-ground mandatoriness into ESPD-EDM
+
+`espd-edm/roles.json` currently encodes, per buyer role, which Part III
+exclusion-ground categories are mandatory vs. optional
+(`formBehavior.exclusionGroundRules`). This reflects real legal distinctions —
+e.g. under Article 57(1)/(2) of Directive 2014/24/EU, criminal-conviction and
+tax/social-security-payment exclusion grounds are mandatory for a Contracting
+Authority, while Article 80(1) of Directive 2014/25/EU makes this conditional
+for a Contracting Entity.
+
+This is currently reference-implementation-only logic, disconnected from the
+authoritative ESPD-EDM data model (`espd-tools/EAtoJSON/outputs/espd-edm.json`
+and its downstream consumers), which has no concept of roles or
+mandatory/optional criteria at all — it's a flat, role-agnostic list of
+criteria. As a result this rule lives only in this app and had already
+silently regressed once (CA's `criminal`/`payment` were accidentally flattened
+to `optional` in a prior commit unrelated to this logic).
+
+The encoding of role-based mandatoriness should be moved upstream into
+ESPD-EDM itself, so it's defined once, authoritatively, and shared by all
+implementations rather than reinvented (and potentially drifting) in each.

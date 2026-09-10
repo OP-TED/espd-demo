@@ -1,4 +1,4 @@
-# GitLab CI/CD — build and deploy the ESPD Service as a static site to GitLab Pages.
+# GitLab CI/CD — build and deploy the ESPD-EDM Reference Implementation as a static site to GitLab Pages.
 #
 # The site is static-only (served from the Pages root). The two server-dependent
 # features (TED lookup, ITB validation) are disabled at build time by

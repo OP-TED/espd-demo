@@ -1,4 +1,4 @@
-# ESPD Service
+# ESPD-EDM Reference Implementation
 
 A European Single Procurement Document (ESPD) service implementation using plain HTML, CSS, and JavaScript.
 

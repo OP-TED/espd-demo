@@ -276,6 +276,6 @@ async function serveStatic(req, res, url) {
 }
 
 server.listen(PORT, () => {
-  console.log(`ESPD Service running at http://localhost:${PORT}`);
+  console.log(`ESPD-EDM Reference Implementation running at http://localhost:${PORT}`);
   console.log(`TED API proxy at http://localhost:${PORT}/api/ted/...`);
 });

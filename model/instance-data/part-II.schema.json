@@ -1,0 +1,166 @@
+{
+  "$id": "part-II.schema.json",
+  "title": "ESPD Instance Data — Part II",
+  "description": "EXPERIMENTAL canonical instance-data model for Part II of the ESPD standard form: information concerning the economic operator. Covers EO01 (general information), EO05 (lots tendered for — a repeating scalar), and EO06 (representatives — a repeating object).",
+  "type": "object",
+  "properties": {
+    "partII": {
+      "type": "object",
+      "description": "Information concerning the economic operator.",
+      "properties": {
+        "economicOperator": { "$ref": "#/$defs/economicOperator" },
+        "lots": {
+          "type": "array",
+          "description": "Lot(s) the economic operator wishes to tender for (EO05/QG1/Q1), if the procedure is divided into lots. Maps to a repeating cac:ProcurementProjectLot element, one per array entry. Absent or empty when the economic operator tenders for the whole procedure (not divided into lots).",
+          "items": {
+            "type": "string",
+            "description": "The identifier of a lot referenced in Part I / the procurement documents."
+          }
+        },
+        "representatives": {
+          "type": "array",
+          "description": "Representatives of the economic operator (EO06). Maps to repeating cac:Person elements under cac:EconomicOperatorParty/cac:Party. At least one representative is expected (EO06/QG1 has cardinality 1..n).",
+          "items": { "$ref": "#/$defs/representative" }
+        }
+      },
+      "required": ["economicOperator"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["partII"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "economicOperator": {
+      "type": "object",
+      "description": "General information about the economic operator (EO01). Aligned to espd:EconomicOperator / epo:EconomicOperator.",
+      "properties": {
+        "officialName": {
+          "type": "string",
+          "description": "Name of the economic operator (EO01/Q1)."
+        },
+        "identifier": {
+          "$ref": "#/$defs/identifier"
+        },
+        "address": {
+          "$ref": "#/$defs/address"
+        },
+        "contact": {
+          "$ref": "#/$defs/contact"
+        }
+      },
+      "required": ["officialName", "address"],
+      "additionalProperties": false
+    },
+
+    "identifier": {
+      "type": "object",
+      "description": "Registration identifier of the economic operator (EO01/Q2 VAT registration number, or Q3 as a fallback when no VAT number applies). The two form questions are alternatives for the same underlying registration identifier, so they are modeled as a single structured value rather than two separate fields.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The identifier value."
+        },
+        "scheme": {
+          "type": "string",
+          "description": "EOIDType code identifying the kind of identifier (e.g. VAT, NATIONAL, LEI, BRIS, DUNS).",
+          "enum": ["VAT", "NATIONAL", "LEI", "BRIS", "DUNS"]
+        }
+      },
+      "required": ["value", "scheme"],
+      "additionalProperties": false
+    },
+
+    "address": {
+      "type": "object",
+      "description": "Postal address of the economic operator (EO01/Q4–Q7).",
+      "properties": {
+        "street": {
+          "type": "string",
+          "description": "Street and number (EO01/Q4)."
+        },
+        "postCode": {
+          "type": "string",
+          "description": "Post code (EO01/Q5)."
+        },
+        "city": {
+          "type": "string",
+          "description": "City (EO01/Q6)."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country of the economic operator, as a bare country code (EO01/Q7)."
+        }
+      },
+      "required": ["street", "postCode", "city", "country"],
+      "additionalProperties": false
+    },
+
+    "contact": {
+      "type": "object",
+      "description": "Ways to reach the economic operator (EO01/Q8–Q10). This groups telephone, e-mail and website together as a data-modeling choice; they do not necessarily share a single location in the UBL XML — that is a mapping concern, not a data-model concern.",
+      "properties": {
+        "telephone": {
+          "type": "string",
+          "description": "Contact telephone number (EO01/Q8)."
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact e-mail address (EO01/Q9)."
+        },
+        "website": {
+          "type": "string",
+          "description": "Internet address (web address) of the economic operator (EO01/Q10)."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "representative": {
+      "type": "object",
+      "description": "A representative of the economic operator (EO06). Maps to one cac:Person under cac:EconomicOperatorParty/cac:Party. Note: EO06/Q11 ('detailed information on representation — its forms, extent, purpose') has no corresponding field in UBL's PersonType and is deliberately not modeled here; there is no natural XML target for it yet.",
+      "properties": {
+        "givenName": {
+          "type": "string",
+          "description": "Given (first) name of the representative. The form (EO06/Q1) asks for the full name as a single question, but UBL's cac:Person splits it into cbc:FirstName and cbc:FamilyName, so the instance model follows the UBL split rather than the form's single field."
+        },
+        "familyName": {
+          "type": "string",
+          "description": "Family (last) name of the representative. See note on givenName."
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "description": "Date of birth of the representative (EO06/Q2)."
+        },
+        "placeOfBirth": {
+          "type": "string",
+          "description": "Place of birth of the representative (EO06/Q3)."
+        },
+        "residenceAddress": {
+          "$ref": "#/$defs/address"
+        },
+        "contact": {
+          "type": "object",
+          "description": "Ways to reach the representative (EO06/Q8-Q9).",
+          "properties": {
+            "telephone": {
+              "type": "string",
+              "description": "Telephone of the representative (EO06/Q8)."
+            },
+            "email": {
+              "type": "string",
+              "description": "E-mail of the representative (EO06/Q9)."
+            }
+          },
+          "additionalProperties": false
+        },
+        "position": {
+          "type": "string",
+          "description": "Position held / capacity in which the representative is acting (EO06/Q10)."
+        }
+      },
+      "required": ["givenName", "familyName", "residenceAddress", "position"],
+      "additionalProperties": false
+    }
+  }
+}

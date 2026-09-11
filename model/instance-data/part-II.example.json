@@ -1,0 +1,53 @@
+{
+  "partII": {
+    "economicOperator": {
+      "officialName": "GreenOffice Supplies NV",
+      "identifier": {
+        "value": "BE0123456789",
+        "scheme": "VAT"
+      },
+      "address": {
+        "street": "Industrieweg 42",
+        "postCode": "2000",
+        "city": "Antwerp",
+        "country": "BE"
+      },
+      "contact": {
+        "telephone": "+32 3 234 56 78",
+        "email": "tenders@greenoffice-supplies.eu",
+        "website": "https://www.greenoffice-supplies.eu"
+      }
+    },
+    "lots": ["LOT-SC-001", "LOT-SC-002"],
+    "representatives": [
+      {
+        "givenName": "Jan",
+        "familyName": "Van Acker",
+        "dateOfBirth": "1975-03-12",
+        "placeOfBirth": "Antwerp",
+        "residenceAddress": {
+          "street": "Lange Nieuwstraat 10",
+          "postCode": "2000",
+          "city": "Antwerp",
+          "country": "BE"
+        },
+        "contact": {
+          "telephone": "+32 3 234 56 78",
+          "email": "jan.vanacker@greenoffice-supplies.eu"
+        },
+        "position": "Managing Director"
+      },
+      {
+        "givenName": "Sofie",
+        "familyName": "Peeters",
+        "residenceAddress": {
+          "street": "Meirstraat 3",
+          "postCode": "2018",
+          "city": "Antwerp",
+          "country": "BE"
+        },
+        "position": "Sales Director, procurement matters"
+      }
+    ]
+  }
+}

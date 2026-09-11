@@ -34,9 +34,9 @@ export function setPath(target, dottedPath, value) {
   current[keys[keys.length - 1]] = value;
 }
 
-/** A rule is "real" (not just a comment placeholder) if it has from + to. */
+/** A rule is "real" (not just a comment placeholder) if it has from/forEach + to. */
 function isRealRule(rule) {
-  return rule && rule.from && rule.to;
+  return rule && rule.to && (rule.from || rule.forEach);
 }
 
 // =========================================================================
@@ -72,6 +72,35 @@ function findPath(root, segments) {
   return current;
 }
 
+/**
+ * Append a brand-new sibling node at `segments`, WITHOUT reusing an existing
+ * same-named node for the final segment (unlike ensurePath). Intermediate
+ * segments still reuse/create via ensurePath. Used for repeatable elements,
+ * where each occurrence must be a distinct node rather than merged into one.
+ */
+function appendPath(root, segments) {
+  const containerSegments = segments.slice(0, -1);
+  const repeatingName = segments[segments.length - 1];
+  const container = containerSegments.length ? ensurePath(root, containerSegments) : root;
+  const node = makeNode(repeatingName);
+  container.children.push(node);
+  return node;
+}
+
+/**
+ * Find ALL sibling nodes matching `segments` (not just the first), for the
+ * final segment only. Intermediate segments are navigated as a single path
+ * (reused container), matching how appendPath builds repeated elements under
+ * one shared container.
+ */
+function findAllPaths(root, segments) {
+  const containerSegments = segments.slice(0, -1);
+  const repeatingName = segments[segments.length - 1];
+  const container = containerSegments.length ? findPath(root, containerSegments) : root;
+  if (!container) return [];
+  return container.children.filter(c => c.name === repeatingName);
+}
+
 function namespaceAttributes(namespaces) {
   const attrs = {};
   for (const [prefix, uri] of Object.entries(namespaces || {})) {
@@ -84,16 +113,42 @@ function namespaceAttributes(namespaces) {
 // EXPORT: instance JSON --> intermediate tree --> XML string
 // =========================================================================
 
-function guardPasses(rule, data) {
+function guardPasses(rule, context) {
   if (!rule.when) return true;
-  return resolve(data, rule.when.path) === rule.when.equals;
+  return resolve(context, rule.when.path) === rule.when.equals;
 }
 
-function resolveAttr(attrValue, data) {
+function resolveAttr(attrValue, context) {
   if (attrValue && typeof attrValue === 'object' && 'from' in attrValue) {
-    return resolve(data, attrValue.from);
+    return resolve(context, attrValue.from);
   }
   return attrValue;
+}
+
+/**
+ * Apply one {from, to, attributes?, when?} rule under `container`, resolving
+ * paths against `context`. This is the single-value export step, and it is
+ * intentionally context-agnostic: `context` is the full instance data for a
+ * top-level rule, or one array entry for a field nested inside a `forEach`
+ * item — the rule shape and logic are identical either way.
+ */
+function applyValueRule(container, rule, context) {
+  if (!guardPasses(rule, context)) return;
+
+  const value = resolve(context, rule.from);
+  if (value === undefined || value === null || value === '') return;
+
+  const leaf = ensurePath(container, rule.to.split('/'));
+  leaf.text = String(value);
+
+  if (rule.attributes) {
+    for (const [attrName, attrValue] of Object.entries(rule.attributes)) {
+      const resolved = resolveAttr(attrValue, context);
+      if (resolved !== undefined && resolved !== null) {
+        leaf.attributes[attrName] = String(resolved);
+      }
+    }
+  }
 }
 
 export function buildTree(spec, data) {
@@ -102,24 +157,45 @@ export function buildTree(spec, data) {
 
   for (const rule of spec.rules) {
     if (!isRealRule(rule)) continue;
-    if (!guardPasses(rule, data)) continue;
 
-    const value = resolve(data, rule.from);
-    if (value === undefined || value === null || value === '') continue;
-
-    const leaf = ensurePath(root, rule.to.split('/'));
-    leaf.text = String(value);
-
-    if (rule.attributes) {
-      for (const [attrName, attrValue] of Object.entries(rule.attributes)) {
-        const resolved = resolveAttr(attrValue, data);
-        if (resolved !== undefined && resolved !== null) {
-          leaf.attributes[attrName] = String(resolved);
-        }
-      }
+    if (rule.forEach) {
+      buildForEach(root, rule, data);
+      continue;
     }
+
+    applyValueRule(root, rule, data);
   }
   return root;
+}
+
+/**
+ * Handle a `forEach` rule: resolve the array at `rule.forEach`, and emit one
+ * repeated element named `rule.to` per array entry. Three shapes for an item:
+ *   - `item.fields`: array of objects — each field rule is applied under the
+ *     new instance, resolved against that one array entry (e.g. representatives).
+ *   - `item.path`: repeating scalar with a fixed wrapper child (e.g. lots).
+ *   - neither: repeating scalar, value goes directly on the instance's text.
+ */
+function buildForEach(root, rule, data) {
+  const items = resolve(data, rule.forEach);
+  if (!Array.isArray(items) || items.length === 0) return;
+
+  const segments = rule.to.split('/');
+  for (const item of items) {
+    const instance = appendPath(root, segments);
+
+    if (rule.item?.fields) {
+      for (const field of rule.item.fields) {
+        if (!field.from || !field.to) continue;
+        applyValueRule(instance, field, item);
+      }
+    } else if (rule.item?.path) {
+      const child = ensurePath(instance, rule.item.path.split('/'));
+      child.text = String(item);
+    } else {
+      instance.text = String(item);
+    }
+  }
 }
 
 function escapeXml(s) {
@@ -219,6 +295,70 @@ function constantAttributesMatch(ruleAttributes, elementAttributes) {
   return true;
 }
 
+/**
+ * Reverse of applyValueRule: read one {from, to, attributes?, when?} rule
+ * out of `container` (an XML tree node), writing the result into `context`
+ * at `rule.from`. Like applyValueRule, `context` is either the full instance
+ * data (top-level rule) or one array entry under construction (a `forEach`
+ * item field) — same logic either way.
+ */
+function applyValueRuleReverse(container, rule, context) {
+  const leaf = findPath(container, rule.to.split('/'));
+  if (!leaf || leaf.text === undefined) return;
+
+  // Constant attributes act as discriminators: when several rules target the
+  // same element path, a constant attribute (e.g. schemeID) tells them apart.
+  if (rule.attributes && !constantAttributesMatch(rule.attributes, leaf.attributes)) return;
+
+  setPath(context, rule.from, leaf.text);
+
+  // Reverse the `when` discriminator: if this rule fired, its guard condition
+  // must have held, so restore the tag on import.
+  if (rule.when) {
+    setPath(context, rule.when.path, rule.when.equals);
+  }
+
+  // Reverse attributes that were sourced from instance data.
+  if (rule.attributes) {
+    for (const [attrName, attrValue] of Object.entries(rule.attributes)) {
+      if (attrValue && typeof attrValue === 'object' && 'from' in attrValue) {
+        const attr = leaf.attributes[attrName];
+        if (attr !== undefined) setPath(context, attrValue.from, attr);
+      }
+    }
+  }
+}
+
+/**
+ * Handle a `forEach` rule on import: find ALL repeated elements named
+ * `rule.to` and reconstruct the array at `rule.forEach`. Mirrors buildForEach:
+ * `item.fields` reconstructs one object per repeated element; `item.path`
+ * reads a fixed wrapper child; otherwise the instance's own text is the value.
+ */
+function unmapForEach(root, rule, data) {
+  const instances = findAllPaths(root, rule.to.split('/'));
+  if (instances.length === 0) return;
+
+  let items;
+  if (rule.item?.fields) {
+    items = instances.map(instance => {
+      const entry = {};
+      for (const field of rule.item.fields) {
+        if (!field.from || !field.to) continue;
+        applyValueRuleReverse(instance, field, entry);
+      }
+      return entry;
+    });
+  } else if (rule.item?.path) {
+    items = instances.map(instance => findPath(instance, rule.item.path.split('/'))?.text)
+      .filter(v => v !== undefined);
+  } else {
+    items = instances.map(instance => instance.text).filter(v => v !== undefined);
+  }
+
+  setPath(data, rule.forEach, items);
+}
+
 /** Full import: XML string -> instance data, driven by the SAME spec. */
 export function unmap(spec, xml) {
   const root = parseXml(xml);
@@ -227,34 +367,12 @@ export function unmap(spec, xml) {
   for (const rule of spec.rules) {
     if (!isRealRule(rule)) continue;
 
-    const leaf = findPath(root, rule.to.split('/'));
-    if (!leaf || leaf.text === undefined) continue;
-
-    // Constant attributes act as discriminators: when several rules target the
-    // same element path, a constant attribute (e.g. schemeID) tells them apart.
-    // Skip this rule if its constant attributes don't match the XML element.
-    if (rule.attributes && !constantAttributesMatch(rule.attributes, leaf.attributes)) {
+    if (rule.forEach) {
+      unmapForEach(root, rule, data);
       continue;
     }
 
-    // Reconstruct the instance value from the element text.
-    setPath(data, rule.from, leaf.text);
-
-    // Reverse the `when` discriminator: if this rule fired, its guard condition
-    // must have held, so restore the tag on import.
-    if (rule.when) {
-      setPath(data, rule.when.path, rule.when.equals);
-    }
-
-    // Reverse attributes that were sourced from instance data.
-    if (rule.attributes) {
-      for (const [attrName, attrValue] of Object.entries(rule.attributes)) {
-        if (attrValue && typeof attrValue === 'object' && 'from' in attrValue) {
-          const attr = leaf.attributes[attrName];
-          if (attr !== undefined) setPath(data, attrValue.from, attr);
-        }
-      }
-    }
+    applyValueRuleReverse(root, rule, data);
   }
   return data;
 }

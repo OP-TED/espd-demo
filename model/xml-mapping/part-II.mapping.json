@@ -1,0 +1,92 @@
+{
+  "$comment": "EXPERIMENTAL — declarative mapping from the canonical Part II instance-data model to UBL QualificationApplicationResponse XML. First increment: EO01 (general economic operator info) and EO05 (lots — a repeating scalar, the first use of the forEach rule).",
+
+  "target": {
+    "root": "QualificationApplicationResponse",
+    "namespaces": {
+      "": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2",
+      "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    }
+  },
+
+  "rules": [
+    {
+      "$comment": "EO01/Q1 — official name of the economic operator.",
+      "from": "partII.economicOperator.officialName",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PartyName/cbc:Name"
+    },
+    {
+      "$comment": "EO01/Q2-Q3 — registration identifier value and scheme (VAT/NATIONAL/LEI/BRIS/DUNS).",
+      "from": "partII.economicOperator.identifier.value",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PartyIdentification/cbc:ID",
+      "attributes": { "schemeAgencyID": { "from": "partII.economicOperator.identifier.scheme" } }
+    },
+    {
+      "$comment": "EO01/Q4 — street and number.",
+      "from": "partII.economicOperator.address.street",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PostalAddress/cbc:StreetName"
+    },
+    {
+      "$comment": "EO01/Q5 — post code.",
+      "from": "partII.economicOperator.address.postCode",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PostalAddress/cbc:PostalZone"
+    },
+    {
+      "$comment": "EO01/Q6 — city.",
+      "from": "partII.economicOperator.address.city",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PostalAddress/cbc:CityName"
+    },
+    {
+      "$comment": "EO01/Q7 — country (bare code) → IdentificationCode with listID.",
+      "from": "partII.economicOperator.address.country",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode",
+      "attributes": { "listID": "country" }
+    },
+    {
+      "$comment": "EO01/Q8 — contact telephone, under cac:Contact (not cac:Party directly).",
+      "from": "partII.economicOperator.contact.telephone",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:Contact/cbc:Telephone"
+    },
+    {
+      "$comment": "EO01/Q9 — contact e-mail, under cac:Contact.",
+      "from": "partII.economicOperator.contact.email",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:Contact/cbc:ElectronicMail"
+    },
+    {
+      "$comment": "EO01/Q10 — website, a direct child of cac:Party (NOT under cac:Contact) per the real UBL examples.",
+      "from": "partII.economicOperator.contact.website",
+      "to": "cac:EconomicOperatorParty/cac:Party/cbc:WebsiteURI"
+    },
+    {
+      "$comment": "EO05 — lot(s) tendered for. Repeating scalar: one cac:ProcurementProjectLot per array entry, sibling to EconomicOperatorParty at the document root. `to` names the repeating element itself; `item.path` is the fixed child, relative to each repeated instance, that holds the scalar's text.",
+      "forEach": "partII.lots",
+      "to": "cac:ProcurementProjectLot",
+      "item": { "path": "cbc:ID" }
+    },
+    {
+      "$comment": "EO06 — representatives. Repeating object: one cac:Person per array entry, under cac:EconomicOperatorParty/cac:Party. `item.fields` is a nested rule set, each resolved against one array entry (a single representative) rather than the whole instance data — this is the array-of-objects case, as opposed to EO05's array-of-scalars case above.",
+      "forEach": "partII.representatives",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:Person",
+      "item": {
+        "fields": [
+          { "from": "givenName", "to": "cbc:FirstName" },
+          { "from": "familyName", "to": "cbc:FamilyName" },
+          { "from": "dateOfBirth", "to": "cbc:BirthDate" },
+          { "from": "placeOfBirth", "to": "cbc:BirthplaceName" },
+          { "from": "position", "to": "cbc:JobTitle" },
+          { "from": "residenceAddress.street", "to": "cac:ResidenceAddress/cbc:StreetName" },
+          { "from": "residenceAddress.postCode", "to": "cac:ResidenceAddress/cbc:PostalZone" },
+          { "from": "residenceAddress.city", "to": "cac:ResidenceAddress/cbc:CityName" },
+          {
+            "from": "residenceAddress.country",
+            "to": "cac:ResidenceAddress/cac:Country/cbc:IdentificationCode",
+            "attributes": { "listID": "country" }
+          },
+          { "from": "contact.telephone", "to": "cac:Contact/cbc:Telephone" },
+          { "from": "contact.email", "to": "cac:Contact/cbc:ElectronicMail" }
+        ]
+      }
+    }
+  ]
+}

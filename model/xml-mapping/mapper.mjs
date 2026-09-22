@@ -22,21 +22,34 @@ export function resolve(data, dottedPath) {
   return dottedPath.split('.').reduce((acc, key) => (acc == null ? undefined : acc[key]), data);
 }
 
-/** Set a value at a dotted path, creating intermediate objects as needed. */
+/**
+ * Set a value at a dotted path, creating intermediate containers as needed.
+ * A numeric segment (e.g. the `0` in `convictions.0.reason`) creates/uses an
+ * ARRAY at the parent, so array-indexed paths reconstruct real arrays rather
+ * than objects with numeric string keys.
+ */
 export function setPath(target, dottedPath, value) {
   const keys = dottedPath.split('.');
+  const isIndex = (k) => /^\d+$/.test(k);
   let current = target;
   for (let i = 0; i < keys.length - 1; i++) {
     const key = keys[i];
-    if (current[key] == null || typeof current[key] !== 'object') current[key] = {};
+    const nextIsIndex = isIndex(keys[i + 1]);
+    if (current[key] == null || typeof current[key] !== 'object') {
+      current[key] = nextIsIndex ? [] : {};
+    }
     current = current[key];
   }
   current[keys[keys.length - 1]] = value;
 }
 
-/** A rule is "real" (not just a comment placeholder) if it has from/forEach + to. */
+/** A rule is "real" (not just a comment placeholder) if it can emit output. */
 function isRealRule(rule) {
-  return rule && rule.to && (rule.from || rule.forEach);
+  if (!rule) return false;
+  if (rule.responses) return true;                       // flat criterion responses
+  if (rule.to && (rule.from || rule.forEach)) return true; // value / forEach rule
+  if (rule.to && rule.const !== undefined) return true;    // constant value rule
+  return false;
 }
 
 // =========================================================================
@@ -135,11 +148,15 @@ function resolveAttr(attrValue, context) {
 function applyValueRule(container, rule, context) {
   if (!guardPasses(rule, context)) return;
 
-  const value = resolve(context, rule.from);
-  if (value === undefined || value === null || value === '') return;
+  // A `const` rule emits a fixed value (criterion metadata such as the type
+  // code or name) that is not sourced from instance data. When a rule has both
+  // `const` and `from`, the `from` value wins if present, else the const.
+  const value = rule.from !== undefined ? resolve(context, rule.from) : undefined;
+  const effective = value !== undefined && value !== null && value !== '' ? value : rule.const;
+  if (effective === undefined || effective === null || effective === '') return;
 
   const leaf = ensurePath(container, rule.to.split('/'));
-  leaf.text = String(value);
+  leaf.text = String(effective);
 
   if (rule.attributes) {
     for (const [attrName, attrValue] of Object.entries(rule.attributes)) {
@@ -158,6 +175,11 @@ export function buildTree(spec, data) {
   for (const rule of spec.rules) {
     if (!isRealRule(rule)) continue;
 
+    if (rule.responses) {
+      buildResponses(root, rule, data);
+      continue;
+    }
+
     if (rule.forEach) {
       buildForEach(root, rule, data);
       continue;
@@ -166,6 +188,70 @@ export function buildTree(spec, data) {
     applyValueRule(root, rule, data);
   }
   return root;
+}
+
+/**
+ * Coerce an instance value to its XML text form for a given response `type`.
+ * Only booleans need special handling (String(true) === "true", which is the
+ * correct UBL indicator text — the coercion matters on the IMPORT side).
+ */
+function responseValueToText(value) {
+  return String(value);
+}
+function responseTextToValue(text, type) {
+  if (type === 'boolean') return text === 'true';
+  return text;
+}
+
+/**
+ * Handle a `responses` rule: emit one flat cac:TenderingCriterionResponse per
+ * listed response whose instance value is present. Each response is:
+ *   <cac:TenderingCriterionResponse>
+ *     <cac:ValidatedCriterionPropertyID>
+ *       <cbc:ID schemeID="property-path">{propertyKey}</cbc:ID>   <-- discriminator
+ *     </cac:ValidatedCriterionPropertyID>
+ *     <cac:ResponseValue>
+ *       <{valueElement}>{typed value}</{valueElement}>
+ *     </cac:ResponseValue>
+ *   </cac:TenderingCriterionResponse>
+ * The propertyKey on cbc:ID is what lets import route each response back to the
+ * right instance path (see $notes.propertyIds in the spec).
+ */
+function buildResponses(root, rule, data) {
+  for (const resp of rule.responses) {
+    const value = resolve(data, resp.from);
+    if (value === undefined || value === null || value === '') continue;
+
+    const node = appendPath(root, ['cac:TenderingCriterionResponse']);
+    const idLeaf = ensurePath(node, ['cac:ValidatedCriterionPropertyID', 'cbc:ID']);
+    idLeaf.text = resp.propertyKey;
+    idLeaf.attributes.schemeID = 'property-path';
+
+    const valueLeaf = ensurePath(node, ['cac:ResponseValue', resp.valueElement]);
+    valueLeaf.text = responseValueToText(value);
+  }
+}
+
+/** Reverse of buildResponses: read the flat response list back into instance data. */
+function unmapResponses(root, rule, data) {
+  const nodes = findAllPaths(root, ['cac:TenderingCriterionResponse']);
+  if (nodes.length === 0) return;
+
+  // Index responses by their property key discriminator.
+  const byKey = new Map();
+  for (const node of nodes) {
+    const idLeaf = findPath(node, ['cac:ValidatedCriterionPropertyID', 'cbc:ID']);
+    if (!idLeaf || idLeaf.text === undefined) continue;
+    byKey.set(idLeaf.text, node);
+  }
+
+  for (const resp of rule.responses) {
+    const node = byKey.get(resp.propertyKey);
+    if (!node) continue;
+    const valueLeaf = findPath(node, ['cac:ResponseValue', resp.valueElement]);
+    if (!valueLeaf || valueLeaf.text === undefined) continue;
+    setPath(data, resp.from, responseTextToValue(valueLeaf.text, resp.type));
+  }
 }
 
 /**
@@ -310,6 +396,10 @@ function applyValueRuleReverse(container, rule, context) {
   // same element path, a constant attribute (e.g. schemeID) tells them apart.
   if (rule.attributes && !constantAttributesMatch(rule.attributes, leaf.attributes)) return;
 
+  // A pure `const` rule (no `from`) is fixed metadata with no instance-data
+  // home, so nothing is written back on import.
+  if (rule.from === undefined) return;
+
   setPath(context, rule.from, leaf.text);
 
   // Reverse the `when` discriminator: if this rule fired, its guard condition
@@ -366,6 +456,11 @@ export function unmap(spec, xml) {
 
   for (const rule of spec.rules) {
     if (!isRealRule(rule)) continue;
+
+    if (rule.responses) {
+      unmapResponses(root, rule, data);
+      continue;
+    }
 
     if (rule.forEach) {
       unmapForEach(root, rule, data);

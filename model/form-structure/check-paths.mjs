@@ -3,6 +3,7 @@
 // (it may only point at data that actually exists in the model).
 //
 // Usage: node check-paths.mjs part-I
+//        node check-paths.mjs part-III
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,38 +17,79 @@ const example = JSON.parse(
   fs.readFileSync(path.join(__dirname, '..', 'instance-data', `${part}.example.json`), 'utf8')
 );
 
-// Collect every instance path the form references.
+// Recursively collect every instance path the form references, wherever it
+// appears in the form tree (dataPath, valuePath, choicePath, visibleWhen.path).
+// This walks the whole structure so it works regardless of whether the form is
+// organized as sections/fields (Part I) or criteria/groups/fields (Part III).
 const paths = new Set();
-for (const section of form.sections) {
-  if (section.control) {
-    if (section.control.choicePath) paths.add(section.control.choicePath);
-    if (section.control.valuePath) paths.add(section.control.valuePath);
+(function collect(node) {
+  if (Array.isArray(node)) {
+    node.forEach(collect);
+    return;
   }
-  for (const field of section.fields || []) {
-    if (field.dataPath) paths.add(field.dataPath);
-    if (field.visibleWhen?.path) paths.add(field.visibleWhen.path);
+  if (node && typeof node === 'object') {
+    for (const [key, value] of Object.entries(node)) {
+      if ((key === 'dataPath' || key === 'valuePath' || key === 'choicePath') && typeof value === 'string') {
+        paths.add(value);
+      } else if (key === 'visibleWhen' && value && typeof value.path === 'string') {
+        paths.add(value.path);
+      } else {
+        collect(value);
+      }
+    }
   }
+})(form);
+
+// A relative path (contains a `[]` array segment, or its first segment isn't a
+// top-level `partN` key) is resolved against the array's item shape, not the
+// example root. For those we verify only the ABSOLUTE prefix (up to the first
+// `[]`) resolves, then that at least one array item carries the remaining leaf.
+function resolveSegments(dotted) {
+  return dotted.split('.');
 }
 
-// A path is considered resolvable if every prefix segment exists as a key in the
-// example (the leaf itself may be absent when it's an optional/one-of branch).
-function pathExists(obj, dotted) {
-  const keys = dotted.split('.');
-  let cur = obj;
-  for (const key of keys) {
-    if (cur == null || typeof cur !== 'object' || !(key in cur)) return false;
-    cur = cur[key];
+// Walk the example following segments; `[]` means "descend into array items".
+// Returns true if the path resolves for the example (leaf may be absent when
+// optional, handled by the `optional` allow-list).
+function pathResolves(obj, dotted) {
+  const segments = resolveSegments(dotted);
+  let cursors = [obj];
+  for (let i = 0; i < segments.length; i++) {
+    let seg = segments[i];
+    const isArrayLeaf = seg.endsWith('[]');
+    if (isArrayLeaf) seg = seg.slice(0, -2);
+
+    const next = [];
+    for (const cur of cursors) {
+      if (cur == null || typeof cur !== 'object') continue;
+      if (!(seg in cur)) continue;
+      let v = cur[seg];
+      if (isArrayLeaf) {
+        if (!Array.isArray(v)) continue;
+        for (const item of v) next.push(item);
+      } else {
+        next.push(v);
+      }
+    }
+    if (next.length === 0) {
+      // Nothing matched at this segment. Acceptable only if we're past the
+      // absolute prefix (i.e. an optional leaf on an item that isn't present).
+      return { resolved: false, depth: i };
+    }
+    cursors = next;
   }
-  return true;
+  return { resolved: true, depth: segments.length };
 }
 
-// Optional leaves that legitimately may not be in the default example:
-// the identifier scheme and any non-selected one-of value.
-const optional = new Set(['partI.contractingAuthority.identifier.scheme']);
+// Optional leaves that legitimately may not be in the default example.
+const optional = new Set([
+  'partI.contractingAuthority.identifier.scheme'
+]);
 
 let problems = 0;
 for (const p of [...paths].sort()) {
-  const ok = pathExists(example, p) || optional.has(p);
+  const { resolved } = pathResolves(example, p);
+  const ok = resolved || optional.has(p);
   console.log(`${ok ? '✓' : '✗'} ${p}`);
   if (!ok) problems++;
 }

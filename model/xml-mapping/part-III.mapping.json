@@ -1,0 +1,91 @@
+{
+  "$comment": "EXPERIMENTAL — declarative mapping from the canonical Part III instance-data model (scoped to criterion C01, exg-crim-part) to UBL QualificationApplicationResponse XML. IMPORTANT: the real ESPD-EDM UBL does NOT nest answers inside the criterion. It emits (a) one cac:TenderingCriterion declaration, and (b) a FLAT list of cac:TenderingCriterionResponse elements, each keyed to the property it answers via cac:ValidatedCriterionPropertyID/cbc:ID (a per-property UUID) and carrying a typed cac:ResponseValue. Evidence is a separate cac:Evidence list linked by ID. See `$notes` for the two honesty caveats about this increment.",
+
+  "$notes": {
+    "propertyIds": "The EA export (espd-tools/EAtoJSON/outputs/espd-edm.json) carries a `uuid` only at the CRITERION level, not per question/property. The real UBL ValidatedCriterionPropertyID needs a per-property UUID we do not have. Rather than fabricate UUIDs, each response here is discriminated by a STABLE PROPERTY KEY on cbc:ID (schemeID='property-path', value = the instance dotted path). This roundtrips faithfully and is an honest placeholder to be swapped for real property UUIDs once they are available upstream.",
+    "engine": "This spec uses a `responses` rule (added to mapper.mjs for this increment) that emits/reads a flat list of cac:TenderingCriterionResponse discriminated by the property-key ID. The generic `forEach`/value rules could not express 'same element name, different discriminator child, different typed value child' on their own.",
+    "scope": "Covers the top-level answer, the electronic-evidence indicator, and the flat conviction-detail responses of the FIRST conviction. Repeating conviction groups (0..n) and evidence-document detail are documented as the next increment — they need response-set grouping and ID cross-linking the engine does not yet model."
+  },
+
+  "target": {
+    "root": "QualificationApplicationResponse",
+    "namespaces": {
+      "": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2",
+      "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    }
+  },
+
+  "rules": [
+    {
+      "$comment": "C01 criterion declaration — the criterion UUID (from the EA export). Pure constant metadata: it has no instance-data home and is not written back on import.",
+      "to": "cac:TenderingCriterion/cbc:ID",
+      "const": "005eb9ed-1347-4ca3-bb29-9bc0db64e1ab"
+    },
+    {
+      "$comment": "Criterion type code (crime-org) with its code-list id.",
+      "to": "cac:TenderingCriterion/cbc:CriterionTypeCode",
+      "const": "crime-org",
+      "attributes": { "listID": "criterion" }
+    },
+    {
+      "$comment": "Criterion human name.",
+      "to": "cac:TenderingCriterion/cbc:Name",
+      "const": "Participation in a criminal organisation"
+    },
+
+    {
+      "$comment": "Flat criterion responses. Each entry emits one cac:TenderingCriterionResponse whose cac:ValidatedCriterionPropertyID/cbc:ID carries the stable property key (see $notes.propertyIds), and whose cac:ResponseValue carries the typed value child named by `valueElement`. `type` selects how the value is read/written: boolean -> cbc:ResponseIndicator, string/date -> the given element.",
+      "responses": [
+        {
+          "from": "partIII.exclusionGrounds.exg-crim-part.answer",
+          "propertyKey": "partIII.exclusionGrounds.exg-crim-part.answer",
+          "valueElement": "cbc:ResponseIndicator",
+          "type": "boolean"
+        },
+        {
+          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.dateOfConviction",
+          "propertyKey": "convictions.0.dateOfConviction",
+          "valueElement": "cbc:Description",
+          "type": "string"
+        },
+        {
+          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.reason",
+          "propertyKey": "convictions.0.reason",
+          "valueElement": "cbc:Description",
+          "type": "string"
+        },
+        {
+          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.whoConvicted",
+          "propertyKey": "convictions.0.whoConvicted",
+          "valueElement": "cbc:Description",
+          "type": "string"
+        },
+        {
+          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.exclusionPeriod.description",
+          "propertyKey": "convictions.0.exclusionPeriod.description",
+          "valueElement": "cbc:Description",
+          "type": "string"
+        },
+        {
+          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.selfCleaning.taken",
+          "propertyKey": "convictions.0.selfCleaning.taken",
+          "valueElement": "cbc:ResponseIndicator",
+          "type": "boolean"
+        },
+        {
+          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.selfCleaning.description",
+          "propertyKey": "convictions.0.selfCleaning.description",
+          "valueElement": "cbc:Description",
+          "type": "string"
+        },
+        {
+          "from": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.availableElectronically",
+          "propertyKey": "electronicEvidence.availableElectronically",
+          "valueElement": "cbc:ResponseIndicator",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

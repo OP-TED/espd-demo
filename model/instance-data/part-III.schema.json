@@ -1,0 +1,197 @@
+{
+  "$id": "part-III.schema.json",
+  "title": "ESPD Instance Data — Part III (Exclusion grounds)",
+  "description": "EXPERIMENTAL canonical instance-data model for Part III of the ESPD standard form: exclusion grounds. Scoped for now to a single criterion, C01 (exg-crim-part, 'Participation in a criminal organisation'), used as a probe for the more complex criterion structures. Models instance data only — deliberately independent of the form definition, UI, and XML serialization. Code-list values are bare codes.",
+  "type": "object",
+  "properties": {
+    "partIII": {
+      "type": "object",
+      "description": "Information concerning exclusion grounds and (later) selection criteria.",
+      "properties": {
+        "exclusionGrounds": {
+          "type": "object",
+          "description": "The economic operator's answers to the exclusion-ground criteria, keyed by the stable criterion code (the ESPD-EDM `code`, e.g. 'exg-crim-part'). Only criteria actually answered need be present. Keying by semantic code rather than by form tag (C01) keeps the instance data stable if the form re-numbers criteria.",
+          "properties": {
+            "exg-crim-part": { "$ref": "#/$defs/convictionCriterion" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["exclusionGrounds"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["partIII"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "convictionCriterion": {
+      "type": "object",
+      "description": "An exclusion criterion of the 'conviction' shape (C01–C06 in Section A share this structure). The top-level `answer` is the economic operator's yes/no reply to the ground (C01/QG1/Q1). When `answer` is true, one or more `convictions` describe each relevant conviction (C01/QG1/QSG1, cardinality 0..n). `electronicEvidence` (C01/QG2) states whether the information is available electronically and, if so, references the evidence.",
+      "properties": {
+        "answer": {
+          "type": "boolean",
+          "description": "Whether the exclusion ground applies to the economic operator (C01/QG1/Q1, INDICATOR). Maps to a criterion response indicator in UBL."
+        },
+        "convictions": {
+          "type": "array",
+          "description": "Details of each relevant conviction (C01/QG1/QSG1, cardinality 0..n). Only meaningful when `answer` is true; each entry maps to a repeated response set in UBL.",
+          "items": { "$ref": "#/$defs/conviction" }
+        },
+        "electronicEvidence": { "$ref": "#/$defs/electronicEvidence" }
+      },
+      "required": ["answer"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$comment": "Structural conditionality mirroring the form's ONTRUE code: conviction detail is only relevant when the ground is answered 'yes'. Encoded as a soft constraint — when answer is false, no convictions should be supplied.",
+          "if": {
+            "properties": { "answer": { "const": false } }
+          },
+          "then": {
+            "properties": {
+              "convictions": { "maxItems": 0 }
+            }
+          }
+        }
+      ]
+    },
+
+    "conviction": {
+      "type": "object",
+      "description": "A single conviction relevant to the exclusion ground (C01/QG1/QSG1).",
+      "properties": {
+        "dateOfConviction": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of the conviction (C01/QG1/QSG1/Q1, DATE). ISO 8601 date."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for the conviction (C01/QG1/QSG1/Q2, DESCRIPTION)."
+        },
+        "whoConvicted": {
+          "type": "string",
+          "description": "Who has been convicted (C01/QG1/QSG1/Q3, DESCRIPTION)."
+        },
+        "exclusionPeriod": { "$ref": "#/$defs/period" },
+        "selfCleaning": { "$ref": "#/$defs/selfCleaning" }
+      },
+      "required": ["dateOfConviction", "reason", "whoConvicted"],
+      "additionalProperties": false
+    },
+
+    "period": {
+      "type": "object",
+      "description": "Length of the period of exclusion (C01/QG1/QSG1/Q4, PERIOD). The form asks a single free-text question, but the underlying datatype is a period; modeled as an object so it can carry a human description now and structured start/end dates later without a breaking change. Maps to UBL cac:Period.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Free-text description of the exclusion period as entered on the form (maps to cbc:Description)."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Optional start of the exclusion period (maps to cbc:StartDate)."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Optional end of the exclusion period (maps to cbc:EndDate)."
+        }
+      },
+      "anyOf": [
+        { "required": ["description"] },
+        { "required": ["startDate"] },
+        { "required": ["endDate"] }
+      ],
+      "additionalProperties": false
+    },
+
+    "selfCleaning": {
+      "type": "object",
+      "description": "Self-cleaning measures taken to demonstrate reliability despite the conviction (C01/QG1/QSG1/QSG1). `taken` is the indicator answer; `description` is only relevant when `taken` is true (the form nests it under ONTRUE).",
+      "properties": {
+        "taken": {
+          "type": "boolean",
+          "description": "Whether measures have been taken to demonstrate reliability (C01/QG1/QSG1/QSG1/Q1, INDICATOR)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the self-cleaning measures (C01/QG1/QSG1/QSG1/QSG1/Q1, DESCRIPTION). Expected only when `taken` is true."
+        }
+      },
+      "required": ["taken"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$comment": "Mirrors the form's ONTRUE nesting: a description is only relevant when measures were taken.",
+          "if": {
+            "properties": { "taken": { "const": false } }
+          },
+          "then": {
+            "not": { "required": ["description"] }
+          }
+        }
+      ]
+    },
+
+    "electronicEvidence": {
+      "type": "object",
+      "description": "The 'is this information available electronically?' block (C01/QG2). This same pattern recurs across every exclusion ground and selection criterion, so it is factored into a shared definition. `availableElectronically` is the indicator; when true, `evidence` lists one or more evidence references (C01/QG2/QSG1/Q1, EVIDENCE_IDENTIFIER, cardinality 1..n).",
+      "properties": {
+        "availableElectronically": {
+          "type": "boolean",
+          "description": "Whether the supporting information/documentation is available electronically (C01/QG2/Q1, INDICATOR)."
+        },
+        "evidence": {
+          "type": "array",
+          "description": "References to the electronically-available evidence (C01/QG2/QSG1/Q1, EVIDENCE_IDENTIFIER). Expected (1..n) only when `availableElectronically` is true.",
+          "items": { "$ref": "#/$defs/evidenceReference" }
+        }
+      },
+      "required": ["availableElectronically"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$comment": "Mirrors ONTRUE: evidence is only relevant when the information is available electronically, and at least one evidence reference is then expected.",
+          "if": {
+            "properties": { "availableElectronically": { "const": true } }
+          },
+          "then": {
+            "properties": {
+              "evidence": { "minItems": 1 }
+            },
+            "required": ["evidence"]
+          },
+          "else": {
+            "properties": {
+              "evidence": { "maxItems": 0 }
+            }
+          }
+        }
+      ]
+    },
+
+    "evidenceReference": {
+      "type": "object",
+      "description": "A reference to a piece of evidence available electronically. Modeled to align with UBL cac:Evidence / a document reference: a URL locating the evidence plus optional identifier and description.",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "URL where the evidence can be accessed."
+        },
+        "identifier": {
+          "type": "string",
+          "description": "Optional identifier of the evidence document/record."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional human description of the evidence."
+        }
+      },
+      "required": ["url"],
+      "additionalProperties": false
+    }
+  }
+}

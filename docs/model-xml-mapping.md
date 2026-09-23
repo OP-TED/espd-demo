@@ -204,6 +204,32 @@ hand-written instance, for documentation and fixtures:
   TED-notice id), so a pattern-constrained field gets a visible placeholder
   rather than a conforming value.
 
+## UML diagrams
+
+Two generators emit PlantUML for documentation (render with the PlantUML VS Code
+extension, `plantuml file.puml`, or the plantuml.com server). Pre-generated
+examples for all parts live in `docs/diagrams/` (see its README); pass `--out
+<file>` to write clean UTF-8 directly rather than shell-redirecting.
+
+- **`instance-data/uml.mjs`** — a class diagram of the canonical DATA MODEL from
+  the JSON Schema. One class per object type (`$defs` entry, the root part
+  object, and inline object properties); scalar properties are attributes
+  (`*` marks required), and object/array properties are associations with
+  cardinality. A referenced type is shown ONLY as an association — not also
+  duplicated as an attribute.
+
+  ```
+  node instance-data/uml.mjs part-III > part-III.model.puml
+  ```
+
+- **`xml-mapping/mapping-uml.mjs`** — a correspondence diagram of the MAPPING:
+  two packages ("instance data" and "UBL XML") with an arrow per mapping rule,
+  labelled by kind (value / const / period / ref / key).
+
+  ```
+  node xml-mapping/mapping-uml.mjs part-III > part-III.mapping.puml
+  ```
+
 ## Verifying
 
 From `model/`:

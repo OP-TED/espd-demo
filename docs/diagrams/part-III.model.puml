@@ -1,0 +1,57 @@
+@startuml part-III-model
+title Canonical instance-data model - part-III
+hide empty members
+
+class "partIII" as C_partIII {
+}
+
+class "partIII.exclusionGrounds" as C_partIII_exclusionGrounds {
+}
+
+class "convictionCriterion" as C_convictionCriterion {
+  requirement : object (unspecified)
+}
+
+class "convictionResponse" as C_convictionResponse {
+  *answer : boolean
+}
+
+class "conviction" as C_conviction {
+  *dateOfConviction : string:date
+  *reason : string
+  *whoConvicted : string
+}
+
+class "period" as C_period {
+  description : string
+  startDate : string:date
+  endDate : string:date
+}
+
+class "selfCleaning" as C_selfCleaning {
+  *taken : boolean
+  description : string
+}
+
+class "electronicEvidence" as C_electronicEvidence {
+  *availableElectronically : boolean
+}
+
+class "evidenceReference" as C_evidenceReference {
+  *id : string
+  *url : string
+  identifier : string
+  description : string
+}
+
+C_conviction --> "0..1" C_period : exclusionPeriod
+C_conviction --> "0..1" C_selfCleaning : selfCleaning
+C_convictionResponse --> "0..*" C_conviction : convictions
+C_electronicEvidence --> "0..*" C_evidenceReference : evidence
+C_convictionResponse --> "0..1" C_electronicEvidence : electronicEvidence
+C_convictionCriterion --> "1" C_convictionResponse : response
+C_partIII_exclusionGrounds --> "0..1" C_convictionCriterion : exg-crim-part
+C_partIII --> "1" C_partIII_exclusionGrounds : exclusionGrounds
+
+note bottom : '*' marks a required property. Cardinality is on the association.
+@enduml

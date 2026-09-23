@@ -1,0 +1,53 @@
+@startuml part-II-model
+title Canonical instance-data model - part-II
+hide empty members
+
+class "partII" as C_partII {
+  lots : string[]
+}
+
+class "economicOperator" as C_economicOperator {
+  *officialName : string
+}
+
+class "identifier" as C_identifier {
+  *value : string
+  *scheme : enum {VAT, NATIONAL, LEI, BRIS, DUNS}
+}
+
+class "address" as C_address {
+  *street : string
+  *postCode : string
+  *city : string
+  *country : string
+}
+
+class "contact" as C_contact {
+  telephone : string
+  email : string
+  website : string
+}
+
+class "representative" as C_representative {
+  *givenName : string
+  *familyName : string
+  dateOfBirth : string
+  placeOfBirth : string
+  *position : string
+}
+
+class "representative.contact" as C_representative_contact {
+  telephone : string
+  email : string
+}
+
+C_economicOperator --> "0..1" C_identifier : identifier
+C_economicOperator --> "1" C_address : address
+C_economicOperator --> "0..1" C_contact : contact
+C_partII --> "1" C_economicOperator : economicOperator
+C_representative --> "1" C_address : residenceAddress
+C_representative --> "0..1" C_representative_contact : contact
+C_partII --> "0..*" C_representative : representatives
+
+note bottom : '*' marks a required property. Cardinality is on the association.
+@enduml

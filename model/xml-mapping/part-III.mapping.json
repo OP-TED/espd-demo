@@ -1,10 +1,14 @@
 {
-  "$comment": "EXPERIMENTAL — declarative mapping from the canonical Part III instance-data model (scoped to criterion C01, exg-crim-part) to UBL QualificationApplicationResponse XML. IMPORTANT: the real ESPD-EDM UBL does NOT nest answers inside the criterion. It emits (a) one cac:TenderingCriterion declaration, and (b) a FLAT list of cac:TenderingCriterionResponse elements, each keyed to the property it answers via cac:ValidatedCriterionPropertyID/cbc:ID (a per-property UUID) and carrying a typed cac:ResponseValue. Evidence is a separate cac:Evidence list linked by ID. See `$notes` for the two honesty caveats about this increment.",
+  "$comment": "EXPERIMENTAL — declarative mapping from the canonical Part III instance-data model (criterion C01, exg-crim-part) to UBL QualificationApplicationResponse XML. The real ESPD-EDM UBL emits (a) one cac:TenderingCriterion declaration, (b) a FLAT list of cac:TenderingCriterionResponse elements each keyed to the answered property via cac:ValidatedCriterionPropertyID/cbc:ID, and (c) a separate cac:Evidence list linked from a response by cac:EvidenceSupplied/cbc:ID. All of this is expressed with the ENGINE-GENERIC `records` construct: the engine hardcodes no UBL element names — every element path (the record wrapper, its key element, its scheme attribute, the value/period/reference targets) is supplied here in the spec.",
 
   "$notes": {
-    "propertyIds": "The EA export (espd-tools/EAtoJSON/outputs/espd-edm.json) carries a `uuid` only at the CRITERION level, not per question/property. The real UBL ValidatedCriterionPropertyID needs a per-property UUID we do not have. Rather than fabricate UUIDs, each response here is discriminated by a STABLE PROPERTY KEY on cbc:ID (schemeID='property-path', value = the instance dotted path). This roundtrips faithfully and is an honest placeholder to be swapped for real property UUIDs once they are available upstream.",
-    "engine": "This spec uses a `responses` rule (added to mapper.mjs for this increment) that emits/reads a flat list of cac:TenderingCriterionResponse discriminated by the property-key ID. The generic `forEach`/value rules could not express 'same element name, different discriminator child, different typed value child' on their own.",
-    "scope": "Covers the top-level answer, the electronic-evidence indicator, and the flat conviction-detail responses of the FIRST conviction. Repeating conviction groups (0..n) and evidence-document detail are documented as the next increment — they need response-set grouping and ID cross-linking the engine does not yet model."
+    "records": "A `records` rule emits a repeated 'record' wrapper element, each carrying a `key` (an identifier element, optionally with a scheme attribute) and a `body` that is exactly ONE of: a typed `value`, a `period`, or `references` (repeated cross-reference elements). This is generic: for ESPD responses the wrapper is cac:TenderingCriterionResponse, the key is cac:ValidatedCriterionPropertyID/cbc:ID (schemeID='criterion'), and the bodies map to cac:ResponseValue/* , cac:ApplicablePeriod, cac:EvidenceSupplied. Nothing about those names is in the engine. `entries` gives a fixed set of records; `forEach` expands one entries-set per instance-array item (records then share key ids, distinguished by document order on import — see repeatKeys).",
+    "valueAttributes": "A `value` body may carry `attributes`, using the same convention as the base value rule: a constant (e.g. { \"unitCode\": \"YEAR\" } for QUANTITY_YEAR, fixed by the question) or a data-sourced reference (e.g. { \"currencyID\": { \"from\": \"currency\" } } for AMOUNT, entered by the EO). Constant attributes are discriminators only; data-sourced attributes roundtrip back into the instance data. This covers BR-TCR-08 numeric datatypes (AMOUNT->cbc:ResponseAmount@currencyID, QUANTITY*->cbc:ResponseQuantity@unitCode) needed by the selection criteria.",
+    "propertyKey": "The record key identifies the answered property (Schematron BR-TCR-01-01/-01-02). The EA export carries the `requestpath` (e.g. C01_exg-crim-part/QG1/Q1), the authentic 'XML Path like ID' the Schematron supports and the .rif scripts use with schemeID='criterion'. Emitted as-is rather than fabricating v5 UUIDs; when UUIDs are available upstream only the per-entry `key` strings change.",
+    "repeatKeys": "Repeated conviction records (QSG1, 0..n) share the SAME key id deliberately (Schematron disabled uniqueness rule BR-TCR-01-03 for XML-path ids). Occurrence order is carried by document order of the repeated records; import groups them into array items in order.",
+    "datatypes": "The value target is dictated by the property's ValueDataTypeCode (BR-TCR-08): INDICATOR -> cac:ResponseValue/cbc:ResponseIndicator; DESCRIPTION -> cac:ResponseValue/cbc:Description; DATE -> cac:ResponseValue/cbc:ResponseDate; PERIOD -> cac:ApplicablePeriod (own branch, BR-TCR-08-09).",
+    "evidence": "Per BR-TCR-03 each record body is exactly one branch, so QG2/Q1 (INDICATOR value) and QG2/QSG1/Q1 (EVIDENCE_IDENTIFIER references) are separate records. The link is explicit and declarative: evidence[].id (producer-owned) is mapped to the cac:Evidence key element, and the QG2/QSG1/Q1 record's `references` emits one cac:EvidenceSupplied/cbc:ID per evidence entry valued by the same `key` field (BR-TCR-09). The engine invents no ids; fully bidirectional.",
+    "period": "exclusionPeriod maps structured startDate/endDate to cac:ApplicablePeriod. A description-only period has no ApplicablePeriod home (StartDate/EndDate/DurationMeasure only) — documented gap."
   },
 
   "target": {
@@ -18,74 +22,70 @@
 
   "rules": [
     {
-      "$comment": "C01 criterion declaration — the criterion UUID (from the EA export). Pure constant metadata: it has no instance-data home and is not written back on import.",
+      "$comment": "C01 criterion declaration — criterion UUID (from the EA export). Pure constant metadata: no instance-data home, not written back on import.",
       "to": "cac:TenderingCriterion/cbc:ID",
       "const": "005eb9ed-1347-4ca3-bb29-9bc0db64e1ab"
     },
     {
-      "$comment": "Criterion type code (crime-org) with its code-list id.",
       "to": "cac:TenderingCriterion/cbc:CriterionTypeCode",
       "const": "crime-org",
       "attributes": { "listID": "criterion" }
     },
     {
-      "$comment": "Criterion human name.",
       "to": "cac:TenderingCriterion/cbc:Name",
       "const": "Participation in a criminal organisation"
     },
 
     {
-      "$comment": "Flat criterion responses. Each entry emits one cac:TenderingCriterionResponse whose cac:ValidatedCriterionPropertyID/cbc:ID carries the stable property key (see $notes.propertyIds), and whose cac:ResponseValue carries the typed value child named by `valueElement`. `type` selects how the value is read/written: boolean -> cbc:ResponseIndicator, string/date -> the given element.",
-      "responses": [
+      "$comment": "Non-repeating answer records. Each `entries` item emits one record wrapper (cac:TenderingCriterionResponse) with a keyed property id and one body branch.",
+      "records": "cac:TenderingCriterionResponse",
+      "key": { "to": "cac:ValidatedCriterionPropertyID/cbc:ID", "attributes": { "schemeID": "criterion" } },
+      "entries": [
         {
-          "from": "partIII.exclusionGrounds.exg-crim-part.answer",
-          "propertyKey": "partIII.exclusionGrounds.exg-crim-part.answer",
-          "valueElement": "cbc:ResponseIndicator",
-          "type": "boolean"
+          "$comment": "QG1/Q1 — exclusion-ground answer (INDICATOR).",
+          "key": "C01_exg-crim-part/QG1/Q1",
+          "value": { "from": "partIII.exclusionGrounds.exg-crim-part.answer", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
         },
         {
-          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.dateOfConviction",
-          "propertyKey": "convictions.0.dateOfConviction",
-          "valueElement": "cbc:Description",
-          "type": "string"
+          "$comment": "QG2/Q1 — 'available electronically?' (INDICATOR).",
+          "key": "C01_exg-crim-part/QG2/Q1",
+          "value": { "from": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.availableElectronically", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
         },
         {
-          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.reason",
-          "propertyKey": "convictions.0.reason",
-          "valueElement": "cbc:Description",
-          "type": "string"
-        },
-        {
-          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.whoConvicted",
-          "propertyKey": "convictions.0.whoConvicted",
-          "valueElement": "cbc:Description",
-          "type": "string"
-        },
-        {
-          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.exclusionPeriod.description",
-          "propertyKey": "convictions.0.exclusionPeriod.description",
-          "valueElement": "cbc:Description",
-          "type": "string"
-        },
-        {
-          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.selfCleaning.taken",
-          "propertyKey": "convictions.0.selfCleaning.taken",
-          "valueElement": "cbc:ResponseIndicator",
-          "type": "boolean"
-        },
-        {
-          "from": "partIII.exclusionGrounds.exg-crim-part.convictions.0.selfCleaning.description",
-          "propertyKey": "convictions.0.selfCleaning.description",
-          "valueElement": "cbc:Description",
-          "type": "string"
-        },
-        {
-          "from": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.availableElectronically",
-          "propertyKey": "electronicEvidence.availableElectronically",
-          "valueElement": "cbc:ResponseIndicator",
-          "type": "boolean"
+          "$comment": "QG2/QSG1/Q1 — 'Evidence Supplied' (EVIDENCE_IDENTIFIER, 1..n). Body is `references`: one cac:EvidenceSupplied/cbc:ID per evidence entry, valued by that entry's `key` field (producer-owned id). Links to the cac:Evidence records below (BR-TCR-09).",
+          "key": "C01_exg-crim-part/QG2/QSG1/Q1",
+          "references": { "forEach": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.evidence", "key": "id", "to": "cac:EvidenceSupplied/cbc:ID" }
         }
       ]
+    },
+
+    {
+      "$comment": "Repeating conviction records (C01/QG1/QSG1, 0..n). `forEach` expands the entries-set once per conviction; entry sources resolve against the array item. Repeated records share their key ids; occurrence order = document order.",
+      "records": "cac:TenderingCriterionResponse",
+      "key": { "to": "cac:ValidatedCriterionPropertyID/cbc:ID", "attributes": { "schemeID": "criterion" } },
+      "forEach": "partIII.exclusionGrounds.exg-crim-part.convictions",
+      "entries": [
+        { "$comment": "DATE (BR-TCR-08-04).", "key": "C01_exg-crim-part/QG1/QSG1/Q1", "value": { "from": "dateOfConviction", "to": "cac:ResponseValue/cbc:ResponseDate", "type": "string" } },
+        { "$comment": "DESCRIPTION (BR-TCR-08-05).", "key": "C01_exg-crim-part/QG1/QSG1/Q2", "value": { "from": "reason", "to": "cac:ResponseValue/cbc:Description", "type": "string" } },
+        { "key": "C01_exg-crim-part/QG1/QSG1/Q3", "value": { "from": "whoConvicted", "to": "cac:ResponseValue/cbc:Description", "type": "string" } },
+        { "$comment": "PERIOD (BR-TCR-08-09) — cac:ApplicablePeriod branch, not a ResponseValue child.", "key": "C01_exg-crim-part/QG1/QSG1/Q4", "period": { "from": "exclusionPeriod", "to": "cac:ApplicablePeriod", "startElement": "cbc:StartDate", "endElement": "cbc:EndDate" } },
+        { "$comment": "INDICATOR (BR-TCR-08-07).", "key": "C01_exg-crim-part/QG1/QSG1/QSG1/Q1", "value": { "from": "selfCleaning.taken", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" } },
+        { "key": "C01_exg-crim-part/QG1/QSG1/QSG1/QSG1/Q1", "value": { "from": "selfCleaning.description", "to": "cac:ResponseValue/cbc:Description", "type": "string" } }
+      ]
+    },
+
+    {
+      "$comment": "Evidence documents (cac:Evidence, 1..n). A `records` rule with `forEach` + `item.fields`: one record per evidence entry, all fields inside it. The entity id (rule `key`) is just the field mapped to the key element — the engine generates no ids; the QG2/QSG1/Q1 record above references these same ids.",
+      "records": "cac:Evidence",
+      "key": { "to": "cbc:ID", "from": "id" },
+      "forEach": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.evidence",
+      "item": {
+        "fields": [
+          { "from": "description", "to": "cbc:Description" },
+          { "from": "identifier", "to": "cac:DocumentReference/cbc:ID" },
+          { "from": "url", "to": "cac:DocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI" }
+        ]
+      }
     }
   ]
 }

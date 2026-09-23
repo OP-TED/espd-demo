@@ -175,22 +175,26 @@
 
     "evidenceReference": {
       "type": "object",
-      "description": "A reference to a piece of evidence available electronically. Modeled to align with UBL cac:Evidence / a document reference: a URL locating the evidence plus optional identifier and description.",
+      "description": "A reference to a piece of evidence available electronically. Aligns with UBL cac:Evidence. NOTE the two distinct identities: `id` is the evidence entity's OWN identity (owned by the producer of this instance data), which the XML mapping uses as cac:Evidence/cbc:ID and as the cac:EvidenceSupplied/cbc:ID link target; `identifier` is the identity of the underlying document/record (e.g. a certificate number), a separate cac:DocumentReference/cbc:ID.",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "The evidence entity's own identity, supplied by the producer. Used to cross-link the answer to this evidence in the UBL XML (cac:EvidenceSupplied/cbc:ID -> cac:Evidence/cbc:ID). Must be unique within the document."
+        },
         "url": {
           "type": "string",
           "description": "URL where the evidence can be accessed."
         },
         "identifier": {
           "type": "string",
-          "description": "Optional identifier of the evidence document/record."
+          "description": "Optional identifier of the underlying document/record (e.g. a certificate number). Distinct from `id`."
         },
         "description": {
           "type": "string",
           "description": "Optional human description of the evidence."
         }
       },
-      "required": ["url"],
+      "required": ["id", "url"],
       "additionalProperties": false
     }
   }

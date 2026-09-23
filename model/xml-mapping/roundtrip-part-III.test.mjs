@@ -1,12 +1,13 @@
 // EXPERIMENTAL — roundtrip test for Part III (criterion C01, exg-crim-part).
 //   instance JSON --(map)--> XML --(unmap)--> instance JSON  ==  original
 //
-// This increment maps the FLAT criterion-response model: the top-level answer,
-// the self-cleaning / electronic-evidence indicators, and the scalar detail of
-// the FIRST conviction (see part-III.mapping.json $notes). The roundtrip cases
-// therefore cover exactly that subset — nested `evidence` documents, structured
-// `exclusionPeriod` dates, and 2..n convictions are the documented next
-// increment and are intentionally NOT exercised here.
+// This increment maps the full flat criterion-response model for C01:
+//   - top-level answer + electronic-evidence indicator,
+//   - repeating conviction groups (0..n), each with self-cleaning,
+//   - cross-linked evidence documents (cac:Evidence <- cac:EvidenceSupplied).
+// exclusionPeriod maps structured startDate/endDate to cac:ApplicablePeriod
+// (BR-TCR-08-09); a description-only period has no ApplicablePeriod home and is
+// a documented gap, so cases use start/end dates.
 //
 // Usage: node roundtrip-part-III.test.mjs
 
@@ -32,7 +33,7 @@ const cases = [
     }
   },
   {
-    name: 'ground answered YES — one conviction, self-cleaning taken, evidence available',
+    name: 'YES — one conviction, self-cleaning taken, one evidence document',
     instance: {
       partIII: { exclusionGrounds: { 'exg-crim-part': {
         answer: true,
@@ -41,25 +42,64 @@ const cases = [
             dateOfConviction: '2021-06-15',
             reason: 'Participation in a criminal organisation.',
             whoConvicted: 'A former board member.',
-            exclusionPeriod: { description: 'Two years from the final judgement.' },
+            exclusionPeriod: { startDate: '2021-06-15', endDate: '2023-06-15' },
             selfCleaning: { taken: true, description: 'Dismissed the individual; strengthened controls.' }
           }
         ],
-        electronicEvidence: { availableElectronically: true }
+        electronicEvidence: {
+          availableElectronically: true,
+          evidence: [
+            { id: 'ev-1', url: 'https://ecris.example.eu/records/12345', identifier: 'ECRIS-12345', description: 'ECRIS extract.' }
+          ]
+        }
       } } }
     }
   },
   {
-    name: 'ground answered YES — one conviction, no self-cleaning, no e-evidence',
+    name: 'YES — three convictions (mixed self-cleaning), two evidence documents',
     instance: {
       partIII: { exclusionGrounds: { 'exg-crim-part': {
         answer: true,
         convictions: [
           {
-            dateOfConviction: '2019-01-10',
-            reason: 'Conviction reason.',
-            whoConvicted: 'The economic operator itself.',
+            dateOfConviction: '2019-03-01',
+            reason: 'First conviction reason.',
+            whoConvicted: 'Former director A.',
+            selfCleaning: { taken: true, description: 'Measures for conviction one.' }
+          },
+          {
+            dateOfConviction: '2020-07-22',
+            reason: 'Second conviction reason.',
+            whoConvicted: 'Former director B.',
+            exclusionPeriod: { startDate: '2020-07-22', endDate: '2023-07-22' },
             selfCleaning: { taken: false }
+          },
+          {
+            dateOfConviction: '2022-11-30',
+            reason: 'Third conviction reason.',
+            whoConvicted: 'A subsidiary entity.'
+          }
+        ],
+        electronicEvidence: {
+          availableElectronically: true,
+          evidence: [
+            { id: 'ev-a', url: 'https://reg.example.eu/a', identifier: 'DOC-A', description: 'Document A.' },
+            { id: 'ev-b', url: 'https://reg.example.eu/b', identifier: 'DOC-B', description: 'Document B.' }
+          ]
+        }
+      } } }
+    }
+  },
+  {
+    name: 'YES — one conviction, no self-cleaning, evidence not available electronically',
+    instance: {
+      partIII: { exclusionGrounds: { 'exg-crim-part': {
+        answer: true,
+        convictions: [
+          {
+            dateOfConviction: '2018-05-05',
+            reason: 'Conviction reason.',
+            whoConvicted: 'The economic operator itself.'
           }
         ],
         electronicEvidence: { availableElectronically: false }

@@ -46,7 +46,7 @@ export function setPath(target, dottedPath, value) {
 /** A rule is "real" (not just a comment placeholder) if it can emit output. */
 function isRealRule(rule) {
   if (!rule) return false;
-  if (rule.responses) return true;                       // flat criterion responses
+  if (rule.records) return true;                           // generic keyed record set
   if (rule.to && (rule.from || rule.forEach)) return true; // value / forEach rule
   if (rule.to && rule.const !== undefined) return true;    // constant value rule
   return false;
@@ -175,8 +175,8 @@ export function buildTree(spec, data) {
   for (const rule of spec.rules) {
     if (!isRealRule(rule)) continue;
 
-    if (rule.responses) {
-      buildResponses(root, rule, data);
+    if (rule.records) {
+      buildRecords(root, rule, data);
       continue;
     }
 
@@ -190,67 +190,226 @@ export function buildTree(spec, data) {
   return root;
 }
 
-/**
- * Coerce an instance value to its XML text form for a given response `type`.
- * Only booleans need special handling (String(true) === "true", which is the
- * correct UBL indicator text — the coercion matters on the IMPORT side).
- */
-function responseValueToText(value) {
+/** Coerce an instance value to XML text; only booleans need care on import. */
+function valueToText(value) {
   return String(value);
 }
-function responseTextToValue(text, type) {
+function textToValue(text, type) {
   if (type === 'boolean') return text === 'true';
   return text;
 }
 
-/**
- * Handle a `responses` rule: emit one flat cac:TenderingCriterionResponse per
- * listed response whose instance value is present. Each response is:
- *   <cac:TenderingCriterionResponse>
- *     <cac:ValidatedCriterionPropertyID>
- *       <cbc:ID schemeID="property-path">{propertyKey}</cbc:ID>   <-- discriminator
- *     </cac:ValidatedCriterionPropertyID>
- *     <cac:ResponseValue>
- *       <{valueElement}>{typed value}</{valueElement}>
- *     </cac:ResponseValue>
- *   </cac:TenderingCriterionResponse>
- * The propertyKey on cbc:ID is what lets import route each response back to the
- * right instance path (see $notes.propertyIds in the spec).
- */
-function buildResponses(root, rule, data) {
-  for (const resp of rule.responses) {
-    const value = resolve(data, resp.from);
-    if (value === undefined || value === null || value === '') continue;
+// =========================================================================
+// Generic `records` construct
+//
+// A `records` rule emits a repeated "record" wrapper element. Each record has:
+//   - a `key`: an identifier element (rule.key.to) with an optional scheme
+//     attribute set (rule.key.attributes) — the record's cross-reference id.
+//   - a `body`: exactly one of (per Schematron BR-TCR-03 for ESPD, but the
+//     engine does not know that): a typed `value`, a `period`, or `references`
+//     (repeated cross-reference elements pointing at another record set by key).
+//
+// The engine hardcodes NO element names: the record wrapper, key element, key
+// attributes, and all body target paths are supplied by the spec. Two forms:
+//   - `entries`: a fixed list of records (each entry has its own key + body).
+//   - `forEach` + `entries`: the entries-set is expanded once per instance-array
+//     item; records then share key ids across occurrences and are split back into
+//     array items by DOCUMENT ORDER on import.
+//   - `forEach` + `item.fields`: one record per array item, all fields inside it
+//     (the "aggregate record" form, e.g. evidence documents). `key` may map a
+//     field to the key element via `key.from`.
+// =========================================================================
 
-    const node = appendPath(root, ['cac:TenderingCriterionResponse']);
-    const idLeaf = ensurePath(node, ['cac:ValidatedCriterionPropertyID', 'cbc:ID']);
-    idLeaf.text = resp.propertyKey;
-    idLeaf.attributes.schemeID = 'property-path';
-
-    const valueLeaf = ensurePath(node, ['cac:ResponseValue', resp.valueElement]);
-    valueLeaf.text = responseValueToText(value);
+/** Set the key identifier element (+ scheme attributes) on a record node. */
+function emitKey(node, keySpec, keyValue) {
+  const leaf = ensurePath(node, keySpec.to.split('/'));
+  leaf.text = String(keyValue);
+  for (const [attrName, attrValue] of Object.entries(keySpec.attributes || {})) {
+    leaf.attributes[attrName] = String(attrValue);
   }
 }
 
-/** Reverse of buildResponses: read the flat response list back into instance data. */
-function unmapResponses(root, rule, data) {
-  const nodes = findAllPaths(root, ['cac:TenderingCriterionResponse']);
-  if (nodes.length === 0) return;
+/** Emit one entry's body branch (value | period | references) under `node`. */
+function emitEntryBody(node, entry, context, data) {
+  if (entry.value) {
+    const value = resolve(context, entry.value.from);
+    if (value === undefined || value === null || value === '') return false;
+    const leaf = ensurePath(node, entry.value.to.split('/'));
+    leaf.text = valueToText(value);
+    // Optional attributes on the value leaf: a constant (e.g. unitCode="YEAR")
+    // or a data-sourced { from } (e.g. currencyID from the instance data).
+    for (const [attrName, attrValue] of Object.entries(entry.value.attributes || {})) {
+      const resolved = resolveAttr(attrValue, context);
+      if (resolved !== undefined && resolved !== null) leaf.attributes[attrName] = String(resolved);
+    }
+    return true;
+  }
+  if (entry.period) {
+    const period = resolve(context, entry.period.from);
+    if (!period || (period.startDate === undefined && period.endDate === undefined)) return false;
+    const wrap = ensurePath(node, entry.period.to.split('/'));
+    if (period.startDate) ensurePath(wrap, [entry.period.startElement]).text = period.startDate;
+    if (period.endDate) ensurePath(wrap, [entry.period.endElement]).text = period.endDate;
+    return true;
+  }
+  if (entry.references) {
+    const items = resolve(data, entry.references.forEach);
+    if (!Array.isArray(items)) return false;
+    const values = items
+      .map(item => resolve(item, entry.references.key))
+      .filter(v => v !== undefined && v !== null && v !== '');
+    if (values.length === 0) return false;
+    const segments = entry.references.to.split('/');
+    for (const value of values) {
+      const ref = appendPath(node, segments.slice(0, -1));
+      ensurePath(ref, segments.slice(-1)).text = String(value);
+    }
+    return true;
+  }
+  return false;
+}
 
-  // Index responses by their property key discriminator.
-  const byKey = new Map();
-  for (const node of nodes) {
-    const idLeaf = findPath(node, ['cac:ValidatedCriterionPropertyID', 'cbc:ID']);
-    if (!idLeaf || idLeaf.text === undefined) continue;
-    byKey.set(idLeaf.text, node);
+/** Emit one record (wrapper + key + one entry body) if the body is present. */
+function emitEntryRecord(root, rule, entry, context, data) {
+  // Peek whether the body will produce output before creating the wrapper,
+  // so absent optional fields don't emit empty records.
+  const probe = makeNode('probe');
+  if (!emitEntryBody(probe, entry, context, data)) return;
+
+  const node = appendPath(root, rule.records.split('/'));
+  emitKey(node, rule.key, entry.key);
+  emitEntryBody(node, entry, context, data);
+}
+
+/** EXPORT one `records` rule. */
+function buildRecords(root, rule, data) {
+  if (rule.forEach && rule.item?.fields) {
+    // Aggregate-record form: one record per array item, all fields inside it.
+    const items = resolve(data, rule.forEach);
+    if (!Array.isArray(items) || items.length === 0) return;
+    for (const item of items) {
+      const node = appendPath(root, rule.records.split('/'));
+      if (rule.key?.from !== undefined) emitKey(node, rule.key, resolve(item, rule.key.from));
+      for (const field of rule.item.fields) {
+        if (!field.from || !field.to) continue;
+        applyValueRule(node, field, item);
+      }
+    }
+    return;
   }
 
-  for (const resp of rule.responses) {
-    const node = byKey.get(resp.propertyKey);
-    if (!node) continue;
-    const valueLeaf = findPath(node, ['cac:ResponseValue', resp.valueElement]);
-    if (!valueLeaf || valueLeaf.text === undefined) continue;
-    setPath(data, resp.from, responseTextToValue(valueLeaf.text, resp.type));
+  if (rule.forEach) {
+    // Per-item entries form: expand the entries-set once per array item.
+    const items = resolve(data, rule.forEach);
+    if (!Array.isArray(items)) return;
+    for (const item of items) {
+      for (const entry of rule.entries) emitEntryRecord(root, rule, entry, item, data);
+    }
+    return;
+  }
+
+  // Fixed entries form.
+  for (const entry of rule.entries) emitEntryRecord(root, rule, entry, data, data);
+}
+
+/** Read one entry's body from a record node into `target`. Returns true if present. */
+function readEntryBody(node, entry, target) {
+  if (entry.references) {
+    // References carry only cross-reference ids; the referenced records are
+    // reconstructed from their own record set, so nothing unique is read here.
+    // Return true so occurrence grouping still counts this record as present.
+    return true;
+  }
+  if (entry.value) {
+    const leaf = findPath(node, entry.value.to.split('/'));
+    if (!leaf || leaf.text === undefined) return false;
+    setPath(target, entry.value.from, textToValue(leaf.text, entry.value.type));
+    // Restore any data-sourced ({ from }) attributes; constant attributes carry
+    // no instance data and are left as-is.
+    for (const [attrName, attrValue] of Object.entries(entry.value.attributes || {})) {
+      if (attrValue && typeof attrValue === 'object' && 'from' in attrValue) {
+        const attr = leaf.attributes[attrName];
+        if (attr !== undefined) setPath(target, attrValue.from, attr);
+      }
+    }
+    return true;
+  }
+  if (entry.period) {
+    const wrap = findPath(node, entry.period.to.split('/'));
+    if (!wrap) return false;
+    const start = findPath(wrap, [entry.period.startElement])?.text;
+    const end = findPath(wrap, [entry.period.endElement])?.text;
+    if (start === undefined && end === undefined) return false;
+    const obj = {};
+    if (start !== undefined) obj.startDate = start;
+    if (end !== undefined) obj.endDate = end;
+    setPath(target, entry.period.from, obj);
+    return true;
+  }
+  return false;
+}
+
+/** The key text of a record node for a given rule. */
+function recordKeyText(node, rule) {
+  return findPath(node, rule.key.to.split('/'))?.text;
+}
+
+/** IMPORT one `records` rule. */
+function unmapRecords(root, rule, data) {
+  const nodes = findAllPaths(root, rule.records.split('/'));
+  if (nodes.length === 0) return;
+
+  if (rule.forEach && rule.item?.fields) {
+    // Aggregate-record form: rebuild the array, one entry per record.
+    const items = nodes.map(node => {
+      const entry = {};
+      if (rule.key?.from !== undefined) {
+        const keyText = recordKeyText(node, rule);
+        if (keyText !== undefined) setPath(entry, rule.key.from, keyText);
+      }
+      for (const field of rule.item.fields) {
+        if (!field.from || !field.to) continue;
+        applyValueRuleReverse(node, field, entry);
+      }
+      return entry;
+    });
+    setPath(data, rule.forEach, items);
+    return;
+  }
+
+  if (rule.forEach) {
+    // Per-item entries form: records share key ids across occurrences, so split
+    // by DOCUMENT ORDER — a new array item begins whenever a key already filled
+    // in the current item reappears.
+    const keyToEntry = new Map(rule.entries.map(e => [e.key, e]));
+    const items = [];
+    let current = null;
+    const filled = new Set();
+    for (const node of nodes) {
+      const keyText = recordKeyText(node, rule);
+      const entry = keyToEntry.get(keyText);
+      if (!entry) continue;
+      if (current === null || filled.has(keyText)) {
+        current = {};
+        items.push(current);
+        filled.clear();
+      }
+      if (readEntryBody(node, entry, current)) filled.add(keyText);
+    }
+    if (items.length > 0) setPath(data, rule.forEach, items);
+    return;
+  }
+
+  // Fixed entries form: match each entry by its key (first occurrence wins).
+  const byKey = new Map();
+  for (const node of nodes) {
+    const keyText = recordKeyText(node, rule);
+    if (keyText === undefined || byKey.has(keyText)) continue;
+    byKey.set(keyText, node);
+  }
+  for (const entry of rule.entries) {
+    const node = byKey.get(entry.key);
+    if (node) readEntryBody(node, entry, data);
   }
 }
 
@@ -457,8 +616,8 @@ export function unmap(spec, xml) {
   for (const rule of spec.rules) {
     if (!isRealRule(rule)) continue;
 
-    if (rule.responses) {
-      unmapResponses(root, rule, data);
+    if (rule.records) {
+      unmapRecords(root, rule, data);
       continue;
     }
 

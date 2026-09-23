@@ -9,7 +9,6 @@
             "reason": "Participation in a criminal organisation as defined in Article 2 of Council Framework Decision 2008/841/JHA.",
             "whoConvicted": "A former member of the administrative body, no longer employed by the economic operator.",
             "exclusionPeriod": {
-              "description": "Two years from the date of the final judgement.",
               "startDate": "2021-06-15",
               "endDate": "2023-06-15"
             },
@@ -23,6 +22,7 @@
           "availableElectronically": true,
           "evidence": [
             {
+              "id": "evidence-crim-001",
               "url": "https://ecris.example.eu/records/12345",
               "identifier": "ECRIS-12345",
               "description": "Extract from the European Criminal Records Information System."

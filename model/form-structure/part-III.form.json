@@ -61,9 +61,16 @@
               "required": true
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].exclusionPeriod.description",
-              "labelKey": "part3.exclusion.conviction.periodLength",
-              "uiType": "text",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].exclusionPeriod.startDate",
+              "labelKey": "part3.exclusion.conviction.periodStart",
+              "uiType": "date",
+              "required": false,
+              "$comment": "Length of the period of exclusion (Q4, PERIOD) maps to UBL cac:ApplicablePeriod (StartDate/EndDate). The free-text `description` the schema also allows has no ApplicablePeriod home, so the form collects the structured dates."
+            },
+            {
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].exclusionPeriod.endDate",
+              "labelKey": "part3.exclusion.conviction.periodEnd",
+              "uiType": "date",
               "required": false
             },
             {

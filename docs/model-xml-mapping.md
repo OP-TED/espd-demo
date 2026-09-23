@@ -230,6 +230,19 @@ examples for all parts live in `docs/diagrams/` (see its README); pass `--out
   node xml-mapping/mapping-uml.mjs part-III > part-III.mapping.puml
   ```
 
+- **`xml-mapping/xml-uml.mjs`** — a class diagram of the UBL XML ELEMENT
+  STRUCTURE produced by the mapping, in the style of the EA "Technical View"
+  diagrams: a class per aggregate (`cac:*`) element, basic (`cbc:*`) children as
+  attributes, aggregate children as associations with cardinality. Repeating
+  elements (from `records`/`forEach`) show `0..*` / `1..*`. Where several records
+  share a wrapper element (e.g. `cac:TenderingCriterionResponse`) they are
+  collapsed into one class showing all possible bodies, with a note (each runtime
+  instance carries exactly one body per BR-TCR-03).
+
+  ```
+  node xml-mapping/xml-uml.mjs part-III > part-III.xml.puml
+  ```
+
 ## Verifying
 
 From `model/`:

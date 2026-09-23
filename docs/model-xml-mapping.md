@@ -176,6 +176,34 @@ So the architecture supports the requirement, but full coverage, verified
 decoding of externally-produced XML, the request document, and UI wiring remain
 open work.
 
+## Generating samples and skeletons
+
+Two helpers in `model/xml-mapping/` produce XML from the model without a
+hand-written instance, for documentation and fixtures:
+
+- **`skeleton.mjs`** — a structural *skeleton* of the XML from the mapping spec
+  alone: every element the mapping can produce, with placeholders naming what
+  fills each leaf (`{const}`, `{from: <instance path>}`, `{ref: <array>[].<field>}`)
+  and `<!-- repeats per ... -->` comments on repeating records. No values are
+  invented; it is a shape/template reference.
+
+  ```
+  node xml-mapping/skeleton.mjs part-III
+  ```
+
+- **`sample.mjs`** — a realistic *sample* document: it synthesizes a
+  minimal-but-complete valid instance from the JSON Schema (required fields; one
+  item per array; booleans chosen to open conditional branches) and runs the
+  real `map()`. `--instance` also prints the synthesized instance.
+
+  ```
+  node xml-mapping/sample.mjs part-III --instance
+  ```
+
+  Note: `sample.mjs` does not yet honor `pattern` constraints (e.g. the Part I
+  TED-notice id), so a pattern-constrained field gets a visible placeholder
+  rather than a conforming value.
+
 ## Verifying
 
 From `model/`:

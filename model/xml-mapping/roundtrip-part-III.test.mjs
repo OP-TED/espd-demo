@@ -29,13 +29,13 @@ const cases = [
   {
     name: 'ground answered NO — bare answer only',
     instance: {
-      partIII: { exclusionGrounds: { 'exg-crim-part': { answer: false } } }
+      partIII: { exclusionGrounds: { 'exg-crim-part': { response: { answer: false } } } }
     }
   },
   {
     name: 'YES — one conviction, self-cleaning taken, one evidence document',
     instance: {
-      partIII: { exclusionGrounds: { 'exg-crim-part': {
+      partIII: { exclusionGrounds: { 'exg-crim-part': { response: {
         answer: true,
         convictions: [
           {
@@ -52,13 +52,13 @@ const cases = [
             { id: 'ev-1', url: 'https://ecris.example.eu/records/12345', identifier: 'ECRIS-12345', description: 'ECRIS extract.' }
           ]
         }
-      } } }
+      } } } }
     }
   },
   {
     name: 'YES — three convictions (mixed self-cleaning), two evidence documents',
     instance: {
-      partIII: { exclusionGrounds: { 'exg-crim-part': {
+      partIII: { exclusionGrounds: { 'exg-crim-part': { response: {
         answer: true,
         convictions: [
           {
@@ -87,13 +87,13 @@ const cases = [
             { id: 'ev-b', url: 'https://reg.example.eu/b', identifier: 'DOC-B', description: 'Document B.' }
           ]
         }
-      } } }
+      } } } }
     }
   },
   {
     name: 'YES — one conviction, no self-cleaning, evidence not available electronically',
     instance: {
-      partIII: { exclusionGrounds: { 'exg-crim-part': {
+      partIII: { exclusionGrounds: { 'exg-crim-part': { response: {
         answer: true,
         convictions: [
           {
@@ -103,7 +103,7 @@ const cases = [
           }
         ],
         electronicEvidence: { availableElectronically: false }
-      } } }
+      } } } }
     }
   }
 ];

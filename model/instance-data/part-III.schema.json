@@ -10,7 +10,7 @@
       "properties": {
         "exclusionGrounds": {
           "type": "object",
-          "description": "The economic operator's answers to the exclusion-ground criteria, keyed by the stable criterion code (the ESPD-EDM `code`, e.g. 'exg-crim-part'). Only criteria actually answered need be present. Keying by semantic code rather than by form tag (C01) keeps the instance data stable if the form re-numbers criteria.",
+          "description": "Exclusion-ground criteria keyed by the stable criterion code (the ESPD-EDM `code`, e.g. 'exg-crim-part'). Keying by semantic code rather than by form tag (C01) keeps the instance data stable if the form re-numbers criteria. Each criterion holds BOTH request (buyer) and response (economic operator) data via `requirement`/`response` sub-objects (see docs/model-xml-mapping.md). Exclusion grounds carry NO buyer data — the buyer only selects that the ground applies, which is fixed criterion metadata (from e-Certis), not instance data — so `requirement` is absent and `response` holds the economic operator's answer. Only criteria actually present in the exchange need appear.",
           "properties": {
             "exg-crim-part": { "$ref": "#/$defs/convictionCriterion" }
           },
@@ -27,7 +27,22 @@
   "$defs": {
     "convictionCriterion": {
       "type": "object",
-      "description": "An exclusion criterion of the 'conviction' shape (C01–C06 in Section A share this structure). The top-level `answer` is the economic operator's yes/no reply to the ground (C01/QG1/Q1). When `answer` is true, one or more `convictions` describe each relevant conviction (C01/QG1/QSG1, cardinality 0..n). `electronicEvidence` (C01/QG2) states whether the information is available electronically and, if so, references the evidence.",
+      "description": "An exclusion criterion of the 'conviction' shape (C01–C06 in Section A share this structure). Split into `requirement` (buyer/request side) and `response` (economic-operator side), mirroring the ESPD document boundary. Exclusion grounds carry NO buyer data, so `requirement` is absent here; it exists in the model only for symmetry with selection criteria (which do carry buyer thresholds). `response` holds the economic operator's answer.",
+      "properties": {
+        "requirement": {
+          "$comment": "Buyer/request side. Not applicable to exclusion grounds (the buyer only selects that the ground applies — fixed criterion metadata, not instance data). Present in the shape only for symmetry with selection criteria; expected to be absent for C01–C06.",
+          "type": "object",
+          "additionalProperties": false
+        },
+        "response": { "$ref": "#/$defs/convictionResponse" }
+      },
+      "required": ["response"],
+      "additionalProperties": false
+    },
+
+    "convictionResponse": {
+      "type": "object",
+      "description": "The economic operator's answer to a conviction-shaped exclusion ground. `answer` is the yes/no reply (C01/QG1/Q1). When true, one or more `convictions` describe each relevant conviction (C01/QG1/QSG1, cardinality 0..n). `electronicEvidence` (C01/QG2) states whether the information is available electronically and, if so, references the evidence.",
       "properties": {
         "answer": {
           "type": "boolean",

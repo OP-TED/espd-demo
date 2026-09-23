@@ -44,17 +44,17 @@
         {
           "$comment": "QG1/Q1 — exclusion-ground answer (INDICATOR).",
           "key": "C01_exg-crim-part/QG1/Q1",
-          "value": { "from": "partIII.exclusionGrounds.exg-crim-part.answer", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
+          "value": { "from": "partIII.exclusionGrounds.exg-crim-part.response.answer", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
         },
         {
           "$comment": "QG2/Q1 — 'available electronically?' (INDICATOR).",
           "key": "C01_exg-crim-part/QG2/Q1",
-          "value": { "from": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.availableElectronically", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
+          "value": { "from": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.availableElectronically", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
         },
         {
           "$comment": "QG2/QSG1/Q1 — 'Evidence Supplied' (EVIDENCE_IDENTIFIER, 1..n). Body is `references`: one cac:EvidenceSupplied/cbc:ID per evidence entry, valued by that entry's `key` field (producer-owned id). Links to the cac:Evidence records below (BR-TCR-09).",
           "key": "C01_exg-crim-part/QG2/QSG1/Q1",
-          "references": { "forEach": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.evidence", "key": "id", "to": "cac:EvidenceSupplied/cbc:ID" }
+          "references": { "forEach": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.evidence", "key": "id", "to": "cac:EvidenceSupplied/cbc:ID" }
         }
       ]
     },
@@ -63,7 +63,7 @@
       "$comment": "Repeating conviction records (C01/QG1/QSG1, 0..n). `forEach` expands the entries-set once per conviction; entry sources resolve against the array item. Repeated records share their key ids; occurrence order = document order.",
       "records": "cac:TenderingCriterionResponse",
       "key": { "to": "cac:ValidatedCriterionPropertyID/cbc:ID", "attributes": { "schemeID": "criterion" } },
-      "forEach": "partIII.exclusionGrounds.exg-crim-part.convictions",
+      "forEach": "partIII.exclusionGrounds.exg-crim-part.response.convictions",
       "entries": [
         { "$comment": "DATE (BR-TCR-08-04).", "key": "C01_exg-crim-part/QG1/QSG1/Q1", "value": { "from": "dateOfConviction", "to": "cac:ResponseValue/cbc:ResponseDate", "type": "string" } },
         { "$comment": "DESCRIPTION (BR-TCR-08-05).", "key": "C01_exg-crim-part/QG1/QSG1/Q2", "value": { "from": "reason", "to": "cac:ResponseValue/cbc:Description", "type": "string" } },
@@ -78,7 +78,7 @@
       "$comment": "Evidence documents (cac:Evidence, 1..n). A `records` rule with `forEach` + `item.fields`: one record per evidence entry, all fields inside it. The entity id (rule `key`) is just the field mapped to the key element — the engine generates no ids; the QG2/QSG1/Q1 record above references these same ids.",
       "records": "cac:Evidence",
       "key": { "to": "cbc:ID", "from": "id" },
-      "forEach": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.evidence",
+      "forEach": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.evidence",
       "item": {
         "fields": [
           { "from": "description", "to": "cbc:Description" },

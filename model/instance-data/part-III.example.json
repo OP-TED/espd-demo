@@ -2,32 +2,34 @@
   "partIII": {
     "exclusionGrounds": {
       "exg-crim-part": {
-        "answer": true,
-        "convictions": [
-          {
-            "dateOfConviction": "2021-06-15",
-            "reason": "Participation in a criminal organisation as defined in Article 2 of Council Framework Decision 2008/841/JHA.",
-            "whoConvicted": "A former member of the administrative body, no longer employed by the economic operator.",
-            "exclusionPeriod": {
-              "startDate": "2021-06-15",
-              "endDate": "2023-06-15"
-            },
-            "selfCleaning": {
-              "taken": true,
-              "description": "The individual was dismissed, internal compliance controls were strengthened, and an external audit was commissioned."
-            }
-          }
-        ],
-        "electronicEvidence": {
-          "availableElectronically": true,
-          "evidence": [
+        "response": {
+          "answer": true,
+          "convictions": [
             {
-              "id": "evidence-crim-001",
-              "url": "https://ecris.example.eu/records/12345",
-              "identifier": "ECRIS-12345",
-              "description": "Extract from the European Criminal Records Information System."
+              "dateOfConviction": "2021-06-15",
+              "reason": "Participation in a criminal organisation as defined in Article 2 of Council Framework Decision 2008/841/JHA.",
+              "whoConvicted": "A former member of the administrative body, no longer employed by the economic operator.",
+              "exclusionPeriod": {
+                "startDate": "2021-06-15",
+                "endDate": "2023-06-15"
+              },
+              "selfCleaning": {
+                "taken": true,
+                "description": "The individual was dismissed, internal compliance controls were strengthened, and an external audit was commissioned."
+              }
             }
-          ]
+          ],
+          "electronicEvidence": {
+            "availableElectronically": true,
+            "evidence": [
+              {
+                "id": "evidence-crim-001",
+                "url": "https://ecris.example.eu/records/12345",
+                "identifier": "ECRIS-12345",
+                "description": "Extract from the European Criminal Records Information System."
+              }
+            ]
+          }
         }
       }
     }

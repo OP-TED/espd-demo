@@ -73,6 +73,79 @@ omit it. If strict UBL XSD validation requires it, it can be added to the
 `records` construct as a locally-generated value (produced on export, ignored on
 import — it need not be stable across a round trip).
 
+## Buyer and economic-operator data (the request/response split)
+
+The canonical model is intended to hold **both** sides of the exchange: the
+buyer's request data and the economic operator's response data. In UBL these
+live in two different documents — the request declares the questions (and, for
+some criteria, buyer-set requirements), and the response supplies the answers.
+Verified against the examples:
+
+- A criterion property has a `TypeCode` of either **`REQUIREMENT`** (buyer) or
+  **`QUESTION`** (economic operator).
+- A `REQUIREMENT` carries an `Expected*` value the buyer sets — e.g.
+  `cbc:ExpectedAmount currencyID="EUR">5000000` (minimum turnover),
+  `cbc:ExpectedValueNumeric>3` (number of years). These appear only in the
+  **request**.
+- A `QUESTION` is answered by the EO with a `Response*` value in the
+  **response**. The response document carries **no** `Expected*` / `REQUIREMENT`
+  values (confirmed: none appear in the example responses).
+- **Exclusion grounds carry no buyer data.** They have only `QUESTION`
+  properties — the buyer merely selects that the ground applies, which is fixed
+  criterion metadata (from e-Certis), not instance data. **Selection criteria**
+  do carry buyer thresholds.
+
+### Canonical shape
+
+Each criterion object is split into two semantic sub-objects mirroring the
+document boundary:
+
+```jsonc
+"slc-stand-to-spec-avg": {           // a selection criterion (example)
+  "requirement": {                    // BUYER side — maps to/from the REQUEST
+    "minimumAmount": { "value": 5000000, "currency": "EUR" },
+    "numberOfYears": 3
+  },
+  "response": {                       // EO side — maps to/from the RESPONSE
+    "amount": { "value": 6200000, "currency": "EUR" }
+  }
+}
+```
+
+For exclusion grounds, `requirement` is **absent** (no buyer data) and the EO
+answer lives under `response`:
+
+```jsonc
+"exg-crim-part": {
+  "response": { "answer": true, "convictions": [ ... ], "electronicEvidence": { ... } }
+}
+```
+
+Rationale for this shape over the alternatives:
+
+- It mirrors the real request/response document boundary, so each sub-object
+  maps to a different UBL document — making the mapping's routing explicit.
+- It is honest about optionality: exclusion grounds simply omit `requirement`,
+  rather than carrying an empty or misleading buyer field.
+- It keeps semantic keys and does not reintroduce process-metadata envelopes
+  (`filledBy`/`data`) that were previously rejected — `requirement`/`response`
+  are semantic, not process, sub-objects.
+- The split is a **criterion-level** pattern (Parts III–V). Part I
+  (buyer-authored procedure/CA) and Part II (EO-authored operator info) are not
+  criteria and are not forced into this shape.
+
+### Status
+
+- **C01 (exclusion ground) now uses this shape**: its EO data lives under
+  `response`; `requirement` is absent. Schema, example, form-structure and
+  mapping are updated and roundtrip-verified.
+- **The `requirement` (buyer) mapping is not yet built.** It will be introduced
+  with the first **selection criterion** that has a real threshold (e.g.
+  `slc-stand-to-spec-avg`), mapping `requirement.*` to the request's
+  `TenderingCriterionProperty[TypeCode=REQUIREMENT]/Expected*`. Because buyer and
+  EO data map to different documents, this also relates to the open "request
+  document" gap below (we currently emit only the response).
+
 ## Round-trip requirement — status
 
 A required capability is that the reference-implementation form can **encode**

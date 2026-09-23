@@ -1,5 +1,5 @@
 {
-  "$comment": "EXPERIMENTAL — form-structure lens for Part III (exclusion grounds). Scoped for now to criterion C01 (exg-crim-part). This describes HOW the C01 instance data is presented and collected: criterion ordering (the regulation's fixed sequence lives HERE, not in the instance data — see `criteriaOrder`), section/question-group grouping, field ordering, UI control hints, labels as i18n keys, and conditional visibility. It references the instance-data model by dotted path (`dataPath`) and carries NO XML/serialization concerns and does NOT redeclare the data shape (that lives in instance-data/part-III.schema.json).",
+  "$comment": "EXPERIMENTAL — form-structure lens for Part III (exclusion grounds). Scoped for now to criterion C01 (exg-crim-part). This describes HOW the C01 instance data is presented and collected: criterion ordering (the regulation's fixed sequence lives HERE, not in the instance data — see `criteriaOrder`), section/question-group grouping, field ordering, UI control hints, labels as i18n keys, and conditional visibility. It references the instance-data model by dotted path (`dataPath`) and carries NO XML/serialization concerns and does NOT redeclare the data shape (that lives in instance-data/part-III.schema.json). Criterion data is split into `requirement` (buyer) and `response` (economic operator); exclusion grounds have no buyer data, so all fields live under `.response.`.",
 
   "part": "III",
   "titleKey": "part3.title",
@@ -27,7 +27,7 @@
           "$comment": "C01/QG1 — the ground itself. Q1 is the top-level indicator that gates the conviction detail.",
           "fields": [
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.answer",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.answer",
               "labelKey": "part3.exclusion.answer",
               "uiType": "boolean",
               "required": true
@@ -38,54 +38,54 @@
           "id": "convictions",
           "$comment": "C01/QG1/QSG1 (ONTRUE, 0..n) — one repeatable block of conviction details, shown only when the ground is answered 'yes'.",
           "repeatable": true,
-          "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions",
-          "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.answer", "equals": true },
+          "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.convictions",
+          "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.response.answer", "equals": true },
           "$comment.fieldPaths": "Field dataPaths are absolute and use `[]` to denote the repeating `convictions` array, consistent with the rest of the form lens.",
           "fields": [
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].dateOfConviction",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.convictions[].dateOfConviction",
               "labelKey": "part3.exclusion.conviction.date",
               "uiType": "date",
               "required": true
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].reason",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.convictions[].reason",
               "labelKey": "part3.exclusion.conviction.reason",
               "uiType": "textarea",
               "required": true
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].whoConvicted",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.convictions[].whoConvicted",
               "labelKey": "part3.exclusion.conviction.who",
               "uiType": "textarea",
               "required": true
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].exclusionPeriod.startDate",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.convictions[].exclusionPeriod.startDate",
               "labelKey": "part3.exclusion.conviction.periodStart",
               "uiType": "date",
               "required": false,
               "$comment": "Length of the period of exclusion (Q4, PERIOD) maps to UBL cac:ApplicablePeriod (StartDate/EndDate). The free-text `description` the schema also allows has no ApplicablePeriod home, so the form collects the structured dates."
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].exclusionPeriod.endDate",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.convictions[].exclusionPeriod.endDate",
               "labelKey": "part3.exclusion.conviction.periodEnd",
               "uiType": "date",
               "required": false
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].selfCleaning.taken",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.convictions[].selfCleaning.taken",
               "labelKey": "part3.exclusion.selfCleaning.taken",
               "uiType": "boolean",
               "required": false
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.convictions[].selfCleaning.description",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.convictions[].selfCleaning.description",
               "labelKey": "part3.exclusion.selfCleaning.describe",
               "uiType": "textarea",
               "required": false,
               "$comment": "C01/QG1/QSG1/QSG1/QSG1 (ONTRUE) — only shown when self-cleaning measures were taken.",
-              "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.convictions[].selfCleaning.taken", "equals": true }
+              "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.response.convictions[].selfCleaning.taken", "equals": true }
             }
           ]
         },
@@ -94,35 +94,35 @@
           "$comment": "C01/QG2 — 'is this information available electronically?' plus evidence references. This block recurs across every criterion; the form lens mirrors the shared instance-data $def.",
           "fields": [
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.availableElectronically",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.availableElectronically",
               "labelKey": "part3.evidence.availableElectronically",
               "uiType": "boolean",
               "required": false
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.evidence[].url",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.evidence[].url",
               "labelKey": "part3.evidence.url",
               "uiType": "url",
               "required": true,
               "repeatable": true,
               "$comment": "C01/QG2/QSG1/Q1 (ONTRUE, 1..n) — evidence references, shown only when available electronically.",
-              "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.availableElectronically", "equals": true }
+              "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.availableElectronically", "equals": true }
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.evidence[].identifier",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.evidence[].identifier",
               "labelKey": "part3.evidence.identifier",
               "uiType": "text",
               "required": false,
               "repeatable": true,
-              "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.availableElectronically", "equals": true }
+              "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.availableElectronically", "equals": true }
             },
             {
-              "dataPath": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.evidence[].description",
+              "dataPath": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.evidence[].description",
               "labelKey": "part3.evidence.description",
               "uiType": "text",
               "required": false,
               "repeatable": true,
-              "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.electronicEvidence.availableElectronically", "equals": true }
+              "visibleWhen": { "path": "partIII.exclusionGrounds.exg-crim-part.response.electronicEvidence.availableElectronically", "equals": true }
             }
           ]
         }

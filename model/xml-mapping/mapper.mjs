@@ -206,8 +206,9 @@ function textToValue(text, type) {
 //   - a `key`: an identifier element (rule.key.to) with an optional scheme
 //     attribute set (rule.key.attributes) — the record's cross-reference id.
 //   - a `body`: exactly one of (per Schematron BR-TCR-03 for ESPD, but the
-//     engine does not know that): a typed `value`, a `period`, or `references`
-//     (repeated cross-reference elements pointing at another record set by key).
+//     engine does not know that): a typed `value`, a nested `object` (its fields
+//     mapped to child elements under a wrapper), or `references` (repeated
+//     cross-reference elements pointing at another record set by key).
 //
 // The engine hardcodes NO element names: the record wrapper, key element, key
 // attributes, and all body target paths are supplied by the spec. Two forms:
@@ -229,7 +230,7 @@ function emitKey(node, keySpec, keyValue) {
   }
 }
 
-/** Emit one entry's body branch (value | period | references) under `node`. */
+/** Emit one entry's body branch (value | object | references) under `node`. */
 function emitEntryBody(node, entry, context, data) {
   if (entry.value) {
     const value = resolve(context, entry.value.from);
@@ -244,13 +245,24 @@ function emitEntryBody(node, entry, context, data) {
     }
     return true;
   }
-  if (entry.period) {
-    const period = resolve(context, entry.period.from);
-    if (!period || (period.startDate === undefined && period.endDate === undefined)) return false;
-    const wrap = ensurePath(node, entry.period.to.split('/'));
-    if (period.startDate) ensurePath(wrap, [entry.period.startElement]).text = period.startDate;
-    if (period.endDate) ensurePath(wrap, [entry.period.endElement]).text = period.endDate;
-    return true;
+  if (entry.object) {
+    // Generic nested-object body: map an object's fields to child elements under
+    // a wrapper. `from` is the object; `to` is the wrapper element; `fields` map
+    // sub-paths to child element paths. Emitted only if at least one field has a
+    // value (so an all-empty object produces nothing). Replaces the former
+    // period-specific branch (a period is just {startDate,endDate} -> children).
+    const obj = resolve(context, entry.object.from);
+    if (obj === undefined || obj === null) return false;
+    const wrap = ensurePath(node, entry.object.to.split('/'));
+    let any = false;
+    for (const field of entry.object.fields || []) {
+      if (!field.from || !field.to) continue;
+      const value = resolve(obj, field.from);
+      if (value === undefined || value === null || value === '') continue;
+      ensurePath(wrap, field.to.split('/')).text = valueToText(value);
+      any = true;
+    }
+    return any;
   }
   if (entry.references) {
     const items = resolve(data, entry.references.forEach);
@@ -334,16 +346,19 @@ function readEntryBody(node, entry, target) {
     }
     return true;
   }
-  if (entry.period) {
-    const wrap = findPath(node, entry.period.to.split('/'));
+  if (entry.object) {
+    // Reverse of the generic object body: read each field's child element back
+    // into the object at `from`.
+    const wrap = findPath(node, entry.object.to.split('/'));
     if (!wrap) return false;
-    const start = findPath(wrap, [entry.period.startElement])?.text;
-    const end = findPath(wrap, [entry.period.endElement])?.text;
-    if (start === undefined && end === undefined) return false;
     const obj = {};
-    if (start !== undefined) obj.startDate = start;
-    if (end !== undefined) obj.endDate = end;
-    setPath(target, entry.period.from, obj);
+    for (const field of entry.object.fields || []) {
+      if (!field.from || !field.to) continue;
+      const leaf = findPath(wrap, field.to.split('/'));
+      if (leaf && leaf.text !== undefined) setPath(obj, field.from, leaf.text);
+    }
+    if (Object.keys(obj).length === 0) return false;
+    setPath(target, entry.object.from, obj);
     return true;
   }
   return false;

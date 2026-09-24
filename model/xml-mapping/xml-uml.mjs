@@ -104,9 +104,10 @@ for (const rule of spec.rules) {
     }
     for (const entry of rule.entries || []) {
       if (entry.value) addTarget(`${wrap}/${entry.value.to}`, card);
-      if (entry.period) {
-        addTarget(`${wrap}/${entry.period.to}/${entry.period.startElement}`, card);
-        addTarget(`${wrap}/${entry.period.to}/${entry.period.endElement}`, card);
+      if (entry.object) {
+        for (const f of entry.object.fields || []) {
+          if (f.to) addTarget(`${wrap}/${entry.object.to}/${f.to}`, card);
+        }
       }
       // A `references` body emits one cross-reference element PER referenced
       // entry, so the reference element itself is 1..* within its record. The

@@ -45,8 +45,8 @@ I3 --> U4 : ref
 I4 --> U5 : string
 I5 --> U6 : string
 I6 --> U6 : string
-I7 --> U7 : period
-I8 --> U8 : period
+I7 --> U7 : object
+I8 --> U8 : object
 I9 --> U3 : boolean
 I10 --> U6 : string
 I3 --> U9 : key

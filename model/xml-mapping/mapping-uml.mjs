@@ -57,9 +57,10 @@ for (const rule of spec.rules) {
     for (const entry of rule.entries || []) {
       const keyTarget = `${wrap}/${rule.key.to} = ${entry.key}`;
       if (entry.value) add(`${base}${entry.value.from}`, `${wrap}/${entry.value.to}`, entry.value.type || 'value');
-      if (entry.period) {
-        add(`${base}${entry.period.from}.startDate`, `${wrap}/${entry.period.to}/${entry.period.startElement}`, 'period');
-        add(`${base}${entry.period.from}.endDate`, `${wrap}/${entry.period.to}/${entry.period.endElement}`, 'period');
+      if (entry.object) {
+        for (const f of entry.object.fields || []) {
+          if (f.to) add(`${base}${entry.object.from}.${f.from}`, `${wrap}/${entry.object.to}/${f.to}`, 'object');
+        }
       }
       if (entry.references) {
         add(`${entry.references.forEach}[].${entry.references.key}`, `${wrap}/${entry.references.to}`, 'ref');

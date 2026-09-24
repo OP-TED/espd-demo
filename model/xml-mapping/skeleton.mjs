@@ -107,10 +107,11 @@ function buildSkeleton(spec) {
 
 function buildEntryBody(node, entry) {
   if (entry.value) buildValueLeaf(node, entry.value.to, ph.from(entry.value.from));
-  if (entry.period) {
-    const wrap = ensurePath(node, entry.period.to.split('/'));
-    ensurePath(wrap, [entry.period.startElement]).text = ph.from(`${entry.period.from}.startDate`);
-    ensurePath(wrap, [entry.period.endElement]).text = ph.from(`${entry.period.from}.endDate`);
+  if (entry.object) {
+    const wrap = ensurePath(node, entry.object.to.split('/'));
+    for (const f of entry.object.fields || []) {
+      if (f.to) ensurePath(wrap, f.to.split('/')).text = ph.from(`${entry.object.from}.${f.from}`);
+    }
   }
   if (entry.references) {
     const refNode = appendPath(node, entry.references.to.split('/'));

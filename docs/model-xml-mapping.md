@@ -31,16 +31,76 @@ One declarative spec drives both directions:
 - `unmap(spec, xml)` — UBL XML → instance JSON
 
 The engine hardcodes no UBL element names; every element path is supplied by the
-spec. Constructs:
+spec. `from` is a dotted instance path; `to` is a slash-separated XML element
+path relative to the current container. A rule is one of three kinds.
 
-- **value rule** `{ from, to }` — a dotted instance path ↔ an XML element path,
-  with optional `attributes` (constant or `{ from }`-sourced), a `when` guard,
-  and `const` (a fixed value with no instance source).
-- **`forEach` rule** — a JSON array ↔ repeated same-named XML siblings.
-- **`records` rule** — a repeated keyed record (for the ESPD criterion model):
-  each record has a `key` (identifier element + optional scheme attribute) and a
-  body that is exactly one of `value`, `period`, or `references` (repeated
-  cross-reference elements linked by key). See `part-III.mapping.json`.
+### value rule
+
+`{ from, to }` — maps a single instance value to an XML element's text. Options:
+
+- `const` — a fixed value emitted with no instance source (e.g. criterion
+  metadata). If a rule has both `from` and `const`, the resolved `from` value
+  wins when present, otherwise `const`.
+- `attributes` — a map of attribute name → value on the target element. Each
+  value is either a constant (e.g. `{ "listID": "criterion" }`) or a
+  data-sourced reference `{ "from": "<instance path>" }`. Constant attributes
+  act as discriminators on import; data-sourced attributes roundtrip back into
+  the instance data.
+- `when` — a guard `{ "path": "<instance path>", "equals": <value> }`; the rule
+  applies only when the instance value at `path` equals `equals`. On import, a
+  fired guard restores the discriminating value.
+- `type` — `"boolean"` coerces the text back to a real boolean on import
+  (otherwise values import as strings). Absent = string.
+
+Empty/`null`/`undefined` values emit nothing.
+
+### forEach rule
+
+`{ forEach, to, item }` — maps a JSON array to repeated same-named XML sibling
+elements (named by `to`), one per array entry. Three `item` shapes:
+
+- `item.fields` — array of objects; each field `{ from, to }` is applied under
+  the repeated element, resolved against that one entry (e.g. representatives).
+- `item.path` — array of scalars; each value goes into a fixed child element
+  named by `item.path` under the repeated element (e.g. lots → `cbc:ID`).
+- neither — array of scalars; each value becomes the repeated element's own text.
+
+On import the array is reconstructed from the repeated elements, in document
+order.
+
+### records rule
+
+`{ records, key, ... }` — a repeated keyed "record" wrapper (the ESPD criterion
+model). `records` is the wrapper element path; `key` is
+`{ to, attributes?, from? }` — the identifier element (with optional scheme
+attributes). Three forms:
+
+- **fixed `entries`** — a fixed list of records; each `entry` has a literal
+  `key` and one body.
+- **`forEach` + `entries`** — the entries-set is expanded once per instance-array
+  item (`from` inside each body resolves against the item). Repeated records
+  share their key ids deliberately; on import they are split back into array
+  items by document order.
+- **`forEach` + `item.fields`** — one aggregate record per array item, all fields
+  inside it; `key.from` maps an item field to the key element.
+
+Each record body (in `entries`) is exactly ONE of:
+
+- `value` — `{ from, to, type?, attributes? }` — a typed value element (same
+  options as the value rule).
+- `object` — `{ from, to, fields }` — a nested instance object whose `fields`
+  (`{ from, to }`, relative to the object / wrapper) become child elements under
+  the wrapper `to`. Generic (not domain-specific); used for the exclusion PERIOD
+  (`{startDate,endDate}` → `cac:ApplicablePeriod/{cbc:StartDate,cbc:EndDate}`)
+  and suitable for AMOUNT `{value,currency}`, MEASURE `{value,unit}`, etc.
+- `references` — `{ forEach, key, to }` — a key cross-reference: resolves the
+  array at `forEach`, and emits one `to` element per entry valued by that
+  entry's `key` field. This is how a response links to separate records (e.g.
+  `cac:EvidenceSupplied/cbc:ID` → `cac:Evidence/cbc:ID`); the referenced records
+  are reconstructed from their own record set on import.
+
+See `part-III.mapping.json` for a worked example of all three body kinds, and its
+`$notes` for the ESPD-specific rationale.
 
 ## The three ID types in the UBL criterion model
 
@@ -224,7 +284,7 @@ examples for all parts live in `docs/diagrams/` (see its README); pass `--out
 
 - **`xml-mapping/mapping-uml.mjs`** — a correspondence diagram of the MAPPING:
   two packages ("instance data" and "UBL XML") with an arrow per mapping rule,
-  labelled by kind (value / const / period / ref / key).
+  labelled by kind (value / const / object / ref / key).
 
   ```
   node xml-mapping/mapping-uml.mjs part-III > part-III.mapping.puml

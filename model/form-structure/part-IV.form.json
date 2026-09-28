@@ -1,0 +1,249 @@
+{
+  "$comment": "EXPERIMENTAL — form-structure lens for Part IV (selection criteria). Scoped for now to criterion C31 (slc-stand-to-spec-avg, 'Specific average turnover'). This describes HOW the C31 instance data is presented and collected: criterion ordering (`criteriaOrder`), section/group grouping, field ordering, UI hints, i18n label keys, and conditional visibility. It references the instance-data model by dotted path (`dataPath`) and carries NO XML/serialization concerns. Unlike Part III exclusion grounds, this criterion has BOTH a buyer `requirement` (filled by the contracting authority) and an economic-operator `response`; fields carry a `filledBy` hint so the form can show the right side to the right role.",
+
+  "part": "IV",
+  "titleKey": "part4.title",
+
+  "$comment.criteriaOrder": "The regulation fixes the order of selection criteria within each section. That order is FORM/standard metadata, declared here once rather than stamped onto every instance document. Only C31 is listed while Part IV is being probed; the remaining codes are appended as they are modeled.",
+  "criteriaOrder": [
+    "slc-stand-to-spec-avg"
+  ],
+
+  "criteria": [
+    {
+      "code": "slc-stand-to-spec-avg",
+      "tag": "C31",
+      "uuid": "d3dfb714-f558-4512-bbc5-e456fa2339de",
+      "sectionTitleKey": "part4.selection.economicFinancial.title",
+      "nameKey": "part4.selection.specificAvgTurnover.name",
+      "descriptionKey": "part4.selection.specificAvgTurnover.description",
+      "filledBy": "both",
+      "mandatoryInRequest": false,
+      "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg",
+
+      "groups": [
+        {
+          "id": "requirement",
+          "$comment": "C31/RG1/RSG1 REQUIREMENTs — the buyer thresholds, filled by the contracting authority in the REQUEST. Shown to the CA when authoring the request, and read-only to the EO when responding.",
+          "filledBy": "contractingAuthority",
+          "fields": [
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.lotIdentifiers[]",
+              "labelKey": "part4.selection.turnover.lotIdentifier",
+              "uiType": "text",
+              "required": true,
+              "repeatable": true,
+              "$comment": "C31/RG1/RQ1 (LOT_IDENTIFIER, 1..n) — the lot(s) this selection criterion applies to. Selection criteria are lot-specific (BR-LOT-40)."
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.numberOfYears",
+              "labelKey": "part4.selection.turnover.numberOfYears",
+              "uiType": "number",
+              "required": true
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.businessDomain",
+              "labelKey": "part4.selection.turnover.businessDomain",
+              "uiType": "textarea",
+              "required": false
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.minimumAmount.value",
+              "labelKey": "part4.selection.turnover.minimumAmount",
+              "uiType": "number",
+              "required": true
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.minimumAmount.currency",
+              "labelKey": "part4.selection.turnover.minimumAmountCurrency",
+              "uiType": "code",
+              "codelist": "currency",
+              "required": true
+            }
+          ]
+        },
+        {
+          "id": "fulfilment",
+          "$comment": "C31/RG1/RSG1/QSG1 — the EO states whether it fulfils the criterion by itself, and (ONFALSE) whether it relies on another entity.",
+          "filledBy": "economicOperator",
+          "fields": [
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.fulfilledByItself",
+              "labelKey": "part4.selection.turnover.fulfilledByItself",
+              "uiType": "boolean",
+              "required": true
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUpon",
+              "labelKey": "part4.selection.turnover.reliedUpon",
+              "uiType": "boolean",
+              "required": false,
+              "$comment": "C31/RG1/RSG1/QSG1/QSG1 (ONFALSE) — only shown when the EO does NOT fulfil the criterion by itself.",
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.fulfilledByItself", "equals": false }
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUponEntity.name",
+              "labelKey": "part4.selection.turnover.reliedUponName",
+              "uiType": "text",
+              "required": false,
+              "$comment": "C31/RG1/RSG1/QSG1/QSG1/QSG1 (ONTRUE) — only shown when the EO relies on another entity.",
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUpon", "equals": true }
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUponEntity.id",
+              "labelKey": "part4.selection.turnover.reliedUponId",
+              "uiType": "text",
+              "required": false,
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUpon", "equals": true }
+            }
+          ]
+        },
+        {
+          "id": "turnover",
+          "$comment": "C31/RG1/RSG1/QSG2 — the EO's turnover answer: reporting period, the specific average turnover amount, and (QSG2/QSG1) whether that figure's supporting information is available electronically.",
+          "filledBy": "economicOperator",
+          "fields": [
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.period.startDate",
+              "labelKey": "part4.selection.turnover.periodStart",
+              "uiType": "date",
+              "required": false
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.period.endDate",
+              "labelKey": "part4.selection.turnover.periodEnd",
+              "uiType": "date",
+              "required": false
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.amount.value",
+              "labelKey": "part4.selection.turnover.amount",
+              "uiType": "number",
+              "required": true
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.amount.currency",
+              "labelKey": "part4.selection.turnover.amountCurrency",
+              "uiType": "code",
+              "codelist": "currency",
+              "required": true
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.availableElectronically",
+              "labelKey": "part4.evidence.availableElectronically",
+              "uiType": "boolean",
+              "required": false
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.evidence[].url",
+              "labelKey": "part4.evidence.url",
+              "uiType": "url",
+              "required": true,
+              "repeatable": true,
+              "$comment": "C31/RG1/RSG1/QSG2/QSG1/QSG1/Q1 (ONTRUE, 1..n) — turnover evidence references, shown only when available electronically.",
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.availableElectronically", "equals": true }
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.evidence[].identifier",
+              "labelKey": "part4.evidence.identifier",
+              "uiType": "text",
+              "required": false,
+              "repeatable": true,
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.availableElectronically", "equals": true }
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.evidence[].description",
+              "labelKey": "part4.evidence.description",
+              "uiType": "text",
+              "required": false,
+              "repeatable": true,
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.availableElectronically", "equals": true }
+            }
+          ]
+        },
+        {
+          "id": "startTrading",
+          "$comment": "C31/RG1/RSG1/QSG3 — fallback when turnover is not available for the whole period: the date the EO was set up / started trading, plus (QSG3/QSG1) its own electronic-evidence block.",
+          "filledBy": "economicOperator",
+          "fields": [
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.date",
+              "labelKey": "part4.selection.turnover.startTradingDate",
+              "uiType": "date",
+              "required": true
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.availableElectronically",
+              "labelKey": "part4.evidence.availableElectronically",
+              "uiType": "boolean",
+              "required": false
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.evidence[].url",
+              "labelKey": "part4.evidence.url",
+              "uiType": "url",
+              "required": true,
+              "repeatable": true,
+              "$comment": "C31/RG1/RSG1/QSG3/QSG1/QSG1/Q1 (ONTRUE, 1..n).",
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.availableElectronically", "equals": true }
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.evidence[].identifier",
+              "labelKey": "part4.evidence.identifier",
+              "uiType": "text",
+              "required": false,
+              "repeatable": true,
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.availableElectronically", "equals": true }
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.evidence[].description",
+              "labelKey": "part4.evidence.description",
+              "uiType": "text",
+              "required": false,
+              "repeatable": true,
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.availableElectronically", "equals": true }
+            }
+          ]
+        },
+        {
+          "id": "electronicEvidence",
+          "$comment": "C31/RG1/RSG1/QSG4 — the criterion-level 'is this information available electronically?' block plus evidence references. Shared shape with Part III.",
+          "filledBy": "economicOperator",
+          "fields": [
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.availableElectronically",
+              "labelKey": "part4.evidence.availableElectronically",
+              "uiType": "boolean",
+              "required": false
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.evidence[].url",
+              "labelKey": "part4.evidence.url",
+              "uiType": "url",
+              "required": true,
+              "repeatable": true,
+              "$comment": "C31/RG1/RSG1/QSG4/QSG1/Q1 (ONTRUE, 1..n) — criterion-level evidence references, shown only when available electronically.",
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.availableElectronically", "equals": true }
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.evidence[].identifier",
+              "labelKey": "part4.evidence.identifier",
+              "uiType": "text",
+              "required": false,
+              "repeatable": true,
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.availableElectronically", "equals": true }
+            },
+            {
+              "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.evidence[].description",
+              "labelKey": "part4.evidence.description",
+              "uiType": "text",
+              "required": false,
+              "repeatable": true,
+              "visibleWhen": { "path": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.availableElectronically", "equals": true }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

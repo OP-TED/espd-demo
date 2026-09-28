@@ -1,0 +1,66 @@
+{
+  "$comment": "EXPERIMENTAL — declarative mapping from the canonical Part IV instance-data model (criterion C31, slc-stand-to-spec-avg) to the UBL QualificationApplicationREQUEST XML — the BUYER/CONTRACTING-AUTHORITY side. This is the first mapping in the model to target the REQUEST document and the buyer's `requirement` sub-object, closing the 'request side' gap noted in docs/model-xml-mapping.md. Only the `requirement` sub-object is mapped here; the economic operator's `response` maps to the response document (part-IV.response.mapping.json). Same engine and `records` construct as the response side: each buyer requirement is a cac:TenderingCriterionProperty keyed by its property id (the EDM `responsepath`, …/R1) and carrying an Expected*/Minimum* value.",
+
+  "$notes": {
+    "requirementRecords": "A REQUIREMENT in the request is a cac:TenderingCriterionProperty whose cbc:ID identifies the property and whose body is an Expected*/Minimum* element (NOT a cac:TenderingCriterionResponse — that is the response document). We reuse the generic `records` construct: the wrapper is cac:TenderingCriterionProperty, the key is cbc:ID (schemeID='criterion'), and each body is a typed `value`. The engine hardcodes none of these names.",
+    "expectedElements": "Per the EA criterion definition and the ESPD examples, the Expected element is dictated by the requirement's ValueDataTypeCode: QUANTITY_YEAR -> cbc:ExpectedValueNumeric; DESCRIPTION -> cbc:ExpectedDescription; MINIMUM_AMOUNT -> cbc:MinimumAmount (with a currencyID attribute). The buyer's minimum amount is a MINIMUM_AMOUNT datatype, hence cbc:MinimumAmount rather than cbc:ExpectedAmount.",
+    "amount": "The minimum-amount currency is a data-sourced attribute (cbc:MinimumAmount@currencyID from requirement.minimumAmount.currency), so it roundtrips — the same value-attribute { from } pattern used for the response amount.",
+    "keyForm": "Property ids use the EDM `responsepath` form (…/R1), the value the Schematron matches with schemeID='criterion'. When per-property UUIDs are available upstream only these key strings change."
+  },
+
+  "target": {
+    "root": "QualificationApplicationRequest",
+    "namespaces": {
+      "": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationRequest-2",
+      "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    }
+  },
+
+  "rules": [
+    {
+      "$comment": "C31 criterion declaration — criterion UUID (from the EA export). Pure constant metadata: no instance-data home, not written back on import.",
+      "to": "cac:TenderingCriterion/cbc:ID",
+      "const": "d3dfb714-f558-4512-bbc5-e456fa2339de"
+    },
+    {
+      "to": "cac:TenderingCriterion/cbc:CriterionTypeCode",
+      "const": "slc-stand-to-spec-avg",
+      "attributes": { "listID": "criterion" }
+    },
+    {
+      "to": "cac:TenderingCriterion/cbc:Name",
+      "const": "Specific average turnover"
+    },
+
+    {
+      "$comment": "RG1/RQ1 — LOT Identifier(s) (LOT_IDENTIFIER, 1..n). Selection criteria are lot-specific (Schematron BR-LOT-40). Scalar-item `records` form: one cac:TenderingCriterionProperty per lot id, all sharing the fixed key `…/RG1/RQ1/R1`, each carrying one cbc:ExpectedID. On import the lots are rebuilt from the records carrying this key, in document order.",
+      "records": "cac:TenderingCriterionProperty",
+      "key": { "to": "cbc:ID", "key": "C31_slc-stand-to-spec-avg/RG1/RQ1/R1", "attributes": { "schemeID": "criterion" } },
+      "forEach": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.lotIdentifiers",
+      "item": { "path": "cbc:ExpectedID", "attributes": { "schemeAgencyID": "OP" } }
+    },
+    {
+      "$comment": "Buyer requirement records. Each `entries` item emits one cac:TenderingCriterionProperty with a keyed property id (…/R1) and one Expected*/Minimum* body. Absent optional requirements emit nothing.",
+      "records": "cac:TenderingCriterionProperty",
+      "key": { "to": "cbc:ID", "attributes": { "schemeID": "criterion" } },
+      "entries": [
+        {
+          "$comment": "RG1/RSG1/RQ1 — 'Number of fiscal years' (QUANTITY_YEAR). Buyer-set count -> cbc:ExpectedValueNumeric.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/RQ1/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.numberOfYears", "to": "cbc:ExpectedValueNumeric", "type": "number" }
+        },
+        {
+          "$comment": "RG1/RSG1/RQ2 — 'Business domain description' (DESCRIPTION). Buyer-set text -> cbc:ExpectedDescription.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/RQ2/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.businessDomain", "to": "cbc:ExpectedDescription", "type": "string" }
+        },
+        {
+          "$comment": "RG1/RSG1/RQ3 — 'Minimum amount requirement' (MINIMUM_AMOUNT). Buyer threshold -> cbc:MinimumAmount with a data-sourced currencyID attribute.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/RQ3/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.minimumAmount.value", "to": "cbc:MinimumAmount", "type": "number", "attributes": { "currencyID": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.minimumAmount.currency" } } }
+        }
+      ]
+    }
+  ]
+}

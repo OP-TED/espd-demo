@@ -1,0 +1,74 @@
+@startuml part-IV-model
+title Canonical instance-data model - part-IV
+hide empty members
+
+class "partIV" as C_partIV {
+}
+
+class "partIV.selectionCriteria" as C_partIV_selectionCriteria {
+}
+
+class "specificAverageTurnoverCriterion" as C_specificAverageTurnoverCriterion {
+}
+
+class "specificAverageTurnoverRequirement" as C_specificAverageTurnoverRequirement {
+  *lotIdentifiers : string[]
+  *numberOfYears : integer
+  businessDomain : string
+}
+
+class "amount" as C_amount {
+  *value : number
+  *currency : string
+}
+
+class "specificAverageTurnoverResponse" as C_specificAverageTurnoverResponse {
+  *fulfilledByItself : boolean
+  reliedUpon : boolean
+}
+
+class "reliedUponEntity" as C_reliedUponEntity {
+  *name : string
+  id : string
+}
+
+class "turnover" as C_turnover {
+}
+
+class "period" as C_period {
+  startDate : string:date
+  endDate : string:date
+}
+
+class "electronicEvidence" as C_electronicEvidence {
+  *availableElectronically : boolean
+}
+
+class "evidenceReference" as C_evidenceReference {
+  *id : string
+  *url : string
+  identifier : string
+  description : string
+}
+
+class "startTrading" as C_startTrading {
+  *date : string:date
+}
+
+C_specificAverageTurnoverRequirement --> "1" C_amount : minimumAmount
+C_specificAverageTurnoverCriterion --> "1" C_specificAverageTurnoverRequirement : requirement
+C_specificAverageTurnoverResponse --> "0..1" C_reliedUponEntity : reliedUponEntity
+C_turnover --> "0..1" C_period : period
+C_turnover --> "1" C_amount : amount
+C_electronicEvidence --> "0..*" C_evidenceReference : evidence
+C_turnover --> "0..1" C_electronicEvidence : electronicEvidence
+C_specificAverageTurnoverResponse --> "0..1" C_turnover : turnover
+C_startTrading --> "0..1" C_electronicEvidence : electronicEvidence
+C_specificAverageTurnoverResponse --> "0..1" C_startTrading : startTrading
+C_specificAverageTurnoverResponse --> "0..1" C_electronicEvidence : electronicEvidence
+C_specificAverageTurnoverCriterion --> "0..1" C_specificAverageTurnoverResponse : response
+C_partIV_selectionCriteria --> "0..1" C_specificAverageTurnoverCriterion : slc-stand-to-spec-avg
+C_partIV --> "1" C_partIV_selectionCriteria : selectionCriteria
+
+note bottom : '*' marks a required property. Cardinality is on the association.
+@enduml

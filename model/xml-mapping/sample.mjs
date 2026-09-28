@@ -12,8 +12,14 @@
 // and produces output that is valid-by-construction against the schema.
 //
 // Usage:
-//   node sample.mjs part-III            # print the sample XML
-//   node sample.mjs part-III --instance # also print the synthesized instance JSON
+//   node sample.mjs part-III                          # print the sample XML
+//   node sample.mjs part-III --instance               # also print the synthesized instance JSON
+//   node sample.mjs part-IV part-IV.response.mapping.json   # explicit spec (parts split across request/response docs)
+//
+// When a part maps to more than one UBL document (a selection criterion has a
+// buyer REQUEST spec and an EO RESPONSE spec), the schema is still one file
+// (`<part>.schema.json`) but the spec must be named explicitly as the second
+// argument. Otherwise the spec defaults to `<part>.mapping.json`.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,13 +27,15 @@ import { fileURLToPath } from 'node:url';
 import { map } from './mapper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const part = process.argv[2] || 'part-III';
+const args = process.argv.slice(2).filter(a => a !== '--instance');
+const part = args[0] || 'part-III';
+const specFile = args[1] || `${part}.mapping.json`;
 const showInstance = process.argv.includes('--instance');
 
 const schema = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '..', 'instance-data', `${part}.schema.json`), 'utf8')
 );
-const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, `${part}.mapping.json`), 'utf8'));
+const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, specFile), 'utf8'));
 
 // ---- schema-driven synthesis -------------------------------------------------
 

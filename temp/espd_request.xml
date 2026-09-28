@@ -1,0 +1,1230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:QualificationApplicationRequest xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:ns3="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:ns4="urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationRequest-2">
+    <UBLVersionID schemeAgencyID="OASIS-UBL-TC">2.2</UBLVersionID>
+    <CustomizationID schemeName="CustomizationID" schemeAgencyID="CEN-BII" schemeVersionID="3.0">urn:www.cenbii.eu:transaction:biitrdm070:ver3.0</CustomizationID>
+    <ProfileID schemeAgencyID="CEN-BII">4.1</ProfileID>
+    <ProfileExecutionID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ESPD-EDMv2.1.1-EXTENDED</ProfileExecutionID>
+    <ID schemeID="ISO/IEC 9834-8:2008 - 4UUID" schemeAgencyID="DGPE">da2a1369-72bb-4586-8235-a46ea3786afe</ID>
+    <CopyIndicator>false</CopyIndicator>
+    <UUID schemeID="ISO/IEC 9834-8:2008 - 4UUID" schemeAgencyID="EU-COM-GROW" schemeVersionID="4">0f1e183c-5464-4e3e-b83f-f51ec9573739</UUID>
+    <ContractFolderID schemeAgencyID="TeD"/>
+    <IssueDate>2026-09-28</IssueDate>
+    <IssueTime>12:09:03.513</IssueTime>
+    <VersionID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">1.0</VersionID>
+    <ProcedureCode listID="ProcedureType" listAgencyID="EU-COM-OP" listAgencyName="Publications Office of the EU" listVersionID="1.0">OPEN</ProcedureCode>
+    <QualificationApplicationTypeCode listID="QualificationApplicationType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">Extended</QualificationApplicationTypeCode>
+    <WeightScoringMethodologyNote/>
+    <ns3:ContractingParty>
+        <ns3:Party>
+            <ns3:PartyName>
+                <Name>swweew</Name>
+            </ns3:PartyName>
+            <ns3:PostalAddress>
+                <ns3:Country>
+                    <IdentificationCode listID="CountryCodeIdentifier" listAgencyID="ISO" listVersionID="1.0">SI</IdentificationCode>
+                </ns3:Country>
+            </ns3:PostalAddress>
+            <ns3:Contact/>
+        </ns3:Party>
+    </ns3:ContractingParty>
+    <ns3:ProcurementProject>
+        <ProcurementTypeCode listID="ProjectType" listAgencyID="EU-COM-OP" listVersionID="1.0">COMBINED</ProcurementTypeCode>
+        <ns3:MainCommodityClassification>
+            <ItemClassificationCode>(03111100) Soya beans</ItemClassificationCode>
+        </ns3:MainCommodityClassification>
+    </ns3:ProcurementProject>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">005eb9ed-1347-4ca3-bb29-9bc0db64e1ab</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.CONVICTIONS.PARTICIPATION_IN_CRIMINAL_ORGANISATION</CriterionTypeCode>
+        <Name>Participation in a criminal organisation</Name>
+        <Description>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for participation in a criminal organisation, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Council Framework Decision 2008/841/JHA of 24 October 2008 on the fight against organised crime (OJ L 300, 11.11.2008, p. 42).</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7c637c0c-7703-4389-ba52-02997a055bd7</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">b6f3b105-e390-4e0a-b31e-d68c59e3a5b0</ID>
+                <Description>Your answer</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f5276600-a2b6-4ff6-a90e-b31fe19dae41</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6617b30d-56c9-4f5c-8593-1e3b98d33fcc</ID>
+                    <Description>Date of conviction</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DATE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">9ee45d98-68c4-44ea-93ad-59c48a74c43e</ID>
+                    <Description>Reason</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">519ac6a7-7099-4eec-a249-75d7af58f481</ID>
+                    <Description>Who has been convicted</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">2fd64d6a-a09b-4f71-888e-539f1b08c290</ID>
+                    <Description>Length of the period of exclusion</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERIOD</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">5f9f09f7-f701-432c-9fdc-c22c124a74c9</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">876600e1-4db4-4e52-a757-9d558066c2aa</ID>
+                        <Description>Have you taken measures to demonstrate your reliability (Self-Cleaning)?</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">74e6c7b4-757b-4b40-ada6-fad6a997c310</ID>
+                        <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                        <ns3:TenderingCriterionProperty>
+                            <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">b863b753-b73e-475f-8142-305ae0d2b5d7</ID>
+                            <Description>Please describe them</Description>
+                            <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                            <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                        </ns3:TenderingCriterionProperty>
+                    </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7b2af357-1a46-4ee2-ade2-034ed667080f</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">5ee13c8f-3b6a-47d0-b382-8930b75e8fb9</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">c27b7c4e-c837-4529-b867-ed55ce639db5</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.CONVICTIONS.CORRUPTION</CriterionTypeCode>
+        <Name>Corruption</Name>
+        <Description>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for corruption, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 3 of the Convention on the fight against corruption involving officials of the European Communities or officials of Member States of the European Union, OJ C 195, 25.6.1997, p. 1, and in Article 2(1) of Council Framework Decision 2003/568/JHA of 22 July 2003 on combating corruption in the private sector (OJ L 192, 31.7.2003, p. 54). This exclusion ground also includes corruption as defined in the national law of the contracting authority (contracting entity) or the economic operator.</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7c637c0c-7703-4389-ba52-02997a055bd7</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">febc0c57-12cc-4a62-bac1-86d4e5d853f7</ID>
+                <Description>Your answer</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f5276600-a2b6-4ff6-a90e-b31fe19dae41</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">46ef349d-0f57-48c0-acb0-dfa8289046a1</ID>
+                    <Description>Date of conviction</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DATE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">27c6a0dd-06ab-423f-a538-cc435bcb92d6</ID>
+                    <Description>Reason</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">4e91f334-2ee4-4394-85ee-434b69a4df22</ID>
+                    <Description>Who has been convicted</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">cf41286e-24c7-478f-9d7a-f3232843380c</ID>
+                    <Description>Length of the period of exclusion</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERIOD</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">5f9f09f7-f701-432c-9fdc-c22c124a74c9</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">21496e35-83f4-474e-8b6d-a46f5cf3e7e8</ID>
+                        <Description>Have you taken measures to demonstrate your reliability (Self-Cleaning)?</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">74e6c7b4-757b-4b40-ada6-fad6a997c310</ID>
+                        <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                        <ns3:TenderingCriterionProperty>
+                            <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">57bbd83c-b0d8-4fc0-8fc6-39388a5e21d6</ID>
+                            <Description>Please describe them</Description>
+                            <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                            <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                        </ns3:TenderingCriterionProperty>
+                    </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">2e3105b8-9fb9-4452-99d1-700af6f23cb2</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">d30d7faa-446f-45da-a933-425206a9db84</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">297d2323-3ede-424e-94bc-a91561e6f320</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.CONVICTIONS.FRAUD</CriterionTypeCode>
+        <Name>Fraud</Name>
+        <Description>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for fraud, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? Within the meaning of Article 1 of the Convention on the protection of the European Communities' financial interests (OJ C 316, 27.11.1995, p. 48).</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7c637c0c-7703-4389-ba52-02997a055bd7</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f83a987b-d3fe-4a62-8038-34b5ff4390dc</ID>
+                <Description>Your answer</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f5276600-a2b6-4ff6-a90e-b31fe19dae41</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">928dff95-6bdf-4d83-9c26-ca4cfc1cedb2</ID>
+                    <Description>Date of conviction</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DATE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">097ff8fe-23e4-4b3d-8eac-cc00c861e307</ID>
+                    <Description>Reason</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ed01d435-9ade-4c26-b6b0-c477bf553d04</ID>
+                    <Description>Who has been convicted</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">d0871b20-a5f2-41a0-b286-3424e655edf9</ID>
+                    <Description>Length of the period of exclusion</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERIOD</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">5f9f09f7-f701-432c-9fdc-c22c124a74c9</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">e4a2e176-c9ed-46e8-ade5-ad571357b0fe</ID>
+                        <Description>Have you taken measures to demonstrate your reliability (Self-Cleaning)?</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">74e6c7b4-757b-4b40-ada6-fad6a997c310</ID>
+                        <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                        <ns3:TenderingCriterionProperty>
+                            <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">03494a79-8861-4920-a81d-da5ab3cc6b54</ID>
+                            <Description>Please describe them</Description>
+                            <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                            <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                        </ns3:TenderingCriterionProperty>
+                    </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6461ce89-9456-48b4-963f-719c63dd6203</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">70b3a24d-6de8-4069-a539-7290dd43aa7a</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">d486fb70-86b3-4e75-97f2-0d71b5697c7d</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.CONVICTIONS.TERRORIST_OFFENCES</CriterionTypeCode>
+        <Name>Terrorist offences or offences linked to terrorist activities</Name>
+        <Description>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for terrorist offences or offences linked to terrorist activities, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Articles 1 and 3 of Council Framework Decision of 13 June 2002 on combating terrorism (OJ L 164, 22.6.2002, p. 3). This exclusion ground also includes inciting or aiding or abetting or attempting to commit an offence, as referred to in Article 4 of that Framework Decision.</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7c637c0c-7703-4389-ba52-02997a055bd7</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">87de116d-6836-45a1-a3bf-6600edc77fcb</ID>
+                <Description>Your answer</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f5276600-a2b6-4ff6-a90e-b31fe19dae41</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">4e10f4ca-f56f-4a6c-9183-eda0c1a3099a</ID>
+                    <Description>Date of conviction</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DATE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">48e33b07-6684-4eeb-b77d-a93cc71c733a</ID>
+                    <Description>Reason</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f7acd173-b9ce-4769-8d6e-d99936e0723c</ID>
+                    <Description>Who has been convicted</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">e74318c1-e38c-4dfe-837a-a327841a66c4</ID>
+                    <Description>Length of the period of exclusion</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERIOD</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">5f9f09f7-f701-432c-9fdc-c22c124a74c9</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">00719767-6bf5-4f40-b41d-4f6453b8847e</ID>
+                        <Description>Have you taken measures to demonstrate your reliability (Self-Cleaning)?</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">74e6c7b4-757b-4b40-ada6-fad6a997c310</ID>
+                        <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                        <ns3:TenderingCriterionProperty>
+                            <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">52606a6e-d14c-410f-acce-0e18ca1168c4</ID>
+                            <Description>Please describe them</Description>
+                            <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                            <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                        </ns3:TenderingCriterionProperty>
+                    </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">c2705de7-2562-4c6e-906d-e2a3a3530042</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">30b9b67e-0c5d-40fe-a433-b5acdfbb1ac2</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">47112079-6fec-47a3-988f-e561668c3aef</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.CONVICTIONS.MONEY_LAUNDERING</CriterionTypeCode>
+        <Name>Money laundering or terrorist financing</Name>
+        <Description>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for money laundering or terrorist financing, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 1 of Directive 2005/60/EC of the European Parliament and of the Council of 26 October 2005 on the prevention of the use of the financial system for the purpose of money laundering and terrorist financing (OJ L 309, 25.11.2005, p. 15).</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7c637c0c-7703-4389-ba52-02997a055bd7</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">766910d3-35e3-4220-a02d-2ca81176e5a4</ID>
+                <Description>Your answer</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f5276600-a2b6-4ff6-a90e-b31fe19dae41</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">a1e79c5a-bb0f-4ff2-b9b5-acd311144b13</ID>
+                    <Description>Date of conviction</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DATE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6e29455f-0605-48c1-ba77-4c2f73c7b2ec</ID>
+                    <Description>Reason</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">452c89a8-8df2-4a43-8197-f7068a540678</ID>
+                    <Description>Who has been convicted</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">33792987-dcda-4fc7-b91e-15e08bd0d667</ID>
+                    <Description>Length of the period of exclusion</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERIOD</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">5f9f09f7-f701-432c-9fdc-c22c124a74c9</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">2e04c0c7-d304-4337-8447-8c73f1648278</ID>
+                        <Description>Have you taken measures to demonstrate your reliability (Self-Cleaning)?</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">74e6c7b4-757b-4b40-ada6-fad6a997c310</ID>
+                        <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                        <ns3:TenderingCriterionProperty>
+                            <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">4c980131-dbb7-46f9-86f5-82d0a2b317c9</ID>
+                            <Description>Please describe them</Description>
+                            <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                            <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                        </ns3:TenderingCriterionProperty>
+                    </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">12a2c676-3076-4f3b-ab0d-1a6b3d21cbce</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">a9bcfe4c-29fe-42b5-bea3-5d0bf88e1d63</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">d789d01a-fe03-4ccd-9898-73f9cfa080d1</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.CONVICTIONS.CHILD_LABOUR-HUMAN_TRAFFICKING</CriterionTypeCode>
+        <Name>Child labour and other forms of trafficking in human beings</Name>
+        <Description>Has the economic operator itself or any person who is a member of its administrative, management or supervisory body or has powers of representation, decision or control therein been the subject of a conviction by final judgment for child labour and other forms of trafficking in human beings, by a conviction rendered at the most five years ago or in which an exclusion period set out directly in the conviction continues to be applicable? As defined in Article 2 of Directive 2011/36/EU of the European Parliament and of the Council of 5 April 2011 on preventing and combating trafficking in human beings and protecting its victims, and replacing Council Framework Decision 2002/629/JHA (OJ L 101, 15.4.2011, p. 1).</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7c637c0c-7703-4389-ba52-02997a055bd7</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">e21f165d-5c7f-4b9e-8d23-daa2340e57a6</ID>
+                <Description>Your answer</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f5276600-a2b6-4ff6-a90e-b31fe19dae41</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41652baf-da19-47bd-816a-ef37abd0ebf8</ID>
+                    <Description>Date of conviction</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DATE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">203bdfb9-86e9-43a5-9bdc-0a9a9c4b8f41</ID>
+                    <Description>Reason</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">48466e17-3868-4976-b0fe-0c6f552f150f</ID>
+                    <Description>Who has been convicted</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f14577be-968d-4e7c-83b8-67c15a21d5d4</ID>
+                    <Description>Length of the period of exclusion</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERIOD</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">5f9f09f7-f701-432c-9fdc-c22c124a74c9</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">20308add-4e9a-4059-893f-cd7b27025bc8</ID>
+                        <Description>Have you taken measures to demonstrate your reliability (Self-Cleaning)?</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">74e6c7b4-757b-4b40-ada6-fad6a997c310</ID>
+                        <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                        <ns3:TenderingCriterionProperty>
+                            <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">b5f0a4d2-279d-44a5-bdd4-4dc935281c31</ID>
+                            <Description>Please describe them</Description>
+                            <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                            <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                        </ns3:TenderingCriterionProperty>
+                    </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">b0aba40a-0028-4946-a970-7abcd784560f</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">83ffb7ce-2888-4e6e-ad5b-b4a47f231169</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">b61bbeb7-690e-4a40-bc68-d6d4ecfaa3d4</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.CONTRIBUTIONS.PAYMENT_OF_TAXES</CriterionTypeCode>
+        <Name>Payment of taxes</Name>
+        <Description>Has the economic operator breached its obligations relating to the payment of taxes, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">53c9aad8-dc80-48f8-85d9-755c2aab8e95</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">660a6cbe-af49-4a90-a071-1d2e80272495</ID>
+                <Description>Threshold</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">REQUIREMENT</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">AMOUNT</ValueDataTypeCode>
+                <MinimumAmount currencyID="EUR">50</MinimumAmount>
+            </ns3:TenderingCriterionProperty>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">2a00c4c3-7613-485f-bed7-6f60acc56f8c</ID>
+                <Description>Additional Information</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">REQUIREMENT</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                <ExpectedDescription></ExpectedDescription>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">098fd3cc-466e-4233-af1a-affe09471bce</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">eedf14e4-6a19-49ea-9b9f-75aa876fce4e</ID>
+                    <Description>Your answer</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f8499787-f9f8-4355-95e2-9784426f4d7b</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">59c71c10-6ca8-42d0-b7e3-f6b8626b5263</ID>
+                        <Description>Country or member state concerned</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CODE_COUNTRY</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">b0fbe824-5632-48a0-83c5-b24dced464aa</ID>
+                        <Description>Amount concerned</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">AMOUNT</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7c2aec9f-4876-4c33-89e6-2ab6d6cf5d02</ID>
+                        <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                        <ns3:TenderingCriterionProperty>
+                            <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7abd9c9a-befa-440d-975c-19829fda0d49</ID>
+                            <Description>Has this breach of obligations been established by means other than a judicial or administrative decision?</Description>
+                            <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                            <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                        </ns3:TenderingCriterionProperty>
+                        <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">3cb7abf1-662a-4756-b61c-7bc716c1fafc</ID>
+                            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                            <ns3:TenderingCriterionProperty>
+<ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">88da568d-6aaa-4235-bba6-482ef78e796d</ID>
+<Description>Please describe which means were used</Description>
+<TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+<ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                            </ns3:TenderingCriterionProperty>
+                            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+<ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">fc57e473-d63e-4a04-b589-dcf81cab8052</ID>
+<PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+<ns3:TenderingCriterionProperty>
+    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">df7b6527-901f-473b-9604-a419f4891f9e</ID>
+    <Description>Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the taxes contributions due, including, where applicable, any interest accrued or fines?</Description>
+    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+</ns3:TenderingCriterionProperty>
+<ns3:SubsidiaryTenderingCriterionPropertyGroup>
+    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6c3609e1-9add-4fa9-9409-62ce72ae4548</ID>
+    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+    <ns3:TenderingCriterionProperty>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">62f12326-c0a0-48bd-b29d-dc707b6bdcda</ID>
+        <Description>Please describe them</Description>
+        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+    </ns3:TenderingCriterionProperty>
+</ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">c882afa4-6971-4b00-8970-0c283eb122cc</ID>
+                            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONFALSE</PropertyGroupTypeCode>
+                            <ns3:TenderingCriterionProperty>
+<ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">2b0d7ca9-97e2-4970-a22e-f55a549b534c</ID>
+<Description>If this breach of obligations was established through a judicial or administrative decision, was this decision final and binding?</Description>
+<TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+<ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                            </ns3:TenderingCriterionProperty>
+                            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+<ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">815422d6-f8a1-418a-8bf0-3524f7c8f721</ID>
+<PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+<ns3:TenderingCriterionProperty>
+    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">908be4d7-3522-4b84-8880-5ea142a83e22</ID>
+    <Description>Please indicate the date of conviction or decision</Description>
+    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DATE</ValueDataTypeCode>
+</ns3:TenderingCriterionProperty>
+<ns3:TenderingCriterionProperty>
+    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">8952ba18-ee6f-4371-8775-debfe8cbe30d</ID>
+    <Description>In case of a conviction insofar as established directly therein, the length of the period of exclusion</Description>
+    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERIOD</ValueDataTypeCode>
+</ns3:TenderingCriterionProperty>
+                            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">477e0fbf-f06c-4099-8b2f-3eedba0277bc</ID>
+                    <Description>Is this information available electronically?</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ed300cb7-b883-479b-8c40-4ac9055f549b</ID>
+                        <Description>Evidence Supplied</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7d85e333-bbab-49c0-be8d-c36d71a72f5e</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.CONTRIBUTIONS.PAYMENT_OF_SOCIAL_SECURITY</CriterionTypeCode>
+        <Name>Payment of social security contributions</Name>
+        <Description>Has the economic operator breached its obligations relating to the payment of social security contributions, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">53c9aad8-dc80-48f8-85d9-755c2aab8e95</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ae6a73a1-3fad-4d08-ac76-e38c4c1ff28b</ID>
+                <Description>Threshold</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">REQUIREMENT</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">AMOUNT</ValueDataTypeCode>
+                <MinimumAmount currencyID="EUR">50</MinimumAmount>
+            </ns3:TenderingCriterionProperty>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">8e87255f-11cd-423d-95de-ee15777c7eb0</ID>
+                <Description>Additional Information</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">REQUIREMENT</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                <ExpectedDescription></ExpectedDescription>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">098fd3cc-466e-4233-af1a-affe09471bce</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">1fe9d167-6434-45ef-917c-cd285d2d6d4a</ID>
+                    <Description>Your answer</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f8499787-f9f8-4355-95e2-9784426f4d7b</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">e1c58d4f-0385-4e05-b7df-90f973299d0b</ID>
+                        <Description>Country or member state concerned</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CODE_COUNTRY</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">1a223152-ccfe-494a-98f4-ba428aeff4ae</ID>
+                        <Description>Amount concerned</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">AMOUNT</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                    <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7c2aec9f-4876-4c33-89e6-2ab6d6cf5d02</ID>
+                        <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                        <ns3:TenderingCriterionProperty>
+                            <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">4b0a066d-5cdd-46dc-9061-fc1e78c7130c</ID>
+                            <Description>Has this breach of obligations been established by means other than a judicial or administrative decision?</Description>
+                            <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                            <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                        </ns3:TenderingCriterionProperty>
+                        <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">3cb7abf1-662a-4756-b61c-7bc716c1fafc</ID>
+                            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                            <ns3:TenderingCriterionProperty>
+<ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">952f722f-dfa1-4a8b-901c-eccf93386335</ID>
+<Description>Please describe which means were used</Description>
+<TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+<ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                            </ns3:TenderingCriterionProperty>
+                            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+<ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">fc57e473-d63e-4a04-b589-dcf81cab8052</ID>
+<PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+<ns3:TenderingCriterionProperty>
+    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">19274f26-e051-4d25-a827-301d745e51de</ID>
+    <Description>Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the social security contributions due, including, where applicable, any interest accrued or fines?</Description>
+    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+</ns3:TenderingCriterionProperty>
+<ns3:SubsidiaryTenderingCriterionPropertyGroup>
+    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6c3609e1-9add-4fa9-9409-62ce72ae4548</ID>
+    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+    <ns3:TenderingCriterionProperty>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">29145e9e-65a5-488b-97d6-75009036c2bd</ID>
+        <Description>Please describe them</Description>
+        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+    </ns3:TenderingCriterionProperty>
+</ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">c882afa4-6971-4b00-8970-0c283eb122cc</ID>
+                            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONFALSE</PropertyGroupTypeCode>
+                            <ns3:TenderingCriterionProperty>
+<ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">4c6c7ac0-b61e-414b-95cc-5cb34df7a1a5</ID>
+<Description>If this breach of obligations was established through a judicial or administrative decision, was this decision final and binding?</Description>
+<TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+<ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                            </ns3:TenderingCriterionProperty>
+                            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+<ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">815422d6-f8a1-418a-8bf0-3524f7c8f721</ID>
+<PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+<ns3:TenderingCriterionProperty>
+    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">e288579b-6194-4d6c-b64c-006cf358d90a</ID>
+    <Description>Please indicate the date of conviction or decision</Description>
+    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DATE</ValueDataTypeCode>
+</ns3:TenderingCriterionProperty>
+<ns3:TenderingCriterionProperty>
+    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">79709906-423c-4d57-b73f-e9dc38238c25</ID>
+    <Description>In case of a conviction insofar as established directly therein, the length of the period of exclusion</Description>
+    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERIOD</ValueDataTypeCode>
+</ns3:TenderingCriterionProperty>
+                            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                        </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">0a8845ed-613a-4274-8a6b-15128943f03f</ID>
+                    <Description>Is this information available electronically?</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">df9fd33d-50a6-4f3d-9d9f-fdb8d5144f00</ID>
+                        <Description>Evidence Supplied</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">63adb07d-db1b-4ef0-a14e-a99785cf8cf6</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.EXCLUSION.NATIONAL.OTHER</CriterionTypeCode>
+        <Name>Purely national exclusion grounds</Name>
+        <Description>Other exclusion grounds that may be foreseen in the national legislation of the contracting authority's or contracting entity's Member State. Has the economic operator breached its obligations relating to the purely national grounds of exclusion, which are specified in the relevant notice or in the procurement documents?</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">8d79d5f7-dc21-45e9-b188-e02008b854e0</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">00eb3353-6515-4011-a9db-f633ac6d24e0</ID>
+                <Description></Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CAPTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">NONE</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">4f5088db-ae29-46fb-b642-30240aa2248a</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">8f11f848-ae37-47d1-87cc-850c3e7768b6</ID>
+                    <Description>[Text describing the national criterion]</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CAPTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">NONE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">d29b1acc-7c08-4a4b-8d43-860dbfb43fb3</ID>
+                    <Description>[Type of evidence from e-Certis]</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CAPTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">NONE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">c34d33a2-cd87-44d5-9b90-22ce2381f349</ID>
+                    <Description>Your answer?</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ce2490ac-bb8a-4007-a675-539719de3d24</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6001543e-45f1-446d-b1a9-306e0616769d</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">2043338f-a38a-490b-b3ec-2607cb25a017</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.OTHER.EO_DATA.SHELTERED_WORKSHOP</CriterionTypeCode>
+        <Name>EO is a sheltered workshop</Name>
+        <Description>Only in case the procurement is reserved: is the economic operator a sheltered workshop, a 'social business' or will it provide for the performance of the contract in the context of sheltered employment programmes?</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6febbe4a-e715-427c-a2b1-19cfabadaef0</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6455029c-4ec2-474e-93e0-1cc148f3bbe6</ID>
+                <Description>Your answer?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">a5e33369-e2b5-45f7-9969-ddb1c3ae17c8</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">89c40686-5a9f-4f9a-bb29-bb67461b2dad</ID>
+                    <Description>What is the corresponding percentage of disabled or disadvantaged workers?</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">PERCENTAGE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">36487165-60a4-4068-84aa-d4b25490e1c3</ID>
+                    <Description>If required, please provide details on whether the employees concerned belong to a specific category of disabled or disadvantaged workers?</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">1da542fa-5a28-4426-9ce0-fc0b61adf120</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">26771ebd-a2d3-417d-b9e2-8fe9b0d4b074</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">9b19e869-6c89-4cc4-bd6c-ac9ca8602165</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.OTHER.EO_DATA.REGISTERED_IN_OFFICIAL_LIST</CriterionTypeCode>
+        <Name>EO registered in a PQS</Name>
+        <Description>If applicable, is the economic operator registered on an official list of approved economic operators or does it have an equivalent certificate (e.g. under a national (pre)qualification system)?</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ecb5127b-9018-4fb8-8327-a6a7a2c73195</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f7844551-2693-473f-8e5f-4c5dd7e95b1b</ID>
+                <Description>Your answer?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">dc4acf0c-c761-40d0-b031-4ee1f224be5c</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">5143ac33-1d51-4afc-964a-e3f1f7159abd</ID>
+                    <Description>Please provide the name of the list or certificate and the relevant registration or certification number, if applicable</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">b732d7f6-b45c-4054-b28b-f0920858f572</ID>
+                    <Description>If the certificate of registration or certification is available electronically, please state where</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">URL</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">2b1fa290-090d-4781-a26c-5fef7873ac76</ID>
+                    <Description>Please state the references on which the registration or certification is based, and, where applicable, the classification obtained in the official list</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                    <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">92e44d3b-af8e-4a29-91a8-24d27aa27fee</ID>
+                    <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+                    <ns3:TenderingCriterionProperty>
+                        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">814a588a-ec65-4cd6-8b42-93435aff9651</ID>
+                        <Description>Does the registration or certification cover all of the required selection criteria?</Description>
+                        <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                        <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                    </ns3:TenderingCriterionProperty>
+                </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">59e6f3ef-15cd-4e21-82ac-ea497ccd44e2</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONFALSE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">37ca4b02-8ca9-474e-b02f-6df5b280d015</ID>
+                    <Description>Will the economic operator be able to provide a certificate with regard to the payment of social security contributions and taxes or provide information enabling the contracting authority or contracting entity to obtaining it directly by accessing a national database in any Member State that is available free of charge?</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6b2d1a79-73a5-4852-8d12-e8c6f25057f1</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">12f6be89-d25f-49b0-9ad8-d8caf9a32824</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ee51100f-8e3e-40c9-8f8b-57d5a15be1f2</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.OTHER.EO_DATA.TOGETHER_WITH_OTHERS</CriterionTypeCode>
+        <Name>EO together with others</Name>
+        <Description>Is the economic operator participating in the procurement procedure together with others?</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">d939f2c6-ba25-4dc4-889c-11d1853add19</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">8b9c548b-e540-494b-bf78-b6e6df55c3aa</ID>
+                <Description>Your answer?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f5663c5a-d311-4ae4-be14-1575754be5f2</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">8d7fca91-6e6b-43bd-be0e-3b697f505417</ID>
+                    <Description>Please indicate the role of the economic operator in the group (leader, responsible for specific tasks...)</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CODE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">8fb8eae2-d32a-4ccc-aa7f-f8a1488654cc</ID>
+                    <Description>Please identify the other economic operators participating in the procurement procedure together</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">259dd77d-cc8a-44d0-86a1-9dcea6e095de</ID>
+                    <Description>Where applicable, name of the participating group:</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">0d862d48-d311-465b-a4bc-ce1a48a48a90</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">51fbf792-4676-4e9c-b79c-5784448093cc</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">0d62c6ed-f074-4fcf-8e9f-f691351d52ad</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.OTHER.EO_DATA.RELIES_ON_OTHER_CAPACITIES</CriterionTypeCode>
+        <Name>Relied on entities</Name>
+        <Description>Does the economic operator rely on the capacities of other entities in order to meet the selection criteria set out under Part IV and the criteria and rules (if any) set out under Part V below?</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">289f39b3-2a15-421a-8050-a29858031f35</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ed2c161c-28c2-400d-a648-bd73463bb0dd</ID>
+                <Description>Your answer?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">50e9a74e-969e-4d79-8e19-8af71cb7c54a</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">73c36650-d3cf-4827-9f70-c66c8561fe5f</ID>
+                    <Description>Name of the entity</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">ea20a8a3-79e7-4729-be12-313afe60c846</ID>
+                    <Description>ID of the entity</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ECONOMIC_OPERATOR_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">eafe9c83-134d-45bf-b442-096ae2d465ee</ID>
+                    <Description>Activity of the entity (for this specific procedure)</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CODE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">857c4138-6593-4d93-8615-2d5cc5964e36</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">bf67f451-ff04-4f6b-a91d-184edcd6e930</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">72c0c4b1-ca50-4667-9487-461f3eed4ed7</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.OTHER.EO_DATA.SUBCONTRACTS_WITH_THIRD_PARTIES</CriterionTypeCode>
+        <Name>Not relied on entities</Name>
+        <Description>Does the economic operator intend to subcontract any share of the contract to third parties?</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">289f39b3-2a15-421a-8050-a29858031f35</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">bd95113a-ccde-4f02-b104-abfa578a9e83</ID>
+                <Description>Your answer?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">50e9a74e-969e-4d79-8e19-8af71cb7c54a</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">9350ce44-6c35-44e4-a816-40424db6afdc</ID>
+                    <Description>Name of the entity</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">DESCRIPTION</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f053eb0b-b77a-489d-91d9-5f80d39048d8</ID>
+                    <Description>ID of the subcontractor</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ECONOMIC_OPERATOR_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">fc209acd-4c75-44ca-aa4d-0dc2a49f0e4e</ID>
+                    <Description>Activity of the entity (for this specific procedure)</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CODE</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7458d42a-e581-4640-9283-34ceb3ad4345</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">56cc37b3-f3c0-4fdd-8c27-c55966b145b2</ID>
+                <Description>Is this information available electronically?</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">INDICATOR</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:SubsidiaryTenderingCriterionPropertyGroup>
+                <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">41dd2e9b-1bfd-44c7-93ee-56bd74a4334b</ID>
+                <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ONTRUE</PropertyGroupTypeCode>
+                <ns3:TenderingCriterionProperty>
+                    <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">a61ddc74-910b-472c-8b43-bc332477561d</ID>
+                    <Description>Evidence Supplied</Description>
+                    <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                    <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">EVIDENCE_IDENTIFIER</ValueDataTypeCode>
+                </ns3:TenderingCriterionProperty>
+            </ns3:SubsidiaryTenderingCriterionPropertyGroup>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">8b9700b7-b13c-41e6-a220-6bbf8d5fab31</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.OTHER.EO_DATA.LOTS_TENDERED</CriterionTypeCode>
+        <Name>Lots the EO tenders to</Name>
+        <Description>Where applicable, indication of the lot(s) for which the economic operator wishes to tender</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">289f39b3-2a15-421a-8050-a29858031f35</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">7dac48fd-7827-4d5d-9554-cc31c475fad5</ID>
+                <Description>Lot ID</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUESTION</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">LOT_IDENTIFIER</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:TenderingCriterion>
+        <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">6a21c421-5c1e-46f4-9762-116fbcd33097</ID>
+        <CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CRITERION.OTHER.CA_DATA.LOTS_SUBMISSION</CriterionTypeCode>
+        <Name>CA Lots</Name>
+        <Description>Please take into account the following requirements regarding the lots of this procurement procedure:</Description>
+        <ns3:TenderingCriterionPropertyGroup>
+            <ID schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">03cff8d1-4d22-4435-82fa-d6361af84be6</ID>
+            <PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">ON*</PropertyGroupTypeCode>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">f437d36e-6fff-4a91-9f3f-ea3bf9abd563</ID>
+                <Description>Tenders may be submitted for</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">REQUIREMENT</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">CODE</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">9c8bdc01-a166-4f8c-b3a9-eb1d18795da7</ID>
+                <Description>Maximum number of lots</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">REQUIREMENT</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUANTITY_INTEGER</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+            <ns3:TenderingCriterionProperty>
+                <ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-GROW" schemeVersionID="2.1.1">60143fec-14a6-4834-81b8-d50e53ceeb8f</ID>
+                <Description>Maximum number of lots that may be awarded to one tenderer</Description>
+                <TypeCode listID="CriterionElementType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">REQUIREMENT</TypeCode>
+                <ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-GROW" listVersionID="2.1.1">QUANTITY_INTEGER</ValueDataTypeCode>
+            </ns3:TenderingCriterionProperty>
+        </ns3:TenderingCriterionPropertyGroup>
+    </ns3:TenderingCriterion>
+    <ns3:AdditionalDocumentReference>
+        <ID schemeAgencyID="EU-COM-GROW" schemeAgencyName="DG GROW (European Commission)" schemeVersionID="1.1">0000/S 000-000000</ID>
+        <DocumentTypeCode listID="ReferencesTypeCodes" listAgencyID="EU-COM-GROW" listVersionID="2.1.1"></DocumentTypeCode>
+        <ns3:Attachment>
+            <ns3:ExternalReference>
+                <URI></URI>
+                <FileName></FileName>
+                <Description></Description>
+                <Description></Description>
+            </ns3:ExternalReference>
+        </ns3:Attachment>
+    </ns3:AdditionalDocumentReference>
+</ns4:QualificationApplicationRequest>

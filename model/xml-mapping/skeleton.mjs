@@ -14,14 +14,20 @@
 // a documentation-friendly template of the XML shape.
 //
 // Usage: node skeleton.mjs part-III
+//        node skeleton.mjs part-IV.request.mapping.json   # explicit spec file
+//
+// The argument is either a part name (resolved to `<part>.mapping.json`) or an
+// explicit spec filename ending in `.mapping.json` — the latter is needed for
+// parts split across a REQUEST and a RESPONSE spec (e.g. selection criteria).
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const part = process.argv[2] || 'part-III';
-const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, `${part}.mapping.json`), 'utf8'));
+const arg = process.argv[2] || 'part-III';
+const specFile = arg.endsWith('.mapping.json') ? arg : `${arg}.mapping.json`;
+const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, specFile), 'utf8'));
 
 // ---- minimal tree helpers (same node shape mapper.serialize expects) ---------
 
@@ -136,6 +142,17 @@ function buildRecordsSkeleton(root, rule) {
     const node = buildRecordSkeleton(root, rule, null);
     repeatNote(node, rule.forEach);
     for (const f of rule.item.fields) if (f.to) buildValueLeaf(node, f.to, ph.from(f.from));
+    return;
+  }
+  if (rule.forEach && rule.item?.path) {
+    // scalar-item form (e.g. lot identifiers): one record per scalar array item,
+    // all sharing the fixed key, the value in a single item.path element.
+    const node = appendPath(root, rule.records.split('/'));
+    const keyLeaf = ensurePath(node, rule.key.to.split('/'));
+    keyLeaf.text = ph.key(rule.key.key);
+    for (const [a, v] of Object.entries(rule.key.attributes || {})) keyLeaf.attributes[a] = String(v);
+    ensurePath(node, rule.item.path.split('/')).text = ph.from(`${rule.forEach}[]`);
+    repeatNote(node, rule.forEach);
     return;
   }
   if (rule.forEach) {

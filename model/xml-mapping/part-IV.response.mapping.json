@@ -1,0 +1,152 @@
+{
+  "$comment": "EXPERIMENTAL — declarative mapping from the canonical Part IV instance-data model (criterion C31, slc-stand-to-spec-avg) to the UBL QualificationApplicationRESPONSE XML — the ECONOMIC-OPERATOR side. This is the counterpart to part-IV.request.mapping.json (the buyer side). Only the `response` sub-object is mapped here; the buyer's `requirement` maps to the request document. Same engine and `records` construct as Part III: the answer indicators, the relied-upon branch, the turnover period+amount answer, and cross-linked electronic evidence. Property keys use the EDM `responsepath` form (…/R1), the authentic 'XML Path like ID' with schemeID='criterion'.",
+
+  "$notes": {
+    "amount": "The turnover AMOUNT answer uses a `value` body with a data-sourced attribute: cbc:ResponseAmount@currencyID is sourced from the instance (turnover.amount.currency), so the currency roundtrips. This exercises the value-attribute { from } path (BR-TCR-08 numeric datatypes) that Part III did not.",
+    "period": "The turnover PERIOD answer uses the generic `object` body: turnover.period {startDate,endDate} -> cac:ApplicablePeriod/{cbc:StartDate,cbc:EndDate} (BR-TCR-08-09), the same construct C01 used for the exclusion period.",
+    "conditionalBranch": "fulfilledByItself gates the ONFALSE relied-upon branch. reliedUpon (and the relied-upon entity) are separate records; when the EO fulfils by itself they are simply absent from the instance data and emit nothing.",
+    "evidence": "Same explicit cross-link as Part III: evidence[].id -> cac:Evidence/cbc:ID, and the EVIDENCE_IDENTIFIER record's `references` emits one cac:EvidenceSupplied/cbc:ID per entry valued by that same id (BR-TCR-09)."
+  },
+
+  "target": {
+    "root": "QualificationApplicationResponse",
+    "namespaces": {
+      "": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2",
+      "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    }
+  },
+
+  "rules": [
+    {
+      "$comment": "C31 criterion declaration — criterion UUID (from the EA export). Pure constant metadata: no instance-data home, not written back on import.",
+      "to": "cac:TenderingCriterion/cbc:ID",
+      "const": "d3dfb714-f558-4512-bbc5-e456fa2339de"
+    },
+    {
+      "to": "cac:TenderingCriterion/cbc:CriterionTypeCode",
+      "const": "slc-stand-to-spec-avg",
+      "attributes": { "listID": "criterion" }
+    },
+    {
+      "to": "cac:TenderingCriterion/cbc:Name",
+      "const": "Specific average turnover"
+    },
+
+    {
+      "$comment": "Economic-operator answer records. Each `entries` item emits one cac:TenderingCriterionResponse with a keyed property id (…/R1) and one body branch.",
+      "records": "cac:TenderingCriterionResponse",
+      "key": { "to": "cac:ValidatedCriterionPropertyID/cbc:ID", "attributes": { "schemeID": "criterion" } },
+      "entries": [
+        {
+          "$comment": "RG1/RSG1/QSG1/Q1 — 'Does the EO fulfil the criteria by itself?' (INDICATOR).",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1/Q1/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.fulfilledByItself", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG1/QSG1/Q1 — 'In the case of no – Relied upon or not' (INDICATOR). ONFALSE branch; present only when the EO does not fulfil by itself.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1/QSG1/Q1/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUpon", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG1/QSG1/QSG1/Q1 — 'Name of the entity' (DESCRIPTION). ONTRUE under relied-upon.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUponEntity.name", "to": "cac:ResponseValue/cbc:Description", "type": "string" }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG1/QSG1/QSG1/Q2 — 'ID of the entity' (ECONOMIC_OPERATOR_IDENTIFIER). Emitted as a plain response identifier value.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUponEntity.id", "to": "cac:ResponseValue/cbc:ResponseID", "type": "string" }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG2/Q1 — 'Start date; End date' (PERIOD, BR-TCR-08-09). Generic `object` body: turnover.period -> cac:ApplicablePeriod.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/Q1/R1",
+          "object": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.period", "to": "cac:ApplicablePeriod", "fields": [ { "from": "startDate", "to": "cbc:StartDate" }, { "from": "endDate", "to": "cbc:EndDate" } ] }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG2/Q2 — 'Amount' (AMOUNT, BR-TCR-08). Value with a data-sourced currencyID attribute so the currency roundtrips.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/Q2/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.amount.value", "to": "cac:ResponseValue/cbc:ResponseAmount", "type": "number", "attributes": { "currencyID": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.amount.currency" } } }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG2/QSG1/Q1 — 'Is this information available electronically?' for the turnover figure (INDICATOR).",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/QSG1/Q1/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.availableElectronically", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG2/QSG1/QSG1/Q1 — turnover 'Evidence Supplied' (EVIDENCE_IDENTIFIER, 1..n). `references`: one cac:EvidenceSupplied/cbc:ID per evidence entry, valued by that entry's `id`. Links to the cac:Evidence records below (BR-TCR-09).",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1",
+          "references": { "forEach": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.evidence", "key": "id", "to": "cac:EvidenceSupplied/cbc:ID", "resolve": { "records": "cac:Evidence", "key": { "to": "cbc:ID", "from": "id" }, "fields": [ { "from": "description", "to": "cbc:Description" }, { "from": "identifier", "to": "cac:DocumentReference/cbc:ID" }, { "from": "url", "to": "cac:DocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI" } ] } }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG3/Q1 — 'date the EO was set up or started trading' (DATE). Fallback when turnover is not available for the whole period.",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG3/Q1/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.date", "to": "cac:ResponseValue/cbc:ResponseDate", "type": "string" }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG3/QSG1/Q1 — 'Is this information available electronically?' for the start-trading date (INDICATOR).",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG3/QSG1/Q1/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.availableElectronically", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG3/QSG1/QSG1/Q1 — start-trading 'Evidence Supplied' (EVIDENCE_IDENTIFIER, 1..n).",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG3/QSG1/QSG1/Q1/R1",
+          "references": { "forEach": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.evidence", "key": "id", "to": "cac:EvidenceSupplied/cbc:ID", "resolve": { "records": "cac:Evidence", "key": { "to": "cbc:ID", "from": "id" }, "fields": [ { "from": "description", "to": "cbc:Description" }, { "from": "identifier", "to": "cac:DocumentReference/cbc:ID" }, { "from": "url", "to": "cac:DocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI" } ] } }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG4/Q1 — criterion-level 'Is this information available electronically?' (INDICATOR).",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG4/Q1/R1",
+          "value": { "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.availableElectronically", "to": "cac:ResponseValue/cbc:ResponseIndicator", "type": "boolean" }
+        },
+        {
+          "$comment": "RG1/RSG1/QSG4/QSG1/Q1 — criterion-level 'Evidence Supplied' (EVIDENCE_IDENTIFIER, 1..n).",
+          "key": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG4/QSG1/Q1/R1",
+          "references": { "forEach": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.evidence", "key": "id", "to": "cac:EvidenceSupplied/cbc:ID", "resolve": { "records": "cac:Evidence", "key": { "to": "cbc:ID", "from": "id" }, "fields": [ { "from": "description", "to": "cbc:Description" }, { "from": "identifier", "to": "cac:DocumentReference/cbc:ID" }, { "from": "url", "to": "cac:DocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI" } ] } }
+        }
+      ]
+    },
+
+    {
+      "$comment": "Turnover evidence documents (QSG2) -> cac:Evidence. One record per evidence entry; referenced by the QSG2/QSG1/QSG1/Q1 record above via shared ids. `importVia: references` — on import these are reconstructed per-block by that record's `references.resolve` (all three evidence sets share this one wrapper), so this rule is export-only.",
+      "records": "cac:Evidence",
+      "importVia": "references",
+      "key": { "to": "cbc:ID", "from": "id" },
+      "forEach": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.evidence",
+      "item": {
+        "fields": [
+          { "from": "description", "to": "cbc:Description" },
+          { "from": "identifier", "to": "cac:DocumentReference/cbc:ID" },
+          { "from": "url", "to": "cac:DocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI" }
+        ]
+      }
+    },
+    {
+      "$comment": "Start-trading evidence documents (QSG3) -> cac:Evidence. Export-only (see importVia note on the QSG2 evidence rule).",
+      "records": "cac:Evidence",
+      "importVia": "references",
+      "key": { "to": "cbc:ID", "from": "id" },
+      "forEach": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.evidence",
+      "item": {
+        "fields": [
+          { "from": "description", "to": "cbc:Description" },
+          { "from": "identifier", "to": "cac:DocumentReference/cbc:ID" },
+          { "from": "url", "to": "cac:DocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI" }
+        ]
+      }
+    },
+    {
+      "$comment": "Criterion-level evidence documents (QSG4) -> cac:Evidence. All three evidence sets share the one document-level cac:Evidence list, each entry keyed by its own unique id. Export-only (see importVia note on the QSG2 evidence rule).",
+      "records": "cac:Evidence",
+      "importVia": "references",
+      "key": { "to": "cbc:ID", "from": "id" },
+      "forEach": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.evidence",
+      "item": {
+        "fields": [
+          { "from": "description", "to": "cbc:Description" },
+          { "from": "identifier", "to": "cac:DocumentReference/cbc:ID" },
+          { "from": "url", "to": "cac:DocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI" }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "$id": "part-IV.schema.json",
+  "title": "ESPD Instance Data — Part IV (Selection criteria)",
+  "description": "EXPERIMENTAL canonical instance-data model for Part IV of the ESPD standard form: selection criteria. Scoped for now to a single criterion, C31 (slc-stand-to-spec-avg, 'Specific average turnover'), used as the probe for the BUYER/REQUEST side of the request/response split. Unlike the Part III exclusion grounds (which carry no buyer data), a selection criterion carries BOTH a buyer-set `requirement` (thresholds the contracting authority declares in the REQUEST) and an economic-operator `response` (the answer supplied in the RESPONSE). Models instance data only — deliberately independent of the form definition, UI, and XML serialization. Code-list values are bare codes.",
+  "type": "object",
+  "properties": {
+    "partIV": {
+      "type": "object",
+      "description": "Information concerning selection criteria.",
+      "properties": {
+        "selectionCriteria": {
+          "type": "object",
+          "description": "Selection criteria keyed by the stable criterion code (the ESPD-EDM `code`, e.g. 'slc-stand-to-spec-avg'). Keying by semantic code rather than by form tag (C31) keeps the instance data stable if the form re-numbers criteria. Each criterion holds BOTH request (buyer) and response (economic operator) data via `requirement`/`response` sub-objects (see docs/model-xml-mapping.md). Only criteria actually present in the exchange need appear.",
+          "properties": {
+            "slc-stand-to-spec-avg": { "$ref": "#/$defs/specificAverageTurnoverCriterion" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["selectionCriteria"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["partIV"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "specificAverageTurnoverCriterion": {
+      "type": "object",
+      "description": "The 'specific average turnover' selection criterion (C31). Split into `requirement` (buyer/request side) and `response` (economic-operator side), mirroring the ESPD document boundary. This is the first criterion in the model to carry a real `requirement`, exercising the previously-unbuilt buyer/request mapping.",
+      "properties": {
+        "requirement": { "$ref": "#/$defs/specificAverageTurnoverRequirement" },
+        "response": { "$ref": "#/$defs/specificAverageTurnoverResponse" }
+      },
+      "required": ["requirement"],
+      "additionalProperties": false
+    },
+
+    "specificAverageTurnoverRequirement": {
+      "type": "object",
+      "description": "The buyer/contracting-authority side (maps to/from the REQUEST document as cac:TenderingCriterionProperty[TypeCode=REQUIREMENT] Expected* values). The buyer declares which lot(s) the criterion applies to, and — for the required number of fiscal years and business domain — the minimum average turnover the economic operator must have.",
+      "properties": {
+        "lotIdentifiers": {
+          "type": "array",
+          "description": "The lot(s) this selection criterion applies to (C31/RG1/RQ1, LOT_IDENTIFIER, cardinality 1..n). Selection criteria are lot-specific (Schematron BR-LOT-40); each entry maps to a cbc:ExpectedID in the request. Bare lot ids (e.g. 'LOT-0000').",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "numberOfYears": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of fiscal years the requirement covers (C31/RG1/RSG1/RQ1, QUANTITY_YEAR). Maps to cbc:ExpectedValueNumeric (with unitCode=YEAR) in the request."
+        },
+        "businessDomain": {
+          "type": "string",
+          "description": "Description of the business area covered by the contract (C31/RG1/RSG1/RQ2, DESCRIPTION). Maps to cbc:ExpectedDescription in the request."
+        },
+        "minimumAmount": { "$ref": "#/$defs/amount" }
+      },
+      "required": ["lotIdentifiers", "numberOfYears", "minimumAmount"],
+      "additionalProperties": false
+    },
+
+    "specificAverageTurnoverResponse": {
+      "type": "object",
+      "description": "The economic operator's full answer to C31 (maps to/from the RESPONSE document as cac:TenderingCriterionResponse Response* values). Covers every QUESTION in RG1/RSG1: `fulfilledByItself` (QSG1/Q1) and the ONFALSE relied-upon branch (`reliedUpon`/`reliedUponEntity`); `turnover` — the period + amount answer with its own electronic-evidence block (QSG2); `startTrading` — the fallback set-up/started-trading date with its own electronic-evidence block, used when turnover is not available for the whole period (QSG3); and `electronicEvidence` — the criterion-level 'is this information available electronically?' block (QSG4).",
+      "properties": {
+        "fulfilledByItself": {
+          "type": "boolean",
+          "description": "Whether the economic operator fulfils the criterion by itself (C31/RG1/RSG1/QSG1/Q1, INDICATOR)."
+        },
+        "reliedUpon": {
+          "type": "boolean",
+          "description": "In the case of NO (does not fulfil by itself) — whether the EO relies upon another entity's capacity (C31/RG1/RSG1/QSG1/QSG1/Q1, INDICATOR). Expected only when `fulfilledByItself` is false."
+        },
+        "reliedUponEntity": { "$ref": "#/$defs/reliedUponEntity" },
+        "turnover": { "$ref": "#/$defs/turnover" },
+        "startTrading": { "$ref": "#/$defs/startTrading" },
+        "electronicEvidence": { "$ref": "#/$defs/electronicEvidence" }
+      },
+      "required": ["fulfilledByItself"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$comment": "Mirrors the form's ONFALSE branch (QSG1/QSG1): the relied-upon question is only relevant when the EO does NOT fulfil the criterion by itself.",
+          "if": {
+            "properties": { "fulfilledByItself": { "const": true } }
+          },
+          "then": {
+            "not": { "required": ["reliedUpon"] }
+          }
+        }
+      ]
+    },
+
+    "startTrading": {
+      "type": "object",
+      "description": "Fallback for when turnover (general or specific) is not available for the entire required period (C31/RG1/RSG1/QSG3). `date` is the date the economic operator was set up or started trading (QSG3/Q1, DATE); `electronicEvidence` is the QSG3/QSG1 'available electronically?' block for that fact.",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date on which the economic operator was set up or started trading (C31/RG1/RSG1/QSG3/Q1, DATE). ISO 8601 date."
+        },
+        "electronicEvidence": { "$ref": "#/$defs/electronicEvidence" }
+      },
+      "required": ["date"],
+      "additionalProperties": false
+    },
+
+    "reliedUponEntity": {
+      "type": "object",
+      "description": "The entity whose capacity the EO relies upon (C31/RG1/RSG1/QSG1/QSG1/QSG1, ONTRUE — only when `reliedUpon` is true). `name` is the entity name (DESCRIPTION); `id` is its identifier (ECONOMIC_OPERATOR_IDENTIFIER).",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the relied-upon entity (C31/RG1/RSG1/QSG1/QSG1/QSG1/Q1, DESCRIPTION)."
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier of the relied-upon entity (C31/RG1/RSG1/QSG1/QSG1/QSG1/Q2, ECONOMIC_OPERATOR_IDENTIFIER)."
+        }
+      },
+      "required": ["name"],
+      "additionalProperties": false
+    },
+
+    "turnover": {
+      "type": "object",
+      "description": "The economic operator's turnover answer (C31/RG1/RSG1/QSG2). `period` is the reporting period (PERIOD, Q1); `amount` is the specific average turnover for that period (AMOUNT, Q2); `electronicEvidence` is the QSG2/QSG1 'available electronically?' block for the turnover figure.",
+      "properties": {
+        "period": { "$ref": "#/$defs/period" },
+        "amount": { "$ref": "#/$defs/amount" },
+        "electronicEvidence": { "$ref": "#/$defs/electronicEvidence" }
+      },
+      "required": ["amount"],
+      "additionalProperties": false
+    },
+
+    "amount": {
+      "type": "object",
+      "description": "A monetary amount with its currency. Maps to a UBL amount element carrying a currencyID attribute (e.g. cbc:MinimumAmount@currencyID for the requirement, cbc:ResponseAmount@currencyID for the response).",
+      "properties": {
+        "value": {
+          "type": "number",
+          "description": "The numeric amount."
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 currency code (bare code, e.g. 'EUR'). Maps to the currencyID attribute."
+        }
+      },
+      "required": ["value", "currency"],
+      "additionalProperties": false
+    },
+
+    "period": {
+      "type": "object",
+      "description": "A reporting period (C31/RG1/RSG1/QSG2/Q1, PERIOD). Maps to UBL cac:ApplicablePeriod (StartDate/EndDate).",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Start of the period (maps to cbc:StartDate)."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "End of the period (maps to cbc:EndDate)."
+        }
+      },
+      "anyOf": [
+        { "required": ["startDate"] },
+        { "required": ["endDate"] }
+      ],
+      "additionalProperties": false
+    },
+
+    "electronicEvidence": {
+      "type": "object",
+      "description": "The 'is this information available electronically?' block (C31/RG1/RSG1/QSG2/QSG1). Shared shape with Part III. `availableElectronically` is the indicator; when true, `evidence` lists one or more evidence references (EVIDENCE_IDENTIFIER, cardinality 1..n).",
+      "properties": {
+        "availableElectronically": {
+          "type": "boolean",
+          "description": "Whether the supporting information/documentation is available electronically (C31/RG1/RSG1/QSG2/QSG1/Q1, INDICATOR)."
+        },
+        "evidence": {
+          "type": "array",
+          "description": "References to the electronically-available evidence (C31/RG1/RSG1/QSG2/QSG1/QSG1/Q1, EVIDENCE_IDENTIFIER). Expected (1..n) only when `availableElectronically` is true.",
+          "items": { "$ref": "#/$defs/evidenceReference" }
+        }
+      },
+      "required": ["availableElectronically"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$comment": "Mirrors ONTRUE: evidence is only relevant when the information is available electronically, and at least one evidence reference is then expected.",
+          "if": {
+            "properties": { "availableElectronically": { "const": true } }
+          },
+          "then": {
+            "properties": {
+              "evidence": { "minItems": 1 }
+            },
+            "required": ["evidence"]
+          },
+          "else": {
+            "properties": {
+              "evidence": { "maxItems": 0 }
+            }
+          }
+        }
+      ]
+    },
+
+    "evidenceReference": {
+      "type": "object",
+      "description": "A reference to a piece of evidence available electronically. Aligns with UBL cac:Evidence. `id` is the evidence entity's OWN identity (owned by the producer), used as cac:Evidence/cbc:ID and as the cac:EvidenceSupplied/cbc:ID link target; `identifier` is the identity of the underlying document/record, a separate cac:DocumentReference/cbc:ID.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The evidence entity's own identity, supplied by the producer. Used to cross-link the answer to this evidence in the UBL XML (cac:EvidenceSupplied/cbc:ID -> cac:Evidence/cbc:ID). Must be unique within the document."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL where the evidence can be accessed."
+        },
+        "identifier": {
+          "type": "string",
+          "description": "Optional identifier of the underlying document/record (e.g. a certificate number). Distinct from `id`."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional human description of the evidence."
+        }
+      },
+      "required": ["id", "url"],
+      "additionalProperties": false
+    }
+  }
+}

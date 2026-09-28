@@ -196,6 +196,7 @@ function valueToText(value) {
 }
 function textToValue(text, type) {
   if (type === 'boolean') return text === 'true';
+  if (type === 'number') return Number(text);
   return text;
 }
 
@@ -310,6 +311,28 @@ function buildRecords(root, rule, data) {
     return;
   }
 
+  if (rule.forEach && rule.item?.path) {
+    // Scalar-item form: one record per SCALAR array item, all records sharing
+    // the same fixed `key`, the item's value in a single body element named by
+    // `item.path`. Used for repeated same-id requirement properties such as the
+    // lot identifiers (C31/RG1/RQ1, LOT_IDENTIFIER 1..n) -> repeated
+    // cac:TenderingCriterionProperty each with one cbc:ExpectedID.
+    const items = resolve(data, rule.forEach);
+    if (!Array.isArray(items) || items.length === 0) return;
+    for (const item of items) {
+      if (item === undefined || item === null || item === '') continue;
+      const node = appendPath(root, rule.records.split('/'));
+      if (rule.key?.to !== undefined && rule.key.key !== undefined) emitKey(node, rule.key, rule.key.key);
+      const leaf = ensurePath(node, rule.item.path.split('/'));
+      leaf.text = valueToText(item);
+      for (const [attrName, attrValue] of Object.entries(rule.item.attributes || {})) {
+        const resolved = resolveAttr(attrValue, item);
+        if (resolved !== undefined && resolved !== null) leaf.attributes[attrName] = String(resolved);
+      }
+    }
+    return;
+  }
+
   if (rule.forEach) {
     // Per-item entries form: expand the entries-set once per array item.
     const items = resolve(data, rule.forEach);
@@ -324,12 +347,47 @@ function buildRecords(root, rule, data) {
   for (const entry of rule.entries) emitEntryRecord(root, rule, entry, data, data);
 }
 
-/** Read one entry's body from a record node into `target`. Returns true if present. */
-function readEntryBody(node, entry, target) {
+/** Read one entry's body from a record node into `target`. Returns true if present.
+ * `root` is the document root, needed to resolve `references.resolve` against the
+ * shared referenced record set (e.g. cac:Evidence). */
+function readEntryBody(node, entry, target, root) {
   if (entry.references) {
-    // References carry only cross-reference ids; the referenced records are
-    // reconstructed from their own record set, so nothing unique is read here.
-    // Return true so occurrence grouping still counts this record as present.
+    // Read the cross-reference ids in THIS record (e.g. cac:EvidenceSupplied/cbc:ID).
+    const segments = entry.references.to.split('/');
+    const refNodes = findAllPaths(node, segments.slice(0, -1));
+    const leafName = segments[segments.length - 1];
+    const ids = refNodes
+      .map(r => findPath(r, [leafName])?.text)
+      .filter(v => v !== undefined);
+    if (ids.length === 0) return false;
+
+    if (entry.references.resolve && root) {
+      // Rebuild the full objects for THIS block by joining the referenced ids to
+      // the shared record set (e.g. cac:Evidence). This makes each `references`
+      // block authoritative for which records belong to it — necessary when
+      // several blocks share one document-level record set.
+      const rr = entry.references.resolve;
+      const recordNodes = findAllPaths(root, rr.records.split('/'));
+      const byId = new Map();
+      for (const rn of recordNodes) {
+        const idText = findPath(rn, rr.key.to.split('/'))?.text;
+        if (idText !== undefined) byId.set(idText, rn);
+      }
+      const items = ids.map(id => {
+        const obj = {};
+        setPath(obj, rr.key.from, id);
+        const rn = byId.get(id);
+        if (rn) {
+          for (const field of rr.fields || []) {
+            if (!field.from || !field.to) continue;
+            const leaf = findPath(rn, field.to.split('/'));
+            if (leaf && leaf.text !== undefined) setPath(obj, field.from, leaf.text);
+          }
+        }
+        return obj;
+      });
+      setPath(target, entry.references.forEach, items);
+    }
     return true;
   }
   if (entry.value) {
@@ -371,6 +429,11 @@ function recordKeyText(node, rule) {
 
 /** IMPORT one `records` rule. */
 function unmapRecords(root, rule, data) {
+  // A record set imported via cross-references (e.g. cac:Evidence, reconstructed
+  // per-block by the `references` rules that point at it) is export-only here;
+  // importing it directly would merge all blocks' entries into every array.
+  if (rule.importVia === 'references') return;
+
   const nodes = findAllPaths(root, rule.records.split('/'));
   if (nodes.length === 0) return;
 
@@ -392,6 +455,20 @@ function unmapRecords(root, rule, data) {
     return;
   }
 
+  if (rule.forEach && rule.item?.path) {
+    // Scalar-item form: rebuild the array from the records carrying THIS rule's
+    // fixed key id (other records share the same wrapper element, so filter by
+    // key), reading each item.path element's text in document order.
+    const values = [];
+    for (const node of nodes) {
+      if (rule.key?.key !== undefined && recordKeyText(node, rule) !== rule.key.key) continue;
+      const leaf = findPath(node, rule.item.path.split('/'));
+      if (leaf && leaf.text !== undefined) values.push(leaf.text);
+    }
+    if (values.length > 0) setPath(data, rule.forEach, values);
+    return;
+  }
+
   if (rule.forEach) {
     // Per-item entries form: records share key ids across occurrences, so split
     // by DOCUMENT ORDER — a new array item begins whenever a key already filled
@@ -409,7 +486,7 @@ function unmapRecords(root, rule, data) {
         items.push(current);
         filled.clear();
       }
-      if (readEntryBody(node, entry, current)) filled.add(keyText);
+      if (readEntryBody(node, entry, current, root)) filled.add(keyText);
     }
     if (items.length > 0) setPath(data, rule.forEach, items);
     return;
@@ -424,7 +501,7 @@ function unmapRecords(root, rule, data) {
   }
   for (const entry of rule.entries) {
     const node = byKey.get(entry.key);
-    if (node) readEntryBody(node, entry, data);
+    if (node) readEntryBody(node, entry, data, root);
   }
 }
 

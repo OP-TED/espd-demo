@@ -83,7 +83,12 @@ function pathResolves(obj, dotted) {
 
 // Optional leaves that legitimately may not be in the default example.
 const optional = new Set([
-  'partI.contractingAuthority.identifier.scheme'
+  'partI.contractingAuthority.identifier.scheme',
+  // Part IV C31: the default example has the EO fulfilling the criterion by
+  // itself, so the ONFALSE relied-upon branch is legitimately absent.
+  'partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUpon',
+  'partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUponEntity.name',
+  'partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUponEntity.id'
 ]);
 
 let problems = 0;

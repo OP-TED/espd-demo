@@ -1,0 +1,66 @@
+{
+  "partIV": {
+    "selectionCriteria": {
+      "slc-stand-to-spec-avg": {
+        "requirement": {
+          "lotIdentifiers": ["LOT-0000"],
+          "numberOfYears": 3,
+          "businessDomain": "IT consulting and development of semantic interoperability solutions.",
+          "minimumAmount": {
+            "value": 1000000,
+            "currency": "EUR"
+          }
+        },
+        "response": {
+          "fulfilledByItself": true,
+          "turnover": {
+            "period": {
+              "startDate": "2021-01-01",
+              "endDate": "2023-12-31"
+            },
+            "amount": {
+              "value": 6200000,
+              "currency": "EUR"
+            },
+            "electronicEvidence": {
+              "availableElectronically": true,
+              "evidence": [
+                {
+                  "id": "evidence-turnover-001",
+                  "url": "https://registry.example.eu/accounts/12345",
+                  "identifier": "ACC-12345",
+                  "description": "Audited annual accounts for the reporting period."
+                }
+              ]
+            }
+          },
+          "startTrading": {
+            "date": "2019-04-01",
+            "electronicEvidence": {
+              "availableElectronically": true,
+              "evidence": [
+                {
+                  "id": "evidence-starttrading-001",
+                  "url": "https://registry.example.eu/incorporation/2019",
+                  "identifier": "INC-2019-0401",
+                  "description": "Certificate of incorporation."
+                }
+              ]
+            }
+          },
+          "electronicEvidence": {
+            "availableElectronically": true,
+            "evidence": [
+              {
+                "id": "evidence-overall-001",
+                "url": "https://registry.example.eu/company/registration",
+                "identifier": "REG-99887",
+                "description": "Company registration extract."
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

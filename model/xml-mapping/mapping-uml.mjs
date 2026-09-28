@@ -9,14 +9,20 @@
 // kind of each mapping.
 //
 // Usage: node mapping-uml.mjs part-III
+//        node mapping-uml.mjs part-IV.response.mapping.json   # explicit spec file
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const part = process.argv[2] || 'part-III';
-const spec = JSON.parse(fs.readFileSync(path.join(__dirname, `${part}.mapping.json`), 'utf8'));
+// The argument is either a part name (resolved to `<part>.mapping.json`) or an
+// explicit spec filename ending in `.mapping.json` (for parts split across a
+// REQUEST and a RESPONSE spec, e.g. selection criteria).
+const arg = process.argv[2] || 'part-III';
+const specFile = arg.endsWith('.mapping.json') ? arg : `${arg}.mapping.json`;
+const part = specFile.replace(/\.mapping\.json$/, '');
+const spec = JSON.parse(fs.readFileSync(path.join(__dirname, specFile), 'utf8'));
 
 // Each correspondence: { instance, ubl, kind }
 const links = [];

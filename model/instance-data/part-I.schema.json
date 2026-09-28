@@ -7,6 +7,7 @@
     "partI": {
       "type": "object",
       "description": "Information concerning the procurement procedure and the contracting authority or contracting entity.",
+      "$comment.todo.cpv": "TODO (not yet modeled): the procurement-project envelope — `objectType` (ProcurementTypeCode: services/supplies/works/combined) and CPV codes (procurement subject classification). CPV maps to ProcurementProject/MainCommodityClassification|AdditionalCommodityClassification/ItemClassificationCode (listID='cpv'), a Part I / procedure-level concern, NOT a criterion. Confirmed via a real Slovenian export (option (a): procedure-level ProcurementProject, no per-criterion CPV). Store bare codes and reference the external CPV authority list rather than embedding it. Not mandated by Regulation 2016/7 — an optional convenience feature. See docs/model-xml-mapping.md 'TODO: CPV codes' for the full finding and proposed implementation.",
       "properties": {
         "publication": {
           "$ref": "#/$defs/publication"

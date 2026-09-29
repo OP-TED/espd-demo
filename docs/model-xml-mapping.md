@@ -497,3 +497,110 @@ criterion concern. Suggested scope:
    authority list at render time. Do NOT copy the CPV list into the repo.
 4. Add form-structure fields and a roundtrip case; leave `espd-edm.json` and the
    EA criterion extraction untouched.
+
+## Criterion request-declaration scaffold — source of truth and gaps
+
+The request document DECLARES the whole criterion (the "scaffold"): the criterion
+`cbc:ID`/`Name`/`Description`, its `cac:ProcurementProjectLotReference`(s),
+`cac:SubTenderingCriterion` (national sub-criteria), `cac:Legislation`, and the
+recursive `cac:TenderingCriterionPropertyGroup` tree of questions and
+requirements. This is fixed criterion metadata (not instance data). It is driven
+by the lean, generated `criteria-scaffold.json` (see below) and emitted by
+`scaffold.mjs` (probe: C31).
+
+### `scaffold.mjs` — the request-declaration generator (export-only)
+
+`model/xml-mapping/scaffold.mjs` projects a criterion definition from
+`criteria-scaffold.json` into a `cac:TenderingCriterion` request declaration. It
+is EXPORT-ONLY: a declaration is regenerated from the criterion definition, never
+parsed back (the definition is fixed; only the buyer's `Expected*` values are
+instance data, handled by `part-IV.request.mapping.json`).
+
+Node → element rules (generic, driven by node `type`/`tag`):
+
+- `CRITERION` → `cac:TenderingCriterion` (ID = criterion UUID, `CriterionTypeCode`,
+  `Name`, `Description`).
+- `PPLR*` tag → `cac:ProcurementProjectLotReference` per buyer lot id (from the
+  instance `requirement.lotIdentifiers`). Keyed by tag because the EAtoJSON
+  export has labelled this node both `LOT_REFERENCE` and `CRITERION` across
+  versions.
+- `SUBCRITERION` → `cac:SubTenderingCriterion` (placeholder Name/Description —
+  deferred TODO) + its inner groups.
+- `LEGISLATION` → `cac:Legislation` (placeholder content — deferred TODO).
+- `*_GROUP` → `cac:TenderingCriterionPropertyGroup`; `*_SUBGROUP` →
+  `cac:SubsidiaryTenderingCriterionPropertyGroup` (ID, `PropertyGroupTypeCode`).
+- `QUESTION`/`REQUIREMENT`/`CAPTION` → `cac:TenderingCriterionProperty` (ID,
+  Name, Description, `TypeCode`, `ValueDataTypeCode`). A REQUIREMENT also carries
+  the buyer's `Expected*`/`MinimumAmount` value from the instance data.
+
+**Property `cbc:ID` form** (empirical, from `ESPD-criterion.xml`): a QUESTION
+uses its bare `requestpath` (`…/QSG1/Q1`); a REQUIREMENT appends `/R1/R1`
+(`…/RQ1/R1/R1`). The criterion UUID and codes come from the scaffold.
+
+Usage: `node scaffold.mjs slc-stand-to-spec-avg --instance ../instance-data/part-IV.example.json`.
+
+**Verification** (`scaffold-part-IV.test.mjs`): the generated C31 declaration is
+checked structurally against the authoritative reference the ESPD validator uses
+as its canonical criterion tree — `espd-validation-schematron/ESPDRequest/xsl/ESPD-criterion.xml`.
+The RG1 property-group tree (element + id + governing code, in document order)
+must reproduce the reference as an exact PREFIX; the generator may carry
+additional trailing nodes because the bundled reference is an OLDER ESPD-EDM
+snapshot than the freshly-exported `espd-edm.json` (e.g. C31 gained a QSG4
+evidence block in the newer model). Descriptions, scheme attributes, and the
+national-sub-criterion inner content (deferred) are not compared.
+
+### `criteria-scaffold.json` (generated)
+
+`model/xml-mapping/extract-scaffold.mjs` distils the authoritative
+`espd-tools/EAtoJSON/outputs/espd-edm.json` into
+`model/xml-mapping/criteria-scaffold.json` — the criteria parts only (III, IV,
+V; 56 criteria) and only the fields the scaffold needs (`tag`, `type`, `code`,
+`title`, `description`, `propertydatatype`, `requestpath`, `responsepath`,
+recursive `components`; criterion heads add `uuid`, `name`). Dropped
+`contentpath` (the derivable `…/RV` value slot) and `cardinality` (not
+serialized in the declaration). Regenerate with
+`node model/xml-mapping/extract-scaffold.mjs`. It is a GENERATED artifact — do
+not hand-edit; `espd-edm.json` remains the single source of truth.
+
+### Source of truth for criterion Name and Description — confirmed
+
+Per the ESPD-EDM common-criteria rules (BR-TC-05 for `cbc:Name`, BR-TC-06/-19 for
+`cbc:Description`): both "should match the one from **e-Certis**", mirrored in the
+EA `ESPD-criterion` spreadsheet. This applies to ALL tendering criteria —
+exclusion grounds and selection criteria alike. The per-procurement buyer
+thresholds (number of years, minimum amount, currency) are explicitly NOT from
+e-Certis; they are procedure-specific and are exactly our `requirement` model.
+
+Where each value actually lives in this workspace:
+
+| Value | Authoritative source | In workspace |
+|-------|----------------------|--------------|
+| Criterion `Name` | e-Certis (multilingual) | Now in `espd-edm.json` (and the derived `criteria-scaffold.json`), populated by the EAtoJSON label fetch from the EU Publications Office SPARQL authority table (`skos:prefLabel`, `en`). Also in `SelectionCriterion.gc` and `ESPD-criterion.xml`. |
+| Criterion `Description` | e-Certis | Now in `espd-edm.json` (and `criteria-scaffold.json`), from the same SPARQL fetch (`skos:definition`, `en`). Also in `ESPD-criterion.xml`. NOT carried by `SelectionCriterion.gc` (no definition column). |
+| National `SubTenderingCriterion` name/description | e-Certis (Member-State-specific) | Placeholders only (`[Name of the National Criterion]`). |
+| Legislation content (Title/Article/Jurisdiction/URI/Language) | e-Certis / criterion definition | Placeholders only (`[Legislation Title]`). |
+
+**Name/Description language.** The fetch and the emitted scaffold use **English**
+(`skos:prefLabel`/`skos:definition`, `lang = "en"`), matching `ESPD-criterion.xml`
+and the rest of the workspace. The authority table carries all 24 EU languages,
+so a localized emitter could select another `lang` from the same source.
+
+### TODOs
+
+1. **~~Name/Description gap~~ — RESOLVED.** The EAtoJSON label fetch
+   (`fetch-labels.js`) now populates criterion `name`/`description` in
+   `espd-edm.json` from the Publications Office SPARQL authority table (the
+   e-Certis-aligned source). Two fixes made this work: (a) `loadFromCache()`
+   treats an empty cache as a miss instead of short-circuiting the fetch;
+   (b) the SPARQL request is proxy-aware (routes via the `https` module with
+   `https-proxy-agent`, honouring `HTTPS_PROXY`/`NO_PROXY` with a proxy↔direct
+   fallback), since node's global `fetch` ignores those env vars. Re-running
+   `export.js criteria` then `extract-scaffold.mjs` gives real
+   names/descriptions across all criteria — so no interim enrichment from
+   `SelectionCriterion.gc` / `ESPD-criterion.xml` is needed.
+2. **Legislation scaffold — TODO (deferred):** emit `cac:Legislation`
+   (ID/Title/Description/JurisdictionLevel/Article/URI/Language). Content is not
+   in `espd-edm.json`; needs upstream modelling. Structure only for now.
+3. **National sub-criterion scaffold — TODO (deferred):** emit
+   `cac:SubTenderingCriterion` (ID/Name/Description + its own property group).
+   Member-State-specific content comes from e-Certis; structure only for now.

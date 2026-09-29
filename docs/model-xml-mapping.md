@@ -5,6 +5,10 @@ instance-data model for the ESPD form and a declarative engine that maps it
 to and from UBL XML. It is not yet wired into the reference-implementation UI;
 it lives in `model/` as a separate experiment.
 
+> For why this correspondence engine was kept rather than replaced by a
+> (reverse) text template engine such as reverse-ejs, see
+> [decision-reverse-template-engine.md](./decision-reverse-template-engine.md).
+
 ## Three layers
 
 The model is deliberately split into three independent layers:

@@ -498,69 +498,88 @@ criterion concern. Suggested scope:
 4. Add form-structure fields and a roundtrip case; leave `espd-edm.json` and the
    EA criterion extraction untouched.
 
-## Criterion request-declaration scaffold — source of truth and gaps
+## Criterion request-declaration — embedded `structure` in the mapping
 
-The request document DECLARES the whole criterion (the "scaffold"): the criterion
+The request document DECLARES the whole criterion: the criterion
 `cbc:ID`/`Name`/`Description`, its `cac:ProcurementProjectLotReference`(s),
 `cac:SubTenderingCriterion` (national sub-criteria), `cac:Legislation`, and the
 recursive `cac:TenderingCriterionPropertyGroup` tree of questions and
-requirements. This is fixed criterion metadata (not instance data). It is driven
-by the lean, generated `criteria-scaffold.json` (see below) and emitted by
-`scaffold.mjs` (probe: C31).
+requirements. This is fixed criterion metadata (not instance data).
 
-### `scaffold.mjs` — the request-declaration generator (export-only)
+Rather than a separate scaffold model + a separate XML generator, this
+declaration is **embedded directly in the request mapping** as a single
+`structure` rule, and the ONE mapper engine drives both directions. This keeps a
+single source of truth (`espd-edm.json`) and a single artifact per part (the
+mapping file) — the design mirrors the eForms SDK `xmlStructure` idea (a
+node/element tree with typed leaves) rather than a hand-expanded rule list.
 
-`model/xml-mapping/scaffold.mjs` projects a criterion definition from
-`criteria-scaffold.json` into a `cac:TenderingCriterion` request declaration. It
-is EXPORT-ONLY: a declaration is regenerated from the criterion definition, never
-parsed back (the definition is fixed; only the buyer's `Expected*` values are
-instance data, handled by `part-IV.request.mapping.json`).
+### The `structure` rule (engine, `mapper.mjs`)
 
-Node → element rules (generic, driven by node `type`/`tag`):
+A `structure` rule carries a nested tree that mirrors the target XML 1:1. Each
+node is `{ element, attributes?, const?, from?, type?, forEach?, fromItem?,
+children? }`:
 
-- `CRITERION` → `cac:TenderingCriterion` (ID = criterion UUID, `CriterionTypeCode`,
-  `Name`, `Description`).
-- `PPLR*` tag → `cac:ProcurementProjectLotReference` per buyer lot id (from the
-  instance `requirement.lotIdentifiers`). Keyed by tag because the EAtoJSON
-  export has labelled this node both `LOT_REFERENCE` and `CRITERION` across
-  versions.
-- `SUBCRITERION` → `cac:SubTenderingCriterion` (placeholder Name/Description —
-  deferred TODO) + its inner groups.
-- `LEGISLATION` → `cac:Legislation` (placeholder content — deferred TODO).
-- `*_GROUP` → `cac:TenderingCriterionPropertyGroup`; `*_SUBGROUP` →
-  `cac:SubsidiaryTenderingCriterionPropertyGroup` (ID, `PropertyGroupTypeCode`).
-- `QUESTION`/`REQUIREMENT`/`CAPTION` → `cac:TenderingCriterionProperty` (ID,
-  Name, Description, `TypeCode`, `ValueDataTypeCode`). A REQUIREMENT also carries
-  the buyer's `Expected*`/`MinimumAmount` value from the instance data.
+- `element` — the XML element name; `children` — nested structure nodes.
+- `const` — fixed leaf text (structure/metadata; ignored on import).
+- `from` — data-bound leaf text (an instance path; roundtrips on import).
+- `attributes` — a map of constant values or `{ from }` data-sourced attributes
+  (e.g. `currencyID`), same convention as the value rules.
+- `forEach` + `fromItem` — a repeated element, one per instance-array item; a
+  scalar array uses a child leaf with `fromItem: "."` (e.g. lotIdentifiers →
+  repeated `cac:ProcurementProjectLotReference/cbc:ID`).
 
-**Property `cbc:ID` form** (empirical, from `ESPD-criterion.xml`): a QUESTION
-uses its bare `requestpath` (`…/QSG1/Q1`); a REQUIREMENT appends `/R1/R1`
-(`…/RQ1/R1/R1`). The criterion UUID and codes come from the scaffold.
+Unlike the slash-path value rules, sibling elements are always distinct nodes, so
+the many `cac:TenderingCriterionProperty` siblings coexist. On import the walker
+matches same-named siblings POSITIONALLY (the Nth spec child consumes the Nth XML
+sibling), so nested property groups line up. Only `from`/`fromItem` leaves and
+`{ from }` attributes write back — `const` structure is export-only. So one
+embedded tree drives both `map` and `unmap`.
 
-Usage: `node scaffold.mjs slc-stand-to-spec-avg --instance ../instance-data/part-IV.example.json`.
+### `build-request-mapping.mjs` — generate the embedded structure (option b)
 
-**Verification** (`scaffold-part-IV.test.mjs`): the generated C31 declaration is
-checked structurally against the authoritative reference the ESPD validator uses
-as its canonical criterion tree — `espd-validation-schematron/ESPDRequest/xsl/ESPD-criterion.xml`.
-The RG1 property-group tree (element + id + governing code, in document order)
-must reproduce the reference as an exact PREFIX; the generator may carry
-additional trailing nodes because the bundled reference is an OLDER ESPD-EDM
-snapshot than the freshly-exported `espd-edm.json` (e.g. C31 gained a QSG4
-evidence block in the newer model). Descriptions, scheme attributes, and the
-national-sub-criterion inner content (deferred) are not compared.
+`model/xml-mapping/build-request-mapping.mjs` walks a criterion's `components`
+tree in the authoritative `espd-tools/EAtoJSON/outputs/espd-edm.json` and writes
+the complete `part-IV.request.mapping.json`, whose single `structure` rule is the
+generated tree. The only hand-specified part is the small per-criterion
+`BINDINGS` table in the generator (which REQUIREMENT requestpath binds to which
+instance `requirement` field, and which datatype → `Expected*`/`MinimumAmount`
+element); those become the `from`/`forEach` leaves spliced onto the tree.
+Regenerate after `espd-edm.json` changes:
 
-### `criteria-scaffold.json` (generated)
+```
+node model/xml-mapping/build-request-mapping.mjs
+```
 
-`model/xml-mapping/extract-scaffold.mjs` distils the authoritative
-`espd-tools/EAtoJSON/outputs/espd-edm.json` into
-`model/xml-mapping/criteria-scaffold.json` — the criteria parts only (III, IV,
-V; 56 criteria) and only the fields the scaffold needs (`tag`, `type`, `code`,
-`title`, `description`, `propertydatatype`, `requestpath`, `responsepath`,
-recursive `components`; criterion heads add `uuid`, `name`). Dropped
-`contentpath` (the derivable `…/RV` value slot) and `cardinality` (not
-serialized in the declaration). Regenerate with
-`node model/xml-mapping/extract-scaffold.mjs`. It is a GENERATED artifact — do
-not hand-edit; `espd-edm.json` remains the single source of truth.
+The generated mapping is a normal spec — do not hand-edit its `structure`; edit
+`BINDINGS` and regenerate. `espd-edm.json` stays the single source of truth.
+
+Node → element rules (driven by node `type`/`tag`):
+
+- `CRITERION` → `cac:TenderingCriterion` (ID = criterion UUID, type code, Name,
+  Description).
+- `PPLR*` tag → `cac:ProcurementProjectLotReference` per buyer lot id, keyed by
+  tag because the EAtoJSON export has labelled this node both `LOT_REFERENCE` and
+  `CRITERION` across versions.
+- `SUBCRITERION` → `cac:SubTenderingCriterion` (placeholder content — deferred).
+- `LEGISLATION` → `cac:Legislation` (placeholder content — deferred).
+- `*_GROUP` / `*_SUBGROUP` → `cac:TenderingCriterionPropertyGroup` /
+  `cac:SubsidiaryTenderingCriterionPropertyGroup`.
+- `QUESTION`/`REQUIREMENT`/`CAPTION` → `cac:TenderingCriterionProperty`; a
+  REQUIREMENT also carries the buyer's `Expected*`/`MinimumAmount` (`from`) value.
+
+**Property `cbc:ID` form** (empirical, from `ESPD-criterion.xml`): a QUESTION uses
+its bare `requestpath` (`…/QSG1/Q1`); a REQUIREMENT appends `/R1/R1`
+(`…/RQ1/R1/R1`).
+
+**Verification** (`scaffold-part-IV.test.mjs`): the request declaration is
+produced by running `part-IV.request.mapping.json` through `map()` and is checked
+structurally against `espd-validation-schematron/ESPDRequest/xsl/ESPD-criterion.xml`
+(the tree the ESPD validator treats as canonical). The RG1 property-group tree
+(element + id + governing code, in order) must reproduce the reference as an exact
+PREFIX; the generated tree may carry additional trailing nodes because the bundled
+reference is an OLDER ESPD-EDM snapshot than the freshly-exported `espd-edm.json`
+(e.g. C31 gained a QSG4 block). The buyer `Expected*` values also roundtrip
+(`roundtrip-part-IV.test.mjs`).
 
 ### Source of truth for criterion Name and Description — confirmed
 
@@ -575,8 +594,8 @@ Where each value actually lives in this workspace:
 
 | Value | Authoritative source | In workspace |
 |-------|----------------------|--------------|
-| Criterion `Name` | e-Certis (multilingual) | Now in `espd-edm.json` (and the derived `criteria-scaffold.json`), populated by the EAtoJSON label fetch from the EU Publications Office SPARQL authority table (`skos:prefLabel`, `en`). Also in `SelectionCriterion.gc` and `ESPD-criterion.xml`. |
-| Criterion `Description` | e-Certis | Now in `espd-edm.json` (and `criteria-scaffold.json`), from the same SPARQL fetch (`skos:definition`, `en`). Also in `ESPD-criterion.xml`. NOT carried by `SelectionCriterion.gc` (no definition column). |
+| Criterion `Name` | e-Certis (multilingual) | Now in `espd-edm.json` (and the generated request mapping's embedded structure), populated by the EAtoJSON label fetch from the EU Publications Office SPARQL authority table (`skos:prefLabel`, `en`). Also in `SelectionCriterion.gc` and `ESPD-criterion.xml`. |
+| Criterion `Description` | e-Certis | Now in `espd-edm.json` (and the embedded structure), from the same SPARQL fetch (`skos:definition`, `en`). Also in `ESPD-criterion.xml`. NOT carried by `SelectionCriterion.gc` (no definition column). |
 | National `SubTenderingCriterion` name/description | e-Certis (Member-State-specific) | Placeholders only (`[Name of the National Criterion]`). |
 | Legislation content (Title/Article/Jurisdiction/URI/Language) | e-Certis / criterion definition | Placeholders only (`[Legislation Title]`). |
 
@@ -595,7 +614,7 @@ so a localized emitter could select another `lang` from the same source.
    (b) the SPARQL request is proxy-aware (routes via the `https` module with
    `https-proxy-agent`, honouring `HTTPS_PROXY`/`NO_PROXY` with a proxy↔direct
    fallback), since node's global `fetch` ignores those env vars. Re-running
-   `export.js criteria` then `extract-scaffold.mjs` gives real
+   `export.js criteria` then `build-request-mapping.mjs` gives real
    names/descriptions across all criteria — so no interim enrichment from
    `SelectionCriterion.gc` / `ESPD-criterion.xml` is needed.
 2. **Legislation scaffold — TODO (deferred):** emit `cac:Legislation`

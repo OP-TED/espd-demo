@@ -46,6 +46,7 @@ export function setPath(target, dottedPath, value) {
 /** A rule is "real" (not just a comment placeholder) if it can emit output. */
 function isRealRule(rule) {
   if (!rule) return false;
+  if (rule.structure) return true;                         // embedded XML-structure subtree
   if (rule.records) return true;                           // generic keyed record set
   if (rule.to && (rule.from || rule.forEach)) return true; // value / forEach rule
   if (rule.to && rule.const !== undefined) return true;    // constant value rule
@@ -175,6 +176,11 @@ export function buildTree(spec, data) {
   for (const rule of spec.rules) {
     if (!isRealRule(rule)) continue;
 
+    if (rule.structure) {
+      buildStructure(root, rule.structure, data);
+      continue;
+    }
+
     if (rule.records) {
       buildRecords(root, rule, data);
       continue;
@@ -188,6 +194,73 @@ export function buildTree(spec, data) {
     applyValueRule(root, rule, data);
   }
   return root;
+}
+
+// =========================================================================
+// Embedded `structure` subtree
+//
+// A `structure` rule carries a nested tree that mirrors the target XML 1:1 —
+// each node names its `element`, optional `attributes`, and is either a fixed
+// leaf (`const`), a data-bound leaf (`from`), a repeated element (`forEach` +
+// `fromItem`/children), or a container (`children`). Unlike the slash-path
+// value rules, sibling elements are always created as DISTINCT nodes, so the
+// same element name can repeat. Structure/const nodes carry no instance data;
+// only `from`/`fromItem` leaves and data-sourced attributes roundtrip.
+//   node: { element, attributes?, const?, from?, type?, forEach?, fromItem?, children? }
+// =========================================================================
+
+/** Set constant + data-sourced attributes on a node from a spec `attributes` map. */
+function setStructureAttributes(node, attributes, context) {
+  for (const [name, value] of Object.entries(attributes || {})) {
+    const resolved = resolveAttr(value, context);
+    if (resolved !== undefined && resolved !== null) node.attributes[name] = String(resolved);
+  }
+}
+
+/** Resolve a structure leaf's text value against `context` (from wins over const). */
+function structureLeafText(specNode, context) {
+  if (specNode.fromItem !== undefined) {
+    const v = specNode.fromItem === '.' ? context : resolve(context, specNode.fromItem);
+    return v;
+  }
+  if (specNode.from !== undefined) {
+    const v = resolve(context, specNode.from);
+    if (v !== undefined && v !== null && v !== '') return v;
+  }
+  return specNode.const;
+}
+
+/** EXPORT one structure node (and its subtree) as a NEW child of `parent`. */
+function buildStructure(parent, specNode, context) {
+  // A repeated element: one instance per array item; descendant from/fromItem
+  // resolve against the item.
+  if (specNode.forEach !== undefined) {
+    const items = resolve(context, specNode.forEach);
+    if (!Array.isArray(items)) return;
+    for (const item of items) {
+      buildStructureOne(parent, specNode, item);
+    }
+    return;
+  }
+  buildStructureOne(parent, specNode, context);
+}
+
+/** Emit exactly one element node for `specNode` under `parent`. */
+function buildStructureOne(parent, specNode, context) {
+  const el = makeNode(specNode.element);
+  parent.children.push(el);
+  setStructureAttributes(el, specNode.attributes, context);
+
+  if (specNode.children) {
+    for (const child of specNode.children) buildStructure(el, child, context);
+    return;
+  }
+
+  // Leaf: constant or data-bound text.
+  const value = structureLeafText(specNode, context);
+  if (value !== undefined && value !== null && value !== '') {
+    el.text = valueToText(value);
+  }
 }
 
 /** Coerce an instance value to XML text; only booleans need care on import. */
@@ -708,6 +781,11 @@ export function unmap(spec, xml) {
   for (const rule of spec.rules) {
     if (!isRealRule(rule)) continue;
 
+    if (rule.structure) {
+      unmapStructure(root, rule.structure, data);
+      continue;
+    }
+
     if (rule.records) {
       unmapRecords(root, rule, data);
       continue;
@@ -721,4 +799,97 @@ export function unmap(spec, xml) {
     applyValueRuleReverse(root, rule, data);
   }
   return data;
+}
+
+// =========================================================================
+// IMPORT for the embedded `structure` subtree — mirror of buildStructure.
+// Walks the parsed XML in parallel with the structure spec, writing back only
+// the data-bound bits: `from`/`fromItem` leaf text and data-sourced attributes.
+// `const` nodes carry no instance data and are skipped. A `forEach` node
+// reconstructs its instance array from the repeated XML elements in order.
+// =========================================================================
+
+/** Reverse data-sourced attributes ({from}) from an XML node into `context`. */
+function readStructureAttributes(xmlNode, attributes, context) {
+  for (const [name, value] of Object.entries(attributes || {})) {
+    if (value && typeof value === 'object' && 'from' in value) {
+      const attr = xmlNode.attributes[name];
+      if (attr !== undefined) setPath(context, value.from, attr);
+    }
+  }
+}
+
+/** Find the child XML nodes of `parent` whose element name matches `name`. */
+function childrenNamed(parent, name) {
+  return parent.children.filter(c => c.name === name);
+}
+
+/**
+ * Walk a spec node's `children` against an XML node's children, matching
+ * same-named siblings POSITIONALLY. A per-name counter ensures the Nth spec
+ * child of a given element name consumes the Nth XML sibling of that name — so
+ * the repeated cac:TenderingCriterionProperty / cac:Subsidiary… groups line up
+ * correctly instead of all reading the first sibling.
+ */
+function unmapStructureChildren(xmlParent, specChildren, context) {
+  const cursor = {}; // elementName -> next sibling index
+  for (const child of specChildren) {
+    const siblings = childrenNamed(xmlParent, child.element);
+    if (child.forEach !== undefined) {
+      // A forEach consumes ALL remaining same-named siblings from the cursor on.
+      const start = cursor[child.element] || 0;
+      const rest = siblings.slice(start);
+      cursor[child.element] = siblings.length;
+      unmapStructureForEach(rest, child, context);
+      continue;
+    }
+    const idx = cursor[child.element] || 0;
+    cursor[child.element] = idx + 1;
+    const xmlNode = siblings[idx];
+    if (xmlNode) unmapStructureNode(xmlNode, child, context);
+  }
+}
+
+/** Reconstruct a forEach node's instance array from its repeated XML elements. */
+function unmapStructureForEach(xmlNodes, specNode, context) {
+  const scalarChild = (specNode.children || []).find(c => c.fromItem === '.');
+  const items = [];
+  for (const xmlNode of xmlNodes) {
+    readStructureAttributes(xmlNode, specNode.attributes, context);
+    if (scalarChild) {
+      const leaf = childrenNamed(xmlNode, scalarChild.element)[0];
+      if (leaf && leaf.text !== undefined) items.push(textToValue(leaf.text, scalarChild.type));
+    } else if (specNode.children) {
+      const item = {};
+      unmapStructureChildren(xmlNode, specNode.children, item);
+      if (Object.keys(item).length > 0) items.push(item);
+    } else if (xmlNode.text !== undefined) {
+      items.push(textToValue(xmlNode.text, specNode.type));
+    }
+  }
+  if (items.length > 0) setPath(context, specNode.forEach, items);
+}
+
+/** IMPORT one already-matched XML node against its structure spec node. */
+function unmapStructureNode(xmlNode, specNode, context) {
+  readStructureAttributes(xmlNode, specNode.attributes, context);
+
+  if (specNode.children) {
+    unmapStructureChildren(xmlNode, specNode.children, context);
+    return;
+  }
+
+  // Leaf: only `from`/`fromItem` leaves carry instance data back.
+  const dest = specNode.fromItem !== undefined && specNode.fromItem !== '.'
+    ? specNode.fromItem
+    : specNode.from;
+  if (dest !== undefined && xmlNode.text !== undefined) {
+    setPath(context, dest, textToValue(xmlNode.text, specNode.type));
+  }
+}
+
+/** IMPORT the top-level structure rule: match its root element under the doc root. */
+function unmapStructure(root, specNode, context) {
+  const xmlNode = childrenNamed(root, specNode.element)[0];
+  if (xmlNode) unmapStructureNode(xmlNode, specNode, context);
 }

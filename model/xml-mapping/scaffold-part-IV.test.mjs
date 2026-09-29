@@ -1,21 +1,20 @@
-// EXPERIMENTAL — structural test for the C31 request-declaration scaffold.
+// EXPERIMENTAL — structural test for the C31 request DECLARATION.
 //
-// The generator (scaffold.mjs) projects the criterion definition from the lean
-// criteria-scaffold.json into a cac:TenderingCriterion request declaration. This
-// test checks that projection STRUCTURALLY against the authoritative reference
-// document the ESPD validator itself uses as the canonical criterion tree:
+// The request mapping (part-IV.request.mapping.json) now embeds the criterion's
+// XML structure as a `structure` rule (generated from espd-edm.json by
+// build-request-mapping.mjs). Running that spec through the mapper's map()
+// produces the full cac:TenderingCriterion request declaration. This test
+// checks that declaration STRUCTURALLY against the authoritative reference the
+// ESPD validator uses as its canonical criterion tree:
 //   espd-validation-schematron/ESPDRequest/xsl/ESPD-criterion.xml
 //
 // We compare the ORDERED tree of (element localName + cbc:ID + governing code)
-// for C31's RG1 property-group subtree — the part the scaffold authoritatively
-// owns. We deliberately do NOT compare:
-//   - namespaces / scheme attributes (differ by nothing meaningful here) or the
-//     descriptions/placeholder values,
-//   - the national SubTenderingCriterion INNER content (deferred TODO: the
-//     scaffold's SBC1 is an empty shell; the reference materialises a sample),
-//   - the exact criterion-head Name/Description text (informational).
-// The criterion head (UUID, type code) and the property-group tree (ids, group
-// type codes, property type + value-data-type codes) ARE asserted.
+// for C31's RG1 property-group subtree. The bundled reference is an OLDER
+// ESPD-EDM snapshot than the freshly-exported espd-edm.json (e.g. C31 gained a
+// QSG4 block in the newer model), so we require the reference to be reproduced
+// as an exact PREFIX — the generated tree may carry additional trailing nodes.
+// Descriptions, scheme attributes and the national-sub-criterion inner content
+// (deferred TODO) are not compared.
 //
 // Usage: node scaffold-part-IV.test.mjs
 
@@ -23,8 +22,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
-import { parseXml } from './mapper.mjs';
-import { generateRequestScaffold } from './scaffold.mjs';
+import { parseXml, map } from './mapper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -34,12 +32,10 @@ const REFERENCE = path.resolve(
 const CODE = 'slc-stand-to-spec-avg';
 const CRITERION_UUID = 'd3dfb714-f558-4512-bbc5-e456fa2339de';
 
-/** localName without namespace prefix. */
 function local (name) {
   return name.includes(':') ? name.split(':')[1] : name;
 }
 
-/** Find the first descendant node matching a localName + optional id text. */
 function findNode (root, localName, idText) {
   let found;
   ;(function walk (n) {
@@ -54,14 +50,6 @@ function findNode (root, localName, idText) {
   return found;
 }
 
-/**
- * Extract an ordered "structural signature" of a property-group subtree:
- * for each group / subgroup / property, a tuple of
- *   <element> | <cbc:ID> | <governing code>
- * in document order. The governing code is PropertyGroupTypeCode for groups and
- * "TypeCode/ValueDataTypeCode" for properties. Descriptions and Expected*
- * values are ignored (structure, not content).
- */
 function signature (node) {
   const rows = [];
   const STRUCT = new Set([
@@ -94,15 +82,18 @@ function check (name, fn) {
   catch (err) { failures++; console.error(`\u2717 ${name}`); console.error('  ' + err.message); }
 }
 
-// --- generate + parse both sides ---------------------------------------------
+// --- generate the request declaration via the mapper + the embedded structure -
 
-const generatedXml = generateRequestScaffold(CODE, {
-  lotIdentifiers: ['LOT-0000'],
-  numberOfYears: 3,
-  businessDomain: 'IT consulting.',
-  minimumAmount: { value: 1000000, currency: 'EUR' }
-});
-const genRoot = parseXml(generatedXml);
+const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'part-IV.request.mapping.json'), 'utf8'));
+const instance = {
+  partIV: { selectionCriteria: { [CODE]: { requirement: {
+    lotIdentifiers: ['LOT-0000'],
+    numberOfYears: 3,
+    businessDomain: 'IT consulting.',
+    minimumAmount: { value: 1000000, currency: 'EUR' }
+  } } } }
+};
+const genRoot = parseXml(map(spec, instance));
 const refRoot = parseXml(fs.readFileSync(REFERENCE, 'utf8'));
 
 const genCrit = findNode(genRoot, 'TenderingCriterion', CRITERION_UUID);
@@ -113,17 +104,14 @@ const refCrit = findNode(refRoot, 'TenderingCriterion', CRITERION_UUID);
 check('criterion head: UUID + type code present in both', () => {
   assert.ok(genCrit, 'generated criterion not found');
   assert.ok(refCrit, 'reference criterion not found');
-  const genType = genCrit.children.find(c => local(c.name) === 'CriterionTypeCode')?.text;
-  const refType = refCrit.children.find(c => local(c.name) === 'CriterionTypeCode')?.text;
-  assert.equal(genType, CODE);
-  assert.equal(refType, CODE);
+  assert.equal(genCrit.children.find(c => local(c.name) === 'CriterionTypeCode')?.text, CODE);
+  assert.equal(refCrit.children.find(c => local(c.name) === 'CriterionTypeCode')?.text, CODE);
 });
 
 check('lot reference emitted from buyer lotIdentifiers', () => {
   const lot = findNode(genCrit, 'ProcurementProjectLotReference');
   assert.ok(lot, 'no ProcurementProjectLotReference emitted');
-  const id = lot.children.find(c => local(c.name) === 'ID')?.text;
-  assert.equal(id, 'LOT-0000');
+  assert.equal(lot.children.find(c => local(c.name) === 'ID')?.text, 'LOT-0000');
 });
 
 check('RG1 property-group tree reproduces the reference structure', () => {
@@ -135,14 +123,6 @@ check('RG1 property-group tree reproduces the reference structure', () => {
   const gen = signature(genRG1);
   const ref = signature(refRG1);
 
-  // The bundled ESPD-criterion.xml is an OLDER ESPD-EDM snapshot than the
-  // freshly-exported espd-edm.json the scaffold is built from (e.g. C31 gained a
-  // QSG4 evidence block in the newer version). So we assert the reference tree
-  // is reproduced as an exact PREFIX of the generated tree: every node the
-  // authoritative reference declares must appear, in order, with the same id and
-  // governing code; the generator may then carry ADDITIONAL trailing nodes from
-  // the newer model. This proves faithful reproduction without pinning us to the
-  // stale snapshot.
   for (let i = 0; i < ref.length; i++) {
     if (gen[i] !== ref[i]) {
       throw new Error(
@@ -157,7 +137,6 @@ check('RG1 property-group tree reproduces the reference structure', () => {
 });
 
 check('buyer Expected values injected into REQUIREMENT leaves', () => {
-  // REQUIREMENT property ids carry the /R1/R1 request suffix (see propertyId()).
   const numYears = findNode(genCrit, 'TenderingCriterionProperty', `C31_${CODE}/RG1/RSG1/RQ1/R1/R1`);
   const minAmt = findNode(genCrit, 'TenderingCriterionProperty', `C31_${CODE}/RG1/RSG1/RQ3/R1/R1`);
   assert.equal(numYears.children.find(c => local(c.name) === 'ExpectedValueNumeric')?.text, '3');

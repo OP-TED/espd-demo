@@ -1,0 +1,27 @@
+{
+  "$comment": "Reference-implementation JSON projection for C31, joined to the core criterion exclusively by stable semantic IDs.",
+  "criterion": "slc-stand-to-spec-avg",
+  "instanceModel": {
+    "containerPath": ["partIV", "selectionCriteria"],
+    "key": { "source": "code" }
+  },
+  "components": {
+    "slc-stand-to-spec-avg.lot-identifiers": { "side": "requirement", "path": ["lotIdentifiers"] },
+    "slc-stand-to-spec-avg.number-of-years": { "side": "requirement", "path": ["numberOfYears"] },
+    "slc-stand-to-spec-avg.business-domain": { "side": "requirement", "path": ["businessDomain"] },
+    "slc-stand-to-spec-avg.minimum-amount": { "side": "requirement", "path": ["minimumAmount"] },
+    "slc-stand-to-spec-avg.fulfilled-by-itself": { "side": "response", "path": ["fulfilledByItself"] },
+    "slc-stand-to-spec-avg.relied-upon": { "side": "response", "path": ["reliedUpon"] },
+    "slc-stand-to-spec-avg.relied-upon-entity-name": { "side": "response", "path": ["reliedUponEntity", "name"] },
+    "slc-stand-to-spec-avg.relied-upon-entity-id": { "side": "response", "path": ["reliedUponEntity", "id"] },
+    "slc-stand-to-spec-avg.turnover-period": { "side": "response", "path": ["turnover", "period"] },
+    "slc-stand-to-spec-avg.turnover-amount": { "side": "response", "path": ["turnover", "amount"] },
+    "slc-stand-to-spec-avg.turnover-evidence-available-electronically": { "side": "response", "path": ["turnover", "electronicEvidence", "availableElectronically"] },
+    "slc-stand-to-spec-avg.turnover-evidence-id": { "side": "response", "path": ["turnover", "electronicEvidence", "evidence"] },
+    "slc-stand-to-spec-avg.trading-start-date": { "side": "response", "path": ["startTrading", "date"] },
+    "slc-stand-to-spec-avg.trading-start-evidence-available-electronically": { "side": "response", "path": ["startTrading", "electronicEvidence", "availableElectronically"] },
+    "slc-stand-to-spec-avg.trading-start-evidence-id": { "side": "response", "path": ["startTrading", "electronicEvidence", "evidence"] },
+    "slc-stand-to-spec-avg.additional-evidence-available-electronically": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] },
+    "slc-stand-to-spec-avg.additional-evidence-id": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+  }
+}

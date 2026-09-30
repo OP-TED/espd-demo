@@ -1,0 +1,193 @@
+{
+  "$comment": "Lean maintained source for C31. Paths, EA type/code fields, placeholder metadata and repeated evidence branches are generated.",
+  "id": "slc-stand-to-spec-avg",
+  "tag": "C31",
+  "code": "slc-stand-to-spec-avg",
+  "uuid": "d3dfb714-f558-4512-bbc5-e456fa2339de",
+  "cardinality": "1",
+  "name": "Specific average yearly turnover",
+  "description": "A specific average yearly turnover in the business area covered by the contract for the required number of years is required of the economic operator.",
+  "children": [
+    {
+      "kind": "lot-reference",
+      "tag": "PPLR1",
+      "cardinality": "1..n"
+    },
+    {
+      "kind": "national-subcriterion",
+      "tag": "SBC1",
+      "cardinality": "0..n"
+    },
+    {
+      "kind": "legislation",
+      "tag": "L1",
+      "cardinality": "0..n"
+    },
+    {
+      "kind": "requirement-group",
+      "tag": "RG1",
+      "cardinality": "1..n",
+      "children": [
+        {
+          "kind": "requirement",
+          "tag": "RQ1",
+          "cardinality": "1..n",
+          "id": "slc-stand-to-spec-avg.lot-identifiers",
+          "description": "LOT Identifier",
+          "valueType": "LOT_IDENTIFIER"
+        },
+        {
+          "kind": "requirement-subgroup",
+          "tag": "RSG1",
+          "cardinality": "1",
+          "children": [
+            {
+              "kind": "requirement",
+              "tag": "RQ1",
+              "cardinality": "1",
+              "id": "slc-stand-to-spec-avg.number-of-years",
+              "description": "Number of fiscal years",
+              "valueType": "QUANTITY_YEAR"
+            },
+            {
+              "kind": "requirement",
+              "tag": "RQ2",
+              "cardinality": "1",
+              "id": "slc-stand-to-spec-avg.business-domain",
+              "description": "Business domain description",
+              "valueType": "DESCRIPTION"
+            },
+            {
+              "kind": "requirement",
+              "tag": "RQ3",
+              "cardinality": "1",
+              "id": "slc-stand-to-spec-avg.minimum-amount",
+              "description": "Minimum amount requirement",
+              "valueType": "MINIMUM_AMOUNT"
+            },
+            {
+              "kind": "question-subgroup",
+              "tag": "QSG1",
+              "cardinality": "1",
+              "children": [
+                {
+                  "kind": "question",
+                  "tag": "Q1",
+                  "cardinality": "1",
+                  "id": "slc-stand-to-spec-avg.fulfilled-by-itself",
+                  "description": "Does the EO fulfil the criteria by itself?",
+                  "valueType": "INDICATOR"
+                },
+                {
+                  "kind": "question-subgroup",
+                  "tag": "QSG1",
+                  "cardinality": "1",
+                  "condition": "false",
+                  "children": [
+                    {
+                      "kind": "question",
+                      "tag": "Q1",
+                      "cardinality": "1",
+                      "id": "slc-stand-to-spec-avg.relied-upon",
+                      "description": "In the case of no – Relied upon or not",
+                      "valueType": "INDICATOR"
+                    },
+                    {
+                      "kind": "question-subgroup",
+                      "tag": "QSG1",
+                      "cardinality": "1",
+                      "condition": "true",
+                      "children": [
+                        {
+                          "kind": "question",
+                          "tag": "Q1",
+                          "cardinality": "1",
+                          "id": "slc-stand-to-spec-avg.relied-upon-entity-name",
+                          "description": "Name of the entity",
+                          "valueType": "DESCRIPTION"
+                        },
+                        {
+                          "kind": "question",
+                          "tag": "Q2",
+                          "cardinality": "1",
+                          "id": "slc-stand-to-spec-avg.relied-upon-entity-id",
+                          "description": "ID of the entity",
+                          "valueType": "ECONOMIC_OPERATOR_IDENTIFIER"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "question-subgroup",
+              "tag": "QSG2",
+              "cardinality": "1",
+              "children": [
+                {
+                  "kind": "question",
+                  "tag": "Q1",
+                  "cardinality": "1",
+                  "id": "slc-stand-to-spec-avg.turnover-period",
+                  "description": "Start date; End date",
+                  "valueType": "PERIOD"
+                },
+                {
+                  "kind": "question",
+                  "tag": "Q2",
+                  "cardinality": "1",
+                  "id": "slc-stand-to-spec-avg.turnover-amount",
+                  "description": "Amount",
+                  "valueType": "AMOUNT"
+                },
+                {
+                  "use": "electronic-evidence",
+                  "with": {
+                    "tag": "QSG1",
+                    "cardinality": "1..n",
+                    "evidenceGroupCardinality": "0..1",
+                    "idPrefix": "slc-stand-to-spec-avg.turnover-evidence"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "question-subgroup",
+              "tag": "QSG3",
+              "cardinality": "1",
+              "children": [
+                {
+                  "kind": "question",
+                  "tag": "Q1",
+                  "cardinality": "1",
+                  "id": "slc-stand-to-spec-avg.trading-start-date",
+                  "description": "In case the information concerning turnover (general or specific) is not available for the entire period required, please state the date on which the economic operator was set up or started trading:",
+                  "valueType": "DATE"
+                },
+                {
+                  "use": "electronic-evidence",
+                  "with": {
+                    "tag": "QSG1",
+                    "cardinality": "1..n",
+                    "evidenceGroupCardinality": "0..1",
+                    "idPrefix": "slc-stand-to-spec-avg.trading-start-evidence"
+                  }
+                }
+              ]
+            },
+            {
+              "use": "electronic-evidence",
+              "with": {
+                "tag": "QSG4",
+                "cardinality": "0..n",
+                "evidenceGroupCardinality": "0..1",
+                "idPrefix": "slc-stand-to-spec-avg.additional-evidence"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

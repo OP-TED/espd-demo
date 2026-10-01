@@ -283,11 +283,13 @@ Honest status of coverage:
   date, and all three electronic-evidence blocks over the shared `cac:Evidence`
   list).
 - **Request side — now partly covered.** The engine can target
-  `QualificationApplicationRequest` (Part I, and C31's `requirement`). What is
-  still not mapped on the request side is the full criterion **declaration**
-  (property groups, legislation, sub-criteria) — C31's request mapping emits the
-  buyer's `Expected*`/`ExpectedID`/`MinimumAmount` requirement values, not the
-  whole `TenderingCriterion` scaffold.
+  `QualificationApplicationRequest` (Part I, and C31's `requirement`). C31's
+  request mapping emits the whole generated `TenderingCriterion` declaration,
+  including property groups, placeholder legislation and national subcriterion
+  structures, plus the buyer's dynamic
+  `Expected*`/`ExpectedID`/`MinimumAmount` values. Coverage remains partial
+  because the other Part IV criteria and the remaining request sections are not
+  yet modeled.
 - **Not yet covered:**
   - **Scope** — only the above are mapped; the remaining Part II sections, the
     other ~50 criteria, and Part V are not. Part IV has only C31 so far.
@@ -512,10 +514,14 @@ requirements. This is fixed criterion metadata (not instance data).
 
 Rather than a separate scaffold model + a separate XML generator, this
 declaration is **embedded directly in the request mapping** as a single
-`structure` rule, and the ONE mapper engine drives both directions. This keeps a
-single source of truth (`espd-edm.json`) and a single artifact per part (the
-mapping file) — the design mirrors the eForms SDK `xmlStructure` idea (a
-node/element tree with typed leaves) rather than a hand-expanded rule list.
+`structure` rule, and the one mapper engine drives both directions. The design
+mirrors the eForms SDK `xmlStructure` idea (a node/element tree with typed
+leaves) rather than a hand-expanded rule list.
+
+The generated mapping is the combined artifact, but `espd-edm.json` is not by
+itself sufficient to generate all of it. The criterion declaration comes from
+`espd-edm.json`; the correspondence to our chosen instance-data fields is a
+separate, currently hand-authored input described below.
 
 ### The `structure` rule (engine, `mapper.mjs`)
 
@@ -544,10 +550,11 @@ embedded tree drives both `map` and `unmap`.
 `model/xml-mapping/build-request-mapping.mjs` walks a criterion's `components`
 tree in the authoritative `espd-tools/EAtoJSON/outputs/espd-edm.json` and writes
 the complete `part-IV.request.mapping.json`, whose single `structure` rule is the
-generated tree. The only hand-specified part is the small per-criterion
-`BINDINGS` table in the generator (which REQUIREMENT requestpath binds to which
-instance `requirement` field, and which datatype → `Expected*`/`MinimumAmount`
-element); those become the `from`/`forEach` leaves spliced onto the tree.
+generated tree. The only hand-specified criterion-specific part is the small
+per-criterion `FIELD_MAPS` table in the generator, which says which REQUIREMENT
+requestpath binds to which instance `requirement` field. The datatype-to-UBL
+element correspondence is instead shared by all criteria in `DATATYPE_ELEMENT`.
+Together these become the `from`/`forEach` leaves spliced onto the tree.
 Regenerate after `espd-edm.json` changes:
 
 ```
@@ -555,7 +562,9 @@ node model/xml-mapping/build-request-mapping.mjs
 ```
 
 The generated mapping is a normal spec — do not hand-edit its `structure`; edit
-`BINDINGS` and regenerate. `espd-edm.json` stays the single source of truth.
+the generator or `FIELD_MAPS` and regenerate. The EDM owns criterion structure
+and metadata, while `FIELD_MAPS` owns the correspondence to our instance-data
+vocabulary; the mapping is their generated artifact.
 
 Node → element rules (driven by node `type`/`tag`):
 
@@ -574,6 +583,636 @@ Node → element rules (driven by node `type`/`tag`):
 **Property `cbc:ID` form** (empirical, from `ESPD-criterion.xml`): a QUESTION uses
 its bare `requestpath` (`…/QSG1/Q1`); a REQUIREMENT appends `/R1/R1`
 (`…/RQ1/R1/R1`).
+
+#### Build-time inputs versus runtime mapping
+
+The XML mapping engine does **not** read or interpret `espd-edm.json`.
+`build-request-mapping.mjs` is a build-time, ESPD-specific adapter which combines
+three sources into `part-IV.request.mapping.json`. At runtime `mapper.mjs` reads
+only that generated mapping and the instance JSON:
+
+```text
+espd-edm.json                        static criterion/component metadata
+        +
+build-request-mapping.mjs            ESPD node/datatype → UBL conventions
+        +
+FIELD_MAPS                           requestpath → instance-field binding
+        │
+        ▼
+part-IV.request.mapping.json         compiled mapping artifact
+        +
+runtime instance JSON                actual buyer-entered values
+        │
+        ▼
+mapper.mjs                            UBL XML (or the reverse on import)
+```
+
+The inputs have deliberately different responsibilities:
+
+| Input | Information it supplies |
+|---|---|
+| `espd-edm.json` | Criterion UUID, stable code, name, description and the recursive `components` tree. Components supply such facts as `requestpath`, node `type`, group code, description and `propertydatatype`. |
+| Generator conventions | The UBL element for each ESPD component type, fixed scheme/list attributes, requirement ID rules and the `ValueDataTypeCode` → `Expected*`/`MinimumAmount` translation. |
+| `FIELD_MAPS` | The semantic correspondence between a requirement's EDM request path and the field chosen for it in our instance-data model. |
+| Runtime instance JSON | The procedure-specific values, such as number of years, business domain, amount, currency and lot identifiers. |
+
+The instance-data schema documents and validates the fields, but it is not an
+input to the request-mapping generator. Consequently, agreement between
+`part-IV.schema.json` and `FIELD_MAPS` is currently maintained manually.
+
+`buildCriterionStructure()` obtains the criterion head directly from the EDM
+(`uuid`, `code`, `name` and `description`). `componentNodes()` walks the nested
+components and turns their types into groups, subgroups, properties, lot
+references, subcriteria and legislation. The generator additionally contains
+UBL conventions that are not generic mapping-engine behaviour. For example,
+`DATATYPE_ELEMENT` says that `QUANTITY_YEAR` uses
+`cbc:ExpectedValueNumeric`, `DESCRIPTION` uses `cbc:ExpectedDescription`, and
+`MINIMUM_AMOUNT` uses `cbc:MinimumAmount` with a `currencyID` attribute.
+
+#### How an instance binding is produced
+
+The part which cannot currently be derived from `espd-edm.json` is where a
+requirement value lives in our semantic instance JSON. `FIELD_MAPS` supplies a
+common base path and maps relative EDM request paths to instance fields. For C31:
+
+```js
+'slc-stand-to-spec-avg': {
+  base: 'partIV.selectionCriteria.slc-stand-to-spec-avg.requirement',
+  fields: {
+    'RG1/RQ1': 'lotIdentifiers',
+    'RG1/RSG1/RQ1': 'numberOfYears',
+    'RG1/RSG1/RQ2': 'businessDomain',
+    'RG1/RSG1/RQ3': 'minimumAmount'
+  }
+}
+```
+
+The generator strips the criterion prefix from a component's full
+`requestpath`, looks up the remainder in `FIELD_MAPS`, and joins the selected
+field to the base. A REQUIREMENT absent from `FIELD_MAPS` is still emitted as
+part of the static criterion declaration, but has no `from` binding and
+therefore carries no buyer value.
+
+For example, assume the EDM describes
+`C31_slc-stand-to-spec-avg/RG1/RSG1/RQ3` as a REQUIREMENT with
+`propertydatatype: "MINIMUM_AMOUNT"`:
+
+```text
+C31_slc-stand-to-spec-avg/RG1/RSG1/RQ3
+                    strip prefix → RG1/RSG1/RQ3
+FIELD_MAPS lookup                → minimumAmount
+join with base                   → partIV.selectionCriteria.
+                                    slc-stand-to-spec-avg.requirement.
+                                    minimumAmount
+DATATYPE_ELEMENT lookup          → cbc:MinimumAmount, kind = amount
+```
+
+This produces the generic structure leaf:
+
+```json
+{
+  "element": "cbc:MinimumAmount",
+  "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.minimumAmount.value",
+  "type": "number",
+  "attributes": {
+    "currencyID": {
+      "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.minimumAmount.currency"
+    }
+  }
+}
+```
+
+`LOT_IDENTIFIER` is the main special case. Its mapped instance field is an
+array, so the generator emits a `forEach` property containing a `fromItem: "."`
+`cbc:ExpectedID`. `findLotPath()` also reuses that binding for the criterion's
+`cac:ProcurementProjectLotReference` elements.
+
+At runtime the mapper has no knowledge of criteria, request paths,
+`ValueDataTypeCode`, `FIELD_MAPS` or `espd-edm.json`. On export it resolves the
+generated `from`, `forEach`, `fromItem` and data-sourced attributes against the
+instance JSON, while `const` leaves emit the static declaration. On import the
+same data-bound leaves and attributes write values back to the specified
+instance paths; constant metadata is ignored because it is not instance data.
+
+The generated file is therefore best understood as a compiled join between the
+EDM criterion definition and our instance-data vocabulary.
+
+#### Reusable-component trade-off
+
+The generated request mapping repeats many shapes, such as criterion heads,
+property groups and properties. A small parameterized component/macro layer
+could make the artifact substantially shorter, especially once all Part IV
+criteria are included. It should expand deterministically to the existing
+generic structure AST before `map()` or `unmap()` runs, keeping component
+semantics out of the XML traversal code.
+
+This primarily improves artifact size and human inspection. The maintained
+source is already compact because `idNode()`, `groupNode()`, `propertyNode()` and
+`buildCriterionStructure()` perform the same reuse in JavaScript. Components do
+not solve the semantic binding problem: the correspondence currently expressed
+by `FIELD_MAPS` is still required unless equivalent EDM request-path metadata is
+added to the instance-data model and made machine-readable by the generator.
+
+#### Proposed direction: make the EDM the complete authoritative model
+
+`FIELD_MAPS` represents a domain decision rather than a generic transformation
+algorithm: it defines how an ESPD business value is represented in our semantic
+instance model. That information should therefore move into the authoritative
+EDM instead of remaining embedded in generator code.
+
+This does not mean that the EDM must contain executable mapping logic. The
+division should be:
+
+- The EDM contains semantic identities, instance-model projection, datatypes,
+  value shapes, cardinalities, code-list associations and XML representation
+  decisions.
+- Generators contain generic mechanics such as walking component trees,
+  composing paths, expanding templates and emitting JSON Schema or mapping AST
+  syntax.
+- `mapper.mjs` continues to interpret only the generated, domain-neutral mapping
+  AST at runtime.
+
+A useful ownership rule is: if a change alters the meaning or representation of
+an ESPD business value, it belongs in the model; if it only changes how a model
+is traversed or emitted, it belongs in generator code.
+
+##### Lean maintained EDM versus compiled artifact
+
+The current EA-generated `espd-edm.json` mixes three categories of information:
+
+1. criterion-specific facts;
+2. shared ESPD encoding conventions; and
+3. mechanically derived output.
+
+Only the first category needs to be repeated in every maintained criterion.
+The generated file currently contains 1,321 nodes. Every node carries `tag`,
+`type`, `cardinality`, `requestpath` and `responsepath`; 590 value nodes also
+carry `propertydatatype` and `contentpath`. For all 590 question/requirement
+value nodes, the response and content paths follow the same derivable pattern:
+
+```text
+responsepath = requestpath + "/R1"
+contentpath  = responsepath + "/RV"
+```
+
+There are 505 question nodes but only a small number of question encodings, and
+the 782 descriptions contain only 187 unique values. The roughly 716 KB export
+therefore contains substantial repeated or derived information. This
+information is not necessarily useless; much of it belongs in a compiled view
+rather than in the maintained semantic source.
+
+The lean criterion source should retain the facts which distinguish an
+individual criterion:
+
+- stable semantic criterion and component IDs;
+- criterion code and the UBL criterion UUID where required by the exchange;
+- criterion name/description, or references to their authoritative localized
+  source;
+- ordered component hierarchy and occurrence cardinalities;
+- structural tags used to correlate with EA and reproduce ESPD XML IDs;
+- each value node's value-type reference;
+- conditional branch semantics such as `ONTRUE` and `ONFALSE`;
+- criterion-specific business rules.
+
+For example, the maintained representation of one C31 requirement can be as
+small as:
+
+```json
+{
+  "id": "slc-stand-to-spec-avg.minimum-amount",
+  "kind": "requirement",
+  "tag": "RQ3",
+  "cardinality": "1",
+  "valueType": "MINIMUM_AMOUNT"
+}
+```
+
+Instance-model placement and component paths are a projection of the core EDM
+into a particular JSON vocabulary, not intrinsic criterion structure. They are
+maintained in a separate binding file keyed exclusively by the stable semantic
+IDs from the criterion:
+
+```json
+{
+  "criterion": "slc-stand-to-spec-avg",
+  "instanceModel": {
+    "containerPath": ["partIV", "selectionCriteria"],
+    "key": { "source": "code" }
+  },
+  "components": {
+    "slc-stand-to-spec-avg.minimum-amount": {
+      "side": "requirement",
+      "path": ["minimumAmount"]
+    }
+  }
+}
+```
+
+The compiler rejects bindings whose semantic IDs are absent from the criterion
+and semantic value nodes without a binding. EA `requestpath` values are not join
+keys for this layer.
+
+The XML meaning of a question or requirement should be declared once in a
+shared node-kind registry rather than repeated on every occurrence. An
+illustrative convention is:
+
+```json
+{
+  "question": {
+    "ublElement": "cac:TenderingCriterionProperty",
+    "typeCode": "QUESTION",
+    "responsePathSuffix": ["R1"],
+    "contentPathSuffix": ["RV"]
+  },
+  "requirement": {
+    "ublElement": "cac:TenderingCriterionProperty",
+    "typeCode": "REQUIREMENT",
+    "requestPropertyIdSuffix": ["R1", "R1"]
+  }
+}
+```
+
+The following fields are candidates for factoring or generation:
+
+| Current information | Lean-source treatment |
+|---|---|
+| `type: "QUESTION"` plus `code: "QUESTION"` | One `kind: "question"` reference. |
+| `type: "REQUIREMENT"` plus `code: "REQUIREMENT"` | One `kind: "requirement"` reference. |
+| Group `code: "ON*"` | Make it the default and omit it; preserve `ONTRUE` and `ONFALSE`. |
+| `requestpath` | Generate from criterion identity and tag ancestry. |
+| `responsepath` and `contentpath` | Generate from the request path and node-kind convention. |
+| Empty `components` arrays | Omit. |
+| Placeholder descriptions such as `PPLR1` and titles such as `L1` | Omit; materialize only real content. |
+| Value-type definitions | Define once in the registry led by `ResponseDataType.gc`; keep only the reference on a value node. |
+| Question/requirement XML encoding | Define once in the node-kind registry. |
+| Repeated evidence, legislation and national-subcriterion shapes | Define as reusable fragments/templates. |
+| Localized names and descriptions | Keep in an authoritative text source and reference them, or materialize them only in compiled output. |
+
+Some information must not be factored out blindly. Cardinality varies across
+occurrences of the same node kind and therefore remains occurrence-specific
+unless a template supplies a default with explicit overrides. `tag` is not a
+semantic identity, but it remains necessary for EA correlation and path-like
+ESPD XML IDs. Likewise, `valueType` remains on each value node even though its
+definition is shared.
+
+Repeated evidence branches are particularly suitable for reusable fragments:
+
+```json
+{
+  "use": "electronic-evidence",
+  "idPrefix": "slc-stand-to-spec-avg.turnover-evidence"
+}
+```
+
+The shared fragment can define the availability indicator, evidence references,
+conditions, value types and XML relationship once. The same technique can cover
+lot references, legislation, national subcriteria and relied-upon entity
+branches.
+
+The resulting source/compiled separation is:
+
+```text
+ResponseDataType.gc
+        |
+        v
+value-types.json                 shared value semantics and representation
+
+node-kinds.json                  question/requirement/group conventions
+
+fragments/
+  electronic-evidence.json
+  legislation.json
+  national-subcriterion.json
+
+criteria/
+  slc-stand-to-spec-avg.json     lean criterion-specific structure
+
+bindings/instance-data/
+  slc-stand-to-spec-avg.json     semantic ID -> JSON instance projection
+        |
+        v
+compiler
+        |
+        v
+compiled espd-edm.json           expanded compatibility/consumer view
+```
+
+The maintained source should be lean; the compiled artifact may still expose
+expanded request, response and content paths for existing consumers. Those
+expanded fields should be generated and tested, not hand-maintained.
+
+The executable C31 proof of this design is under `model/edm/poc/c31/`.
+`compile-lean.mjs` expands its lean criterion, shared node-kind registry and
+electronic-evidence fragment, then deep-compares the EA-compatible projection
+with C31 from the original generated `espd-edm.json`.
+
+##### Stable semantic IDs and relative bindings
+
+`requestpath` is valuable for correlation with the ESPD criterion tree, but it
+contains structural tags such as `C31`, `RG1` and `RQ3` and should not be the
+primary semantic identity. Each meaningful component should also have a stable
+ID which survives structural reorganization. For example:
+
+```json
+{
+  "id": "slc-stand-to-spec-avg.minimum-amount",
+  "tag": "RQ3",
+  "type": "REQUIREMENT",
+  "requestpath": "C31_slc-stand-to-spec-avg/RG1/RSG1/RQ3",
+  "propertydatatype": "MINIMUM_AMOUNT",
+  "instanceBinding": {
+    "side": "requirement",
+    "path": ["minimumAmount"]
+  }
+}
+```
+
+The two identifiers then have separate purposes:
+
+- `id` joins semantic artifacts such as the instance schema, form definition,
+  rules and documentation.
+- `requestpath` identifies the component's position in the ESPD criterion/XML
+  structure.
+
+The separate instance-binding source declares the common instance-model
+location once:
+
+```json
+{
+  "criterion": "slc-stand-to-spec-avg",
+  "instanceModel": {
+    "containerPath": ["partIV", "selectionCriteria"],
+    "key": { "source": "code" }
+  }
+}
+```
+
+`containerPath` identifies the keyed object which contains criteria. The name
+does not imply array semantics: `selectionCriteria` is an object whose property
+names are stable criterion codes. The generator composes the container path,
+the key selected from the criterion, and the component's side and relative
+path:
+
+```text
+[partIV, selectionCriteria]
+  + slc-stand-to-spec-avg
+  + requirement
+  + minimumAmount
+
+= partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.minimumAmount
+```
+
+Nested response fields use the same representation without repeating a complete
+dotted path:
+
+```json
+{
+  "id": "slc-stand-to-spec-avg.turnover-amount",
+  "type": "QUESTION",
+  "propertydatatype": "AMOUNT",
+  "instanceBinding": {
+    "side": "response",
+    "path": ["turnover", "amount"]
+  }
+}
+```
+
+Path arrays are preferred over dotted strings in the source model. They compose
+cleanly, require no escaping convention for dots in field names and leave the
+generator free to emit whatever physical path syntax a consumer requires.
+
+##### Shared value-type definitions
+
+A binding path alone is insufficient because ESPD datatypes have different
+instance shapes and XML representations. Scalars, amounts, periods, repeated
+lot IDs and evidence references all behave differently. These conventions
+should be defined once in a reusable value-type registry rather than repeated on
+each component:
+
+`ESPD-EDM/codelists/ResponseDataType.gc` is the **leading source of truth for
+the value-type list**: its active codes define the permitted
+`propertydatatype` vocabulary, and its descriptions define their published
+meaning. The model's value-type registry does not invent or rename those codes;
+it enriches the Genericode entries with the instance shape and UBL request and
+response representation needed for generation. A build-time check should fail
+when a used type is absent or inactive in `ResponseDataType.gc`.
+
+```json
+{
+  "valueTypes": {
+    "MINIMUM_AMOUNT": {
+      "instanceShape": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "currency": { "type": "string", "codeList": "currency" }
+        },
+        "required": ["value", "currency"]
+      },
+      "requestXml": {
+        "element": "cbc:MinimumAmount",
+        "text": { "instancePath": ["value"] },
+        "attributes": {
+          "currencyID": { "instancePath": ["currency"] }
+        }
+      }
+    }
+  }
+}
+```
+
+A component then needs only its `propertydatatype` and `instanceBinding`. From
+those two references a generator can derive both the JSON Schema fragment and
+the XML mapping leaves. This is preferable to copying `valuePath` and attribute
+bindings into every amount component.
+
+##### Bindings beyond simple values
+
+Some criterion semantics require more than a destination path:
+
+- Conditional branches need a declarative condition, for example `reliedUpon`
+  being relevant when `fulfilledByItself` is false.
+- Repeated values need collection semantics; these should normally be inferred
+  from EDM cardinality rather than repeated in the binding.
+- Evidence requires a relationship definition because the instance model nests
+  evidence under an answer while UBL stores shared `cac:Evidence` entities and
+  references them by ID.
+
+Illustrative conditional binding:
+
+```json
+{
+  "instanceBinding": {
+    "side": "response",
+    "path": ["reliedUpon"],
+    "when": {
+      "path": ["fulfilledByItself"],
+      "equals": false
+    }
+  }
+}
+```
+
+Illustrative relationship binding:
+
+```json
+{
+  "instanceBinding": {
+    "side": "response",
+    "path": ["turnover", "electronicEvidence", "evidence"],
+    "relation": {
+      "kind": "reference",
+      "target": "evidence",
+      "key": ["id"]
+    }
+  }
+}
+```
+
+An EDM-level `entities.evidence` definition could then describe the identity and
+fields of that shared entity. This would allow the response mapping's `records`,
+`references.resolve` and JSON Schema evidence object to be generated from the
+same declaration.
+
+##### One logical source does not require one hand-maintained file
+
+The authoritative source can be decomposed for maintainability and compiled to
+one complete `espd-edm.json` artifact. For example:
+
+```text
+espd-edm/
+  value-types.json
+  entities.json
+  parts/
+    part-IV/
+      slc-stand-to-spec-avg.json
+          |
+          v
+compiled espd-edm.json
+```
+
+If criterion structure continues to originate in EA, bindings should not be
+manually added to the generated JSON because regeneration would erase them. The
+build should instead join the EA structural export, declarative semantic
+bindings and shared value/entity definitions into the complete EDM:
+
+```text
+EA structural export
+        +
+semantic instance bindings
+        +
+value-type/entity definitions
+        |
+        v
+complete espd-edm.json
+        |
+        +---> instance-data JSON Schema
+        +---> request and response XML mappings
+        +---> form bindings
+        +---> validation coverage checks
+        +---> diagrams and documentation
+```
+
+The compiled EDM is then the sole downstream input even if its maintainable
+source is physically split across several files.
+
+##### C31 at a glance
+
+C31, `slc-stand-to-spec-avg`, expresses this requirement:
+
+> The buyer requires the economic operator to have achieved a minimum average
+> yearly turnover in the contract's specific business area over a stated number
+> of years.
+
+The buyer specifies the applicable lots, number of fiscal years, business area,
+and minimum average turnover with its currency. The economic operator states
+whether it meets the requirement itself, identifies any entity whose capacity
+it relies upon, supplies its turnover and reporting period, provides its trading
+start date when a complete history is unavailable, and references supporting
+electronic evidence.
+
+Stripped of UUIDs, request/response paths, descriptions and enrichment metadata,
+the essential structure of C31 in the EA-generated `espd-edm.json` is:
+
+```text
+C31 — Specific average yearly turnover
+│
+├── PPLR1  Lot reference                          [1..n]
+├── SBC1   National subcriterion                  [0..n]
+├── L1     Legislation                            [0..n]
+│
+└── RG1    Requirement group                      [1..n]
+    │
+    ├── RQ1  Lot identifier                       [1..n] LOT_IDENTIFIER
+    │
+    └── RSG1 Requirement subgroup                 [1]
+        │
+        ├── RQ1  Number of fiscal years           [1] QUANTITY_YEAR
+        ├── RQ2  Business-domain description      [1] DESCRIPTION
+        ├── RQ3  Minimum amount                   [1] MINIMUM_AMOUNT
+        │
+        ├── QSG1 Fulfilment / relied-upon branch
+        │   ├── Q1  Fulfilled by itself?              INDICATOR
+        │   └── when false:
+        │       ├── Q1  Relies on another entity?     INDICATOR
+        │       └── when true:
+        │           ├── Q1  Entity name               DESCRIPTION
+        │           └── Q2  Entity identifier         ECONOMIC_OPERATOR_IDENTIFIER
+        │
+        ├── QSG2 Turnover answer
+        │   ├── Q1  Reporting period                  PERIOD
+        │   ├── Q2  Turnover amount                   AMOUNT
+        │   └── Electronic evidence
+        │       ├── Q1  Available electronically?     INDICATOR
+        │       └── Q1  Evidence references           EVIDENCE_IDENTIFIER [1..n]
+        │
+        ├── QSG3 Incomplete turnover history
+        │   ├── Q1  Started trading date              DATE
+        │   └── Electronic evidence
+        │       ├── Q1  Available electronically?     INDICATOR
+        │       └── Q1  Evidence references           EVIDENCE_IDENTIFIER [1..n]
+        │
+        └── QSG4 Additional criterion evidence    [0..n]
+            ├── Q1  Available electronically?         INDICATOR
+            └── Q1  Evidence references               EVIDENCE_IDENTIFIER [1..n]
+```
+
+The four `RQ` nodes carry buyer requirements and the thirteen `Q` nodes carry
+economic-operator answers. The `RG`, `RSG` and `QSG` nodes supply grouping and
+conditional branching rather than business values of their own.
+
+##### C31 migration slice
+
+The design should be proven without first changing the runtime mapper:
+
+1. Add stable semantic IDs to C31 requirements and questions.
+2. Add its criterion-level `instanceModel` metadata.
+3. Express the current request and response paths using component-level
+   `instanceBinding.side` and relative `instanceBinding.path` values.
+4. Define all C31 value types from the leading
+   `ESPD-EDM/codelists/ResponseDataType.gc` vocabulary: `MINIMUM_AMOUNT`,
+   `QUANTITY_YEAR`, `DESCRIPTION`, `LOT_IDENTIFIER`, `AMOUNT`, `PERIOD`,
+   `INDICATOR`, `DATE`, `ECONOMIC_OPERATOR_IDENTIFIER` and
+   `EVIDENCE_IDENTIFIER`.
+5. Teach `build-request-mapping.mjs` to consume the enriched model and remove
+   C31 from `FIELD_MAPS`.
+6. Assert that the newly generated request mapping is structurally equivalent
+   to the current mapping and run the existing scaffold and round-trip tests.
+7. Generate the C31 portion of `part-IV.schema.json` from the same binding and
+   value-type metadata.
+
+The final step is the important proof: if the enriched EDM generates both the
+instance schema and XML mappings, the instance binding is genuinely
+authoritative rather than merely `FIELD_MAPS` relocated into another file.
+
+##### Open source-path issue
+
+`build-request-mapping.mjs` currently resolves
+`espd-tools/EAtoJSON/outputs/espd-edm.json`, but that path is not present in this
+workspace checkout. The available model is `../ESPD-EDM/criterion/espd-edm.json`.
+The owner and production path of the compiled authoritative EDM must be settled
+before implementing this pipeline; this documentation records the discrepancy
+but does not change the generator yet.
 
 **Verification** (`scaffold-part-IV.test.mjs`): the request declaration is
 produced by running `part-IV.request.mapping.json` through `map()` and is checked

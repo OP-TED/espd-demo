@@ -1,0 +1,150 @@
+{
+  "$comment": "PROBE-GENERATED response mapping from espd-edm.json (as-is) + id-map.json. No node-kinds, no fragments.",
+  "criterion": "slc-stand-to-spec-avg",
+  "rootUuid": "d3dfb714-f558-4512-bbc5-e456fa2339de",
+  "rules": [
+    {
+      "group": "C31_slc-stand-to-spec-avg/RG1",
+      "condition": "ON*",
+      "children": [
+        {
+          "group": "C31_slc-stand-to-spec-avg/RG1/RSG1",
+          "condition": "ON*",
+          "children": [
+            {
+              "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1",
+              "condition": "ON*",
+              "children": [
+                {
+                  "element": "cac:ResponseValue/cbc:ResponseIndicator",
+                  "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.fulfilledByItself",
+                  "binding": "scalar"
+                },
+                {
+                  "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1/QSG1",
+                  "condition": "ONFALSE",
+                  "children": [
+                    {
+                      "element": "cac:ResponseValue/cbc:ResponseIndicator",
+                      "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUpon",
+                      "binding": "scalar"
+                    },
+                    {
+                      "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1/QSG1/QSG1",
+                      "condition": "ONTRUE",
+                      "children": [
+                        {
+                          "element": "cac:ResponseValue/cbc:Description",
+                          "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUponEntity.name",
+                          "binding": "scalar"
+                        },
+                        {
+                          "element": "cac:ResponseValue/cbc:ResponseID",
+                          "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.reliedUponEntity.id",
+                          "binding": "scalar"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2",
+              "condition": "ON*",
+              "children": [
+                {
+                  "element": "cac:ApplicablePeriod",
+                  "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.period",
+                  "binding": "object"
+                },
+                {
+                  "element": "cac:ResponseValue/cbc:ResponseAmount",
+                  "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.amount",
+                  "binding": "amount"
+                },
+                {
+                  "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/QSG1",
+                  "condition": "ON*",
+                  "children": [
+                    {
+                      "element": "cac:ResponseValue/cbc:ResponseIndicator",
+                      "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.availableElectronically",
+                      "binding": "scalar"
+                    },
+                    {
+                      "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/QSG1/QSG1",
+                      "condition": "ONTRUE",
+                      "children": [
+                        {
+                          "element": "cac:EvidenceSupplied/cbc:ID",
+                          "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.electronicEvidence.evidence",
+                          "binding": "reference"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG3",
+              "condition": "ON*",
+              "children": [
+                {
+                  "element": "cac:ResponseValue/cbc:ResponseDate",
+                  "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.date",
+                  "binding": "scalar"
+                },
+                {
+                  "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG3/QSG1",
+                  "condition": "ON*",
+                  "children": [
+                    {
+                      "element": "cac:ResponseValue/cbc:ResponseIndicator",
+                      "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.availableElectronically",
+                      "binding": "scalar"
+                    },
+                    {
+                      "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG3/QSG1/QSG1",
+                      "condition": "ONTRUE",
+                      "children": [
+                        {
+                          "element": "cac:EvidenceSupplied/cbc:ID",
+                          "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.startTrading.electronicEvidence.evidence",
+                          "binding": "reference"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG4",
+              "condition": "ON*",
+              "children": [
+                {
+                  "element": "cac:ResponseValue/cbc:ResponseIndicator",
+                  "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.availableElectronically",
+                  "binding": "scalar"
+                },
+                {
+                  "group": "C31_slc-stand-to-spec-avg/RG1/RSG1/QSG4/QSG1",
+                  "condition": "ONTRUE",
+                  "children": [
+                    {
+                      "element": "cac:EvidenceSupplied/cbc:ID",
+                      "from": "partIV.selectionCriteria.slc-stand-to-spec-avg.response.electronicEvidence.evidence",
+                      "binding": "reference"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

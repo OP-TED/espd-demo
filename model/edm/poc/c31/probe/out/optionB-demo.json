@@ -1,0 +1,111 @@
+{
+  "criterion": {
+    "element": "cac:TenderingCriterion",
+    "children": [
+      {
+        "element": "cbc:ID",
+        "fromCore": "uuid",
+        "text": "d3dfb714-f558-4512-bbc5-e456fa2339de",
+        "attributes": {
+          "schemeID": "criterion",
+          "schemeAgencyID": "OP",
+          "schemeVersionID": "5.0.0"
+        }
+      },
+      {
+        "element": "cbc:CriterionTypeCode",
+        "fromCore": "code",
+        "text": "slc-stand-to-spec-avg",
+        "attributes": {
+          "listID": "http://publications.europa.eu/resource/authority/criterion",
+          "listVersionID": "20240612-0",
+          "listAgencyID": "OP"
+        }
+      },
+      {
+        "element": "cbc:Name",
+        "fromCore": "name",
+        "text": "Specific average yearly turnover"
+      },
+      {
+        "element": "cbc:Description",
+        "fromCore": "description",
+        "text": "A specific average yearly turnover..."
+      }
+    ]
+  },
+  "group": {
+    "element": "cac:TenderingCriterionPropertyGroup",
+    "children": [
+      {
+        "element": "cbc:ID",
+        "fromCore": "requestpath",
+        "text": "C31_slc-stand-to-spec-avg/RG1",
+        "attributes": {
+          "schemeID": "criterion",
+          "schemeAgencyID": "OP",
+          "schemeVersionID": "5.0.0"
+        }
+      },
+      {
+        "element": "cbc:PropertyGroupTypeCode",
+        "fromCore": "condition",
+        "text": "ON*",
+        "attributes": {
+          "listID": "property-group-type",
+          "listVersionID": "5.0.0"
+        }
+      }
+    ]
+  },
+  "minimumAmountLeaf": {
+    "element": "cac:TenderingCriterionProperty",
+    "children": [
+      {
+        "element": "cbc:ID",
+        "fromCore": "requestpath",
+        "text": "C31_slc-stand-to-spec-avg/RG1/RSG1/RQ3",
+        "attributes": {
+          "schemeID": "criterion",
+          "schemeAgencyID": "OP",
+          "schemeVersionID": "5.0.0"
+        }
+      },
+      {
+        "element": "cbc:Name",
+        "fromCore": "name",
+        "text": null
+      },
+      {
+        "element": "cbc:Description",
+        "fromCore": "description",
+        "text": "Minimum amount requirement"
+      },
+      {
+        "element": "cbc:TypeCode",
+        "fromCore": "kind",
+        "text": "REQUIREMENT",
+        "attributes": {
+          "listID": "criterion-element-type",
+          "listVersionID": "5.0.0"
+        }
+      },
+      {
+        "element": "cbc:ValueDataTypeCode",
+        "fromCore": "valueType",
+        "text": "MINIMUM_AMOUNT",
+        "attributes": {
+          "listID": "response-data-type",
+          "listVersionID": "5.0.0"
+        }
+      },
+      {
+        "element": "cbc:MinimumAmount",
+        "from": "partIV...requirement.minimumAmount",
+        "attributes": [
+          "currencyID"
+        ]
+      }
+    ]
+  }
+}

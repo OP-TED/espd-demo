@@ -1,0 +1,21 @@
+{
+  "$comment": "Option B companion: fixed Schematron codelist attribute sets, defined ONCE per codelist (abbreviated here to the lists the C31 request touches). The compiler stamps these onto any element whose profile entry names the matching codelist.",
+  "codelists": {
+    "criterion": {
+      "listID": "http://publications.europa.eu/resource/authority/criterion",
+      "listVersionID": "20240612-0", "listAgencyID": "OP"
+    },
+    "criterion-element-type": {
+      "listID": "criterion-element-type", "listVersionID": "5.0.0"
+    },
+    "response-data-type": {
+      "listID": "response-data-type", "listVersionID": "5.0.0"
+    },
+    "property-group-type": {
+      "listID": "property-group-type", "listVersionID": "5.0.0"
+    },
+    "criterion-id": {
+      "schemeID": "criterion", "schemeAgencyID": "OP", "schemeVersionID": "5.0.0"
+    }
+  }
+}

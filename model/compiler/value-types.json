@@ -1,0 +1,131 @@
+{
+  "$comment": "Value-type registry. ESPD-EDM/codelists/ResponseDataType.gc is authoritative for which codes exist, their status and description; this file adds the JSON instanceShape and the request/response UBL value bindings. One entry per ValueDataTypeCode. Leaf VALUE elements and value-bearing attributes (currencyID, unitCode) live here; fixed codelist attributes live in the codelist-attribute profile; kind->element scaffold lives in the encoding profile.",
+  "source": {
+    "path": "../../../ESPD-EDM/codelists/ResponseDataType.gc",
+    "shortName": "ResponseDataType",
+    "version": "5.0.0"
+  },
+  "valueTypes": {
+    "LOT_IDENTIFIER": {
+      "sourceDescription": "Code used to detect an identifier that refers to a Lot",
+      "instanceShape": { "type": "array", "items": { "type": "string" } },
+      "requestXml": {
+        "kind": "repeatedProperty",
+        "element": "cbc:ExpectedID",
+        "attributes": { "schemeAgencyID": { "const": "OP" } }
+      }
+    },
+    "QUANTITY_YEAR": {
+      "sourceDescription": "A non-negative integer representing a year. The unit has to be specified as YEAR",
+      "instanceShape": { "type": "integer" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedValueNumeric" }
+    },
+    "DESCRIPTION": {
+      "sourceDescription": "Textual field",
+      "instanceShape": { "type": "string" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedDescription" },
+      "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:Description" }
+    },
+    "MINIMUM_AMOUNT": {
+      "sourceDescription": "The minimum amount the answer must have",
+      "instanceShape": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "currency": { "type": "string", "codeList": "currency" }
+        },
+        "required": ["value", "currency"]
+      },
+      "requestXml": {
+        "kind": "amount",
+        "element": "cbc:MinimumAmount",
+        "text": { "instancePath": ["value"] },
+        "attributes": { "currencyID": { "instancePath": ["currency"] } }
+      }
+    },
+    "INDICATOR": {
+      "sourceDescription": "'true' or 'false' values representing 'Yes' affirmative or 'No' negative answers",
+      "instanceShape": { "type": "boolean" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedIndicator" },
+      "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:ResponseIndicator" }
+    },
+    "PERIOD": {
+      "sourceDescription": "Period object as defined in UBL-2.1",
+      "instanceShape": {
+        "type": "object",
+        "properties": {
+          "startDate": { "type": "string", "format": "date" },
+          "endDate": { "type": "string", "format": "date" }
+        }
+      },
+      "instanceConstraints": {
+        "$note": "A period must carry at least one of start/end date (hand-authored anyOf).",
+        "anyOf": [{ "required": ["startDate"] }, { "required": ["endDate"] }]
+      },
+      "responseXml": {
+        "kind": "object",
+        "element": "cac:ApplicablePeriod",
+        "fields": {
+          "startDate": "cbc:StartDate",
+          "endDate": "cbc:EndDate"
+        }
+      }
+    },
+    "AMOUNT": {
+      "sourceDescription": "An Amount, and currency, as defined in UN/CEFACT's CCTS",
+      "instanceShape": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "currency": { "type": "string", "codeList": "currency" }
+        },
+        "required": ["value", "currency"]
+      },
+      "requestXml": {
+        "kind": "amount",
+        "element": "cbc:ExpectedAmount",
+        "text": { "instancePath": ["value"] },
+        "attributes": { "currencyID": { "instancePath": ["currency"] } }
+      },
+      "responseXml": {
+        "kind": "amount",
+        "element": "cac:ResponseValue/cbc:ResponseAmount",
+        "text": { "instancePath": ["value"] },
+        "attributes": { "currencyID": { "instancePath": ["currency"] } }
+      }
+    },
+    "DATE": {
+      "sourceDescription": "Date values (format YYYY-MM-DD)",
+      "instanceShape": { "type": "string", "format": "date" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedDate" },
+      "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:ResponseDate" }
+    },
+    "ECONOMIC_OPERATOR_IDENTIFIER": {
+      "sourceDescription": "Code used to detect an identifier that refers to an Economic Operator",
+      "instanceShape": { "type": "string" },
+      "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:ResponseID" }
+    },
+    "EVIDENCE_IDENTIFIER": {
+      "sourceDescription": "Points at the instance of an evidence",
+      "instanceShape": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "url": { "type": "string" },
+            "identifier": { "type": "string" },
+            "description": { "type": "string" }
+          },
+          "required": ["id", "url"]
+        }
+      },
+      "responseXml": {
+        "kind": "reference",
+        "element": "cac:EvidenceSupplied/cbc:ID",
+        "key": ["id"],
+        "target": "evidence"
+      }
+    }
+  }
+}

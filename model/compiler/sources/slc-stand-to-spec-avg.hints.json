@@ -1,0 +1,15 @@
+{
+  "$comment": "C31 instance-data constraint hints (design R9). The generator derives most constraints from the model itself: array bounds from EA cardinality (task 4.3.1) and if/then/else conditionals from the condition markers in espd-edm.json (task 4.3.2). Only what the model cannot express is hand-authored here.",
+
+  "$todo": "Remaining hints and why they are still here: 'minimum' needs value bounds (min/max) carried on the upstream datatype definitions (task 4.3.3, requires an EA/ResponseDataType addition); 'optionalLeaves' is a genuine implementation decision that CONTRADICTS the EA cardinality and must stay a projection decision (task 4.3.4).",
+
+  "leafConstraints": {
+    "$note": "Per-leaf refinements merged into the generated shape, keyed by semantic ID. minItems on lotIdentifiers is no longer needed — it is derived from the 1..n cardinality.",
+    "slc-stand-to-spec-avg.number-of-years": { "minimum": 1 }
+  },
+
+  "optionalLeaves": {
+    "$note": "Leaves whose EA cardinality is required (1) but which the reference implementation models as OPTIONAL. Cannot be derived: it contradicts the EA model.",
+    "ids": ["slc-stand-to-spec-avg.business-domain"]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "$comment": "Codelist-attribute profile. Fixed attribute sets the Schematron (common/sch/01-ESPD-common-cl-attributes.sch) requires on code elements, defined ONCE per codelist. The compiler stamps these onto any element whose encoding-profile entry names the matching codelist. Values are copied verbatim from the Schematron (several carry dated listVersionIDs). 'criterion-id' is not a Schematron codelist rule but the UBL identifier scheme attributes seen on every cbc:ID in ESPD-Request-BASE.xml; it is included here so the compiler has one place for all fixed attribute sets.",
+  "source": {
+    "schematron": "../../../espd-validation-schematron/common/sch/01-ESPD-common-cl-attributes.sch",
+    "version": "5.0.0"
+  },
+  "codelists": {
+    "criterion-id": {
+      "$note": "UBL identifier scheme on every criterion/group/property cbc:ID (not a Schematron codelist rule; from ESPD-Request-BASE.xml).",
+      "schemeID": "criterion",
+      "schemeAgencyID": "OP",
+      "schemeVersionID": "5.0.0"
+    },
+    "criterion": {
+      "$note": "cbc:CriterionTypeCode",
+      "listName": "Criterion",
+      "listID": "http://publications.europa.eu/resource/authority/criterion",
+      "listVersionID": "20240612-0",
+      "listSchemeURI": "http://publications.europa.eu/resource/distribution/criterion/20240612-0/xml/gc/Criterion.gc",
+      "listURI": "http://publications.europa.eu/resource/dataset/criterion",
+      "listAgencyName": "Publications Office of the European Union",
+      "listAgencyID": "OP"
+    },
+    "criterion-element-type": {
+      "$note": "cbc:TypeCode. listAgencyID required by 04-ESPD-common-other-br.sch (not by 01-cl-attributes).",
+      "listName": "CriterionElementType",
+      "listID": "criterion-element-type",
+      "listAgencyID": "OP",
+      "listVersionID": "5.0.0",
+      "listSchemeURI": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v5.0.0/codelists/gc/CriterionElementType.gc",
+      "listURI": "https://github.com/OP-TED/ESPD-EDM"
+    },
+    "response-data-type": {
+      "$note": "cac:TenderingCriterionProperty/cbc:ValueDataTypeCode. listAgencyID required by 04-ESPD-common-other-br.sch.",
+      "listName": "ResponseDataType",
+      "listID": "response-data-type",
+      "listAgencyID": "OP",
+      "listVersionID": "5.0.0",
+      "listSchemeURI": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v5.0.0/codelists/gc/ResponseDataType.gc",
+      "listURI": "https://github.com/OP-TED/ESPD-EDM"
+    },
+    "property-group-type": {
+      "$note": "cac:TenderingCriterionPropertyGroup/cbc:PropertyGroupTypeCode. listAgencyID required by 04-ESPD-common-other-br.sch.",
+      "listName": "PropertyGroupType",
+      "listID": "property-group-type",
+      "listAgencyID": "OP",
+      "listVersionID": "5.0.0",
+      "listSchemeURI": "https://raw.githubusercontent.com/OP-TED/ESPD-EDM/v5.0.0/codelists/gc/PropertyGroupType.gc",
+      "listURI": "https://github.com/OP-TED/ESPD-EDM"
+    },
+    "country": {
+      "$note": "cac:Country/cbc:IdentificationCode (needed by C07's CODE_COUNTRY; dated listVersionID differs from the 5.0.0 lists).",
+      "listName": "country",
+      "listID": "http://publications.europa.eu/resource/authority/country",
+      "listVersionID": "20250618-0",
+      "listSchemeURI": "http://publications.europa.eu/resource/distribution/country/20250618-0/xml/gc/Country.gc",
+      "listURI": "http://publications.europa.eu/resource/dataset/country"
+    },
+    "currency": {
+      "$note": "cbc:ValueCurrencyCode (currency code list).",
+      "listName": "Currency",
+      "listID": "http://publications.europa.eu/resource/authority/currency",
+      "listVersionID": "20250618-0",
+      "listSchemeURI": "http://publications.europa.eu/resource/distribution/currency/20250618-0/xml/gc/Currency.gc",
+      "listURI": "http://publications.europa.eu/resource/dataset/currency"
+    }
+  }
+}

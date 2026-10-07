@@ -69,6 +69,10 @@ export function overlayEnrichment(core, sidecar) {
     if (leaf) {
       leaf.id = meta.id;
       leaf.instanceBinding = meta.instanceBinding;
+      // A per-leaf codelist (for a CODE value type whose list varies by use,
+      // e.g. financial-ratio-type vs occupation). Attached to the leaf so the
+      // generators can read it; the value type itself stays codelist-agnostic.
+      if (meta.codelist) leaf.codelist = meta.codelist;
       usedPaths.add(reqpath);
       continue;
     }
@@ -86,7 +90,27 @@ export function overlayEnrichment(core, sidecar) {
       }
       group.id = meta.id;
       group.instanceBinding = meta.instanceBinding;
-      arrayContainers.push({ side: meta.instanceBinding.side, path: meta.instanceBinding.path });
+      // A repeatable group can hold BOTH buyer (requirement) and EO (response)
+      // leaves, which live under separate side roots in the instance data. Record
+      // the container for EVERY side that has a leaf beneath this group, so the
+      // generators treat the segment as an array on both sides. The binding's own
+      // `side` is the primary one; additional sides are discovered from the
+      // group's descendant leaves.
+      const sides = new Set([meta.instanceBinding.side]);
+      (function collectSides(node) {
+        for (const child of node.children ?? []) {
+          if ((child.nodeKind === 'requirement' || child.nodeKind === 'question')) {
+            // The leaf's side is resolved from its own sidecar entry (attached in
+            // a later pass or already present); fall back to scanning sidecar.
+            const entry = sidecarComponents[child.requestpath];
+            if (entry?.instanceBinding?.side) sides.add(entry.instanceBinding.side);
+          }
+          collectSides(child);
+        }
+      })(group);
+      for (const side of sides) {
+        arrayContainers.push({ side, path: meta.instanceBinding.path });
+      }
       usedPaths.add(reqpath);
       continue;
     }

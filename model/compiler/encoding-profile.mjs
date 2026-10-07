@@ -62,34 +62,43 @@ export function leafInstancePath(criterion, leaf) {
 }
 
 /**
- * Task 7.0 — is a leaf's binding-path segment an ARRAY CONTAINER introduced by a
- * repeatable group? Returns the length of the matching container prefix (number
- * of leading binding-path segments that form the array container), or 0 if the
- * leaf is not inside any repeatable group.
+ * Task 7.0 — which of a leaf's binding-path segments are ARRAY CONTAINERS
+ * introduced by repeatable groups? Returns a SORTED array of prefix lengths
+ * (number of leading binding-path segments) — one per matching container — so
+ * NESTED repeatable groups (C34/C36) are all reported, e.g. `[1, 2]` means both
+ * the 1st and 2nd segments open an array. Empty if the leaf is in no array.
  *
  * `criterion.arrayContainers` is the list of { side, path } the overlay recorded
- * from repeatable-group bindings. A leaf is an element-field of a container when
- * its binding is on the same side and its path starts with the container path.
+ * from repeatable-group bindings. A container matches when it is on the same
+ * side and is a proper prefix of the leaf's binding path.
  */
-export function arrayContainerPrefix(criterion, leaf) {
+export function arrayContainerDepths(criterion, leaf) {
   const containers = criterion.arrayContainers ?? [];
   const b = leaf.instanceBinding;
-  let best = 0;
+  const depths = [];
   for (const c of containers) {
     if (c.side !== b.side) continue;
-    if (c.path.length >= b.path.length) continue; // container must be a proper prefix
-    if (c.path.every((seg, i) => seg === b.path[i]) && c.path.length > best) {
-      best = c.path.length;
-    }
+    if (c.path.length >= b.path.length) continue; // proper prefix only
+    if (c.path.every((seg, i) => seg === b.path[i])) depths.push(c.path.length);
   }
-  return best;
+  return [...new Set(depths)].sort((a, b2) => a - b2);
 }
 
-/** Dotted instance path for a leaf with `[]` after each array-container segment. */
+/**
+ * Deepest array-container prefix length for a leaf (0 if none). Kept for callers
+ * that only need the innermost container; prefer arrayContainerDepths for the
+ * full nested set.
+ */
+export function arrayContainerPrefix(criterion, leaf) {
+  const depths = arrayContainerDepths(criterion, leaf);
+  return depths.length ? depths[depths.length - 1] : 0;
+}
+
+/** Dotted instance path for a leaf with `[]` after every array-container segment. */
 export function leafDataPath(criterion, leaf) {
   const base = [...criterion.instanceModel.containerPath, criterion[criterion.instanceModel.key.source], leaf.instanceBinding.side];
-  const prefix = arrayContainerPrefix(criterion, leaf);
-  const segs = leaf.instanceBinding.path.map((s, i) => (i === prefix - 1 ? `${s}[]` : s));
+  const depths = new Set(arrayContainerDepths(criterion, leaf));
+  const segs = leaf.instanceBinding.path.map((s, i) => (depths.has(i + 1) ? `${s}[]` : s));
   return [...base, ...segs].join('.');
 }
 

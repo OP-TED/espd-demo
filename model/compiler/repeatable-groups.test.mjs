@@ -135,19 +135,27 @@ test('7.0b — response mapping round-trips a repeatable group as a forEach reco
   assert.deepEqual(back.convictions[1], data.partIII.exclusionGrounds[CODE].response.convictions[1]);
 });
 
-test('7.0b — a REQUIREMENT value inside a repeatable group still fails fast (request)', async () => {
-  // C01 has no such case; construct a minimal synthetic one to prove the guard.
-  const { compiled, registry } = compileC01();
-  const synthetic = structuredClone(compiled);
-  // Fake a requirement leaf inside the convictions container with a request value.
-  synthetic.children.push({
-    nodeKind: 'requirement', valueType: 'DESCRIPTION', cardinality: '1',
-    requestpath: 'C01_exg-crim-part/QG1/QSG1/RQ9', id: 'exg-crim-part.fake-req',
-    instanceBinding: { side: 'requirement', path: ['convictions', 'fakeReq'] },
-  });
-  synthetic.arrayContainers.push({ side: 'requirement', path: ['convictions'] });
+test('a single-level REQUIREMENT value inside a repeatable group round-trips (request)', async () => {
+  // C36's amountRequirements[] is a repeatable REQUIREMENT group; its buyer
+  // values round-trip through a `forEach` structure node (task 7.0c).
+  const edm = loadEdm(edmPath);
+  const { compiled, registry } = compile(edm, 'slc-stand-other', loadSidecar('slc-stand-other'));
   const { generateRequestMapping } = await import('./generate-request-mapping.mjs');
-  assert.throws(() => generateRequestMapping(synthetic, registry), /repeatable group/i);
+  const { map, unmap } = await import('../xml-mapping/mapper.mjs');
+
+  const request = generateRequestMapping(compiled, registry);
+  const data = { partIV: { selectionCriteria: { 'slc-stand-other': { requirement: {
+    lotIdentifiers: ['LOT-1'],
+    requirementType: 'CHECK_BOX_TRUE',
+    amountRequirements: [
+      { description: 'd1', minimumAmount: { value: 1000, currency: 'EUR' } },
+      { description: 'd2', minimumAmount: { value: 2000, currency: 'EUR' } },
+    ],
+  } } } } };
+  const back = unmap(request, map(request, data)).partIV.selectionCriteria['slc-stand-other'].requirement;
+  assert.equal(back.amountRequirements.length, 2);
+  assert.equal(back.amountRequirements[0].description, 'd1');
+  assert.equal(back.amountRequirements[1].minimumAmount.value, 2000);
 });
 
 test('structural equivalence still holds with a group binding present', () => {

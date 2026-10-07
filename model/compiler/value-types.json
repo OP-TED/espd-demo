@@ -58,6 +58,24 @@
       "requestXml": { "kind": "scalar", "element": "cbc:ExpectedDescription" },
       "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:Description" }
     },
+    "CODE": {
+      "$note": "A generic code requirement whose codelist VARIES by use (financial-ratio-type in C34, occupation in C25, eo-role-type in OT59) — the XSLT branches on a per-property codelist name. So the codelist is NOT intrinsic to the value type: it is declared PER LEAF in the sidecar component entry (`codelist`), attached by the overlay, and the generators read it from the leaf. `codeList` on instanceShape is likewise filled per leaf from the sidecar.",
+      "sourceDescription": "A code for an unespecified concept",
+      "instanceShape": { "type": "string" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedCode", "codelistFromLeaf": true }
+    },
+    "QUANTITY": {
+      "$note": "A generic quantity with no unit (e.g. a financial ratio value). cbc:ResponseQuantity with NO unitCode.",
+      "sourceDescription": "A number representing a generic quantity with no unit specified.",
+      "instanceShape": { "type": "number" },
+      "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:ResponseQuantity" }
+    },
+    "MINIMUM_QUANTITY": {
+      "$note": "Buyer REQUIREMENT: a minimum ratio. cbc:ExpectedValueNumeric per the BASE request.",
+      "sourceDescription": "Minimum ratio requirement",
+      "instanceShape": { "type": "number" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedValueNumeric" }
+    },
     "CODE_COUNTRY": {
       "$note": "First code-valued answer (C07). The response is a cbc:ResponseCode carrying the country code-list attributes; those attributes are the dated 'country' set in the codelist-attribute profile, NOT the 5.0.0 response-data-type set — the per-codelist version the C07 probe exists to prove. instanceShape is a scalar string (an ISO 3166-1 alpha-2 code); `codeList` marks it so the form derives the codelist.",
       "sourceDescription": "Code identifying a country (Compulsory use of ISO 3166-1 alpha 2",

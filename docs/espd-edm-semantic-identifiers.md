@@ -68,6 +68,32 @@ independently by a business rule or documentation link. An ID should be added
 because the node has acquired a stable semantic role, not merely because it
 exists in the tree.
 
+### Extension: repeatable groups own an array container (adopted)
+
+A `REQUIREMENT_SUBGROUP`/`QUESTION_SUBGROUP` with EA cardinality `0..n` / `1..n`
+that holds value leaves is a **repeatable group**: in the instance data it
+becomes an array of objects (for example C01 `convictions[]`, C34 `periods[]`
+each containing `ratios[]`). Such a group has acquired exactly the "stable
+semantic role" this policy anticipates — it owns the array container that its
+leaves are elements of — so it receives a semantic ID and an instance binding:
+
+```json
+"C01_exg-crim-part/QG1/QSG1": {
+  "id": "exg-crim-part.convictions",
+  "instanceBinding": { "side": "response", "path": ["convictions"], "repeatable": true }
+}
+```
+
+This is the one case where a group node is bound. Non-repeatable structural
+groups (the common case) still receive no ID. The binding's `repeatable: true`
+flag and the EA cardinality must agree; the overlay enforces this. A repeatable
+group that carries both buyer and economic-operator leaves records its array
+container on both the `requirement` and `response` sides.
+
+Note the per-lot `RG1 1..n` is NOT such a case: lots are a document-level
+reference mechanism (one Request per procedure, one Response per lot), so `RG1`
+is flattened rather than treated as a repeatable group — it keeps no ID.
+
 ## Relationship to other identifiers
 
 | Identifier | Responsibility |
@@ -122,12 +148,15 @@ validation rule and documentation entry without depending on an EA path.
 The proof-of-concept validator enforces that:
 
 - every `QUESTION` and `REQUIREMENT` has a semantic ID;
-- semantic IDs are unique;
+- semantic IDs are unique (across criterion, value leaves, and any bound
+  repeatable groups);
 - every semantic value node has an instance binding;
 - every binding refers to an existing semantic ID;
 - no binding is unused;
 - requirements bind to the `requirement` side;
-- questions bind to the `response` side; and
+- questions bind to the `response` side;
+- a bound GROUP is a repeatable group (its binding carries `repeatable: true`
+  and its EA cardinality is `0..n` / `1..n`); and
 - every semantic value node refers to a defined value type.
 
 The executable implementation is under `model/edm/poc/c31/`. The broader

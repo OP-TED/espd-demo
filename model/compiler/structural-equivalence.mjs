@@ -19,7 +19,7 @@ import { readStructuralCore, findCriterion, leavesOf } from './read-structural-c
 
 /** Strip the semantic-overlay fields the compiler adds, leaving pure structure. */
 function stripNode(node) {
-  const { id, instanceBinding, ...rest } = node;
+  const { id, instanceBinding, codelist, ...rest } = node;
   if (rest.children) rest.children = rest.children.map(stripNode);
   return rest;
 }

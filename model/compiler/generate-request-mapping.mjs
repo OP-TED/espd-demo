@@ -11,8 +11,7 @@
 // value attributes as { from: <path> }). Expanding shorthand into the full
 // Schematron attribute set is a separate serialization concern (task 3.4).
 
-import { leafInstancePath, arrayContainerPrefix } from './encoding-profile.mjs';
-import { leavesOf } from './read-structural-core.mjs';
+import { leafInstancePath } from './encoding-profile.mjs';
 
 const REQUEST_TARGET = {
   root: 'QualificationApplicationRequest',
@@ -42,11 +41,24 @@ function propertyMetadata(leaf) {
   ];
 }
 
+/**
+ * The instance path a leaf's request value resolves against. Normally the leaf's
+ * absolute instance path; but when the leaf sits inside a repeatable requirement
+ * group, the value lives inside a `forEach` structure node that iterates the
+ * array, so the path is RELATIVE to the array item (the binding-path segments
+ * after the innermost array container). `itemPrefixLen` is the binding-path
+ * length consumed by the enclosing array container(s), 0 when not in an array.
+ */
+function leafValueBase(criterion, leaf, itemPrefixLen) {
+  if (!itemPrefixLen) return leafInstancePath(criterion, leaf).join('.');
+  return leaf.instanceBinding.path.slice(itemPrefixLen).join('.');
+}
+
 /** Build the request value child for a REQUIREMENT leaf from the registry. */
-function requestValueChild(criterion, leaf, registry) {
+function requestValueChild(criterion, leaf, registry, itemPrefixLen = 0) {
   const binding = registry.valueTypes[leaf.valueType]?.requestXml;
   if (!binding) return undefined;
-  const base = leafInstancePath(criterion, leaf).join('.');
+  const base = leafValueBase(criterion, leaf, itemPrefixLen);
 
   if (binding.kind === 'repeatedProperty') {
     // handled at the property level via forEach; see leafPropertyNode
@@ -69,9 +81,16 @@ function requestValueChild(criterion, leaf, registry) {
     const shape = registry.valueTypes[leaf.valueType]?.instanceShape;
     const type = (shape?.type === 'integer' || shape?.type === 'number') ? 'number' : 'string';
     const node = { element: binding.element, from: base, type };
-    // A code-valued requirement (e.g. CODE_BOOLEAN) carries its codelist
-    // shorthand, expanded to the full attribute set by expandCodelistAttributes.
-    if (binding.codelist) node.attributes = { listID: binding.codelist };
+    // Codelist shorthand (expanded by expandCodelistAttributes). A fixed codelist
+    // comes from the binding (CODE_BOOLEAN); a per-leaf codelist (CODE, whose list
+    // varies by use) comes from the leaf via `codelistFromLeaf`.
+    const codelist = binding.codelistFromLeaf ? leaf.codelist : binding.codelist;
+    if (binding.codelistFromLeaf && !codelist) {
+      throw new Error(
+        `CODE leaf '${leaf.id}' needs a per-leaf 'codelist' in the sidecar ` +
+        `(its list varies by use); none was declared.`);
+    }
+    if (codelist) node.attributes = { listID: codelist };
     return node;
   }
   return undefined;
@@ -82,7 +101,7 @@ function requestValueChild(criterion, leaf, registry) {
  * LOT_IDENTIFIER requirement the property itself repeats via forEach with the
  * value as fromItem; otherwise it is a single property with an optional value.
  */
-function leafPropertyNode(criterion, leaf, registry) {
+function leafPropertyNode(criterion, leaf, registry, itemPrefixLen = 0) {
   const binding = leaf.nodeKind === 'requirement' ? registry.valueTypes[leaf.valueType]?.requestXml : undefined;
 
   if (binding?.kind === 'repeatedProperty') {
@@ -102,30 +121,64 @@ function leafPropertyNode(criterion, leaf, registry) {
   }
 
   const children = [...propertyMetadata(leaf)];
-  const value = leaf.nodeKind === 'requirement' ? requestValueChild(criterion, leaf, registry) : undefined;
+  const value = leaf.nodeKind === 'requirement' ? requestValueChild(criterion, leaf, registry, itemPrefixLen) : undefined;
   if (value) children.push(value);
   return { element: 'cac:TenderingCriterionProperty', children };
 }
 
-/** Build a group/subgroup node and recurse. */
-function groupNode(criterion, node, registry, nested) {
+/**
+ * Innermost array-container prefix length that applies to the subtree rooted at
+ * a group — i.e. how many binding-path segments any leaf under it shares as an
+ * array container. Returns 0 when the group is not a repeatable container.
+ * The container matches a group by its own instanceBinding (set by the overlay).
+ */
+function groupContainerPrefix(group) {
+  return group.instanceBinding?.repeatable ? group.instanceBinding.path.length : 0;
+}
+
+/**
+ * Build a group/subgroup node and recurse. `itemPrefixLen` is the binding-path
+ * length already consumed by enclosing repeatable containers (so descendant leaf
+ * values resolve relative to the current array item). A repeatable group emits a
+ * `forEach` over its array and raises itemPrefixLen for its subtree.
+ */
+function groupNode(criterion, node, registry, nested, itemPrefixLen = 0) {
   const element = nested ? 'cac:SubsidiaryTenderingCriterionPropertyGroup' : 'cac:TenderingCriterionPropertyGroup';
-  const children = [
-    idNode(node.requestpath),
-    { element: 'cbc:PropertyGroupTypeCode', const: CONDITION_CODE[node.condition] ?? 'ON*', attributes: { listID: 'property-group-type' } },
-    ...childNodes(criterion, node, registry, true),
-  ];
-  return { element, children };
+  const myPrefix = groupContainerPrefix(node);
+  const childPrefix = myPrefix || itemPrefixLen;
+
+  const spec = {
+    element,
+    children: [
+      idNode(node.requestpath),
+      { element: 'cbc:PropertyGroupTypeCode', const: CONDITION_CODE[node.condition] ?? 'ON*', attributes: { listID: 'property-group-type' } },
+      ...childNodes(criterion, node, registry, true, childPrefix),
+    ],
+  };
+
+  if (myPrefix) {
+    // Repeatable requirement group: the whole subgroup repeats once per array
+    // item. The `forEach` path is the array's instance path; descendant leaf
+    // `from` paths were built relative to the item (childPrefix).
+    const arrayInstancePath = [
+      ...criterion.instanceModel.containerPath,
+      criterion[criterion.instanceModel.key.source],
+      node.instanceBinding.side,
+      ...node.instanceBinding.path,
+    ].join('.');
+    spec.forEach = arrayInstancePath;
+  }
+  return spec;
 }
 
 /** Recurse into a node's children, emitting group/leaf nodes (skips empties). */
-function childNodes(criterion, node, registry, insideGroup) {
+function childNodes(criterion, node, registry, insideGroup, itemPrefixLen = 0) {
   const out = [];
   for (const child of node.children ?? []) {
     if (child.nodeKind === 'group') {
-      out.push(groupNode(criterion, child, registry, insideGroup));
+      out.push(groupNode(criterion, child, registry, insideGroup, itemPrefixLen));
     } else if (child.nodeKind === 'requirement' || child.nodeKind === 'question') {
-      out.push(leafPropertyNode(criterion, child, registry));
+      out.push(leafPropertyNode(criterion, child, registry, itemPrefixLen));
     }
     // 'structural' nodes (SubCriterion/Legislation placeholders) are omitted
     // from the generated request structure for now (declaration placeholders).
@@ -137,19 +190,19 @@ function childNodes(criterion, node, registry, insideGroup) {
  * Generate the full request mapping spec for a compiled criterion.
  */
 export function generateRequestMapping(criterion, registry) {
-  // A repeatable group is DECLARED once in the request (it is the buyer's
-  // template, not a per-answer structure), so the request scaffold is unchanged
-  // by repeatability. The one case we cannot yet encode is a REQUIREMENT leaf
-  // (a buyer VALUE) INSIDE a repeatable group, since its value `from` would need
-  // to iterate the array; fail fast on that narrow case only.
-  for (const leaf of leavesOf(criterion)) {
-    if (leaf.nodeKind === 'requirement'
-      && registry.valueTypes[leaf.valueType]?.requestXml
-      && arrayContainerPrefix(criterion, leaf)) {
-      throw new Error(
-        `Criterion '${criterion.code}': REQUIREMENT leaf '${leaf.id}' carries a buyer value inside a ` +
-        `repeatable group, which the request mapping generator does not yet support (task 7.0b). ` +
-        `Response answers inside repeatable groups ARE supported.`);
+  // Nested repeatable REQUIREMENT groups (an array inside an array on the
+  // request side, e.g. C34 periods[].ratios[]) need the inner `forEach` path to
+  // be relative to the OUTER item, which the single-level item-prefix tracking
+  // below does not yet express. Fail fast on that narrow case; single-level
+  // repeatable requirement groups (C36 amountRequirements[]) ARE supported.
+  const reqContainers = (criterion.arrayContainers ?? []).filter(c => c.side === 'requirement');
+  for (const a of reqContainers) {
+    for (const b of reqContainers) {
+      if (a !== b && b.path.length > a.path.length && a.path.every((s, i) => s === b.path[i])) {
+        throw new Error(
+          `Criterion '${criterion.code}': nested repeatable REQUIREMENT groups ` +
+          `(${a.path.join('.')} / ${b.path.join('.')}) are not yet supported in request mapping (task 7.0c).`);
+      }
     }
   }
 

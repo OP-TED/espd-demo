@@ -1,0 +1,80 @@
+{
+  "$comment": "C34 enrichment sidecar (nested repeatable groups probe). slc-stand-ratio, 'Financial ratio'. Forces: (1) NESTED repeatable groups — RSG1 (1..n, a reporting period) contains RSG1/RSG1 (1..n, one block per ratio type); (2) REQUIREMENT values inside those arrays (ratio type CODE, definition, minimum). The top-level RG1 1..n is the per-lot scoping, flattened here as in C31 (lotIdentifiers is a leaf-level array). Instance model: periods[] each { period, ratios[] }, ratios[] each { ratioType, definition, minimumRatio }.",
+
+  "$arrayModel": "CONFIRMED against the Slovenian ESPD Service: one or more PERIODS, each with one or more RATIOS. RSG1 -> 'periods[]'; RSG1/RSG1 -> 'periods[].ratios[]'. The PERIOD requirement (RSG1/RQ1) binds to periods[].period; the ratio requirements bind to periods[].ratios[].*. fulfilledByItself/reliedUpon (QSG1) and the ratio answer (QSG2/Q1) sit at the CRITERION TOP LEVEL (confirmed), not per period/ratio. QSG3 (0..n) is the per-answer evidence block.",
+
+  "criterion": {
+    "code": "slc-stand-ratio",
+    "id": "slc-stand-ratio",
+    "instanceModel": {
+      "containerPath": ["partIV", "selectionCriteria"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C34_slc-stand-ratio/RG1/RQ1": {
+      "id": "slc-stand-ratio.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+
+    "C34_slc-stand-ratio/RG1/RSG1": {
+      "id": "slc-stand-ratio.periods",
+      "instanceBinding": { "side": "requirement", "path": ["periods"], "repeatable": true }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/RQ1": {
+      "id": "slc-stand-ratio.period",
+      "instanceBinding": { "side": "requirement", "path": ["periods", "period"] }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/RSG1": {
+      "id": "slc-stand-ratio.ratios",
+      "instanceBinding": { "side": "requirement", "path": ["periods", "ratios"], "repeatable": true }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/RSG1/RQ1": {
+      "id": "slc-stand-ratio.ratio-type",
+      "instanceBinding": { "side": "requirement", "path": ["periods", "ratios", "ratioType"] },
+      "codelist": "financial-ratio-type"
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/RSG1/RQ2": {
+      "id": "slc-stand-ratio.ratio-definition",
+      "instanceBinding": { "side": "requirement", "path": ["periods", "ratios", "definition"] }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/RSG1/RQ3": {
+      "id": "slc-stand-ratio.ratio-minimum",
+      "instanceBinding": { "side": "requirement", "path": ["periods", "ratios", "minimumRatio"] }
+    },
+
+    "C34_slc-stand-ratio/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-stand-ratio.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-stand-ratio.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-stand-ratio.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-stand-ratio.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-stand-ratio.ratio-answer",
+      "instanceBinding": { "side": "response", "path": ["ratioAnswer"] }
+    },
+
+    "C34_slc-stand-ratio/RG1/RSG1/QSG3": {
+      "id": "slc-stand-ratio.evidence-blocks",
+      "instanceBinding": { "side": "response", "path": ["evidenceBlocks"], "repeatable": true }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-stand-ratio.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["evidenceBlocks", "availableElectronically"] }
+    },
+    "C34_slc-stand-ratio/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-stand-ratio.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["evidenceBlocks", "evidence"] }
+    }
+  }
+}

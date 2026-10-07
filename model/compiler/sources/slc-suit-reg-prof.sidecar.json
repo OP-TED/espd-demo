@@ -1,0 +1,61 @@
+{
+  "$comment": "C25 enrichment sidecar (second CODE criterion — per-leaf codelist probe). slc-suit-reg-prof, 'Enrolment in a relevant professional register'. Its CODE requirement (RQ1 'occupation') uses the 'occupation' codelist — a DIFFERENT list/agency/version from C34's financial-ratio-type — proving the codelist is a per-leaf decision, not intrinsic to the CODE value type.",
+
+  "$note.scope": "RG1/RSG1 is 1..n in EA (could model 'one or more occupations'), but this probe FLATTENS it to a singular object to isolate the CODE-codelist concern — the repeatable-group machinery is already proven by C34/C01. If a multi-occupation shape is wanted later, bind RSG1 as a repeatable group ('occupations[]'). The per-lot RG1 1..n is flattened as everywhere (lots are a document mechanism).",
+
+  "criterion": {
+    "code": "slc-suit-reg-prof",
+    "id": "slc-suit-reg-prof",
+    "instanceModel": {
+      "containerPath": ["partIV", "selectionCriteria"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C25_slc-suit-reg-prof/RG1/RQ1": {
+      "id": "slc-suit-reg-prof.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/RQ1": {
+      "id": "slc-suit-reg-prof.occupation",
+      "instanceBinding": { "side": "requirement", "path": ["occupation"] },
+      "codelist": "occupation"
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-suit-reg-prof.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-suit-reg-prof.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-suit-reg-prof.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-suit-reg-prof.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-suit-reg-prof.registered",
+      "instanceBinding": { "side": "response", "path": ["registered"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-suit-reg-prof.registration-number",
+      "instanceBinding": { "side": "response", "path": ["registrationNumber"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG2/QSG2/Q1": {
+      "id": "slc-suit-reg-prof.not-registered-reason",
+      "instanceBinding": { "side": "response", "path": ["notRegisteredReason"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-suit-reg-prof.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C25_slc-suit-reg-prof/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-suit-reg-prof.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

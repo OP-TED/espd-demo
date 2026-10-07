@@ -39,6 +39,7 @@
       "CODE": "code",
       "CODE_COUNTRY": "code",
       "CODE_BOOLEAN": "code",
+      "MINIMUM_QUANTITY": "number",
       "MINIMUM_AMOUNT": { "value": "number", "currency": "code" },
       "MAXIMUM_AMOUNT": { "value": "number", "currency": "code" },
       "AMOUNT": { "value": "number", "currency": "code" },

@@ -19,7 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { leafInstancePath, arrayContainerPrefix } from './encoding-profile.mjs';
+import { leafInstancePath, arrayContainerDepths } from './encoding-profile.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
@@ -150,11 +150,11 @@ function leavesWithContext(criterion) {
 
 /** Dotted instance path of a leaf, with `[]` on array-shaped leaves. */
 function dataPathOf(criterion, leaf, registry, suffix = []) {
-  const prefixLen = arrayContainerPrefix(criterion, leaf); // segments into binding path
   const baseLen = criterion.instanceModel.containerPath.length + 2; // container + key + side
-  const segs = leafInstancePath(criterion, leaf).map((s, i) =>
-    // 7.0: mark the repeatable-group container segment with `[]`.
-    (prefixLen && i === baseLen + prefixLen - 1) ? `${s}[]` : s);
+  // 7.0: 1-based binding-path depths that open an array; shifted by baseLen to
+  // index into the full instance path. Several for nested repeatable groups.
+  const arrayAt = new Set(arrayContainerDepths(criterion, leaf).map(d => baseLen + d - 1));
+  const segs = leafInstancePath(criterion, leaf).map((s, i) => (arrayAt.has(i) ? `${s}[]` : s));
   const shape = registry.valueTypes[leaf.valueType]?.instanceShape;
   const base = segs.join('.');
   const arrayMarker = shape?.type === 'array' ? '[]' : ''; // leaf-level array (e.g. evidence)
@@ -189,6 +189,9 @@ function fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, 
   const visibleWhen = visibleWhenOf(criterion, gate, registry, profile);
   const filledBy = profile.filledBy.byNodeKind[leaf.nodeKind];
   const codelists = new Map(codelistsOfShape(shape).map(c => [c.path.join('.'), c.codelist]));
+  // A per-leaf codelist (CODE, whose list varies by use) is declared on the leaf,
+  // not the shape; it applies to the scalar leaf itself (empty suffix).
+  if (leaf.codelist && !codelists.has('')) codelists.set('', leaf.codelist);
 
   // The scalar properties this leaf presents as individual inputs.
   const itemShape = shape.type === 'array' ? shape.items : shape;

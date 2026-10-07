@@ -14,7 +14,7 @@
 // Task 7.0: a repeatable group binds an array container; leaves inside it are
 // placed under `{ type: array, items: {...} }` via insertShape's arrayAtDepth.
 
-import { arrayContainerPrefix } from './encoding-profile.mjs';
+import { arrayContainerDepths } from './encoding-profile.mjs';
 
 /** Deep-clone a registry instanceShape (plain JSON). */
 function cloneShape(shape) {
@@ -48,7 +48,7 @@ function leavesWithContext(node, insideConditional = false, acc = []) {
  * @param {object} shape the leaf's instanceShape
  * @param {boolean} isRequired whether the leaf is required at its parent
  */
-function insertShape(objectSchema, segs, shape, isRequired, arrayAtDepth = 0, depth = 0) {
+function insertShape(objectSchema, segs, shape, isRequired, arrayDepths = EMPTY_SET, depth = 0) {
   const [head, ...rest] = segs;
   objectSchema.properties ??= {};
   objectSchema.required ??= [];
@@ -59,11 +59,12 @@ function insertShape(objectSchema, segs, shape, isRequired, arrayAtDepth = 0, de
     return;
   }
 
-  // Task 7.0 — a segment that is an array container (introduced by a repeatable
-  // group, 1-based depth === arrayAtDepth) becomes an array of objects; its
-  // leaves are properties of the item schema. A repeatable group's presence is
-  // instance-dependent, so the container itself is NOT required.
-  const isArrayContainer = (depth + 1) === arrayAtDepth;
+  // Task 7.0 — a segment that is an array container (its 1-based depth is in
+  // arrayDepths) becomes an array of objects; its leaves are properties of the
+  // item schema. NESTED repeatable groups (C34/C36) have several such depths.
+  // A repeatable group's presence is instance-dependent, so the container is
+  // NOT required.
+  const isArrayContainer = arrayDepths.has(depth + 1);
   let child = objectSchema.properties[head];
 
   if (isArrayContainer) {
@@ -71,7 +72,7 @@ function insertShape(objectSchema, segs, shape, isRequired, arrayAtDepth = 0, de
       child = { type: 'array', items: { type: 'object', properties: {}, required: [], additionalProperties: false } };
       objectSchema.properties[head] = child;
     }
-    insertShape(child.items, rest, shape, isRequired, arrayAtDepth, depth + 1);
+    insertShape(child.items, rest, shape, isRequired, arrayDepths, depth + 1);
     return;
   }
 
@@ -81,8 +82,10 @@ function insertShape(objectSchema, segs, shape, isRequired, arrayAtDepth = 0, de
   }
   // An intermediate container is required if any required leaf lives under it.
   if (isRequired && !objectSchema.required.includes(head)) objectSchema.required.push(head);
-  insertShape(child, rest, shape, isRequired, arrayAtDepth, depth + 1);
+  insertShape(child, rest, shape, isRequired, arrayDepths, depth + 1);
 }
+
+const EMPTY_SET = new Set();
 
 /** Cardinality -> required at parent (1 or 1..n => required; 0.. => optional). */
 function isRequiredCardinality(card) {
@@ -250,10 +253,10 @@ export function generateCriterionSchema(criterion, registry, hints = null) {
     // Required if cardinality says so, not gated by a conditional branch, and
     // not explicitly relaxed to optional by a hint.
     const required = isRequiredCardinality(leaf.cardinality) && !insideConditional && !optionalIds.has(leaf.id);
-    // 7.0: the depth (1-based) at which an array container sits, if the leaf is
-    // inside a repeatable group; 0 otherwise.
-    const arrayAtDepth = arrayContainerPrefix(criterion, leaf);
-    insertShape(sides[side], segs, shape, required, arrayAtDepth);
+    // 7.0: the 1-based depths at which array containers sit (several for nested
+    // repeatable groups); empty if the leaf is in no repeatable group.
+    const arrayDepths = new Set(arrayContainerDepths(criterion, leaf));
+    insertShape(sides[side], segs, shape, required, arrayDepths);
   }
 
   // 4.3.2: conditionals DERIVED from the model's condition markers.
@@ -362,11 +365,23 @@ function sampleForShape(shape, constraints = null) {
 export function generateExample(criterion, registry) {
   const sideData = { requirement: {}, response: {} };
 
-  function setAt(obj, segs, value) {
+  // Set a value at a binding path, opening a single-element ARRAY at each
+  // array-container depth (task 7.0 / nested C34). `arrayDepths` is the set of
+  // 1-based binding-path depths that are array containers for this leaf; a
+  // minimal example uses element [0] of each.
+  function setAt(obj, segs, value, arrayDepths = EMPTY_SET) {
     let cur = obj;
     for (let i = 0; i < segs.length - 1; i++) {
-      cur[segs[i]] ??= {};
-      cur = cur[segs[i]];
+      const seg = segs[i];
+      if (arrayDepths.has(i + 1)) {
+        cur[seg] ??= [{}];
+        if (!Array.isArray(cur[seg])) cur[seg] = [cur[seg]];
+        cur[seg][0] ??= {};
+        cur = cur[seg][0];
+      } else {
+        cur[seg] ??= {};
+        cur = cur[seg];
+      }
     }
     cur[segs[segs.length - 1]] = value;
   }
@@ -393,7 +408,8 @@ export function generateExample(criterion, registry) {
     const value = nonTriggering.has(key)
       ? nonTriggering.get(key)
       : sampleForShape(vt.instanceShape, vt.instanceConstraints);
-    setAt(sideData[side], leaf.instanceBinding.path, value);
+    const arrayDepths = new Set(arrayContainerDepths(criterion, leaf));
+    setAt(sideData[side], leaf.instanceBinding.path, value, arrayDepths);
   }
 
   const crit = {};

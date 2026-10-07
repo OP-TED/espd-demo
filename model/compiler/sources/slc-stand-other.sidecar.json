@@ -1,0 +1,93 @@
+{
+  "$comment": "C36 enrichment sidecar (deep nested repeatable groups + evidence-in-array probe). slc-stand-other, 'Other economic or financial requirements'. The buyer picks a requirement TYPE (CODE_BOOLEAN) then provides one of three mutually-structured blocks; RSG1/RSG1/RSG1 (0..n) is a repeatable 'amount-type' requirement block, each with its own AMOUNT answer whose evidence (QSG1/QSG1, 1..n) carries EVIDENCE_IDENTIFIER inside the repetition. The per-lot RG1 1..n is flattened as in C31.",
+
+  "$TODO.shapeUnconfirmed": "The instance shape of C36 is NOT yet confirmed with a reference implementation. C36 has the buyer pick a type (CODE_BOOLEAN) then provide ONE OF three mutually-structured branches (RSG1 amount 0..n, RSG2 rating 0..1, RSG3 descriptive 0..1). This sidecar currently models them as three INDEPENDENT properties (amountRequirements[]/rating/descriptive), which lets all three coexist — but the business intent ('select the type') may be a DISCRIMINATED UNION keyed by requirementType. Pending clarification (see tasks.md 'C36 shape'). The current shape compiles and validates against its own schema; it is a placeholder, not an endorsed projection.",
+
+  "$arrayModel": "Only the first branch (RSG1/RSG1/RSG1, 0..n) is modeled as the array 'amountRequirements[]' with a nested per-answer-evidence array 'amountRequirements[].evidenceBlocks[]' holding EVIDENCE_IDENTIFIER — exercising both nested arrays AND evidence-inside-a-repeatable-group. The two 0..1 branches (RSG2 rating, RSG3 descriptive) are singular objects.",
+
+  "criterion": {
+    "code": "slc-stand-other",
+    "id": "slc-stand-other",
+    "instanceModel": {
+      "containerPath": ["partIV", "selectionCriteria"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C36_slc-stand-other/RG1/RQ1": {
+      "id": "slc-stand-other.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RQ1": {
+      "id": "slc-stand-other.requirement-type",
+      "instanceBinding": { "side": "requirement", "path": ["requirementType"] }
+    },
+
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1": {
+      "id": "slc-stand-other.amount-requirements",
+      "instanceBinding": { "side": "requirement", "path": ["amountRequirements"], "repeatable": true }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/RQ1": {
+      "id": "slc-stand-other.amount-description",
+      "instanceBinding": { "side": "requirement", "path": ["amountRequirements", "description"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/RQ2": {
+      "id": "slc-stand-other.amount-minimum",
+      "instanceBinding": { "side": "requirement", "path": ["amountRequirements", "minimumAmount"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/RQ3": {
+      "id": "slc-stand-other.amount-period",
+      "instanceBinding": { "side": "requirement", "path": ["amountRequirements", "period"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/Q1": {
+      "id": "slc-stand-other.amount-answer",
+      "instanceBinding": { "side": "response", "path": ["amountRequirements", "amount"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-stand-other.amount-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["amountRequirements", "evidenceAvailableElectronically"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-stand-other.amount-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["amountRequirements", "evidence"] }
+    },
+
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/RQ1": {
+      "id": "slc-stand-other.rating-description",
+      "instanceBinding": { "side": "requirement", "path": ["rating", "description"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/RQ2": {
+      "id": "slc-stand-other.rating-minimum",
+      "instanceBinding": { "side": "requirement", "path": ["rating", "minimumRating"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/Q1": {
+      "id": "slc-stand-other.rating-answer",
+      "instanceBinding": { "side": "response", "path": ["rating", "rating"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/Q1": {
+      "id": "slc-stand-other.rating-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["rating", "evidenceAvailableElectronically"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-stand-other.rating-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["rating", "evidence"] }
+    },
+
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/RQ1": {
+      "id": "slc-stand-other.descriptive-requirement",
+      "instanceBinding": { "side": "requirement", "path": ["descriptive", "requirement"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/Q1": {
+      "id": "slc-stand-other.descriptive-answer",
+      "instanceBinding": { "side": "response", "path": ["descriptive", "answer"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/Q1": {
+      "id": "slc-stand-other.descriptive-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["descriptive", "evidenceAvailableElectronically"] }
+    },
+    "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-stand-other.descriptive-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["descriptive", "evidence"] }
+    }
+  }
+}

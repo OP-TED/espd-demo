@@ -69,6 +69,18 @@
       "listID": "boolean-gui-control-type",
       "listAgencyID": "OP",
       "listVersionID": "5.0.0"
+    },
+    "financial-ratio-type": {
+      "$note": "cbc:ExpectedCode for CODE (C34 'Ratio Type'). Generic listID/listAgencyID/listVersionID from ESPD-Request-BASE.xml.",
+      "listID": "financial-ratio-type",
+      "listAgencyID": "OP",
+      "listVersionID": "5.0.0"
+    },
+    "occupation": {
+      "$note": "cbc:ExpectedCode for CODE (C25 'occupation'). A DIFFERENT codelist/agency/version from financial-ratio-type — the per-leaf CODE codelist case. A dated EU authority list; values from the XSLT (listAgencyID=EMPL).",
+      "listID": "http://publications.europa.eu/resource/authority/occupation",
+      "listAgencyID": "EMPL",
+      "listVersionID": "20221214-0"
     }
   }
 }

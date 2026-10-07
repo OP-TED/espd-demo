@@ -158,9 +158,15 @@ export function generateResponseMapping(criterion, registry) {
     const ev = evidenceRecordRule(criterion, leaf, registry);
     if (ev) {
       if (arrayContainerPrefix(criterion, leaf)) {
+        // Evidence inside a repeatable group needs the `references.forEach` to
+        // resolve against the ARRAY ITEM, but the mapper resolves it against the
+        // document root. That is a mapper-engine change (task 7.0c). The
+        // instance-data and form layers already handle this shape; only the XML
+        // response mapping is deferred.
         throw new Error(
-          `Criterion '${criterion.code}': evidence leaf '${leaf.id}' inside a repeatable group is ` +
-          `not yet supported (nested record sets); task 7.0b covers simple answers only.`);
+          `Criterion '${criterion.code}': EVIDENCE_IDENTIFIER leaf '${leaf.id}' inside a repeatable ` +
+          `group needs item-relative reference resolution in the mapper (task 7.0c). ` +
+          `Instance-data and form layers support it; XML response mapping is deferred.`);
       }
       evidenceRules.push(ev);
     }

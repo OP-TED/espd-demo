@@ -64,6 +64,15 @@ function responseEntry(criterion, leaf, registry) {
     // may differ from response-data-type and carry its own version — the point
     // of the C07 CODE_COUNTRY probe.
     if (binding.codelist) value.attributes = { listID: binding.codelist };
+    // Fixed value-bearing attributes, e.g. the quantity unitCode (YEAR/INTEGER)
+    // on cbc:ResponseQuantity.
+    if (binding.attributes) {
+      value.attributes = value.attributes ?? {};
+      for (const [attr, spec] of Object.entries(binding.attributes)) {
+        if (spec.const !== undefined) value.attributes[attr] = spec.const;
+        else if (spec.instancePath) value.attributes[attr] = { from: `${base}.${spec.instancePath.join('.')}` };
+      }
+    }
     return { key, value };
   }
   if (binding.kind === 'amount') {

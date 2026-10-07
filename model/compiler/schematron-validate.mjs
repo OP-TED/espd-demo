@@ -71,6 +71,9 @@ const SHORTHAND = {
   // ('country'), expanded to that codelist's full dated attribute set — which
   // differs from response-data-type (the C07 CODE_COUNTRY probe).
   'cbc:ResponseCode': { marker: 'listID', key: null },
+  // A code-valued REQUIREMENT (e.g. CODE_BOOLEAN 'Threshold per year' in C29).
+  // Same dynamic-key handling: the shorthand listID names the codelist.
+  'cbc:ExpectedCode': { marker: 'listID', key: null },
 };
 
 function attrsToString(attrs) {

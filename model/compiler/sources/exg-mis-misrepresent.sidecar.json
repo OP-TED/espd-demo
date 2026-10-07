@@ -1,0 +1,25 @@
+{
+  "$comment": "exg-mis-misrepresent enrichment sidecar, 'Guilty of misrepresentation ...'. The MINIMAL exclusion ground: a single INDICATOR answer plus the shared electronic-evidence block, nothing else. A deliberate 'simplest case' probe — it should compile with a trivially small sidecar and no new value types. espd-edm.json stays as-is.",
+  "criterion": {
+    "code": "exg-mis-misrepresent",
+    "id": "exg-mis-misrepresent",
+    "instanceModel": {
+      "containerPath": ["partIII", "exclusionGrounds"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C23_exg-mis-misrepresent/QG1/Q1": {
+      "id": "exg-mis-misrepresent.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C23_exg-mis-misrepresent/QG2/Q1": {
+      "id": "exg-mis-misrepresent.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C23_exg-mis-misrepresent/QG2/QSG1/Q1": {
+      "id": "exg-mis-misrepresent.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

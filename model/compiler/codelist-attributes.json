@@ -63,6 +63,12 @@
       "listVersionID": "20250618-0",
       "listSchemeURI": "http://publications.europa.eu/resource/distribution/currency/20250618-0/xml/gc/Currency.gc",
       "listURI": "http://publications.europa.eu/resource/dataset/currency"
+    },
+    "boolean-gui-control-type": {
+      "$note": "cbc:ExpectedCode for CODE_BOOLEAN (C29 'Threshold per year'). 01-cl-attributes.sch has no dedicated context for this list, so only the generic listID/listAgencyID/listVersionID (04-common-other-br.sch) apply; values copied from ESPD-Request-BASE.xml.",
+      "listID": "boolean-gui-control-type",
+      "listAgencyID": "OP",
+      "listVersionID": "5.0.0"
     }
   }
 }

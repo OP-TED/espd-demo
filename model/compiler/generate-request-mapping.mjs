@@ -64,8 +64,14 @@ function requestValueChild(criterion, leaf, registry) {
     return node;
   }
   if (binding.kind === 'scalar') {
-    const type = leaf.valueType === 'QUANTITY_YEAR' ? 'number' : 'string';
-    return { element: binding.element, from: base, type };
+    // Numeric vs string follows the registry instanceShape, not a per-code list.
+    const shape = registry.valueTypes[leaf.valueType]?.instanceShape;
+    const type = (shape?.type === 'integer' || shape?.type === 'number') ? 'number' : 'string';
+    const node = { element: binding.element, from: base, type };
+    // A code-valued requirement (e.g. CODE_BOOLEAN) carries its codelist
+    // shorthand, expanded to the full attribute set by expandCodelistAttributes.
+    if (binding.codelist) node.attributes = { listID: binding.codelist };
+    return node;
   }
   return undefined;
 }

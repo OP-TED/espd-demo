@@ -16,9 +16,41 @@
       }
     },
     "QUANTITY_YEAR": {
+      "$note": "Used both as a buyer REQUIREMENT (count of fiscal years, e.g. C31 — cbc:ExpectedValueNumeric) and as an EO QUESTION answer (e.g. C50 'Year' — cbc:ResponseQuantity with unitCode=YEAR). Both bindings are registered; the compiler picks the side by leaf kind.",
       "sourceDescription": "A non-negative integer representing a year. The unit has to be specified as YEAR",
       "instanceShape": { "type": "integer" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedValueNumeric" },
+      "responseXml": {
+        "kind": "scalar",
+        "element": "cac:ResponseValue/cbc:ResponseQuantity",
+        "attributes": { "unitCode": { "const": "YEAR" } }
+      }
+    },
+    "QUANTITY_INTEGER": {
+      "sourceDescription": "A number representing a quantity in a specific unit of measure. The unit has to be specified (e.g. Kg).",
+      "instanceShape": { "type": "integer" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedValueNumeric" },
+      "responseXml": {
+        "kind": "scalar",
+        "element": "cac:ResponseValue/cbc:ResponseQuantity",
+        "attributes": { "unitCode": { "const": "INTEGER" } }
+      }
+    },
+    "MINIMUM_QUANTITY_YEAR": {
+      "$note": "Buyer-only REQUIREMENT (minimum number of years). cbc:ExpectedValueNumeric per the BASE request document (no dedicated Expected* element exists for the MINIMUM_QUANTITY_* family).",
+      "sourceDescription": "Minimum number of years",
+      "instanceShape": { "type": "integer" },
       "requestXml": { "kind": "scalar", "element": "cbc:ExpectedValueNumeric" }
+    },
+    "CODE_BOOLEAN": {
+      "$note": "Buyer REQUIREMENT selecting a GUI control type (CHECK_BOX_TRUE, RADIO_BUTTON_TRUE, ...). Request-only; carries the boolean-gui-control-type codelist attributes.",
+      "sourceDescription": "Code identifying a type of GUI control element.",
+      "instanceShape": { "type": "string", "codeList": "boolean-gui-control-type" },
+      "requestXml": {
+        "kind": "scalar",
+        "element": "cbc:ExpectedCode",
+        "codelist": "boolean-gui-control-type"
+      }
     },
     "DESCRIPTION": {
       "sourceDescription": "Textual field",

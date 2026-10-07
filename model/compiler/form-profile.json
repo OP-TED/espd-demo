@@ -1,0 +1,63 @@
+{
+  "$comment": "Form-structure profile (task 5.1). Presentation CONVENTIONS keyed by structural kind, criterion-independent — the counterpart of encoding-profile.json for the form lens. R6.2: filledBy follows the leaf kind (REQUIREMENT is authored by the contracting authority in the REQUEST, QUESTION is answered by the economic operator in the RESPONSE). R6.3: visibleWhen follows the condition marker. R6.4: codelist comes from the value-type registry shape. uiType defaults and i18n keys are added in task 5.2.",
+
+  "filledBy": {
+    "$comment": "R6.2 — leaf nodeKind -> role that fills the field.",
+    "byNodeKind": {
+      "requirement": "contractingAuthority",
+      "question": "economicOperator"
+    },
+    "$comment.mixed": "A group whose leaves are all one role carries that role; a criterion (or group) spanning both roles carries 'both'.",
+    "mixed": "both"
+  },
+
+  "visibleWhen": {
+    "$comment": "R6.3 — condition marker -> the boolean the gating leaf must hold. The gate is the nearest preceding sibling value leaf of the conditional group, the same rule the instance-data generator uses for if/then/else (task 4.3.2).",
+    "equalsByCondition": { "true": true, "false": false },
+    "$comment.requiredIsScopedToVisibility": "`required` on a gated field means 'required ONCE SHOWN', matching the generated schema, whose derived if/then requires the field inside the branch. Note the hand-authored part-IV.form.json is inconsistent on this point (evidence[].url is required:true with a visibleWhen, while reliedUpon is required:false with one); the generator applies the schema-consistent rule uniformly.",
+    "$comment.nearestGateOnly": "Only the NEAREST conditional ancestor produces a visibleWhen, not the whole ancestor chain. Deeper gates are transitively satisfied: a gate that is itself hidden stays unanswered, so it cannot hold the value that reveals its children. This matches the hand-authored lens."
+  },
+
+  "uiType": {
+    "$comment": "R10.2 / R6.5 — default uiType table keyed by ValueDataTypeCode, so the common case needs no per-field authoring. An object-shaped value type maps PER PROPERTY (an AMOUNT is a number input plus a currency picker). A value type absent from this table has no inferable control and MUST be supplied by the presentation sidecar, otherwise the build fails with the component's semantic ID (R6.7).",
+    "byValueType": {
+      "LOT_IDENTIFIER": "text",
+      "QUANTITY_YEAR": "number",
+      "QUANTITY_INTEGER": "number",
+      "QUANTITY": "number",
+      "PERCENTAGE": "number",
+      "DESCRIPTION": "textarea",
+      "INDICATOR": "boolean",
+      "DATE": "date",
+      "TIME": "time",
+      "URL": "url",
+      "IDENTIFIER": "text",
+      "ECONOMIC_OPERATOR_IDENTIFIER": "text",
+      "CODE": "code",
+      "CODE_COUNTRY": "code",
+      "CODE_BOOLEAN": "code",
+      "MINIMUM_AMOUNT": { "value": "number", "currency": "code" },
+      "MAXIMUM_AMOUNT": { "value": "number", "currency": "code" },
+      "AMOUNT": { "value": "number", "currency": "code" },
+      "PERIOD": { "startDate": "date", "endDate": "date" },
+      "EVIDENCE_IDENTIFIER": { "url": "url", "identifier": "text", "description": "text" }
+    },
+    "$comment.descriptionDefault": "DESCRIPTION defaults to multi-line 'textarea' because most ESPD free-text requirements are prose. Short single-line DESCRIPTION fields (e.g. an entity name) are the documented override case for the presentation sidecar — this is exactly the ambiguity R6.5 anticipates."
+  },
+
+  "i18n": {
+    "$comment": "R6.6 — label/title keys. FINDING: these are DERIVABLE, contrary to the original R10 assumption. The shipped catalogue under i18n/i18n/en/ is already keyed by '<kind>.label.<criterion-code>.<EA tag path>', i.e. the requestpath with its leading 'C31_' segment replaced by the criterion code. All 17 C31 leaf keys plus the criterion name/description resolve this way, so no sidecar authoring is needed for labels. The sidecar is only needed for property-level sub-labels (see propertyLabelKeys) because the catalogue is LEAF-level: one key per leaf, even where the form renders several inputs for that leaf (a PERIOD has a single key, 'Start date; End date').",
+    "labelKeyPrefixByNodeKind": {
+      "requirement": "requirement.label",
+      "question": "question.label"
+    },
+    "criterionNameKey": "criterion.name",
+    "criterionDescriptionKey": "criterion.description"
+  },
+
+  "grouping": {
+    "$comment": "Form groups are derived, not hand-named: all REQUIREMENT leaves form the buyer group, and each top-level QUESTION group under the criterion forms one response group. The group id is the instance-path segment the group's leaves share (giving turnover/startTrading/electronicEvidence for C31); where they share none, the first leaf's leading segment is used. EA tags (QSG1, ...) are deliberately NOT used as ids — they are encoding artefacts with no place in a presentation lens. A nicer name for a prefix-less group (the hand-authored C31 lens calls QSG1 'fulfilment') is a presentation decision and belongs in the task 5.2 presentation sidecar.",
+    "requirementGroupId": "requirement",
+    "idFromCommonPathPrefix": true
+  }
+}

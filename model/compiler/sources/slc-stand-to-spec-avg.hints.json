@@ -1,7 +1,9 @@
 {
   "$comment": "C31 instance-data constraint hints (design R9). The generator derives most constraints from the model itself: array bounds from EA cardinality (task 4.3.1) and if/then/else conditionals from the condition markers in espd-edm.json (task 4.3.2). Only what the model cannot express is hand-authored here.",
 
-  "$todo": "Remaining hints and why they are still here: 'minimum' needs value bounds (min/max) carried on the upstream datatype definitions (task 4.3.3, requires an EA/ResponseDataType addition); 'optionalLeaves' is a genuine implementation decision that CONTRADICTS the EA cardinality and must stay a projection decision (task 4.3.4).",
+  "$todo.minimum": "task 4.3.3 — QUANTITY_YEAR is OVERLOADED (count of fiscal years in C29-C32, calendar year in C49/C50, duration in C40/C41), so minimum:1 is a PER-PROPERTY bound and a datatype-level facet cannot supply it. Preferred fix: an EA tagged value exported as a `valuebounds` field on the property, following the existing `codelist` precedent in espd-tools/EAtoJSON/export-package.js. See design 'TODO (task 4.3.3)'.",
+
+  "$todo.optionalLeaves": "task 4.3.4 — OPEN QUESTION, this relaxation may be wrong. businessDomain is present in C31/C32 (specific turnover) and ABSENT in C29/C30 (general turnover): it carries the semantic that makes the criterion 'specific', so EA cardinality 1 looks correct and the relaxation looks like the error. No Schematron rule enforces it, and no example instance omitting it has been identified. See design 'TODO (task 4.3.4)'.",
 
   "leafConstraints": {
     "$note": "Per-leaf refinements merged into the generated shape, keyed by semantic ID. minItems on lotIdentifiers is no longer needed — it is derived from the 1..n cardinality.",

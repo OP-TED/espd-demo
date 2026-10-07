@@ -1,0 +1,32 @@
+{
+  "$comment": "C31 presentation sidecar (task 5.2, R10.3). Keyed by Semantic_ID. Carries ONLY presentation decisions the model and the default uiType table cannot supply. Everything derivable — filledBy, visibleWhen, codelist, required, repeatable, and (see below) i18n label keys — is generated and must NOT be restated here.",
+
+  "$finding.i18nKeysAreDerivable": "The original R10 design assumed i18n label/title keys would need hand-authoring here. They do not. The shipped catalogue (i18n/i18n/en/espd.part4.json) is keyed by '<kind>.label.<criterion-code>.<EA tag path>', which the compiler derives from requestpath + nodeKind; all 17 C31 leaf keys resolve. Note the hand-authored model/form-structure/part-IV.form.json invents its own keys ('part4.selection.turnover.numberOfYears', ...) and NONE of its 21 keys resolve against the catalogue. The generated lens uses the real, resolvable keys instead.",
+
+  "groupLabels": {
+    "$note": "Group ids derive from the shared instance-path segment. A group whose leaves share no prefix gets the first leaf's segment, which is serviceable but not a name a human would choose. These are display-name overrides only; they do not affect dataPath or ordering.",
+    "fulfilledByItself": { "id": "fulfilment" }
+  },
+
+  "propertyLabelKeys": {
+    "$note": "The i18n catalogue is LEAF-level: one key per leaf. Where the form renders several inputs for a single leaf (PERIOD -> two dates, AMOUNT -> value + currency, EVIDENCE_IDENTIFIER -> url/identifier/description), the per-input sub-labels have no leaf key and are supplied here, keyed by instance property. Declared per VALUE TYPE rather than per field, so one entry serves every criterion.",
+
+    "$note.keysMustExist": "Every key below resolves in i18n/i18n/en/espd.common.json; a test asserts this. `ui.evidenceUrl`, `ui.evidenceIssuer` and `ui.evidenceReference` already shipped. The remaining five are NEW keys added to the catalogue for the sub-label cases, following the existing `ui.*` convention — not invented in this file and left dangling (which is the flaw in the hand-authored part-IV.form.json).",
+
+    "byValueType": {
+      "PERIOD": { "startDate": "ui.startDate", "endDate": "ui.endDate" },
+      "AMOUNT": { "value": "ui.amount", "currency": "ui.currency" },
+      "MINIMUM_AMOUNT": { "value": "ui.minimumAmount", "currency": "ui.currency" },
+      "EVIDENCE_IDENTIFIER": {
+        "url": "ui.evidenceUrl",
+        "identifier": "ui.evidenceReference",
+        "description": "ui.evidenceIssuer"
+      }
+    }
+  },
+
+  "uiTypeOverrides": {
+    "$note": "Overrides where the value-type default is wrong for this specific field (R6.5). DESCRIPTION defaults to 'textarea'; the relied-upon entity name is a short single-line value, so it renders as 'text'. This is the exact case R6.5 anticipates.",
+    "slc-stand-to-spec-avg.relied-upon-entity-name": "text"
+  }
+}

@@ -17,6 +17,7 @@ import { assertStructuralEquivalence } from './structural-equivalence.mjs';
 import { loadValidatedRegistry, validateCriterionValueTypes } from './value-type-registry.mjs';
 import { generateRequestMapping } from './generate-request-mapping.mjs';
 import { generateResponseMapping } from './generate-response-mapping.mjs';
+import { generateFormStructure, loadPresentation } from './generate-form-structure.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const defaultSource = path.resolve(
@@ -38,6 +39,12 @@ export function loadSidecar(code, dir = path.join(here, 'sources')) {
   return JSON.parse(fs.readFileSync(sidecarPath, 'utf8'));
 }
 
+export function loadHints(code, dir = path.join(here, 'sources')) {
+  const hintsPath = path.join(dir, `${code}.hints.json`);
+  if (!fs.existsSync(hintsPath)) return null;
+  return JSON.parse(fs.readFileSync(hintsPath, 'utf8'));
+}
+
 export function compile(edm, code, sidecar) {
   const core = readStructuralCore(edm, code);
   if (!sidecar) return { core, leaves: leavesOf(core) };
@@ -55,6 +62,13 @@ export function generateMappings(compiled, registry) {
     response: generateResponseMapping(compiled, registry),
   };
 }
+
+/** Generate the form-structure lens for a compiled criterion (tasks 5.1 + 5.2). */
+export function generateForm(compiled, registry, { partId, hints, presentation } = {}) {
+  return generateFormStructure(compiled, registry, { partId, hints, presentation });
+}
+
+export { loadPresentation };
 
 // CLI entry
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('compile.mjs')) {
@@ -76,6 +90,7 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
   );
 
   const emitDir = option('--emit-mappings');
+  const emitFormDir = option('--emit-form');
   if (emitDir && compiled) {
     const { request, response } = generateMappings(compiled, registry);
     const dir = path.resolve(emitDir);
@@ -83,6 +98,12 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
     fs.writeFileSync(path.join(dir, `${code}.request.mapping.json`), JSON.stringify(request, null, 2) + '\n');
     fs.writeFileSync(path.join(dir, `${code}.response.mapping.json`), JSON.stringify(response, null, 2) + '\n');
     process.stderr.write(`Emitted request + response mappings to ${path.relative(process.cwd(), dir)}\n`);
+  } else if (emitFormDir && compiled) {
+    const form = generateForm(compiled, registry, { partId: option('--part'), hints: loadHints(code) });
+    const dir = path.resolve(emitFormDir);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, `${code}.form.json`), JSON.stringify(form, null, 2) + '\n');
+    process.stderr.write(`Emitted form structure to ${path.relative(process.cwd(), dir)}\n`);
   } else {
     process.stdout.write(JSON.stringify(out, null, 2) + '\n');
   }

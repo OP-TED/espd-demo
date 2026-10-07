@@ -33,5 +33,10 @@
   "ui.requiredField": "This field is required",
   "ui.evidenceUrl": "URL",
   "ui.evidenceIssuer": "Issuing body",
-  "ui.evidenceReference": "Precise reference of the documentation"
+  "ui.evidenceReference": "Precise reference of the documentation",
+  "ui.startDate": "Start date",
+  "ui.endDate": "End date",
+  "ui.amount": "Amount",
+  "ui.minimumAmount": "Minimum amount",
+  "ui.currency": "Currency"
 }

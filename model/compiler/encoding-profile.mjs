@@ -62,6 +62,38 @@ export function leafInstancePath(criterion, leaf) {
 }
 
 /**
+ * Task 7.0 — is a leaf's binding-path segment an ARRAY CONTAINER introduced by a
+ * repeatable group? Returns the length of the matching container prefix (number
+ * of leading binding-path segments that form the array container), or 0 if the
+ * leaf is not inside any repeatable group.
+ *
+ * `criterion.arrayContainers` is the list of { side, path } the overlay recorded
+ * from repeatable-group bindings. A leaf is an element-field of a container when
+ * its binding is on the same side and its path starts with the container path.
+ */
+export function arrayContainerPrefix(criterion, leaf) {
+  const containers = criterion.arrayContainers ?? [];
+  const b = leaf.instanceBinding;
+  let best = 0;
+  for (const c of containers) {
+    if (c.side !== b.side) continue;
+    if (c.path.length >= b.path.length) continue; // container must be a proper prefix
+    if (c.path.every((seg, i) => seg === b.path[i]) && c.path.length > best) {
+      best = c.path.length;
+    }
+  }
+  return best;
+}
+
+/** Dotted instance path for a leaf with `[]` after each array-container segment. */
+export function leafDataPath(criterion, leaf) {
+  const base = [...criterion.instanceModel.containerPath, criterion[criterion.instanceModel.key.source], leaf.instanceBinding.side];
+  const prefix = arrayContainerPrefix(criterion, leaf);
+  const segs = leaf.instanceBinding.path.map((s, i) => (i === prefix - 1 ? `${s}[]` : s));
+  return [...base, ...segs].join('.');
+}
+
+/**
  * Encode one node's element + ordered scaffold children.
  * @param {object} opts
  * @param {object} opts.profile encoding profile

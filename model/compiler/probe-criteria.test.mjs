@@ -108,24 +108,18 @@ test('exg-crim-part reproduces the hand-authored Part III form (modulo the repea
     path.join(here, '..', 'form-structure', 'part-III.form.json'), 'utf8'));
   const reference = hand.criteria[0].groups.flatMap(g => g.fields);
 
-  // KNOWN GAP: the conviction subgroup is 0..n, which the hand-authored form
-  // models as an array 'convictions[]'. The binding model cannot yet express an
-  // array container introduced by a repeating GROUP (only leaf-level arrays), so
-  // the sidecar binds convictions to a singular object. Fields under
-  // 'convictions[]' are therefore skipped here, pending the section-7 feature.
-  // See exg-crim-part.sidecar.json '$finding.repeatableGroup'.
-  const skip = p => p.includes('.convictions[]');
-
-  let compared = 0;
+  // 7.0: the conviction subgroup is 0..n, modeled as 'convictions[]'. With the
+  // repeatable-group binding the generator now reproduces these array fields, so
+  // nothing is skipped.
+  let comparedArray = 0;
   for (const ref of reference) {
-    if (skip(ref.dataPath)) continue;
     const gen = generated.get(ref.dataPath);
     assert.ok(gen, `hand-authored field ${ref.dataPath} was not generated`);
     if (ref.visibleWhen) assert.deepEqual(gen.visibleWhen, ref.visibleWhen, `${ref.dataPath} visibleWhen`);
     if (ref.codelist) assert.equal(gen.codelist, ref.codelist, `${ref.dataPath} codelist`);
-    compared++;
+    if (ref.dataPath.includes('.convictions[]')) comparedArray++;
   }
-  assert.ok(compared >= 3, 'should still compare the non-repeating fields (answer + evidence block)');
+  assert.ok(comparedArray >= 5, 'the repeatable convictions[] fields must now be reproduced');
 });
 
 test('exg-mis-misrepresent is the minimal ground: one answer + evidence, no new value types', () => {

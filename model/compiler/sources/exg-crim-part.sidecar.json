@@ -1,7 +1,7 @@
 {
   "$comment": "C01 enrichment sidecar. exg-crim-part, 'Participation in a criminal organisation'. The Part III archetype: a response-only exclusion ground (no buyer REQUIREMENT) with DATE + PERIOD answers and a self-cleaning ONTRUE branch.",
 
-  "$finding.repeatableGroup": "The conviction subgroup (QG1/QSG1) has cardinality 0..n — it is a REPEATABLE GROUP, and the hand-authored part-III.form.json models it as an array 'convictions[]'. The current instance-binding model cannot express this: a binding path addresses a fixed object path, with no notion of an array CONTAINER introduced by a repeating group (only leaf-level arrays like evidence are supported). So this sidecar binds the conviction fields to a SINGULAR 'conviction' object, which compiles and validates but does not capture the 0..n multiplicity. Generalising this (an array segment in the binding path driven by group cardinality) is deferred to section 7; see tasks.md 'repeatable groups'. C01 still exercises DATE, PERIOD, nested ONTRUE self-cleaning, and the response-only (no buyer) pattern.",
+  "$note.repeatableGroup": "The conviction subgroup (QG1/QSG1) has cardinality 0..n — a REPEATABLE GROUP, which the hand-authored part-III.form.json models as 'convictions[]'. Task 7.0: the GROUP carries its own binding with repeatable:true, declaring the array container 'convictions'; its leaves bind to paths THROUGH that container (['convictions', ...]) and the compiler treats the 'convictions' segment as an array of objects. The instance-data schema + example and the form lens honour this; XML-mapping of repeatable groups (forEach over the array) is deferred — see tasks.md 7.0b.",
   "criterion": {
     "code": "exg-crim-part",
     "id": "exg-crim-part",
@@ -15,29 +15,33 @@
       "id": "exg-crim-part.answer",
       "instanceBinding": { "side": "response", "path": ["answer"] }
     },
+    "C01_exg-crim-part/QG1/QSG1": {
+      "id": "exg-crim-part.convictions",
+      "instanceBinding": { "side": "response", "path": ["convictions"], "repeatable": true }
+    },
     "C01_exg-crim-part/QG1/QSG1/Q1": {
       "id": "exg-crim-part.conviction-date",
-      "instanceBinding": { "side": "response", "path": ["conviction", "dateOfConviction"] }
+      "instanceBinding": { "side": "response", "path": ["convictions", "dateOfConviction"] }
     },
     "C01_exg-crim-part/QG1/QSG1/Q2": {
       "id": "exg-crim-part.conviction-reason",
-      "instanceBinding": { "side": "response", "path": ["conviction", "reason"] }
+      "instanceBinding": { "side": "response", "path": ["convictions", "reason"] }
     },
     "C01_exg-crim-part/QG1/QSG1/Q3": {
       "id": "exg-crim-part.conviction-who",
-      "instanceBinding": { "side": "response", "path": ["conviction", "whoConvicted"] }
+      "instanceBinding": { "side": "response", "path": ["convictions", "whoConvicted"] }
     },
     "C01_exg-crim-part/QG1/QSG1/Q4": {
       "id": "exg-crim-part.conviction-exclusion-period",
-      "instanceBinding": { "side": "response", "path": ["conviction", "exclusionPeriod"] }
+      "instanceBinding": { "side": "response", "path": ["convictions", "exclusionPeriod"] }
     },
     "C01_exg-crim-part/QG1/QSG1/QSG1/Q1": {
       "id": "exg-crim-part.self-cleaning-taken",
-      "instanceBinding": { "side": "response", "path": ["conviction", "selfCleaning", "taken"] }
+      "instanceBinding": { "side": "response", "path": ["convictions", "selfCleaning", "taken"] }
     },
     "C01_exg-crim-part/QG1/QSG1/QSG1/QSG1/Q1": {
       "id": "exg-crim-part.self-cleaning-description",
-      "instanceBinding": { "side": "response", "path": ["conviction", "selfCleaning", "description"] }
+      "instanceBinding": { "side": "response", "path": ["convictions", "selfCleaning", "description"] }
     },
     "C01_exg-crim-part/QG2/Q1": {
       "id": "exg-crim-part.evidence-available-electronically",

@@ -19,7 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { leafInstancePath } from './encoding-profile.mjs';
+import { leafInstancePath, arrayContainerPrefix } from './encoding-profile.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
@@ -150,10 +150,14 @@ function leavesWithContext(criterion) {
 
 /** Dotted instance path of a leaf, with `[]` on array-shaped leaves. */
 function dataPathOf(criterion, leaf, registry, suffix = []) {
-  const segs = leafInstancePath(criterion, leaf);
+  const prefixLen = arrayContainerPrefix(criterion, leaf); // segments into binding path
+  const baseLen = criterion.instanceModel.containerPath.length + 2; // container + key + side
+  const segs = leafInstancePath(criterion, leaf).map((s, i) =>
+    // 7.0: mark the repeatable-group container segment with `[]`.
+    (prefixLen && i === baseLen + prefixLen - 1) ? `${s}[]` : s);
   const shape = registry.valueTypes[leaf.valueType]?.instanceShape;
   const base = segs.join('.');
-  const arrayMarker = shape?.type === 'array' ? '[]' : '';
+  const arrayMarker = shape?.type === 'array' ? '[]' : ''; // leaf-level array (e.g. evidence)
   return suffix.length ? `${base}${arrayMarker}.${suffix.join('.')}` : `${base}${arrayMarker}`;
 }
 

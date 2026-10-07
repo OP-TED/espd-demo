@@ -10,6 +10,11 @@
 // required/optional derived from cardinality. Finer constraints (minItems,
 // anyOf, if/then/else, side-specific required nuances) are added from declared
 // hints in task 4.2.
+//
+// Task 7.0: a repeatable group binds an array container; leaves inside it are
+// placed under `{ type: array, items: {...} }` via insertShape's arrayAtDepth.
+
+import { arrayContainerPrefix } from './encoding-profile.mjs';
 
 /** Deep-clone a registry instanceShape (plain JSON). */
 function cloneShape(shape) {
@@ -43,7 +48,7 @@ function leavesWithContext(node, insideConditional = false, acc = []) {
  * @param {object} shape the leaf's instanceShape
  * @param {boolean} isRequired whether the leaf is required at its parent
  */
-function insertShape(objectSchema, segs, shape, isRequired) {
+function insertShape(objectSchema, segs, shape, isRequired, arrayAtDepth = 0, depth = 0) {
   const [head, ...rest] = segs;
   objectSchema.properties ??= {};
   objectSchema.required ??= [];
@@ -54,14 +59,29 @@ function insertShape(objectSchema, segs, shape, isRequired) {
     return;
   }
 
+  // Task 7.0 — a segment that is an array container (introduced by a repeatable
+  // group, 1-based depth === arrayAtDepth) becomes an array of objects; its
+  // leaves are properties of the item schema. A repeatable group's presence is
+  // instance-dependent, so the container itself is NOT required.
+  const isArrayContainer = (depth + 1) === arrayAtDepth;
   let child = objectSchema.properties[head];
+
+  if (isArrayContainer) {
+    if (!child || child.type !== 'array') {
+      child = { type: 'array', items: { type: 'object', properties: {}, required: [], additionalProperties: false } };
+      objectSchema.properties[head] = child;
+    }
+    insertShape(child.items, rest, shape, isRequired, arrayAtDepth, depth + 1);
+    return;
+  }
+
   if (!child || child.type !== 'object') {
     child = { type: 'object', properties: {}, required: [], additionalProperties: false };
     objectSchema.properties[head] = child;
   }
   // An intermediate container is required if any required leaf lives under it.
   if (isRequired && !objectSchema.required.includes(head)) objectSchema.required.push(head);
-  insertShape(child, rest, shape, isRequired);
+  insertShape(child, rest, shape, isRequired, arrayAtDepth, depth + 1);
 }
 
 /** Cardinality -> required at parent (1 or 1..n => required; 0.. => optional). */
@@ -230,7 +250,10 @@ export function generateCriterionSchema(criterion, registry, hints = null) {
     // Required if cardinality says so, not gated by a conditional branch, and
     // not explicitly relaxed to optional by a hint.
     const required = isRequiredCardinality(leaf.cardinality) && !insideConditional && !optionalIds.has(leaf.id);
-    insertShape(sides[side], segs, shape, required);
+    // 7.0: the depth (1-based) at which an array container sits, if the leaf is
+    // inside a repeatable group; 0 otherwise.
+    const arrayAtDepth = arrayContainerPrefix(criterion, leaf);
+    insertShape(sides[side], segs, shape, required, arrayAtDepth);
   }
 
   // 4.3.2: conditionals DERIVED from the model's condition markers.

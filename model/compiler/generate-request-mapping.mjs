@@ -11,7 +11,8 @@
 // value attributes as { from: <path> }). Expanding shorthand into the full
 // Schematron attribute set is a separate serialization concern (task 3.4).
 
-import { leafInstancePath } from './encoding-profile.mjs';
+import { leafInstancePath, arrayContainerPrefix } from './encoding-profile.mjs';
+import { leavesOf } from './read-structural-core.mjs';
 
 const REQUEST_TARGET = {
   root: 'QualificationApplicationRequest',
@@ -136,6 +137,22 @@ function childNodes(criterion, node, registry, insideGroup) {
  * Generate the full request mapping spec for a compiled criterion.
  */
 export function generateRequestMapping(criterion, registry) {
+  // A repeatable group is DECLARED once in the request (it is the buyer's
+  // template, not a per-answer structure), so the request scaffold is unchanged
+  // by repeatability. The one case we cannot yet encode is a REQUIREMENT leaf
+  // (a buyer VALUE) INSIDE a repeatable group, since its value `from` would need
+  // to iterate the array; fail fast on that narrow case only.
+  for (const leaf of leavesOf(criterion)) {
+    if (leaf.nodeKind === 'requirement'
+      && registry.valueTypes[leaf.valueType]?.requestXml
+      && arrayContainerPrefix(criterion, leaf)) {
+      throw new Error(
+        `Criterion '${criterion.code}': REQUIREMENT leaf '${leaf.id}' carries a buyer value inside a ` +
+        `repeatable group, which the request mapping generator does not yet support (task 7.0b). ` +
+        `Response answers inside repeatable groups ARE supported.`);
+    }
+  }
+
   const criterionChildren = [
     idNode(criterion.uuid), // criterion cbc:ID is the uuid (overridden below)
     { element: 'cbc:CriterionTypeCode', const: criterion.code, attributes: { listID: 'http://publications.europa.eu/resource/authority/criterion' } },

@@ -14,7 +14,7 @@
 // responsepath is derived (requestpath + "/R1"), consistent with the EA export.
 
 import { leavesOf } from './read-structural-core.mjs';
-import { leafInstancePath } from './encoding-profile.mjs';
+import { leafInstancePath, arrayContainerPrefix } from './encoding-profile.mjs';
 
 const RESPONSE_TARGET = {
   root: 'QualificationApplicationResponse',
@@ -50,11 +50,20 @@ function responsePath(leaf) {
   return `${leaf.requestpath}/R1`;
 }
 
-/** Build one `cac:TenderingCriterionResponse` entry for a QUESTION leaf. */
-function responseEntry(criterion, leaf, registry) {
+/**
+ * Build one `cac:TenderingCriterionResponse` entry for a QUESTION leaf.
+ *
+ * `base` is the instance path the entry's `from` resolves against. For a flat
+ * leaf it is the leaf's absolute instance path. For a leaf inside a repeatable
+ * group it is the leaf's path RELATIVE to the array item (the segments after the
+ * array container), because the entry lives inside a `forEach` records rule that
+ * iterates the array — the engine resolves `forEach` item fields against each
+ * item (task 7.0b).
+ */
+function responseEntry(criterion, leaf, registry, baseOverride) {
   const binding = registry.valueTypes[leaf.valueType]?.responseXml;
   if (!binding) return undefined; // not an answerable response leaf
-  const base = leafInstancePath(criterion, leaf).join('.');
+  const base = baseOverride ?? leafInstancePath(criterion, leaf).join('.');
   const key = responsePath(leaf);
 
   if (binding.kind === 'scalar') {
@@ -130,14 +139,57 @@ export function generateResponseMapping(criterion, registry) {
   const leaves = leavesOf(criterion);
   const questionLeaves = leaves.filter(l => l.nodeKind === 'question');
 
-  const entries = [];
+  // Partition answerable leaves into FLAT (not inside a repeatable group) and
+  // per-container groups (inside a repeatable group). Flat leaves go in the main
+  // records rule; each container becomes a `forEach` records rule whose entries
+  // resolve against each array item (task 7.0b).
+  const containers = criterion.arrayContainers ?? [];
+  const containerKey = leaf => {
+    const prefix = arrayContainerPrefix(criterion, leaf);
+    if (!prefix) return null;
+    return leaf.instanceBinding.side + '|' + leaf.instanceBinding.path.slice(0, prefix).join('.');
+  };
+
+  const flatEntries = [];
+  const byContainer = new Map(); // key -> { container, entries }
   const evidenceRules = [];
+
   for (const leaf of questionLeaves) {
-    const entry = responseEntry(criterion, leaf, registry);
-    if (entry) entries.push(entry);
     const ev = evidenceRecordRule(criterion, leaf, registry);
-    if (ev) evidenceRules.push(ev);
+    if (ev) {
+      if (arrayContainerPrefix(criterion, leaf)) {
+        throw new Error(
+          `Criterion '${criterion.code}': evidence leaf '${leaf.id}' inside a repeatable group is ` +
+          `not yet supported (nested record sets); task 7.0b covers simple answers only.`);
+      }
+      evidenceRules.push(ev);
+    }
+
+    const ckey = containerKey(leaf);
+    if (!ckey) {
+      const entry = responseEntry(criterion, leaf, registry);
+      if (entry) flatEntries.push(entry);
+      continue;
+    }
+    // Item-relative base: segments of the binding path AFTER the array container.
+    const prefix = arrayContainerPrefix(criterion, leaf);
+    const relBase = leaf.instanceBinding.path.slice(prefix).join('.');
+    const entry = responseEntry(criterion, leaf, registry, relBase);
+    if (!entry) continue;
+    if (!byContainer.has(ckey)) {
+      const [side, dotted] = ckey.split('|');
+      const containerPath = [...criterion.instanceModel.containerPath, criterion[criterion.instanceModel.key.source], side, ...dotted.split('.')].join('.');
+      byContainer.set(ckey, { forEach: containerPath, entries: [] });
+    }
+    byContainer.get(ckey).entries.push(entry);
   }
+
+  const repeatableRecordRules = [...byContainer.values()].map(({ forEach, entries }) => ({
+    records: 'cac:TenderingCriterionResponse',
+    key: { to: 'cac:ValidatedCriterionPropertyID/cbc:ID', attributes: { schemeID: 'criterion' } },
+    forEach,
+    entries,
+  }));
 
   const rules = [
     { to: 'cac:TenderingCriterion/cbc:ID', const: criterion.uuid },
@@ -146,8 +198,9 @@ export function generateResponseMapping(criterion, registry) {
     {
       records: 'cac:TenderingCriterionResponse',
       key: { to: 'cac:ValidatedCriterionPropertyID/cbc:ID', attributes: { schemeID: 'criterion' } },
-      entries,
+      entries: flatEntries,
     },
+    ...repeatableRecordRules,
     ...evidenceRules,
   ];
 

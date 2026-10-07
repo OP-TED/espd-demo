@@ -83,16 +83,37 @@ expectThrow('fail-fast: duplicate semantic id', () => {
   overlayEnrichment(core, s);
 }, 'Duplicate semantic IDs');
 
-// Fail: unused sidecar entry would also surface as stale path (not in core);
-// to isolate "unused", point an extra entry at a non-leaf structural path.
-expectThrow('fail-fast: unused sidecar entry (structural, non-leaf path)', () => {
+// Fail: a path that matches neither a leaf nor a group is a stale correlation
+// path. (A path that matches a GROUP is now valid for repeatable groups — see
+// the group-binding tests below — so use a truly absent path here.)
+expectThrow('fail-fast: stale correlation path (matches no leaf or group)', () => {
   const s = clone(baseSidecar);
-  // RG1 is a group, not a value leaf -> not in leafByPath -> stale-path error.
-  s.components['C31_slc-stand-to-spec-avg/RG1'] = {
-    id: 'x.group', instanceBinding: { side: 'response', path: ['group'] }
+  s.components['C31_slc-stand-to-spec-avg/RG1/NOPE/Q9'] = {
+    id: 'x.nope2', instanceBinding: { side: 'response', path: ['nope2'] }
   };
   overlayEnrichment(core, s);
 }, 'correlation path not found');
+
+// Task 7.0 — binding a GROUP is only allowed for repeatable groups, and the
+// binding must declare it. RG1 is 1..n (repeatable) but a binding without
+// repeatable:true is rejected.
+expectThrow('fail-fast: group binding without repeatable:true', () => {
+  const s = clone(baseSidecar);
+  s.components['C31_slc-stand-to-spec-avg/RG1'] = {
+    id: 'x.group', instanceBinding: { side: 'requirement', path: ['group'] }
+  };
+  overlayEnrichment(core, s);
+}, 'only REPEATABLE groups');
+
+// A repeatable:true binding on a NON-repeatable group (cardinality 1) is rejected.
+expectThrow('fail-fast: repeatable binding on a non-repeatable group', () => {
+  const s = clone(baseSidecar);
+  // RSG1 is cardinality 1 (not repeatable).
+  s.components['C31_slc-stand-to-spec-avg/RG1/RSG1'] = {
+    id: 'x.rsg1', instanceBinding: { side: 'requirement', path: ['rsg1'], repeatable: true }
+  };
+  overlayEnrichment(core, s);
+}, 'not 0..n/1..n');
 
 // Fail: mismatched criterion code.
 expectThrow('fail-fast: sidecar/core code mismatch', () => {

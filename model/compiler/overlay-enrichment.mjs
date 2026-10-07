@@ -38,26 +38,64 @@ export function overlayEnrichment(core, sidecar) {
   compiled.id = sidecar.criterion.id ?? core.code;
   compiled.instanceModel = sidecar.criterion.instanceModel;
 
-  // Index leaves by correlation path.
+  // Index leaves AND groups by correlation path. Groups are indexable so a
+  // REPEATABLE group (EA cardinality 0..n / 1..n) can carry its own binding,
+  // declaring the array container its leaves live inside (task 7.0).
   const leaves = leavesOf(compiled);
   const leafByPath = new Map();
   for (const leaf of leaves) {
     if (leaf.requestpath) leafByPath.set(leaf.requestpath, leaf);
   }
+  const groupByPath = new Map();
+  (function indexGroups(node) {
+    for (const child of node.children ?? []) {
+      if (child.nodeKind === 'group' && child.requestpath) groupByPath.set(child.requestpath, child);
+      indexGroups(child);
+    }
+  })(compiled);
 
   const sidecarComponents = sidecar.components ?? {};
   const usedPaths = new Set();
 
-  // Attach each sidecar entry; fail on stale correlation paths.
+  // Collect the instance-path segments that denote an array container, declared
+  // by a repeatable group's binding. A leaf whose binding path passes through
+  // such a segment is an element-field of that array.
+  const arrayContainers = []; // array of { side, path: string[] }
+
+  // Attach each sidecar entry. A leaf entry sets id + instanceBinding; a group
+  // entry (for a repeatable group) registers its array container.
   for (const [reqpath, meta] of Object.entries(sidecarComponents)) {
     const leaf = leafByPath.get(reqpath);
-    if (!leaf) {
-      throw new Error(`Sidecar correlation path not found in criterion '${core.code}': ${reqpath}`);
+    if (leaf) {
+      leaf.id = meta.id;
+      leaf.instanceBinding = meta.instanceBinding;
+      usedPaths.add(reqpath);
+      continue;
     }
-    leaf.id = meta.id;
-    leaf.instanceBinding = meta.instanceBinding;
-    usedPaths.add(reqpath);
+    const group = groupByPath.get(reqpath);
+    if (group) {
+      if (!meta.instanceBinding?.repeatable) {
+        throw new Error(
+          `Sidecar binds group '${reqpath}' in '${core.code}' but only REPEATABLE groups ` +
+          `(cardinality 0..n/1..n) may carry a binding; mark instanceBinding.repeatable: true`);
+      }
+      const card = group.cardinality;
+      if (!(typeof card === 'string' && /\.\.(n|[2-9]|\d{2,})$/.test(card))) {
+        throw new Error(
+          `Sidecar marks group '${reqpath}' repeatable, but its EA cardinality is '${card}' (not 0..n/1..n)`);
+      }
+      group.id = meta.id;
+      group.instanceBinding = meta.instanceBinding;
+      arrayContainers.push({ side: meta.instanceBinding.side, path: meta.instanceBinding.path });
+      usedPaths.add(reqpath);
+      continue;
+    }
+    throw new Error(`Sidecar correlation path not found in criterion '${core.code}': ${reqpath}`);
   }
+
+  // Record array containers on the compiled criterion so the generators can
+  // treat the relevant instance-path segment as an array of objects.
+  if (arrayContainers.length) compiled.arrayContainers = arrayContainers;
 
   // Fail on un-enriched value leaves.
   const unenriched = leaves.filter(l => !l.id || !l.instanceBinding);
@@ -77,8 +115,9 @@ export function overlayEnrichment(core, sidecar) {
     );
   }
 
-  // Fail on duplicate semantic ids (across criterion + leaves).
-  const ids = [compiled.id, ...leaves.map(l => l.id)];
+  // Fail on duplicate semantic ids (across criterion + leaves + bound groups).
+  const boundGroupIds = [...groupByPath.values()].filter(g => g.id).map(g => g.id);
+  const ids = [compiled.id, ...leaves.map(l => l.id), ...boundGroupIds];
   const seen = new Set();
   const dupes = new Set();
   for (const id of ids) {

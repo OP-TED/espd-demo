@@ -67,6 +67,10 @@ const SHORTHAND = {
   'cbc:ValueDataTypeCode': { marker: 'listID', key: 'response-data-type' },
   'cbc:PropertyGroupTypeCode': { marker: 'listID', key: 'property-group-type' },
   'cbc:ID': { marker: 'schemeID', key: 'criterion-id' },
+  // A code-valued response. The shorthand listID carries the codelist KEY
+  // ('country'), expanded to that codelist's full dated attribute set — which
+  // differs from response-data-type (the C07 CODE_COUNTRY probe).
+  'cbc:ResponseCode': { marker: 'listID', key: null },
 };
 
 function attrsToString(attrs) {
@@ -89,14 +93,19 @@ export function expandCodelistAttributes(xml, codelistProfile) {
 
   let result = xml;
   for (const [element, { marker, key }] of Object.entries(SHORTHAND)) {
-    const full = resolve(key);
-    // Match the opening tag of this element that carries the shorthand marker.
-    const re = new RegExp(`<${element}\\b([^>]*?)\\s${marker}="[^"]*"([^>]*)>`, 'g');
-    result = result.replace(re, (m, before, after) => {
-      // Drop any other value-bearing attrs already present (e.g. currencyID) —
-      // keep them; only replace the shorthand marker with the full set.
-      return `<${element}${before} ${attrsToString(full)}${after}>`;
-    });
+    // A fixed-key element (e.g. cbc:TypeCode -> criterion-element-type) resolves
+    // once. A dynamic-key element (key === null, e.g. cbc:ResponseCode) carries
+    // the codelist KEY as the shorthand marker's own value, so resolve per match.
+    if (key !== null) {
+      const full = resolve(key);
+      const re = new RegExp(`<${element}\\b([^>]*?)\\s${marker}="[^"]*"([^>]*)>`, 'g');
+      result = result.replace(re, (m, before, after) =>
+        `<${element}${before} ${attrsToString(full)}${after}>`);
+    } else {
+      const re = new RegExp(`<${element}\\b([^>]*?)\\s${marker}="([^"]*)"([^>]*)>`, 'g');
+      result = result.replace(re, (m, before, codelistKey, after) =>
+        `<${element}${before} ${attrsToString(resolve(codelistKey))}${after}>`);
+    }
   }
   return result;
 }

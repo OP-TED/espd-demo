@@ -26,6 +26,16 @@
       "requestXml": { "kind": "scalar", "element": "cbc:ExpectedDescription" },
       "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:Description" }
     },
+    "CODE_COUNTRY": {
+      "$note": "First code-valued answer (C07). The response is a cbc:ResponseCode carrying the country code-list attributes; those attributes are the dated 'country' set in the codelist-attribute profile, NOT the 5.0.0 response-data-type set — the per-codelist version the C07 probe exists to prove. instanceShape is a scalar string (an ISO 3166-1 alpha-2 code); `codeList` marks it so the form derives the codelist.",
+      "sourceDescription": "Code identifying a country (Compulsory use of ISO 3166-1 alpha 2",
+      "instanceShape": { "type": "string", "codeList": "country" },
+      "responseXml": {
+        "kind": "scalar",
+        "element": "cac:ResponseValue/cbc:ResponseCode",
+        "codelist": "country"
+      }
+    },
     "MINIMUM_AMOUNT": {
       "sourceDescription": "The minimum amount the answer must have",
       "instanceShape": {

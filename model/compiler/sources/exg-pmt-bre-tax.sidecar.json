@@ -1,0 +1,69 @@
+{
+  "$comment": "C07 enrichment sidecar (probe #1, design 'Probe criteria'). exg-pmt-bre-tax, 'Breach of obligations relating to the payment of taxes'. Part III exclusion ground that — unlike C01 — ALSO carries buyer REQUIREMENT leaves directly under the top-level group (minimum-amount threshold + additional information), proving the request/response split is per-leaf by kind, not per-criterion. Introduces CODE_COUNTRY and nests ONTRUE/ONFALSE subgroups 5+ levels deep. espd-edm.json stays as-is; this file joins semantic IDs + instance bindings by requestpath.",
+  "criterion": {
+    "code": "exg-pmt-bre-tax",
+    "id": "exg-pmt-bre-tax",
+    "instanceModel": {
+      "containerPath": ["partIII", "exclusionGrounds"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C07_exg-pmt-bre-tax/RG1/RQ1": {
+      "id": "exg-pmt-bre-tax.minimum-amount",
+      "instanceBinding": { "side": "requirement", "path": ["minimumAmount"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/RQ2": {
+      "id": "exg-pmt-bre-tax.additional-information",
+      "instanceBinding": { "side": "requirement", "path": ["additionalInformation"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-tax.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-tax.country",
+      "instanceBinding": { "side": "response", "path": ["breach", "country"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/Q2": {
+      "id": "exg-pmt-bre-tax.amount",
+      "instanceBinding": { "side": "response", "path": ["breach", "amount"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-tax.established-by-other-means",
+      "instanceBinding": { "side": "response", "path": ["breach", "establishedByOtherMeans"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-tax.means-description",
+      "instanceBinding": { "side": "response", "path": ["breach", "meansDescription"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/Q1": {
+      "id": "exg-pmt-bre-tax.decision-final-and-binding",
+      "instanceBinding": { "side": "response", "path": ["breach", "decision", "finalAndBinding"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q1": {
+      "id": "exg-pmt-bre-tax.decision-date",
+      "instanceBinding": { "side": "response", "path": ["breach", "decision", "date"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q2": {
+      "id": "exg-pmt-bre-tax.exclusion-period",
+      "instanceBinding": { "side": "response", "path": ["breach", "decision", "exclusionPeriod"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG3/Q1": {
+      "id": "exg-pmt-bre-tax.obligations-fulfilled",
+      "instanceBinding": { "side": "response", "path": ["breach", "remedy", "obligationsFulfilled"] }
+    },
+    "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG3/QSG1/Q1": {
+      "id": "exg-pmt-bre-tax.remedy-description",
+      "instanceBinding": { "side": "response", "path": ["breach", "remedy", "description"] }
+    },
+    "C07_exg-pmt-bre-tax/QG1/Q1": {
+      "id": "exg-pmt-bre-tax.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C07_exg-pmt-bre-tax/QG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-tax.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

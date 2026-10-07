@@ -58,7 +58,13 @@ function responseEntry(criterion, leaf, registry) {
   const key = responsePath(leaf);
 
   if (binding.kind === 'scalar') {
-    return { key, value: { from: base, to: binding.element, type: SCALAR_TYPE[leaf.valueType] ?? 'string' } };
+    const value = { from: base, to: binding.element, type: SCALAR_TYPE[leaf.valueType] ?? 'string' };
+    // A code-valued answer carries its codelist attributes (shorthand listID,
+    // expanded to the full dated set by expandCodelistAttributes). The codelist
+    // may differ from response-data-type and carry its own version — the point
+    // of the C07 CODE_COUNTRY probe.
+    if (binding.codelist) value.attributes = { listID: binding.codelist };
+    return { key, value };
   }
   if (binding.kind === 'amount') {
     const valuePath = `${base}.${binding.text.instancePath.join('.')}`;

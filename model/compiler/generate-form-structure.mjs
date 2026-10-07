@@ -274,10 +274,16 @@ export function generateCriterionForm(
     });
   }
 
-  // Response groups keyed by the outermost QUESTION group each leaf sits under.
+  // Response groups are keyed by the OUTERMOST QUESTION group in each leaf's
+  // chain — the first group whose EA type is QUESTION_GROUP/QUESTION_SUBGROUP.
+  // This is the form-section boundary: it keeps a top-level QUESTION_GROUP
+  // together with all its nested subgroups as ONE group (C07's QG1 indicator +
+  // its QG1/QSG1 evidence), while still separating sibling question groups that
+  // live under a shared requirement subgroup (C31's QSG1..QSG4 under RSG1).
+  const isQuestionGroup = g => g.eaType === 'QUESTION_GROUP' || g.eaType === 'QUESTION_SUBGROUP';
   const buckets = new Map();
   for (const ctx of questionContexts) {
-    const owner = ctx.groupChain.find(g => g.requestpath?.includes('/QSG')) ?? ctx.groupChain.at(-1);
+    const owner = ctx.groupChain.find(isQuestionGroup) ?? ctx.groupChain[0] ?? null;
     const key = owner?.requestpath ?? '';
     if (!buckets.has(key)) buckets.set(key, { owner, items: [] });
     buckets.get(key).items.push(ctx);

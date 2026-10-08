@@ -7,13 +7,13 @@
   "properties": {
     "buyerTypes": {
       "type": "array",
-      "description": "Buyer-side roles (Contracting Authority, Contracting Entity)",
+      "description": "Buyer-side roles (Contracting Authority, Contracting Entity). NOTE: unlike eoRoles (backed by EoRoleType.gc), there is no authoritative ESPD 5.0.0 codelist for the CA/CE distinction — no party-type .gc exists, the Schematron does not constrain cac:ContractingPartyType/cbc:PartyTypeCode, and no sample XML populates it. These entries (incl. the cont-auth/cont-ent xmlMapping) are retained as a hand-authored regulatory projection. TODO: clarify with the team whether a buyer/party-type codelist should be introduced upstream, or whether the buyer distinction stays structural (Request vs Response document). See spec task 7.3b.",
       "items": { "$ref": "#/$defs/buyerRoleEntry" },
       "minItems": 1
     },
     "eoRoles": {
       "type": "array",
-      "description": "Economic Operator roles from the EoRoleType codelist",
+      "description": "Economic Operator roles. Codes + labels are derivable from ESPD-EDM/codelists/EoRoleType.gc (authoritative); the formBehavior/xmlMapping are hand-authored projections.",
       "items": { "$ref": "#/$defs/eoRoleEntry" },
       "minItems": 1
     }

@@ -14,7 +14,7 @@
 // responsepath is derived (requestpath + "/R1"), consistent with the EA export.
 
 import { leavesOf } from './read-structural-core.mjs';
-import { leafInstancePath, arrayContainerPrefix } from './encoding-profile.mjs';
+import { leafInstancePath, arrayContainerPrefix, leafDataPath } from './encoding-profile.mjs';
 
 const RESPONSE_TARGET = {
   root: 'QualificationApplicationResponse',
@@ -122,7 +122,15 @@ function responseEntry(criterion, leaf, registry, baseOverride) {
 function evidenceRecordRule(criterion, leaf, registry) {
   const binding = registry.valueTypes[leaf.valueType]?.responseXml;
   if (binding?.kind !== 'reference') return undefined;
-  const base = leafInstancePath(criterion, leaf).join('.');
+  // The document-level cac:Evidence set must collect evidence objects even when
+  // the evidence array is nested inside a repeatable group. leafDataPath inserts
+  // `[]` at each enclosing array-container segment; the EVIDENCE leaf itself is
+  // array-shaped, so its own final segment is also flattened. The mapper then
+  // flattens across every `[]` level (task 7.0c). For a flat leaf with no
+  // enclosing container this reduces to `<path>[]`, still a correct single-level
+  // flatten of the evidence array.
+  const inArray = arrayContainerPrefix(criterion, leaf) > 0;
+  const base = inArray ? `${leafDataPath(criterion, leaf)}[]` : leafInstancePath(criterion, leaf).join('.');
   return {
     records: 'cac:Evidence',
     importVia: 'references',
@@ -156,20 +164,10 @@ export function generateResponseMapping(criterion, registry) {
 
   for (const leaf of questionLeaves) {
     const ev = evidenceRecordRule(criterion, leaf, registry);
-    if (ev) {
-      if (arrayContainerPrefix(criterion, leaf)) {
-        // Evidence inside a repeatable group needs the `references.forEach` to
-        // resolve against the ARRAY ITEM, but the mapper resolves it against the
-        // document root. That is a mapper-engine change (task 7.0c). The
-        // instance-data and form layers already handle this shape; only the XML
-        // response mapping is deferred.
-        throw new Error(
-          `Criterion '${criterion.code}': EVIDENCE_IDENTIFIER leaf '${leaf.id}' inside a repeatable ` +
-          `group needs item-relative reference resolution in the mapper (task 7.0c). ` +
-          `Instance-data and form layers support it; XML response mapping is deferred.`);
-      }
-      evidenceRules.push(ev);
-    }
+    // Evidence inside a repeatable group is now supported (7.0c): the document-
+    // level cac:Evidence set uses a FLATTENED forEach (`container[].evidence`),
+    // and the per-item references entry resolves item-relative.
+    if (ev) evidenceRules.push(ev);
 
     const ckey = containerKey(leaf);
     if (!ckey) {

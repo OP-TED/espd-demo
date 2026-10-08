@@ -1,9 +1,24 @@
 {
   "$comment": "C36 enrichment sidecar (deep nested repeatable groups + evidence-in-array probe). slc-stand-other, 'Other economic or financial requirements'. The buyer picks a requirement TYPE (CODE_BOOLEAN) then provides one of three mutually-structured blocks; RSG1/RSG1/RSG1 (0..n) is a repeatable 'amount-type' requirement block, each with its own AMOUNT answer whose evidence (QSG1/QSG1, 1..n) carries EVIDENCE_IDENTIFIER inside the repetition. The per-lot RG1 1..n is flattened as in C31.",
 
-  "$TODO.shapeUnconfirmed": "The instance shape of C36 is NOT yet confirmed with a reference implementation. C36 has the buyer pick a type (CODE_BOOLEAN) then provide ONE OF three mutually-structured branches (RSG1 amount 0..n, RSG2 rating 0..1, RSG3 descriptive 0..1). This sidecar currently models them as three INDEPENDENT properties (amountRequirements[]/rating/descriptive), which lets all three coexist — but the business intent ('select the type') may be a DISCRIMINATED UNION keyed by requirementType. Pending clarification (see tasks.md 'C36 shape'). The current shape compiles and validates against its own schema; it is a placeholder, not an endorsed projection.",
+  "$shape": "CONFIRMED (shape A) against the authoritative C36 instance in espd-validation-schematron/common/xml/ESPD-Request-BASE.xml (uuid ab0e7f2e-...). The buyer picks a requirement TYPE via RQ1 (CODE_BOOLEAN, a radio) whose three values are the EA group codes of the branches: '[Economic or Financial]' (RSG1), '[Rating]' (RSG2), '[Descriptive]' (RSG3). Modeled as three INDEPENDENT properties (amountRequirements[]/rating/descriptive); the three branches are MUTUALLY EXCLUSIVE at the PRESENTATION level (radio selection), driven by visibleWhen on requirementType — NOT a schema-level union (the EA model does not give a discriminator enum/mapping, so a union would be invented). amountRequirements is 0..n (the buyer may state several economic/financial requirements); rating and descriptive are 0..1.",
 
-  "$arrayModel": "Only the first branch (RSG1/RSG1/RSG1, 0..n) is modeled as the array 'amountRequirements[]' with a nested per-answer-evidence array 'amountRequirements[].evidenceBlocks[]' holding EVIDENCE_IDENTIFIER — exercising both nested arrays AND evidence-inside-a-repeatable-group. The two 0..1 branches (RSG2 rating, RSG3 descriptive) are singular objects.",
+  "$arrayModel": "Only the first branch (RSG1/RSG1/RSG1, 0..n) is modeled as the array 'amountRequirements[]' with a nested per-answer-evidence array 'amountRequirements[].evidence' holding EVIDENCE_IDENTIFIER — exercising both nested arrays AND evidence-inside-a-repeatable-group. The two 0..1 branches (RSG2 rating, RSG3 descriptive) are singular objects.",
+
+  "$visibleWhen": "The three branches are gated by the ENUMERATED requirement type (requirementType), not a boolean ON*/ONTRUE/ONFALSE. The branch visibility is value-equality: amountRequirements shown when requirementType = '[Economic or Financial]', rating when '[Rating]', descriptive when '[Descriptive]'. Declared explicitly in branchSelectors below because this enum-selector gating is a different mechanism from the boolean condition markers the compiler derives automatically.",
+
+  "branchSelectors": {
+    "$note": "Task 7.x — enum-selector visibleWhen for mutually-exclusive branches. Maps a branch's top instance-path segment to the requirementType value that reveals it. The form generator emits visibleWhen { path: <requirementType dataPath>, equals: <value> } for every field under that branch.",
+
+    "$TODO.reviewSelectorValues": "The branch values '[Economic or Financial]' / '[Rating]' / '[Descriptive]' are the RAW EA group codes as exported (bracketed), which look like placeholder labels rather than final enum code values. REVIEW whether these are the intended selector values or whether the EA model should carry proper CODE_BOOLEAN enum codes (and whether a dedicated codelist defines them). If the EA codes change, update these values. See tasks.md 'C36 selector values (TODO)'.",
+
+    "selector": "slc-stand-other.requirement-type",
+    "branches": {
+      "amountRequirements": "[Economic or Financial]",
+      "rating": "[Rating]",
+      "descriptive": "[Descriptive]"
+    }
+  },
 
   "criterion": {
     "code": "slc-stand-other",

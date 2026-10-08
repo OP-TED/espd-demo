@@ -190,3 +190,50 @@ compiled espd-edm
 Some enrichment is derivable normalization, but the most important additions—
 component semantic IDs and instance projections—are real information that must
 be intentionally authored and maintained.
+
+## Candidates for moving upstream
+
+Implementing the compiler surfaced specific pieces of information that are
+currently authored in sidecars or registries but are **intrinsic ESPD
+semantics** — they would be the same for any implementation consuming the model.
+Applying the ownership rule above, these are candidates to carry upstream (an EA
+tagged value exported into `espd-edm.json`, or a `ResponseDataType.gc` facet) so
+they stop being authored per criterion. Each is cross-referenced to the compiler
+task that documents the detail.
+
+### Strong candidates (intrinsic, hand-authored today)
+
+| Item | Lives now | How to move upstream | Retires |
+|---|---|---|---|
+| Per-property codelist for `CODE` (occupation / financial-ratio-type / eo-role-type) | sidecar leaf `codelist` | Populate the EA `cbc::CodeListID` tagged value — the exporter already reads it in `espd-tools/EAtoJSON/export-package.js` (`buildStandardFields`), it is simply unset today | the per-leaf `codelist` entries |
+| Per-property value bound (e.g. "number of fiscal years" minimum 1) | `sources/<criterion>.hints.json` | New EA tagged value exported as a per-property `valuebounds` field. Must be per property — `QUANTITY_YEAR` is reused for a count, a calendar year, and a duration, so a single datatype-wide bound is wrong | the `minimum` hint |
+| Datatype-wide facets (`QUANTITY_YEAR` non-negative; `PERIOD` needs at least one of start/end) | value-type registry `instanceConstraints` | Extra columns on `ResponseDataType.gc` (e.g. `minInclusive`) | datatype-level constraints |
+
+The codelist case is the cleanest first step: the export plumbing already
+exists, so it is an EA data change plus a compiler preference for the export
+value, with the sidecar entry kept only as a fallback.
+
+### Medium candidates (reduce ambiguity)
+
+- **Repeatable-group intent.** EA cardinality `0..n`/`1..n` on a group conflates
+  two different things: a genuine data array (convictions, periods, ratios) and
+  per-lot scoping (the selection-criterion `RG1`). An explicit upstream marker
+  would let the compiler decide "array vs flatten" without a per-criterion human
+  judgment; today that decision is encoded as `repeatable: true` in the sidecar.
+- **Overloaded `QUANTITY_YEAR`.** Splitting it into distinct datatypes
+  (count / calendar year / duration) is a model-quality fix that would make the
+  datatype facets above work cleanly. This is a breaking code-list change and
+  should be raised on its own.
+
+### Not candidates — implementation projections (keep in sidecars)
+
+Consistent with "Recommended ownership", these are reference-implementation
+decisions, not intrinsic ESPD structure, and must NOT move upstream:
+
+- semantic IDs (a maintainer decision; not robustly inferable from a tag);
+- `instanceModel` / `instanceBinding`, including the array names a repeatable
+  group projects to (`periods`, `ratios`, `amountRequirements`);
+- `uiType`, i18n label/title keys, and form grouping / group display names;
+- lot flattening — lots are a document-level mechanism (one Request per
+  procedure, one Response per lot), so the per-lot `RG1` is a projection choice,
+  not an in-criterion array.

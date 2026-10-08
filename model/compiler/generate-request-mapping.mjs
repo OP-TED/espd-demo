@@ -158,15 +158,19 @@ function groupNode(criterion, node, registry, nested, itemPrefixLen = 0) {
 
   if (myPrefix) {
     // Repeatable requirement group: the whole subgroup repeats once per array
-    // item. The `forEach` path is the array's instance path; descendant leaf
-    // `from` paths were built relative to the item (childPrefix).
-    const arrayInstancePath = [
-      ...criterion.instanceModel.containerPath,
-      criterion[criterion.instanceModel.key.source],
-      node.instanceBinding.side,
-      ...node.instanceBinding.path,
-    ].join('.');
-    spec.forEach = arrayInstancePath;
+    // item. For the OUTERMOST array (itemPrefixLen 0) the `forEach` is the
+    // array's absolute instance path. For a NESTED array (we are already inside
+    // an outer item) the mapper resolves this node's `forEach` against the outer
+    // ITEM, so the path must be RELATIVE to it — the binding-path segments after
+    // the enclosing prefix (task 7.0c, e.g. periods[].ratios -> `ratios`).
+    spec.forEach = itemPrefixLen
+      ? node.instanceBinding.path.slice(itemPrefixLen).join('.')
+      : [
+          ...criterion.instanceModel.containerPath,
+          criterion[criterion.instanceModel.key.source],
+          node.instanceBinding.side,
+          ...node.instanceBinding.path,
+        ].join('.');
   }
   return spec;
 }
@@ -190,22 +194,8 @@ function childNodes(criterion, node, registry, insideGroup, itemPrefixLen = 0) {
  * Generate the full request mapping spec for a compiled criterion.
  */
 export function generateRequestMapping(criterion, registry) {
-  // Nested repeatable REQUIREMENT groups (an array inside an array on the
-  // request side, e.g. C34 periods[].ratios[]) need the inner `forEach` path to
-  // be relative to the OUTER item, which the single-level item-prefix tracking
-  // below does not yet express. Fail fast on that narrow case; single-level
-  // repeatable requirement groups (C36 amountRequirements[]) ARE supported.
-  const reqContainers = (criterion.arrayContainers ?? []).filter(c => c.side === 'requirement');
-  for (const a of reqContainers) {
-    for (const b of reqContainers) {
-      if (a !== b && b.path.length > a.path.length && a.path.every((s, i) => s === b.path[i])) {
-        throw new Error(
-          `Criterion '${criterion.code}': nested repeatable REQUIREMENT groups ` +
-          `(${a.path.join('.')} / ${b.path.join('.')}) are not yet supported in request mapping (task 7.0c).`);
-      }
-    }
-  }
-
+  // Nested repeatable REQUIREMENT groups (C34 periods[].ratios[]) are supported:
+  // groupNode emits item-relative `forEach` paths at each nesting level (7.0c).
   const criterionChildren = [
     idNode(criterion.uuid), // criterion cbc:ID is the uuid (overridden below)
     { element: 'cbc:CriterionTypeCode', const: criterion.code, attributes: { listID: 'http://publications.europa.eu/resource/authority/criterion' } },

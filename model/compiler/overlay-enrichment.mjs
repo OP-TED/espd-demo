@@ -37,6 +37,11 @@ export function overlayEnrichment(core, sidecar) {
   const compiled = clone(core);
   compiled.id = sidecar.criterion.id ?? core.code;
   compiled.instanceModel = sidecar.criterion.instanceModel;
+  // Enum-selector branch visibility (e.g. C36: a radio type-selector reveals one
+  // of several mutually-exclusive branches). Carried through so the form
+  // generator can emit value-equality visibleWhen rules the boolean condition
+  // markers cannot express. Pure projection data; stripped before equivalence.
+  if (sidecar.branchSelectors) compiled.branchSelectors = sidecar.branchSelectors;
 
   // Index leaves AND groups by correlation path. Groups are indexable so a
   // REPEATABLE group (EA cardinality 0..n / 1..n) can carry its own binding,

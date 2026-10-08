@@ -170,6 +170,32 @@ function visibleWhenOf(criterion, gate, registry, profile) {
   };
 }
 
+/** Find a value leaf by semantic ID. */
+function leafBySemanticId(criterion, id) {
+  let found;
+  (function walk(n) { for (const c of n.children ?? []) { if (c.id === id) found = c; walk(c); } })(criterion);
+  return found;
+}
+
+/**
+ * Enum-selector branch visibility (e.g. C36). If the leaf's binding sits under a
+ * branch declared in `criterion.branchSelectors`, return a value-equality
+ * visibleWhen against the selector leaf — "show this branch when the type
+ * selector equals <branch value>". This gating is the OUTERMOST for the branch
+ * and takes precedence over any inner boolean gate (an inner gate lives inside
+ * an already-hidden branch). Returns undefined when the leaf is not in a branch.
+ */
+function branchVisibleWhenOf(criterion, leaf, registry) {
+  const sel = criterion.branchSelectors;
+  if (!sel) return undefined;
+  const head = leaf.instanceBinding?.path?.[0];
+  if (head === undefined || !(head in (sel.branches ?? {}))) return undefined;
+  if (leaf.id === sel.selector) return undefined; // the selector itself is not gated
+  const selectorLeaf = leafBySemanticId(criterion, sel.selector);
+  if (!selectorLeaf) throw new Error(`branchSelectors.selector '${sel.selector}' not found in '${criterion.code}'`);
+  return { path: dataPathOf(criterion, selectorLeaf, registry), equals: sel.branches[head] };
+}
+
 /**
  * Emit the form field(s) for one leaf. A leaf whose value type is an object or
  * an array of objects becomes one field PER scalar property, matching the
@@ -186,7 +212,10 @@ function fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, 
   // calls optional.
   const required = isRequiredCardinality(leaf.cardinality) && !optionalIds.has(leaf.id);
   const repeatable = isRepeatableCardinality(leaf.cardinality);
-  const visibleWhen = visibleWhenOf(criterion, gate, registry, profile);
+  // An enum-selector branch gate (C36) is the outermost gate for its branch and
+  // wins over an inner boolean condition gate.
+  const visibleWhen = branchVisibleWhenOf(criterion, leaf, registry)
+    ?? visibleWhenOf(criterion, gate, registry, profile);
   const filledBy = profile.filledBy.byNodeKind[leaf.nodeKind];
   const codelists = new Map(codelistsOfShape(shape).map(c => [c.path.join('.'), c.codelist]));
   // A per-leaf codelist (CODE, whose list varies by use) is declared on the leaf,

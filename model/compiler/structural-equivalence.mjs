@@ -29,9 +29,10 @@ function stripNode(node) {
  * semantic-only fields (criterion id/instanceModel, leaf id/instanceBinding).
  */
 export function projectCompiled(compiled) {
-  // arrayContainers is a compiler-derived index (from repeatable-group bindings),
-  // not EA structure, so it is dropped alongside id/instanceModel.
-  const { id, instanceModel, arrayContainers, ...rest } = compiled;
+  // arrayContainers and branchSelectors are compiler-derived projection data
+  // (from repeatable-group bindings / enum-selector sidecar), not EA structure,
+  // so they are dropped alongside id/instanceModel.
+  const { id, instanceModel, arrayContainers, branchSelectors, ...rest } = compiled;
   return {
     code: rest.code,
     uuid: rest.uuid,

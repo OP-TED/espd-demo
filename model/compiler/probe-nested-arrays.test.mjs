@@ -79,17 +79,36 @@ test('C34 arrayContainerDepths reports both nesting levels for a deep leaf', () 
   assert.deepEqual(arrayContainerDepths(compiled, ratioType[0]), [1, 2]);
 });
 
-test('C34 request mapping fails fast on nested repeatable REQUIREMENT groups (7.0c)', () => {
+test('C34 request mapping round-trips NESTED repeatable requirement groups (7.0c)', () => {
   const { compiled, registry } = compileC('slc-stand-ratio');
-  assert.throws(() => generateRequestMapping(compiled, registry), /nested repeatable REQUIREMENT groups/i);
+  const request = generateRequestMapping(compiled, registry);
+  const data = { partIV: { selectionCriteria: { 'slc-stand-ratio': { requirement: {
+    lotIdentifiers: ['LOT-1'],
+    periods: [
+      { ratios: [{ ratioType: 'RT-A', definition: 'defA', minimumRatio: 0.5 }, { ratioType: 'RT-B', definition: 'defB', minimumRatio: 0.3 }] },
+      { ratios: [{ ratioType: 'RT-C', definition: 'defC', minimumRatio: 0.7 }] },
+    ],
+  } } } } };
+  const back = unmap(request, map(request, data)).partIV.selectionCriteria['slc-stand-ratio'].requirement;
+  assert.equal(back.periods.length, 2);
+  assert.equal(back.periods[0].ratios.length, 2);
+  assert.equal(back.periods[1].ratios.length, 1);
+  assert.equal(back.periods[0].ratios[0].ratioType, 'RT-A');
+  assert.equal(back.periods[1].ratios[0].minimumRatio, 0.7);
 });
 
-test('C34 response mapping fails fast on evidence inside a repeatable group (7.0c)', async () => {
+test('C34 response mapping round-trips evidence inside a repeatable group (7.0c)', () => {
   const { compiled, registry } = compileC('slc-stand-ratio');
-  // Call the response generator directly: generateMappings would hit the request
-  // nested-group guard first (C34 has both deferred patterns).
-  const { generateResponseMapping } = await import('./generate-response-mapping.mjs');
-  assert.throws(() => generateResponseMapping(compiled, registry), /EVIDENCE_IDENTIFIER .* repeatable group/i);
+  const { response } = generateMappings(compiled, registry);
+  const data = { partIV: { selectionCriteria: { 'slc-stand-ratio': { response: {
+    evidenceBlocks: [
+      { availableElectronically: true, evidence: [{ id: 'EV-1', url: 'http://a' }] },
+    ],
+  } } } } };
+  const back = unmap(response, map(response, data)).partIV.selectionCriteria['slc-stand-ratio'].response;
+  assert.equal(back.evidenceBlocks.length, 1);
+  assert.equal(back.evidenceBlocks[0].evidence[0].id, 'EV-1');
+  assert.equal(back.evidenceBlocks[0].evidence[0].url, 'http://a');
 });
 
 // --- C36: single-level requirement array + evidence-in-array --------------
@@ -112,6 +131,44 @@ test('C36 schema + example validate with the repeatable amount block on both sid
   assert.ok(validate(generateExample(compiled, registry)), `C36 example invalid: ${JSON.stringify(validate.errors)}`);
 });
 
+test('C36 shape (A): three independent branches gated by the type selector', () => {
+  const { compiled, registry } = compileC('slc-stand-other');
+  const form = generateFormStructure(compiled, registry, { partId: 'IV', presentation: null });
+  const fields = new Map();
+  for (const g of form.criteria[0].groups) for (const f of g.fields) fields.set(f.semanticId, f);
+
+  const P = 'partIV.selectionCriteria.slc-stand-other.requirement.requirementType';
+  // Each branch's fields are gated by requirementType = its branch value.
+  assert.deepEqual(fields.get('slc-stand-other.amount-description').visibleWhen,
+    { path: P, equals: '[Economic or Financial]' });
+  assert.deepEqual(fields.get('slc-stand-other.rating-description').visibleWhen,
+    { path: P, equals: '[Rating]' });
+  assert.deepEqual(fields.get('slc-stand-other.descriptive-requirement').visibleWhen,
+    { path: P, equals: '[Descriptive]' });
+  // The selector itself is ungated.
+  assert.equal(fields.get('slc-stand-other.requirement-type').visibleWhen, undefined);
+});
+
+test('C36 branch-selector gate wins over an inner boolean gate', () => {
+  const { compiled, registry } = compileC('slc-stand-other');
+  const form = generateFormStructure(compiled, registry, { partId: 'IV', presentation: null });
+  const fields = new Map();
+  for (const g of form.criteria[0].groups) for (const f of g.fields) fields.set(f.dataPath, f);
+
+  // The amount answer sits in the amount branch; its visibleWhen is the branch
+  // selector (outermost), not any inner condition.
+  const amountAnswer = [...fields.values()].find(f => f.semanticId === 'slc-stand-other.amount-answer');
+  assert.ok(amountAnswer.visibleWhen.path.endsWith('.requirementType'));
+  assert.equal(amountAnswer.visibleWhen.equals, '[Economic or Financial]');
+});
+
+test('C36 branchSelectors is stripped by the structural-equivalence projection', async () => {
+  const { compiled } = compileC('slc-stand-other');
+  assert.ok(compiled.branchSelectors, 'carried on the compiled criterion');
+  const { projectCompiled } = await import('./structural-equivalence.mjs');
+  assert.equal(projectCompiled(compiled).branchSelectors, undefined, 'not in the EA projection');
+});
+
 test('C36 request mapping round-trips the single-level repeatable requirement group', () => {
   const { compiled, registry } = compileC('slc-stand-other');
   const request = generateRequestMapping(compiled, registry);
@@ -128,9 +185,19 @@ test('C36 request mapping round-trips the single-level repeatable requirement gr
   assert.deepEqual(back.amountRequirements.map(a => a.description), ['d1', 'd2']);
 });
 
-test('C36 response mapping fails fast on evidence inside a repeatable group (7.0c)', () => {
+test('C36 response mapping round-trips evidence inside a repeatable group (7.0c)', () => {
   const { compiled, registry } = compileC('slc-stand-other');
-  assert.throws(() => generateMappings(compiled, registry), /EVIDENCE_IDENTIFIER .* repeatable group/i);
+  const { response } = generateMappings(compiled, registry);
+  const data = { partIV: { selectionCriteria: { 'slc-stand-other': { response: {
+    amountRequirements: [
+      { amount: { value: 50000, currency: 'EUR' }, evidenceAvailableElectronically: true, evidence: [{ id: 'EV-1', url: 'http://a', description: 'd1' }] },
+      { amount: { value: 60000, currency: 'EUR' }, evidenceAvailableElectronically: true, evidence: [{ id: 'EV-2', url: 'http://b', description: 'd2' }] },
+    ],
+  } } } } };
+  const back = unmap(response, map(response, data)).partIV.selectionCriteria['slc-stand-other'].response;
+  assert.equal(back.amountRequirements.length, 2);
+  assert.equal(back.amountRequirements[0].evidence[0].id, 'EV-1');
+  assert.equal(back.amountRequirements[1].evidence[0].url, 'http://b');
 });
 
 test('C34 and C36 added NO criterion-specific code to the generators', () => {
@@ -143,4 +210,33 @@ test('C34 and C36 added NO criterion-specific code to the generators', () => {
     assert.ok(!code.includes('slc-stand-ratio'), `${file} must not name C34`);
     assert.ok(!code.includes('slc-stand-other'), `${file} must not name C36`);
   }
+});
+
+// --------------------------------------------------------------------------
+// Schematron (guarded by Saxon) — the nested-evidence response validates.
+// --------------------------------------------------------------------------
+
+test('7.0c — C36 nested-evidence response runs through the ESPD Schematron', async (t) => {
+  const { checkSaxonAvailable, validateXml, expandCodelistAttributes } =
+    await import('./schematron-validate.mjs');
+  if (!checkSaxonAvailable()) { t.skip('Saxon/Java not available'); return; }
+
+  const { compiled, registry } = compileC('slc-stand-other');
+  const { response } = generateMappings(compiled, registry);
+  const { loadValidatedCodelistProfile } = await import('./codelist-attributes.mjs');
+  const { profile } = loadValidatedCodelistProfile();
+
+  const data = { partIV: { selectionCriteria: { 'slc-stand-other': { response: {
+    amountRequirements: [
+      { amount: { value: 50000, currency: 'EUR' }, evidenceAvailableElectronically: true, evidence: [{ id: 'EV-1', url: 'http://a' }] },
+      { amount: { value: 60000, currency: 'EUR' }, evidenceAvailableElectronically: true, evidence: [{ id: 'EV-2', url: 'http://b' }] },
+    ],
+  } } } } };
+  const expanded = expandCodelistAttributes(map(response, data), profile);
+
+  // Two amount blocks -> two cac:Evidence records at document level.
+  assert.equal((expanded.match(/<cac:Evidence>/g) || []).length, 2);
+
+  const { errors, warnings, findings } = validateXml(expanded, 'response');
+  console.log(`    C36 nested-evidence response (fragment): ${findings.length} findings (${errors.length} fatal, ${warnings.length} warn)`);
 });

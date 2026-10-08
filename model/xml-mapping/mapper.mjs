@@ -339,7 +339,11 @@ function emitEntryBody(node, entry, context, data) {
     return any;
   }
   if (entry.references) {
-    const items = resolve(data, entry.references.forEach);
+    // Resolve the evidence array against `context`: for a flat entry `context`
+    // IS the document data (so an absolute path works); for an entry inside a
+    // `forEach` records rule `context` is the current array ITEM, so the path is
+    // item-relative (task 7.0c — evidence inside a repeatable group).
+    const items = resolve(context, entry.references.forEach);
     if (!Array.isArray(items)) return false;
     const values = items
       .map(item => resolve(item, entry.references.key))
@@ -368,10 +372,38 @@ function emitEntryRecord(root, rule, entry, context, data) {
 }
 
 /** EXPORT one `records` rule. */
+/**
+ * Resolve an array that may be reached THROUGH one or more enclosing arrays. A
+ * path segment `foo[]` means "for each element of foo, descend"; the results are
+ * flattened. So `a[].b[].c` collects every `c` across all a-items and b-items.
+ * A plain dotted path (no `[]`) resolves normally. Used for document-level record
+ * sets whose source array is nested inside a repeatable group (task 7.0c).
+ */
+function resolveFlattened(data, dottedPath) {
+  const segs = dottedPath.split('.');
+  let current = [data];
+  for (const seg of segs) {
+    const isArray = seg.endsWith('[]');
+    const name = isArray ? seg.slice(0, -2) : seg;
+    const next = [];
+    for (const ctx of current) {
+      const v = ctx == null ? undefined : ctx[name];
+      if (v === undefined || v === null) continue;
+      if (isArray) { if (Array.isArray(v)) next.push(...v); }
+      else next.push(v);
+    }
+    current = next;
+  }
+  return current;
+}
+
 function buildRecords(root, rule, data) {
   if (rule.forEach && rule.item?.fields) {
     // Aggregate-record form: one record per array item, all fields inside it.
-    const items = resolve(data, rule.forEach);
+    // A `[]` in the forEach path flattens across enclosing arrays (7.0c).
+    const items = rule.forEach.includes('[]')
+      ? resolveFlattened(data, rule.forEach)
+      : resolve(data, rule.forEach);
     if (!Array.isArray(items) || items.length === 0) return;
     for (const item of items) {
       const node = appendPath(root, rule.records.split('/'));

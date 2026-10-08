@@ -105,7 +105,7 @@ test('exg-crim-part reproduces the hand-authored Part III form (modulo the repea
   }
 
   const hand = JSON.parse(fs.readFileSync(
-    path.join(here, '..', 'form-structure', 'part-III.form.json'), 'utf8'));
+    path.join(here, '..', 'legacy', 'form-structure', 'part-III.form.json'), 'utf8'));
   const reference = hand.criteria[0].groups.flatMap(g => g.fields);
 
   // 7.0: the conviction subgroup is 0..n, modeled as 'convictions[]'. With the

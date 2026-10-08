@@ -20,10 +20,10 @@ import { map, unmap } from './mapper.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function load(rel) {
-  return JSON.parse(fs.readFileSync(path.resolve(__dirname, rel), 'utf8'));
+  return JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'legacy', rel), 'utf8'));
 }
 
-const spec = load('part-III.mapping.json');
+const spec = load('xml-mapping/part-III.mapping.json');
 
 const cases = [
   {

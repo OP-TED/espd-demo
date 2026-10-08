@@ -1,0 +1,21 @@
+{
+  "partIV": {
+    "selectionCriteria": {
+      "slc-suit-reg-prof": {
+        "requirement": {
+          "lotIdentifiers": [
+            "sample"
+          ],
+          "occupation": "sample"
+        },
+        "response": {
+          "fulfilledByItself": true,
+          "registered": true,
+          "electronicEvidence": {
+            "availableElectronically": false
+          }
+        }
+      }
+    }
+  }
+}

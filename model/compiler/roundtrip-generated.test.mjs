@@ -27,7 +27,7 @@ const edm = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
 const CODE = 'slc-stand-to-spec-avg';
 
 const core = readStructuralCore(edm, CODE);
-const sidecar = JSON.parse(fs.readFileSync(path.join(here, 'sources', `${CODE}.sidecar.json`), 'utf8'));
+const sidecar = JSON.parse(fs.readFileSync(path.join(here, '..', 'model-sources', 'criteria', `${CODE}.sidecar.json`), 'utf8'));
 const criterion = overlayEnrichment(core, sidecar);
 const { registry } = loadValidatedRegistry();
 

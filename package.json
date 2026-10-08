@@ -7,6 +7,8 @@
     "dev": "node dev-server.js",
     "build": "echo 'No build step needed - static files'",
     "build:pages": "node scripts/build-pages.js",
+    "model:compile": "node model/compiler/build-generated.mjs",
+    "model:test": "node --test model/compiler/ model/xml-mapping/",
     "test": "node --test tests/",
     "test:e2e": "playwright test --config=playwright.config.js"
   },

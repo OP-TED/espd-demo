@@ -1,7 +1,7 @@
 {
   "$comment": "Codelist-attribute profile. Fixed attribute sets the Schematron (common/sch/01-ESPD-common-cl-attributes.sch) requires on code elements, defined ONCE per codelist. The compiler stamps these onto any element whose encoding-profile entry names the matching codelist. Values are copied verbatim from the Schematron (several carry dated listVersionIDs). 'criterion-id' is not a Schematron codelist rule but the UBL identifier scheme attributes seen on every cbc:ID in ESPD-Request-BASE.xml; it is included here so the compiler has one place for all fixed attribute sets.",
   "source": {
-    "schematron": "../../../espd-validation-schematron/common/sch/01-ESPD-common-cl-attributes.sch",
+    "schematron": "../../../../espd-validation-schematron/common/sch/01-ESPD-common-cl-attributes.sch",
     "version": "5.0.0"
   },
   "codelists": {

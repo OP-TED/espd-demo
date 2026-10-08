@@ -23,12 +23,12 @@ import { leafInstancePath, arrayContainerDepths } from './encoding-profile.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
-export function loadFormProfile(profilePath = path.join(here, 'form-profile.json')) {
+export function loadFormProfile(profilePath = path.join(here, '..', 'model-sources', 'registries', 'form-profile.json')) {
   return JSON.parse(fs.readFileSync(profilePath, 'utf8'));
 }
 
 /** Load a criterion's presentation sidecar (optional — absent means no overrides). */
-export function loadPresentation(code, dir = path.join(here, 'sources')) {
+export function loadPresentation(code, dir = path.join(here, '..', 'model-sources', 'criteria')) {
   const p = path.join(dir, `${code}.presentation.json`);
   if (!fs.existsSync(p)) return null;
   return JSON.parse(fs.readFileSync(p, 'utf8'));

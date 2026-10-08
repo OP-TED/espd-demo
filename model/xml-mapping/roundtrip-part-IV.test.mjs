@@ -25,11 +25,11 @@ import { map, unmap } from './mapper.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function load(rel) {
-  return JSON.parse(fs.readFileSync(path.resolve(__dirname, rel), 'utf8'));
+  return JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'legacy', rel), 'utf8'));
 }
 
-const requestSpec = load('part-IV.request.mapping.json');
-const responseSpec = load('part-IV.response.mapping.json');
+const requestSpec = load('xml-mapping/part-IV.request.mapping.json');
+const responseSpec = load('xml-mapping/part-IV.response.mapping.json');
 
 const CODE = 'slc-stand-to-spec-avg';
 

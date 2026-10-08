@@ -41,7 +41,7 @@ function gcProvenance(xml) {
 }
 
 /** Load the registry + its Genericode source. */
-export function loadRegistry(registryPath = path.join(here, 'value-types.json')) {
+export function loadRegistry(registryPath = path.join(here, '..', 'model-sources', 'registries', 'value-types.json')) {
   const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
   const gcPath = path.resolve(path.dirname(registryPath), registry.source.path);
   const gcXml = fs.readFileSync(gcPath, 'utf8');

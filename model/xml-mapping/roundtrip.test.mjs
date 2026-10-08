@@ -12,13 +12,13 @@ import { map, unmap } from './mapper.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function load(rel) {
-  return JSON.parse(fs.readFileSync(path.resolve(__dirname, rel), 'utf8'));
+  return JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'legacy', rel), 'utf8'));
 }
 
-const spec = load('part-I.mapping.json');
+const spec = load('xml-mapping/part-I.mapping.json');
 
 const cases = [
-  { name: 'TED_CN with number + url (default example)', instance: load('../instance-data/part-I.example.json') },
+  { name: 'TED_CN with number + url (default example)', instance: load('instance-data/part-I.example.json') },
   {
     name: 'TED_CN without url (identifier only)',
     instance: {

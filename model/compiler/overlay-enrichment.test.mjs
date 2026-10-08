@@ -19,7 +19,7 @@ const CODE = 'slc-stand-to-spec-avg';
 const edm = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
 const core = readStructuralCore(edm, CODE);
 const baseSidecar = JSON.parse(
-  fs.readFileSync(path.join(here, 'sources', `${CODE}.sidecar.json`), 'utf8')
+  fs.readFileSync(path.join(here, '..', 'model-sources', 'criteria', `${CODE}.sidecar.json`), 'utf8')
 );
 
 const clone = v => structuredClone(v);

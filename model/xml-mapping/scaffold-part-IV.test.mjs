@@ -84,7 +84,7 @@ function check (name, fn) {
 
 // --- generate the request declaration via the mapper + the embedded structure -
 
-const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'part-IV.request.mapping.json'), 'utf8'));
+const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'legacy', 'xml-mapping', 'part-IV.request.mapping.json'), 'utf8'));
 const instance = {
   partIV: { selectionCriteria: { [CODE]: { requirement: {
     lotIdentifiers: ['LOT-0000'],

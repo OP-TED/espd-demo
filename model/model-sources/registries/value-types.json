@@ -1,7 +1,7 @@
 {
   "$comment": "Value-type registry. ESPD-EDM/codelists/ResponseDataType.gc is authoritative for which codes exist, their status and description; this file adds the JSON instanceShape and the request/response UBL value bindings. One entry per ValueDataTypeCode. Leaf VALUE elements and value-bearing attributes (currencyID, unitCode) live here; fixed codelist attributes live in the codelist-attribute profile; kind->element scaffold lives in the encoding profile.",
   "source": {
-    "path": "../../../ESPD-EDM/codelists/ResponseDataType.gc",
+    "path": "../../../../ESPD-EDM/codelists/ResponseDataType.gc",
     "shortName": "ResponseDataType",
     "version": "5.0.0"
   },

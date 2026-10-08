@@ -18,6 +18,7 @@ import { loadValidatedRegistry, validateCriterionValueTypes } from './value-type
 import { generateRequestMapping } from './generate-request-mapping.mjs';
 import { generateResponseMapping } from './generate-response-mapping.mjs';
 import { generateFormStructure, loadPresentation } from './generate-form-structure.mjs';
+import { generateInstanceSchema, generateExample } from './generate-instance-schema.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const defaultSource = path.resolve(
@@ -34,12 +35,14 @@ export function loadEdm(sourcePath) {
   return JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
 }
 
-export function loadSidecar(code, dir = path.join(here, 'sources')) {
+const CRITERIA_DIR = path.join(here, '..', 'model-sources', 'criteria');
+
+export function loadSidecar(code, dir = CRITERIA_DIR) {
   const sidecarPath = path.join(dir, `${code}.sidecar.json`);
   return JSON.parse(fs.readFileSync(sidecarPath, 'utf8'));
 }
 
-export function loadHints(code, dir = path.join(here, 'sources')) {
+export function loadHints(code, dir = CRITERIA_DIR) {
   const hintsPath = path.join(dir, `${code}.hints.json`);
   if (!fs.existsSync(hintsPath)) return null;
   return JSON.parse(fs.readFileSync(hintsPath, 'utf8'));
@@ -70,6 +73,41 @@ export function generateForm(compiled, registry, { partId, hints, presentation }
 
 export { loadPresentation };
 
+/** Default root for committed, generated artifacts (one subdir per layer). */
+export const generatedRoot = path.resolve(here, '..', 'generated');
+
+/**
+ * Emit all three layers for a compiled criterion as per-CRITERION files under
+ * `root` (default: model/generated/). Instance-data schema + example,
+ * request/response mappings, and the form lens. Returns the written paths.
+ * XML mappings are skipped (with a note) when the criterion has a shape the
+ * mapping generators do not yet support, so instance-data + form still emit.
+ */
+export function emitAll(code, compiled, registry, { root = generatedRoot, partId } = {}) {
+  const written = [];
+  const write = (sub, name, obj) => {
+    const dir = path.join(root, sub);
+    fs.mkdirSync(dir, { recursive: true });
+    const p = path.join(dir, name);
+    fs.writeFileSync(p, JSON.stringify(obj, null, 2) + '\n');
+    written.push(path.relative(process.cwd(), p));
+  };
+
+  const hints = loadHints(code);
+  write('instance-data', `${code}.schema.json`, generateInstanceSchema(compiled, registry, { partId, hints }));
+  write('instance-data', `${code}.example.json`, generateExample(compiled, registry));
+  write('form-structure', `${code}.form.json`, generateForm(compiled, registry, { partId, hints }));
+
+  try {
+    const { request, response } = generateMappings(compiled, registry);
+    write('xml-mapping', `${code}.request.mapping.json`, request);
+    write('xml-mapping', `${code}.response.mapping.json`, response);
+  } catch (err) {
+    process.stderr.write(`  (xml-mapping skipped for ${code}: ${err.message.split('\n')[0]})\n`);
+  }
+  return written;
+}
+
 // CLI entry
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('compile.mjs')) {
   const code = option('--code');
@@ -89,21 +127,13 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
     '.\n'
   );
 
-  const emitDir = option('--emit-mappings');
-  const emitFormDir = option('--emit-form');
-  if (emitDir && compiled) {
-    const { request, response } = generateMappings(compiled, registry);
-    const dir = path.resolve(emitDir);
-    fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(path.join(dir, `${code}.request.mapping.json`), JSON.stringify(request, null, 2) + '\n');
-    fs.writeFileSync(path.join(dir, `${code}.response.mapping.json`), JSON.stringify(response, null, 2) + '\n');
-    process.stderr.write(`Emitted request + response mappings to ${path.relative(process.cwd(), dir)}\n`);
-  } else if (emitFormDir && compiled) {
-    const form = generateForm(compiled, registry, { partId: option('--part'), hints: loadHints(code) });
-    const dir = path.resolve(emitFormDir);
-    fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(path.join(dir, `${code}.form.json`), JSON.stringify(form, null, 2) + '\n');
-    process.stderr.write(`Emitted form structure to ${path.relative(process.cwd(), dir)}\n`);
+  // --emit [dir]  writes all three layers per-criterion into generated/ (or dir).
+  const emitIdx = process.argv.indexOf('--emit');
+  if (emitIdx !== -1 && compiled) {
+    const next = process.argv[emitIdx + 1];
+    const root = next && !next.startsWith('--') ? path.resolve(next) : generatedRoot;
+    const written = emitAll(code, compiled, registry, { root, partId: option('--part') });
+    process.stderr.write(`Emitted ${written.length} file(s) under ${path.relative(process.cwd(), root)}\n`);
   } else {
     process.stdout.write(JSON.stringify(out, null, 2) + '\n');
   }

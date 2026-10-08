@@ -176,7 +176,7 @@ test('non-repeatable criteria carry no arrayContainers', () => {
 });
 
 function loadHintsSafe() {
-  const p = path.join(here, 'sources', `${CODE}.hints.json`);
+  const p = path.join(here, '..', 'model-sources', 'criteria', `${CODE}.hints.json`);
   return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null;
 }
 

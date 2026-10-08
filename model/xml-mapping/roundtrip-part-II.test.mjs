@@ -11,15 +11,17 @@ import assert from 'node:assert/strict';
 import { map, unmap } from './mapper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// The pre-compiler artifacts moved to model/legacy/; this test exercises them.
+const legacy = (rel) => path.resolve(__dirname, '..', 'legacy', rel);
 
 function load(rel) {
-  return JSON.parse(fs.readFileSync(path.resolve(__dirname, rel), 'utf8'));
+  return JSON.parse(fs.readFileSync(legacy(rel), 'utf8'));
 }
 
-const spec = load('part-II.mapping.json');
+const spec = load('xml-mapping/part-II.mapping.json');
 
 const cases = [
-  { name: 'default example (2 lots)', instance: load('../instance-data/part-II.example.json') },
+  { name: 'default example (2 lots)', instance: load('instance-data/part-II.example.json') },
   {
     name: 'single lot',
     instance: {

@@ -33,7 +33,9 @@ function cleanAttrs(obj) {
   return out;
 }
 
-export function loadCodelistProfile(profilePath = path.join(here, 'codelist-attributes.json')) {
+const PROFILE_PATH = path.join(here, '..', 'model-sources', 'registries', 'codelist-attributes.json');
+
+export function loadCodelistProfile(profilePath = PROFILE_PATH) {
   return JSON.parse(fs.readFileSync(profilePath, 'utf8'));
 }
 
@@ -75,7 +77,7 @@ export function parseSchematronAttributeRules(sch) {
  * attribute. Returns the number of codelists cross-checked.
  */
 export function validateCodelistProfile(profile, schPath) {
-  const resolved = schPath ?? path.resolve(path.dirname(path.join(here, 'codelist-attributes.json')), profile.source.schematron);
+  const resolved = schPath ?? path.resolve(path.dirname(PROFILE_PATH), profile.source.schematron);
   const sch = fs.readFileSync(resolved, 'utf8');
   const rules = parseSchematronAttributeRules(sch);
 

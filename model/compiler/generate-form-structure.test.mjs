@@ -254,7 +254,7 @@ test('the derivation reproduces the hand-authored lens structure', () => {
   const generated = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
 
   const handAuthored = JSON.parse(
-    fs.readFileSync(path.join(here, '..', 'form-structure', 'part-IV.form.json'), 'utf8'));
+    fs.readFileSync(path.join(here, '..', 'legacy', 'form-structure', 'part-IV.form.json'), 'utf8'));
 
   const reference = handAuthored.criteria[0].groups.flatMap(g => g.fields);
   for (const ref of reference) {
@@ -512,7 +512,7 @@ test('every i18n key the lens emits resolves in the catalogue — no invented ke
 
 test('the presentation sidecar does not restate derivable facts', () => {
   const sidecar = JSON.parse(fs.readFileSync(
-    path.join(here, 'sources', 'slc-stand-to-spec-avg.presentation.json'), 'utf8'));
+    path.join(here, '..', 'model-sources', 'criteria', 'slc-stand-to-spec-avg.presentation.json'), 'utf8'));
 
   // Guard against the sidecar drifting back into duplicating the model: anything
   // the compiler derives must not appear as a key in it.
@@ -546,7 +546,7 @@ test('the hand-authored lens uiTypes are reproduced', () => {
   const { compiled, registry, hints } = compileC31();
   const generated = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
   const handAuthored = JSON.parse(
-    fs.readFileSync(path.join(here, '..', 'form-structure', 'part-IV.form.json'), 'utf8'));
+    fs.readFileSync(path.join(here, '..', 'legacy', 'form-structure', 'part-IV.form.json'), 'utf8'));
 
   for (const ref of handAuthored.criteria[0].groups.flatMap(g => g.fields)) {
     const gen = generated.get(ref.dataPath);

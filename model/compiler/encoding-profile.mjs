@@ -21,7 +21,7 @@ import { attributesFor } from './codelist-attributes.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
-export function loadEncodingProfile(profilePath = path.join(here, 'encoding-profile.json')) {
+export function loadEncodingProfile(profilePath = path.join(here, '..', 'model-sources', 'registries', 'encoding-profile.json')) {
   return JSON.parse(fs.readFileSync(profilePath, 'utf8'));
 }
 

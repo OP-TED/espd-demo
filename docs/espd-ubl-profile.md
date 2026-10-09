@@ -122,7 +122,7 @@ I72_info-poa
 **Relationship to EO06 representatives.** The reference implementation currently
 models EO06 representatives as `cac:Person` elements directly under
 `cac:EconomicOperatorParty/cac:Party` (see
-`model/xml-mapping/part-II.mapping.json`), not as `cac:PowerOfAttorney`. Power of
+`model/legacy/xml-mapping/part-II.mapping.json`), not as `cac:PowerOfAttorney`. Power of
 Attorney is the UBL construct for expressing a *formal mandate* for a
 representative; the two share the same underlying person data
 (`cac:Person`), so an implementation that needs to assert a mandate can move or

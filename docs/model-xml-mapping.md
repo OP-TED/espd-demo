@@ -2,8 +2,16 @@
 
 This document describes the EXPERIMENTAL model under `model/` — a canonical
 instance-data model for the ESPD form and a declarative engine that maps it
-to and from UBL XML. It is not yet wired into the reference-implementation UI;
-it lives in `model/` as a separate experiment.
+to and from UBL XML. It is not yet wired into the reference-implementation UI.
+
+> **Layout note.** This describes the original hand-authored, per-part model.
+> That approach has since been generalized into the `model/compiler/` pipeline,
+> and the hand-authored per-part artifacts now live under `model/legacy/`
+> (specs in `legacy/xml-mapping/`, schemas/examples in `legacy/instance-data/`,
+> lenses in `legacy/form-structure/`), with their dev CLIs in `legacy/tooling/`.
+> The mapping engine itself was extracted to `model/mapping-engine/mapper.mjs`
+> and is shared by the compiler and these legacy tools. Paths below use the
+> current locations.
 
 > For why this correspondence engine was kept rather than replaced by a
 > (reverse) text template engine such as reverse-ejs, see
@@ -13,14 +21,16 @@ it lives in `model/` as a separate experiment.
 
 The model is deliberately split into three independent layers:
 
-- **`model/instance-data/`** — the canonical data a user enters, as a JSON
+- **`model/legacy/instance-data/`** — the canonical data a user enters, as a JSON
   Schema + example pair per part (`part-I`, `part-II`, `part-III`). Semantic
-  keys, no form or XML concerns. Validated with `node validate.mjs part-III`.
-- **`model/form-structure/`** — a presentation lens (sections, ordering, UI
+  keys, no form or XML concerns. Validated with
+  `node legacy/tooling/validate.mjs part-III`.
+- **`model/legacy/form-structure/`** — a presentation lens (sections, ordering, UI
   hints, conditional visibility, criterion order). References instance data by
   dotted `dataPath`. Carries no XML concerns.
-- **`model/xml-mapping/`** — a declarative spec per part plus a shared engine
-  (`mapper.mjs`) that converts instance data to/from UBL XML.
+- **`model/legacy/xml-mapping/`** — a declarative spec per part, driven by the
+  shared engine (`model/mapping-engine/mapper.mjs`) that converts instance data
+  to/from UBL XML.
 
 The connection between a question and its answer differs by layer: in the
 **instance data** it is **structural** (the value's position in the tree), while
@@ -232,8 +242,8 @@ instance data:
 The round trip is verified per document and the two reconstructed halves merged
 (`roundtrip-part-IV.test.mjs`). The generators (`sample.mjs`, `skeleton.mjs`,
 `mapping-uml.mjs`, `xml-uml.mjs`) accept an explicit spec filename so they can
-target either document; `instance-data/uml.mjs` and `validate.mjs` remain
-per-part (one schema).
+target either document; `uml.mjs` and `validate.mjs` remain per-part (one
+schema). All of these now live in `legacy/tooling/`.
 
 ### Engine additions (generic, spec-driven)
 
@@ -305,7 +315,7 @@ open work.
 
 ## Generating samples and skeletons
 
-Two helpers in `model/xml-mapping/` produce XML from the model without a
+Two helpers in `model/legacy/tooling/` produce XML from the model without a
 hand-written instance, for documentation and fixtures:
 
 - **`skeleton.mjs`** — a structural *skeleton* of the XML from the mapping spec
@@ -315,7 +325,7 @@ hand-written instance, for documentation and fixtures:
   invented; it is a shape/template reference.
 
   ```
-  node xml-mapping/skeleton.mjs part-III
+  node legacy/tooling/skeleton.mjs part-III
   ```
 
 - **`sample.mjs`** — a realistic *sample* document: it synthesizes a
@@ -324,7 +334,7 @@ hand-written instance, for documentation and fixtures:
   real `map()`. `--instance` also prints the synthesized instance.
 
   ```
-  node xml-mapping/sample.mjs part-III --instance
+  node legacy/tooling/sample.mjs part-III --instance
   ```
 
   Note: `sample.mjs` does not yet honor `pattern` constraints (e.g. the Part I
@@ -338,7 +348,7 @@ extension, `plantuml file.puml`, or the plantuml.com server). Pre-generated
 examples for all parts live in `docs/diagrams/` (see its README); pass `--out
 <file>` to write clean UTF-8 directly rather than shell-redirecting.
 
-- **`instance-data/uml.mjs`** — a class diagram of the canonical DATA MODEL from
+- **`legacy/tooling/uml.mjs`** — a class diagram of the canonical DATA MODEL from
   the JSON Schema. One class per object type (`$defs` entry, the root part
   object, and inline object properties); scalar properties are attributes
   (`*` marks required), and object/array properties are associations with
@@ -346,18 +356,18 @@ examples for all parts live in `docs/diagrams/` (see its README); pass `--out
   duplicated as an attribute.
 
   ```
-  node instance-data/uml.mjs part-III > part-III.model.puml
+  node legacy/tooling/uml.mjs part-III > part-III.model.puml
   ```
 
-- **`xml-mapping/mapping-uml.mjs`** — a correspondence diagram of the MAPPING:
+- **`legacy/tooling/mapping-uml.mjs`** — a correspondence diagram of the MAPPING:
   two packages ("instance data" and "UBL XML") with an arrow per mapping rule,
   labelled by kind (value / const / object / ref / key).
 
   ```
-  node xml-mapping/mapping-uml.mjs part-III > part-III.mapping.puml
+  node legacy/tooling/mapping-uml.mjs part-III > part-III.mapping.puml
   ```
 
-- **`xml-mapping/xml-uml.mjs`** — a class diagram of the UBL XML ELEMENT
+- **`legacy/tooling/xml-uml.mjs`** — a class diagram of the UBL XML ELEMENT
   STRUCTURE produced by the mapping, in the style of the EA "Technical View"
   diagrams: a class per aggregate (`cac:*`) element, basic (`cbc:*`) children as
   attributes, aggregate children as associations with cardinality. Repeating
@@ -367,7 +377,7 @@ examples for all parts live in `docs/diagrams/` (see its README); pass `--out
   instance carries exactly one body per BR-TCR-03).
 
   ```
-  node xml-mapping/xml-uml.mjs part-III > part-III.xml.puml
+  node legacy/tooling/xml-uml.mjs part-III > part-III.xml.puml
   ```
 
 ## Verifying
@@ -375,13 +385,13 @@ examples for all parts live in `docs/diagrams/` (see its README); pass `--out
 From `model/`:
 
 ```
-node instance-data/validate.mjs part-III
-node form-structure/check-paths.mjs part-III
-node xml-mapping/roundtrip-part-III.test.mjs
+node legacy/tooling/validate.mjs part-III
+node legacy/tooling/check-paths.mjs part-III
+node legacy/xml-mapping/roundtrip-part-III.test.mjs
 
-node instance-data/validate.mjs part-IV
-node form-structure/check-paths.mjs part-IV
-node xml-mapping/roundtrip-part-IV.test.mjs
+node legacy/tooling/validate.mjs part-IV
+node legacy/tooling/check-paths.mjs part-IV
+node legacy/xml-mapping/roundtrip-part-IV.test.mjs
 ```
 
 ## TODO: CPV codes (procurement subject classification) — Part I
@@ -547,7 +557,7 @@ embedded tree drives both `map` and `unmap`.
 
 ### `build-request-mapping.mjs` — generate the embedded structure (option b)
 
-`model/xml-mapping/build-request-mapping.mjs` walks a criterion's `components`
+`model/legacy/tooling/build-request-mapping.mjs` walks a criterion's `components`
 tree in the authoritative `espd-tools/EAtoJSON/outputs/espd-edm.json` and writes
 the complete `part-IV.request.mapping.json`, whose single `structure` rule is the
 generated tree. The only hand-specified criterion-specific part is the small
@@ -558,7 +568,7 @@ Together these become the `from`/`forEach` leaves spliced onto the tree.
 Regenerate after `espd-edm.json` changes:
 
 ```
-node model/xml-mapping/build-request-mapping.mjs
+node model/legacy/tooling/build-request-mapping.mjs
 ```
 
 The generated mapping is a normal spec — do not hand-edit its `structure`; edit

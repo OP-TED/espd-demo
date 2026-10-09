@@ -62,7 +62,7 @@ gates. Good DX is mostly about **guides**:
 
 - A **mapping table**: business term → UBL path → cardinality → datatype → code
   list → rule refs. This repo already has raw material for this
-  (`model/xml-mapping/part-I.mapping.json`, `espd-edm.json`).
+  (`model/legacy/xml-mapping/part-I.mapping.json`, `espd-edm.json`).
 - **Canonical examples** for every part (`part-I.example.json`,
   `part-II.example.json`) — the #1 thing developers copy from.
 - **Codegen-friendly schema** so the IDE does the work.

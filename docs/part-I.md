@@ -84,7 +84,7 @@ identifier (no attachment):
 ### Model mapping
 
 The form fields feeding this structure (form group `PI01`) map as follows
-(`model/xml-mapping/part-I.mapping.json`):
+(`model/legacy/xml-mapping/part-I.mapping.json`):
 
 | Form field | UBL target |
 | ---------- | ---------- |

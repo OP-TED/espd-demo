@@ -94,7 +94,7 @@ Schematron** — precisely the two-layer validation from doc 05.
   rule-IDs* pattern to apply via the `EAtoJSON` / `espd-edm.json` pipeline.
 - Read **Peppol `restricted-elements.adoc` (#2)** to see what a maintained
   *conformant subset* document looks like — the artifact the `to`-paths in
-  `model/xml-mapping/part-I.mapping.json` could generate.
+  `model/legacy/xml-mapping/part-I.mapping.json` could generate.
 - Read **`national-rules` (#2)** to see how ESPD member-state profiles would add
   rules without forking, informing a layered rule-ID scheme (e.g. `ESPD-...`
   over `UBL-...`).

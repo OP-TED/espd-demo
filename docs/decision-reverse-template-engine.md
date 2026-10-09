@@ -1,7 +1,8 @@
 # Decision: keep the correspondence/`structure` mapping engine (not a reverse template engine)
 
 Status: **Decided — keep the current engine.** Date: 2026-09.
-Scope: the `model/xml-mapping/` layer (instance JSON ↔ UBL XML).
+Scope: the mapping engine (`model/mapping-engine/mapper.mjs`) and the per-part
+specs it runs (`model/legacy/xml-mapping/`) — instance JSON ↔ UBL XML.
 
 ## Question
 

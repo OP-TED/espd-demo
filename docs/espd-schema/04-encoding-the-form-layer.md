@@ -15,9 +15,9 @@ comments (`PI01`, `PI02`, `PI03`):
 
 - **Instance data** — the canonical, syntax-neutral shape
   (`partI.publication.reference.type`, ...).
-- **XML mapping** (`model/xml-mapping/part-I.mapping.json`) — binds each data
+- **XML mapping** (`model/legacy/xml-mapping/part-I.mapping.json`) — binds each data
   path to a UBL XPath (`from` → `to`).
-- **Form structure** (`model/form-structure/part-I.form.json`) — binds each data
+- **Form structure** (`model/legacy/form-structure/part-I.form.json`) — binds each data
   path to UI presentation (`dataPath`, `uiType`, `labelKey`, `visibleWhen`,
   `filledBy`).
 

@@ -2,8 +2,7 @@
 
 This directory holds the **compiler** that turns the EA export (`espd-edm.json`)
 plus hand-authored enrichment into three generated model layers (XML mapping,
-instance-data, form-structure), together with its inputs, its committed output,
-the shared XML mapping engine, and the pre-compiler artifacts kept for parity.
+instance-data, form-structure).
 
 ## Pipeline at a glance
 
@@ -44,7 +43,7 @@ model/
 │   ├── registries/            shared, criterion-independent:
 │   │   ├── value-types.json         JSON shapes + UBL value bindings per ValueDataTypeCode
 │   │   ├── codelist-attributes.json fixed code-list attribute sets per codelist
-│   │   ├── encoding-profile.json    Option B kind->element XML conventions
+│   │   ├── encoding-profile.json    kind -> element XML conventions
 │   │   └── form-profile.json        presentation conventions (filledBy, uiType, i18n keys)
 │   └── criteria/              per-criterion, keyed by criterion code:
 │       ├── <code>.sidecar.json       semantic IDs + instance bindings (required to model)
@@ -56,27 +55,26 @@ model/
 │   ├── form-structure/        <code>.form.json
 │   └── xml-mapping/           <code>.request.mapping.json + <code>.response.mapping.json
 │
-├── xml-mapping/         The shared XML MAPPING ENGINE + legacy mapping tooling.
-│   ├── mapper.mjs             bidirectional map()/unmap() engine — used BY the compiler
-│   │                          (the one piece here that is NOT legacy)
-│   └── (legacy dev tooling + roundtrip tests for the hand-authored per-part specs:
-│        skeleton/sample/xml-uml/mapxml/build-request-mapping/mapping-uml.mjs,
-│        roundtrip-part-*.test.mjs, scaffold-part-IV.test.mjs)
+├── mapping-engine/      The shared, domain-neutral XML MAPPING ENGINE (runtime).
+│   ├── mapper.mjs             bidirectional map()/unmap() — imported by the compiler
+│   │                          to run generated specs, and the engine the UI uses to
+│   │                          export form data to UBL XML and import it back
+│   └── records-value-attributes.test.mjs   the engine's own unit test
 │
-├── instance-data/       Legacy dev utilities for the hand-authored instance data
-│   └── (validate.mjs, uml.mjs — read model/legacy/instance-data/)
-│
-├── form-structure/      Legacy dev utility for the hand-authored form lenses
-│   └── (check-paths.mjs — reads model/legacy/form-structure/)
-│
-└── legacy/              PRE-COMPILER artifacts, kept as parity references the
-    │                    compiler tests compare against. Removable per part once
-    │                    the compiler fully reproduces it.
-    ├── xml-mapping/ instance-data/ form-structure/   (part-*.json originals)
-    ├── poc-c31/         the original C31 proof-of-concept the production compiler
-    │                    generalizes. Not executed by any test/build; cited by the
-    │                    docs (design.md, espd-edm-semantic-identifiers.md,
-    │                    model-xml-mapping.md) as the design's origin.
+└── legacy/              PRE-COMPILER artifacts + legacy dev tooling, kept as parity
+    │                    references the compiler tests compare against. Removable per
+    │                    part once the compiler fully reproduces it.
+    ├── xml-mapping/           part-*.json mapping specs + roundtrip-part-*.test.mjs,
+    │                          scaffold-part-IV.test.mjs (exercise the hand-authored specs)
+    ├── instance-data/         part-*.schema.json + part-*.example.json originals
+    ├── form-structure/        part-*.form.json originals
+    ├── tooling/               dev CLIs over the legacy artifacts (not in any suite):
+    │                          validate / check-paths / uml / xml-uml / mapping-uml /
+    │                          skeleton / sample / mapxml / build-request-mapping
+    ├── poc-c31/               the original C31 proof-of-concept the production compiler
+    │                          generalizes. Not executed by any test/build; cited by the
+    │                          docs (design.md, espd-edm-semantic-identifiers.md,
+    │                          model-xml-mapping.md) as the design's origin.
     └── README.md
 ```
 
@@ -84,7 +82,7 @@ model/
 
 ```
 npm run model:compile   # node model/compiler/build-generated.mjs  -> rewrites generated/
-npm run model:test      # node --test model/compiler/ model/xml-mapping/
+npm run model:test      # node --test model/compiler/ model/mapping-engine/ model/legacy/xml-mapping/
 ```
 
 ## Where things belong (ownership rule)
@@ -97,13 +95,12 @@ npm run model:test      # node --test model/compiler/ model/xml-mapping/
 
 See `../docs/espd-edm-primary-input-enrichment.md` for the full rationale.
 
-## Notes / cleanup opportunities
+## Notes
 
-- `xml-mapping/mapper.mjs` is compiler infrastructure (imported by `compiler/`);
-  the rest of `xml-mapping/`, plus `instance-data/*.mjs` and
-  `form-structure/check-paths.mjs`, are legacy/dev tooling against the per-part
-  originals in `legacy/`. A future cleanup could move the engine into
-  `compiler/` and the legacy tooling under `legacy/`, leaving `model/` with a
-  cleaner compiler / inputs / output / legacy split. Deferred because it churns
-  import paths across every test.
+- `mapping-engine/mapper.mjs` is **runtime** code, not legacy: the compiler
+  imports it to run generated mapping specs, and the UI will import it to export
+  form data to UBL XML (and import it back). It lives in its own module so both
+  consumers share one copy. Everything under `legacy/` — the per-part originals,
+  their roundtrip tests, and `legacy/tooling/` dev CLIs — is pre-compiler and
+  slated for removal per part as the compiler reproduces each one.
 ```

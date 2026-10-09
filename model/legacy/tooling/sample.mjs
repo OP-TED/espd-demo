@@ -24,7 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { map } from './mapper.mjs';
+import { map } from '../../mapping-engine/mapper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2).filter(a => a !== '--instance');
@@ -35,7 +35,7 @@ const showInstance = process.argv.includes('--instance');
 const schema = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '..', 'instance-data', `${part}.schema.json`), 'utf8')
 );
-const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, specFile), 'utf8'));
+const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'xml-mapping', specFile), 'utf8'));
 
 // ---- schema-driven synthesis -------------------------------------------------
 

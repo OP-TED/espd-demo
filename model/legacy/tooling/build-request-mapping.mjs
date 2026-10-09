@@ -38,7 +38,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const EDM_PATH = path.resolve(__dirname, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
+const EDM_PATH = path.resolve(__dirname, '..', '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
 
 // ---- constant scheme attributes (match the reference ESPD-criterion.xml) ----
 const A_CRITERION_ID = { schemeID: 'criterion' };
@@ -321,6 +321,6 @@ const json = JSON.stringify(mapping, null, 2) + '\n';
 if (toStdout) {
   process.stdout.write(json);
 } else {
-  fs.writeFileSync(path.resolve(__dirname, outFile), json, 'utf8');
+  fs.writeFileSync(path.resolve(__dirname, '..', 'xml-mapping', outFile), json, 'utf8');
   console.log(`Wrote ${outFile} — criterion ${code} (${criterion.name}).`);
 }

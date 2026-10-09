@@ -901,7 +901,7 @@ The maintained source should be lean; the compiled artifact may still expose
 expanded request, response and content paths for existing consumers. Those
 expanded fields should be generated and tested, not hand-maintained.
 
-The executable C31 proof of this design is under `model/edm/poc/c31/`.
+The executable C31 proof of this design is under `model/legacy/poc-c31/`.
 `compile-lean.mjs` expands its lean criterion, shared node-kind registry and
 electronic-evidence fragment, then deep-compares the EA-compatible projection
 with C31 from the original generated `espd-edm.json`.

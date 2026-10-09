@@ -11,7 +11,7 @@ import { readStructuralCore } from './read-structural-core.mjs';
 import { overlayEnrichment } from './overlay-enrichment.mjs';
 import { loadValidatedRegistry } from './value-type-registry.mjs';
 import { generateResponseMapping } from './generate-response-mapping.mjs';
-import { map, unmap } from '../xml-mapping/mapper.mjs';
+import { map, unmap } from '../mapping-engine/mapper.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const sourcePath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');

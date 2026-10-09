@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const part = process.argv[2] || 'part-III';
-const schema = JSON.parse(fs.readFileSync(path.join(__dirname, `${part}.schema.json`), 'utf8'));
+const schema = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'instance-data', `${part}.schema.json`), 'utf8'));
 
 const classes = new Map();   // className -> { attrs: string[], seen: bool }
 const relations = [];        // { from, to, card, label }

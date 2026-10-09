@@ -39,8 +39,8 @@ tags can change while IDs should continue to identify the same business value.
 From the repository root:
 
 ```sh
-node model/edm/poc/c31/compile.mjs > /tmp/c31.enriched.json
-node model/edm/poc/c31/compile-lean.mjs > /tmp/c31.lean.json
+node model/legacy/poc-c31/compile.mjs > /tmp/c31.enriched.json
+node model/legacy/poc-c31/compile-lean.mjs > /tmp/c31.lean.json
 ```
 
 The compiler fails when the source criterion is missing, an overlay path no

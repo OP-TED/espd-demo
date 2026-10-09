@@ -12,7 +12,10 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const part = process.argv[2] || 'part-I';
 
-const form = JSON.parse(fs.readFileSync(path.join(__dirname, `${part}.form.json`), 'utf8'));
+// The pre-compiler per-part artifacts moved to model/legacy/; this utility
+// checks them. (The compiler's generated form/example are checked by the
+// compiler's own tests.)
+const form = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'form-structure', `${part}.form.json`), 'utf8'));
 const example = JSON.parse(
   fs.readFileSync(path.join(__dirname, '..', 'instance-data', `${part}.example.json`), 'utf8')
 );

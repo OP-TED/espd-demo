@@ -17,7 +17,7 @@ import { generateRequestMapping } from './generate-request-mapping.mjs';
 import { generateFormStructure } from './generate-form-structure.mjs';
 import { expandCodelistAttributes } from './schematron-validate.mjs';
 import { loadValidatedCodelistProfile } from './codelist-attributes.mjs';
-import { map } from '../xml-mapping/mapper.mjs';
+import { map } from '../mapping-engine/mapper.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');

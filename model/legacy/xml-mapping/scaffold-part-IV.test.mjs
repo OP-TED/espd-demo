@@ -22,12 +22,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
-import { parseXml, map } from './mapper.mjs';
+import { parseXml, map } from '../../mapping-engine/mapper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const REFERENCE = path.resolve(
-  __dirname, '..', '..', '..', 'espd-validation-schematron', 'ESPDRequest', 'xsl', 'ESPD-criterion.xml'
+  __dirname, '..', '..', '..', '..', 'espd-validation-schematron', 'ESPDRequest', 'xsl', 'ESPD-criterion.xml'
 );
 const CODE = 'slc-stand-to-spec-avg';
 const CRITERION_UUID = 'd3dfb714-f558-4512-bbc5-e456fa2339de';
@@ -84,7 +84,7 @@ function check (name, fn) {
 
 // --- generate the request declaration via the mapper + the embedded structure -
 
-const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'legacy', 'xml-mapping', 'part-IV.request.mapping.json'), 'utf8'));
+const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'part-IV.request.mapping.json'), 'utf8'));
 const instance = {
   partIV: { selectionCriteria: { [CODE]: { requirement: {
     lotIdentifiers: ['LOT-0000'],

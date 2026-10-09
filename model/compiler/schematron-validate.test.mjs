@@ -13,7 +13,7 @@ import { overlayEnrichment } from './overlay-enrichment.mjs';
 import { loadValidatedRegistry } from './value-type-registry.mjs';
 import { generateRequestMapping } from './generate-request-mapping.mjs';
 import { generateResponseMapping } from './generate-response-mapping.mjs';
-import { map } from '../xml-mapping/mapper.mjs';
+import { map } from '../mapping-engine/mapper.mjs';
 import { loadValidatedCodelistProfile } from './codelist-attributes.mjs';
 import { checkSaxonAvailable, validateXml, parseSvrl, expandCodelistAttributes, wrapRequestDocument } from './schematron-validate.mjs';
 

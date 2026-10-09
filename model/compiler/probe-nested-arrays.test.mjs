@@ -26,7 +26,7 @@ import { generateInstanceSchema, generateExample } from './generate-instance-sch
 import { generateFormStructure } from './generate-form-structure.mjs';
 import { generateRequestMapping } from './generate-request-mapping.mjs';
 import { arrayContainerDepths } from './encoding-profile.mjs';
-import { map, unmap } from '../xml-mapping/mapper.mjs';
+import { map, unmap } from '../mapping-engine/mapper.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');

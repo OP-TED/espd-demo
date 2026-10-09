@@ -22,7 +22,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const arg = process.argv[2] || 'part-III';
 const specFile = arg.endsWith('.mapping.json') ? arg : `${arg}.mapping.json`;
 const part = specFile.replace(/\.mapping\.json$/, '');
-const spec = JSON.parse(fs.readFileSync(path.join(__dirname, specFile), 'utf8'));
+const spec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'xml-mapping', specFile), 'utf8'));
 
 // Each correspondence: { instance, ubl, kind }
 const links = [];

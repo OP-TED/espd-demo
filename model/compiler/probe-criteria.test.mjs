@@ -165,7 +165,7 @@ test('slc-abil-staff-yrly-avg-mp maps the quantity-with-unit answers', () => {
 // Schematron (guarded by Saxon) for the criteria carrying new value types.
 // --------------------------------------------------------------------------
 
-import { map } from '../xml-mapping/mapper.mjs';
+import { map } from '../mapping-engine/mapper.mjs';
 import { loadValidatedCodelistProfile } from './codelist-attributes.mjs';
 import {
   checkSaxonAvailable, validateXml, expandCodelistAttributes, wrapRequestDocument,

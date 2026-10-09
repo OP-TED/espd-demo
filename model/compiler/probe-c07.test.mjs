@@ -189,7 +189,7 @@ test('R11.4 — no criterion code is hard-coded in generator LOGIC', () => {
 // Schematron validation (task 6.2) — guarded by Saxon availability.
 // --------------------------------------------------------------------------
 
-import { map } from '../xml-mapping/mapper.mjs';
+import { map } from '../mapping-engine/mapper.mjs';
 import { loadValidatedCodelistProfile } from './codelist-attributes.mjs';
 import {
   checkSaxonAvailable, validateXml, expandCodelistAttributes, wrapRequestDocument,

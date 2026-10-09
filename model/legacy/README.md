@@ -1,16 +1,25 @@
-# `legacy/` — pre-compiler hand-authored artifacts
+# `legacy/` — pre-compiler artifacts and tooling
 
-These are the original, hand-authored model files that predate the compiler:
-per-part XML mappings, instance-data schemas/examples, and form-structure lenses.
+Everything here predates the compiler and is kept for parity/reference only.
 
-They are kept for ONE reason: the compiler's tests compare generated output
-against them to prove the compiler faithfully reproduces the hand-authored model
-(e.g. C01 → `form-structure/part-III.form.json`, C31 → `instance-data/part-IV.schema.json`).
+- `xml-mapping/`, `instance-data/`, `form-structure/` — the original,
+  hand-authored per-part model files (XML mappings, instance-data
+  schemas/examples, form-structure lenses). The compiler's tests compare
+  generated output against these to prove it faithfully reproduces the
+  hand-authored model (e.g. C01 → `form-structure/part-III.form.json`,
+  C31 → `instance-data/part-IV.schema.json`). `xml-mapping/` also holds the
+  roundtrip/scaffold tests that exercise those specs through the mapping engine.
+- `tooling/` — dev CLIs that operate on the artifacts above (validate,
+  check-paths, uml, xml-uml, mapping-uml, skeleton, sample, mapxml,
+  build-request-mapping). Not run by any suite.
+- `poc-c31/` — the original C31 proof-of-concept the production compiler
+  generalizes. Not executed by any test/build; cited by the docs as the
+  design's origin.
 
 Once the compiler fully reproduces a part's hand-authored artifacts, the
-corresponding legacy files can be removed. Until then they are load-bearing
-parity references — do not delete piecemeal without updating the tests that read
-them.
+corresponding legacy files can be removed. Until then the per-part files are
+load-bearing parity references — do not delete piecemeal without updating the
+tests that read them.
 
 New/compiled artifacts live in `../generated/`, authored inputs in
 `../model-sources/`.

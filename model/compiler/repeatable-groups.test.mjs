@@ -111,7 +111,7 @@ test('conditional visibility still resolves inside the repeatable group', () => 
 test('7.0b — response mapping round-trips a repeatable group as a forEach records rule', async () => {
   const { compiled, registry } = compileC01();
   const { response } = generateMappings(compiled, registry);
-  const { map, unmap } = await import('../xml-mapping/mapper.mjs');
+  const { map, unmap } = await import('../mapping-engine/mapper.mjs');
 
   // The convictions answers become a `forEach` records rule over the array.
   const convRule = response.rules.find(r => r.records === 'cac:TenderingCriterionResponse' && r.forEach);
@@ -141,7 +141,7 @@ test('a single-level REQUIREMENT value inside a repeatable group round-trips (re
   const edm = loadEdm(edmPath);
   const { compiled, registry } = compile(edm, 'slc-stand-other', loadSidecar('slc-stand-other'));
   const { generateRequestMapping } = await import('./generate-request-mapping.mjs');
-  const { map, unmap } = await import('../xml-mapping/mapper.mjs');
+  const { map, unmap } = await import('../mapping-engine/mapper.mjs');
 
   const request = generateRequestMapping(compiled, registry);
   const data = { partIV: { selectionCriteria: { 'slc-stand-other': { requirement: {
@@ -191,7 +191,7 @@ test('7.0b — C01 repeatable-group response runs through the ESPD Schematron', 
 
   const { compiled, registry } = compileC01();
   const { response } = generateMappings(compiled, registry);
-  const { map } = await import('../xml-mapping/mapper.mjs');
+  const { map } = await import('../mapping-engine/mapper.mjs');
   const { loadValidatedCodelistProfile } = await import('./codelist-attributes.mjs');
   const { profile } = loadValidatedCodelistProfile();
 

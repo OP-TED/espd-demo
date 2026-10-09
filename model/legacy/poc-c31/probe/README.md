@@ -37,5 +37,5 @@ This probe experiments with the **leaner POC design** agreed with the maintainer
 From the repository root:
 
 ```sh
-node model/edm/poc/c31/probe/compile-probe.mjs
+node model/legacy/poc-c31/probe/compile-probe.mjs
 ```

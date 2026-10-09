@@ -7,7 +7,7 @@ The authored source of truth the compiler consumes. Nothing here is generated.
 - `registries/` — shared, criterion-independent inputs:
   - `value-types.json` — per-ValueDataTypeCode JSON instance shapes + UBL value bindings (validated against `ResponseDataType.gc`)
   - `codelist-attributes.json` — fixed code-list attribute sets the Schematron requires, one per codelist
-  - `encoding-profile.json` — Option B kind→element XML conventions
+  - `encoding-profile.json` — kind → element XML conventions
   - `form-profile.json` — presentation conventions (filledBy, uiType defaults, i18n key derivation)
 - `criteria/` — per-criterion enrichment, keyed by criterion code:
   - `<code>.sidecar.json` — semantic IDs + instance bindings (required to model a criterion)

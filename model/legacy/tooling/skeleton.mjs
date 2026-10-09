@@ -27,7 +27,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const arg = process.argv[2] || 'part-III';
 const specFile = arg.endsWith('.mapping.json') ? arg : `${arg}.mapping.json`;
-const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, specFile), 'utf8'));
+const spec = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'xml-mapping', specFile), 'utf8'));
 
 // ---- minimal tree helpers (same node shape mapper.serialize expects) ---------
 

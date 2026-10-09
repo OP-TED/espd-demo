@@ -8,11 +8,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
-import { map, unmap } from './mapper.mjs';
+import { map, unmap } from '../../mapping-engine/mapper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// The pre-compiler artifacts moved to model/legacy/; this test exercises them.
-const legacy = (rel) => path.resolve(__dirname, '..', 'legacy', rel);
+// This test lives in model/legacy/; paths resolve against the legacy root.
+const legacy = (rel) => path.resolve(__dirname, '..', rel);
 
 function load(rel) {
   return JSON.parse(fs.readFileSync(legacy(rel), 'utf8'));

@@ -20,12 +20,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
-import { map, unmap } from './mapper.mjs';
+import { map, unmap } from '../../mapping-engine/mapper.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function load(rel) {
-  return JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'legacy', rel), 'utf8'));
+  return JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', rel), 'utf8'));
 }
 
 const requestSpec = load('xml-mapping/part-IV.request.mapping.json');

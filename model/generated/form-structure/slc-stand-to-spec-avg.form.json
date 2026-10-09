@@ -41,7 +41,7 @@
               "dataPath": "partIV.selectionCriteria.slc-stand-to-spec-avg.requirement.businessDomain",
               "filledBy": "contractingAuthority",
               "uiType": "textarea",
-              "required": false,
+              "required": true,
               "labelKey": "requirement.label.slc-stand-to-spec-avg.RG1.RSG1.RQ2",
               "$derivedFrom": "C31_slc-stand-to-spec-avg/RG1/RSG1/RQ2"
             },

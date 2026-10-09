@@ -1,0 +1,55 @@
+{
+  "$comment": "C02 enrichment sidecar. exg-crim-corrpt, 'Corruption'. Structural clone of exg-crim-part (C01): a response-only criminal-conviction exclusion ground with the conviction/self-cleaning/evidence shape. Differs from C01 only in criterion code, UUID, descriptions, and the Cnn_ requestpath prefix.",
+
+  "$note.repeatableGroup": "The conviction subgroup (QG1/QSG1, cardinality 0..n) is a REPEATABLE GROUP modelled as 'convictions[]' (task 7.0): the GROUP carries repeatable:true declaring the array container; its leaves bind to paths THROUGH it. Same as C01.",
+  "criterion": {
+    "code": "exg-crim-corrpt",
+    "id": "exg-crim-corrpt",
+    "instanceModel": {
+      "containerPath": ["partIII", "exclusionGrounds"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C02_exg-crim-corrpt/QG1/Q1": {
+      "id": "exg-crim-corrpt.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C02_exg-crim-corrpt/QG1/QSG1": {
+      "id": "exg-crim-corrpt.convictions",
+      "instanceBinding": { "side": "response", "path": ["convictions"], "repeatable": true }
+    },
+    "C02_exg-crim-corrpt/QG1/QSG1/Q1": {
+      "id": "exg-crim-corrpt.conviction-date",
+      "instanceBinding": { "side": "response", "path": ["convictions", "dateOfConviction"] }
+    },
+    "C02_exg-crim-corrpt/QG1/QSG1/Q2": {
+      "id": "exg-crim-corrpt.conviction-reason",
+      "instanceBinding": { "side": "response", "path": ["convictions", "reason"] }
+    },
+    "C02_exg-crim-corrpt/QG1/QSG1/Q3": {
+      "id": "exg-crim-corrpt.conviction-who",
+      "instanceBinding": { "side": "response", "path": ["convictions", "whoConvicted"] }
+    },
+    "C02_exg-crim-corrpt/QG1/QSG1/Q4": {
+      "id": "exg-crim-corrpt.conviction-exclusion-period",
+      "instanceBinding": { "side": "response", "path": ["convictions", "exclusionPeriod"] }
+    },
+    "C02_exg-crim-corrpt/QG1/QSG1/QSG1/Q1": {
+      "id": "exg-crim-corrpt.self-cleaning-taken",
+      "instanceBinding": { "side": "response", "path": ["convictions", "selfCleaning", "taken"] }
+    },
+    "C02_exg-crim-corrpt/QG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "exg-crim-corrpt.self-cleaning-description",
+      "instanceBinding": { "side": "response", "path": ["convictions", "selfCleaning", "description"] }
+    },
+    "C02_exg-crim-corrpt/QG2/Q1": {
+      "id": "exg-crim-corrpt.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C02_exg-crim-corrpt/QG2/QSG1/Q1": {
+      "id": "exg-crim-corrpt.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

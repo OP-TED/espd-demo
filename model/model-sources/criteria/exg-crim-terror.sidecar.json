@@ -1,0 +1,55 @@
+{
+  "$comment": "C04 enrichment sidecar. exg-crim-terror, 'Terrorist offences or offences linked to terrorist activities'. Structural clone of exg-crim-part (C01): a response-only criminal-conviction exclusion ground with the conviction/self-cleaning/evidence shape. Differs from C01 only in criterion code, UUID, descriptions, and the Cnn_ requestpath prefix.",
+
+  "$note.repeatableGroup": "The conviction subgroup (QG1/QSG1, cardinality 0..n) is a REPEATABLE GROUP modelled as 'convictions[]' (task 7.0): the GROUP carries repeatable:true declaring the array container; its leaves bind to paths THROUGH it. Same as C01.",
+  "criterion": {
+    "code": "exg-crim-terror",
+    "id": "exg-crim-terror",
+    "instanceModel": {
+      "containerPath": ["partIII", "exclusionGrounds"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C04_exg-crim-terror/QG1/Q1": {
+      "id": "exg-crim-terror.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C04_exg-crim-terror/QG1/QSG1": {
+      "id": "exg-crim-terror.convictions",
+      "instanceBinding": { "side": "response", "path": ["convictions"], "repeatable": true }
+    },
+    "C04_exg-crim-terror/QG1/QSG1/Q1": {
+      "id": "exg-crim-terror.conviction-date",
+      "instanceBinding": { "side": "response", "path": ["convictions", "dateOfConviction"] }
+    },
+    "C04_exg-crim-terror/QG1/QSG1/Q2": {
+      "id": "exg-crim-terror.conviction-reason",
+      "instanceBinding": { "side": "response", "path": ["convictions", "reason"] }
+    },
+    "C04_exg-crim-terror/QG1/QSG1/Q3": {
+      "id": "exg-crim-terror.conviction-who",
+      "instanceBinding": { "side": "response", "path": ["convictions", "whoConvicted"] }
+    },
+    "C04_exg-crim-terror/QG1/QSG1/Q4": {
+      "id": "exg-crim-terror.conviction-exclusion-period",
+      "instanceBinding": { "side": "response", "path": ["convictions", "exclusionPeriod"] }
+    },
+    "C04_exg-crim-terror/QG1/QSG1/QSG1/Q1": {
+      "id": "exg-crim-terror.self-cleaning-taken",
+      "instanceBinding": { "side": "response", "path": ["convictions", "selfCleaning", "taken"] }
+    },
+    "C04_exg-crim-terror/QG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "exg-crim-terror.self-cleaning-description",
+      "instanceBinding": { "side": "response", "path": ["convictions", "selfCleaning", "description"] }
+    },
+    "C04_exg-crim-terror/QG2/Q1": {
+      "id": "exg-crim-terror.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C04_exg-crim-terror/QG2/QSG1/Q1": {
+      "id": "exg-crim-terror.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

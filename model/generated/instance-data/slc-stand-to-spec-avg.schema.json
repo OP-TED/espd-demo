@@ -49,6 +49,7 @@
                   "required": [
                     "lotIdentifiers",
                     "numberOfYears",
+                    "businessDomain",
                     "minimumAmount"
                   ],
                   "additionalProperties": false

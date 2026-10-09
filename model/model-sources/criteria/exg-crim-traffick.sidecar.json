@@ -1,0 +1,55 @@
+{
+  "$comment": "C06 enrichment sidecar. exg-crim-traffick, 'Child labour and other forms of trafficking in human beings'. Structural clone of exg-crim-part (C01): a response-only criminal-conviction exclusion ground with the conviction/self-cleaning/evidence shape. Differs from C01 only in criterion code, UUID, descriptions, and the Cnn_ requestpath prefix.",
+
+  "$note.repeatableGroup": "The conviction subgroup (QG1/QSG1, cardinality 0..n) is a REPEATABLE GROUP modelled as 'convictions[]' (task 7.0): the GROUP carries repeatable:true declaring the array container; its leaves bind to paths THROUGH it. Same as C01.",
+  "criterion": {
+    "code": "exg-crim-traffick",
+    "id": "exg-crim-traffick",
+    "instanceModel": {
+      "containerPath": ["partIII", "exclusionGrounds"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C06_exg-crim-traffick/QG1/Q1": {
+      "id": "exg-crim-traffick.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C06_exg-crim-traffick/QG1/QSG1": {
+      "id": "exg-crim-traffick.convictions",
+      "instanceBinding": { "side": "response", "path": ["convictions"], "repeatable": true }
+    },
+    "C06_exg-crim-traffick/QG1/QSG1/Q1": {
+      "id": "exg-crim-traffick.conviction-date",
+      "instanceBinding": { "side": "response", "path": ["convictions", "dateOfConviction"] }
+    },
+    "C06_exg-crim-traffick/QG1/QSG1/Q2": {
+      "id": "exg-crim-traffick.conviction-reason",
+      "instanceBinding": { "side": "response", "path": ["convictions", "reason"] }
+    },
+    "C06_exg-crim-traffick/QG1/QSG1/Q3": {
+      "id": "exg-crim-traffick.conviction-who",
+      "instanceBinding": { "side": "response", "path": ["convictions", "whoConvicted"] }
+    },
+    "C06_exg-crim-traffick/QG1/QSG1/Q4": {
+      "id": "exg-crim-traffick.conviction-exclusion-period",
+      "instanceBinding": { "side": "response", "path": ["convictions", "exclusionPeriod"] }
+    },
+    "C06_exg-crim-traffick/QG1/QSG1/QSG1/Q1": {
+      "id": "exg-crim-traffick.self-cleaning-taken",
+      "instanceBinding": { "side": "response", "path": ["convictions", "selfCleaning", "taken"] }
+    },
+    "C06_exg-crim-traffick/QG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "exg-crim-traffick.self-cleaning-description",
+      "instanceBinding": { "side": "response", "path": ["convictions", "selfCleaning", "description"] }
+    },
+    "C06_exg-crim-traffick/QG2/Q1": {
+      "id": "exg-crim-traffick.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C06_exg-crim-traffick/QG2/QSG1/Q1": {
+      "id": "exg-crim-traffick.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

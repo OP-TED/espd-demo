@@ -3,15 +3,10 @@
 
   "$todo.minimum": "task 4.3.3 — QUANTITY_YEAR is OVERLOADED (count of fiscal years in C29-C32, calendar year in C49/C50, duration in C40/C41), so minimum:1 is a PER-PROPERTY bound and a datatype-level facet cannot supply it. Preferred fix: an EA tagged value exported as a `valuebounds` field on the property, following the existing `codelist` precedent in espd-tools/EAtoJSON/export-package.js. See design 'TODO (task 4.3.3)'.",
 
-  "$todo.optionalLeaves": "task 4.3.4 — OPEN QUESTION, this relaxation may be wrong. businessDomain is present in C31/C32 (specific turnover) and ABSENT in C29/C30 (general turnover): it carries the semantic that makes the criterion 'specific', so EA cardinality 1 looks correct and the relaxation looks like the error. No Schematron rule enforces it, and no example instance omitting it has been identified. See design 'TODO (task 4.3.4)'.",
+  "$resolved.optionalLeaves": "task 4.3.4 — RESOLVED: the businessDomain relaxation was WRONG and has been removed. businessDomain (RG1/RSG1/RQ2, EA cardinality 1) is present in C31/C32 (specific turnover) and ABSENT in C29/C30 (general turnover): it carries the semantic that makes the criterion 'specific', so required is correct. No Schematron rule enforces it and no example omitting it exists; the generated example already populates it, so requiring it breaks nothing. businessDomain is now required per its EA cardinality.",
 
   "leafConstraints": {
     "$note": "Per-leaf refinements merged into the generated shape, keyed by semantic ID. minItems on lotIdentifiers is no longer needed — it is derived from the 1..n cardinality.",
     "slc-stand-to-spec-avg.number-of-years": { "minimum": 1 }
-  },
-
-  "optionalLeaves": {
-    "$note": "Leaves whose EA cardinality is required (1) but which the reference implementation models as OPTIONAL. Cannot be derived: it contradicts the EA model.",
-    "ids": ["slc-stand-to-spec-avg.business-domain"]
   }
 }

@@ -140,16 +140,28 @@ test('required and repeatable derive from EA cardinality', () => {
   assert.equal(fields.get(`${P}.response.electronicEvidence.evidence[].description`).required, false);
 });
 
-test('the optionalLeaves hint relaxes the form too, so form and schema agree', () => {
+test('businessDomain is required (task 4.3.4: the optionalLeaves relaxation was removed)', () => {
+  // businessDomain (EA cardinality 1) carries the semantic that makes a turnover
+  // criterion "specific" (present in C31/C32, absent in C29/C30), so it is
+  // required per its EA cardinality. C31's production hints no longer relax it.
   const { compiled, registry, hints } = compileC31();
-
-  // With hints: businessDomain is relaxed to optional (same hint the schema honours).
   const withHints = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
-  assert.equal(withHints.get(`${P}.requirement.businessDomain`).required, false);
+  assert.equal(withHints.get(`${P}.requirement.businessDomain`).required, true);
+});
 
-  // Without hints: the raw EA cardinality (1) makes it required.
-  const noHints = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV' }));
-  assert.equal(noHints.get(`${P}.requirement.businessDomain`).required, true);
+test('the optionalLeaves mechanism still relaxes the form, keeping it in step with the schema', () => {
+  // Mechanism check, independent of any production hint: a synthetic optionalLeaves
+  // hint relaxes a required leaf on BOTH the form and (per generate-instance-schema)
+  // the schema, so the two layers cannot drift. No production criterion uses it today.
+  const { compiled, registry } = compileC31();
+  const synthetic = { optionalLeaves: { ids: ['slc-stand-to-spec-avg.business-domain'] } };
+
+  const relaxed = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints: synthetic }));
+  assert.equal(relaxed.get(`${P}.requirement.businessDomain`).required, false);
+
+  // Raw EA cardinality (1) makes it required when no relaxation is supplied.
+  const raw = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV' }));
+  assert.equal(raw.get(`${P}.requirement.businessDomain`).required, true);
 });
 
 test('object-valued leaves expand to one field per scalar property', () => {
@@ -286,19 +298,26 @@ test('the derivation reproduces the hand-authored lens structure', () => {
  * 2. gated fields (handled separately above) — the form marks `evidence[].url`
  *    required but `reliedUpon` optional, though both are gated; the schema's
  *    derived if/then requires both inside their branch.
+ * 3. `requirement.businessDomain` — the form says `required: false`, but EA
+ *    cardinality is `1` and businessDomain is the field that makes a turnover
+ *    criterion "specific" (present in C31/C32, absent in C29/C30). The old
+ *    `optionalLeaves` relaxation that matched the form was removed (task 4.3.4);
+ *    the generator now requires it per the EA model.
  */
 const KNOWN_FORM_DIVERGENCES = new Set([
   `${P}.response.turnover.electronicEvidence.availableElectronically`,
   `${P}.response.startTrading.electronicEvidence.availableElectronically`,
   `${P}.response.electronicEvidence.availableElectronically`,
+  `${P}.requirement.businessDomain`,
 ]);
 
-test('availableElectronically follows the schema (required), not the hand-authored form', () => {
+test('availableElectronically + businessDomain follow the schema (required), not the hand-authored form', () => {
   const { compiled, registry, hints } = compileC31();
   const fields = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
 
-  // EA cardinality is 1 and part-IV.schema.json $defs.electronicEvidence has
-  // required:["availableElectronically"], so the indicator is required.
+  // Each is required by EA cardinality 1 (and, for the evidence indicators, by
+  // part-IV.schema.json $defs.electronicEvidence required:["availableElectronically"]),
+  // and each is itself ungated. The hand-authored form marked them optional.
   for (const p of KNOWN_FORM_DIVERGENCES) {
     assert.equal(fields.get(p).required, true, p);
     assert.equal(fields.get(p).visibleWhen, undefined, `${p} is itself ungated`);

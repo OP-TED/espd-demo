@@ -1,5 +1,5 @@
 # The espd-demo
-The espd-demo is a JavaScript application demonstrating the usage of the ESPD-EDM for ESPD versions that currently do not have an ESPD Service implemented (e.g. v3.3.0, v4.0.0).
+The espd-demo is a JavaScript application demonstrating the usage of the ESPD-EDM for ESPD versions that currently do not have an ESPD Service implemented. The following versions are supported: v3.3.0, v4.0.0 and v4.1.0.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -11,8 +11,8 @@ The code in this repository is intended to run on GitHub Pages or as a Single Pa
 
 1. clone the repository on your machine
 ```
-git clone git@github.com:OP-TED/espd-demo.git
-cd espd-demo
+git clone git@github.com:OP-TED/espd-demo-v4.git
+cd espd-demo-v4
 ```
 2. Use a local webserver that renders static web files. Here, [Fastify](https://fastify.dev/) was chosen, but any webserver that serves static files will do. You will need to install and run the local webserver in the root folder. The following prerequisites for **Fastify** and other [NodeJS](https://nodejs.org/en/download/) libraries can be installed from the command line:
 ```
@@ -26,12 +26,12 @@ This should start the local webserver on port **3000**, your site will then be a
 
 ## Usage
 
-Go to the GitHub Pages site: [ESPD Demo](https://docs.ted.europa.eu/espd-demo/) (or your local installation) to see the site live. The demo contains the following sections:
+Go to the GitHub Pages site: [ESPD Demo](https://docs.ted.europa.eu/espd-demo-v4/) (or your local installation) to see the site live. The demo contains the following sections:
 
 ### Section 1. Export
 
 The **Export** menu allows you to download:
-- The **Excel** file for Codel Lists,
+- The **Excel** file for Code Lists,
 - All code lists as an archive file.
 - The **Excel** file for the Model and Datastructure 
 
@@ -47,9 +47,9 @@ The general search allows you to search by version, UUID, keywords or any combin
 
 ### Section 4. View 
 
-The ESPD model visualiation - to model Criteria and visualise the ESPD model better, we have created a basic UI visualisation so that you can see what the model might look like on a web page.
+The ESPD model visualisation - to model Criteria and visualise the ESPD model better, we have created a basic UI visualisation so that you can see what the model might look like on a web page.
 
-We provide a basicdemonstration of the behaviour of the rules behind each building block, the cardinalities, and the data type expected for each input.
+We provide a basic demonstration of the behaviour of the rules behind each building block, the cardinalities, and the data type expected for each input.
 
 ### Section 5. Examples
 
@@ -57,7 +57,7 @@ ESPD Request and ESPD Response examples generator - here we provide a JavaScript
 
 This is provided only for demonstrative purposes only and is not an actual service. Member States must use the officially implemented and agreed ESPD services for their corresponding country.
 
-You can fill in the required fields and download an ESPD Request XML file of ESPD Response XML file.
+You can fill in the required fields and download an ESPD Request XML file or ESPD Response XML file.
 
 ## Licence
 

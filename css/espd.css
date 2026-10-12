@@ -1801,11 +1801,29 @@ fieldset[role="radiogroup"]:has(.espd-role-radio) {
 
 /* 12. Messages ----------------------------------------------------------------- */
 
+/* A field with a "Look up" button: the label above, the field and the button
+   side by side, at every width. */
+.espd-lookup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--gs-base-spacing-s);
+}
+
+.espd-lookup > label {
+  grid-column: 1 / -1;
+}
+
 .espd-lookup-btn {
-  align-self: flex-end;
+  white-space: nowrap;
+}
+
+.espd-lookup-msg:empty {
+  display: none;
 }
 
 .espd-lookup-msg {
+  display: block;
   margin: var(--gs-base-spacing-xs) 0 0;
   padding: var(--gs-base-spacing-s) var(--gs-base-spacing-m);
   border-left: 4px solid var(--gs-base-color-info);

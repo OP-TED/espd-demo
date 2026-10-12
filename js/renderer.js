@@ -361,11 +361,9 @@ function enhancePartIWithLookup(container, role) {
     msgEl.setAttribute('role', 'status');
     msgEl.setAttribute('aria-live', 'polite');
 
-    // Insert button inline with input
+    // Insert button next to the input; the label stays above both (css/espd.css)
     const inputWrapper = input.parentElement;
-    inputWrapper.style.display = 'flex';
-    inputWrapper.style.gap = '0.5rem';
-    inputWrapper.style.alignItems = 'flex-start';
+    inputWrapper.classList.add('espd-lookup');
     inputWrapper.appendChild(lookupBtn);
     field.appendChild(msgEl);
 

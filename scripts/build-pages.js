@@ -24,6 +24,8 @@ const ASSETS = [
   'css',
   'js',
   'i18n',
+  'images',
+  'fonts',
 ];
 
 // The /espd-edm model data is copied selectively so dev-only artifacts

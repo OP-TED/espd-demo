@@ -1,764 +1,1957 @@
-/* ESPD-EDM Reference Implementation — Custom styles on top of Pico CSS */
+/*
+ * ESPD-EDM Reference Implementation — styles in the TED Design System.
+ *
+ * Replaces Pico CSS. Load css/tokens.css first: it is the TED Design System's
+ * token file, copied unchanged, and every colour, size and spacing below comes
+ * from it. Do not put raw hex values or pixel sizes here when a token exists.
+ *
+ * Contents
+ *   1. Icon font (gs-icon, the Publications Office icon set)
+ *   2. Base: page, text, links, focus, utilities
+ *   3. Form controls: fields, choices, file input, errors
+ *   4. Buttons: the classes the scripts already use, mapped to TED variants
+ *   5. Disclosure, dialogs, Pico leftovers (.grid, article)
+ *   6. Site header (EU global banner, EU logo, TED service row, navigation)
+ *   7. Site footer (public variant)
+ *   8. Home, path and role selection
+ *   9. Wizard: header bar, document badge, steps, part header, footer buttons
+ *  10. Form content: sections, criteria, questions, requirements
+ *  11. Buyer's criterion checklist (Parts III and IV of the ESPD Request)
+ *  12. Messages: TED look-up and validation results
+ *  13. Small screens
+ */
 
-/* Skip link for accessibility */
+/* 1. Icon font ------------------------------------------------------------- */
+
+@font-face {
+  font-family: "gs-icon";
+  src: url("../fonts/gs-icon.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.gs-icon {
+  display: inline-block;
+  font-family: "gs-icon" !important;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: none;
+  vertical-align: middle;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gs-icon-add-plus::before { content: "\e900"; }
+.gs-icon-bluesky::before { content: "\e948"; }
+.gs-icon-caret-up::before { content: "\e90e"; }
+.gs-icon-chevron-left::before { content: "\e910"; }
+.gs-icon-chevron-right::before { content: "\e911"; }
+.gs-icon-close::before { content: "\e913"; }
+.gs-icon-download::before { content: "\e915"; }
+.gs-icon-facebook::before { content: "\e919"; }
+.gs-icon-global::before { content: "\e91d"; }
+.gs-icon-home::before { content: "\e921"; }
+.gs-icon-link-external::before { content: "\e926"; }
+.gs-icon-linkedin::before { content: "\e924"; }
+.gs-icon-mastodon::before { content: "\e949"; }
+.gs-icon-social-share::before { content: "\e938"; }
+.gs-icon-upload::before { content: "\e93e"; }
+.gs-icon-youtube::before { content: "\e91a"; }
+
+/* 2. Base ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--gs-base-color-background);
+  color: var(--gs-base-color-gray-100);
+  font-family: var(--gs-base-font-family-default);
+  font-size: var(--gs-base-font-size-m);
+  line-height: var(--gs-base-line-height-xl);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--gs-base-spacing-s);
+  color: var(--gs-base-color-gray-100);
+  font-weight: 700;
+  line-height: var(--gs-base-line-height-s);
+}
+
+h1 {
+  font-size: var(--gs-base-font-size-3xl);
+}
+
+h2 {
+  font-size: var(--gs-base-font-size-3xl);
+}
+
+h3 {
+  font-size: var(--gs-base-font-size-l);
+  line-height: 1.3;
+}
+
+h4 {
+  font-size: var(--gs-base-font-size-m);
+  line-height: 1.3;
+}
+
+p {
+  margin: 0 0 var(--gs-base-spacing-m);
+}
+
+small {
+  font-size: var(--gs-base-font-size-s);
+}
+
+a {
+  color: var(--gs-base-color-eu-blue-100);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--gs-base-color-eu-blue-100);
+  outline-offset: 4px;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+/* The scripts mark required fields with <abbr title="Required">*</abbr>;
+   the TED text field shows the same red asterisk. */
+abbr[title="Required"] {
+  color: var(--gs-base-color-error);
+  cursor: help;
+}
+
+hr {
+  height: 0;
+  margin: var(--gs-base-spacing-l) 0;
+  border: 0;
+  border-top: 1px solid var(--gs-base-color-gray-20);
+}
+
+[hidden] {
+  display: none !important;
+}
+
 .skip-link {
   position: absolute;
-  top: -100%;
-  left: 0;
-  padding: 0.5rem 1rem;
-  background: var(--pico-primary);
-  color: var(--pico-primary-inverse);
-  z-index: 9999;
-  transition: top 0.2s;
-}
-.skip-link:focus {
-  top: 0;
+  z-index: 100;
+  left: var(--gs-base-spacing-m);
+  top: -100px;
+  padding: var(--gs-base-spacing-xs) var(--gs-base-spacing-s);
+  background: var(--gs-base-color-background);
+  color: var(--gs-base-color-eu-blue-100);
+  font-weight: 700;
 }
 
-/* Visually hidden but accessible to screen readers */
+.skip-link:focus {
+  top: var(--gs-base-spacing-xs);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
-  padding: 0;
   margin: -1px;
+  padding: 0;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }
 
-/* Header */
-.espd-header {
-  border-bottom: 1px solid var(--pico-muted-border-color);
-  padding: 0.2rem 1rem;
-  margin-bottom: 1rem;
-}
-.espd-header nav {
-  margin-bottom: 0;
+/* The page body. index.html gives <main> the class "container". */
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 var(--gs-base-spacing-l) 64px;
 }
 
-/* Footer */
-.espd-footer {
-  margin-top: 3rem;
-  padding: 1rem 0;
-  border-top: 1px solid var(--pico-muted-border-color);
-  text-align: center;
+/* 3. Form controls --------------------------------------------------------- */
+
+label {
+  color: var(--gs-base-color-gray-100);
 }
 
-/* Step navigation (wizard) */
-.espd-steps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  padding: 0.4rem 0.75rem;
+input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="hidden"]),
+select,
+textarea {
+  display: block;
+  width: 100%;
   margin: 0;
-  list-style: none;
-}
-.espd-steps li {
-  flex: 0 1 auto;
-}
-.espd-steps li a,
-.espd-steps li span {
-  display: block;
-  padding: 0.35rem 0.6rem;
-  border-radius: var(--pico-border-radius);
-  text-decoration: none;
-  font-size: 0.85rem;
-  text-align: center;
-  border: 1px solid transparent;
-  color: var(--pico-muted-color);
-  background: transparent;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-  white-space: nowrap;
-}
-.espd-steps li.active a,
-.espd-steps li.active span {
-  background: var(--pico-primary);
-  color: var(--pico-primary-inverse);
-  border-color: var(--pico-primary);
-}
-.espd-steps li.completed a,
-.espd-steps li.completed span {
-  border-color: var(--pico-primary);
-  color: var(--pico-primary);
-}
-.espd-steps li a:hover,
-.espd-steps li span:hover {
-  border-color: var(--pico-primary);
-}
-
-/* Form footer with navigation */
-.espd-form-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--pico-muted-border-color);
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-.espd-form-actions-left,
-.espd-form-actions-right {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-/* Criterion card styling */
-.espd-criterion {
-  margin-bottom: 1.5rem;
-  padding: 1.5rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-}
-.espd-criterion-header {
-  margin-bottom: 1rem;
-}
-.espd-criterion-header h3 {
-  margin-bottom: 0.25rem;
-  font-size: 1.1rem;
-}
-.espd-criterion-header p {
-  color: var(--pico-muted-color);
-  font-size: 0.9rem;
-  margin-bottom: 0;
-}
-
-/* Question group */
-.espd-question-group {
-  margin-bottom: 1rem;
-  padding-left: 0;
-}
-
-/* Question subgroup (conditional, indented) */
-.espd-question-subgroup {
-  margin-left: 1.5rem;
-  padding-left: 1rem;
-  border-left: 3px solid var(--pico-muted-border-color);
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-.espd-question-subgroup[hidden] {
-  display: none;
-}
-
-/* Individual question field */
-.espd-field {
-  margin-bottom: 1rem;
-}
-.espd-field label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
-}
-.espd-field .field-description {
-  font-size: 0.85rem;
-  color: var(--pico-muted-color);
-  margin-bottom: 0.25rem;
-}
-
-/* Indicator (Yes/No) radio group */
-.espd-indicator-group {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-.espd-indicator-group label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-weight: normal;
-  cursor: pointer;
-}
-
-/* Repeating group controls */
-.espd-repeatable {
-  position: relative;
-}
-.espd-repeatable-instance {
-  padding: 1rem;
-  margin-bottom: 0.75rem;
-  border: 1px dashed var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-  position: relative;
-}
-.espd-repeatable-instance .btn-remove-instance {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-}
-.btn-add-instance {
-  margin-top: 0.5rem;
-}
-
-/* Legislation reference */
-.espd-legislation {
-  background: var(--pico-card-background-color);
-  padding: 0.75rem 1rem;
-  border-radius: var(--pico-border-radius);
-  margin-bottom: 1rem;
-  font-size: 0.85rem;
-}
-.espd-legislation summary {
-  cursor: pointer;
-  font-weight: 500;
-}
-
-/* Caption (informational, no input) */
-.espd-caption {
-  padding: 0.5rem 0.75rem;
-  background: var(--pico-card-background-color);
-  border-left: 3px solid var(--pico-primary);
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  font-style: italic;
-}
-
-/* Import area */
-.espd-import-area {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* Section title within a part */
-.espd-section-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--pico-primary);
-}
-
-/* Part header */
-.espd-part-header {
-  margin-bottom: 2rem;
-}
-.espd-part-header h2 {
-  margin-bottom: 0.25rem;
-}
-.espd-part-header p {
-  color: var(--pico-muted-color);
-}
-
-/* Requirement (buyer-set) styling */
-.espd-requirement {
-  background: var(--pico-card-background-color);
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--pico-border-radius);
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  border: 1px solid var(--pico-muted-border-color);
-}
-.espd-requirement .req-label {
-  font-weight: 600;
-}
-.espd-requirement .req-value {
-  margin-left: 0.5rem;
-}
-
-/* Validation error */
-.espd-field[aria-invalid="true"] input,
-.espd-field[aria-invalid="true"] select,
-.espd-field[aria-invalid="true"] textarea {
-  border-color: var(--pico-del-color);
-}
-.espd-field .error-message {
-  color: var(--pico-del-color);
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .espd-steps {
-    flex-direction: column;
-  }
-  .espd-form-footer {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .espd-form-actions-left,
-  .espd-form-actions-right {
-    justify-content: center;
-  }
-  .espd-indicator-group {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-}
-
-/* =============================================
-   Persistent Navigation UX — Wizard Header, Badges, Continue Card
-   ============================================= */
-
-/* Wizard Navigation Bar — combined header + step progress */
-.espd-wizard-nav-bar {
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-  background: var(--pico-card-background-color);
-  margin-bottom: 1.5rem;
-  overflow: hidden;
-}
-
-/* Wizard Header — context row inside the nav bar */
-.espd-wizard-header {
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  padding: 0.4rem 0.75rem;
-  border-bottom: 1px solid var(--pico-muted-border-color);
-}
-
-.espd-wizard-header__context {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.espd-wizard-header__role {
-  font-weight: 500;
-  font-size: 0.85rem;
-  color: var(--pico-color);
-}
-
-.espd-wizard-header__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-shrink: 0;
-}
-
-.espd-wizard-header__actions button {
-  margin-bottom: 0;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.8rem;
-}
-
-/* Document Type Badge — base styling */
-.espd-doc-badge {
-  display: inline-block;
-  padding: 0.25rem 0.6rem;
-  border-radius: var(--pico-border-radius);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+  padding: 10px 14px;
+  border: 1px solid var(--gs-base-color-gray-60);
+  border-radius: var(--gs-base-radius-s);
+  background: var(--gs-base-color-background);
+  color: var(--gs-base-color-gray-100);
+  font: inherit;
+  font-size: var(--gs-base-font-size-m);
   line-height: 1.4;
 }
 
-/* Request badge — blue/primary tone */
-.espd-doc-badge--request {
-  background: hsl(214, 80%, 92%);
-  color: hsl(214, 60%, 30%);
-  border: 1px solid hsl(214, 50%, 75%);
+textarea {
+  min-height: 6rem;
+  resize: vertical;
 }
 
-/* Response badge — green/success tone */
-.espd-doc-badge--response {
-  background: hsl(152, 60%, 90%);
-  color: hsl(152, 50%, 25%);
-  border: 1px solid hsl(152, 40%, 70%);
+select {
+  padding-right: 40px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8l8 8 8-8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 12px;
 }
 
-/* Continue Card */
-.espd-continue-card {
-  margin-bottom: 1.5rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
+input::placeholder,
+textarea::placeholder {
+  color: var(--gs-base-color-gray-60);
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gs-base-color-eu-blue-100);
+  outline-offset: 2px;
+}
+
+/* Read-only and disabled fields (the economic operator sees Part I this way). */
+input:disabled:not([type="radio"]):not([type="checkbox"]),
+select:disabled,
+textarea:disabled,
+input[aria-readonly="true"]:not([type="radio"]):not([type="checkbox"]) {
+  border-color: var(--gs-base-color-gray-20);
+  background-color: var(--gs-base-color-gray-5);
+  color: var(--gs-base-color-gray-75);
+  cursor: not-allowed;
+}
+
+/* Radio buttons and checkboxes: the TED 18px controls. */
+input[type="radio"],
+input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1px solid var(--gs-base-color-gray-60);
+  background: var(--gs-base-color-background) no-repeat center;
+  vertical-align: -3px;
+  cursor: pointer;
+  appearance: none;
+}
+
+input[type="radio"] {
+  border-radius: 50%;
+}
+
+input[type="checkbox"] {
+  border-radius: var(--gs-base-radius-xs);
+}
+
+input[type="radio"]:checked {
+  border-color: var(--gs-base-color-eu-blue-100);
+  background-image: radial-gradient(circle, var(--gs-base-color-eu-blue-100) 0 4.5px, transparent 5px);
+}
+
+input[type="checkbox"]:checked {
+  border-color: var(--gs-base-color-eu-blue-100);
+  background-color: var(--gs-base-color-eu-blue-100);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
+  background-size: 14px 14px;
+}
+
+input[type="radio"]:focus-visible,
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--gs-base-color-eu-blue-100);
+  outline-offset: 2px;
+}
+
+input[type="radio"]:disabled,
+input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* A ticked box that cannot be cleared: the buyer's legally required grounds. */
+input[type="checkbox"]:checked:disabled {
+  border-color: var(--gs-base-color-gray-60);
+  background-color: var(--gs-base-color-gray-60);
+  opacity: 1;
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
   padding: 0;
-  overflow: hidden;
+  border: 0;
 }
 
-.espd-continue-card header {
-  display: flex;
+legend {
+  padding: 0;
+  color: var(--gs-base-color-gray-100);
+  font-weight: 700;
+}
+
+/* File input: the native control, with its button drawn as a TED secondary button. */
+input[type="file"] {
+  max-width: 100%;
+  color: var(--gs-base-color-gray-75);
+  font: inherit;
+  font-size: var(--gs-base-font-size-s);
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: var(--gs-base-spacing-s);
+  padding: 8px 12px;
+  border: 2px solid var(--gs-base-color-eu-blue-100);
+  border-radius: 3px;
+  background-color: var(--gs-base-color-background);
+  color: var(--gs-base-color-eu-blue-100);
+  font: inherit;
+  font-size: var(--gs-base-font-size-s);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: var(--gs-base-color-eu-blue-10);
+}
+
+/* 4. Buttons ----------------------------------------------------------------
+ * The scripts use Pico's class names. They map to TED button variants:
+ *   <button>                     primary    EU blue, filled
+ *   <button class="secondary">   secondary  EU blue outline
+ *   <button class="outline">     tertiary   grey outline (with or without .secondary)
+ *   <button class="contrast">    cta        the TED service button, forest green
+ */
+
+button,
+input[type="submit"],
+input[type="button"] {
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--pico-muted-border-color);
-  background: var(--pico-card-background-color);
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 10px 18px;
+  border: 2px solid var(--gs-base-color-eu-blue-100);
+  border-radius: 3px;
+  background-color: var(--gs-base-color-eu-blue-100);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: var(--gs-base-font-size-m);
+  font-weight: 700;
+  line-height: 1.15;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
 }
 
-.espd-continue-card__role {
-  font-weight: 500;
-  font-size: 1rem;
+button:hover {
+  border-color: var(--gs-base-color-eu-blue-110);
+  background-color: var(--gs-base-color-eu-blue-110);
 }
 
-.espd-continue-card__details {
-  padding: 1rem 1.25rem;
+button:focus-visible {
+  outline: 2px solid var(--gs-base-color-eu-blue-110);
+  outline-offset: 2px;
 }
 
-.espd-continue-card__details p {
-  margin-bottom: 0.25rem;
-  font-size: 0.9rem;
-  color: var(--pico-muted-color);
+button.secondary {
+  border-color: var(--gs-base-color-eu-blue-100);
+  background-color: transparent;
+  color: var(--gs-base-color-eu-blue-100);
 }
 
-.espd-continue-card__details p:last-child {
-  margin-bottom: 0;
+button.secondary:hover {
+  background-color: var(--gs-base-color-eu-blue-10);
 }
 
-.espd-continue-card footer {
-  padding: 0.75rem 1.25rem;
-  border-top: 1px solid var(--pico-muted-border-color);
+button.secondary:focus-visible {
+  outline-color: var(--gs-base-color-eu-blue-100);
 }
 
-.espd-continue-card footer button {
-  margin-bottom: 0;
+button.outline,
+button.outline.secondary {
+  border-color: var(--gs-base-color-gray-75);
+  background-color: transparent;
+  color: var(--gs-base-color-gray-75);
 }
 
-/* Home Actions — "New ESPD" button area */
-.espd-home-actions {
-  margin: 1.5rem 0;
+button.outline:hover,
+button.outline.secondary:hover {
+  background-color: var(--gs-base-color-gray-10);
 }
 
-.espd-home-actions button {
-  margin-bottom: 0;
+button.outline:focus-visible {
+  outline-color: var(--gs-base-color-gray-75);
 }
 
-/* Import Area — prominent display */
-.espd-import-area {
+button.contrast {
+  border-color: var(--gs-base-color-forest-110);
+  background-color: var(--gs-base-color-forest-110);
+  color: #ffffff;
+}
+
+button.contrast:hover {
+  border-color: var(--gs-base-color-ted-button-hover);
+  background-color: var(--gs-base-color-ted-button-hover);
+}
+
+button.contrast:focus-visible {
+  outline-color: var(--gs-base-color-ted-button-hover);
+}
+
+button:disabled,
+button:disabled:hover {
+  border-color: var(--gs-base-color-gray-5);
+  background-color: var(--gs-base-color-gray-5);
+  color: var(--gs-base-color-gray-30);
+  cursor: not-allowed;
+}
+
+button.secondary:disabled,
+button.outline:disabled {
+  border-color: var(--gs-base-color-gray-30);
+}
+
+/* 5. Disclosure, dialogs, Pico leftovers ------------------------------------ */
+
+details > summary {
+  color: var(--gs-base-color-eu-blue-100);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+details > summary:focus-visible {
+  outline: 2px solid var(--gs-base-color-eu-blue-100);
+  outline-offset: 4px;
+}
+
+/* Pico's .grid: equal columns that wrap on narrow screens. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: var(--gs-base-spacing-m);
+}
+
+/* Dialogs follow the TED Modal: grey header band, white body, actions in a
+   bordered footer, a dimmed page behind. */
+dialog {
+  width: min(600px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--gs-base-radius-xs);
+  background: var(--gs-base-color-background);
+  box-shadow: var(--gs-base-shadow-4);
+  color: var(--gs-base-color-gray-100);
+}
+
+dialog::backdrop {
+  background: var(--gs-base-scrim);
+}
+
+dialog > article {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin: 1.5rem 0;
-  padding: 1.25rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-  background: var(--pico-card-background-color);
+  margin: 0;
 }
 
-.espd-import-area h3 {
-  margin-bottom: 0.25rem;
-  font-size: 1.1rem;
+dialog > article > header {
+  position: relative;
+  padding: var(--gs-base-spacing-m) 56px var(--gs-base-spacing-m) var(--gs-base-spacing-m);
+  background: var(--gs-base-color-gray-5);
 }
 
-.espd-import-area p {
-  margin-bottom: 0.5rem;
-  color: var(--pico-muted-color);
-  font-size: 0.9rem;
+dialog > article > header h3 {
+  margin: 0;
+  font-size: var(--gs-base-font-size-l);
 }
 
-/* Import Controls — file input + button row */
-.espd-import-controls {
+dialog > article > p,
+dialog > article > div {
+  margin: 0;
+  padding: var(--gs-base-spacing-m);
+}
+
+dialog > article > footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--gs-base-spacing-s);
+  padding: var(--gs-base-spacing-m);
+  border-top: 1px solid var(--gs-base-color-gray-20);
+}
+
+/* The close button in a dialog header (Pico's rel="prev" convention). */
+dialog button[rel="prev"] {
+  position: absolute;
+  top: 50%;
+  right: var(--gs-base-spacing-s);
+  padding: 6px;
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--gs-base-color-gray-100);
+  transform: translateY(-50%);
+}
+
+dialog button[rel="prev"]::before {
+  content: "\e913";
+  font-family: "gs-icon";
+  font-size: 20px;
+  font-weight: 400;
+}
+
+dialog button[rel="prev"]:hover {
+  background-color: var(--gs-base-color-gray-10);
+}
+
+/* 6. Site header ------------------------------------------------------------ */
+
+/* EU global banner. A shared EU-wide component with its own greys, blue and
+   yellow focus ring, identical on every europa.eu site: do not restyle it with
+   TED tokens. Reproduces the current EU Webtools banner as ted.europa.eu shows
+   it: below 768px the text shortens and the button moves to the right edge;
+   below 480px the button keeps only its arrow. */
+.ted-globan {
+  position: relative;
+  z-index: 20;
+  background: #444444;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.ted-globan__bar {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  min-height: 28px;
+}
+
+.ted-globan__flag {
+  align-self: center;
+  width: 24px;
+  height: 16px;
+  margin: 0 8px 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.ted-globan__text-long,
+.ted-globan__text-short {
+  align-self: center;
+}
+
+.ted-globan__text-short {
+  display: none;
+}
+
+.ted-globan__toggle {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.espd-import-controls input[type="file"] {
-  margin-bottom: 0;
-  flex: 1;
-  min-width: 0;
-}
-
-.espd-import-controls button {
-  margin-bottom: 0;
+  gap: 0;
+  margin: 0 0 0 8px;
+  padding: 0 7px;
+  border: 3px solid #444444;
+  border-radius: 0;
+  background-color: transparent;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
   white-space: nowrap;
 }
 
-/* Path Selector Navigation Links */
+.ted-globan__toggle:hover {
+  border-color: #ffffff;
+  background-color: #ffffff;
+  color: #004494;
+}
+
+.ted-globan__toggle[aria-expanded="true"],
+.ted-globan__toggle:focus-visible {
+  border-color: #ffd617;
+  background-color: #ffffff;
+  color: #004494;
+  outline: none;
+}
+
+/* The arrow points down while closed and up while open. */
+.ted-globan__arrow {
+  width: 12px;
+  height: 12px;
+  margin: 0 0 0 8px;
+  transform: rotate(180deg);
+}
+
+.ted-globan__arrow path {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 5px;
+}
+
+.ted-globan__toggle[aria-expanded="true"] .ted-globan__arrow {
+  transform: none;
+}
+
+.ted-globan__dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  max-width: 500px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid #cccccc;
+  background: #ffffff;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.4);
+  color: #444444;
+}
+
+.ted-globan__dropdown p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ted-globan__dropdown p + p {
+  margin-top: 10px;
+}
+
+.ted-globan__dropdown a {
+  color: #004494;
+  text-decoration: none;
+}
+
+.ted-globan__dropdown a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .ted-globan__bar {
+    display: flex;
+    width: 100%;
+  }
+
+  .ted-globan__flag {
+    margin: 0 8px;
+  }
+
+  .ted-globan__text-long {
+    display: none;
+  }
+
+  .ted-globan__text-short {
+    display: block;
+  }
+
+  .ted-globan__toggle {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Only the arrow shows; the words stay for screen readers. */
+  .ted-globan__toggle-text {
+    display: flex;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .ted-globan__arrow {
+    margin: 0;
+  }
+}
+
+/* EU logo row, then the TED service row with its 8px green rule. */
+.ted-header {
+  background: var(--gs-base-color-background);
+  color: var(--gs-base-color-eu-gray-80);
+  font-family: Arial, sans-serif;
+}
+
+.ted-header__logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--gs-base-spacing-m);
+  padding: 0 var(--gs-base-spacing-l);
+}
+
+.ted-header__logo-row > a {
+  display: inline-block;
+  padding: 16px 0;
+}
+
+.ted-header__logo-row img {
+  display: block;
+  height: 48px;
+}
+
+.ted-header__logo-row::after {
+  content: "";
+  flex: 0 0 100%;
+  border-bottom: 2px solid var(--gs-base-color-eu-blue-20);
+}
+
+.ted-header__service {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--gs-base-spacing-l) 10px;
+  border-bottom: 8px solid var(--gs-base-color-forest-100);
+}
+
+.ted-header__site {
+  align-self: flex-start;
+  margin: 8px 0 2px;
+  color: var(--gs-base-color-eu-gray-80);
+  font-size: 28px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.ted-header__site:hover {
+  text-decoration: underline;
+}
+
+.ted-header__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+
+.ted-header__identity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 22px;
+}
+
+/* The service chip: the green bar marks the service as TED. */
+.ted-header__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--gs-base-spacing-xs) var(--gs-base-spacing-s);
+  border-radius: var(--gs-base-radius-s);
+  background: var(--gs-base-color-gray-5);
+  text-decoration: none;
+}
+
+.ted-header__bar {
+  align-self: stretch;
+  width: 6px;
+  min-height: 1em;
+  margin-right: var(--gs-base-spacing-xs);
+  border-radius: 6px;
+  background: var(--gs-base-color-forest-100);
+}
+
+.ted-header__name {
+  color: var(--gs-base-color-eu-gray-80);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ted-header__square {
+  font-size: 10px;
+  vertical-align: middle;
+}
+
+.ted-header__description {
+  color: var(--gs-base-color-eu-gray-80);
+  font-size: 15px;
+}
+
+/* Language menu, at the right end of the EU logo row, as on ted.europa.eu: a
+   globe and the current language in EU blue (beside each other on wide
+   screens, the name under the globe on a phone), opening a small list of
+   languages. Built by js/site-header.js from the hidden #language-select. */
+.ted-header__language {
+  position: relative;
+}
+
+.ted-language__button {
+  gap: 6px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: var(--gs-base-radius-xs);
+  background-color: transparent;
+  color: var(--gs-base-color-eu-blue-100);
+  font-size: var(--gs-base-font-size-m);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.ted-language__button .gs-icon {
+  color: var(--gs-base-color-gray-100);
+  font-size: 24px;
+}
+
+.ted-language__button:hover,
+.ted-language__button[aria-expanded="true"] {
+  border: 0;
+  background-color: var(--gs-base-color-eu-blue-5);
+}
+
+.ted-language__button:hover .ted-language__current {
+  text-decoration: underline;
+}
+
+.ted-language__button:focus-visible {
+  outline: 2px solid var(--gs-base-color-eu-blue-100);
+  outline-offset: 2px;
+}
+
+.ted-language__menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 12rem;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-s);
+  background: var(--gs-base-color-background);
+  box-shadow: var(--gs-base-shadow-2);
+}
+
+.ted-language__menu button {
+  justify-content: flex-start;
+  width: 100%;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--gs-base-color-gray-100);
+  font-weight: 400;
+  text-align: left;
+}
+
+.ted-language__menu button:hover {
+  border: 0;
+  background-color: var(--gs-base-color-eu-blue-5);
+  color: var(--gs-base-color-eu-blue-100);
+}
+
+.ted-language__menu button:focus-visible {
+  outline: 2px solid var(--gs-base-color-eu-blue-100);
+  outline-offset: -2px;
+}
+
+/* The language in use: bold, with a tick. */
+.ted-language__menu button[aria-current="true"] {
+  font-weight: 700;
+}
+
+.ted-language__menu button[aria-current="true"]::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230e47cb' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") no-repeat center / 14px 14px;
+}
+
+@media (max-width: 575.98px) {
+  .ted-language__button {
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px 8px;
+    font-size: var(--gs-base-font-size-2xs);
+  }
+
+  .ted-language__button .gs-icon {
+    font-size: 20px;
+  }
+}
+
+/* Navigation tabs. */
+.ted-nav {
+  border-bottom: 1px solid var(--gs-base-color-gray-20);
+  background: var(--gs-base-color-gray-5);
+}
+
+.ted-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0 var(--gs-base-spacing-l);
+  list-style: none;
+}
+
+.ted-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: -1px;
+  padding: 12px 16px;
+  border-bottom: 3px solid transparent;
+  color: var(--gs-base-color-gray-100);
+  line-height: var(--gs-base-line-height-s);
+  text-decoration: none;
+}
+
+.ted-nav a:hover {
+  text-decoration: underline;
+}
+
+.ted-nav a[aria-current="page"] {
+  border-bottom-color: var(--gs-base-color-forest-110);
+  background: var(--gs-base-color-background);
+  font-weight: 700;
+}
+
+.ted-nav .gs-icon {
+  font-size: 0.75em;
+}
+
+/* 7. Site footer (public) ---------------------------------------------------- */
+
+.ted-footer {
+  margin-top: 0;
+  padding: 1.5rem;
+  background: var(--gs-base-color-eu-blue-5);
+  color: var(--gs-base-color-gray-75);
+  font-family: Arial, sans-serif;
+  font-size: var(--gs-base-font-size-s);
+  line-height: 1.6;
+}
+
+.ted-footer__band {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--gs-base-color-eu-blue-20);
+}
+
+.ted-footer__band + .ted-footer__band {
+  border-bottom: 0;
+}
+
+.ted-footer__col {
+  flex: 1 1 0;
+  min-width: min(15rem, 100%);
+  padding: 1rem;
+}
+
+.ted-footer__col--first {
+  flex: 0 1 30%;
+  min-width: min(22.25rem, 100%);
+}
+
+.ted-footer__managed {
+  padding-right: var(--gs-base-spacing-l);
+}
+
+.ted-footer__managed p {
+  margin: 0 0 0.5rem;
+  font-size: 14px;
+}
+
+.ted-footer__lockup {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.ted-footer__lockup img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.ted-footer__title {
+  display: block;
+  margin: 1.5rem 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gs-base-color-eu-blue-20);
+  color: var(--gs-base-color-gray-100);
+  font-size: var(--gs-base-font-size-l);
+  font-weight: 400;
+  line-height: var(--gs-base-line-height-s);
+}
+
+.ted-footer__col > .ted-footer__title:first-child {
+  margin-top: 0;
+}
+
+.ted-footer__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--gs-base-font-size-s);
+  line-height: 2rem;
+}
+
+.ted-footer__links a {
+  color: var(--gs-base-color-eu-blue-100);
+  text-decoration: none;
+}
+
+.ted-footer__links a:hover {
+  color: var(--gs-base-color-eu-blue-140);
+  text-decoration: underline;
+}
+
+.ted-footer__links .gs-icon {
+  margin-right: 0.45rem;
+  color: var(--gs-base-color-social-icon);
+  font-size: 1.125rem;
+  vertical-align: -0.15em;
+}
+
+.ted-footer__flag {
+  margin: 2.5rem 0 0.75rem;
+}
+
+.ted-footer__flag img {
+  width: auto;
+  max-height: 54px;
+}
+
+.ted-footer__europa {
+  margin: 1.5rem 0 0;
+  color: var(--gs-base-color-eu-gray-140);
+  line-height: 1.35;
+}
+
+.ted-footer__europa a {
+  text-decoration: none;
+}
+
+.ted-footer__europa a:hover {
+  color: var(--gs-base-color-eu-blue-140);
+  text-decoration: underline;
+}
+
+.ted-footer__top {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+
+.ted-footer__top a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 4px 6px;
+  text-decoration: none;
+}
+
+.ted-footer__top a:hover {
+  text-decoration: underline;
+}
+
+/* 8. Home, path and role selection ------------------------------------------ */
+
+/* The page heading on Home, path and role screens (an <hgroup>), drawn as the
+   TED page header: a grey band. */
+#landing-page > hgroup {
+  margin: var(--gs-base-spacing-l) 0 var(--gs-base-spacing-xl);
+  padding: 16px 24px 28px;
+  background: var(--gs-base-color-gray-5);
+}
+
+#landing-page > hgroup h1,
+#landing-page > hgroup h2 {
+  margin: 12px 0 0;
+  font-size: var(--gs-base-font-size-3xl);
+}
+
+#landing-page > hgroup p {
+  max-width: 65rem;
+  margin: 12px 0 0;
+}
+
+/* Home: the continue card, starting a new ESPD and importing one sit side by
+   side as cards, and stack on narrow screens. */
+#landing-page:has(.espd-home-actions) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: var(--gs-base-spacing-l);
+  align-items: stretch;
+}
+
+#landing-page:has(.espd-home-actions) > hgroup {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.espd-continue-card,
+.espd-home-actions,
+.espd-import-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gs-base-spacing-s);
+  margin: 0;
+  padding: var(--gs-base-spacing-l);
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-m);
+  background: var(--gs-base-color-background);
+}
+
+.espd-continue-card {
+  border-top: 4px solid var(--gs-base-color-forest-110);
+}
+
+.espd-continue-card > header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gs-base-spacing-xs);
+}
+
+.espd-continue-card__role {
+  font-weight: 700;
+}
+
+.espd-continue-card__details p {
+  margin: 0;
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-s);
+}
+
+.espd-continue-card > footer,
+.espd-home-actions > :last-child,
+.espd-import-controls {
+  margin-top: auto;
+  padding-top: var(--gs-base-spacing-xs);
+}
+
+.espd-home-actions h2,
+.espd-import-area h2,
+.espd-import-area h3 {
+  margin: 0;
+  font-size: var(--gs-base-font-size-l);
+  line-height: 1.3;
+}
+
+.espd-home-actions p,
+.espd-import-area p {
+  margin: 0;
+}
+
+.espd-import-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gs-base-spacing-s);
+}
+
+/* Path selection: two cards (Pico <article>s inside .grid). */
+#landing-page > .grid {
+  gap: var(--gs-base-spacing-l);
+}
+
+#landing-page > .grid > article {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gs-base-spacing-s);
+  margin: 0;
+  padding: var(--gs-base-spacing-l);
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-m);
+}
+
+#landing-page > .grid > article > header {
+  font-size: var(--gs-base-font-size-2xl);
+  font-weight: 700;
+  line-height: var(--gs-base-line-height-s);
+}
+
+#landing-page > .grid > article > p {
+  margin: 0;
+}
+
+#landing-page > .grid > article > footer {
+  margin-top: auto;
+  padding-top: var(--gs-base-spacing-xs);
+}
+
 .espd-path-selector__cancel,
 .espd-path-selector__back {
-  margin: 1rem 0;
+  margin: var(--gs-base-spacing-l) 0;
+}
+
+.espd-path-selector__back {
+  margin-top: 0;
 }
 
 .espd-path-selector__cancel a,
 .espd-path-selector__back a {
-  text-decoration: none;
-  font-size: 0.9rem;
-  color: var(--pico-muted-color);
-  transition: color 0.15s;
+  font-size: var(--gs-base-font-size-s);
 }
 
-.espd-path-selector__cancel a:hover,
-.espd-path-selector__back a:hover {
-  color: var(--pico-primary);
+/* Role selection: one bordered row per role, the chosen one in EU blue. */
+fieldset[role="radiogroup"]:has(.espd-role-radio) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gs-base-spacing-s);
+  max-width: 46rem;
 }
 
-/* Role Radio Button Styles */
 .espd-role-radio {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
+  gap: var(--gs-base-spacing-s);
+  padding: 16px 20px;
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-m);
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
 }
 
 .espd-role-radio:hover {
-  border-color: var(--pico-primary);
-  background-color: var(--pico-primary-focus);
+  border-color: var(--gs-base-color-gray-60);
 }
 
 .espd-role-radio:has(input:checked) {
-  border-color: var(--pico-primary);
-  background-color: var(--pico-primary-focus);
+  padding: 15px 19px;
+  border: 2px solid var(--gs-base-color-eu-blue-100);
+  background: var(--gs-base-color-eu-blue-5);
 }
 
 .espd-role-radio input[type="radio"] {
-  margin-top: 0.2rem;
-  flex-shrink: 0;
-}
-
-.espd-role-radio__text {
-  flex: 1;
+  margin-top: 3px;
 }
 
 .espd-role-radio__text strong {
-  display: block;
-  margin-bottom: 0.25rem;
+  font-weight: 700;
 }
 
 .espd-role-radio__text small {
-  color: var(--pico-muted-color);
+  display: block;
+  color: var(--gs-base-color-gray-75);
+}
+
+.espd-role-radio__text br {
+  display: none;
 }
 
 .espd-path-selector__actions {
-  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gs-base-spacing-s);
+  margin-top: var(--gs-base-spacing-xl);
 }
 
-/* =============================================
-   Responsive Adjustments — Navigation Components
-   ============================================= */
+/* 9. Wizard ------------------------------------------------------------------ */
 
-@media (max-width: 768px) {
-  .espd-wizard-header {
-    flex-wrap: wrap;
-  }
-
-  .espd-wizard-header__actions {
-    flex-wrap: wrap;
-  }
-
-  .espd-continue-card header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .espd-import-controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .espd-import-controls input[type="file"] {
-    width: 100%;
-  }
+#wizard-container {
+  padding-top: var(--gs-base-spacing-l);
 }
 
+/* One card holding the document context and the steps. */
+.espd-wizard-nav-bar {
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-m);
+  background: var(--gs-base-color-background);
+}
 
-/* TED Lookup Button & Messages */
-.espd-lookup-btn {
+.espd-wizard-header {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gs-base-spacing-s);
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-m) var(--gs-base-radius-m) 0 0;
+  background: var(--gs-base-color-gray-5);
+}
+
+.espd-wizard-header__context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gs-base-spacing-s);
+}
+
+.espd-wizard-header__role {
+  font-weight: 700;
+}
+
+.espd-wizard-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gs-base-spacing-xs);
+}
+
+.espd-wizard-header__actions button {
+  padding: 8px 12px;
+  font-size: var(--gs-base-font-size-s);
+  font-weight: 400;
+}
+
+/* Document type: ESPD Request in information blue, ESPD Response in green. */
+.espd-doc-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: var(--gs-base-radius-s);
+  font-size: var(--gs-base-font-size-xs);
+  font-weight: 700;
+  line-height: var(--gs-base-line-height-s);
   white-space: nowrap;
-  margin-bottom: 0;
 }
 
-.espd-lookup-msg {
-  display: block;
-  margin-top: 0.25rem;
+.espd-doc-badge--request {
+  background: var(--gs-base-color-info);
+  color: #ffffff;
 }
 
-.espd-lookup-msg--error {
-  color: var(--pico-del-color, #c62828);
+.espd-doc-badge--response {
+  background: var(--gs-base-color-forest-110);
+  color: #ffffff;
 }
 
-.espd-lookup-msg--success {
-  color: var(--pico-ins-color, #2e7d32);
+/* Steps: a numbered stepper. Each step is a bullet with its Roman numeral and
+   a short label; done steps turn green, the current one is EU blue, the line
+   between steps fills as the user advances. The bullet and label are spans
+   that js/app.js adds (.espd-step__num, .espd-step__label). */
+#wizard-nav {
+  padding: 20px;
+  overflow-x: auto;
 }
 
-.espd-lookup-msg--info {
-  color: var(--pico-muted-color);
-  font-style: italic;
-}
-
-
-/* Radio Input Group (Part I publication reference) */
-.espd-radio-input-group {
-  border: none;
+.espd-steps {
+  display: flex;
+  min-width: 36rem;
+  margin: 0;
   padding: 0;
+  list-style: none;
+}
+
+.espd-steps li {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* The line to the next step. */
+.espd-steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 19px;
+  left: calc(50% + 24px);
+  right: calc(-50% + 24px);
+  height: 2px;
+  background: var(--gs-base-color-gray-20);
+}
+
+.espd-steps li.completed:not(:last-child)::after {
+  background: var(--gs-base-color-success);
+}
+
+.espd-steps li a {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-s);
+  text-align: center;
+  text-decoration: none;
+}
+
+.espd-step__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gs-base-color-gray-10);
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-m);
+  font-weight: 700;
+}
+
+.espd-steps li.completed .espd-step__num {
+  background: var(--gs-base-color-success);
+  color: #ffffff;
+}
+
+.espd-steps li.active .espd-step__num {
+  background: var(--gs-base-color-eu-blue-100);
+  color: #ffffff;
+}
+
+.espd-steps li.active a {
+  color: var(--gs-base-color-gray-100);
+  font-weight: 700;
+}
+
+.espd-steps li a:hover .espd-step__label {
+  text-decoration: underline;
+}
+
+.espd-steps li a:focus-visible {
+  outline: 2px solid var(--gs-base-color-eu-blue-100);
+  outline-offset: 4px;
+}
+
+/* Part header: the part's title and its description. */
+.espd-part-header {
+  margin: var(--gs-base-spacing-xl) 0 var(--gs-base-spacing-l);
+  max-width: 65rem;
+}
+
+.espd-part-header h2 {
+  margin: 0 0 var(--gs-base-spacing-xs);
+  font-size: var(--gs-base-font-size-3xl);
+}
+
+.espd-part-header h2:focus {
+  outline: none;
+}
+
+.espd-part-header p {
+  margin: 0;
+}
+
+/* Previous and Next. */
+.espd-form-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gs-base-spacing-s);
+  margin-top: var(--gs-base-spacing-xl);
+  padding-top: var(--gs-base-spacing-l);
+  border-top: 1px solid var(--gs-base-color-gray-20);
+}
+
+.espd-form-actions-left,
+.espd-form-actions-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gs-base-spacing-s);
+}
+
+/* 10. Form content ----------------------------------------------------------- */
+
+#form-content {
+  max-width: 52rem;
+}
+
+/* Section heading inside a part ("A: Grounds relating to criminal convictions"). */
+.espd-section-title {
+  margin: var(--gs-base-spacing-xl) 0 var(--gs-base-spacing-m);
+  padding-bottom: var(--gs-base-spacing-xs);
+  border-bottom: 2px solid var(--gs-base-color-gray-20);
+  font-size: var(--gs-base-font-size-l);
+  line-height: 1.3;
+}
+
+/* One criterion: a bordered block. */
+.espd-criterion {
+  margin-bottom: var(--gs-base-spacing-l);
+  padding: var(--gs-base-spacing-l);
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-m);
+}
+
+.espd-criterion-header {
+  margin-bottom: var(--gs-base-spacing-m);
+}
+
+.espd-criterion-header h3 {
+  margin: 0 0 var(--gs-base-spacing-xs);
+  font-size: var(--gs-base-font-size-l);
+}
+
+.espd-criterion-header p {
+  margin: 0;
+  font-size: var(--gs-base-font-size-s);
+}
+
+/* An empty subgroup the renderer leaves before the legislation note. */
+.espd-question-subgroup:empty {
+  display: none;
+}
+
+.espd-question-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gs-base-spacing-m);
+}
+
+.espd-question-group + .espd-question-group {
+  margin-top: var(--gs-base-spacing-m);
+}
+
+/* Questions that appear after an answer: a grey panel, not an indented rule. */
+.espd-question-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gs-base-spacing-m);
+  padding: 20px;
+  border-radius: var(--gs-base-radius-m);
+  background: var(--gs-base-color-gray-5);
+}
+
+/* A panel inside a panel stays white, so the nesting stays visible. */
+.espd-question-subgroup .espd-question-subgroup {
+  border: 1px solid var(--gs-base-color-gray-20);
+  background: var(--gs-base-color-background);
+}
+
+.espd-field {
+  margin: 0;
+}
+
+.espd-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--gs-base-font-size-s);
+  font-weight: 700;
+}
+
+.espd-field .field-description {
+  margin-bottom: 6px;
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-s);
+}
+
+/* Short fields stay short. */
+.espd-field input[type="date"] {
+  max-width: 14rem;
+}
+
+.espd-field select {
+  max-width: 28rem;
+}
+
+/* A period (two dates side by side) and evidence (three fields): the group's
+   name is the legend, each field keeps its own visible label. */
+.espd-period > legend,
+.espd-evidence > legend {
+  margin-bottom: 6px;
+  font-size: var(--gs-base-font-size-s);
+}
+
+.espd-period__fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gs-base-spacing-m);
+}
+
+.espd-period__fields > div {
+  flex: 0 1 14rem;
+}
+
+.espd-evidence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gs-base-spacing-s);
+}
+
+.espd-period label,
+.espd-evidence label {
+  font-weight: 400;
+}
+
+/* Yes/No questions: the question is the legend, the answers sit in a row. */
+.espd-indicator-wrapper > legend {
+  margin-bottom: var(--gs-base-spacing-xs);
+  font-size: var(--gs-base-font-size-m);
+}
+
+.espd-indicator-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gs-base-spacing-xs) var(--gs-base-spacing-l);
+}
+
+.espd-indicator-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  font-size: var(--gs-base-font-size-m);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* Repeatable groups (add another / remove). */
+.espd-repeatable-instance {
+  position: relative;
+  margin-bottom: var(--gs-base-spacing-s);
+  padding: var(--gs-base-spacing-m);
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-m);
+}
+
+.espd-repeatable-instance .btn-remove-instance {
+  position: absolute;
+  top: var(--gs-base-spacing-xs);
+  right: var(--gs-base-spacing-xs);
+  padding: 6px 10px;
+  border-color: var(--gs-base-color-gray-75);
+  background-color: transparent;
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-s);
+  font-weight: 400;
+}
+
+.btn-add-instance {
+  margin-top: var(--gs-base-spacing-xs);
+}
+
+/* "Applicable legislation": an inline disclosure. */
+.espd-legislation {
+  margin: 0 0 var(--gs-base-spacing-m);
+  font-size: var(--gs-base-font-size-s);
+}
+
+.espd-legislation > summary {
+  display: inline-block;
+}
+
+.espd-legislation > p {
+  margin: var(--gs-base-spacing-xs) 0 0;
+  padding: var(--gs-base-spacing-s) var(--gs-base-spacing-m);
+  border-radius: var(--gs-base-radius-s);
+  background: var(--gs-base-color-gray-5);
+}
+
+/* Information with no input (a caption from the model). */
+.espd-caption {
+  margin: 0;
+  padding: var(--gs-base-spacing-s) var(--gs-base-spacing-m);
+  border-radius: var(--gs-base-radius-s);
+  background: var(--gs-base-color-info-surface);
+  font-size: var(--gs-base-font-size-s);
+}
+
+/* A requirement the buyer set, shown to the economic operator. */
+.espd-requirement {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--gs-base-spacing-xs);
+  margin: 0;
+  padding: var(--gs-base-spacing-xs) var(--gs-base-spacing-s);
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-s);
+  background: var(--gs-base-color-background);
+  font-size: var(--gs-base-font-size-s);
+}
+
+.espd-requirement .req-label {
+  font-weight: 700;
+}
+
+.espd-requirement .req-value::before {
+  content: ": ";
+}
+
+/* Field groups (legend + several fields). */
+.espd-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gs-base-spacing-m);
+}
+
+.espd-field-group legend {
+  margin-bottom: var(--gs-base-spacing-xs);
+}
+
+/* Validation errors on a field. */
+.espd-field[aria-invalid="true"] input,
+.espd-field[aria-invalid="true"] select,
+.espd-field[aria-invalid="true"] textarea {
+  border-color: var(--gs-base-color-error);
+}
+
+.espd-field .error-message {
+  margin-top: 6px;
+  color: var(--gs-base-color-error);
+  font-size: var(--gs-base-font-size-s);
+}
+
+/* Part I, information about publication: one row per way of identifying the
+   procedure, the chosen one in EU blue. */
+.espd-radio-input-group {
+  gap: var(--gs-base-spacing-s);
 }
 
 .espd-radio-input-row {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.25rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-  transition: border-color 0.2s, background-color 0.2s, opacity 0.2s;
+  align-items: flex-start;
+  gap: var(--gs-base-spacing-s);
+  padding: 16px;
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-m);
 }
 
 .espd-radio-input-row--active {
-  border-color: var(--pico-primary);
-  background-color: var(--pico-primary-focus);
+  padding: 15px;
+  border: 2px solid var(--gs-base-color-eu-blue-100);
+  background: var(--gs-base-color-eu-blue-5);
 }
 
-.espd-radio-input-row:not(.espd-radio-input-row--active) {
-  opacity: 0.6;
+.espd-radio-input-row > input[type="radio"] {
+  margin-top: 3px;
 }
 
-.espd-radio-input-row input[type="radio"] {
-  flex-shrink: 0;
-  margin: 0;
-}
-
-.espd-radio-input-row .espd-field {
-  flex: 1;
-  margin-bottom: 0;
+.espd-radio-input-row > .espd-field {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .espd-radio-input-row .espd-field label {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.espd-radio-input-row .espd-field input,
-.espd-radio-input-row .espd-field select {
-  margin-bottom: 0;
+  font-size: var(--gs-base-font-size-m);
 }
 
 .espd-input-dimmed {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
+/* 11. Buyer's criterion checklist ---------------------------------------------
+ * In the ESPD Request the buyer chooses grounds and criteria. Each one is a
+ * row with its checkbox, its name and its description; legally required ones
+ * are ticked, locked and marked "Required by regulation". */
 
-/* Field group (fieldset with legend) */
-.espd-field-group {
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-  padding: 1rem 1.25rem;
-  margin-bottom: var(--pico-spacing);
-}
-
-.espd-field-group legend {
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0 0.5rem;
-  color: var(--pico-color);
-}
-
-
-/* Criteria Selection View (Buyer Mode) */
 .criterion-card {
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-  padding: 1rem 1.25rem;
-  margin-bottom: 0.75rem;
-}
-
-.criterion-card--mandatory {
-  background-color: var(--pico-primary-focus);
-  border-color: var(--pico-primary);
+  margin: 0;
+  padding: var(--gs-base-spacing-s) 0;
+  border-bottom: 1px solid var(--gs-base-color-gray-10);
 }
 
 .criterion-card__header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--gs-base-spacing-xs) var(--gs-base-spacing-s);
 }
 
 .criterion-card__header input[type="checkbox"] {
-  flex-shrink: 0;
   margin: 0;
-  width: 1.25rem;
-  height: 1.25rem;
 }
 
 .criterion-card__label {
-  font-weight: 600;
-  margin-bottom: 0;
+  flex: 1 1 16rem;
+  min-width: 0;
+  margin: 0;
+  font-weight: 700;
   cursor: pointer;
 }
 
 .criterion-mandatory-indicator {
-  font-size: 0.75rem;
-  color: var(--pico-primary);
-  background-color: var(--pico-primary-focus);
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.25rem;
-  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border: 1px solid var(--gs-base-color-gray-20);
+  border-radius: var(--gs-base-radius-s);
+  background: var(--gs-base-color-gray-5);
+  color: var(--gs-base-color-gray-100);
+  font-size: var(--gs-base-font-size-xs);
+  font-weight: 700;
+  line-height: var(--gs-base-line-height-s);
   white-space: nowrap;
 }
 
 .criterion-card__description {
-  margin: 0.5rem 0 0 2rem;
-  font-size: 0.85rem;
-  color: var(--pico-muted-color);
-  line-height: 1.4;
+  margin: 4px 0 0 30px;
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-s);
 }
 
+/* Values the buyer sets for a chosen criterion. */
 .criterion-requirements {
-  margin-top: 0.75rem;
-  padding: 0.75rem 1rem;
-  margin-left: 2rem;
-  border-left: 3px solid var(--pico-primary-focus);
-  background-color: var(--pico-card-background-color, #fff);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gs-base-spacing-m);
+  margin: var(--gs-base-spacing-s) 0 var(--gs-base-spacing-xs) 30px;
+  padding: 20px;
+  border-radius: var(--gs-base-radius-m);
+  background: var(--gs-base-color-gray-5);
 }
 
-.criterion-requirements .espd-field {
-  margin-bottom: 0.5rem;
+/* 12. Messages ----------------------------------------------------------------- */
+
+.espd-lookup-btn {
+  align-self: flex-end;
 }
 
+.espd-lookup-msg {
+  margin: var(--gs-base-spacing-xs) 0 0;
+  padding: var(--gs-base-spacing-s) var(--gs-base-spacing-m);
+  border-left: 4px solid var(--gs-base-color-info);
+  border-radius: var(--gs-base-radius-xs);
+  background: var(--gs-base-color-info-surface);
+  font-size: var(--gs-base-font-size-s);
+}
 
-/* Validation Results */
+.espd-lookup-msg--success {
+  border-left-color: var(--gs-base-color-success);
+  background: var(--gs-base-color-success-surface);
+}
+
+.espd-lookup-msg--error {
+  border-left-color: var(--gs-base-color-error);
+  background: var(--gs-base-color-error-surface);
+}
+
+.validation-success,
+.validation-summary,
+.validation-warnings {
+  margin: 0 0 var(--gs-base-spacing-s);
+  padding: var(--gs-base-spacing-s) var(--gs-base-spacing-m);
+  border-left: 4px solid var(--gs-base-color-info);
+  border-radius: var(--gs-base-radius-xs);
+  background: var(--gs-base-color-info-surface);
+}
+
 .validation-success {
-  color: var(--pico-ins-color, #2e7d32);
-  font-weight: 600;
-  font-size: 1.1rem;
+  border-left-color: var(--gs-base-color-success);
+  background: var(--gs-base-color-success-surface);
 }
 
 .validation-summary {
-  font-weight: 600;
-  margin-bottom: 1rem;
+  border-left-color: var(--gs-base-color-error);
+  background: var(--gs-base-color-error-surface);
 }
 
-.validation-errors,
 .validation-warnings {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0;
+  border-left-color: var(--gs-base-color-warning);
+  background: var(--gs-base-color-warning-surface);
 }
 
 .validation-item {
-  padding: 0.75rem;
-  margin-bottom: 0.5rem;
-  border-radius: var(--pico-border-radius);
-  border-left: 4px solid;
+  margin: 0 0 var(--gs-base-spacing-xs);
+  padding: var(--gs-base-spacing-xs) var(--gs-base-spacing-s);
+  border-left: 3px solid var(--gs-base-color-gray-30);
+  font-size: var(--gs-base-font-size-s);
 }
 
 .validation-item--error {
-  border-left-color: var(--pico-del-color, #c62828);
-  background-color: color-mix(in srgb, var(--pico-del-color, #c62828) 5%, transparent);
+  border-left-color: var(--gs-base-color-error);
 }
 
 .validation-item--warning {
-  border-left-color: #f9a825;
-  background-color: color-mix(in srgb, #f9a825 5%, transparent);
+  border-left-color: var(--gs-base-color-warning);
 }
 
 .validation-item p {
-  margin: 0 0 0.25rem 0;
+  margin: 0;
 }
 
 .validation-location {
-  font-size: 0.8rem;
-  color: var(--pico-muted-color);
-  word-break: break-all;
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-xs);
+}
+
+/* 13. Small screens -------------------------------------------------------- */
+
+@media (max-width: 48rem) {
+  .container {
+    padding: 0 var(--gs-base-spacing-m) 48px;
+  }
+
+  .ted-header__logo-row,
+  .ted-header__service,
+  .ted-nav ul {
+    padding-left: var(--gs-base-spacing-m);
+    padding-right: var(--gs-base-spacing-m);
+  }
+
+  .ted-footer {
+    padding: var(--gs-base-spacing-m);
+  }
+
+  .ted-footer__col {
+    padding: var(--gs-base-spacing-xs) 0;
+  }
+
+  #landing-page > hgroup {
+    padding: 12px 16px 24px;
+  }
+
+  .espd-criterion {
+    padding: var(--gs-base-spacing-m);
+  }
+
+  .espd-question-subgroup {
+    padding: var(--gs-base-spacing-m);
+  }
+
+  .espd-form-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .espd-form-actions-left,
+  .espd-form-actions-right {
+    flex-direction: column;
+  }
+
+  .criterion-card__description,
+  .criterion-requirements {
+    margin-left: 0;
+  }
+
+  /* The step bar fits the screen: smaller bullets, no labels. The part's
+     title is just below it, and each step's link keeps its full name for
+     screen readers (aria-label). */
+  #wizard-nav {
+    padding: 16px 12px;
+    overflow-x: visible;
+  }
+
+  .espd-steps {
+    min-width: 0;
+  }
+
+  .espd-step__num {
+    width: 32px;
+    height: 32px;
+    font-size: var(--gs-base-font-size-s);
+  }
+
+  .espd-steps li:not(:last-child)::after {
+    top: 15px;
+    left: calc(50% + 18px);
+    right: calc(-50% + 18px);
+  }
+
+  .espd-step__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
 }

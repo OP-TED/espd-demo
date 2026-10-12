@@ -10,23 +10,55 @@
   <base href="./">
   <title>ESPD-EDM Reference Implementation — European Single Procurement Document</title>
   <meta name="description" content="Create and manage European Single Procurement Documents (ESPD) for public procurement procedures.">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/espd.css">
 </head>
-<body>
+<body id="top">
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <header class="container-fluid espd-header">
-    <nav aria-label="Main navigation">
+  <!-- EU global banner: shared EU-wide component (see css/espd.css, section 6). -->
+  <div class="ted-globan">
+    <div class="ted-globan__bar">
+      <img class="ted-globan__flag" src="images/eu.svg" alt="">
+      <span class="ted-globan__text-long">An official website of the European Union</span>
+      <span class="ted-globan__text-short">An official EU website</span>
+      <button type="button" class="ted-globan__toggle" aria-expanded="false" aria-controls="ted-globan-dropdown"><span class="ted-globan__toggle-text">How do you know?</span><svg class="ted-globan__arrow" viewBox="0 0 48 48" width="12" height="12" aria-hidden="true" focusable="false"><path d="m45 30.12-2.73 2.82-18.24-18.36L5.73 33 3 30.18 24.03 9z"/></svg></button>
+      <div class="ted-globan__dropdown" id="ted-globan-dropdown" hidden>
+        <p>All official European Union website addresses are in the <b>europa.eu</b> domain.</p>
+        <p><a href="https://european-union.europa.eu/institutions-law-budget/institutions-and-bodies/search-all-eu-institutions-and-bodies_en" target="_blank" rel="noopener noreferrer">See all EU institutions and bodies</a></p>
+      </div>
+    </div>
+  </div>
+
+  <header class="ted-header">
+    <div class="ted-header__logo-row">
+      <a href="https://european-union.europa.eu/index_en" target="_blank" rel="noopener noreferrer"><picture><source media="(max-width: 575.98px)" srcset="images/logo-eu--mobile.svg"><img src="images/logo-eu--en.svg" alt="European Union" height="48"></picture></a>
+      <!-- Language menu (js/site-header.js), as on ted.europa.eu. The app's own
+           language list stays below, hidden: the menu sets it. -->
+      <div class="ted-header__language">
+        <button type="button" class="ted-language__button" aria-expanded="false" aria-controls="ted-language-menu" aria-label="Change language, English">
+          <span class="gs-icon gs-icon-global" aria-hidden="true"></span>
+          <span class="ted-language__current">English</span>
+        </button>
+        <ul class="ted-language__menu" id="ted-language-menu" hidden></ul>
+        <select id="language-select" class="visually-hidden" tabindex="-1" aria-hidden="true">
+          <option value="en" selected>English</option>
+        </select>
+      </div>
+    </div>
+    <div class="ted-header__service">
+      <a class="ted-header__site" href="https://ted.europa.eu" target="_blank" rel="noopener noreferrer">EU tenders</a>
+      <div class="ted-header__row">
+        <div class="ted-header__identity">
+          <a class="ted-header__chip" href="./"><span class="ted-header__bar" aria-hidden="true"></span><span class="ted-header__name">Ted <span class="ted-header__square" aria-hidden="true">&#9632;</span> ESPD reference implementation</span></a>
+          <span class="ted-header__description">How to use the ESPD-EDM to build an ESPD service</span>
+        </div>
+      </div>
+    </div>
+    <nav class="ted-nav" aria-label="Site">
       <ul>
-        <li><strong>ESPD-EDM Reference Implementation</strong></li>
-      </ul>
-      <ul>
-        <li>
-          <select id="language-select" aria-label="Language">
-            <option value="en" selected>English</option>
-          </select>
-        </li>
+        <li><a href="./" aria-current="page">ESPD</a></li>
+        <li><a href="https://docs.ted.europa.eu/ESPD-EDM/latest/" target="_blank" rel="noopener noreferrer">Documentation <span class="gs-icon gs-icon-link-external" aria-hidden="true"></span><span class="visually-hidden">(opens in a new tab)</span></a></li>
       </ul>
     </nav>
   </header>
@@ -34,7 +66,7 @@
   <main id="main-content" class="container">
     <!-- Landing / Home Page (content rendered dynamically by home.js) -->
     <section id="landing-page" aria-labelledby="landing-heading">
-      <h1 id="landing-heading" class="visually-hidden">European Single Procurement Document (ESPD)</h1>
+      <h1 id="landing-heading" class="visually-hidden">European Single Procurement Document</h1>
     </section>
 
     <!-- Wizard Container (hidden until role selected) -->
@@ -96,20 +128,100 @@
         <p>You have unsaved work in your current session. Starting a new ESPD will discard all progress.</p>
         <footer>
           <button id="btn-confirm-new-cancel" class="secondary">Cancel</button>
-          <button id="btn-confirm-new-ok" class="contrast">Discard &amp; Continue</button>
+          <button id="btn-confirm-new-ok">Discard &amp; Continue</button>
         </footer>
       </article>
     </dialog>
   </main>
 
-  <footer class="container-fluid espd-footer">
-    <small>
-      <a href="https://docs.ted.europa.eu/ESPD-EDM/latest/" target="_blank" rel="noopener">Documentation</a>
-    </small>
+  <!-- TED site footer, public variant. Identical on every TED and Publications Office site. -->
+  <footer class="ted-footer">
+    <div class="ted-footer__band">
+      <div class="ted-footer__col ted-footer__col--first">
+        <div class="ted-footer__managed">
+          <p>This website is managed by:</p>
+          <a class="ted-footer__lockup" href="https://op.europa.eu/en/" target="_blank" rel="noopener noreferrer"><img src="images/op-lockup-blue.png" width="300" height="91" alt="Publications Office of the European Union — Law | Data | Publications"></a>
+        </div>
+      </div>
+      <div class="ted-footer__col">
+        <h2 class="ted-footer__title">Need help?</h2>
+        <ul class="ted-footer__links">
+          <li><a href="https://ted.europa.eu/en/help" target="_blank" rel="noopener noreferrer">Help</a></li>
+          <li><a href="https://ted.europa.eu/en/contact" target="_blank" rel="noopener noreferrer">Contact the TED helpdesk</a></li>
+        </ul>
+        <h2 class="ted-footer__title">Follow us</h2>
+        <ul class="ted-footer__links">
+          <li><a href="https://respublicae.eu/@EUPublications" target="_blank" rel="noopener noreferrer"><span class="gs-icon gs-icon-mastodon" aria-hidden="true"></span>Mastodon</a></li>
+          <li><a href="https://www.linkedin.com/company/publications-office-of-the-european-union/" target="_blank" rel="noopener noreferrer"><span class="gs-icon gs-icon-linkedin" aria-hidden="true"></span>LinkedIn</a></li>
+          <li><a href="https://bsky.app/profile/eupublications.bsky.social" target="_blank" rel="noopener noreferrer"><span class="gs-icon gs-icon-bluesky" aria-hidden="true"></span>Bluesky</a></li>
+          <li><a href="https://www.facebook.com/EULawandPublications/" target="_blank" rel="noopener noreferrer"><span class="gs-icon gs-icon-facebook" aria-hidden="true"></span>Facebook</a></li>
+          <li><a href="https://www.youtube.com/user/PublicationsOffice" target="_blank" rel="noopener noreferrer"><span class="gs-icon gs-icon-youtube" aria-hidden="true"></span>YouTube</a></li>
+          <li><a href="https://european-union.europa.eu/contact-eu/social-media-channels_en" target="_blank" rel="noopener noreferrer"><span class="gs-icon gs-icon-social-share" aria-hidden="true"></span>Other</a></li>
+        </ul>
+        <h2 class="ted-footer__title">Legal</h2>
+        <ul class="ted-footer__links">
+          <li><a href="https://ted.europa.eu/en/legal-notice" target="_blank" rel="noopener noreferrer">Legal notice</a></li>
+          <li><a href="https://ted.europa.eu/en/cookie-choice" target="_blank" rel="noopener noreferrer">Cookies</a></li>
+          <li><a href="https://ted.europa.eu/en/accessibility" target="_blank" rel="noopener noreferrer">Accessibility</a></li>
+        </ul>
+      </div>
+      <div class="ted-footer__col">
+        <h2 class="ted-footer__title">About us</h2>
+        <ul class="ted-footer__links">
+          <li><a href="https://ted.europa.eu/en/about-ted" target="_blank" rel="noopener noreferrer">About TED</a></li>
+          <li><a href="https://ted.europa.eu/en/sitemap" target="_blank" rel="noopener noreferrer">Site map</a></li>
+        </ul>
+        <h2 class="ted-footer__title">Other services</h2>
+        <ul class="ted-footer__links">
+          <li><a href="https://eur-lex.europa.eu" target="_blank" rel="noopener noreferrer">EU law</a></li>
+          <li><a href="https://data.europa.eu" target="_blank" rel="noopener noreferrer">European Data</a></li>
+          <li><a href="https://cordis.europa.eu/" target="_blank" rel="noopener noreferrer">EU research results</a></li>
+          <li><a href="https://op.europa.eu/web/who-is-who" target="_blank" rel="noopener noreferrer">EU Whoiswho</a></li>
+          <li><a href="https://op.europa.eu/web/general-publications/publications" target="_blank" rel="noopener noreferrer">EU Publications</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ted-footer__band">
+      <div class="ted-footer__col ted-footer__col--first">
+        <div class="ted-footer__flag"><img src="images/EU-flag.png" alt="Official flag of the European Union"></div>
+        <p class="ted-footer__europa">Discover more on <a href="https://european-union.europa.eu/" target="_blank" rel="noopener noreferrer">europa.eu</a></p>
+      </div>
+      <div class="ted-footer__col">
+        <h2 class="ted-footer__title">Contact the EU</h2>
+        <ul class="ted-footer__links">
+          <li><a href="tel:0080067891011">Call us 00 800 6 7 8 9 10 11</a></li>
+          <li><a href="https://european-union.europa.eu/contact-eu/call-us_en" target="_blank" rel="noopener noreferrer">Use other telephone options</a></li>
+          <li><a href="https://european-union.europa.eu/contact-eu/write-us_en" target="_blank" rel="noopener noreferrer">Write to us via our contact form</a></li>
+          <li><a href="https://european-union.europa.eu/contact-eu/meet-us_en" target="_blank" rel="noopener noreferrer">Meet us at one of the EU centres</a></li>
+        </ul>
+      </div>
+      <div class="ted-footer__col">
+        <h2 class="ted-footer__title">Social media</h2>
+        <ul class="ted-footer__links">
+          <li><a href="https://european-union.europa.eu/contact-eu/social-media-channels_en" target="_blank" rel="noopener noreferrer">Search for EU social media channels</a></li>
+        </ul>
+        <h2 class="ted-footer__title">Legal</h2>
+        <ul class="ted-footer__links">
+          <li><a href="https://european-union.europa.eu/languages-our-websites_en" target="_blank" rel="noopener noreferrer">Languages on our websites</a></li>
+          <li><a href="https://european-union.europa.eu/privacy-policy_en" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
+          <li><a href="https://european-union.europa.eu/legal-notice_en" target="_blank" rel="noopener noreferrer">Legal notice</a></li>
+          <li><a href="https://european-union.europa.eu/cookies_en" target="_blank" rel="noopener noreferrer">Cookies</a></li>
+        </ul>
+        <h2 class="ted-footer__title">EU institutions and bodies</h2>
+        <ul class="ted-footer__links">
+          <li><a href="https://european-union.europa.eu/institutions-law-budget/institutions-and-bodies/search-all-eu-institutions-and-bodies_en" target="_blank" rel="noopener noreferrer">Search all EU institutions and bodies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ted-footer__top">
+      <a href="#top"><span class="gs-icon gs-icon-caret-up" aria-hidden="true"></span>Back to top</a>
+    </div>
   </footer>
+
 
   <!-- Runtime config: sets window.__ESPD_SERVERLESS__ before the app boots.
        Overwritten by the `build:pages` script for static deployments. -->
+  <script src="js/site-header.js"></script>
   <script src="js/runtime-config.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>

@@ -66,7 +66,12 @@ const SHORTHAND = {
   'cbc:TypeCode': { marker: 'listID', key: 'criterion-element-type' },
   'cbc:ValueDataTypeCode': { marker: 'listID', key: 'response-data-type' },
   'cbc:PropertyGroupTypeCode': { marker: 'listID', key: 'property-group-type' },
-  'cbc:ID': { marker: 'schemeID', key: 'criterion-id' },
+  // cbc:ID carries the criterion identifier scheme — but ONLY inside the
+  // criterion tree, where the generators emit the shorthand schemeID="criterion".
+  // `only` scopes the rewrite to that exact shorthand value, so a cbc:ID
+  // elsewhere (e.g. cac:PartyIdentification/cbc:ID, whose @schemeID is an
+  // EOIDType code such as VAT) is left untouched.
+  'cbc:ID': { marker: 'schemeID', key: 'criterion-id', only: 'criterion' },
   // A code-valued response. The shorthand listID carries the codelist KEY
   // ('country'), expanded to that codelist's full dated attribute set — which
   // differs from response-data-type (the C07 CODE_COUNTRY probe).
@@ -77,7 +82,12 @@ const SHORTHAND = {
   // Part I publication type. Dynamic-key: the shorthand listID ('docrefcontent-type')
   // names the codelist, expanded to the full 5-attribute set from the profile.
   'cbc:DocumentTypeCode': { marker: 'listID', key: null },
+  // Part I buyer country (cac:Country/cbc:IdentificationCode). Dynamic-key on
+  // the 'country' codelist.
+  'cbc:IdentificationCode': { marker: 'listID', key: null },
 };
+
+
 
 function attrsToString(attrs) {
   return Object.entries(attrs).map(([k, v]) => `${k}="${v}"`).join(' ');
@@ -98,20 +108,21 @@ export function expandCodelistAttributes(xml, codelistProfile) {
   };
 
   let result = xml;
-  for (const [element, { marker, key }] of Object.entries(SHORTHAND)) {
+  for (const [element, { marker, key, only }] of Object.entries(SHORTHAND)) {
     // A fixed-key element (e.g. cbc:TypeCode -> criterion-element-type) resolves
     // once. A dynamic-key element (key === null, e.g. cbc:ResponseCode) carries
     // the codelist KEY as the shorthand marker's own value, so resolve per match.
-    if (key !== null) {
-      const full = resolve(key);
-      const re = new RegExp(`<${element}\\b([^>]*?)\\s${marker}="[^"]*"([^>]*)>`, 'g');
-      result = result.replace(re, (m, before, after) =>
-        `<${element}${before} ${attrsToString(full)}${after}>`);
-    } else {
-      const re = new RegExp(`<${element}\\b([^>]*?)\\s${marker}="([^"]*)"([^>]*)>`, 'g');
-      result = result.replace(re, (m, before, codelistKey, after) =>
-        `<${element}${before} ${attrsToString(resolve(codelistKey))}${after}>`);
-    }
+    const re = new RegExp(`<${element}\\b([^>]*?)\\s${marker}="([^"]*)"([^>]*)>`, 'g');
+    result = result.replace(re, (m, before, shorthand, after) => {
+      // `only` scopes a fixed-key rewrite to one shorthand value, so the same
+      // element name used elsewhere with a real (already-final) attribute value
+      // is left alone.
+      if (only !== undefined && shorthand !== only) return m;
+      const profileKey = key !== null ? key : shorthand;
+      // Leave anything the profile does not know rather than corrupting it.
+      if (!codelistProfile.codelists[profileKey]) return m;
+      return `<${element}${before} ${attrsToString(resolve(profileKey))}${after}>`;
+    });
   }
   return result;
 }

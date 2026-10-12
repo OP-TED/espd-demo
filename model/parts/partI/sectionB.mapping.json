@@ -23,11 +23,12 @@
       "attributes": { "listID": "country" }
     },
     {
-      "$comment": "BR-REQ-20-04 (warning) — party identifier value, with its scheme carried on @schemeID (EOIDType). Both roundtrip: the value as element text, the scheme as a data-sourced attribute.",
+      "$comment": "BR-REQ-20-04 (warning) — party identifier value, with its scheme on @schemeID (EOIDType, CVA-validated) and its maintaining agency on @schemeAgencyID (BR-OTH-02, fatal: mandatory on every cbc:ID). All three roundtrip: the value as element text, both scheme fields as data-sourced attributes.",
       "from": "partI.contractingAuthority.identifier.value",
       "to": "cac:ContractingParty/cac:Party/cac:PartyIdentification/cbc:ID",
       "attributes": {
-        "schemeID": { "from": "partI.contractingAuthority.identifier.scheme" }
+        "schemeID": { "from": "partI.contractingAuthority.identifier.scheme" },
+        "schemeAgencyID": { "from": "partI.contractingAuthority.identifier.schemeAgency" }
       }
     }
   ]

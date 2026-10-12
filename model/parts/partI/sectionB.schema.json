@@ -53,9 +53,14 @@
           "description": "The identifier scheme from EOIDType.gc. Maps to @schemeID on cbc:ID. The CVA (01-ESPD-codelist-values) validates this value against EOIDType.gc (case-insensitive).",
           "$codelist": "EOIDType",
           "enum": ["NATIONAL", "LEI", "BRIS", "DUNS", "VAT"]
+        },
+        "schemeAgency": {
+          "type": "string",
+          "description": "The agency maintaining the identifier scheme (e.g. 'VIES' for a VAT number, as in ESPD-Request-BASE.xml). Maps to @schemeAgencyID, which BR-OTH-02 makes MANDATORY and non-empty on every cbc:ID — so an identifier cannot be emitted without it. Not codelist-constrained by any rule.",
+          "minLength": 1
         }
       },
-      "required": ["value", "scheme"],
+      "required": ["value", "scheme", "schemeAgency"],
       "additionalProperties": false
     }
   }

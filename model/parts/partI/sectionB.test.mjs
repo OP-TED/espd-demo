@@ -43,12 +43,17 @@ test('the Schematron-mandated minimum (name + country) is required; identifier i
   assert.ok(!validate({ partI: { contractingAuthority: { officialName: 'X' } } }), 'missing country must fail');
 });
 
-test('an identifier requires BOTH a value and a scheme', async () => {
+test('an identifier requires a value, a scheme AND a scheme agency', async () => {
   const validate = await compile();
   const ca = (identifier) => ({ partI: { contractingAuthority: { officialName: 'X', country: 'BEL', identifier } } });
-  assert.ok(validate(ca({ value: 'B82387770', scheme: 'VAT' })), 'complete identifier must validate');
-  assert.ok(!validate(ca({ value: 'B82387770' })), 'identifier without scheme must fail');
-  assert.ok(!validate(ca({ scheme: 'VAT' })), 'identifier without value must fail');
+  assert.ok(validate(ca({ value: 'B82387770', scheme: 'VAT', schemeAgency: 'VIES' })),
+    'complete identifier must validate');
+  assert.ok(!validate(ca({ value: 'B82387770', scheme: 'VAT' })),
+    'identifier without schemeAgency must fail — BR-OTH-02 makes @schemeAgencyID mandatory on cbc:ID');
+  assert.ok(!validate(ca({ value: 'B82387770', schemeAgency: 'VIES' })), 'identifier without scheme must fail');
+  assert.ok(!validate(ca({ scheme: 'VAT', schemeAgency: 'VIES' })), 'identifier without value must fail');
+  assert.ok(!validate(ca({ value: 'B82387770', scheme: 'VAT', schemeAgency: '' })),
+    'an empty schemeAgency must fail');
 });
 
 // --- roundtrip ----------------------------------------------------------
@@ -69,13 +74,25 @@ test('the identifier scheme roundtrips through the @schemeID attribute', () => {
     const doc = {
       partI: {
         contractingAuthority: {
-          officialName: 'X', country: 'BEL', identifier: { value: 'ID-1', scheme },
+          officialName: 'X', country: 'BEL',
+          identifier: { value: 'ID-1', scheme, schemeAgency: 'AGENCY' },
         },
       },
     };
     const back = unmap(spec, map(spec, doc));
     assert.equal(back.partI.contractingAuthority.identifier.scheme, scheme, `scheme ${scheme} must roundtrip`);
+    assert.equal(back.partI.contractingAuthority.identifier.schemeAgency, 'AGENCY');
   }
+});
+
+test('the party identifier carries @schemeAgencyID, mandatory per BR-OTH-02', () => {
+  // Every cbc:ID is in the BR-OTH-02 element list, so a party identifier without
+  // a non-empty @schemeAgencyID is fatally invalid. Guard against regressing to
+  // emitting only @schemeID.
+  const xml = map(spec, example);
+  const idTag = xml.match(/<cbc:ID[^>]*>/)[0];
+  assert.match(idTag, /schemeAgencyID="VIES"/);
+  assert.match(idTag, /schemeID="VAT"/);
 });
 
 // --- UBL structure ------------------------------------------------------
@@ -88,7 +105,8 @@ test('generated XML nests the buyer under ContractingParty/Party per BR-REQ-20',
   assert.match(xml, /<cac:PartyName>\s*<cbc:Name>Ministerio de Hacienda<\/cbc:Name>/);
   // BR-REQ-20-03 country, inside PostalAddress/Country.
   assert.match(xml, /<cac:PostalAddress>\s*<cac:Country>\s*<cbc:IdentificationCode[^>]*>ESP<\/cbc:IdentificationCode>/);
-  // BR-REQ-20-04 identifier with its scheme on @schemeID (NOT @schemeAgencyID).
+  // BR-REQ-20-04 identifier: the EOIDType code goes on @schemeID (NOT on
+  // @schemeAgencyID, which names the maintaining agency instead).
   assert.match(xml, /<cac:PartyIdentification>\s*<cbc:ID[^>]*schemeID="VAT"[^>]*>B82387770<\/cbc:ID>/);
 });
 
@@ -120,10 +138,12 @@ test('the identifier scheme enum is in sync with EOIDType.gc (regenerate if this
 
 test('the schema rejects a scheme outside EOIDType', async () => {
   const validate = await compile();
+  // Otherwise complete, so the failure isolates the enum.
   const bad = {
     partI: {
       contractingAuthority: {
-        officialName: 'X', country: 'BEL', identifier: { value: 'ID-1', scheme: 'NONSENSE' },
+        officialName: 'X', country: 'BEL',
+        identifier: { value: 'ID-1', scheme: 'NONSENSE', schemeAgency: 'VIES' },
       },
     },
   };
@@ -145,13 +165,14 @@ test('country is codelist-referenced and accepts real Country.gc codes', async (
 
 // --- form lens ----------------------------------------------------------
 
-test('the form lens covers the four buyer fields with severity-matched requiredness', () => {
+test('the form lens covers the buyer fields with severity-matched requiredness', () => {
   const byPath = new Map(form.fields.map(f => [f.dataPath, f]));
   assert.deepEqual([...byPath.keys()], [
     'partI.contractingAuthority.officialName',
     'partI.contractingAuthority.country',
     'partI.contractingAuthority.identifier.value',
     'partI.contractingAuthority.identifier.scheme',
+    'partI.contractingAuthority.identifier.schemeAgency',
   ]);
 
   // Fatal rules -> required; warning-level identifier -> optional.

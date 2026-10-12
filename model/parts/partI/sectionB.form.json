@@ -39,6 +39,14 @@
       "required": false,
       "description": "The scheme the identifier belongs to (NATIONAL, LEI, BRIS, DUNS, VAT). Required once an identifier value is given.",
       "visibleWhen": { "path": "partI.contractingAuthority.identifier.value", "isPresent": true }
+    },
+    {
+      "dataPath": "partI.contractingAuthority.identifier.schemeAgency",
+      "labelKey": "partI.contractingAuthority.identifier.schemeAgency",
+      "uiType": "text",
+      "required": false,
+      "description": "The agency maintaining the scheme (e.g. VIES for VAT). Mandatory on the XML element (BR-OTH-02), so required once an identifier value is given.",
+      "visibleWhen": { "path": "partI.contractingAuthority.identifier.value", "isPresent": true }
     }
   ]
 }

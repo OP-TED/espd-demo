@@ -85,6 +85,8 @@ const SHORTHAND = {
   // Part I buyer country (cac:Country/cbc:IdentificationCode). Dynamic-key on
   // the 'country' codelist.
   'cbc:IdentificationCode': { marker: 'listID', key: null },
+  // Part I procedure type. Dynamic-key on 'procurement-procedure-type'.
+  'cbc:ProcedureCode': { marker: 'listID', key: null },
 };
 
 

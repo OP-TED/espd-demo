@@ -5,7 +5,8 @@
       "country": "ESP",
       "identifier": {
         "value": "B82387770",
-        "scheme": "VAT"
+        "scheme": "VAT",
+        "schemeAgency": "VIES"
       }
     }
   }

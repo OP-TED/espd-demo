@@ -1,0 +1,35 @@
+{
+  "$comment": "Part I Section A — form-structure lens for the publication reference.",
+  "part": "I",
+  "section": "A",
+  "title": "Information about publication",
+  "titleKey": "partI.sectionA.title",
+  "description": "Reference of the relevant notice published in the Official Journal of the European Union or other identifying information.",
+  "descriptionKey": "partI.sectionA.description",
+  "filledBy": "contractingAuthority",
+
+  "fields": [
+    {
+      "dataPath": "partI.publication.type",
+      "labelKey": "partI.publication.type",
+      "uiType": "code",
+      "codelist": "docrefcontent-type",
+      "required": true,
+      "description": "Type of publication reference (e.g. TED contract notice, national journal)."
+    },
+    {
+      "dataPath": "partI.publication.identifier",
+      "labelKey": "partI.publication.identifier",
+      "uiType": "text",
+      "required": true,
+      "description": "The notice identifier/number."
+    },
+    {
+      "dataPath": "partI.publication.url",
+      "labelKey": "partI.publication.url",
+      "uiType": "url",
+      "required": false,
+      "description": "Optional URL locating the notice."
+    }
+  ]
+}

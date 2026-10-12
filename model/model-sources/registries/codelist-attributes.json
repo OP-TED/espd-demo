@@ -81,6 +81,14 @@
       "listID": "http://publications.europa.eu/resource/authority/occupation",
       "listAgencyID": "EMPL",
       "listVersionID": "20221214-0"
+    },
+    "docrefcontent-type": {
+      "$note": "cac:AdditionalDocumentReference/cbc:DocumentTypeCode (Part I publication reference type). 5 attributes mandated by 01-ESPD-common-cl-attributes.sch line 74; no listAgencyID required. Values from the Schematron + DocrefcontentType.gc Identification block.",
+      "listName": "DocrefcontentType",
+      "listID": "http://publications.europa.eu/resource/authority/docrefcontent-type",
+      "listVersionID": "20250319-0",
+      "listSchemeURI": "http://publications.europa.eu/resource/distribution/docrefcontent-type/20250319-0/xml/gc/DocrefcontentType.gc",
+      "listURI": "http://publications.europa.eu/resource/dataset/docrefcontent-type"
     }
   }
 }

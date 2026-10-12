@@ -74,6 +74,9 @@ const SHORTHAND = {
   // A code-valued REQUIREMENT (e.g. CODE_BOOLEAN 'Threshold per year' in C29).
   // Same dynamic-key handling: the shorthand listID names the codelist.
   'cbc:ExpectedCode': { marker: 'listID', key: null },
+  // Part I publication type. Dynamic-key: the shorthand listID ('docrefcontent-type')
+  // names the codelist, expanded to the full 5-attribute set from the profile.
+  'cbc:DocumentTypeCode': { marker: 'listID', key: null },
 };
 
 function attrsToString(attrs) {

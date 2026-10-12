@@ -1,0 +1,43 @@
+{
+  "$id": "partI-sectionA.schema.json",
+  "$comment": "Part I Section A — publication reference. The notice that identifies the procurement procedure. Hand-authored (not compiler-generated): Part I is administrative data, not a criterion. See docs analysis 'Part I Section A — Publication Reference (I68): Encoding Analysis' for the UBL/Schematron grounding.",
+  "title": "ESPD Part I Section A — Publication Reference",
+  "type": "object",
+  "properties": {
+    "partI": {
+      "type": "object",
+      "properties": {
+        "publication": {
+          "$ref": "#/$defs/publicationReference"
+        }
+      },
+      "required": ["publication"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["partI"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "publicationReference": {
+      "type": "object",
+      "description": "A typed reference to the notice identifying the procurement procedure. Maps to one cac:AdditionalDocumentReference in UBL.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "DocrefcontentType code identifying the kind/location of publication (e.g. TED_CN, ROJCN, LOJPIN). The allowed values come from ESPD-EDM/codelists/DocrefcontentType.gc."
+        },
+        "identifier": {
+          "type": "string",
+          "description": "The notice identifier/number (e.g. '310364-2026')."
+        },
+        "url": {
+          "type": "string",
+          "description": "Optional URL locating the notice (e.g. 'https://ted.europa.eu/en/notice/-/detail/310364-2026')."
+        }
+      },
+      "required": ["type", "identifier"],
+      "additionalProperties": false
+    }
+  }
+}

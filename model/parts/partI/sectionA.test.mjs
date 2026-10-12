@@ -94,3 +94,39 @@ test('the form lens covers all three publication fields', () => {
   const urlField = form.fields.find(f => f.dataPath === 'partI.publication.url');
   assert.equal(urlField.required, false);
 });
+
+// --- Codelist-derived enum: the schema's `type` enum is the source-of-truth
+//     DocrefcontentType.gc codes. These tests keep the committed enum honest. ---
+
+import { readCodelistCodes } from '../read-codelist.mjs';
+
+const GC = path.join(here, '..', '..', '..', '..', 'ESPD-EDM', 'codelists', 'DocrefcontentType.gc');
+
+test('the type enum is in sync with DocrefcontentType.gc (regenerate if this fails)', () => {
+  const codes = readCodelistCodes(GC);
+  const enumInSchema = schema.$defs.publicationReference.properties.type.enum;
+  assert.deepEqual(
+    [...enumInSchema].sort(),
+    [...codes].sort(),
+    'schema `type` enum drifted from DocrefcontentType.gc — update sectionA.schema.json');
+  // The $codelist marker names the source list.
+  assert.equal(schema.$defs.publicationReference.properties.type.$codelist, 'docrefcontent-type');
+});
+
+test('the schema rejects a type value not in the codelist', async () => {
+  const { default: Ajv } = await import('ajv');
+  const ajv = new Ajv({ allErrors: true, strict: false });
+  const validate = ajv.compile(schema);
+  const bad = { partI: { publication: { type: 'NONSENSE', identifier: 'x' } } };
+  assert.ok(!validate(bad), 'a non-codelist type must be rejected by the enum');
+});
+
+test('the schema accepts every real codelist code as a type', async () => {
+  const { default: Ajv } = await import('ajv');
+  const ajv = new Ajv({ allErrors: true, strict: false });
+  const validate = ajv.compile(schema);
+  for (const code of readCodelistCodes(GC)) {
+    const doc = { partI: { publication: { type: code, identifier: 'x' } } };
+    assert.ok(validate(doc), `code '${code}' should be accepted: ${JSON.stringify(validate.errors)}`);
+  }
+});

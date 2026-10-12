@@ -25,7 +25,20 @@
       "properties": {
         "type": {
           "type": "string",
-          "description": "DocrefcontentType code identifying the kind/location of publication (e.g. TED_CN, ROJCN, LOJPIN). The allowed values come from ESPD-EDM/codelists/DocrefcontentType.gc."
+          "description": "DocrefcontentType code identifying the kind/location of publication. The enum is DERIVED from ESPD-EDM/codelists/DocrefcontentType.gc (the single source of truth); sectionA.test.mjs asserts it stays in sync. Regenerate if the codelist changes.",
+          "$codelist": "docrefcontent-type",
+          "enum": [
+            "TED_PIN",
+            "LOJPIN",
+            "TED_CN",
+            "ROJCN",
+            "ROJPIN",
+            "ESPD_REQUEST",
+            "NOJCN",
+            "NOJPIN",
+            "LOJCN",
+            "epo-acc-espd-request"
+          ]
         },
         "identifier": {
           "type": "string",

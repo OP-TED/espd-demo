@@ -11,10 +11,13 @@
 (function () {
   'use strict';
 
-  // Opens and closes a button's panel; Escape and a click elsewhere close it.
-  function disclosure(button, panel, onOpen) {
+  // Opens and closes a button's panel. Escape closes it and gives the focus
+  // back to the button; a click elsewhere closes it too, unless
+  // options.keepOpenOnClickElsewhere is set. options.onOpen runs on opening.
+  function disclosure(button, panel, options) {
+    options = options || {};
     function setOpen(open) {
-      if (open && onOpen) onOpen();
+      if (open && options.onOpen) options.onOpen();
       button.setAttribute('aria-expanded', String(open));
       panel.hidden = !open;
     }
@@ -30,19 +33,22 @@
         button.focus();
       }
     });
-    document.addEventListener('click', function (e) {
-      if (isOpen() && !button.contains(e.target) && !panel.contains(e.target)) {
-        setOpen(false);
-      }
-    });
+    if (!options.keepOpenOnClickElsewhere) {
+      document.addEventListener('click', function (e) {
+        if (isOpen() && !button.contains(e.target) && !panel.contains(e.target)) {
+          setOpen(false);
+        }
+      });
+    }
     return setOpen;
   }
 
-  // EU global banner.
+  // EU global banner. As on the live sites, a click elsewhere leaves its
+  // panel open.
   var globanButton = document.querySelector('.ted-globan__toggle');
   var globanPanel = document.getElementById('ted-globan-dropdown');
   if (globanButton && globanPanel) {
-    disclosure(globanButton, globanPanel);
+    disclosure(globanButton, globanPanel, { keepOpenOnClickElsewhere: true });
   }
 
   // Language menu.
@@ -83,6 +89,6 @@
     });
   }
 
-  var setLanguageMenuOpen = disclosure(languageButton, languageMenu, buildMenu);
+  var setLanguageMenuOpen = disclosure(languageButton, languageMenu, { onOpen: buildMenu });
   showCurrent();
 })();

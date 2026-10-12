@@ -536,7 +536,8 @@ dialog button[rel="prev"]:hover {
    yellow focus ring, identical on every europa.eu site: do not restyle it with
    TED tokens. Reproduces the current EU Webtools banner as ted.europa.eu shows
    it: below 768px the text shortens and the button moves to the right edge;
-   below 480px the button keeps only its arrow. */
+   at 480px and below the button keeps only its arrow. The TED Design System's
+   SiteHeader draws the same banner. */
 .ted-globan {
   position: relative;
   z-index: 20;
@@ -586,6 +587,8 @@ dialog button[rel="prev"]:hover {
   font-weight: 400;
   line-height: 22px;
   white-space: nowrap;
+  /* Webtools changes colour at once; the general button rule fades. */
+  transition: none;
 }
 
 .ted-globan__toggle:hover {
@@ -633,13 +636,20 @@ dialog button[rel="prev"]:hover {
   color: #444444;
 }
 
+/* Webtools gives everything in the banner a 22px line height and only the
+   first paragraph 1.4, so its bold "europa.eu" and the link keep 22px. */
 .ted-globan__dropdown p {
   margin: 0;
   line-height: 1.4;
 }
 
+.ted-globan__dropdown b {
+  line-height: 22px;
+}
+
 .ted-globan__dropdown p + p {
   margin-top: 10px;
+  line-height: 22px;
 }
 
 .ted-globan__dropdown a {

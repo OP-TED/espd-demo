@@ -886,11 +886,19 @@ function renderPeriodField(id, label, contentpath, required, value) {
   const parsedValue = typeof value === 'object' ? value : { start: '', end: '' };
 
   wrapper.innerHTML = `
-    <label>${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}</label>
-    <div class="grid">
-      <input type="date" id="${id}-start" data-contentpath="${contentpath}" value="${parsedValue.start || ''}" aria-label="Start date" ${required ? 'required' : ''}>
-      <input type="date" id="${id}-end" data-contentpath="${contentpath}" value="${parsedValue.end || ''}" aria-label="End date">
-    </div>
+    <fieldset class="espd-period">
+      <legend>${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}</legend>
+      <div class="espd-period__fields">
+        <div>
+          <label for="${id}-start">${escapeHtml(t('ui.startDate', 'Start date'))}</label>
+          <input type="date" id="${id}-start" data-contentpath="${contentpath}" value="${parsedValue.start || ''}" ${required ? 'required' : ''}>
+        </div>
+        <div>
+          <label for="${id}-end">${escapeHtml(t('ui.endDate', 'End date'))}</label>
+          <input type="date" id="${id}-end" data-contentpath="${contentpath}" value="${parsedValue.end || ''}">
+        </div>
+      </div>
+    </fieldset>
   `;
 
   const startInput = wrapper.querySelector(`#${CSS.escape(id + '-start')}`);
@@ -914,10 +922,21 @@ function renderEvidenceField(id, label, contentpath, required, value) {
   const parsedValue = typeof value === 'object' ? value : { url: value || '', issuer: '', reference: '' };
 
   wrapper.innerHTML = `
-    <label>${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}</label>
-    <input type="url" id="${id}-url" value="${escapeHtml(parsedValue.url || '')}" placeholder="${t('ui.evidenceUrl', 'URL')}" aria-label="${t('ui.evidenceUrl', 'Evidence URL')}" ${required ? 'required' : ''}>
-    <input type="text" id="${id}-issuer" value="${escapeHtml(parsedValue.issuer || '')}" placeholder="${t('ui.evidenceIssuer', 'Issuing body')}" aria-label="${t('ui.evidenceIssuer', 'Evidence issuer')}">
-    <input type="text" id="${id}-ref" value="${escapeHtml(parsedValue.reference || '')}" placeholder="${t('ui.evidenceReference', 'Reference')}" aria-label="${t('ui.evidenceReference', 'Evidence reference')}">
+    <fieldset class="espd-evidence">
+      <legend>${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}</legend>
+      <div>
+        <label for="${id}-url">${escapeHtml(t('ui.evidenceUrl', 'URL'))}</label>
+        <input type="url" id="${id}-url" value="${escapeHtml(parsedValue.url || '')}" placeholder="https://" ${required ? 'required' : ''}>
+      </div>
+      <div>
+        <label for="${id}-issuer">${escapeHtml(t('ui.evidenceIssuer', 'Issuing body'))}</label>
+        <input type="text" id="${id}-issuer" value="${escapeHtml(parsedValue.issuer || '')}">
+      </div>
+      <div>
+        <label for="${id}-ref">${escapeHtml(t('ui.evidenceReference', 'Reference'))}</label>
+        <input type="text" id="${id}-ref" value="${escapeHtml(parsedValue.reference || '')}">
+      </div>
+    </fieldset>
   `;
 
   function updateEvidence() {
@@ -949,7 +968,7 @@ function renderLegislation(legislation, section) {
   const title = t(key, legislation.description || 'Applicable legislation');
 
   el.innerHTML = `
-    <summary>📜 Applicable legislation</summary>
+    <summary>Applicable legislation</summary>
     <p>${escapeHtml(title)}</p>
   `;
 

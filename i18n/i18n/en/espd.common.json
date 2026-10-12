@@ -38,5 +38,11 @@
   "ui.endDate": "End date",
   "ui.amount": "Amount",
   "ui.minimumAmount": "Minimum amount",
-  "ui.currency": "Currency"
+  "ui.currency": "Currency",
+  "part.short.I": "Procedure",
+  "part.short.II": "Economic operator",
+  "part.short.III": "Exclusion grounds",
+  "part.short.IV": "Selection criteria",
+  "part.short.V": "Reduction of candidates",
+  "part.short.VI": "Concluding statements"
 }

@@ -15,10 +15,35 @@
 // placed under `{ type: array, items: {...} }` via insertShape's arrayAtDepth.
 
 import { arrayContainerDepths } from './encoding-profile.mjs';
+import { readCodelistCodes, codelistPath } from '../codelists/read-codelist.mjs';
 
 /** Deep-clone a registry instanceShape (plain JSON). */
 function cloneShape(shape) {
   return structuredClone(shape);
+}
+
+/**
+ * Derive a JSON Schema `enum` from a shipped .gc codelist, in place, when a
+ * shape opts in via `codeListFile`. The non-standard `codeListFile` marker is
+ * removed from the emitted schema (the human-facing `codeList` name stays).
+ * Only small, enumerable lists should opt in — a large list (e.g. 341 countries)
+ * is better referenced by name than inlined.
+ */
+function deriveCodelistEnum(shape) {
+  if (!shape || typeof shape !== 'object') return shape;
+  // Recurse into object properties (object-shaped value types).
+  if (shape.properties) {
+    for (const key of Object.keys(shape.properties)) deriveCodelistEnum(shape.properties[key]);
+  }
+  if (shape.items) deriveCodelistEnum(shape.items);
+  if (!shape.codeListFile) return shape;
+  const codes = readCodelistCodes(codelistPath(shape.codeListFile));
+  if (codes.length === 0) {
+    throw new Error(`codeListFile '${shape.codeListFile}' yielded no codes`);
+  }
+  shape.enum = codes;
+  delete shape.codeListFile;
+  return shape;
 }
 
 /**
@@ -236,6 +261,8 @@ export function generateCriterionSchema(criterion, registry, hints = null) {
     const vt = registry.valueTypes[leaf.valueType];
     if (!vt?.instanceShape) throw new Error(`No instanceShape for value type ${leaf.valueType} (${leaf.id})`);
     let shape = cloneShape(vt.instanceShape);
+    // Derive an enum from the shipped .gc for shapes that opt in (codeListFile).
+    deriveCodelistEnum(shape);
     // 4.3.1: array bounds derived from EA cardinality (no hint needed).
     if (shape.type === 'array') {
       const bounds = arrayBoundsFromCardinality(leaf.cardinality);
@@ -331,6 +358,9 @@ export function generateInstanceSchema(criterion, registry, { partId, hints } = 
 // --------------------------------------------------------------------------
 
 function sampleForShape(shape, constraints = null) {
+  // A codelist-derived (or hand-authored) enum: pick a real member, never the
+  // generic 'sample' placeholder, so the example validates against its schema.
+  if (Array.isArray(shape?.enum) && shape.enum.length > 0) return shape.enum[0];
   const s = constraints ? { ...shape, ...cleanHint(constraints) } : shape;
   switch (s.type) {
     case 'string': return s.format === 'date' ? '2023-01-01' : 'sample';
@@ -405,9 +435,12 @@ export function generateExample(criterion, registry) {
     const vt = registry.valueTypes[leaf.valueType];
     const side = leaf.instanceBinding.side;
     const key = `${side}|${leaf.instanceBinding.path.join('.')}`;
+    // Derive the codelist enum (if any) so the sampler can pick a real member;
+    // on a clone, leaving the registry shape untouched.
+    const sampleShape = deriveCodelistEnum(cloneShape(vt.instanceShape));
     const value = nonTriggering.has(key)
       ? nonTriggering.get(key)
-      : sampleForShape(vt.instanceShape, vt.instanceConstraints);
+      : sampleForShape(sampleShape, vt.instanceConstraints);
     const arrayDepths = new Set(arrayContainerDepths(criterion, leaf));
     setAt(sideData[side], leaf.instanceBinding.path, value, arrayDepths);
   }

@@ -98,9 +98,9 @@ test('the form lens covers all three publication fields', () => {
 // --- Codelist-derived enum: the schema's `type` enum is the source-of-truth
 //     DocrefcontentType.gc codes. These tests keep the committed enum honest. ---
 
-import { readCodelistCodes } from '../read-codelist.mjs';
+import { readCodelistCodes, codelistPath } from '../../codelists/read-codelist.mjs';
 
-const GC = path.join(here, '..', '..', '..', '..', 'ESPD-EDM', 'codelists', 'DocrefcontentType.gc');
+const GC = codelistPath('DocrefcontentType.gc');
 
 test('the type enum is in sync with DocrefcontentType.gc (regenerate if this fails)', () => {
   const codes = readCodelistCodes(GC);

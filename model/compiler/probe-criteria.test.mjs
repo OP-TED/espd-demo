@@ -24,6 +24,7 @@ import { fileURLToPath } from 'node:url';
 import { loadEdm, loadSidecar, compile, generateMappings, generateForm } from './compile.mjs';
 import { generateInstanceSchema, generateExample } from './generate-instance-schema.mjs';
 import { leavesOf } from './read-structural-core.mjs';
+import { readCodelistCodes, codelistPath } from '../codelists/read-codelist.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
@@ -143,6 +144,28 @@ test('slc-stand-to-gen introduces CODE_BOOLEAN as a buyer requirement', () => {
 
   // General turnover has NO businessDomain (unlike specific C31/C32).
   assert.ok(!leavesOf(compiled).some(l => l.id.endsWith('.business-domain')));
+});
+
+test('CODE_BOOLEAN schema enum is DERIVED from BooleanGUIControlType.gc (and kept in sync)', () => {
+  // The CODE_BOOLEAN instanceShape opts into enum derivation via `codeListFile`.
+  // The generated schema must inline exactly the .gc codes, with the
+  // non-standard codeListFile marker stripped. If this fails after a codelist
+  // update, it means the generator and the .gc disagree — which should not be
+  // possible since the generator reads the .gc, so it flags a real regression.
+  const { compiled, registry } = compileCriterion('slc-stand-to-gen');
+  const schema = generateInstanceSchema(compiled, registry, { partId: 'IV' });
+  const field = schema.properties.partIV.properties.selectionCriteria
+    .properties['slc-stand-to-gen'].properties.requirement.properties.thresholdPerYear;
+
+  const gcCodes = readCodelistCodes(codelistPath('BooleanGUIControlType.gc'));
+  assert.deepEqual(field.enum, gcCodes, 'schema enum must equal the .gc codes in order');
+  assert.equal(field.codeListFile, undefined, 'the codeListFile marker must not leak into the schema');
+  assert.equal(field.codeList, 'boolean-gui-control-type', 'the human-facing codeList name stays');
+
+  // The generated example must pick a REAL code, not the generic 'sample'.
+  const example = generateExample(compiled, registry);
+  const value = example.partIV.selectionCriteria['slc-stand-to-gen'].requirement.thresholdPerYear;
+  assert.ok(gcCodes.includes(value), `example value '${value}' must be a real codelist code`);
 });
 
 test('slc-abil-staff-yrly-avg-mp maps the quantity-with-unit answers', () => {

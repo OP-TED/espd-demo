@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { map, unmap } from '../../mapping-engine/mapper.mjs';
-import { readCodelistCodes } from '../read-codelist.mjs';
+import { readCodelistCodes, codelistPath } from '../../codelists/read-codelist.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
@@ -18,8 +18,6 @@ const schema = read('sectionB.schema.json');
 const example = read('sectionB.example.json');
 const spec = read('sectionB.mapping.json');
 const form = read('sectionB.form.json');
-
-const CODELISTS = path.join(here, '..', '..', '..', '..', 'ESPD-EDM', 'codelists');
 
 const compile = async () => {
   const { default: Ajv } = await import('ajv');
@@ -70,7 +68,7 @@ test('the mapping roundtrips a minimal buyer (no identifier)', () => {
 });
 
 test('the identifier scheme roundtrips through the @schemeID attribute', () => {
-  for (const scheme of readCodelistCodes(path.join(CODELISTS, 'EOIDType.gc'))) {
+  for (const scheme of readCodelistCodes(codelistPath('EOIDType.gc'))) {
     const doc = {
       partI: {
         contractingAuthority: {
@@ -129,7 +127,7 @@ test('country codelist-attribute expansion produces the Schematron-mandated set'
 // --- codelist enums -----------------------------------------------------
 
 test('the identifier scheme enum is in sync with EOIDType.gc (regenerate if this fails)', () => {
-  const codes = readCodelistCodes(path.join(CODELISTS, 'EOIDType.gc'));
+  const codes = readCodelistCodes(codelistPath('EOIDType.gc'));
   const inSchema = schema.$defs.partyIdentifier.properties.scheme.enum;
   assert.deepEqual([...inSchema].sort(), [...codes].sort(),
     'schema `scheme` enum drifted from EOIDType.gc — update sectionB.schema.json');
@@ -155,7 +153,7 @@ test('country is codelist-referenced and accepts real Country.gc codes', async (
   // Country has 341 codes, too many to inline — the field carries a $codelist
   // marker instead and the CVA validates the value at the XML layer.
   assert.equal(schema.$defs.contractingAuthority.properties.country.$codelist, 'country');
-  const codes = readCodelistCodes(path.join(CODELISTS, 'Country.gc'));
+  const codes = readCodelistCodes(codelistPath('Country.gc'));
   assert.ok(codes.length > 200, `expected the full country list, got ${codes.length}`);
   for (const code of [codes[0], codes[50], codes.at(-1)]) {
     assert.ok(validate({ partI: { contractingAuthority: { officialName: 'X', country: code } } }),

@@ -13,6 +13,63 @@ picked up without re-doing the investigation.
 
 ---
 
+## ESPD-EDM modelling concerns (feedback for the EDM team)
+
+Items in this section are not about *our* implementation — they question whether
+something is modelled the right way **upstream** in ESPD-EDM, for the EDM
+maintainers to consider.
+
+### M1. `CODE_BOOLEAN` / `BooleanGUIControlType` encodes a GUI control in the data model
+
+**What it is.** `BooleanGUIControlType.gc` is a 6-code list —
+`CHECK_BOX_TRUE`, `CHECK_BOX_FALSE`, `CHECK_BOX_UNCHECKED`,
+`RADIO_BUTTON_TRUE`, `RADIO_BUTTON_FALSE`, `RADIO_BUTTON_UNSELECTED` — behind the
+`CODE_BOOLEAN` value type. It is used by two buyer REQUIREMENTs: C29
+`slc-stand-to-gen` ("Threshold per year") and C36 `slc-stand-other` ("Select the
+type of requirement"). In UBL it serialises as the buyer's `cbc:ExpectedCode`.
+
+**The concern.** This is a **presentation decision encoded as exchanged data**.
+Whether a yes/no choice is drawn as a checkbox or a radio button, and whether it
+starts ticked/unticked/unselected, is a *rendering* concern — exactly the kind of
+thing a form/presentation layer should decide, not something that belongs in the
+interoperability payload. Two independent systems exchanging an ESPD do not need
+to agree on *widget type*; they need to agree on the buyer's intent (e.g. "this
+is a mutually-exclusive choice among these branches"). Mixing the two means:
+
+- The same semantic intent can be expressed in several ways
+  (`CHECK_BOX_TRUE` vs `RADIO_BUTTON_TRUE`), so consumers must treat distinct
+  codes as equivalent — a classic sign the distinction is not semantic.
+- A renderer that wants a different control (accessibility, mobile, a wizard
+  step) is now contradicting the document, or must ignore the field it carries.
+- The two real uses are actually two *different* intents wearing the same list:
+  C36 is a genuine mutually-exclusive branch selector (the ENUM-SELECTOR /
+  `branchSelectors` mechanism we model), while C29 is a per-year threshold
+  toggle. The GUI-control vocabulary is standing in for "this is a selector" vs
+  "this is a flag", which is a *structural* fact better expressed structurally.
+
+**What we do today.** We model it faithfully (it is in ESPD-EDM, so a conformant
+document carries it): the value-type registry maps `CODE_BOOLEAN` to
+`cbc:ExpectedCode` + the `boolean-gui-control-type` codelist, and the instance
+schema now derives the 6-code enum from the `.gc` (see X6 / the enum-derivation
+mechanism). Our *form* layer, meanwhile, derives the actual UI control from
+structure independently — which is the layering this code list arguably
+duplicates.
+
+**Suggestion for the EDM team.** Consider whether the buyer's intent could be
+represented structurally instead — e.g. a mutually-exclusive branch group is
+already expressible via the group/condition model, and a plain flag is just an
+`INDICATOR`. If the GUI-control distinction is genuinely needed, it reads more
+naturally as a *presentation profile* alongside the model than as a value inside
+it. At minimum, if it stays, it should be **CVA-validated** (see X1's note:
+`cbc:ExpectedCode` carrying this list is currently unvalidated), because an
+invalid control code would mis-drive a renderer.
+
+*Not blocking:* we interoperate with it as-is. This is a model-quality
+observation, in the same category as the overloaded `QUANTITY_YEAR` finding
+(task 4.3.3) — flagged, not urgent.
+
+---
+
 ## Part I Section A — publication reference
 
 Current model: a single `{ type, identifier, url? }` mapped to one

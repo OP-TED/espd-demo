@@ -6,7 +6,7 @@
           "lotIdentifiers": [
             "sample"
           ],
-          "requirementType": "sample",
+          "requirementType": "CHECK_BOX_FALSE",
           "amountRequirements": [
             {
               "description": "sample",

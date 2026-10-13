@@ -267,6 +267,49 @@ ships for it. Pairs naturally with C1.
 
 ---
 
+## Part II — economic operator
+
+### P2-1. TODO — validate Part II Section B (power of attorney) against real XML
+
+**Section B is modelled WITHOUT a trustworthy reference and must be validated
+against a real instance before it can be considered confirmed.**
+
+Unlike Section A (grounded in BR-RESP-10 and the EO block of
+`ESPD-Response-BASE.xml`), the power-of-attorney block has **no corroborating
+source** in the repo:
+
+- **No Schematron rule** mentions `cac:PowerOfAttorney` or `cac:AgentParty`
+  (confirmed by a full search of `espd-validation-schematron/**/*.sch`).
+- **No instance** in `ESPD-Request-BASE.xml` or `ESPD-Response-BASE.xml` contains
+  either element (0 occurrences in both).
+- So the model (`model/parts/partII/sectionB.*`) is derived only from the EA
+  `I72 info-poa` tree and the UBL 2.4 `PowerOfAttorneyType` definition
+  (`Description` optional, `AgentParty` mandatory). Field choices
+  (name/identifier/country on the agent, all-optional-but-name) are an informed
+  guess, not a verified shape.
+
+This is **exactly the situation Part I Section A was in** before a real Slovenian
+ESPD export was supplied — at which point the publication-reference model was
+corrected against the actual XML. Section B needs the same treatment.
+
+**What to do:**
+1. Obtain a real ESPD Response that carries a `cac:PowerOfAttorney` (e.g. from a
+   production ESPD service, as was done for Part I §A).
+2. Compare its structure to `sectionB.mapping.json`: confirm the
+   `AgentParty` sub-elements used, their nesting, any attributes, and whether a
+   mandate reference (`cac:MandateDocumentReference`), notary, or witness party
+   appears in practice.
+3. Update the schema/mapping/example and turn the roundtrip tests into
+   assertions against the real sample (as `sectionA.test.mjs` does with
+   `310364-2026`).
+4. Remove the ⚠ caveats in `sectionB.schema.json` and `partII/README.md` once
+   verified.
+
+Until then, treat Section B as **provisional**. The caveat is recorded in the
+schema `$comment`, in `model/parts/partII/README.md`, and here.
+
+---
+
 ## Cross-cutting — codelist infrastructure
 
 ### X1. Publish `procurement-procedure-type` as part of ESPD-EDM

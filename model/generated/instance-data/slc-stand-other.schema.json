@@ -196,7 +196,10 @@
                               "evidenceAvailableElectronically": {
                                 "const": true
                               }
-                            }
+                            },
+                            "required": [
+                              "evidenceAvailableElectronically"
+                            ]
                           },
                           "then": {
                             "required": [
@@ -265,7 +268,10 @@
                               "evidenceAvailableElectronically": {
                                 "const": true
                               }
-                            }
+                            },
+                            "required": [
+                              "evidenceAvailableElectronically"
+                            ]
                           },
                           "then": {
                             "required": [
@@ -334,7 +340,10 @@
                               "evidenceAvailableElectronically": {
                                 "const": true
                               }
-                            }
+                            },
+                            "required": [
+                              "evidenceAvailableElectronically"
+                            ]
                           },
                           "then": {
                             "required": [

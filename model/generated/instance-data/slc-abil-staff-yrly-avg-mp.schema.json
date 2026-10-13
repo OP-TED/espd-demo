@@ -115,7 +115,10 @@
                               "availableElectronically": {
                                 "const": true
                               }
-                            }
+                            },
+                            "required": [
+                              "availableElectronically"
+                            ]
                           },
                           "then": {
                             "required": [
@@ -152,7 +155,10 @@
                           "fulfilledByItself": {
                             "const": false
                           }
-                        }
+                        },
+                        "required": [
+                          "fulfilledByItself"
+                        ]
                       },
                       "then": {
                         "required": [

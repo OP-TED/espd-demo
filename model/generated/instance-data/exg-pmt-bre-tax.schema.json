@@ -121,7 +121,10 @@
                                   "finalAndBinding": {
                                     "const": true
                                   }
-                                }
+                                },
+                                "required": [
+                                  "finalAndBinding"
+                                ]
                               },
                               "then": {
                                 "required": [
@@ -151,7 +154,10 @@
                                   "obligationsFulfilled": {
                                     "const": true
                                   }
-                                }
+                                },
+                                "required": [
+                                  "obligationsFulfilled"
+                                ]
                               },
                               "then": {
                                 "required": [
@@ -171,7 +177,10 @@
                               "establishedByOtherMeans": {
                                 "const": true
                               }
-                            }
+                            },
+                            "required": [
+                              "establishedByOtherMeans"
+                            ]
                           },
                           "then": {
                             "required": [
@@ -224,7 +233,10 @@
                               "availableElectronically": {
                                 "const": true
                               }
-                            }
+                            },
+                            "required": [
+                              "availableElectronically"
+                            ]
                           },
                           "then": {
                             "required": [

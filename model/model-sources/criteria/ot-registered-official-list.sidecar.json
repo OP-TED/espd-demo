@@ -1,0 +1,50 @@
+{
+  "$comment": "Part II Section A 'OT' criterion OT58 — 'Economic operator registered in a pre-qualification system / official list'. Response-only, the deepest OT tree: INDICATOR answer -> (ONTRUE) a 'registered?' INDICATOR -> (ONTRUE) list name/url/references + a 'covers all criteria?' indicator; a parallel (ONFALSE) 'will be able to provide?' indicator; and a (ONFALSE at the QSG1-answer level) caption branch (CA1 is a CAPTION = structural, no value binding). Plus the evidence block. Shares EA code 'OT'; tag OT58 / id registered-official-list.",
+  "criterion": {
+    "code": "OT",
+    "tag": "OT58",
+    "id": "registered-official-list",
+    "instanceModel": {
+      "containerPath": ["partII", "economicOperatorCriteria"],
+      "key": { "source": "id" }
+    }
+  },
+  "components": {
+    "OT58_OT/QG1/Q1": {
+      "id": "registered-official-list.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "OT58_OT/QG1/QSG1/Q1": {
+      "id": "registered-official-list.is-registered",
+      "instanceBinding": { "side": "response", "path": ["isRegistered"] }
+    },
+    "OT58_OT/QG1/QSG1/QSG1/Q1": {
+      "id": "registered-official-list.list-name",
+      "instanceBinding": { "side": "response", "path": ["registration", "listName"] }
+    },
+    "OT58_OT/QG1/QSG1/QSG1/Q2": {
+      "id": "registered-official-list.certificate-url",
+      "instanceBinding": { "side": "response", "path": ["registration", "certificateUrl"] }
+    },
+    "OT58_OT/QG1/QSG1/QSG1/Q3": {
+      "id": "registered-official-list.references",
+      "instanceBinding": { "side": "response", "path": ["registration", "references"] }
+    },
+    "OT58_OT/QG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "registered-official-list.covers-all-criteria",
+      "instanceBinding": { "side": "response", "path": ["registration", "coversAllCriteria"] }
+    },
+    "OT58_OT/QG1/QSG1/QSG2/Q1": {
+      "id": "registered-official-list.will-provide",
+      "instanceBinding": { "side": "response", "path": ["willProvide"] }
+    },
+    "OT58_OT/QG2/Q1": {
+      "id": "registered-official-list.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "OT58_OT/QG2/QSG1/Q1": {
+      "id": "registered-official-list.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

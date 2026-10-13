@@ -64,7 +64,10 @@
                               "availableElectronically": {
                                 "const": true
                               }
-                            }
+                            },
+                            "required": [
+                              "availableElectronically"
+                            ]
                           },
                           "then": {
                             "required": [
@@ -100,7 +103,10 @@
                           "answer": {
                             "const": true
                           }
-                        }
+                        },
+                        "required": [
+                          "answer"
+                        ]
                       },
                       "then": {
                         "required": [

@@ -226,7 +226,13 @@ function deriveConditionals(criterion) {
 
             const clause = {
               $derived: `from condition '${group.condition}' at ${group.requestpath}`,
-              if: { properties: { [gProp]: { const: group.condition === 'true' } } },
+              // The gate must be PRESENT and hold the triggering value. Requiring
+              // presence matters for an ONFALSE gate (`const: false`): a JSON
+              // Schema `properties` constraint is vacuously satisfied when the key
+              // is absent, so without `required` the `then` would fire whenever the
+              // gate is simply unanswered (e.g. its own enclosing branch was not
+              // entered). First surfaced by OT58's nested ONFALSE branch.
+              if: { properties: { [gProp]: { const: group.condition === 'true' } }, required: [gProp] },
               then: thenClause,
             };
             if (Object.keys(elseClause.properties).length) clause.else = elseClause;
@@ -442,33 +448,65 @@ export function generateExample(criterion, registry) {
     cur[segs[segs.length - 1]] = value;
   }
 
-  // A minimal example should not trigger any conditional branch. For each derived
-  // conditional, the gate must take the value that does NOT activate `then`.
-  // Map "side|dotted-gate-path" -> the non-triggering boolean.
-  const nonTriggering = new Map();
+  // A minimal example should not trigger any conditional branch — EXCEPT where a
+  // gate cannot avoid it: a gate with BOTH an ONTRUE and an ONFALSE sibling
+  // branch (e.g. C25 `registered`: true -> registrationNumber, false ->
+  // notRegisteredReason) triggers one branch whichever value it takes. For such
+  // a gate we commit to a branch and must then POPULATE that branch's required
+  // leaves, or the example is invalid against its own derived if/then.
+  //
+  // Build, per gate (side|dotted-gate-path):
+  //   gateValue        -> the boolean the example assigns the gate
+  //   activeLeafKeys   -> dotted leaf keys made required by the chosen gate value
+  const clauses = [];
   for (const side of ['requirement', 'response']) {
     for (const { at, clause } of deriveConditionals(criterion)[side]) {
       const gateProp = Object.keys(clause.if.properties)[0];
       const triggerValue = clause.if.properties[gateProp].const;
-      const key = `${side}|${[...(at ? at.split('.') : []), gateProp].join('.')}`;
-      nonTriggering.set(key, !triggerValue);
+      const atSegs = at ? at.split('.') : [];
+      const gateKey = `${side}|${[...atSegs, gateProp].join('.')}`;
+      const requiredKeys = (clause.then?.required ?? [])
+        .map(name => `${side}|${[...atSegs, name].join('.')}`);
+      clauses.push({ side, gateKey, triggerValue, requiredKeys });
     }
   }
 
+  // Decide each gate's value. Prefer the NON-triggering value; if a gate appears
+  // with conflicting trigger directions (no non-triggering value exists), commit
+  // to `true`. Then collect the leaf keys the chosen values activate.
+  const triggerDirs = new Map(); // gateKey -> Set(booleans that TRIGGER a branch)
+  for (const { gateKey, triggerValue } of clauses) {
+    (triggerDirs.get(gateKey) ?? triggerDirs.set(gateKey, new Set()).get(gateKey)).add(triggerValue);
+  }
+  const gateValue = new Map(); // gateKey -> chosen boolean
+  for (const [gateKey, dirs] of triggerDirs) {
+    // Choose the non-triggering value (the boolean NOT in `dirs`). When both
+    // directions trigger a branch, no non-triggering value exists — commit to
+    // `true` and let the loop below populate that branch's required leaves.
+    const bothTrigger = dirs.has(true) && dirs.has(false);
+    gateValue.set(gateKey, bothTrigger ? true : !dirs.has(true));
+  }
+  const activeLeafKeys = new Set();
+  for (const { gateKey, triggerValue, requiredKeys } of clauses) {
+    if (gateValue.get(gateKey) === triggerValue) for (const k of requiredKeys) activeLeafKeys.add(k);
+  }
+
   for (const { leaf, insideConditional } of leavesWithContext(criterion)) {
-    if (insideConditional) continue; // skip gated leaves for a minimal example
-    if (!isRequiredCardinality(leaf.cardinality)) continue;
-    const vt = registry.valueTypes[leaf.valueType];
     const side = leaf.instanceBinding.side;
     const key = `${side}|${leaf.instanceBinding.path.join('.')}`;
+    // Emit a gated leaf only when its branch is active under the chosen gate
+    // values; ungated required leaves are always emitted.
+    if (insideConditional && !activeLeafKeys.has(key)) continue;
+    if (!insideConditional && !isRequiredCardinality(leaf.cardinality)) continue;
+    const vt = registry.valueTypes[leaf.valueType];
     // Derive the codelist enum (if any) so the sampler can pick a real member;
     // on a clone, leaving the registry shape untouched. Carry the per-leaf
     // codelist (generic CODE) just as the schema path does.
     const sampleShape = cloneShape(vt.instanceShape);
     if (leaf.codelist && !sampleShape.codeList) sampleShape.codeList = leaf.codelist;
     deriveCodelistEnum(sampleShape);
-    const value = nonTriggering.has(key)
-      ? nonTriggering.get(key)
+    const value = gateValue.has(key)
+      ? gateValue.get(key)
       : sampleForShape(sampleShape, vt.instanceConstraints);
     const arrayDepths = new Set(arrayContainerDepths(criterion, leaf));
     setAt(sideData[side], leaf.instanceBinding.path, value, arrayDepths);

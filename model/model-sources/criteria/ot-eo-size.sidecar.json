@@ -1,0 +1,34 @@
+{
+  "$comment": "Part II Section A 'OT' criterion OT65 — 'Economic Operator Micro, Small or Medium-sized Enterprise'. Response-only: an INDICATOR answer gating (ONTRUE) a number-of-employees (QUANTITY_INTEGER) + turnover (AMOUNT), plus the standard electronic-evidence block. Shares EA code 'OT'; disambiguated by tag OT65 / id eo-size.",
+  "criterion": {
+    "code": "OT",
+    "tag": "OT65",
+    "id": "eo-size",
+    "instanceModel": {
+      "containerPath": ["partII", "economicOperatorCriteria"],
+      "key": { "source": "id" }
+    }
+  },
+  "components": {
+    "OT65_OT/QG1/Q1": {
+      "id": "eo-size.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "OT65_OT/QG1/QSG1/Q1": {
+      "id": "eo-size.number-of-employees",
+      "instanceBinding": { "side": "response", "path": ["numberOfEmployees"] }
+    },
+    "OT65_OT/QG1/QSG1/Q2": {
+      "id": "eo-size.turnover",
+      "instanceBinding": { "side": "response", "path": ["turnover"] }
+    },
+    "OT65_OT/QG2/Q1": {
+      "id": "eo-size.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "OT65_OT/QG2/QSG1/Q1": {
+      "id": "eo-size.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

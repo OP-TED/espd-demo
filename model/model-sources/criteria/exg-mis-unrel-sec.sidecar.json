@@ -1,0 +1,29 @@
+{
+  "$comment": "C67 exg-mis-unrel-sec — guilty of serious misrepresentation / undue influence / withholding information (national/other grounds). Part III §C. Response-only, unusual shape: INDICATOR answer, then a REPEATABLE (ON*, 0..n) group QG1/QSG1 that is itself the electronic-evidence block (availableElectronically + evidence). Modelled as evidenceBlocks[] — the repeatable group carries its own binding (repeatable:true) and its leaves bind THROUGH the array, like C01 convictions.",
+  "criterion": {
+    "code": "exg-mis-unrel-sec",
+    "id": "exg-mis-unrel-sec",
+    "instanceModel": {
+      "containerPath": ["partIII", "exclusionGrounds"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C67_exg-mis-unrel-sec/QG1/Q1": {
+      "id": "exg-mis-unrel-sec.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C67_exg-mis-unrel-sec/QG1/QSG1": {
+      "id": "exg-mis-unrel-sec.evidence-blocks",
+      "instanceBinding": { "side": "response", "path": ["evidenceBlocks"], "repeatable": true }
+    },
+    "C67_exg-mis-unrel-sec/QG1/QSG1/Q1": {
+      "id": "exg-mis-unrel-sec.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["evidenceBlocks", "availableElectronically"] }
+    },
+    "C67_exg-mis-unrel-sec/QG1/QSG1/QSG1/Q1": {
+      "id": "exg-mis-unrel-sec.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["evidenceBlocks", "evidence"] }
+    }
+  }
+}

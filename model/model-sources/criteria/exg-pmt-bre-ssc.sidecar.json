@@ -1,0 +1,69 @@
+{
+  "$comment": "C08 exg-pmt-bre-ssc — breach of obligations relating to the payment of social security contributions. Part III §B. STRUCTURAL CLONE of exg-pmt-bre-tax (C07): identical tree (buyer REQUIREMENT minimum-amount + additional-information; deep response tree country/amount/established-by-other-means/decision(date,period)/remedy; evidence block), differing only in the Cnn_ prefix. Introduces nothing new (CODE_COUNTRY, AMOUNT, MINIMUM_AMOUNT, DATE, PERIOD all already registered).",
+  "criterion": {
+    "code": "exg-pmt-bre-ssc",
+    "id": "exg-pmt-bre-ssc",
+    "instanceModel": {
+      "containerPath": ["partIII", "exclusionGrounds"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C08_exg-pmt-bre-ssc/RG1/RQ1": {
+      "id": "exg-pmt-bre-ssc.minimum-amount",
+      "instanceBinding": { "side": "requirement", "path": ["minimumAmount"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/RQ2": {
+      "id": "exg-pmt-bre-ssc.additional-information",
+      "instanceBinding": { "side": "requirement", "path": ["additionalInformation"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-ssc.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-ssc.country",
+      "instanceBinding": { "side": "response", "path": ["breach", "country"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/Q2": {
+      "id": "exg-pmt-bre-ssc.amount",
+      "instanceBinding": { "side": "response", "path": ["breach", "amount"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-ssc.established-by-other-means",
+      "instanceBinding": { "side": "response", "path": ["breach", "establishedByOtherMeans"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-ssc.means-description",
+      "instanceBinding": { "side": "response", "path": ["breach", "meansDescription"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/QSG1/QSG2/Q1": {
+      "id": "exg-pmt-bre-ssc.decision-final-and-binding",
+      "instanceBinding": { "side": "response", "path": ["breach", "decision", "finalAndBinding"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q1": {
+      "id": "exg-pmt-bre-ssc.decision-date",
+      "instanceBinding": { "side": "response", "path": ["breach", "decision", "date"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q2": {
+      "id": "exg-pmt-bre-ssc.exclusion-period",
+      "instanceBinding": { "side": "response", "path": ["breach", "decision", "exclusionPeriod"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/QSG1/QSG3/Q1": {
+      "id": "exg-pmt-bre-ssc.obligations-fulfilled",
+      "instanceBinding": { "side": "response", "path": ["breach", "remedy", "obligationsFulfilled"] }
+    },
+    "C08_exg-pmt-bre-ssc/RG1/QSG1/QSG1/QSG1/QSG3/QSG1/Q1": {
+      "id": "exg-pmt-bre-ssc.remedy-description",
+      "instanceBinding": { "side": "response", "path": ["breach", "remedy", "description"] }
+    },
+    "C08_exg-pmt-bre-ssc/QG1/Q1": {
+      "id": "exg-pmt-bre-ssc.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C08_exg-pmt-bre-ssc/QG1/QSG1/Q1": {
+      "id": "exg-pmt-bre-ssc.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

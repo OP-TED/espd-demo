@@ -1,0 +1,29 @@
+{
+  "$comment": "C24 exg-natl-bre-nat-law — purely national exclusion grounds. Part III §D. Response-only. The criterion lists one or more national grounds (QG1/QSG1 is a REPEATABLE 1..n subgroup; CA1/CA2 inside it are CAPTIONs = structural, carrying the national-criterion text and e-Certis evidence type — no value binding), each answered by an INDICATOR. Plus the standard electronic-evidence block. Modelled as nationalCriteria[] (repeatable group) with a single `answer` per item.",
+  "criterion": {
+    "code": "exg-natl-bre-nat-law",
+    "id": "exg-natl-bre-nat-law",
+    "instanceModel": {
+      "containerPath": ["partIII", "exclusionGrounds"],
+      "key": { "source": "code" }
+    }
+  },
+  "components": {
+    "C24_exg-natl-bre-nat-law/QG1/QSG1": {
+      "id": "exg-natl-bre-nat-law.national-criteria",
+      "instanceBinding": { "side": "response", "path": ["nationalCriteria"], "repeatable": true }
+    },
+    "C24_exg-natl-bre-nat-law/QG1/QSG1/Q1": {
+      "id": "exg-natl-bre-nat-law.answer",
+      "instanceBinding": { "side": "response", "path": ["nationalCriteria", "answer"] }
+    },
+    "C24_exg-natl-bre-nat-law/QG2/Q1": {
+      "id": "exg-natl-bre-nat-law.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C24_exg-natl-bre-nat-law/QG2/QSG1/Q1": {
+      "id": "exg-natl-bre-nat-law.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

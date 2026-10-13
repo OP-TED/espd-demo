@@ -49,10 +49,17 @@ export function loadHints(code, dir = CRITERIA_DIR) {
 }
 
 export function compile(edm, code, sidecar) {
-  const core = readStructuralCore(edm, code);
+  // The EA lookup uses the sidecar's declared `criterion.code` (the real
+  // espd-edm.json code) when present; the `code` argument is the sidecar/output
+  // identity (its filename stem), which equals the EA code for the usual case
+  // but differs for the Part II/V 'OT' criteria (filename e.g.
+  // 'ot-reduction-of-candidates', EA code 'OT'). `tag` disambiguates shared codes.
+  const eaCode = sidecar?.criterion?.code ?? code;
+  const tag = sidecar?.criterion?.tag;
+  const core = readStructuralCore(edm, eaCode, tag);
   if (!sidecar) return { core, leaves: leavesOf(core) };
   const compiled = overlayEnrichment(core, sidecar);
-  assertStructuralEquivalence(edm, code, compiled);
+  assertStructuralEquivalence(edm, eaCode, compiled, tag);
   const { registry, provenance } = loadValidatedRegistry();
   validateCriterionValueTypes(compiled, registry);
   return { core, compiled, leaves: leavesOf(compiled), registry, provenance };

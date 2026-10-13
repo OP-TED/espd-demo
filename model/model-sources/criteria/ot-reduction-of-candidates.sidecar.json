@@ -1,0 +1,31 @@
+{
+  "$comment": "Part V 'OT' criterion OT63 — 'Reduction of the number of qualified candidates'. The sole Part V criterion. Response-only, INDICATOR answer + conditional DESCRIPTION + the standard electronic-evidence block. The seven Part II/V criteria all share EA code 'OT'; `criterion.tag` disambiguates which one (OT63 here), and `criterion.id` is a distinct semantic id used as the instance key (key.source: 'id', not 'code').",
+
+  "criterion": {
+    "code": "OT",
+    "tag": "OT63",
+    "id": "reduction-of-candidates",
+    "instanceModel": {
+      "containerPath": ["partV", "otherCriteria"],
+      "key": { "source": "id" }
+    }
+  },
+  "components": {
+    "OT63_OT/QG1/Q1": {
+      "id": "reduction-of-candidates.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "OT63_OT/QG1/QSG1/Q1": {
+      "id": "reduction-of-candidates.description",
+      "instanceBinding": { "side": "response", "path": ["description"] }
+    },
+    "OT63_OT/QG2/Q1": {
+      "id": "reduction-of-candidates.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "OT63_OT/QG2/QSG1/Q1": {
+      "id": "reduction-of-candidates.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

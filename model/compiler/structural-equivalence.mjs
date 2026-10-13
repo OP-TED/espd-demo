@@ -45,8 +45,8 @@ export function projectCompiled(compiled) {
  * Normalise the raw EA criterion into canonical structural form. This reuses the
  * reader so the gate verifies the SAME transformation the compiler relies on.
  */
-export function normaliseEa(edm, code) {
-  return readStructuralCore(edm, code);
+export function normaliseEa(edm, code, tag) {
+  return readStructuralCore(edm, code, tag);
 }
 
 /** Deep structural equality, returning the first differing path or null. */
@@ -76,11 +76,11 @@ export function firstDiff(a, b, pathStr = '$') {
  * Assert the compiled criterion is structurally equivalent to its EA source.
  * Throws with a readable diff on mismatch. Returns the canonical structure.
  */
-export function assertStructuralEquivalence(edm, code, compiled) {
-  if (!findCriterion(edm, code)) {
-    throw new Error(`Criterion '${code}' is absent from espd-edm.json`);
+export function assertStructuralEquivalence(edm, code, compiled, tag) {
+  if (!findCriterion(edm, code, tag)) {
+    throw new Error(`Criterion '${code}'${tag ? ` (tag ${tag})` : ''} is absent from espd-edm.json`);
   }
-  const eaCanonical = normaliseEa(edm, code);
+  const eaCanonical = normaliseEa(edm, code, tag);
   const projected = projectCompiled(compiled);
   const diff = firstDiff(projected, eaCanonical);
   if (diff) {

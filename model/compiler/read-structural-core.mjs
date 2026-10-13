@@ -76,11 +76,17 @@ function readNode(component) {
   };
 }
 
-/** Find a criterion by code anywhere in the parts/sections tree. */
-export function findCriterion(edm, code) {
+/**
+ * Find a criterion by code anywhere in the parts/sections tree. When several
+ * criteria share a code (the Part II/V 'OT' criteria all use code 'OT'), an
+ * optional `tag` (e.g. 'OT65') disambiguates. Without a tag, the first match by
+ * code is returned (the normal case: a unique code).
+ */
+export function findCriterion(edm, code, tag) {
   for (const part of edm) {
     for (const section of part.sections ?? []) {
-      const found = (section.criteria ?? []).find(c => c.type === 'CRITERION' && c.code === code);
+      const found = (section.criteria ?? []).find(c =>
+        c.type === 'CRITERION' && c.code === code && (tag === undefined || c.tag === tag));
       if (found) return found;
     }
   }
@@ -91,11 +97,14 @@ export function findCriterion(edm, code) {
  * Read the minimal structural core of one criterion from a parsed espd-edm.json.
  * @param {Array} edm parsed espd-edm.json (array of parts)
  * @param {string} code criterion code, e.g. 'slc-stand-to-spec-avg'
+ * @param {string} [tag] EA tag to disambiguate shared codes (e.g. 'OT65')
  * @returns the structural-core criterion tree
  */
-export function readStructuralCore(edm, code) {
-  const criterion = findCriterion(edm, code);
-  if (!criterion) throw new Error(`Criterion not found in espd-edm.json: ${code}`);
+export function readStructuralCore(edm, code, tag) {
+  const criterion = findCriterion(edm, code, tag);
+  if (!criterion) {
+    throw new Error(`Criterion not found in espd-edm.json: ${code}${tag ? ` (tag ${tag})` : ''}`);
+  }
 
   return {
     code: criterion.code,

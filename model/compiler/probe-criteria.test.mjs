@@ -161,11 +161,51 @@ test('CODE_BOOLEAN schema enum is DERIVED from BooleanGUIControlType.gc (and kep
   assert.deepEqual(field.enum, gcCodes, 'schema enum must equal the .gc codes in order');
   assert.equal(field.codeListFile, undefined, 'the codeListFile marker must not leak into the schema');
   assert.equal(field.codeList, 'boolean-gui-control-type', 'the human-facing codeList name stays');
+  // Marked as our implementation's choice, not a hard ESPD requirement.
+  assert.equal(field.$codelistEnumIsImplementerChoice, true);
 
   // The generated example must pick a REAL code, not the generic 'sample'.
   const example = generateExample(compiled, registry);
   const value = example.partIV.selectionCriteria['slc-stand-to-gen'].requirement.thresholdPerYear;
   assert.ok(gcCodes.includes(value), `example value '${value}' must be a real codelist code`);
+});
+
+test('per-leaf CODE (financial-ratio-type) enum is DERIVED from the leaf codelist, size-gated', () => {
+  // C34 uses the generic CODE value type, whose codelist is declared PER LEAF in
+  // the sidecar (financial-ratio-type). The generator resolves that name to its
+  // .gc and inlines the enum because the list is small (40 <= MAX_INLINE_ENUM).
+  const { compiled, registry } = compileCriterion('slc-stand-ratio');
+  const schema = generateInstanceSchema(compiled, registry, { partId: 'IV' });
+
+  // Find the ratioType leaf wherever it sits (nested inside periods[].ratios[]).
+  let field;
+  (function find(n) {
+    if (!n || typeof n !== 'object' || field) return;
+    if (n.codeList === 'financial-ratio-type') { field = n; return; }
+    for (const k in n) if (n[k] && typeof n[k] === 'object') find(n[k]);
+  })(schema);
+  assert.ok(field, 'expected a leaf carrying the financial-ratio-type codelist');
+
+  const gcCodes = readCodelistCodes(codelistPath('FinancialRatioType.gc'));
+  assert.deepEqual(field.enum, gcCodes, 'schema enum must equal FinancialRatioType.gc codes');
+  assert.equal(field.$codelistEnumIsImplementerChoice, true);
+});
+
+test('a large codelist (occupation) is referenced by name, NOT inlined as an enum', () => {
+  // C25 uses CODE with the occupation codelist (4046 codes). The size gate must
+  // keep it referenced by name: the schema carries codeList but no enum.
+  const { compiled, registry } = compileCriterion('slc-suit-reg-prof');
+  const schema = generateInstanceSchema(compiled, registry, { partId: 'IV' });
+
+  let field;
+  (function find(n) {
+    if (!n || typeof n !== 'object' || field) return;
+    if (n.codeList === 'occupation') { field = n; return; }
+    for (const k in n) if (n[k] && typeof n[k] === 'object') find(n[k]);
+  })(schema);
+  assert.ok(field, 'expected a leaf carrying the occupation codelist');
+  assert.equal(field.enum, undefined, 'a 4046-code list must not be inlined');
+  assert.equal(field.$codelistEnumIsImplementerChoice, undefined, 'no implementer-choice marker when not inlined');
 });
 
 test('slc-abil-staff-yrly-avg-mp maps the quantity-with-unit answers', () => {

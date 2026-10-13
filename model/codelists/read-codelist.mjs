@@ -21,6 +21,52 @@ export function codelistPath(gcFileName) {
   return path.join(CODELISTS_DIR, gcFileName);
 }
 
+// Lazily-built index: codelist NAME (as used in our profiles / sidecar `codelist`
+// values, e.g. 'financial-ratio-type') -> .gc file name. A .gc declares both a
+// ShortName ('FinancialRatioType') and a LongName ('financial-ratio-type' or
+// sometimes the same as ShortName), so we index by both, case-insensitively.
+let _nameIndex = null;
+function nameIndex() {
+  if (_nameIndex) return _nameIndex;
+  _nameIndex = new Map();
+  for (const file of fs.readdirSync(CODELISTS_DIR)) {
+    if (!file.endsWith('.gc')) continue;
+    const xml = fs.readFileSync(path.join(CODELISTS_DIR, file), 'utf8');
+    // Index by: the file stem, the ShortName, and EVERY <LongName> — the
+    // kebab-case list id lives in <LongName Identifier="listId">...</LongName>,
+    // which the ShortName/first-LongName alone would miss. Only index the Identification
+    // block's names (agency LongName would wrongly map 'Publications Office...').
+    const keys = new Set([file.replace(/\.gc$/, '')]);
+    const idBlock = xml.match(/<Identification>([\s\S]*?)<\/Identification>/)?.[1] ?? xml;
+    const short = idBlock.match(/<ShortName>([^<]+)<\/ShortName>/)?.[1];
+    if (short) keys.add(short);
+    for (const m of idBlock.matchAll(/<LongName(?:\s+Identifier="[^"]*")?>([^<]+)<\/LongName>/g)) {
+      // The agency ShortName/LongName sits in a nested <Agency> block; skip the
+      // human agency name by only taking LongNames that look like identifiers
+      // (no spaces).
+      if (!/\s/.test(m[1])) keys.add(m[1]);
+    }
+    for (const key of keys) _nameIndex.set(key.toLowerCase(), file);
+  }
+  return _nameIndex;
+}
+
+/**
+ * Resolve a codelist NAME (as used in the codelist-attribute profile or a
+ * sidecar leaf `codelist`) to its shipped .gc file name, or undefined if the
+ * list is not shipped in ESPD-EDM/codelists.
+ */
+export function gcFileForCodelist(name) {
+  if (!name) return undefined;
+  return nameIndex().get(name.toLowerCase());
+}
+
+/** Codes for a codelist by NAME, or undefined if the list is not shipped. */
+export function codesForCodelist(name) {
+  const file = gcFileForCodelist(name);
+  return file ? readCodelistCodes(path.join(CODELISTS_DIR, file)) : undefined;
+}
+
 /**
  * Extract all code values from a Genericode .gc file.
  * Parses the XML just enough to pull <SimpleValue> from the `code` ColumnRef

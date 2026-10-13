@@ -13,7 +13,7 @@
               },
               "ratios": [
                 {
-                  "ratioType": "sample",
+                  "ratioType": "R11",
                   "definition": "sample",
                   "minimumRatio": 1000
                 }

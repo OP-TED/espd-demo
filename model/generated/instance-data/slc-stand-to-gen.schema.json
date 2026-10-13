@@ -35,7 +35,8 @@
                         "RADIO_BUTTON_FALSE",
                         "RADIO_BUTTON_TRUE",
                         "RADIO_BUTTON_UNSELECTED"
-                      ]
+                      ],
+                      "$codelistEnumIsImplementerChoice": true
                     },
                     "minimumAmount": {
                       "type": "object",

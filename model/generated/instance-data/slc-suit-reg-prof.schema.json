@@ -23,7 +23,8 @@
                       "minItems": 1
                     },
                     "occupation": {
-                      "type": "string"
+                      "type": "string",
+                      "codeList": "occupation"
                     }
                   },
                   "required": [

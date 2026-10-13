@@ -530,22 +530,133 @@ external. Neither should block X1, which is a real gap in a *mandatory* element.
 
 ### X6. Derive enums for the remaining code-valued fields
 
-Section A derives its `type` enum from `DocrefcontentType.gc` and a test keeps it
-in sync; Section B does the same for the identifier `scheme` from `EOIDType.gc`.
-The reusable reader is `model/parts/read-codelist.mjs`.
+The shared reader is `model/codelists/read-codelist.mjs`:
+`readCodelistCodes(path)` plus a name resolver (`gcFileForCodelist` /
+`codesForCodelist`) that indexes every shipped `.gc` by its ShortName and its
+identifier-style LongNames (the kebab list id lives in
+`<LongName Identifier="listId">`).
 
-Candidates not yet done:
+**The two-axis rule that emerged** (both decided per codelist, independently):
 
-| Field | Codelist | XML-layer validation today |
-|---|---|---|
-| `CODE_BOOLEAN` answers | `BooleanGUIControlType.gc` | **none** — the CVA notes it is missing from its list |
-| `CODE_COUNTRY` answers | `Country.gc` | CVA validates `cac:Country/cbc:IdentificationCode` |
-| per-leaf `CODE` (e.g. occupation, financial ratio) | `Occupation.gc`, `FinancialRatioType.gc` | CVA validates `cbc:ExpectedCode` only for C25 |
-| Section B `country` | `Country.gc` | CVA validates it |
-| Section C `procedureType` | *not shipped* | **none** (see X1) |
+1. **Inline an enum** when the list is **small and stable**; **reference it by
+   name** (carry the `codeList` marker, no `enum`) when it is large. The
+   generator enforces this with a size gate (`MAX_INLINE_ENUM = 60`): a shipped
+   list at or below it is inlined, a larger one is left referenced. "Reference by
+   name" means the schema says only "this is a code from list X" — the allowed
+   values are not copied in; the UI picker (see UX1) and the Schematron/CVA
+   supply and check them.
+2. **CVA validation** is the XML-layer backstop and is independent of inlining —
+   it should ideally cover every code field, and it is the *only* enforcement for
+   large lists we do not inline.
 
-*Notes:* `Country.gc` has 341 codes — too many to inline as an enum, which is why
-Section B references it by name instead and lets the CVA enforce the value. The
-rule of thumb that emerged: **inline an enum when the list is small and stable
-(EOIDType: 5, DocrefcontentType: 10); reference it by name when it is large**.
-Either way the sync test is what keeps the model honest.
+**Current state:**
+
+| Field | Codelist | Size | Our schema | CVA |
+|---|---|---|---|---|
+| Section A `type` | `docrefcontent-type` | 10 | enum ✅ | ✅ |
+| Section B `scheme` | `EOIDType` | 5 | enum ✅ | ✅ |
+| `CODE_BOOLEAN` | `boolean-gui-control-type` | 6 | enum ✅ | ❌ (see CVA1) |
+| per-leaf `CODE` (C34) | `financial-ratio-type` | 40 | enum ✅ | ❌ (see CVA1) |
+| per-leaf `CODE` (C25) | `occupation` | 4046 | by name | ✅ (scoped to C25) |
+| Section B `country`, `CODE_COUNTRY` | `country` | 341 | by name | ✅ |
+| `AMOUNT` currency | `currency` | 290 | by name | ✅ |
+| Section C `procedureType` | `procurement-procedure-type` | — | by name | ❌ (not shipped — X1) |
+
+Each inlined enum carries `$codelistEnumIsImplementerChoice: true` (see CVA1 for
+what that signals) and a test keeps it in sync with its `.gc`.
+
+**Remaining candidate:** `eo-role-type` — used by the Part V `OT` criterion (not
+yet modelled) and small enough to inline. Pick it up when Part V is done.
+
+---
+
+## Codelist validation & presentation — to resolve later
+
+### CVA1. TODO — add `financial-ratio-type` and `boolean-gui-control-type` to the CVA (deliberately deferred)
+
+Both lists are shipped as `.gc`, and we now inline both as JSON Schema enums (see
+X6). Neither is validated at the **XML layer**: the CVA
+(`espd-validation-schematron/common/cva/01-ESPD-codelist-values.cva`) has no
+context for either.
+
+**Decision for now:** leave them out of the Schematron/CVA, and mark our inlined
+enums with `$codelistEnumIsImplementerChoice: true`. The signal is: *our*
+reference implementation presents these codes as the pick list, but a conformant
+ESPD is not required to use exactly this set — so we do not want to impose a hard
+XML-layer rule that would reject another implementation's legitimate value. The
+enum constrains *our* authoring/UI; it is not asserted as an interop requirement.
+
+**Why deferred (not "never"):** both are genuine codelists and a value-layer
+check would catch typos. But adding them is **not a clean paste** — `cbc:ExpectedCode`
+is shared by several lists, so each needs a **criterion-path-scoped** context,
+mirroring how `occupation` is already scoped to C25:
+
+```xml
+<!-- in ValueLists -->
+<ValueList xml:id="FinancialRatioType" uri="../../gc/FinancialRatioType.gc"/>
+<ValueList xml:id="BooleanGUIControlType" uri="../../gc/BooleanGUIControlType.gc"/>
+
+<!-- in Contexts: ONE scoped context per criterion that uses the list -->
+<Context address="cac:TenderingCriterionPropertyGroup[cbc:ID='C34_.../RG1/RSG1']/.../cbc:ExpectedCode"
+         values="FinancialRatioType"> ... </Context>
+<Context address="cac:TenderingCriterionPropertyGroup[cbc:ID='C29_.../RG1/RSG1']/.../cbc:ExpectedCode"
+         values="BooleanGUIControlType"> ... </Context>
+<!-- C36 also uses boolean-gui-control-type -> a second scoped context -->
+```
+
+This is a feedback item for the EDM team (it also ties to M1: if
+`BooleanGUIControlType` should not be a data-model code list at all, do not
+cement it with a validation rule). When they resolve it, revisit whether our
+`$codelistEnumIsImplementerChoice` enums should become hard once an authoritative
+XML-layer rule exists.
+
+Related CVA gaps already noted under X1: the CVA's own comment flags
+`BooleanGUIControlType.gc` as *"Missing from this list"*, and `cbc:ResponseCode`
+carrying `eo-role-type` is unvalidated (which is how the Response BASE sample
+ends up with a `dummy-value` role code — see X2).
+
+### UX1. Codelist presentation in the UI — pickers from a codelist service
+
+How should the UI give users good values to pick from — especially for the large
+lists (`occupation` 4046, `country` 341, `currency` 290) that we deliberately do
+**not** inline as enums?
+
+The JSON Schema is the wrong place to feed a picker: a 4046-entry enum would
+bloat every schema, is unreadable in diffs, and still goes stale. The right
+design is a **runtime codelist service**, decoupled from the schema:
+
+- **Ship the `.gc` codes as UI-consumable JSON.** The codelist export already
+  emits `codelists.json` metadata; extend it (or add a build step) to emit, per
+  codelist, a `{ code, labels }` list the front-end loads on demand. The `.gc`
+  files carry **multilingual labels** (24 languages), so a picker can show
+  "Belgium" / "Belgique" / "België" by locale rather than the raw code `BEL`.
+- **The field already names the list.** The instance schema carries `$codelist`
+  and the form lens carries `codelist` + `uiType: "code"`. The UI reads the list
+  name from the field and fetches *that* list from the service. This is exactly
+  why "reference by name" is the right move for large lists: the name is the key
+  the UI resolves against the service; the values never need to live in the
+  schema.
+- **Match the control to the list size:**
+
+  | List | Size | Control |
+  |---|---|---|
+  | `boolean-gui-control-type` | 6 | radio group / plain select |
+  | `financial-ratio-type` | 40 | plain select (optionally grouped) |
+  | `currency` | ~290 | searchable / typeahead combobox |
+  | `country` | 341 | searchable / typeahead combobox |
+  | `occupation` | 4046 | search-as-you-type, service-backed; expose the ESCO hierarchy for browsing |
+
+- **Labels, not codes, in the UI.** Users pick "Belgium", the model stores `BEL`.
+  The code↔label mapping is the codelist service's job, so the stored instance
+  stays code-only (what the XML needs) while the UI stays human-friendly.
+
+**Division of responsibility that falls out of this:**
+
+| Concern | Where |
+|---|---|
+| validation | schema (inline enum for small lists; name-reference for large) + Schematron/CVA |
+| picker data (codes + labels + locale) | codelist service, built from the `.gc` |
+| which control, which list | form-structure lens (`uiType`, `codelist`) |
+
+The `.gc` is the single source for both the inlined enum and the service data, so
+they cannot drift from each other.

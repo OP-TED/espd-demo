@@ -15,34 +15,56 @@
 // placed under `{ type: array, items: {...} }` via insertShape's arrayAtDepth.
 
 import { arrayContainerDepths } from './encoding-profile.mjs';
-import { readCodelistCodes, codelistPath } from '../codelists/read-codelist.mjs';
+import { readCodelistCodes, codelistPath, codesForCodelist } from '../codelists/read-codelist.mjs';
 
 /** Deep-clone a registry instanceShape (plain JSON). */
 function cloneShape(shape) {
   return structuredClone(shape);
 }
 
+// Inline a codelist as a JSON Schema `enum` only when it is small enough to be
+// readable and stable; a larger list (currency ~180, country 341, occupation
+// 4046) is referenced by name (the `codeList` marker) and left for the codelist
+// service / Schematron to validate. 60 comfortably covers the small lists we
+// inline (EOIDType 5, boolean-gui 6, docrefcontent 10, financial-ratio 40) while
+// excluding the large ones.
+const MAX_INLINE_ENUM = 60;
+
 /**
- * Derive a JSON Schema `enum` from a shipped .gc codelist, in place, when a
- * shape opts in via `codeListFile`. The non-standard `codeListFile` marker is
- * removed from the emitted schema (the human-facing `codeList` name stays).
- * Only small, enumerable lists should opt in — a large list (e.g. 341 countries)
- * is better referenced by name than inlined.
+ * Derive a JSON Schema `enum` from a shipped .gc codelist, in place, for shapes
+ * that reference a codelist. Two triggers:
+ *   - `codeListFile`: an explicit .gc file name on the registry instanceShape
+ *     (intrinsic-codelist value types, e.g. CODE_BOOLEAN).
+ *   - `codeList`: a codelist NAME (set per-leaf for the generic CODE type, or on
+ *     a registry shape); resolved to its .gc via the shared name index.
+ * The enum is inlined only when the list is shipped AND <= MAX_INLINE_ENUM.
+ * `codeListFile` is a non-standard marker and is always stripped; `codeList`
+ * (human-facing name) stays so the UI/service knows which list to load.
  */
 function deriveCodelistEnum(shape) {
   if (!shape || typeof shape !== 'object') return shape;
-  // Recurse into object properties (object-shaped value types).
   if (shape.properties) {
     for (const key of Object.keys(shape.properties)) deriveCodelistEnum(shape.properties[key]);
   }
   if (shape.items) deriveCodelistEnum(shape.items);
-  if (!shape.codeListFile) return shape;
-  const codes = readCodelistCodes(codelistPath(shape.codeListFile));
-  if (codes.length === 0) {
-    throw new Error(`codeListFile '${shape.codeListFile}' yielded no codes`);
+
+  let codes;
+  if (shape.codeListFile) {
+    codes = readCodelistCodes(codelistPath(shape.codeListFile));
+    if (!codes || codes.length === 0) throw new Error(`codeListFile '${shape.codeListFile}' yielded no codes`);
+    delete shape.codeListFile;
+  } else if (shape.codeList && !shape.enum) {
+    codes = codesForCodelist(shape.codeList); // undefined if not shipped
   }
-  shape.enum = codes;
-  delete shape.codeListFile;
+
+  if (codes && codes.length > 0 && codes.length <= MAX_INLINE_ENUM) {
+    shape.enum = codes;
+    // Mark that the enum is our implementation's choice, not a hard requirement:
+    // the value is a code from `codeList`, and a different implementation may
+    // legitimately present a different subset. (Deliberately NOT enforced by the
+    // ESPD Schematron for these lists — see docs/improvement-ideas.md.)
+    shape.$codelistEnumIsImplementerChoice = true;
+  }
   return shape;
 }
 
@@ -261,7 +283,11 @@ export function generateCriterionSchema(criterion, registry, hints = null) {
     const vt = registry.valueTypes[leaf.valueType];
     if (!vt?.instanceShape) throw new Error(`No instanceShape for value type ${leaf.valueType} (${leaf.id})`);
     let shape = cloneShape(vt.instanceShape);
-    // Derive an enum from the shipped .gc for shapes that opt in (codeListFile).
+    // For per-leaf CODE: the leaf's sidecar `codelist` names the code list; put
+    // it on the shape so the UI knows which picker to use and the enum derivation
+    // can resolve it to a shipped .gc (if the list is small enough to inline).
+    if (leaf.codelist && !shape.codeList) shape.codeList = leaf.codelist;
+    // Derive an enum from the shipped .gc (codeListFile or codeList, size-gated).
     deriveCodelistEnum(shape);
     // 4.3.1: array bounds derived from EA cardinality (no hint needed).
     if (shape.type === 'array') {
@@ -436,8 +462,11 @@ export function generateExample(criterion, registry) {
     const side = leaf.instanceBinding.side;
     const key = `${side}|${leaf.instanceBinding.path.join('.')}`;
     // Derive the codelist enum (if any) so the sampler can pick a real member;
-    // on a clone, leaving the registry shape untouched.
-    const sampleShape = deriveCodelistEnum(cloneShape(vt.instanceShape));
+    // on a clone, leaving the registry shape untouched. Carry the per-leaf
+    // codelist (generic CODE) just as the schema path does.
+    const sampleShape = cloneShape(vt.instanceShape);
+    if (leaf.codelist && !sampleShape.codeList) sampleShape.codeList = leaf.codelist;
+    deriveCodelistEnum(sampleShape);
     const value = nonTriggering.has(key)
       ? nonTriggering.get(key)
       : sampleForShape(sampleShape, vt.instanceConstraints);

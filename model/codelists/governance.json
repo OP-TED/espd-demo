@@ -63,14 +63,14 @@
       "$note": "~290 codes; validated (cbc:ValueCurrencyCode, @currencyID); too large to inline -> reference by name. Repo ground truth. REVIEW."
     },
     "eo-role-type": {
-      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": true,
       "gc": "EoRoleType.gc",
-      "$note": "5 codes; validated (RoleCode). Small enough that we COULD inline it (like eoid-type) when the Part V OT criterion / EO role is modelled — revisit then. Currently reference by name. Repo ground truth. REVIEW."
+      "$note": "5 codes (sole-tenderer, group-lead, group-mem, oeron, subcont); validated (RoleCode). Small, so inlined like eoid-type — validated+inlined, marker false. Used by Part II Section A (EO role) and the Part II/V OT criteria."
     },
     "economic-operator-size": {
-      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": true,
       "gc": "EconomicOperatorSize.gc",
-      "$note": "Validated (IndustryClassificationCode). Not yet used by a modelled field. Repo ground truth. REVIEW."
+      "$note": "5 codes (micro, small, medium, large, sme); validated (IndustryClassificationCode). Small, so inlined — validated+inlined, marker false. Used by Part II Section A (EO size)."
     },
     "language": {
       "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,

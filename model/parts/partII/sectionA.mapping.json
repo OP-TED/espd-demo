@@ -1,0 +1,46 @@
+{
+  "$comment": "Part II Section A — XML mapping for the economic operator identity, into UBL cac:EconomicOperatorParty of the ESPD RESPONSE document. Field set is the Schematron-mandated minimum (BR-RESP-10-02..07). The role is a child of cac:EconomicOperatorRole; name/size/identifier/country are on the nested cac:Party. Codelist attribute sets expand via expandCodelistAttributes (eo-role-type, economic-operator-size, country). The EO identifier carries @schemeAgencyID (BR-OTH-02, fatal).",
+
+  "target": {
+    "root": "QualificationApplicationResponse",
+    "namespaces": {
+      "": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2",
+      "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    }
+  },
+
+  "rules": [
+    {
+      "$comment": "BR-RESP-10-02/03 (error) — the EO's role, on EconomicOperatorRole/RoleCode (eo-role-type).",
+      "from": "partII.economicOperator.role",
+      "to": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
+      "attributes": { "listID": "eo-role-type" }
+    },
+    {
+      "$comment": "BR-RESP-10-05 (error) — official name of the EO.",
+      "from": "partII.economicOperator.name",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PartyName/cbc:Name"
+    },
+    {
+      "$comment": "BR-RESP-10-06 (error) — size of the EO (economic-operator-size).",
+      "from": "partII.economicOperator.size",
+      "to": "cac:EconomicOperatorParty/cac:Party/cbc:IndustryClassificationCode",
+      "attributes": { "listID": "economic-operator-size" }
+    },
+    {
+      "$comment": "BR-RESP-10-07 (error) — country of the EO, bare Country code with the country codelist attributes.",
+      "from": "partII.economicOperator.country",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode",
+      "attributes": { "listID": "country" }
+    },
+    {
+      "$comment": "BR-RESP-10-04 (error) — EO identifier, with its scheme agency on @schemeAgencyID (BR-OTH-02, fatal). No @schemeID/EOIDType on the EO identifier in the Response sample.",
+      "from": "partII.economicOperator.identifier.value",
+      "to": "cac:EconomicOperatorParty/cac:Party/cac:PartyIdentification/cbc:ID",
+      "attributes": {
+        "schemeAgencyID": { "from": "partII.economicOperator.identifier.schemeAgency" }
+      }
+    }
+  ]
+}

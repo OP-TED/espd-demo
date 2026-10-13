@@ -82,6 +82,22 @@
       "listAgencyID": "EMPL",
       "listVersionID": "20221214-0"
     },
+    "eo-role-type": {
+      "$note": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode (Part II EO role). Attributes from 01-ESPD-common-cl-attributes.sch (dated listVersionID 20211208-0).",
+      "listName": "EoRoleType",
+      "listID": "http://publications.europa.eu/resource/authority/eo-role-type",
+      "listVersionID": "20211208-0",
+      "listSchemeURI": "http://publications.europa.eu/resource/distribution/eo-role-type/20211208-0/xml/gc/EoRoleType.gc",
+      "listURI": "http://publications.europa.eu/resource/dataset/eo-role-type",
+      "listAgencyName": "Publications Office of the European Union",
+      "listAgencyID": "OP"
+    },
+    "economic-operator-size": {
+      "$note": "cac:EconomicOperatorParty/cac:Party/cbc:IndustryClassificationCode (Part II EO size). Dated listVersionID 20240612-0, from ESPD-Response-BASE.xml.",
+      "listID": "http://publications.europa.eu/resource/authority/economic-operator-size",
+      "listAgencyID": "OP",
+      "listVersionID": "20240612-0"
+    },
     "procurement-procedure-type": {
       "$note": "cbc:ProcedureCode (Part I Section C, procedure type). BR-SC-10 makes the ELEMENT mandatory (fatal) and BR-OTH-01-10/20/30 make listID/listAgencyID/listVersionID mandatory (fatal). CAVEAT: no .gc for this list is shipped in ESPD-EDM/codelists, and the CVA has no context for cbc:ProcedureCode — so code VALUES are neither enum-derivable nor validated. Attribute values taken from espd-tools/modules/espd_constants.cjs (versions 4.0.0/4.1.0); the 5.0.0 BASE sample still carries 3.3.0-era dummies ('Dummy_procurement-procedure-type', 'yyyymmdd-0').",
       "listID": "http://publications.europa.eu/resource/authority/procurement-procedure-type",

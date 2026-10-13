@@ -68,6 +68,31 @@ invalid control code would mis-drive a renderer.
 observation, in the same category as the overloaded `QUANTITY_YEAR` finding
 (task 4.3.3) — flagged, not urgent.
 
+### M2. Data-quality nits in the Part II EA export (`espd-edm.json`)
+
+Found while surveying Part II for modelling. All are small source-data defects in
+the EA model as exported — none block us (we model the correct UBL element
+names), but they are worth fixing upstream so the export is clean.
+
+- **Wrong section description on `I71 info-eo`** (Part II Section A, the economic
+  operator): its `description` reads `"I70_info-eo"` — it references **I70**
+  (which is Part I Section C's `info-pp`) and should be `I71`. Looks like a
+  copy-paste from the Part I block.
+- **`ElectronicMail` element-name typos**, inconsistent across the two Part II
+  party blocks:
+  - `I71 info-eo` → `CTC1 [CONTACT]` has a child `cbc:Electronicmail`
+    (lower-case `m`).
+  - `I72 info-poa` → `CTC1 [CONTACT]` has a child `cbc:ElectronicaMail`
+    (extra `a`).
+  - The correct UBL element is `cbc:ElectronicMail` (as used correctly in the
+    Part I buyer block and in `ESPD-Request-BASE.xml` / `ESPD-Response-BASE.xml`).
+  Two different misspellings of the same element in adjacent blocks strongly
+  suggests hand-entry drift in the EA model.
+
+*Impact on us:* none — our Part II mapping targets the correct `cbc:ElectronicMail`
+regardless of the export's typo, since the mapping is hand-authored against UBL,
+not generated from these element names. Recorded here purely as upstream feedback.
+
 ---
 
 ## Part I Section A — publication reference

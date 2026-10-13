@@ -87,6 +87,9 @@ const SHORTHAND = {
   'cbc:IdentificationCode': { marker: 'listID', key: null },
   // Part I procedure type. Dynamic-key on 'procurement-procedure-type'.
   'cbc:ProcedureCode': { marker: 'listID', key: null },
+  // Part II economic-operator role (eo-role-type) and size (economic-operator-size).
+  'cbc:RoleCode': { marker: 'listID', key: null },
+  'cbc:IndustryClassificationCode': { marker: 'listID', key: null },
 };
 
 

@@ -1,0 +1,30 @@
+{
+  "$comment": "C11 exg-mis-bre-lab-law — breach of labour-law obligations. Part III §C. Shape-2 clone of exg-mis-bre-env-law.",
+  "criterion": {
+    "code": "exg-mis-bre-lab-law",
+    "id": "exg-mis-bre-lab-law",
+    "instanceModel": { "containerPath": ["partIII", "exclusionGrounds"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C11_exg-mis-bre-lab-law/QG1/Q1": {
+      "id": "exg-mis-bre-lab-law.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C11_exg-mis-bre-lab-law/QG1/QSG1/Q1": {
+      "id": "exg-mis-bre-lab-law.measures-taken",
+      "instanceBinding": { "side": "response", "path": ["measures", "taken"] }
+    },
+    "C11_exg-mis-bre-lab-law/QG1/QSG1/QSG1/Q1": {
+      "id": "exg-mis-bre-lab-law.measures-description",
+      "instanceBinding": { "side": "response", "path": ["measures", "description"] }
+    },
+    "C11_exg-mis-bre-lab-law/QG2/Q1": {
+      "id": "exg-mis-bre-lab-law.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C11_exg-mis-bre-lab-law/QG2/QSG1/Q1": {
+      "id": "exg-mis-bre-lab-law.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

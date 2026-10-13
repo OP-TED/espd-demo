@@ -1,0 +1,34 @@
+{
+  "$comment": "C22 exg-mis-sanction — early termination, damages or other comparable sanctions. Part III §C. Shape-4 clone of exg-mis-exg-mis-misconduct.",
+  "criterion": {
+    "code": "exg-mis-sanction",
+    "id": "exg-mis-sanction",
+    "instanceModel": { "containerPath": ["partIII", "exclusionGrounds"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C22_exg-mis-sanction/QG1/Q1": {
+      "id": "exg-mis-sanction.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C22_exg-mis-sanction/QG1/QSG1/Q1": {
+      "id": "exg-mis-sanction.description",
+      "instanceBinding": { "side": "response", "path": ["description"] }
+    },
+    "C22_exg-mis-sanction/QG1/QSG1/QSG1/Q1": {
+      "id": "exg-mis-sanction.self-cleaning-taken",
+      "instanceBinding": { "side": "response", "path": ["selfCleaning", "taken"] }
+    },
+    "C22_exg-mis-sanction/QG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "exg-mis-sanction.self-cleaning-description",
+      "instanceBinding": { "side": "response", "path": ["selfCleaning", "description"] }
+    },
+    "C22_exg-mis-sanction/QG2/Q1": {
+      "id": "exg-mis-sanction.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C22_exg-mis-sanction/QG2/QSG1/Q1": {
+      "id": "exg-mis-sanction.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

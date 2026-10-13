@@ -1,0 +1,30 @@
+{
+  "$comment": "C13 exg-sitn-insolvency — insolvency. Part III §C. Shape-3 clone of exg-sitn-bankr.",
+  "criterion": {
+    "code": "exg-sitn-insolvency",
+    "id": "exg-sitn-insolvency",
+    "instanceModel": { "containerPath": ["partIII", "exclusionGrounds"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C13_exg-sitn-insolvency/QG1/Q1": {
+      "id": "exg-sitn-insolvency.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C13_exg-sitn-insolvency/QG1/QSG1/Q1": {
+      "id": "exg-sitn-insolvency.details",
+      "instanceBinding": { "side": "response", "path": ["situation", "details"] }
+    },
+    "C13_exg-sitn-insolvency/QG1/QSG1/Q2": {
+      "id": "exg-sitn-insolvency.still-able",
+      "instanceBinding": { "side": "response", "path": ["situation", "stillAbleToPerform"] }
+    },
+    "C13_exg-sitn-insolvency/QG2/Q1": {
+      "id": "exg-sitn-insolvency.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C13_exg-sitn-insolvency/QG2/QSG1/Q1": {
+      "id": "exg-sitn-insolvency.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

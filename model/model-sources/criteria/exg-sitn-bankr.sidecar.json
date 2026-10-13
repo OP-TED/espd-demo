@@ -1,0 +1,30 @@
+{
+  "$comment": "C12 exg-sitn-bankr — bankruptcy. Part III §C 'situation' ground. Shape: INDICATOR answer -> (ONTRUE) two DESCRIPTIONs (details + why still able to perform / trustee info), plus the electronic-evidence block. Response-only. Clone of the other five exg-sitn-* grounds.",
+  "criterion": {
+    "code": "exg-sitn-bankr",
+    "id": "exg-sitn-bankr",
+    "instanceModel": { "containerPath": ["partIII", "exclusionGrounds"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C12_exg-sitn-bankr/QG1/Q1": {
+      "id": "exg-sitn-bankr.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C12_exg-sitn-bankr/QG1/QSG1/Q1": {
+      "id": "exg-sitn-bankr.details",
+      "instanceBinding": { "side": "response", "path": ["situation", "details"] }
+    },
+    "C12_exg-sitn-bankr/QG1/QSG1/Q2": {
+      "id": "exg-sitn-bankr.still-able",
+      "instanceBinding": { "side": "response", "path": ["situation", "stillAbleToPerform"] }
+    },
+    "C12_exg-sitn-bankr/QG2/Q1": {
+      "id": "exg-sitn-bankr.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C12_exg-sitn-bankr/QG2/QSG1/Q1": {
+      "id": "exg-sitn-bankr.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

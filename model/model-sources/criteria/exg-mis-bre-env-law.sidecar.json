@@ -1,0 +1,30 @@
+{
+  "$comment": "C09 exg-mis-bre-env-law — breach of environmental-law obligations. Part III §C misconduct. Shape: INDICATOR answer -> (ONTRUE) a nested 'has the EO demonstrated measures?' INDICATOR -> (ONTRUE) a DESCRIPTION, plus the standard electronic-evidence block. Response-only. Structural clone of exg-mis-bre-soc-law / exg-mis-bre-lab-law.",
+  "criterion": {
+    "code": "exg-mis-bre-env-law",
+    "id": "exg-mis-bre-env-law",
+    "instanceModel": { "containerPath": ["partIII", "exclusionGrounds"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C09_exg-mis-bre-env-law/QG1/Q1": {
+      "id": "exg-mis-bre-env-law.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C09_exg-mis-bre-env-law/QG1/QSG1/Q1": {
+      "id": "exg-mis-bre-env-law.measures-taken",
+      "instanceBinding": { "side": "response", "path": ["measures", "taken"] }
+    },
+    "C09_exg-mis-bre-env-law/QG1/QSG1/QSG1/Q1": {
+      "id": "exg-mis-bre-env-law.measures-description",
+      "instanceBinding": { "side": "response", "path": ["measures", "description"] }
+    },
+    "C09_exg-mis-bre-env-law/QG2/Q1": {
+      "id": "exg-mis-bre-env-law.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C09_exg-mis-bre-env-law/QG2/QSG1/Q1": {
+      "id": "exg-mis-bre-env-law.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

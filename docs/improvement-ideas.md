@@ -310,6 +310,51 @@ schema `$comment`, in `model/parts/partII/README.md`, and here.
 
 ---
 
+## Part VI — concluding statements / signature
+
+### P6-1. DEFERRED — model Part VI (signature block) only when it earns its keep
+
+Part VI (`I73 info-signature`, `type: INFORMATION` — administrative, so
+`model/parts/` territory, not compiler) is **not modelled**. It was assessed and
+deliberately deferred.
+
+**What the EA model exposes** is a single optional chain:
+
+```
+cac:Signature [0..1]
+└── cac:SignatoryParty [0..1]
+    └── cac:PhysicalLocation [0..1]
+        └── cbc:Name        (the place the declaration is signed, e.g. a city)
+```
+
+So in practice the EA export surfaces **one optional free-text field** (the
+signing place). The real UBL `cac:Signature` is far richer (signatory party,
+digital-signature info, validation date), but the EA model only carries the
+place-name.
+
+**Why deferred:**
+- **Nothing is required** — every node is `0..1`, and **no Schematron rule**
+  mentions `cac:Signature` / `SignatoryParty` / `PhysicalLocation`.
+- **No instance to verify against** — neither `ESPD-Request-BASE.xml` nor
+  `ESPD-Response-BASE.xml` contains a `cac:Signature`. Same unverified situation
+  as the power-of-attorney block (P2-1).
+- **Low value** — modelling it is five files to carry one optional
+  `signature.place` string. Actual signing of an ESPD is handled at the
+  document/submission layer (digital signature), which is why the samples omit
+  this field and no rule requires it.
+
+**Resolve when:** (a) a real ESPD instance carrying `cac:Signature` is available
+to verify the shape against, AND (b) a decision is made on whether the reference
+implementation needs to carry the signatory place at all, versus leaving signing
+to the document layer. If modelled, follow the `model/parts/` pattern with an
+explicit "provisional — no reference XML" caveat, exactly like Part II §B.
+
+With this, all six parts are accounted for: I, II (admin), III, IV, V (criteria)
+modelled or in progress; II/VI admin blocks and the OT criteria done; VI
+signature deferred here.
+
+---
+
 ## Cross-cutting — codelist infrastructure
 
 ### X1. Publish `procurement-procedure-type` as part of ESPD-EDM

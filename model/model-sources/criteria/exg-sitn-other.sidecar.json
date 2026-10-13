@@ -1,0 +1,30 @@
+{
+  "$comment": "C15 exg-sitn-other — analogous situation under national law. Part III §C. Shape-3 clone of exg-sitn-bankr.",
+  "criterion": {
+    "code": "exg-sitn-other",
+    "id": "exg-sitn-other",
+    "instanceModel": { "containerPath": ["partIII", "exclusionGrounds"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C15_exg-sitn-other/QG1/Q1": {
+      "id": "exg-sitn-other.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C15_exg-sitn-other/QG1/QSG1/Q1": {
+      "id": "exg-sitn-other.details",
+      "instanceBinding": { "side": "response", "path": ["situation", "details"] }
+    },
+    "C15_exg-sitn-other/QG1/QSG1/Q2": {
+      "id": "exg-sitn-other.still-able",
+      "instanceBinding": { "side": "response", "path": ["situation", "stillAbleToPerform"] }
+    },
+    "C15_exg-sitn-other/QG2/Q1": {
+      "id": "exg-sitn-other.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C15_exg-sitn-other/QG2/QSG1/Q1": {
+      "id": "exg-sitn-other.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$comment": "C21 exg-mis-prep-confl — distortion of competition from prior involvement in preparing the procurement. Part III §C. Shape-5 clone of exg-mis-partic-confl.",
+  "criterion": {
+    "code": "exg-mis-prep-confl",
+    "id": "exg-mis-prep-confl",
+    "instanceModel": { "containerPath": ["partIII", "exclusionGrounds"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C21_exg-mis-prep-confl/QG1/Q1": {
+      "id": "exg-mis-prep-confl.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C21_exg-mis-prep-confl/QG1/QSG1/Q1": {
+      "id": "exg-mis-prep-confl.description",
+      "instanceBinding": { "side": "response", "path": ["description"] }
+    },
+    "C21_exg-mis-prep-confl/QG2/Q1": {
+      "id": "exg-mis-prep-confl.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C21_exg-mis-prep-confl/QG2/QSG1/Q1": {
+      "id": "exg-mis-prep-confl.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

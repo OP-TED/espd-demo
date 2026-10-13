@@ -376,12 +376,15 @@ Notes on this:
 **While in the CVA**, two adjacent omissions are worth closing in the same pass:
 
 - `BooleanGUIControlType.gc` — the CVA's own comment says *"Missing from this
-  list"*. The `.gc` **is** shipped, so this is a one-line `ValueList` + `Context`
-  addition and needs no EA change at all. It validates `CODE_BOOLEAN` answers.
+  list"*. Do **not** add it: per [`codelist-governance.md`](./codelist-governance.md)
+  this is a deliberately *unvalidated* suggestion list (see CVA1, superseded).
+  The comment is an authoring note, not a confirmed TODO.
 - `cbc:ResponseCode` referencing `eo-role-type` — the CVA validates
   `cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode` but not a
   `ResponseCode` carrying the same list, which is how the Response sample ends up
-  with a `dummy-value` role code (see X2).
+  with a `dummy-value` role code (see X2). This one **is** a real gap:
+  `eo-role-type` is an authoritative/validated list, so the `ResponseCode` use
+  should be validated too.
 
 ### X2. TODO — produce better BASE samples, without dummy placeholders
 
@@ -530,90 +533,88 @@ external. Neither should block X1, which is a real gap in a *mandatory* element.
 
 ### X6. Derive enums for the remaining code-valued fields
 
+> **The governing model now lives in [`codelist-governance.md`](./codelist-governance.md)**
+> and its machine form `model/codelists/governance.json`. Read that for the four
+> independent axes (shipped / Schematron-validated / use-for-UI / inline-as-enum)
+> and the per-codelist decisions. This section only covers the enum-derivation
+> *mechanics*.
+
 The shared reader is `model/codelists/read-codelist.mjs`:
 `readCodelistCodes(path)` plus a name resolver (`gcFileForCodelist` /
 `codesForCodelist`) that indexes every shipped `.gc` by its ShortName and its
 identifier-style LongNames (the kebab list id lives in
 `<LongName Identifier="listId">`).
 
-**The two-axis rule that emerged** (both decided per codelist, independently):
+**Two independent decisions** (NOT a single coupled rule — see the governance
+page; an earlier draft wrongly tied these together):
 
-1. **Inline an enum** when the list is **small and stable**; **reference it by
-   name** (carry the `codeList` marker, no `enum`) when it is large. The
-   generator enforces this with a size gate (`MAX_INLINE_ENUM = 60`): a shipped
-   list at or below it is inlined, a larger one is left referenced. "Reference by
-   name" means the schema says only "this is a code from list X" — the allowed
-   values are not copied in; the UI picker (see UX1) and the Schematron/CVA
-   supply and check them.
-2. **CVA validation** is the XML-layer backstop and is independent of inlining —
-   it should ideally cover every code field, and it is the *only* enforcement for
-   large lists we do not inline.
+- **Inline vs reference-by-name** is *our* schema decision, driven mainly by
+  **size/stability**: small, stable lists are inlined as an `enum`; large lists
+  carry only the `codeList` marker ("reference by name" — the UI picker and the
+  Schematron/CVA supply and check the values). Today the generator uses a size
+  gate (`MAX_INLINE_ENUM = 60`); the governance registry proposes replacing that
+  with an explicit per-list `inlineEnum` flag.
+- **Schematron validation** is the *standard's* decision (we read it from the
+  CVA), independent of inlining. A list can be validated-and-inlined,
+  validated-and-referenced, or unvalidated-and-inlined — all occur.
+
+The one real coupling is the **marker**: an inlined enum carries
+`$codelistEnumIsImplementerChoice: true` **iff** the list is *not*
+Schematron-validated (the values are our suggestion). A validated+inlined list is
+inlined for convenience but its values are enforced, so the marker is **false**.
 
 **Current state:**
 
-| Field | Codelist | Size | Our schema | CVA |
-|---|---|---|---|---|
-| Section A `type` | `docrefcontent-type` | 10 | enum ✅ | ✅ |
-| Section B `scheme` | `EOIDType` | 5 | enum ✅ | ✅ |
-| `CODE_BOOLEAN` | `boolean-gui-control-type` | 6 | enum ✅ | ❌ (see CVA1) |
-| per-leaf `CODE` (C34) | `financial-ratio-type` | 40 | enum ✅ | ❌ (see CVA1) |
-| per-leaf `CODE` (C25) | `occupation` | 4046 | by name | ✅ (scoped to C25) |
-| Section B `country`, `CODE_COUNTRY` | `country` | 341 | by name | ✅ |
-| `AMOUNT` currency | `currency` | 290 | by name | ✅ |
-| Section C `procedureType` | `procurement-procedure-type` | — | by name | ❌ (not shipped — X1) |
+| Field | Codelist | Size | Our schema | Schematron | Implementer-choice marker |
+|---|---|---|---|---|---|
+| Section A `type` | `docrefcontent-type` | 10 | enum ✅ | ✅ | false (validated) |
+| Section B `scheme` | `eoid-type` | 5 | enum ✅ | ✅ | false (validated) |
+| `CODE_BOOLEAN` | `boolean-gui-control-type` | 6 | enum ✅ | ❌ (by design) | **true** |
+| per-leaf `CODE` (C34) | `financial-ratio-type` | 40 | enum ✅ | ❌ (by design) | **true** |
+| per-leaf `CODE` (C25) | `occupation` | 4046 | by name | ✅ (scoped to C25) | — |
+| Section B `country`, `CODE_COUNTRY` | `country` | 341 | by name | ✅ | — |
+| `AMOUNT` currency | `currency` | 290 | by name | ✅ | — |
+| Section C `procedureType` | `procurement-procedure-type` | — | by name | ❌ (not shipped — X1) | — |
 
-Each inlined enum carries `$codelistEnumIsImplementerChoice: true` (see CVA1 for
-what that signals) and a test keeps it in sync with its `.gc`.
+The ❌ for `boolean-gui-control-type` / `financial-ratio-type` is **intentional**,
+not a gap: they are shipped-but-not-validated suggestion lists (see the governance
+page and the superseded CVA1). A sync test keeps each inlined enum aligned with
+its `.gc`.
 
 **Remaining candidate:** `eo-role-type` — used by the Part V `OT` criterion (not
-yet modelled) and small enough to inline. Pick it up when Part V is done.
+yet modelled); small, validated, so it would be a validated+inlined list like
+`eoid-type` (marker false). Pick it up when Part V is done.
 
 ---
 
 ## Codelist validation & presentation — to resolve later
 
-### CVA1. TODO — add `financial-ratio-type` and `boolean-gui-control-type` to the CVA (deliberately deferred)
+### CVA1. ~~Add `financial-ratio-type` and `boolean-gui-control-type` to the CVA~~ — SUPERSEDED
 
-Both lists are shipped as `.gc`, and we now inline both as JSON Schema enums (see
-X6). Neither is validated at the **XML layer**: the CVA
-(`espd-validation-schematron/common/cva/01-ESPD-codelist-values.cva`) has no
-context for either.
+> **Superseded by [`codelist-governance.md`](./codelist-governance.md).** This
+> item originally proposed *adding* these two lists to the Schematron/CVA. The
+> team's governance model makes clear that would be **wrong**: both are
+> deliberately **shipped-but-not-Schematron-validated** — the stated meaning is
+> *"we suggest these values, but implementers may use others."* Validating them
+> would convert a suggestion into a hard interop constraint and reject other
+> implementations' legitimate values.
+>
+> **Resolution: won't do.** Keep both unvalidated at the XML layer. Our inlined
+> enums carry `$codelistEnumIsImplementerChoice: true` precisely to record that
+> they are our suggested pick list, not an enforced set. Reopen only if the team
+> deliberately decides these lists should become authoritative (which also ties
+> to M1 — whether `boolean-gui-control-type` belongs in the data model at all).
 
-**Decision for now:** leave them out of the Schematron/CVA, and mark our inlined
-enums with `$codelistEnumIsImplementerChoice: true`. The signal is: *our*
-reference implementation presents these codes as the pick list, but a conformant
-ESPD is not required to use exactly this set — so we do not want to impose a hard
-XML-layer rule that would reject another implementation's legitimate value. The
-enum constrains *our* authoring/UI; it is not asserted as an interop requirement.
+The earlier observation that these were "missing from the CVA" was a
+misreading: their absence is intentional, not a gap. (The CVA's own
+*"Missing from this list"* comment on `BooleanGUIControlType.gc` is, under this
+model, better read as an unresolved authoring note than a confirmed TODO.)
 
-**Why deferred (not "never"):** both are genuine codelists and a value-layer
-check would catch typos. But adding them is **not a clean paste** — `cbc:ExpectedCode`
-is shared by several lists, so each needs a **criterion-path-scoped** context,
-mirroring how `occupation` is already scoped to C25:
-
-```xml
-<!-- in ValueLists -->
-<ValueList xml:id="FinancialRatioType" uri="../../gc/FinancialRatioType.gc"/>
-<ValueList xml:id="BooleanGUIControlType" uri="../../gc/BooleanGUIControlType.gc"/>
-
-<!-- in Contexts: ONE scoped context per criterion that uses the list -->
-<Context address="cac:TenderingCriterionPropertyGroup[cbc:ID='C34_.../RG1/RSG1']/.../cbc:ExpectedCode"
-         values="FinancialRatioType"> ... </Context>
-<Context address="cac:TenderingCriterionPropertyGroup[cbc:ID='C29_.../RG1/RSG1']/.../cbc:ExpectedCode"
-         values="BooleanGUIControlType"> ... </Context>
-<!-- C36 also uses boolean-gui-control-type -> a second scoped context -->
-```
-
-This is a feedback item for the EDM team (it also ties to M1: if
-`BooleanGUIControlType` should not be a data-model code list at all, do not
-cement it with a validation rule). When they resolve it, revisit whether our
-`$codelistEnumIsImplementerChoice` enums should become hard once an authoritative
-XML-layer rule exists.
-
-Related CVA gaps already noted under X1: the CVA's own comment flags
-`BooleanGUIControlType.gc` as *"Missing from this list"*, and `cbc:ResponseCode`
-carrying `eo-role-type` is unvalidated (which is how the Response BASE sample
-ends up with a `dummy-value` role code — see X2).
+One genuinely separate CVA item remains (NOT about these two suggestion lists):
+`cbc:ResponseCode` carrying `eo-role-type` is unvalidated, which is how the
+Response BASE sample ends up with a `dummy-value` role code — see X2. That is a
+real gap for an *authoritative* list (`eo-role-type` is Schematron-validated
+elsewhere), unlike the two suggestion lists here.
 
 ### UX1. Codelist presentation in the UI — pickers from a codelist service
 

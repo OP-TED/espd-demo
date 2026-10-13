@@ -1,0 +1,120 @@
+{
+  "$comment": "Codelist governance registry — the machine-readable form of docs/codelist-governance.md. Hand-authored (the four axes are GOVERNANCE/implementation decisions, not derivable). One entry per codelist, keyed by the canonical codelist NAME used in our profiles and sidecar `codelist` values. Read by the instance-schema generator (inlineEnum) and the codelist/UI service (useForUI, externalSource). A consistency test (governance.test.mjs) cross-checks `shipped` against the .gc directory and `schematronValidated` against the CVA, so this file cannot silently drift from the repo.",
+
+  "$axes": {
+    "shipped": "A .gc exists under ESPD-EDM/codelists/. (Property of ESPD-EDM.)",
+    "schematronValidated": "The CVA/Schematron enforces the value set at the XML interchange layer. (Property of the STANDARD — set by ESPD governance; we only read it.)",
+    "useForUI": "The service should offer these codes as the pick list. (UI/UX decision.)",
+    "inlineEnum": "Our JSON Schema carries the values as an enum, vs referencing the list by name. (OUR implementation decision, driven mainly by size/stability — small, stable lists are convenient to inline; large lists are referenced by name.)"
+  },
+
+  "$axesAreIndependent": "The four axes are INDEPENDENT; do not infer one from another. In particular `inlineEnum` and `schematronValidated` do NOT correlate — all four combinations are legitimate: a small closed list can be BOTH validated AND inlined (docrefcontent-type, eoid-type); a large validated list is referenced by name (country, occupation); a small unvalidated list is inlined as a suggestion (financial-ratio-type, boolean-gui-control-type). The only derived property is the marker below.",
+
+  "$codelistEnumIsImplementerChoice": "A SEPARATE, derived marker on an inlined enum, true iff (inlineEnum && !schematronValidated): the inlined values are our SUGGESTED set rather than an enforced one. When a list is both validated and inlined, the enum is inlined for authoring convenience but the values are the standard's enforced set, so the marker is false.",
+
+  "codelists": {
+    "country": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "gc": "Country.gc",
+      "$note": "341 codes; validated/closed; too large to inline usefully -> reference by name; UI picker from the service. Team table."
+    },
+    "occupation": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "gc": "Occupation.gc",
+      "$note": "4046 ESCO codes; validated/closed; hierarchical; too large to inline -> reference by name. Team table."
+    },
+    "financial-ratio-type": {
+      "shipped": true, "schematronValidated": false, "useForUI": true, "inlineEnum": true,
+      "gc": "FinancialRatioType.gc",
+      "$note": "40 codes; shipped but NOT Schematron-validated => inlined enum is a SUGGESTED set (implementer choice). Team table."
+    },
+    "boolean-gui-control-type": {
+      "shipped": true, "schematronValidated": false, "useForUI": true, "inlineEnum": true,
+      "gc": "BooleanGUIControlType.gc",
+      "$note": "6 codes; shipped but NOT validated => suggested, inlined (implementer choice). See docs M1: whether a GUI-control code belongs in the data model at all is a separate concern. Team table."
+    },
+    "procurement-procedure-type": {
+      "shipped": false, "schematronValidated": false, "useForUI": true, "inlineEnum": true,
+      "externalSource": "http://publications.europa.eu/resource/dataset/procurement-procedure-type",
+      "$note": "NOT shipped (ESPD-EDM issue #308). Needed for UI + inlined as a suggested set. Until the .gc ships, the enum is hand-maintained from the OP dataset. Team table; see improvement-ideas.md X1."
+    },
+
+    "docrefcontent-type": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": true,
+      "gc": "DocrefcontentType.gc",
+      "aliases": ["DocRefContentType"],
+      "$note": "10 codes; validated (cac:AdditionalDocumentReference/cbc:DocumentTypeCode) AND inlined (Part I Section A). The valid 'validated + inlined' case: small enough to inline for authoring-time feedback, while the XML layer enforces the same set. Enum is NOT implementer-choice (values are the enforced set)."
+    },
+    "eoid-type": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": true,
+      "gc": "EOIDType.gc",
+      "aliases": ["EOIDType"],
+      "$note": "5 codes; validated (cac:PartyIdentification/cbc:ID/@schemeID) AND inlined (Part I Section B). Same 'validated + inlined' case as docrefcontent-type. Enum is NOT implementer-choice."
+    },
+
+    "access-right": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "gc": "AccessRight.gc",
+      "$note": "Validated (cbc:ConfidentialityLevelCode). Not in the team's five; axes recorded from repo ground truth. REVIEW: inlineEnum is a size/stability call we have not yet needed to make (no modelled field uses it)."
+    },
+    "currency": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "gc": "Currency.gc",
+      "$note": "~290 codes; validated (cbc:ValueCurrencyCode, @currencyID); too large to inline -> reference by name. Repo ground truth. REVIEW."
+    },
+    "eo-role-type": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "gc": "EoRoleType.gc",
+      "$note": "5 codes; validated (RoleCode). Small enough that we COULD inline it (like eoid-type) when the Part V OT criterion / EO role is modelled — revisit then. Currently reference by name. Repo ground truth. REVIEW."
+    },
+    "economic-operator-size": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "gc": "EconomicOperatorSize.gc",
+      "$note": "Validated (IndustryClassificationCode). Not yet used by a modelled field. Repo ground truth. REVIEW."
+    },
+    "language": {
+      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "gc": "Language.gc",
+      "$note": "Validated (@languageID). Repo ground truth. REVIEW."
+    },
+
+    "criterion-element-type": {
+      "shipped": true, "schematronValidated": true, "useForUI": false, "inlineEnum": false,
+      "gc": "CriterionElementType.gc",
+      "$note": "Internal EDM structural code (cbc:TypeCode = REQUIREMENT/QUESTION/...), not a user-facing value. Validated; not a UI picker. Repo ground truth. REVIEW."
+    },
+    "property-group-type": {
+      "shipped": true, "schematronValidated": true, "useForUI": false, "inlineEnum": false,
+      "gc": "PropertyGroupType.gc",
+      "aliases": ["PropertyGroupType"],
+      "$note": "Internal structural code (ON*/ONTRUE/ONFALSE on PropertyGroupTypeCode). Not user-facing. Repo ground truth. REVIEW."
+    },
+    "response-data-type": {
+      "shipped": true, "schematronValidated": true, "useForUI": false, "inlineEnum": false,
+      "gc": "ResponseDataType.gc",
+      "aliases": ["ResponseDataType"],
+      "$note": "Internal value-type code (cbc:ValueDataTypeCode); authoritative for our value-type registry's keys. Not a user picker. Repo ground truth. REVIEW."
+    },
+    "profile-execution-id": {
+      "shipped": true, "schematronValidated": true, "useForUI": false, "inlineEnum": false,
+      "gc": "ProfileExecutionID.gc",
+      "aliases": ["ProfileExecutionID"],
+      "$note": "Document-envelope profile id. Fixed per document, not a user picker. Repo ground truth. REVIEW."
+    },
+    "selection-criterion": {
+      "shipped": true, "schematronValidated": true, "useForUI": false, "inlineEnum": false,
+      "gc": "SelectionCriterion.gc",
+      "$note": "Criterion-id authority (cbc:CriterionTypeCode for selection criteria). Structural, not a free user picker. Repo ground truth. REVIEW."
+    },
+    "exclusion-ground": {
+      "shipped": true, "schematronValidated": true, "useForUI": false, "inlineEnum": false,
+      "gc": "ExclusionGround.gc",
+      "$note": "Criterion-id authority (cbc:CriterionTypeCode for exclusion grounds). Structural. Repo ground truth. REVIEW."
+    },
+    "criterion": {
+      "shipped": false, "schematronValidated": false, "useForUI": false, "inlineEnum": false,
+      "externalSource": "http://publications.europa.eu/resource/dataset/criterion",
+      "$note": "⚠ DISCREPANCY surfaced by the consistency test. Our codelist-attribute profile names a 'criterion' list (listID .../authority/criterion, v20240612-0) for cbc:CriterionTypeCode, but NO Criterion.gc is shipped and the CVA validates CriterionTypeCode via the SPLIT lists selection-criterion + exclusion-ground instead. So 'criterion' is an older/umbrella reference that no shipped .gc backs and the CVA does not use. REVIEW: either repoint the attribute profile to selection-criterion/exclusion-ground, or confirm 'criterion' is the intended umbrella listID. Not Schematron-validated as 'criterion' (the split lists are)."
+    }
+  }
+}

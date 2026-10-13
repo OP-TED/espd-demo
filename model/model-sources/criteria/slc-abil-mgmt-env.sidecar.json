@@ -1,0 +1,46 @@
+{
+  "$comment": "C45 slc-abil-mgmt-env — environmental management measures. Part IV §C. Shape-1 clone of slc-abil-mgmt-qual.",
+  "criterion": {
+    "code": "slc-abil-mgmt-env",
+    "id": "slc-abil-mgmt-env",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C45_slc-abil-mgmt-env/RG1/RQ1": {
+      "id": "slc-abil-mgmt-env.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C45_slc-abil-mgmt-env/RG1/RSG1/RSG1/RQ1": {
+      "id": "slc-abil-mgmt-env.requirement",
+      "instanceBinding": { "side": "requirement", "path": ["requirement"] }
+    },
+    "C45_slc-abil-mgmt-env/RG1/RSG1/RSG1/QSG1/Q1": {
+      "id": "slc-abil-mgmt-env.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C45_slc-abil-mgmt-env/RG1/RSG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-mgmt-env.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C45_slc-abil-mgmt-env/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-mgmt-env.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C45_slc-abil-mgmt-env/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-abil-mgmt-env.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+    "C45_slc-abil-mgmt-env/RG1/RSG1/RSG1/QSG2/Q1": {
+      "id": "slc-abil-mgmt-env.description",
+      "instanceBinding": { "side": "response", "path": ["description"] }
+    },
+    "C45_slc-abil-mgmt-env/RG1/RSG1/RSG1/QSG3/Q1": {
+      "id": "slc-abil-mgmt-env.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C45_slc-abil-mgmt-env/RG1/RSG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-abil-mgmt-env.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

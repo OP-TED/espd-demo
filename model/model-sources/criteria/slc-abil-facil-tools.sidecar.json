@@ -1,0 +1,46 @@
+{
+  "$comment": "C46 slc-abil-facil-tools — tools, plant and technical equipment for performing the contract. Part IV §C. Shape-1 clone of slc-abil-mgmt-qual.",
+  "criterion": {
+    "code": "slc-abil-facil-tools",
+    "id": "slc-abil-facil-tools",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C46_slc-abil-facil-tools/RG1/RQ1": {
+      "id": "slc-abil-facil-tools.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C46_slc-abil-facil-tools/RG1/RSG1/RSG1/RQ1": {
+      "id": "slc-abil-facil-tools.requirement",
+      "instanceBinding": { "side": "requirement", "path": ["requirement"] }
+    },
+    "C46_slc-abil-facil-tools/RG1/RSG1/RSG1/QSG1/Q1": {
+      "id": "slc-abil-facil-tools.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C46_slc-abil-facil-tools/RG1/RSG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-facil-tools.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C46_slc-abil-facil-tools/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-facil-tools.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C46_slc-abil-facil-tools/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-abil-facil-tools.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+    "C46_slc-abil-facil-tools/RG1/RSG1/RSG1/QSG2/Q1": {
+      "id": "slc-abil-facil-tools.description",
+      "instanceBinding": { "side": "response", "path": ["description"] }
+    },
+    "C46_slc-abil-facil-tools/RG1/RSG1/RSG1/QSG3/Q1": {
+      "id": "slc-abil-facil-tools.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C46_slc-abil-facil-tools/RG1/RSG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-abil-facil-tools.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

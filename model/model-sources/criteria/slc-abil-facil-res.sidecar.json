@@ -1,0 +1,46 @@
+{
+  "$comment": "C43 slc-abil-facil-res — equipment, facilities and technical resources available. Part IV §C. Shape-1 clone of slc-abil-mgmt-qual.",
+  "criterion": {
+    "code": "slc-abil-facil-res",
+    "id": "slc-abil-facil-res",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C43_slc-abil-facil-res/RG1/RQ1": {
+      "id": "slc-abil-facil-res.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C43_slc-abil-facil-res/RG1/RSG1/RSG1/RQ1": {
+      "id": "slc-abil-facil-res.requirement",
+      "instanceBinding": { "side": "requirement", "path": ["requirement"] }
+    },
+    "C43_slc-abil-facil-res/RG1/RSG1/RSG1/QSG1/Q1": {
+      "id": "slc-abil-facil-res.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C43_slc-abil-facil-res/RG1/RSG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-facil-res.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C43_slc-abil-facil-res/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-facil-res.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C43_slc-abil-facil-res/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-abil-facil-res.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+    "C43_slc-abil-facil-res/RG1/RSG1/RSG1/QSG2/Q1": {
+      "id": "slc-abil-facil-res.description",
+      "instanceBinding": { "side": "response", "path": ["description"] }
+    },
+    "C43_slc-abil-facil-res/RG1/RSG1/RSG1/QSG3/Q1": {
+      "id": "slc-abil-facil-res.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C43_slc-abil-facil-res/RG1/RSG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-abil-facil-res.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

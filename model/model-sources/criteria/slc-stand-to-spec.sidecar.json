@@ -1,0 +1,89 @@
+{
+  "$comment": "C32 slc-stand-to-spec — specific yearly turnover in the business area covered by the procurement, for the required number of financial years (Part IV §B economic/financial standing). Buyer REQUIREMENT: lots + number of fiscal years [QUANTITY_YEAR] + business-domain description + minimum amount [MINIMUM_AMOUNT]. EO RESPONSE: fulfilled-by-itself -> relied-upon entity; a REPEATABLE turnovers[] block (one period+amount per fiscal year, each with its own evidence); a 'date started trading' block (date + evidence); plus a top-level additional evidence block.",
+
+  "$shape": "Like C31 but QSG2 is cardinality 1..n -> the turnover block repeats (one row per fiscal year). turnovers[] carries evidence inside the repeatable group (same pattern as C34/C36): schema/example/form honour it; XML mapping of nested repeatable response evidence is deferred (7.0c).",
+
+  "criterion": {
+    "code": "slc-stand-to-spec",
+    "id": "slc-stand-to-spec",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C32_slc-stand-to-spec/RG1/RQ1": {
+      "id": "slc-stand-to-spec.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/RQ1": {
+      "id": "slc-stand-to-spec.number-of-years",
+      "instanceBinding": { "side": "requirement", "path": ["numberOfYears"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/RQ2": {
+      "id": "slc-stand-to-spec.business-domain",
+      "instanceBinding": { "side": "requirement", "path": ["businessDomain"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/RQ3": {
+      "id": "slc-stand-to-spec.minimum-amount",
+      "instanceBinding": { "side": "requirement", "path": ["minimumAmount"] }
+    },
+
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-stand-to-spec.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-stand-to-spec.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-stand-to-spec.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-stand-to-spec.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG2": {
+      "id": "slc-stand-to-spec.turnovers",
+      "instanceBinding": { "side": "response", "path": ["turnovers"], "repeatable": true }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-stand-to-spec.turnover-period",
+      "instanceBinding": { "side": "response", "path": ["turnovers", "period"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG2/Q2": {
+      "id": "slc-stand-to-spec.turnover-amount",
+      "instanceBinding": { "side": "response", "path": ["turnovers", "amount"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-stand-to-spec.turnover-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["turnovers", "electronicEvidence", "availableElectronically"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG2/QSG1/QSG1/Q1": {
+      "id": "slc-stand-to-spec.turnover-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["turnovers", "electronicEvidence", "evidence"] }
+    },
+
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-stand-to-spec.trading-start-date",
+      "instanceBinding": { "side": "response", "path": ["startTrading", "date"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-stand-to-spec.trading-start-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["startTrading", "electronicEvidence", "availableElectronically"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG3/QSG1/QSG1/Q1": {
+      "id": "slc-stand-to-spec.trading-start-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["startTrading", "electronicEvidence", "evidence"] }
+    },
+
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG4/Q1": {
+      "id": "slc-stand-to-spec.additional-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C32_slc-stand-to-spec/RG1/RSG1/QSG4/QSG1/Q1": {
+      "id": "slc-stand-to-spec.additional-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

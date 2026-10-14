@@ -1,18 +1,18 @@
-// UX1 — tests for the UI codelist service-data build.
+// UX1 — tests for the UI codelist service-data build (i18n-key based, English-only).
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildCodelistServiceData } from './build-codelist-service-data.mjs';
+import { buildCodelistServiceData, codelistLabelKey } from './build-codelist-service-data.mjs';
 import { readCodelistEntries, codelistPath } from './read-codelist.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const governance = JSON.parse(fs.readFileSync(path.join(here, 'governance.json'), 'utf8'));
 
 // Build in-memory (write:false) so tests don't depend on disk state.
-const { index, files } = buildCodelistServiceData({ write: false });
+const { index, files, catalogue } = buildCodelistServiceData({ write: false });
 const byName = new Map(files.map(f => [f.name, f.doc]));
 
 test('every shipped + useForUI governance list is emitted, and nothing else', () => {
@@ -25,29 +25,41 @@ test('every shipped + useForUI governance list is emitted, and nothing else', ()
   // Internal/structural lists (useForUI:false) must NOT be emitted.
   assert.ok(!byName.has('response-data-type'));
   assert.ok(!byName.has('criterion-element-type'));
+  // `language` is useForUI:false (used nowhere) — must NOT be emitted.
+  assert.ok(!byName.has('language'));
   // Not-shipped lists must NOT be emitted even if useForUI.
   assert.ok(!byName.has('procurement-procedure-type'));
 });
 
-test('an EU authority list carries multilingual labels and its listId', () => {
+test('service data lists codes with an i18n labelKey, carrying NO literal label', () => {
   const country = byName.get('country');
   assert.ok(country, 'country emitted');
   assert.equal(country.listId, 'http://publications.europa.eu/resource/authority/country');
   const and = country.codes.find(c => c.code === 'AND');
-  assert.equal(and.labels.eng, 'Andorra');
-  assert.equal(and.labels.fra, 'Andorre');
-  assert.ok(country.languages.includes('eng') && country.languages.includes('fra'));
-  assert.ok(country.languages.length >= 24, 'EU authority list has the full language set');
+  assert.equal(and.labelKey, 'codelist.label.country.AND');
+  // No literal label text embedded in the service data (it lives in the catalogue).
+  assert.equal(and.label, undefined);
+  assert.equal(and.labels, undefined);
 });
 
-test('an ESPD-internal list falls back to English-only labels', () => {
-  const fr = byName.get('financial-ratio-type');
-  assert.ok(fr, 'financial-ratio-type emitted');
-  assert.deepEqual(fr.languages, ['eng']);
-  for (const c of fr.codes) {
-    assert.deepEqual(Object.keys(c.labels), ['eng'], `${c.code} is English-only`);
-    assert.ok(c.labels.eng.length > 0);
+test('the English catalogue resolves every emitted labelKey (English-only)', () => {
+  for (const [name, doc] of byName) {
+    for (const c of doc.codes) {
+      assert.equal(c.labelKey, codelistLabelKey(name, c.code));
+      assert.ok(catalogue[c.labelKey], `${c.labelKey} has an English label in the catalogue`);
+    }
   }
+  // The catalogue carries ONLY the comment + the emitted keys (no stray entries).
+  const keyCount = Object.keys(catalogue).filter(k => k !== '_comment').length;
+  const emitted = [...byName.values()].reduce((n, d) => n + d.codes.length, 0);
+  assert.equal(keyCount, emitted);
+});
+
+test('labels are the English column only (multilingual columns ignored)', () => {
+  assert.equal(catalogue['codelist.label.country.AND'], 'Andorra');     // eng_label
+  assert.equal(catalogue['codelist.label.eo-role-type.group-lead'], 'Group leader');
+  // A country whose English name differs from other languages proves we took eng.
+  assert.equal(catalogue['codelist.label.country.FRA'] ?? 'France', 'France');
 });
 
 test('counts match the underlying .gc row counts', () => {
@@ -59,46 +71,24 @@ test('counts match the underlying .gc row counts', () => {
   }
 });
 
-test('every emitted code has a non-empty code value', () => {
-  for (const [name, doc] of byName) {
-    for (const c of doc.codes) {
-      assert.ok(typeof c.code === 'string' && c.code.length > 0, `${name} code present`);
-      assert.ok(c.labels && typeof c.labels === 'object', `${name}/${c.code} has a labels map`);
-    }
-  }
-});
-
-test('the lists actually used by the model are fully English-labelled', () => {
-  // The small, curated lists our schema/forms reference must have a usable label
-  // for every code. (The giant OP authority lists — notably `language`, 8187
-  // codes — legitimately carry unlabelled entries in the source; we do not
-  // invent labels for them. See the governance REVIEW note on `language`.)
+test('the curated lists used by the model are fully labelled', () => {
   const curated = ['financial-ratio-type', 'boolean-gui-control-type', 'eoid-type',
-    'docrefcontent-type', 'eo-role-type', 'economic-operator-size', 'access-right'];
+    'docrefcontent-type', 'eo-role-type', 'economic-operator-size', 'access-right',
+    'country', 'currency'];
   for (const name of curated) {
     const doc = byName.get(name);
     assert.ok(doc, `${name} emitted`);
-    for (const c of doc.codes) {
-      assert.ok(c.labels.eng && c.labels.eng.length > 0, `${name}/${c.code} has an English label`);
-    }
+    assert.equal(doc.labelled, doc.count, `${name} fully labelled`);
   }
 });
 
-test('country and currency are overwhelmingly labelled (sanity on the big authority lists)', () => {
-  for (const name of ['country', 'currency']) {
-    const doc = byName.get(name);
-    const labelled = doc.codes.filter(c => c.labels.eng).length;
-    assert.ok(labelled / doc.codes.length > 0.95, `${name}: ${labelled}/${doc.codes.length} English-labelled`);
-  }
-});
-
-test('the index lists every emitted codelist with size + languages', () => {
+test('the index lists every emitted codelist with size + labelled count', () => {
   assert.equal(index.codelists.length, byName.size);
   for (const row of index.codelists) {
     const doc = byName.get(row.codelist);
     assert.ok(doc, `${row.codelist} has a doc`);
     assert.equal(row.count, doc.count);
-    assert.deepEqual(row.languages, doc.languages);
+    assert.equal(row.labelled, doc.labelled);
   }
 });
 

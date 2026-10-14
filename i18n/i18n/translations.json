@@ -15,7 +15,8 @@
     "espd.part3",
     "espd.part4",
     "espd.part5",
-    "espd.part6"
+    "espd.part6",
+    "espd.codelists"
   ],
   "loadPath": "/{language}/{namespace}.json",
   "keyConvention": {
@@ -30,6 +31,7 @@
       "question.label.{stableId}.{pathSegments}": "Label for a form field. pathSegments is the requestpath after the first segment, with '/' replaced by '.'",
       "legislation.title.{stableId}.{pathSegments}": "Title of a referenced legislation",
       "caption.label.{stableId}.{pathSegments}": "Informational caption text (no input widget)",
+      "codelist.label.{codelistName}.{code}": "English label for one codelist code, in the espd.codelists namespace (generated from the shipped .gc). The form lens names the codelist (codelist + uiType:code) and the service data lists codes with this key; the renderer resolves the key to the label.",
       "ui.{elementName}": "Shared UI element text (buttons, validation messages, etc.)"
     },
     "examples": [

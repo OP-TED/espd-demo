@@ -73,9 +73,9 @@
       "$note": "5 codes (micro, small, medium, large, sme); validated (IndustryClassificationCode). Small, so inlined — validated+inlined, marker false. Used by Part II Section A (EO size)."
     },
     "language": {
-      "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": false,
+      "shipped": true, "schematronValidated": true, "useForUI": false, "inlineEnum": false,
       "gc": "Language.gc",
-      "$note": "Validated (@languageID). Repo ground truth. REVIEW."
+      "$note": "Validated (@languageID) but USED NOWHERE in our model — no modelled field binds to it, no generated XML carries @languageID, no schema references it. The 8187-code OP language authority is also ~86% unlabelled in the source .gc. useForUI set to FALSE: it is not a user-facing pick list for any field we model. Revisit only if a future field (e.g. a document/evidence language) actually needs it."
     },
 
     "criterion-element-type": {

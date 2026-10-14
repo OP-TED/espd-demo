@@ -862,16 +862,31 @@ elsewhere), unlike the two suggestion lists here.
 
 ### UX1. TODO (FRONTEND) — codelist service DATA is built; the UI pickers are a front-end task
 
-**Update (data layer done).** The codelist **service data** is now generated:
-`model/codelists/build-codelist-service-data.mjs` reads every governance list
-with `shipped && useForUI` and emits `model/generated/codelists/<name>.json`
-(`{ codelist, listId, source, count, languages, codes:[{code, labels}] }`) plus
-an `index.json`, derived from the same shipped `.gc` files as the inlined enums
-(so they cannot drift). 11 lists, 12,941 codes. EU authority lists carry the full
-24-language label set (`labels.{eng,fra,bul,…}`); ESPD-internal lists
-(`financial-ratio-type`, `eoid-type`, `boolean-gui-control-type`) fall back to
-English-only. Wired into `model:compile`; 9 tests in
-`build-codelist-service-data.test.mjs`.
+**Update (data layer done).** The codelist **service data** is now generated,
+following the project's **i18n key mechanism** (English-only, like the form
+lens): `model/codelists/build-codelist-service-data.mjs` reads every governance
+list with `shipped && useForUI` and emits two coordinated outputs from the same
+shipped `.gc` files as the inlined enums (so none can drift):
+
+- `model/generated/codelists/<name>.json` + `index.json` — the STRUCTURE a
+  front-end service loads: `{ codelist, listId?, source, count, labelled,
+  codes:[{ code, labelKey }] }`. Each code carries an i18n **key**
+  (`codelist.label.<name>.<code>`), not literal text — exactly how the form lens
+  emits `labelKey`.
+- `i18n/i18n/en/espd.codelists.json` — the English TEXT, in the same catalogue
+  the rest of the UI uses (new `espd.codelists` namespace; pattern documented in
+  `i18n/translations.json`).
+
+10 lists, 4,754 codes, all English-labelled. English only by project policy — the
+`.gc` files carry 24 EU languages but we take `eng_label` / `name-eng` / `Name`
+and ignore the rest (the repo has a single `en` locale). Wired into
+`model:compile`; 8 tests.
+
+**`language` dropped from the UI lists.** The 8187-code OP `language` authority
+was `useForUI: true` only as a speculative "REVIEW" default and is used NOWHERE in
+the model (no field binds it, no XML carries `@languageID`). Set to
+`useForUI: false` in governance, so it is no longer emitted. Revisit only if a
+future field actually needs a language picker.
 
 **TODO (front-end):** actually *rendering* the pickers — matching the control to
 list size (radio / select / typeahead / search-as-you-type), showing locale

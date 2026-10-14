@@ -1,48 +1,34 @@
 {
-  "$comment": "GENERATED from ESPD-EDM/codelists/BooleanGUIControlType.gc. UI pick list for 'boolean-gui-control-type'. Do not hand-edit; regenerate from the .gc.",
+  "$comment": "GENERATED from ESPD-EDM/codelists/BooleanGUIControlType.gc. UI pick list for 'boolean-gui-control-type' (codes + i18n label keys; English text in espd.codelists.json). Do not hand-edit; regenerate from the .gc.",
   "codelist": "boolean-gui-control-type",
   "listId": "boolean-gui-control-type",
   "source": "BooleanGUIControlType.gc",
   "count": 6,
-  "languages": [
-    "eng"
-  ],
+  "labelled": 6,
   "codes": [
     {
       "code": "CHECK_BOX_FALSE",
-      "labels": {
-        "eng": "Check Box FALSE"
-      }
+      "labelKey": "codelist.label.boolean-gui-control-type.CHECK_BOX_FALSE"
     },
     {
       "code": "CHECK_BOX_TRUE",
-      "labels": {
-        "eng": "Check Box TRUE"
-      }
+      "labelKey": "codelist.label.boolean-gui-control-type.CHECK_BOX_TRUE"
     },
     {
       "code": "CHECK_BOX_UNCHECKED",
-      "labels": {
-        "eng": "Check Box UNSELECTED"
-      }
+      "labelKey": "codelist.label.boolean-gui-control-type.CHECK_BOX_UNCHECKED"
     },
     {
       "code": "RADIO_BUTTON_FALSE",
-      "labels": {
-        "eng": "Radio Button FALSE"
-      }
+      "labelKey": "codelist.label.boolean-gui-control-type.RADIO_BUTTON_FALSE"
     },
     {
       "code": "RADIO_BUTTON_TRUE",
-      "labels": {
-        "eng": "Radio Button TRUE"
-      }
+      "labelKey": "codelist.label.boolean-gui-control-type.RADIO_BUTTON_TRUE"
     },
     {
       "code": "RADIO_BUTTON_UNSELECTED",
-      "labels": {
-        "eng": "Radio Button UNSELECTED"
-      }
+      "labelKey": "codelist.label.boolean-gui-control-type.RADIO_BUTTON_UNSELECTED"
     }
   ]
 }

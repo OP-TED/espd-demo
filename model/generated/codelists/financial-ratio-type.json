@@ -1,252 +1,170 @@
 {
-  "$comment": "GENERATED from ESPD-EDM/codelists/FinancialRatioType.gc. UI pick list for 'financial-ratio-type'. Do not hand-edit; regenerate from the .gc.",
+  "$comment": "GENERATED from ESPD-EDM/codelists/FinancialRatioType.gc. UI pick list for 'financial-ratio-type' (codes + i18n label keys; English text in espd.codelists.json). Do not hand-edit; regenerate from the .gc.",
   "codelist": "financial-ratio-type",
   "listId": "financial-ratio-type",
   "source": "FinancialRatioType.gc",
   "count": 40,
-  "languages": [
-    "eng"
-  ],
+  "labelled": 40,
   "codes": [
     {
       "code": "R11",
-      "labels": {
-        "eng": "Assets to Equity ratio"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R11"
     },
     {
       "code": "R12",
-      "labels": {
-        "eng": "Liabilities to Equity ratio"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R12"
     },
     {
       "code": "R13",
-      "labels": {
-        "eng": "Current assets/Total assets"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R13"
     },
     {
       "code": "R14",
-      "labels": {
-        "eng": "Other financial assets and cash and bank/ Total assets"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R14"
     },
     {
       "code": "R15",
-      "labels": {
-        "eng": "Non-current debt/ Total assets"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R15"
     },
     {
       "code": "R16",
-      "labels": {
-        "eng": "Current debt/Total assets"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R16"
     },
     {
       "code": "R21",
-      "labels": {
-        "eng": "Financial income net of charges other than interest/EBITDA"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R21"
     },
     {
       "code": "R22",
-      "labels": {
-        "eng": "EBITDA/Interest on financial debt"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R22"
     },
     {
       "code": "R23",
-      "labels": {
-        "eng": "Interest burden"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R23"
     },
     {
       "code": "R24",
-      "labels": {
-        "eng": "Interest and similar charges/Net turnove"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R24"
     },
     {
       "code": "R25",
-      "labels": {
-        "eng": "Interest and similar charges/Gross operating profit"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R25"
     },
     {
       "code": "R26",
-      "labels": {
-        "eng": "Net financial income/Gross operating profit"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R26"
     },
     {
       "code": "R27",
-      "labels": {
-        "eng": "Gross operating profit/Total net debt"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R27"
     },
     {
       "code": "R31",
-      "labels": {
-        "eng": "Gross value added/Net turnove"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R31"
     },
     {
       "code": "R32",
-      "labels": {
-        "eng": "Gross operating profit/Net turnover (ROS)"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R32"
     },
     {
       "code": "R34",
-      "labels": {
-        "eng": "Net operating profit/Net turnover"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R34"
     },
     {
       "code": "R35",
-      "labels": {
-        "eng": "EBIT/Net turnover"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R35"
     },
     {
       "code": "R36",
-      "labels": {
-        "eng": "EBT/Net turnover"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R36"
     },
     {
       "code": "R37",
-      "labels": {
-        "eng": "Net financial income/Net turnover"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R37"
     },
     {
       "code": "R38",
-      "labels": {
-        "eng": "Return on equity"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R38"
     },
     {
       "code": "R39",
-      "labels": {
-        "eng": "Net operating profit/Total assets"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R39"
     },
     {
       "code": "R310",
-      "labels": {
-        "eng": "Profit or loss for the year before taxes/Equity"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R310"
     },
     {
       "code": "R41",
-      "labels": {
-        "eng": "Asset turnover ratio"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R41"
     },
     {
       "code": "R42",
-      "labels": {
-        "eng": "Employee expenses/Gross value added"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R42"
     },
     {
       "code": "R51",
-      "labels": {
-        "eng": "Inventories/Net turnover"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R51"
     },
     {
       "code": "R53",
-      "labels": {
-        "eng": "Trade payables/Net turnover"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R53"
     },
     {
       "code": "R54",
-      "labels": {
-        "eng": "Operating working capital/Net turnover"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R54"
     },
     {
       "code": "R33",
-      "labels": {
-        "eng": "EBITDA/Net turnove"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R33"
     },
     {
       "code": "R52",
-      "labels": {
-        "eng": "Trade receivables/Net turnover"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R52"
     },
     {
       "code": "R28",
-      "labels": {
-        "eng": "Credit institutions net indebtness ratio"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R28"
     },
     {
       "code": "R17",
-      "labels": {
-        "eng": "Current ratio (strict sense definition)"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R17"
     },
     {
       "code": "R18",
-      "labels": {
-        "eng": "Change in equity"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R18"
     },
     {
       "code": "R19",
-      "labels": {
-        "eng": "Balance sheet annual variation rate"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R19"
     },
     {
       "code": "R29",
-      "labels": {
-        "eng": "Financing cost (restricted sense definition)"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R29"
     },
     {
       "code": "R290",
-      "labels": {
-        "eng": "Financing cost (broad definition)"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R290"
     },
     {
       "code": "R311",
-      "labels": {
-        "eng": "EBITDA - Return on investments"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R311"
     },
     {
       "code": "R312",
-      "labels": {
-        "eng": "Return on sales"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R312"
     },
     {
       "code": "R313",
-      "labels": {
-        "eng": "Net Turnover annual growth rate"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R313"
     },
     {
       "code": "R55",
-      "labels": {
-        "eng": "Days Sales Outstanding"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R55"
     },
     {
       "code": "R56",
-      "labels": {
-        "eng": "Days Payables Outstanding"
-      }
+      "labelKey": "codelist.label.financial-ratio-type.R56"
     }
   ]
 }

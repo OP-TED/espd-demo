@@ -1,42 +1,30 @@
 {
-  "$comment": "GENERATED from ESPD-EDM/codelists/EOIDType.gc. UI pick list for 'eoid-type'. Do not hand-edit; regenerate from the .gc.",
+  "$comment": "GENERATED from ESPD-EDM/codelists/EOIDType.gc. UI pick list for 'eoid-type' (codes + i18n label keys; English text in espd.codelists.json). Do not hand-edit; regenerate from the .gc.",
   "codelist": "eoid-type",
   "listId": "eoid-type",
   "source": "EOIDType.gc",
   "count": 5,
-  "languages": [
-    "eng"
-  ],
+  "labelled": 5,
   "codes": [
     {
       "code": "NATIONAL",
-      "labels": {
-        "eng": "National Identifier"
-      }
+      "labelKey": "codelist.label.eoid-type.NATIONAL"
     },
     {
       "code": "LEI",
-      "labels": {
-        "eng": "Legal Entity Identifier"
-      }
+      "labelKey": "codelist.label.eoid-type.LEI"
     },
     {
       "code": "BRIS",
-      "labels": {
-        "eng": "Business Registry European Unique Identifier"
-      }
+      "labelKey": "codelist.label.eoid-type.BRIS"
     },
     {
       "code": "DUNS",
-      "labels": {
-        "eng": "Duns &amp; Bradstreet number"
-      }
+      "labelKey": "codelist.label.eoid-type.DUNS"
     },
     {
       "code": "VAT",
-      "labels": {
-        "eng": "VAT number"
-      }
+      "labelKey": "codelist.label.eoid-type.VAT"
     }
   ]
 }

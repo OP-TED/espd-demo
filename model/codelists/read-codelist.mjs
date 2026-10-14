@@ -68,21 +68,19 @@ export function codesForCodelist(name) {
 }
 
 /**
- * Extract code + multilingual labels from a Genericode .gc file, for building
- * the UI codelist service data (UX1). Handles the two shapes shipped in
+ * Extract code + ENGLISH label from a Genericode .gc file, for building the UI
+ * codelist service data (UX1). This project is English-only (one `en` i18n
+ * locale), so we take only the English label and ignore the other languages the
+ * EU authority lists carry. Handles the two shapes shipped in
  * ESPD-EDM/codelists:
- *   - EU authority lists (Country, Currency, EoRoleType, …): a `Name` column
- *     plus one `<lang>_label` column per language (ISO 639-3, e.g. `eng_label`,
- *     `fra_label`). Currency also has `<lang>_currency.subunit` columns, which
- *     are NOT labels and are ignored.
+ *   - EU authority lists (Country, Currency, EoRoleType, …): take `eng_label`.
  *   - ESPD-internal lists (FinancialRatioType, EOIDType, DocrefcontentType, …):
- *     a `Name` column and an English-only `name-eng` column, no per-language set.
+ *     take `name-eng`, else `Name`.
  *
- * Returns, per row: { code, labels: { <lang3>: <text> } } with `labels` keyed by
- * ISO 639-3 language code. English always resolves (from `eng_label`, else
- * `name-eng`, else `Name`); other languages are included when present.
+ * Returns, per row: { code, label } where `label` is the English text (undefined
+ * when the source carries none — some OP authority rows are unlabelled).
  * @param {string} gcPath absolute or relative path to the .gc file
- * @returns {{code:string, labels:Record<string,string>}[]} in document order
+ * @returns {{code:string, label:(string|undefined)}[]} in document order
  */
 export function readCodelistEntries(gcPath) {
   const xml = fs.readFileSync(gcPath, 'utf8');
@@ -98,18 +96,9 @@ export function readCodelistEntries(gcPath) {
     }
     const code = cells.get('code');
     if (code === undefined) continue;
-
-    const labels = {};
-    for (const [col, text] of cells) {
-      const m = /^([a-z]{3})_label$/.exec(col); // ISO 639-3 language label column
-      if (m && text) labels[m[1]] = text;
-    }
-    // English-only fallback for the ESPD-internal shape (no per-language columns).
-    if (labels.eng === undefined) {
-      const eng = cells.get('name-eng') ?? cells.get('Name');
-      if (eng) labels.eng = eng;
-    }
-    entries.push({ code, labels });
+    // English label: eng_label (EU authority lists) -> name-eng / Name (internal).
+    const label = cells.get('eng_label') || cells.get('name-eng') || cells.get('Name') || undefined;
+    entries.push({ code, label });
   }
   return entries;
 }

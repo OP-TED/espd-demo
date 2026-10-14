@@ -28,6 +28,11 @@
               "$derivedFrom": "C45_slc-abil-mgmt-env/RG1/RQ1"
             },
             {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-mgmt-env.RG1.RSG1.CA1",
+              "$derivedFrom": "C45_slc-abil-mgmt-env/RG1/RSG1/CA1"
+            },
+            {
               "semanticId": "slc-abil-mgmt-env.requirement",
               "dataPath": "partIV.selectionCriteria.slc-abil-mgmt-env.requirement.requirement",
               "filledBy": "contractingAuthority",

@@ -28,6 +28,11 @@
               "$derivedFrom": "C36_slc-stand-other/RG1/RQ1"
             },
             {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-stand-other.RG1.RSG1.CA1",
+              "$derivedFrom": "C36_slc-stand-other/RG1/RSG1/CA1"
+            },
+            {
               "semanticId": "slc-stand-other.requirement-type",
               "dataPath": "partIV.selectionCriteria.slc-stand-other.requirement.requirementType",
               "filledBy": "contractingAuthority",

@@ -103,6 +103,15 @@
                 "equals": false
               },
               "$derivedFrom": "OT58_OT/QG1/QSG1/QSG2/Q1"
+            },
+            {
+              "kind": "caption",
+              "labelKey": "caption.label.OT.QG1.QSG2.CA1",
+              "$derivedFrom": "OT58_OT/QG1/QSG2/CA1",
+              "visibleWhen": {
+                "path": "partII.economicOperatorCriteria.registered-official-list.response.answer",
+                "equals": false
+              }
             }
           ],
           "$derivedFrom": "OT58_OT/QG1"

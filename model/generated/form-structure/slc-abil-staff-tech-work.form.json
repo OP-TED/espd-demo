@@ -28,6 +28,11 @@
               "$derivedFrom": "C41_slc-abil-staff-tech-work/RG1/RQ1"
             },
             {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-staff-tech-work.RG1.RSG1.CA1",
+              "$derivedFrom": "C41_slc-abil-staff-tech-work/RG1/RSG1/CA1"
+            },
+            {
               "semanticId": "slc-abil-staff-tech-work.requirement",
               "dataPath": "partIV.selectionCriteria.slc-abil-staff-tech-work.requirement.requirement",
               "filledBy": "contractingAuthority",
@@ -97,6 +102,11 @@
           "id": "technicians",
           "filledBy": "economicOperator",
           "fields": [
+            {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-staff-tech-work.RG1.RSG1.RSG1.QSG2.CA1",
+              "$derivedFrom": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/CA1"
+            },
             {
               "semanticId": "slc-abil-staff-tech-work.technician-first-name",
               "dataPath": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.technicians[].firstName",
@@ -209,6 +219,11 @@
           "id": "bodies",
           "filledBy": "economicOperator",
           "fields": [
+            {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-staff-tech-work.RG1.RSG1.RSG1.QSG3.CA1",
+              "$derivedFrom": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/CA1"
+            },
             {
               "semanticId": "slc-abil-staff-tech-work.body-name",
               "dataPath": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.bodies[].name",

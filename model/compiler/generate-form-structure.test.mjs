@@ -573,3 +573,60 @@ test('the hand-authored lens uiTypes are reproduced', () => {
     assert.equal(gen.uiType, ref.uiType, `${ref.dataPath} uiType`);
   }
 });
+
+// --- F1: caption text surfaced as non-input notes --------------------------
+
+function allFields(form) {
+  return form.criteria.flatMap(c => c.groups.flatMap(g => g.fields.map(f => ({ ...f, groupId: g.id }))));
+}
+function compileCode(code) {
+  const edm = loadEdm(edmPath);
+  const { compiled, registry } = compile(edm, code, loadSidecar(code));
+  return { compiled, registry };
+}
+
+test('F1 — a caption becomes a non-input note field (labelKey + $derivedFrom, no dataPath/uiType)', () => {
+  const { compiled, registry } = compileCode('slc-abil-ref-work');
+  const form = generateFormStructure(compiled, registry, { partId: 'IV' });
+  const captions = allFields(form).filter(f => f.kind === 'caption');
+  assert.ok(captions.length >= 1, 'at least one caption note is emitted');
+  const cap = captions.find(c => c.$derivedFrom === 'C37_slc-abil-ref-work/RG1/RSG1/QSG2/CA1');
+  assert.ok(cap, 'the QSG2/CA1 caption is present');
+  assert.equal(cap.labelKey, 'caption.label.slc-abil-ref-work.RG1.RSG1.QSG2.CA1');
+  // A note carries no input affordances.
+  assert.equal(cap.dataPath, undefined);
+  assert.equal(cap.uiType, undefined);
+  assert.equal(cap.filledBy, undefined);
+});
+
+test('F1 — caption label key follows the same code-stem convention as sibling leaves', () => {
+  const { compiled, registry } = compileCode('ot-registered-official-list');
+  const form = generateFormStructure(compiled, registry, { partId: 'II' });
+  const fields = allFields(form);
+  const cap = fields.find(f => f.kind === 'caption');
+  assert.ok(cap, 'OT58 has a caption');
+  // Leaves use the bare code "OT" as the stem; the caption must match (not the
+  // EA tag OT58), so key families stay consistent.
+  assert.match(cap.labelKey, /^caption\.label\.OT\./);
+});
+
+test('F1 — a caption inside a conditional branch inherits that branch visibleWhen', () => {
+  const { compiled, registry } = compileCode('ot-registered-official-list');
+  const form = generateFormStructure(compiled, registry, { partId: 'II' });
+  const cap = allFields(form).find(f => f.kind === 'caption' && f.$derivedFrom === 'OT58_OT/QG1/QSG2/CA1');
+  assert.ok(cap, 'the ONFALSE-branch caption is present');
+  assert.ok(cap.visibleWhen, 'it is gated');
+  assert.equal(cap.visibleWhen.equals, false, 'shown when the gating answer is false (ONFALSE)');
+});
+
+test('F1 — captions do not appear in the instance-data schema or add dataPaths', () => {
+  // The caption must stay presentation-only: no field with a dataPath should be
+  // derived from a caption requestpath.
+  const { compiled, registry } = compileCode('slc-abil-ref-work');
+  const form = generateFormStructure(compiled, registry, { partId: 'IV' });
+  for (const f of allFields(form)) {
+    if (f.$derivedFrom?.endsWith('/CA1') || f.$derivedFrom?.endsWith('/CA2')) {
+      assert.equal(f.dataPath, undefined, `caption ${f.$derivedFrom} must not bind a dataPath`);
+    }
+  }
+});

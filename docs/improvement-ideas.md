@@ -128,7 +128,20 @@ leaf would simply start rendering as the standard evidence array.
 
 ## Form lens
 
-### F1. Caption text is not surfaced in the generated form lens
+### F1. RESOLVED — Caption text is now surfaced in the generated form lens
+
+**Update (resolved).** The form lens now emits each caption as a non-input
+"note" field. `read-structural-core.mjs` flags caption structural nodes
+(`caption: true`) and keeps their `cbc:Description`; `generate-form-structure.mjs`
+emits a `{ kind: "caption", labelKey, $derivedFrom, visibleWhen? }` field in
+document order within its group, with no `dataPath`/`filledBy`/`uiType`. The
+label key follows the same code-stem convention as sibling leaves
+(`caption.label.<code>.<EA tag path>`), matching the already-shipped
+`caption.label.*` catalogue entries. A caption inside a conditional branch
+inherits that branch's `visibleWhen` (verified on OT58's ONFALSE caption). The
+instance-data schema and XML mappings are untouched — captions remain
+presentation-only (verified: only `form.json` files changed on regeneration). 4
+tests in `generate-form-structure.test.mjs`. The original note is retained below.
 
 **What it is.** ~25 criteria carry CAPTION nodes (`cbc:TypeCode` CAPTION,
 `ValueDataTypeCode` NONE) — e.g. OT58's "The country of the economic operator

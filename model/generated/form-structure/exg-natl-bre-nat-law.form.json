@@ -18,6 +18,21 @@
           "filledBy": "economicOperator",
           "fields": [
             {
+              "kind": "caption",
+              "labelKey": "caption.label.exg-natl-bre-nat-law.QG1.CA1",
+              "$derivedFrom": "C24_exg-natl-bre-nat-law/QG1/CA1"
+            },
+            {
+              "kind": "caption",
+              "labelKey": "caption.label.exg-natl-bre-nat-law.QG1.QSG1.CA1",
+              "$derivedFrom": "C24_exg-natl-bre-nat-law/QG1/QSG1/CA1"
+            },
+            {
+              "kind": "caption",
+              "labelKey": "caption.label.exg-natl-bre-nat-law.QG1.QSG1.CA2",
+              "$derivedFrom": "C24_exg-natl-bre-nat-law/QG1/QSG1/CA2"
+            },
+            {
               "semanticId": "exg-natl-bre-nat-law.answer",
               "dataPath": "partIII.exclusionGrounds.exg-natl-bre-nat-law.response.nationalCriteria[].answer",
               "filledBy": "economicOperator",

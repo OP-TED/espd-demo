@@ -45,6 +45,11 @@
               "labelKey": "requirement.label.slc-abil-ref-work.RG1.RSG1.RQ2",
               "repeatable": true,
               "$derivedFrom": "C37_slc-abil-ref-work/RG1/RSG1/RQ2"
+            },
+            {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-ref-work.RG1.RSG1.CA1",
+              "$derivedFrom": "C37_slc-abil-ref-work/RG1/RSG1/CA1"
             }
           ]
         },
@@ -107,6 +112,11 @@
           "id": "references",
           "filledBy": "economicOperator",
           "fields": [
+            {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-ref-work.RG1.RSG1.QSG2.CA1",
+              "$derivedFrom": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/CA1"
+            },
             {
               "semanticId": "slc-abil-ref-work.reference-description",
               "dataPath": "partIV.selectionCriteria.slc-abil-ref-work.response.references[].description",

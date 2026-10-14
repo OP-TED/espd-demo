@@ -77,7 +77,7 @@ function readNode(component) {
   }
 
   // group or other structural container
-  return {
+  const node = {
     nodeKind: kind === 'group' ? 'group' : 'structural',
     eaType: component.type,
     cardinality: component.cardinality,
@@ -85,6 +85,16 @@ function readNode(component) {
     requestpath: component.requestpath,
     children,
   };
+  // A caption is a structural node (no value binding) but, unlike other
+  // structural placeholders (SubCriterion/Legislation/LotReference), it carries
+  // display text (its cbc:Description). Flag it and keep that text so the form
+  // lens can surface it as a non-input note (task F1); the instance-data schema
+  // and XML mappings still ignore it (no value, no binding).
+  if (kind !== 'group' && isCaption(component)) {
+    node.caption = true;
+    node.description = component.description;
+  }
+  return node;
 }
 
 /**

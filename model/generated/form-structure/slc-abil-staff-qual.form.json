@@ -28,6 +28,11 @@
               "$derivedFrom": "C47_slc-abil-staff-qual/RG1/RQ1"
             },
             {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-staff-qual.RG1.RSG1.CA1",
+              "$derivedFrom": "C47_slc-abil-staff-qual/RG1/RSG1/CA1"
+            },
+            {
               "semanticId": "slc-abil-staff-qual.requirement",
               "dataPath": "partIV.selectionCriteria.slc-abil-staff-qual.requirement.requirement",
               "filledBy": "contractingAuthority",
@@ -97,6 +102,11 @@
           "id": "staff",
           "filledBy": "economicOperator",
           "fields": [
+            {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-staff-qual.RG1.RSG1.RSG1.QSG2.CA1",
+              "$derivedFrom": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/CA1"
+            },
             {
               "semanticId": "slc-abil-staff-qual.staff-first-name",
               "dataPath": "partIV.selectionCriteria.slc-abil-staff-qual.response.staff[].firstName",

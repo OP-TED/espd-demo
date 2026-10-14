@@ -129,6 +129,13 @@ function leavesWithContext(criterion) {
         lastLeaf = child;
         continue;
       }
+      // A caption (structural, no value) is surfaced as a non-input note (F1),
+      // in document order within its group and gated by the same branch its
+      // sibling leaves are. It does not act as a conditional gate itself.
+      if (child.nodeKind === 'structural' && child.caption) {
+        out.push({ caption: child, groupChain, gate });
+        continue;
+      }
       if (child.nodeKind === 'group') {
         const conditional = child.condition === 'true' || child.condition === 'false';
         // A conditional group is gated by the nearest preceding sibling leaf;
@@ -265,6 +272,25 @@ function fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, 
 }
 
 /**
+ * Build a caption "note" field (F1): a non-input display element carrying the
+ * caption's i18n label key and `$derivedFrom`, with no `dataPath`, `filledBy`,
+ * or `uiType`. A caption inside a conditional branch inherits that branch's
+ * `visibleWhen`, so its guidance shows only when the branch does.
+ */
+function captionField(criterion, caption, gate, registry, profile) {
+  const segs = caption.requestpath.split('/');
+  segs[0] = criterion.code;
+  const field = {
+    kind: 'caption',
+    labelKey: `${profile.i18n.labelKeyPrefixByNodeKind.caption}.${segs.join('.')}`,
+    $derivedFrom: caption.requestpath,
+  };
+  const visibleWhen = visibleWhenOf(criterion, gate, registry, profile);
+  if (visibleWhen) field.visibleWhen = visibleWhen;
+  return field;
+}
+
+/**
  * Group id for a set of fields: the instance-path segment their leaves share
  * below the side root (yielding `turnover`, `startTrading`, `electronicEvidence`
  * for C31). When the leaves share no prefix, fall back to the FIRST leaf's
@@ -296,27 +322,38 @@ export function generateCriterionForm(
   // `undefined` means "look for the criterion's sidecar"; `null` means "none".
   const pres = presentation === undefined ? loadPresentation(criterion.code) : presentation;
 
-  const requirementLeaves = contexts.filter(c => c.leaf.nodeKind === 'requirement');
-  const questionContexts = contexts.filter(c => c.leaf.nodeKind === 'question');
+  // A context is a question-area one if its group chain enters a QUESTION group
+  // (a caption has no nodeKind to test, so route by chain, which works for both).
+  const isQuestionGroup = g => g.eaType === 'QUESTION_GROUP' || g.eaType === 'QUESTION_SUBGROUP';
+  const inQuestionArea = ctx => ctx.groupChain.some(isQuestionGroup);
+  // A requirement-side caption sits in the requirement area (no QUESTION group in
+  // its chain); otherwise it belongs with the response question groups.
+  const requirementContexts = contexts.filter(c => (c.leaf ? c.leaf.nodeKind === 'requirement' : !inQuestionArea(c)));
+  const questionContexts = contexts.filter(c => (c.leaf ? c.leaf.nodeKind === 'question' : inQuestionArea(c)));
+
+  // Emit the fields for one context in document order: a value leaf expands to
+  // one-or-more input fields; a caption expands to a single note field.
+  const emitContext = ({ leaf, caption, gate }) =>
+    caption
+      ? [captionField(criterion, caption, gate, registry, profile)]
+      : fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, presentation: pres });
 
   const groups = [];
 
-  if (requirementLeaves.length) {
+  if (requirementContexts.length) {
     groups.push({
       id: profile.grouping.requirementGroupId,
       filledBy: profile.filledBy.byNodeKind.requirement,
-      fields: requirementLeaves.flatMap(({ leaf, gate }) =>
-        fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, presentation: pres })),
+      fields: requirementContexts.flatMap(emitContext),
     });
   }
 
-  // Response groups are keyed by the OUTERMOST QUESTION group in each leaf's
+  // Response groups are keyed by the OUTERMOST QUESTION group in each context's
   // chain — the first group whose EA type is QUESTION_GROUP/QUESTION_SUBGROUP.
   // This is the form-section boundary: it keeps a top-level QUESTION_GROUP
   // together with all its nested subgroups as ONE group (C07's QG1 indicator +
   // its QG1/QSG1 evidence), while still separating sibling question groups that
   // live under a shared requirement subgroup (C31's QSG1..QSG4 under RSG1).
-  const isQuestionGroup = g => g.eaType === 'QUESTION_GROUP' || g.eaType === 'QUESTION_SUBGROUP';
   const buckets = new Map();
   for (const ctx of questionContexts) {
     const owner = ctx.groupChain.find(isQuestionGroup) ?? ctx.groupChain[0] ?? null;
@@ -326,7 +363,8 @@ export function generateCriterionForm(
   }
 
   for (const { owner, items } of buckets.values()) {
-    const derivedId = groupIdFor(items.map(i => i.leaf));
+    // Group id is derived from the VALUE leaves only (captions carry no path).
+    const derivedId = groupIdFor(items.filter(i => i.leaf).map(i => i.leaf));
     // A derived group id is serviceable but not always a name a human would
     // choose; the sidecar may rename it for display (R10.3).
     const renamed = pres?.groupLabels?.[derivedId]?.id;
@@ -334,8 +372,7 @@ export function generateCriterionForm(
       id: renamed ?? derivedId,
       ...(renamed ? { $derivedId: derivedId } : {}),
       filledBy: profile.filledBy.byNodeKind.question,
-      fields: items.flatMap(({ leaf, gate }) =>
-        fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, presentation: pres })),
+      fields: items.flatMap(emitContext),
       $derivedFrom: owner?.requestpath,
     });
   }

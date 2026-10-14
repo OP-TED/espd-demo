@@ -54,7 +54,8 @@
     "$comment": "R6.6 — label/title keys. FINDING: these are DERIVABLE, contrary to the original R10 assumption. The shipped catalogue under i18n/i18n/en/ is already keyed by '<kind>.label.<criterion-code>.<EA tag path>', i.e. the requestpath with its leading 'C31_' segment replaced by the criterion code. All 17 C31 leaf keys plus the criterion name/description resolve this way, so no sidecar authoring is needed for labels. The sidecar is only needed for property-level sub-labels (see propertyLabelKeys) because the catalogue is LEAF-level: one key per leaf, even where the form renders several inputs for that leaf (a PERIOD has a single key, 'Start date; End date').",
     "labelKeyPrefixByNodeKind": {
       "requirement": "requirement.label",
-      "question": "question.label"
+      "question": "question.label",
+      "caption": "caption.label"
     },
     "criterionNameKey": "criterion.name",
     "criterionDescriptionKey": "criterion.description"

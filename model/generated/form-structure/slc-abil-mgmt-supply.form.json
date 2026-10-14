@@ -28,6 +28,11 @@
               "$derivedFrom": "C44_slc-abil-mgmt-supply/RG1/RQ1"
             },
             {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-mgmt-supply.RG1.RSG1.CA1",
+              "$derivedFrom": "C44_slc-abil-mgmt-supply/RG1/RSG1/CA1"
+            },
+            {
               "semanticId": "slc-abil-mgmt-supply.requirement",
               "dataPath": "partIV.selectionCriteria.slc-abil-mgmt-supply.requirement.requirement",
               "filledBy": "contractingAuthority",

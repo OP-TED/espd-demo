@@ -28,6 +28,11 @@
               "$derivedFrom": "C43_slc-abil-facil-res/RG1/RQ1"
             },
             {
+              "kind": "caption",
+              "labelKey": "caption.label.slc-abil-facil-res.RG1.RSG1.CA1",
+              "$derivedFrom": "C43_slc-abil-facil-res/RG1/RSG1/CA1"
+            },
+            {
               "semanticId": "slc-abil-facil-res.requirement",
               "dataPath": "partIV.selectionCriteria.slc-abil-facil-res.requirement.requirement",
               "filledBy": "contractingAuthority",

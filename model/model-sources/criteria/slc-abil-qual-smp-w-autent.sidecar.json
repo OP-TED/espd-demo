@@ -1,0 +1,45 @@
+{
+  "$comment": "C53 slc-abil-qual-smp-w-autent — samples/descriptions/photographs WITH certification of authenticity (Part IV §C, Shape 4 'single-answer' minimal criterion). Buyer side carries only the lot identifiers (no requirement text); EO RESPONSE is fulfilled-by-itself -> relied-upon entity, a single answer (QSG2/Q1, here a DESCRIPTION), and the electronic-evidence block. Structural clone of slc-abil-qual-smp-wo-autent (C52) — the only EA difference is the QSG2/Q1 answer datatype (DESCRIPTION here, INDICATOR in C52), read from EA, so the binding is identical.",
+
+  "$shape": "Shape 4 (single-answer). No buyer REQUIREMENT property beyond lots; one response answer gated by the fulfilled-by-itself ONFALSE -> relied-upon branch; evidence block.",
+
+  "criterion": {
+    "code": "slc-abil-qual-smp-w-autent",
+    "id": "slc-abil-qual-smp-w-autent",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C53_slc-abil-qual-smp-w-autent/RG1/RQ1": {
+      "id": "slc-abil-qual-smp-w-autent.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C53_slc-abil-qual-smp-w-autent/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-abil-qual-smp-w-autent.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C53_slc-abil-qual-smp-w-autent/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-qual-smp-w-autent.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C53_slc-abil-qual-smp-w-autent/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-qual-smp-w-autent.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C53_slc-abil-qual-smp-w-autent/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-abil-qual-smp-w-autent.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+    "C53_slc-abil-qual-smp-w-autent/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-abil-qual-smp-w-autent.answer",
+      "instanceBinding": { "side": "response", "path": ["answer"] }
+    },
+    "C53_slc-abil-qual-smp-w-autent/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-abil-qual-smp-w-autent.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C53_slc-abil-qual-smp-w-autent/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-abil-qual-smp-w-autent.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

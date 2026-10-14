@@ -1,0 +1,20 @@
+{
+  "partIV": {
+    "selectionCriteria": {
+      "slc-suit-auth-mbrshp": {
+        "requirement": {
+          "lotIdentifiers": [
+            "sample"
+          ]
+        },
+        "response": {
+          "fulfilledByItself": true,
+          "registered": false,
+          "electronicEvidence": {
+            "availableElectronically": false
+          }
+        }
+      }
+    }
+  }
+}

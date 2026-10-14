@@ -1,0 +1,64 @@
+{
+  "$comment": "C26 slc-suit-reg-trade — enrolment in a trade register (Part IV §A suitability). Both-sides: buyer REQUIREMENT (lots + register name + register URL) and EO RESPONSE (fulfilled-by-itself -> relied-upon entity; a 'registered?' indicator with an ONTRUE registration-number and an ONFALSE reasons-not-registered; the evidence block). Sibling of slc-suit-auth-mbrshp (C66), which is identical minus the reasons-not-registered ONFALSE branch.",
+
+  "$note.bothDirectionsGated": "QSG2/Q1 'registered' gates BOTH an ONTRUE branch (registrationNumber) and an ONFALSE branch (reasonsNotRegistered) — the same both-directions pattern as C25; the compiler commits each branch's leaves to its own required set.",
+
+  "criterion": {
+    "code": "slc-suit-reg-trade",
+    "id": "slc-suit-reg-trade",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C26_slc-suit-reg-trade/RG1/RQ1": {
+      "id": "slc-suit-reg-trade.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C26_slc-suit-reg-trade/RG1/RSG1/RQ1": {
+      "id": "slc-suit-reg-trade.register-name",
+      "instanceBinding": { "side": "requirement", "path": ["registerName"] }
+    },
+    "C26_slc-suit-reg-trade/RG1/RSG1/RQ2": {
+      "id": "slc-suit-reg-trade.register-url",
+      "instanceBinding": { "side": "requirement", "path": ["registerUrl"] }
+    },
+
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-suit-reg-trade.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-suit-reg-trade.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-suit-reg-trade.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-suit-reg-trade.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-suit-reg-trade.registered",
+      "instanceBinding": { "side": "response", "path": ["registered"] }
+    },
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-suit-reg-trade.registration-number",
+      "instanceBinding": { "side": "response", "path": ["registrationNumber"] }
+    },
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG2/QSG2/Q1": {
+      "id": "slc-suit-reg-trade.reasons-not-registered",
+      "instanceBinding": { "side": "response", "path": ["reasonsNotRegistered"] }
+    },
+
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-suit-reg-trade.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C26_slc-suit-reg-trade/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-suit-reg-trade.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

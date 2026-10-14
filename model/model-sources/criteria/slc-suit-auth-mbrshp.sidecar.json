@@ -1,0 +1,58 @@
+{
+  "$comment": "C66 slc-suit-auth-mbrshp — authorisation or membership of a particular organisation needed for service contracts (Part IV §A suitability). Both-sides: buyer REQUIREMENT (lots + register/organisation name + URL) and EO RESPONSE (fulfilled-by-itself -> relied-upon entity; a 'registered?' indicator with an ONTRUE registration-number; the evidence block). Sibling of slc-suit-reg-trade (C26); C66 lacks C26's ONFALSE reasons-not-registered branch.",
+
+  "criterion": {
+    "code": "slc-suit-auth-mbrshp",
+    "id": "slc-suit-auth-mbrshp",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C66_slc-suit-auth-mbrshp/RG1/RQ1": {
+      "id": "slc-suit-auth-mbrshp.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/RQ1": {
+      "id": "slc-suit-auth-mbrshp.register-name",
+      "instanceBinding": { "side": "requirement", "path": ["registerName"] }
+    },
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/RQ2": {
+      "id": "slc-suit-auth-mbrshp.register-url",
+      "instanceBinding": { "side": "requirement", "path": ["registerUrl"] }
+    },
+
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-suit-auth-mbrshp.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-suit-auth-mbrshp.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-suit-auth-mbrshp.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-suit-auth-mbrshp.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-suit-auth-mbrshp.registered",
+      "instanceBinding": { "side": "response", "path": ["registered"] }
+    },
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-suit-auth-mbrshp.registration-number",
+      "instanceBinding": { "side": "response", "path": ["registrationNumber"] }
+    },
+
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-suit-auth-mbrshp.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-suit-auth-mbrshp.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

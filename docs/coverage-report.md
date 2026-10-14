@@ -161,7 +161,7 @@ modeled criteria whose leaves use the type.
 | MINIMUM_QUANTITY_INTEGER | yes | — | 3 |
 | MINIMUM_QUANTITY_YEAR | yes | — | 2 |
 | PERCENTAGE | yes | yes | 1 |
-| PERIOD | — | yes | 16 |
+| PERIOD | yes | yes | 16 |
 | QUAL_IDENTIFIER | — | yes | 1 |
 | QUANTITY | — | yes | 2 |
 | QUANTITY_INTEGER | yes | yes | 3 |

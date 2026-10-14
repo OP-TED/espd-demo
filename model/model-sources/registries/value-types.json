@@ -141,6 +141,15 @@
         "$note": "A period must carry at least one of start/end date (hand-authored anyOf).",
         "anyOf": [{ "required": ["startDate"] }, { "required": ["endDate"] }]
       },
+      "$note.requestXml": "A buyer REQUIREMENT period (C34 periods[].period, C36 amountRequirements[].period) is a cac:ApplicablePeriod directly under the cac:TenderingCriterionProperty, same object shape as the response side. Before this binding existed, PERIOD requirement leaves were silently dropped from the request mapping (they have no scalar Expected* element); the object kind round-trips start/end dates.",
+      "requestXml": {
+        "kind": "object",
+        "element": "cac:ApplicablePeriod",
+        "fields": {
+          "startDate": "cbc:StartDate",
+          "endDate": "cbc:EndDate"
+        }
+      },
       "responseXml": {
         "kind": "object",
         "element": "cac:ApplicablePeriod",

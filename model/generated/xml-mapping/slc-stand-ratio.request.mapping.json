@@ -142,6 +142,19 @@
                         "attributes": {
                           "listID": "response-data-type"
                         }
+                      },
+                      {
+                        "element": "cac:ApplicablePeriod",
+                        "children": [
+                          {
+                            "element": "cbc:StartDate",
+                            "from": "period.startDate"
+                          },
+                          {
+                            "element": "cbc:EndDate",
+                            "from": "period.endDate"
+                          }
+                        ]
                       }
                     ]
                   },

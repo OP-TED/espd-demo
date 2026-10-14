@@ -293,3 +293,52 @@ test('C38 and C39 (same shape) also round-trip references[].recipients[]', () =>
     assert.deepEqual(back, data, `${code} nested round-trip`);
   }
 });
+
+// --- PERIOD as a buyer REQUIREMENT round-trips in the request mapping -------
+// Regression: PERIOD had only a responseXml binding, so requirement-side PERIOD
+// leaves (C34 periods[].period, C36 amountRequirements[].period) were silently
+// dropped from the request mapping. A requestXml object binding (cac:Applicable
+// Period) now round-trips them.
+
+test('C34 periods[].period round-trips on the request side', () => {
+  const { compiled, registry } = compileC('slc-stand-ratio');
+  const request = generateRequestMapping(compiled, registry);
+  const data = { partIV: { selectionCriteria: { 'slc-stand-ratio': { requirement: {
+    lotIdentifiers: ['LOT-1'],
+    periods: [
+      { period: { startDate: '2020-01-01', endDate: '2020-12-31' }, ratios: [{ ratioType: 'RT-A', definition: 'a', minimumRatio: 0.5 }] },
+      { period: { startDate: '2021-01-01', endDate: '2021-12-31' }, ratios: [{ ratioType: 'RT-B', definition: 'b', minimumRatio: 0.3 }] },
+    ],
+  } } } } };
+  const back = unmap(request, map(request, data)).partIV.selectionCriteria['slc-stand-ratio'].requirement;
+  assert.deepEqual(back.periods[0].period, { startDate: '2020-01-01', endDate: '2020-12-31' });
+  assert.deepEqual(back.periods[1].period, { startDate: '2021-01-01', endDate: '2021-12-31' });
+  assert.deepEqual(back, data.partIV.selectionCriteria['slc-stand-ratio'].requirement, 'full requirement round-trip incl. periods[].period');
+});
+
+test('C36 amountRequirements[].period round-trips on the request side', () => {
+  const { compiled, registry } = compileC('slc-stand-other');
+  const request = generateRequestMapping(compiled, registry);
+  const data = { partIV: { selectionCriteria: { 'slc-stand-other': { requirement: {
+    lotIdentifiers: ['LOT-1'],
+    requirementType: 'CHECK_BOX_TRUE',
+    amountRequirements: [
+      { description: 'd1', minimumAmount: { value: 1000, currency: 'EUR' }, period: { startDate: '2019-01-01', endDate: '2019-12-31' } },
+      { description: 'd2', minimumAmount: { value: 2000, currency: 'EUR' }, period: { startDate: '2020-06-01', endDate: '2020-12-31' } },
+    ],
+  } } } } };
+  const back = unmap(request, map(request, data)).partIV.selectionCriteria['slc-stand-other'].requirement;
+  assert.deepEqual(back.amountRequirements[0].period, { startDate: '2019-01-01', endDate: '2019-12-31' });
+  assert.deepEqual(back.amountRequirements[1].period, { startDate: '2020-06-01', endDate: '2020-12-31' });
+});
+
+test('a PERIOD requirement emits a cac:ApplicablePeriod structure node (not dropped)', () => {
+  const { compiled, registry } = compileC('slc-stand-ratio');
+  const request = generateRequestMapping(compiled, registry);
+  const data = { partIV: { selectionCriteria: { 'slc-stand-ratio': { requirement: {
+    lotIdentifiers: ['LOT-1'],
+    periods: [{ period: { startDate: '2020-01-01', endDate: '2020-12-31' }, ratios: [{ ratioType: 'RT', definition: 'a', minimumRatio: 0.5 }] }],
+  } } } } };
+  const xml = map(request, data);
+  assert.match(xml, /<cac:ApplicablePeriod>\s*<cbc:StartDate>2020-01-01<\/cbc:StartDate>\s*<cbc:EndDate>2020-12-31<\/cbc:EndDate>/);
+});

@@ -76,6 +76,19 @@ function requestValueChild(criterion, leaf, registry, itemPrefixLen = 0) {
     }
     return node;
   }
+  if (binding.kind === 'object') {
+    // A buyer REQUIREMENT whose value is an object (e.g. PERIOD -> cac:ApplicablePeriod
+    // with StartDate/EndDate). Emitted as a `structure` children node: one child
+    // element per field, each bound to `<base>.<field>`. Mirrors the response
+    // `object` body; the mapper's buildStructure/unmapStructure round-trip it.
+    return {
+      element: binding.element,
+      children: Object.entries(binding.fields).map(([prop, el]) => ({
+        element: el,
+        from: `${base}.${prop}`,
+      })),
+    };
+  }
   if (binding.kind === 'scalar') {
     // Numeric vs string follows the registry instanceShape, not a per-code list.
     const shape = registry.valueTypes[leaf.valueType]?.instanceShape;

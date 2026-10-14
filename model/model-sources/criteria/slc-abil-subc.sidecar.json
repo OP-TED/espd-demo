@@ -1,0 +1,48 @@
+{
+  "$comment": "C51 slc-abil-subc — proportion of the contract the EO intends to subcontract (Part IV §C). Buyer side carries only the lot identifiers (no requirement text). EO RESPONSE: fulfilled-by-itself -> relied-upon entity, a free-text 'please specify' proportion, and the evidence block.",
+
+  "$note.reliedUponPath": "Unlike most §C criteria, the relied-upon entity name/id live under QSG1/QSG1/QSG2 (an ONTRUE group) rather than QSG1/QSG1/QSG1 — the EA model nests them one group over. The bindings target the EA tags directly, so the generated instance paths are unaffected.",
+
+  "criterion": {
+    "code": "slc-abil-subc",
+    "id": "slc-abil-subc",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C51_slc-abil-subc/RG1/RQ1": {
+      "id": "slc-abil-subc.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+
+    "C51_slc-abil-subc/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-abil-subc.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C51_slc-abil-subc/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-subc.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C51_slc-abil-subc/RG1/RSG1/QSG1/QSG1/QSG2/Q1": {
+      "id": "slc-abil-subc.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C51_slc-abil-subc/RG1/RSG1/QSG1/QSG1/QSG2/Q2": {
+      "id": "slc-abil-subc.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+
+    "C51_slc-abil-subc/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-abil-subc.proportion",
+      "instanceBinding": { "side": "response", "path": ["subcontractingProportion"] }
+    },
+
+    "C51_slc-abil-subc/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-abil-subc.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C51_slc-abil-subc/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-abil-subc.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

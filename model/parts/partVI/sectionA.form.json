@@ -1,0 +1,20 @@
+{
+  "$comment": "Part VI — form lens for the signature block. A single optional field, filled by the economic operator in the response. Nothing is Schematron-mandated; the block and its one field are optional.",
+  "part": "VI",
+  "section": "A",
+  "title": "Signature",
+  "titleKey": "partVI.sectionA.title",
+  "description": "Concluding signature of the economic operator's declaration.",
+  "descriptionKey": "partVI.sectionA.description",
+  "filledBy": "economicOperator",
+
+  "fields": [
+    {
+      "dataPath": "partVI.signatory.physicalLocationName",
+      "labelKey": "partVI.signatory.physicalLocationName",
+      "uiType": "text",
+      "required": false,
+      "description": "Name of the physical location of the signatory party (e.g. the place of signing)."
+    }
+  ]
+}

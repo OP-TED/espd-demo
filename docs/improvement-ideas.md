@@ -126,6 +126,36 @@ leaf would simply start rendering as the standard evidence array.
 
 ---
 
+## Form lens
+
+### F1. Caption text is not surfaced in the generated form lens
+
+**What it is.** ~25 criteria carry CAPTION nodes (`cbc:TypeCode` CAPTION,
+`ValueDataTypeCode` NONE) — e.g. OT58's "The country of the economic operator
+does not have an official list of approved economic operators..." They are
+label-only: `responsepath` == `requestpath`, no answer value, so they carry **no
+exchanged data** and correctly produce no instance-data field and no XML value
+mapping.
+
+**The gap.** Our form-structure generator collects only `requirement`/`question`
+leaves; captions are classified `structural` and walked through without emitting
+anything. So the explanatory prose a caption carries (its `cbc:Description`) is
+not available to a UI built from our lens — a renderer would be missing the
+section headings / guidance text the buyer form is meant to show.
+
+**Where it would land.** A presentation-only addition to the form lens: emit a
+non-input "caption"/"note" element (carrying the caption's i18n label key and
+`$derivedFrom` requestpath) at its position in the group, with no `dataPath`,
+`filledBy`, or `uiType`. The instance-data schema and the XML mappings stay
+untouched — this is purely about not dropping display text. Needs a caption
+label-key convention (the shipped i18n catalogue is keyed per data leaf; whether
+it also keys captions needs checking).
+
+*Not blocking:* captions are guidance text, not data; the model is correct
+without them. This is a fidelity improvement for the UI layer.
+
+---
+
 ## Part I Section A — publication reference
 
 Current model: a single `{ type, identifier, url? }` mapped to one
@@ -343,11 +373,19 @@ schema `$comment`, in `model/parts/partII/README.md`, and here.
 
 ## Part VI — concluding statements / signature
 
-### P6-1. DEFERRED — model Part VI (signature block) only when it earns its keep
+### P6-1. RESOLVED — Part VI (signature block) is now modelled
+
+**Update:** Part VI is now modelled in `model/parts/partVI/` (schema, example,
+form, mapping, test — 7 tests), following the `model/parts/` administrative
+pattern with the explicit "provisional — no reference XML" caveat below, exactly
+like Part II §B. The single optional field `partVI.signatory.physicalLocationName`
+maps to `cac:Signature/cac:SignatoryParty/cac:PhysicalLocation/cbc:Name` in the
+response. The no-sample caveat (resolve-when conditions below) still stands and is
+recorded in `model/parts/partVI/README.md`. The rest of this entry is retained as
+the original assessment.
 
 Part VI (`I73 info-signature`, `type: INFORMATION` — administrative, so
-`model/parts/` territory, not compiler) is **not modelled**. It was assessed and
-deliberately deferred.
+`model/parts/` territory, not compiler) was assessed and originally deferred.
 
 **What the EA model exposes** is a single optional chain:
 

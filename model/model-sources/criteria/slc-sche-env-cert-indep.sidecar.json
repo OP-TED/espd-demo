@@ -1,0 +1,50 @@
+{
+  "$comment": "C56 slc-sche-env-cert-indep — environmental-management certificates by independent bodies (standards). Part IV §C selection criterion. Both-sides: buyer REQUIREMENT (lots + requirement text) and EO RESPONSE (fulfilled-by-itself -> relied-upon entity; a 'conforms?' indicator with an ONFALSE explanation; the evidence block). Structural clone of slc-abil-qual-inst / slc-sche-qu-cert-indep.",
+  "criterion": {
+    "code": "slc-sche-env-cert-indep",
+    "id": "slc-sche-env-cert-indep",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C56_slc-sche-env-cert-indep/RG1/RQ1": {
+      "id": "slc-sche-env-cert-indep.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/RQ1": {
+      "id": "slc-sche-env-cert-indep.requirement",
+      "instanceBinding": { "side": "requirement", "path": ["requirement"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-sche-env-cert-indep.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-sche-env-cert-indep.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-sche-env-cert-indep.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-sche-env-cert-indep.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-sche-env-cert-indep.conforms",
+      "instanceBinding": { "side": "response", "path": ["conforms"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-sche-env-cert-indep.conforms-explanation",
+      "instanceBinding": { "side": "response", "path": ["conformsExplanation"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-sche-env-cert-indep.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C56_slc-sche-env-cert-indep/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-sche-env-cert-indep.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

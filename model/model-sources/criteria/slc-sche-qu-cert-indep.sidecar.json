@@ -1,0 +1,50 @@
+{
+  "$comment": "C55 slc-sche-qu-cert-indep — quality-assurance certificates by independent bodies (standards). Part IV §C selection criterion. Both-sides: buyer REQUIREMENT (lots + requirement text) and EO RESPONSE (fulfilled-by-itself -> relied-upon entity; a 'conforms?' indicator with an ONFALSE explanation; the evidence block). Structural clone of slc-abil-qual-inst / slc-sche-env-cert-indep.",
+  "criterion": {
+    "code": "slc-sche-qu-cert-indep",
+    "id": "slc-sche-qu-cert-indep",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C55_slc-sche-qu-cert-indep/RG1/RQ1": {
+      "id": "slc-sche-qu-cert-indep.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/RQ1": {
+      "id": "slc-sche-qu-cert-indep.requirement",
+      "instanceBinding": { "side": "requirement", "path": ["requirement"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-sche-qu-cert-indep.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-sche-qu-cert-indep.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-sche-qu-cert-indep.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-sche-qu-cert-indep.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/QSG2/Q1": {
+      "id": "slc-sche-qu-cert-indep.conforms",
+      "instanceBinding": { "side": "response", "path": ["conforms"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-sche-qu-cert-indep.conforms-explanation",
+      "instanceBinding": { "side": "response", "path": ["conformsExplanation"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-sche-qu-cert-indep.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C55_slc-sche-qu-cert-indep/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-sche-qu-cert-indep.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

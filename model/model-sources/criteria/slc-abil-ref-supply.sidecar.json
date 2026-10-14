@@ -1,0 +1,101 @@
+{
+  "$comment": "C38 slc-abil-ref-supply — references for principal deliveries/supplies (Part IV §C, Shape 2 'references list'). Both-sides: buyer REQUIREMENT (lots + minimum number of references [MINIMUM_QUANTITY_INTEGER] + a free-text requirement) and EO RESPONSE (fulfilled-by-itself -> relied-upon entity; a REPEATABLE references[] list with nested REPEATABLE recipients[]; electronic-evidence block). Structural clone of slc-abil-ref-work (C37) / slc-abil-ref-services (C39).",
+
+  "$shape": "Shape 2. QSG2/QSG1 (1..n) = references[]; its nested QSG1 (0..n) = recipients[] (doubly-nested repeatable). References list is response-only; XML mapping of nested repeatable response groups is deferred (7.0c).",
+
+  "criterion": {
+    "code": "slc-abil-ref-supply",
+    "id": "slc-abil-ref-supply",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C38_slc-abil-ref-supply/RG1/RQ1": {
+      "id": "slc-abil-ref-supply.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/RQ1": {
+      "id": "slc-abil-ref-supply.minimum-references",
+      "instanceBinding": { "side": "requirement", "path": ["minimumReferences"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/RQ2": {
+      "id": "slc-abil-ref-supply.requirement",
+      "instanceBinding": { "side": "requirement", "path": ["requirement"] }
+    },
+
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG1/Q1": {
+      "id": "slc-abil-ref-supply.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-ref-supply.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-ref-supply.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-abil-ref-supply.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1": {
+      "id": "slc-abil-ref-supply.references",
+      "instanceBinding": { "side": "response", "path": ["references"], "repeatable": true }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-abil-ref-supply.reference-description",
+      "instanceBinding": { "side": "response", "path": ["references", "description"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/Q2": {
+      "id": "slc-abil-ref-supply.reference-total-amount",
+      "instanceBinding": { "side": "response", "path": ["references", "totalAmount"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/Q3": {
+      "id": "slc-abil-ref-supply.reference-activity",
+      "instanceBinding": { "side": "response", "path": ["references", "activity"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/Q4": {
+      "id": "slc-abil-ref-supply.reference-specific-amount",
+      "instanceBinding": { "side": "response", "path": ["references", "specificAmount"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/Q5": {
+      "id": "slc-abil-ref-supply.reference-period",
+      "instanceBinding": { "side": "response", "path": ["references", "period"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/Q6": {
+      "id": "slc-abil-ref-supply.reference-confidential",
+      "instanceBinding": { "side": "response", "path": ["references", "confidential"] }
+    },
+
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/QSG1": {
+      "id": "slc-abil-ref-supply.reference-recipients",
+      "instanceBinding": { "side": "response", "path": ["references", "recipients"], "repeatable": true }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/QSG1/Q1": {
+      "id": "slc-abil-ref-supply.recipient-name",
+      "instanceBinding": { "side": "response", "path": ["references", "recipients", "name"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/QSG1/Q2": {
+      "id": "slc-abil-ref-supply.recipient-contact-person",
+      "instanceBinding": { "side": "response", "path": ["references", "recipients", "contactPersonName"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/QSG1/Q3": {
+      "id": "slc-abil-ref-supply.recipient-contact-email",
+      "instanceBinding": { "side": "response", "path": ["references", "recipients", "contactEmail"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG2/QSG1/QSG1/Q4": {
+      "id": "slc-abil-ref-supply.recipient-contact-telephone",
+      "instanceBinding": { "side": "response", "path": ["references", "recipients", "contactTelephone"] }
+    },
+
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG3/Q1": {
+      "id": "slc-abil-ref-supply.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C38_slc-abil-ref-supply/RG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-abil-ref-supply.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

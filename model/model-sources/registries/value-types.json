@@ -42,6 +42,12 @@
       "instanceShape": { "type": "integer" },
       "requestXml": { "kind": "scalar", "element": "cbc:ExpectedValueNumeric" }
     },
+    "MINIMUM_QUANTITY_INTEGER": {
+      "$note": "Buyer-only REQUIREMENT (minimum number of references; Part IV §C Shape 2 — C37/C38/C39). Integer-valued sibling of MINIMUM_QUANTITY_YEAR: cbc:ExpectedValueNumeric per the BASE request document (no dedicated Expected* element exists for the MINIMUM_QUANTITY_* family).",
+      "sourceDescription": "Minimum number of references",
+      "instanceShape": { "type": "integer" },
+      "requestXml": { "kind": "scalar", "element": "cbc:ExpectedValueNumeric" }
+    },
     "CODE_BOOLEAN": {
       "$note": "Buyer REQUIREMENT selecting a GUI control type (CHECK_BOX_TRUE, RADIO_BUTTON_TRUE, ...). Request-only; carries the boolean-gui-control-type codelist attributes. `codeListFile` opts this shape into enum derivation: the generator inlines the .gc's codes as a JSON Schema enum (6 codes, shipped). A test keeps the inlined enum in sync with the .gc.",
       "sourceDescription": "Code identifying a type of GUI control element.",

@@ -9,6 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadEdm, loadSidecar, compile, emitAll, generatedRoot } from './compile.mjs';
+import { buildCodelistServiceData } from '../codelists/build-codelist-service-data.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
@@ -42,4 +43,11 @@ for (const code of codes) {
 
 process.stderr.write(`\nGenerated ${totalFiles} files for ${ok}/${codes.length} criteria` +
   (failed ? `; ${failed} failed` : '') + ` under ${path.relative(process.cwd(), generatedRoot)}.\n`);
+
+// UI codelist service data (UX1): per-codelist pick lists with multilingual
+// labels, derived from the same shipped .gc files as the inlined enums.
+const { index } = buildCodelistServiceData({ write: true });
+const codelistCodeCount = index.codelists.reduce((n, c) => n + c.count, 0);
+process.stderr.write(`Generated ${index.codelists.length} UI codelists (${codelistCodeCount} codes) under model/generated/codelists.\n`);
+
 if (failed) process.exit(1);

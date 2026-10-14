@@ -68,6 +68,53 @@ export function codesForCodelist(name) {
 }
 
 /**
+ * Extract code + multilingual labels from a Genericode .gc file, for building
+ * the UI codelist service data (UX1). Handles the two shapes shipped in
+ * ESPD-EDM/codelists:
+ *   - EU authority lists (Country, Currency, EoRoleType, …): a `Name` column
+ *     plus one `<lang>_label` column per language (ISO 639-3, e.g. `eng_label`,
+ *     `fra_label`). Currency also has `<lang>_currency.subunit` columns, which
+ *     are NOT labels and are ignored.
+ *   - ESPD-internal lists (FinancialRatioType, EOIDType, DocrefcontentType, …):
+ *     a `Name` column and an English-only `name-eng` column, no per-language set.
+ *
+ * Returns, per row: { code, labels: { <lang3>: <text> } } with `labels` keyed by
+ * ISO 639-3 language code. English always resolves (from `eng_label`, else
+ * `name-eng`, else `Name`); other languages are included when present.
+ * @param {string} gcPath absolute or relative path to the .gc file
+ * @returns {{code:string, labels:Record<string,string>}[]} in document order
+ */
+export function readCodelistEntries(gcPath) {
+  const xml = fs.readFileSync(gcPath, 'utf8');
+  const entries = [];
+  const rows = xml.split(/<Row>/);
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i].split('</Row>')[0];
+    const cells = new Map();
+    for (const m of row.matchAll(
+      /<Value\s+ColumnRef\s*=\s*"([^"]+)"[^>]*>\s*<SimpleValue>([\s\S]*?)<\/SimpleValue>/g
+    )) {
+      cells.set(m[1], m[2].trim());
+    }
+    const code = cells.get('code');
+    if (code === undefined) continue;
+
+    const labels = {};
+    for (const [col, text] of cells) {
+      const m = /^([a-z]{3})_label$/.exec(col); // ISO 639-3 language label column
+      if (m && text) labels[m[1]] = text;
+    }
+    // English-only fallback for the ESPD-internal shape (no per-language columns).
+    if (labels.eng === undefined) {
+      const eng = cells.get('name-eng') ?? cells.get('Name');
+      if (eng) labels.eng = eng;
+    }
+    entries.push({ code, labels });
+  }
+  return entries;
+}
+
+/**
  * Extract all code values from a Genericode .gc file.
  * Parses the XML just enough to pull <SimpleValue> from the `code` ColumnRef
  * in each Row — no XML library dependency.

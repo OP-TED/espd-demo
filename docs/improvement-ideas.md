@@ -823,9 +823,11 @@ not a gap: they are shipped-but-not-validated suggestion lists (see the governan
 page and the superseded CVA1). A sync test keeps each inlined enum aligned with
 its `.gc`.
 
-**Remaining candidate:** `eo-role-type` — used by the Part V `OT` criterion (not
-yet modelled); small, validated, so it would be a validated+inlined list like
-`eoid-type` (marker false). Pick it up when Part V is done.
+**RESOLVED — no remaining enum-derivation work.** The former remaining
+candidate, `eo-role-type`, is now in the governance registry (shipped, validated,
+inlined — marker false) and used by OT59 (`ot-group-participation`) and OT63;
+`economic-operator-size` likewise. Every code-valued field that needs a derived
+enum has one, and the sync tests keep each inlined enum aligned with its `.gc`.
 
 ---
 
@@ -858,7 +860,35 @@ Response BASE sample ends up with a `dummy-value` role code — see X2. That is 
 real gap for an *authoritative* list (`eo-role-type` is Schematron-validated
 elsewhere), unlike the two suggestion lists here.
 
-### UX1. Codelist presentation in the UI — pickers from a codelist service
+### UX1. PARTLY RESOLVED — codelist service DATA is built; the UI control is still a front-end task
+
+**Update (data layer done).** The codelist **service data** is now generated:
+`model/codelists/build-codelist-service-data.mjs` reads every governance list
+with `shipped && useForUI` and emits `model/generated/codelists/<name>.json`
+(`{ codelist, listId, source, count, languages, codes:[{code, labels}] }`) plus
+an `index.json`, derived from the same shipped `.gc` files as the inlined enums
+(so they cannot drift). 11 lists, 12,941 codes. EU authority lists carry the full
+24-language label set (`labels.{eng,fra,bul,…}`); ESPD-internal lists
+(`financial-ratio-type`, `eoid-type`, `boolean-gui-control-type`) fall back to
+English-only. Wired into `model:compile`; 9 tests in
+`build-codelist-service-data.test.mjs`.
+
+**Still open (front-end):** actually *rendering* the pickers — matching the
+control to list size (radio / select / typeahead / search-as-you-type), showing
+locale labels while storing the bare code, and the ESCO hierarchy browse for
+`occupation`. That is UI/service work in the app layer; this item provided the
+data it consumes.
+
+**Data-quality note surfaced while building:** the `language` list is 8187 codes
+of which ~7054 have NO label in the source `.gc` (neither `eng_label` nor
+`Name`). It is `useForUI: true` in governance only as a speculative "REVIEW"
+default and no modelled field uses it. Before any UI consumes `language`, revisit
+whether it should be `useForUI` at all, or filtered to the labelled subset. The
+build emits it faithfully (codes are valid even when unlabelled); the tests
+assert full English labelling only on the small curated lists and >95% on
+country/currency, not on `language`.
+
+**Original design (for the front-end work that remains):**
 
 How should the UI give users good values to pick from — especially for the large
 lists (`occupation` 4046, `country` 341, `currency` 290) that we deliberately do

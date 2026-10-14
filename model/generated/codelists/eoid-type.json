@@ -1,0 +1,42 @@
+{
+  "$comment": "GENERATED from ESPD-EDM/codelists/EOIDType.gc. UI pick list for 'eoid-type'. Do not hand-edit; regenerate from the .gc.",
+  "codelist": "eoid-type",
+  "listId": "eoid-type",
+  "source": "EOIDType.gc",
+  "count": 5,
+  "languages": [
+    "eng"
+  ],
+  "codes": [
+    {
+      "code": "NATIONAL",
+      "labels": {
+        "eng": "National Identifier"
+      }
+    },
+    {
+      "code": "LEI",
+      "labels": {
+        "eng": "Legal Entity Identifier"
+      }
+    },
+    {
+      "code": "BRIS",
+      "labels": {
+        "eng": "Business Registry European Unique Identifier"
+      }
+    },
+    {
+      "code": "DUNS",
+      "labels": {
+        "eng": "Duns &amp; Bradstreet number"
+      }
+    },
+    {
+      "code": "VAT",
+      "labels": {
+        "eng": "VAT number"
+      }
+    }
+  ]
+}

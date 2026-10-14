@@ -93,6 +93,37 @@ names), but they are worth fixing upstream so the export is clean.
 regardless of the export's typo, since the mapping is hand-authored against UBL,
 not generated from these element names. Recorded here purely as upstream feedback.
 
+### M3. `C40 slc-abil-staff-tech-ctrl` additional-evidence slot typed `INDICATOR` (should be `EVIDENCE_IDENTIFIER`)
+
+**What it is.** In C40 (technicians/technical bodies for quality control), the
+top-level additional-evidence leaf `RG1/RSG1/RSG1/QSG4/QSG1/Q1` ("Evidence
+Supplied") is typed `INDICATOR` with cardinality `1..n`. Every other
+"Evidence Supplied" leaf in the model — including the directly analogous leaf in
+its sibling **C41 `slc-abil-staff-tech-work`** (`QSG4/QSG1/Q1`, "Supplied
+Evidence") — is typed `EVIDENCE_IDENTIFIER`.
+
+**The concern.** A `1..n` `INDICATOR` is self-contradictory: `INDICATOR` is a
+single boolean, so "repeat it 1..n times" has no meaning, and it certainly cannot
+*point at* a piece of evidence the way `EVIDENCE_IDENTIFIER` does. Reading the two
+sibling criteria side by side, C40 is near-certainly a copy-paste/type-pick error
+and should be `EVIDENCE_IDENTIFIER` like C41.
+
+**What we do today.** We model it faithfully: C40's leaf binds to
+`response.electronicEvidence.supplied` as a boolean (what `INDICATOR` says). Our
+instance-schema generator derives if/then array bounds (`minItems`/`maxItems`)
+from the `1..n` cardinality; on a boolean these are inert JSON-Schema no-ops, so
+the schema still validates and round-trips — but the pairing of a scalar type
+with array-cardinality bounds is a visible symptom of the upstream nit. C41's
+equivalent leaf correctly renders as an `evidence[]` array of
+`EVIDENCE_IDENTIFIER` objects.
+
+**Suggestion for the EDM team.** Change C40 `QSG4/QSG1/Q1`'s
+`ValueDataTypeCode` from `INDICATOR` to `EVIDENCE_IDENTIFIER` to match C41 and
+every other evidence slot. Once fixed, our sidecar binding needs no change — the
+leaf would simply start rendering as the standard evidence array.
+
+*Not blocking:* we interoperate with it as-is.
+
 ---
 
 ## Part I Section A — publication reference

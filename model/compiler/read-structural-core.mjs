@@ -35,6 +35,17 @@ function kindOfType(type) {
 }
 
 /**
+ * A component can be typed REQUIREMENT/QUESTION yet be a CAPTION — a label with
+ * no response expected (cbc:TypeCode CAPTION, ValueDataTypeCode NONE). It carries
+ * no value, so it is classified as 'structural' (no binding) like a type:CAPTION
+ * node, rather than as a value leaf the overlay would demand be bound. The sole
+ * occurrence in the model is C40 slc-abil-staff-tech-ctrl /RG1/RSG1/RSG1/QSG3/Q1.
+ */
+function isCaption(component) {
+  return component.code === 'CAPTION' || component.propertydatatype === 'NONE';
+}
+
+/**
  * Map the raw EA group `code` (ON-star / ONTRUE / ONFALSE) to the structural
  * condition marker. The reader exposes the marker, not the encoded code.
  */
@@ -51,7 +62,7 @@ function conditionOfCode(code) {
 
 /** Recursively read the minimal core for a component subtree. */
 function readNode(component) {
-  const kind = kindOfType(component.type);
+  const kind = isCaption(component) ? 'structural' : kindOfType(component.type);
   const children = (component.components ?? []).map(readNode);
 
   if (kind === 'requirement' || kind === 'question') {

@@ -1,0 +1,109 @@
+{
+  "$comment": "C41 slc-abil-staff-tech-work — technicians or technical bodies to carry out the work, for works contracts (Part IV §C). Both-sides: buyer REQUIREMENT (lots + requirement text) and EO RESPONSE (fulfilled-by-itself -> relied-upon entity; a REPEATABLE technicians[] list and a REPEATABLE bodies[] list, each row carrying its own electronic-evidence sub-block; plus a top-level additional-evidence block). Sibling of slc-abil-staff-tech-ctrl (C40); C41 has no QSG3/Q1 NONE caption and its QSG4/QSG1/Q1 additional-evidence leaf is a proper EVIDENCE_IDENTIFIER (vs C40's INDICATOR nit).",
+
+  "$shape": "QSG2/QSG1 (0..n) = technicians[]; QSG3/QSG1 (0..n) = bodies[]. Each list row has a nested electronicEvidence object (QSG*/QSG1/QSG1, not itself repeatable) whose evidence leaf is EVIDENCE_IDENTIFIER. QSG4 is the top-level additional-evidence block (evidence is EVIDENCE_IDENTIFIER here). Nested repeatable response groups defer XML mapping (7.0c).",
+
+  "criterion": {
+    "code": "slc-abil-staff-tech-work",
+    "id": "slc-abil-staff-tech-work",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C41_slc-abil-staff-tech-work/RG1/RQ1": {
+      "id": "slc-abil-staff-tech-work.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/RQ1": {
+      "id": "slc-abil-staff-tech-work.requirement",
+      "instanceBinding": { "side": "requirement", "path": ["requirement"] }
+    },
+
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-abil-staff-tech-work.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1": {
+      "id": "slc-abil-staff-tech-work.technicians",
+      "instanceBinding": { "side": "response", "path": ["technicians"], "repeatable": true }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.technician-first-name",
+      "instanceBinding": { "side": "response", "path": ["technicians", "firstName"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q2": {
+      "id": "slc-abil-staff-tech-work.technician-last-name",
+      "instanceBinding": { "side": "response", "path": ["technicians", "lastName"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q3": {
+      "id": "slc-abil-staff-tech-work.technician-profession",
+      "instanceBinding": { "side": "response", "path": ["technicians", "profession"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q4": {
+      "id": "slc-abil-staff-tech-work.technician-experience",
+      "instanceBinding": { "side": "response", "path": ["technicians", "experience"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q5": {
+      "id": "slc-abil-staff-tech-work.technician-other-information",
+      "instanceBinding": { "side": "response", "path": ["technicians", "otherInformation"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q6": {
+      "id": "slc-abil-staff-tech-work.technician-years-with-eo",
+      "instanceBinding": { "side": "response", "path": ["technicians", "yearsWithEo"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.technician-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["technicians", "electronicEvidence", "availableElectronically"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.technician-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["technicians", "electronicEvidence", "evidence"] }
+    },
+
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1": {
+      "id": "slc-abil-staff-tech-work.bodies",
+      "instanceBinding": { "side": "response", "path": ["bodies"], "repeatable": true }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.body-name",
+      "instanceBinding": { "side": "response", "path": ["bodies", "name"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q2": {
+      "id": "slc-abil-staff-tech-work.body-experience-area",
+      "instanceBinding": { "side": "response", "path": ["bodies", "experienceArea"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q3": {
+      "id": "slc-abil-staff-tech-work.body-other-information",
+      "instanceBinding": { "side": "response", "path": ["bodies", "otherInformation"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.body-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["bodies", "electronicEvidence", "availableElectronically"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.body-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["bodies", "electronicEvidence", "evidence"] }
+    },
+
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG4/Q1": {
+      "id": "slc-abil-staff-tech-work.additional-evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG4/QSG1/Q1": {
+      "id": "slc-abil-staff-tech-work.additional-evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

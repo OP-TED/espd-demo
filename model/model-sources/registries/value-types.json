@@ -184,6 +184,12 @@
       "instanceShape": { "type": "string" },
       "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:ResponseID" }
     },
+    "QUAL_IDENTIFIER": {
+      "$note": "A qualification identifier answer (C47 slc-abil-staff-qual 'Qualification number'). Response-only; a scalar identifier string, same UBL binding as ECONOMIC_OPERATOR_IDENTIFIER (cac:ResponseValue/cbc:ResponseID).",
+      "sourceDescription": "Code identifying an educational or professional qualifications held by the service provider or contractor",
+      "instanceShape": { "type": "string" },
+      "responseXml": { "kind": "scalar", "element": "cac:ResponseValue/cbc:ResponseID" }
+    },
     "EVIDENCE_IDENTIFIER": {
       "sourceDescription": "Points at the instance of an evidence",
       "instanceShape": {

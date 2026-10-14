@@ -1,0 +1,88 @@
+{
+  "$comment": "C47 slc-abil-staff-qual — relevant educational and professional qualifications (Part IV §C). Both-sides: buyer REQUIREMENT (lots + requirement text) and EO RESPONSE (fulfilled-by-itself -> relied-upon entity; a REPEATABLE staff[] list, one row per qualified person with name/ESCO/qualification fields; the evidence block).",
+
+  "$shape": "QSG2/QSG1 (cardinality 0..n) is the repeatable 'staff' array. Each row: firstName, lastName, educationalProfessionalQualification, escoIdentifier [URL], escoQualificationDescription, qualificationName, qualificationNumber [QUAL_IDENTIFIER], qualificationIssuingDate [DATE], qualificationIssuingBody. The QSG2 CA1 caption (TypeCode CAPTION / NONE) carries no value and is read as structural. Response-only repeatable group — same mechanism as C01 convictions[].",
+
+  "criterion": {
+    "code": "slc-abil-staff-qual",
+    "id": "slc-abil-staff-qual",
+    "instanceModel": { "containerPath": ["partIV", "selectionCriteria"], "key": { "source": "code" } }
+  },
+  "components": {
+    "C47_slc-abil-staff-qual/RG1/RQ1": {
+      "id": "slc-abil-staff-qual.lot-identifiers",
+      "instanceBinding": { "side": "requirement", "path": ["lotIdentifiers"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/RQ1": {
+      "id": "slc-abil-staff-qual.requirement",
+      "instanceBinding": { "side": "requirement", "path": ["requirement"] }
+    },
+
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-qual.fulfilled-by-itself",
+      "instanceBinding": { "side": "response", "path": ["fulfilledByItself"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-qual.relied-upon",
+      "instanceBinding": { "side": "response", "path": ["reliedUpon"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1": {
+      "id": "slc-abil-staff-qual.relied-upon-entity-name",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "name"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2": {
+      "id": "slc-abil-staff-qual.relied-upon-entity-id",
+      "instanceBinding": { "side": "response", "path": ["reliedUponEntity", "id"] }
+    },
+
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1": {
+      "id": "slc-abil-staff-qual.staff",
+      "instanceBinding": { "side": "response", "path": ["staff"], "repeatable": true }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q1": {
+      "id": "slc-abil-staff-qual.staff-first-name",
+      "instanceBinding": { "side": "response", "path": ["staff", "firstName"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q2": {
+      "id": "slc-abil-staff-qual.staff-last-name",
+      "instanceBinding": { "side": "response", "path": ["staff", "lastName"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q3": {
+      "id": "slc-abil-staff-qual.staff-qualification-description",
+      "instanceBinding": { "side": "response", "path": ["staff", "educationalProfessionalQualification"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q4": {
+      "id": "slc-abil-staff-qual.staff-esco-identifier",
+      "instanceBinding": { "side": "response", "path": ["staff", "escoIdentifier"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q5": {
+      "id": "slc-abil-staff-qual.staff-esco-qualification-description",
+      "instanceBinding": { "side": "response", "path": ["staff", "escoQualificationDescription"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q6": {
+      "id": "slc-abil-staff-qual.staff-qualification-name",
+      "instanceBinding": { "side": "response", "path": ["staff", "qualificationName"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q7": {
+      "id": "slc-abil-staff-qual.staff-qualification-number",
+      "instanceBinding": { "side": "response", "path": ["staff", "qualificationNumber"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q8": {
+      "id": "slc-abil-staff-qual.staff-qualification-issuing-date",
+      "instanceBinding": { "side": "response", "path": ["staff", "qualificationIssuingDate"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q9": {
+      "id": "slc-abil-staff-qual.staff-qualification-issuing-body",
+      "instanceBinding": { "side": "response", "path": ["staff", "qualificationIssuingBody"] }
+    },
+
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG3/Q1": {
+      "id": "slc-abil-staff-qual.evidence-available-electronically",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "availableElectronically"] }
+    },
+    "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG3/QSG1/Q1": {
+      "id": "slc-abil-staff-qual.evidence-id",
+      "instanceBinding": { "side": "response", "path": ["electronicEvidence", "evidence"] }
+    }
+  }
+}

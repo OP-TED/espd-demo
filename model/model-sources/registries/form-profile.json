@@ -36,6 +36,7 @@
       "URL": "url",
       "IDENTIFIER": "text",
       "ECONOMIC_OPERATOR_IDENTIFIER": "text",
+      "QUAL_IDENTIFIER": "text",
       "CODE": "code",
       "CODE_COUNTRY": "code",
       "CODE_BOOLEAN": "code",

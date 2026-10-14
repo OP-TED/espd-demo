@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { loadEdm, loadSidecar, compile, emitAll, generatedRoot } from './compile.mjs';
 import { buildCodelistServiceData } from '../codelists/build-codelist-service-data.mjs';
 import { buildCoverageReport, reportPath } from './build-coverage-report.mjs';
+import { buildCompiledModel, envelopePath } from './build-compiled-model.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
@@ -54,5 +55,10 @@ process.stderr.write(`Generated ${index.codelists.length} UI codelists (${codeli
 // "State of the model" coverage report (generated from the sources above).
 buildCoverageReport({ write: true });
 process.stderr.write(`Wrote ${path.relative(process.cwd(), reportPath)}\n`);
+
+// Compiled-model envelope (machine-readable manifest: version + provenance +
+// value types + criterion inventory + codelist digest).
+buildCompiledModel({ write: true });
+process.stderr.write(`Wrote ${path.relative(process.cwd(), envelopePath)}\n`);
 
 if (failed) process.exit(1);

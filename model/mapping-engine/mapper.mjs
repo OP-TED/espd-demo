@@ -444,6 +444,18 @@ function buildRecords(root, rule, data) {
     if (!Array.isArray(items)) return;
     for (const item of items) {
       for (const entry of rule.entries) emitEntryRecord(root, rule, entry, item, data);
+      // Nested repeatable group(s) inside this item (task 7.0c, e.g. C37
+      // references[].recipients[]). Each child rule's `forEach` is item-relative;
+      // its records are emitted as flat siblings INTERLEAVED after this item's
+      // own records, which is how the authoritative response XML orders repeated
+      // groups (verified against ESPD-Response-YearlyTurnoverMultyPeriod.xml).
+      for (const child of rule.childRecords || []) {
+        const childItems = resolve(item, child.forEach);
+        if (!Array.isArray(childItems)) continue;
+        for (const childItem of childItems) {
+          for (const entry of child.entries) emitEntryRecord(root, child, entry, childItem, data);
+        }
+      }
     }
     return;
   }
@@ -578,21 +590,65 @@ function unmapRecords(root, rule, data) {
     // Per-item entries form: records share key ids across occurrences, so split
     // by DOCUMENT ORDER — a new array item begins whenever a key already filled
     // in the current item reappears.
+    //
+    // Nested repeatable groups (task 7.0c, e.g. C37 references[].recipients[]):
+    // the parent rule and its `childRecords` all emit flat `cac:…Response`
+    // siblings with DISJOINT key sets. We classify each node in document order by
+    // which rule's key set it belongs to; parent-key nodes advance the parent
+    // item, child-key nodes attach to the CURRENT parent item (split into their
+    // own sub-array by the same key-reappearance rule).
+    const children = rule.childRecords || [];
     const keyToEntry = new Map(rule.entries.map(e => [e.key, e]));
+    const childByKey = new Map(); // key -> { child, entry }
+    for (const child of children) {
+      for (const e of child.entries) childByKey.set(e.key, { child, entry: e });
+    }
+
     const items = [];
     let current = null;
-    const filled = new Set();
+    let filled = new Set();
+    // Per active parent item, per child rule: the in-progress sub-array state.
+    let childState = null; // Map<child, { arr, filled:Set }>
+
+    const startChildState = () => {
+      childState = new Map();
+      for (const child of children) childState.set(child, { arr: [], filled: new Set() });
+    };
+    const flushChildren = () => {
+      if (!current || !childState) return;
+      for (const child of children) {
+        const st = childState.get(child);
+        if (st.arr.length) setPath(current, child.forEach, st.arr);
+      }
+    };
+
     for (const node of nodes) {
       const keyText = recordKeyText(node, rule);
-      const entry = keyToEntry.get(keyText);
-      if (!entry) continue;
-      if (current === null || filled.has(keyText)) {
-        current = {};
-        items.push(current);
-        filled.clear();
+      const parentEntry = keyToEntry.get(keyText);
+      if (parentEntry) {
+        if (current === null || filled.has(keyText)) {
+          flushChildren();
+          current = {};
+          items.push(current);
+          filled = new Set();
+          startChildState();
+        }
+        if (readEntryBody(node, parentEntry, current, root)) filled.add(keyText);
+        continue;
       }
-      if (readEntryBody(node, entry, current, root)) filled.add(keyText);
+      const childHit = childByKey.get(keyText);
+      if (childHit && current) {
+        const st = childState.get(childHit.child);
+        let row = st.arr[st.arr.length - 1];
+        if (row === undefined || st.filled.has(keyText)) {
+          row = {};
+          st.arr.push(row);
+          st.filled = new Set();
+        }
+        if (readEntryBody(node, childHit.entry, row, root)) st.filled.add(keyText);
+      }
     }
+    flushChildren();
     if (items.length > 0) setPath(data, rule.forEach, items);
     return;
   }

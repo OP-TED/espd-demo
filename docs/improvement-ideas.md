@@ -423,6 +423,52 @@ and VI (signature) are modelled; the only remaining caveats are the "no
 reference XML" provisional note on Part II §B and Part VI, and the mapping-engine
 gap in E1 below.
 
+### P6-2. Explore modelling the signature more fully (XML + UI)
+
+**What it is.** The modelled Part VI (P6-1) carries only what the EA export
+exposes: one optional field, the signatory party's physical-location name
+(`cac:Signature/cac:SignatoryParty/cac:PhysicalLocation/cbc:Name`). The real UBL
+`cac:Signature` (and the broader signing story) is much richer, and the ESPD is a
+*declaration* whose whole point is to be signed — so the signature is worth a
+deeper look than the EA model's single field suggests.
+
+**Two distinct layers to explore, kept separate:**
+
+1. **Fuller UBL `cac:Signature` data (XML).** UBL `SignatureType` carries more
+   than a place name — e.g. `cbc:ID`, `cbc:Note`, `cbc:ValidationDate` /
+   `cbc:ValidationTime`, `cbc:CanonicalizationMethod`, `cbc:SignatureMethod`, the
+   `SignatoryParty` (a full `cac:Party`: name, identifier, postal address,
+   contact), and `cac:DigitalSignatureAttachment` (an `ExternalReference` to the
+   detached signature document). Worth checking: which of these the ESPD actually
+   intends to use, whether the authoritative `ESPD-Response-BASE.xml` (or any real
+   service output) populates a `cac:Signature`, and whether the EA model *should*
+   expose more than the place-name leaf (likely an upstream EA gap — the envelope
+   is hand-maintained outside the EA model, same root cause as X1).
+
+2. **Cryptographic signing + signature UI (beyond the data model).** The actual
+   act of signing an ESPD (XML-DSig / XAdES over the document, or an eIDAS
+   e-signature / e-seal) is a transport/packaging concern that the current model
+   deliberately does not touch. A production ESPD service needs a *signature UI*:
+   who is signing, in what capacity, with which certificate; invoking a signing
+   service; displaying/validating an existing signature on an imported ESPD. This
+   is UI/service work, not instance-data modelling, but it is the part end users
+   actually experience.
+
+**Why explore.** The gap between "one place-name string" and "a signed legal
+declaration" is large. Before investing, it is worth establishing: (a) what the
+Regulation and the ESPD service guidance actually require at signing time;
+(b) what real ESPD instances carry in `cac:Signature`; (c) where the boundary
+should sit between ESPD-EDM *data* and the signing/packaging layer. The outcome
+may be "the EA model's single field is genuinely all the *data* needs, and
+everything else is the document layer" — but that should be a verified
+conclusion, not an assumption inherited from a thin EA export.
+
+**Where it lands.** (1) extends `model/parts/partVI/` (schema/mapping/form) and
+may feed an upstream EA-model request; (2) is a UI/service concern alongside the
+form lens, like the TED-lookup (A1) and register-lookup (B1) ideas. Both depend
+on getting a real signed ESPD instance to work from (ties into the Part II §B /
+Part VI "no reference XML" caveat).
+
 ---
 
 ## Cross-cutting — codelist infrastructure
@@ -849,7 +895,22 @@ they cannot drift from each other.
 
 ## Mapping engine
 
-### E1. XML mapping of a repeatable group nested directly inside another repeatable group
+### E1. RESOLVED — XML mapping of a repeatable group nested directly inside another repeatable group
+
+**Update (resolved).** The one remaining case below is now implemented and
+tested. `generate-response-mapping.mjs` nests containers: an inner repeatable
+group whose instance path extends a parent container's path (same side) becomes
+a `childRecords` entry on the parent's `forEach` records rule, with an
+item-relative `forEach` (e.g. `recipients`) — rather than the former broken
+top-level sibling rule. `mapper.mjs` emits each item's `childRecords` as flat
+`cac:TenderingCriterionResponse` siblings interleaved after that item's own
+records (matching the authoritative `ESPD-Response-YearlyTurnoverMultyPeriod.xml`
+ordering), and on import runs a two-level document-order state machine — parent
+and child key sets are disjoint, so each child record attaches to the current
+parent item and splits into its own sub-array by key reappearance. C37/C38/C39
+`references[].recipients[]` now round-trip exactly (deep-equal, including a
+reference that has no recipients staying recipient-less); 3 tests added in
+`probe-nested-arrays.test.mjs`. The original assessment is retained below.
 
 **What works today.** The mapping engine round-trips, on both request and
 response sides:

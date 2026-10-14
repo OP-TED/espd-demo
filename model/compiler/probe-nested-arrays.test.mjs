@@ -9,12 +9,13 @@
 //     C36 amountRequirements[].evidence
 //
 // Supported with data only (sidecar + registry entries): instance-data schema +
-// validating example, and form lens, for arbitrarily nested arrays; and the XML
-// REQUEST mapping for a single-level repeatable requirement group (C36).
+// validating example, and form lens, for arbitrarily nested arrays.
 //
-// Deferred, failing fast with precise messages (tasks 7.0c): nested repeatable
-// REQUIREMENT groups in request mapping (C34), and EVIDENCE inside a repeatable
-// group in response mapping (C34 + C36).
+// XML mapping (task 7.0c) now covers: nested repeatable REQUIREMENT groups in
+// the request mapping (C34 periods[].ratios[]); EVIDENCE inside a repeatable
+// group in the response mapping (C34 + C36); and a nested repeatable RESPONSE
+// group in the response mapping (C37/C38/C39 references[].recipients[], emitted
+// as item-relative `childRecords` and split back by document order on import).
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -239,4 +240,56 @@ test('7.0c — C36 nested-evidence response runs through the ESPD Schematron', a
 
   const { errors, warnings, findings } = validateXml(expanded, 'response');
   console.log(`    C36 nested-evidence response (fragment): ${findings.length} findings (${errors.length} fatal, ${warnings.length} warn)`);
+});
+
+// --- C37: nested repeatable RESPONSE group references[].recipients[] (7.0c) ---
+
+test('C37 response mapping nests recipients[] under references[] via childRecords', () => {
+  const { compiled, registry } = compileC('slc-abil-ref-work');
+  const { response } = generateMappings(compiled, registry);
+  const refRule = response.rules.find(r =>
+    r.forEach && r.forEach.endsWith('.response.references'));
+  assert.ok(refRule, 'a forEach records rule for references[] exists');
+  assert.ok(Array.isArray(refRule.childRecords), 'references rule carries childRecords');
+  const recRule = refRule.childRecords.find(c => c.forEach === 'recipients');
+  assert.ok(recRule, 'recipients child rule has an item-relative forEach');
+  // The recipients child must NOT also appear as a top-level sibling rule.
+  const topRecipients = response.rules.find(r => r.forEach && r.forEach.endsWith('.response.references.recipients'));
+  assert.equal(topRecipients, undefined, 'recipients is not emitted as a top-level rule');
+});
+
+test('C37 references[].recipients[] round-trips through map/unmap', () => {
+  const { compiled, registry } = compileC('slc-abil-ref-work');
+  const { response } = generateMappings(compiled, registry);
+  const data = { partIV: { selectionCriteria: { 'slc-abil-ref-work': { response: {
+    fulfilledByItself: true,
+    references: [
+      { description: 'Ref A', activity: 'Build', recipients: [{ name: 'R1', contactEmail: 'r1@x' }, { name: 'R2' }] },
+      { description: 'Ref B', recipients: [{ name: 'R3' }] },
+      { description: 'Ref C' },
+    ],
+  } } } } };
+  const back = unmap(response, map(response, data));
+  const r = back.partIV.selectionCriteria['slc-abil-ref-work'].response.references;
+  assert.equal(r.length, 3);
+  assert.deepEqual(r[0].recipients, [{ name: 'R1', contactEmail: 'r1@x' }, { name: 'R2' }]);
+  assert.deepEqual(r[1].recipients, [{ name: 'R3' }]);
+  assert.equal(r[2].recipients, undefined, 'a reference with no recipients stays recipient-less');
+  assert.deepEqual(back, data, 'full nested round-trip');
+});
+
+test('C38 and C39 (same shape) also round-trip references[].recipients[]', () => {
+  for (const code of ['slc-abil-ref-supply', 'slc-abil-ref-services']) {
+    const { compiled, registry } = compileC(code);
+    const { response } = generateMappings(compiled, registry);
+    const data = { partIV: { selectionCriteria: { [code]: { response: {
+      fulfilledByItself: false,
+      references: [
+        { description: 'D1', recipients: [{ name: 'A' }, { name: 'B' }] },
+        { description: 'D2', recipients: [{ name: 'C' }] },
+      ],
+    } } } } };
+    const back = unmap(response, map(response, data));
+    assert.deepEqual(back, data, `${code} nested round-trip`);
+  }
 });

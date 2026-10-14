@@ -159,7 +159,7 @@ export function generateResponseMapping(criterion, registry) {
   };
 
   const flatEntries = [];
-  const byContainer = new Map(); // key -> { container, entries }
+  const byContainer = new Map(); // key -> { side, path:[], forEach(abs), entries }
   const evidenceRules = [];
 
   for (const leaf of questionLeaves) {
@@ -182,18 +182,50 @@ export function generateResponseMapping(criterion, registry) {
     if (!entry) continue;
     if (!byContainer.has(ckey)) {
       const [side, dotted] = ckey.split('|');
-      const containerPath = [...criterion.instanceModel.containerPath, criterion[criterion.instanceModel.key.source], side, ...dotted.split('.')].join('.');
-      byContainer.set(ckey, { forEach: containerPath, entries: [] });
+      const path = dotted.split('.');
+      const absForEach = [...criterion.instanceModel.containerPath, criterion[criterion.instanceModel.key.source], side, ...path].join('.');
+      byContainer.set(ckey, { side, path, forEach: absForEach, entries: [] });
     }
     byContainer.get(ckey).entries.push(entry);
   }
 
-  const repeatableRecordRules = [...byContainer.values()].map(({ forEach, entries }) => ({
-    records: 'cac:TenderingCriterionResponse',
-    key: { to: 'cac:ValidatedCriterionPropertyID/cbc:ID', attributes: { schemeID: 'criterion' } },
-    forEach,
-    entries,
-  }));
+  // Nest containers: a container whose instance path extends another container's
+  // path (same side) is a repeatable group INSIDE a repeatable group (7.0c, e.g.
+  // C37 references[].recipients[]). Its records must be emitted once per PARENT
+  // item, so it becomes a nested `records` rule on the parent rule with an
+  // item-relative `forEach` (the path segments after the parent container).
+  // Shallower containers are processed first so parents exist before children.
+  const containerList = [...byContainer.values()].sort((a, b) => a.path.length - b.path.length);
+  const ruleByKey = new Map(); // container key (side|path) -> its records rule
+  const topRules = [];
+  for (const c of containerList) {
+    const rule = {
+      records: 'cac:TenderingCriterionResponse',
+      key: { to: 'cac:ValidatedCriterionPropertyID/cbc:ID', attributes: { schemeID: 'criterion' } },
+      forEach: c.forEach,
+      entries: c.entries,
+    };
+    // Find the nearest ancestor container (longest proper prefix, same side).
+    let parent = null;
+    for (const other of containerList) {
+      if (other === c || other.side !== c.side) continue;
+      if (other.path.length < c.path.length && other.path.every((s, i) => s === c.path[i])) {
+        if (!parent || other.path.length > parent.path.length) parent = other;
+      }
+    }
+    if (parent) {
+      // Item-relative forEach under the parent item; nest the rule on the parent
+      // via `childRecords` (a rule's `records` field is the wrapper element name,
+      // a string, so the nested-rule list needs its own field).
+      rule.forEach = c.path.slice(parent.path.length).join('.');
+      const parentRule = ruleByKey.get(parent.side + '|' + parent.path.join('.'));
+      (parentRule.childRecords ??= []).push(rule);
+    } else {
+      topRules.push(rule);
+    }
+    ruleByKey.set(c.side + '|' + c.path.join('.'), rule);
+  }
+  const repeatableRecordRules = topRules;
 
   const rules = [
     { to: 'cac:TenderingCriterion/cbc:ID', const: criterion.uuid },

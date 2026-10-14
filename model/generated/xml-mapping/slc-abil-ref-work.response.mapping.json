@@ -181,49 +181,51 @@
             "type": "boolean"
           }
         }
-      ]
-    },
-    {
-      "records": "cac:TenderingCriterionResponse",
-      "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
-        "attributes": {
-          "schemeID": "criterion"
-        }
-      },
-      "forEach": "partIV.selectionCriteria.slc-abil-ref-work.response.references.recipients",
-      "entries": [
+      ],
+      "childRecords": [
         {
-          "key": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1",
-          "value": {
-            "from": "name",
-            "to": "cac:ResponseValue/cbc:Description",
-            "type": "string"
-          }
-        },
-        {
-          "key": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/QSG1/QSG1/Q2/R1",
-          "value": {
-            "from": "contactPersonName",
-            "to": "cac:ResponseValue/cbc:Description",
-            "type": "string"
-          }
-        },
-        {
-          "key": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/QSG1/QSG1/Q3/R1",
-          "value": {
-            "from": "contactEmail",
-            "to": "cac:ResponseValue/cbc:Description",
-            "type": "string"
-          }
-        },
-        {
-          "key": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/QSG1/QSG1/Q4/R1",
-          "value": {
-            "from": "contactTelephone",
-            "to": "cac:ResponseValue/cbc:Description",
-            "type": "string"
-          }
+          "records": "cac:TenderingCriterionResponse",
+          "key": {
+            "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+            "attributes": {
+              "schemeID": "criterion"
+            }
+          },
+          "forEach": "recipients",
+          "entries": [
+            {
+              "key": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1",
+              "value": {
+                "from": "name",
+                "to": "cac:ResponseValue/cbc:Description",
+                "type": "string"
+              }
+            },
+            {
+              "key": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/QSG1/QSG1/Q2/R1",
+              "value": {
+                "from": "contactPersonName",
+                "to": "cac:ResponseValue/cbc:Description",
+                "type": "string"
+              }
+            },
+            {
+              "key": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/QSG1/QSG1/Q3/R1",
+              "value": {
+                "from": "contactEmail",
+                "to": "cac:ResponseValue/cbc:Description",
+                "type": "string"
+              }
+            },
+            {
+              "key": "C37_slc-abil-ref-work/RG1/RSG1/QSG2/QSG1/QSG1/Q4/R1",
+              "value": {
+                "from": "contactTelephone",
+                "to": "cac:ResponseValue/cbc:Description",
+                "type": "string"
+              }
+            }
+          ]
         }
       ]
     },

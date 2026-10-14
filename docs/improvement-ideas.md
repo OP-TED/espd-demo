@@ -860,7 +860,7 @@ Response BASE sample ends up with a `dummy-value` role code — see X2. That is 
 real gap for an *authoritative* list (`eo-role-type` is Schematron-validated
 elsewhere), unlike the two suggestion lists here.
 
-### UX1. PARTLY RESOLVED — codelist service DATA is built; the UI control is still a front-end task
+### UX1. TODO (FRONTEND) — codelist service DATA is built; the UI pickers are a front-end task
 
 **Update (data layer done).** The codelist **service data** is now generated:
 `model/codelists/build-codelist-service-data.mjs` reads every governance list
@@ -873,11 +873,12 @@ an `index.json`, derived from the same shipped `.gc` files as the inlined enums
 English-only. Wired into `model:compile`; 9 tests in
 `build-codelist-service-data.test.mjs`.
 
-**Still open (front-end):** actually *rendering* the pickers — matching the
-control to list size (radio / select / typeahead / search-as-you-type), showing
-locale labels while storing the bare code, and the ESCO hierarchy browse for
+**TODO (front-end):** actually *rendering* the pickers — matching the control to
+list size (radio / select / typeahead / search-as-you-type), showing locale
+labels while storing the bare code, and the ESCO hierarchy browse for
 `occupation`. That is UI/service work in the app layer; this item provided the
-data it consumes.
+data it consumes. Tracked as a FRONTEND todo — not part of the model/compiler
+work, to be picked up when the app UI is built.
 
 **Data-quality note surfaced while building:** the `language` list is 8187 codes
 of which ~7054 have NO label in the source `.gc` (neither `eng_label` nor

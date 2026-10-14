@@ -124,6 +124,70 @@ leaf would simply start rendering as the standard evidence array.
 
 *Not blocking:* we interoperate with it as-is.
 
+### M4. The seven "OT" criteria (OT57–OT65) all export `code = "OT"` instead of their real criterion codes
+
+**What it is.** In the EA export, every "other" criterion shares a single
+`code` value, `"OT"` — whereas every normal criterion carries its own unique
+`code`. The seven affected criteria:
+
+| EA tag | `code` (now) | Real `cbc:CriterionTypeCode` in the standard's XML | Subject |
+|---|---|---|---|
+| OT57 | `OT` | `shelt-worksh` | Sheltered workshop |
+| OT58 | `OT` | `registered` | Registered on an official list |
+| OT59 | `OT` | `eo-group` | Participating as a group |
+| OT60 | `OT` | `relied` | Relying on other entities' capacities |
+| OT61 | `OT` | `subco-ent` | Subcontracting |
+| OT63 | `OT` | `staff-red` | Reduction of candidates |
+| OT65 | `OT` | `sme` | Economic-operator size (SME) |
+
+**Where `code` comes from.** The EAtoJSON exporter
+(`espd-tools/EAtoJSON/export-package.js`, `createRootCriterion`) sets the
+exported `code` field from the EA root node's **`cbc:TypeCode`** attribute
+(fallback: a suffix parsed from the node Name), and sets `tag` from the EA
+package key (`C01`, `C37`, `OT57`, …). The exporter is faithful — it reflects
+whatever `cbc:TypeCode` the EA model holds. So the collision originates in the
+EA model: all seven OT criteria's root nodes carry `cbc:TypeCode = "OT"`.
+
+Compare the raw export:
+
+```
+tag: C01   code: exg-crim-part      requestpath: C01_exg-crim-part        (unique)
+tag: C37   code: slc-abil-ref-work  requestpath: C37_slc-abil-ref-work    (unique)
+tag: OT57  code: OT                 requestpath: OT57_OT                  (shared!)
+tag: OT58  code: OT                 requestpath: OT58_OT                  (shared!)
+tag: OT59  code: OT                 requestpath: OT59_OT                  (shared!)
+tag: OT60  code: OT                 requestpath: OT60_OT                  (shared!)
+tag: OT61  code: OT                 requestpath: OT61_OT                  (shared!)
+tag: OT63  code: OT                 requestpath: OT63_OT                  (shared!)
+tag: OT65  code: OT                 requestpath: OT65_OT                  (shared!)
+```
+
+**Evidence that `"OT"` is wrong.** The authoritative
+`espd-validation-schematron/common/xml/ESPD-Response-BASE.xml` emits 61 distinct
+`cbc:CriterionTypeCode` values, including `shelt-worksh`, `registered`,
+`eo-group`, `relied`, `subco-ent`, `staff-red`, `sme` — i.e. each OT criterion
+has its OWN real code in a conformant document. `"OT"` is a placeholder that
+never appears as an interchange value and is absent from the criterion authority
+`.gc` files (`SelectionCriterion.gc` / `ExclusionGround.gc`).
+
+**Impact on us.**
+- Our compiler keys criteria by sidecar `id` and threads a `tag` through
+  `findCriterion` / `read-structural-core` / `compile` purely to disambiguate the
+  shared `"OT"` code — plumbing we would not otherwise need.
+- The coverage report shows **62 EA criteria but only 56 distinct codes**; the
+  6-count gap is exactly these collapsing onto one `"OT"`.
+- Any consumer that treats `code` as a unique key silently conflates seven
+  unrelated criteria.
+
+**Suggestion for the EDM team.** Set each OT criterion's root `cbc:TypeCode` to
+its real code (the right-hand column above). No exporter change is needed — it
+would then export the correct distinct codes automatically; our `tag`
+disambiguation could be retired; and the distinct-code count would reach 62,
+matching the criterion count.
+
+*Not blocking:* we interoperate with it as-is via `tag`. Model-quality /
+upstream-data item, same category as M1–M3.
+
 ---
 
 ## Form lens

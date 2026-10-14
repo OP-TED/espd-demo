@@ -419,8 +419,9 @@ to the document layer. If modelled, follow the `model/parts/` pattern with an
 explicit "provisional — no reference XML" caveat, exactly like Part II §B.
 
 With this, all six parts are accounted for: I, II (admin), III, IV, V (criteria)
-modelled or in progress; II/VI admin blocks and the OT criteria done; VI
-signature deferred here.
+and VI (signature) are modelled; the only remaining caveats are the "no
+reference XML" provisional note on Part II §B and Part VI, and the mapping-engine
+gap in E1 below.
 
 ---
 
@@ -843,3 +844,49 @@ design is a **runtime codelist service**, decoupled from the schema:
 
 The `.gc` is the single source for both the inlined enum and the service data, so
 they cannot drift from each other.
+
+---
+
+## Mapping engine
+
+### E1. XML mapping of a repeatable group nested directly inside another repeatable group
+
+**What works today.** The mapping engine round-trips, on both request and
+response sides:
+
+- a **single-level** repeatable group — C01 `convictions[]` (response), C36
+  `amountRequirements[]` (request);
+- **nested** repeatable **requirement** groups — C34 `periods[].ratios[]`
+  (request), via nested structure nodes;
+- an **evidence array nested inside** a repeatable group — C34/C36, and C40/C41
+  `technicians[]`/`bodies[]` each with a per-row `electronicEvidence.evidence[]`.
+  This uses the document-level `cac:Evidence` set with a FLATTENED `forEach`
+  (`container[].evidence`), so each row's evidence is collected correctly
+  (verified: C40 round-trips exactly, nested per-technician evidence included).
+
+**The remaining gap.** A repeatable **response** group whose rows each contain
+**another repeatable group of plain fields** — i.e. a `forEach` that must emit,
+inside each outer record, a *nested* `forEach` of repeated XML sub-records. The
+one shape that hits this is the Part IV "references list" (**C37 / C38 / C39**):
+`references[].recipients[]`. The outer `references[]` round-trips; the inner
+`recipients[]` is **dropped** on `unmap` (verified: `recipients` comes back
+`undefined` while the two parent `references` survive).
+
+Note this is *different* from the evidence case: `electronicEvidence.evidence[]`
+is handled by the document-level flattened evidence set, but `recipients[]` is an
+ordinary repeated sub-group with no such document-level collector, so it needs
+genuine nested-`forEach` emission.
+
+**Where it lands.** `generate-response-mapping.mjs` must emit a nested `forEach`
+inside the outer records rule's entries (item-relative, as the single-level rule
+already is), and `mapper.mjs` `map`/`unmap` must recurse through a `forEach`
+whose items are themselves `forEach` containers. The instance-data schema,
+example, and form lens for C37/C38/C39 are already correct — this is purely the
+XML round-trip for the nested sub-group.
+
+**Impact.** C37/C38/C39 instance data validates, and their forms render, today;
+only the XML mapping of the `recipients[]` sub-list is incomplete (the rest of
+each criterion — lots, minimum references, requirement, fulfilled/relied-upon,
+the reference rows themselves, evidence — maps fine). Low practical urgency
+(recipients are optional contact details), but it is the last known
+repeatable-group mapping case not yet covered.

@@ -15,6 +15,7 @@ import { buildCompiledModel, envelopePath } from './build-compiled-model.mjs';
 import { buildRolesLens } from './roles.mjs';
 import { buildPartsLens } from './parts.mjs';
 import { buildUiBundle } from './build-ui-bundle.mjs';
+import { buildValidators } from './build-validators.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
@@ -76,6 +77,13 @@ const { partLenses, criteriaByPart } = buildUiBundle({ write: true });
 const bundledCriteria = [...criteriaByPart.values()].reduce((n, c) => n + c.length, 0);
 const bundledSections = partLenses.reduce((n, l) => n + l.sections.length, 0);
 process.stderr.write(`Assembled UI bundle: ${partLenses.length} parts, ${bundledSections} sections, ${bundledCriteria} criteria under model/generated/ui/{index.json, part-*.json, schema/*}.\n`);
+
+// Standalone Ajv validators (Phase 6A): precompiled validate() functions for the
+// four part roots + six admin sections, emitted as a self-contained ESM module
+// (no Ajv compiler/eval, no runtime require) for client-side validation. Must run
+// AFTER the UI bundle (it compiles the composed $ref schemas the bundle emits).
+const { names: validatorNames } = buildValidators({ write: true });
+process.stderr.write(`Generated ${validatorNames.length} standalone validators under model/generated/ui/validators/index.mjs.\n`);
 
 // "State of the model" coverage report (generated from the sources above).
 buildCoverageReport({ write: true });

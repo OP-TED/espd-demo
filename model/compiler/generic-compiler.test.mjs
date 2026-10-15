@@ -52,6 +52,13 @@ const INFRA = new Set([
                               // it composes ALL parts, not per-criterion logic; adding a
                               // criterion needs no edit here (criteria come from the EA
                               // section structure + sidecars).
+  'build-validators.mjs',     // precompiles the ALREADY-composed part-root + admin-section
+                              // schemas into standalone Ajv validators. It enumerates the
+                              // part roots (partII..partV) and admin sections (partI/partII/
+                              // partVI) by design — one validator per part/section, not
+                              // per-criterion logic. Criteria are pulled in via the part
+                              // roots' $refs (discovered from instance-data/*.schema.json),
+                              // so adding a criterion needs no edit here.
 ]);
 
 /** The transformation modules the guard applies to (discovered, not listed). */

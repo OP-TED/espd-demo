@@ -18,7 +18,7 @@ import { importDocumentFile } from './xml-import.js';
 import { renderHomePage } from './home.js';
 import { renderPathSelector } from './path-selector.js';
 import { renderWizardHeader, updateWizardHeader } from './wizard-header.js';
-import { features } from './features.js';
+import { validateInstance, showValidationErrors } from './validation.js';
 
 let wizardParts = []; // Parts available for current role
 
@@ -352,7 +352,12 @@ function updateStepNav() {
   if (isLastStep) {
     btnNext.hidden = true;
     btnDownload.hidden = false;
-    btnValidate.hidden = !features.itbValidation;
+    // Phase 6A: the Validate button now runs CLIENT-SIDE JSON-Schema validation
+    // (precompiled standalone validators, no server), so it is shown on the last
+    // step regardless of serverless mode. (The old server-dependent ITB UBL-XML
+    // validation was gated on features.itbValidation; that returns with the
+    // mapping engine in 6B.)
+    btnValidate.hidden = false;
   } else {
     btnNext.hidden = false;
     btnDownload.hidden = true;
@@ -424,25 +429,49 @@ function renderCurrentStep() {
 // ─── Validation ───────────────────────────────────────────────────────────────
 
 /**
- * Handle the "Validate XML" button click.
+ * Handle the "Validate" button click.
+ *
+ * Phase 6A: validate the instance document against the precompiled standalone
+ * JSON-Schema validators (client-side, no server). Errors are highlighted inline
+ * on the fields of the current step (those that are visible) and summarised — for
+ * every part — in the validation dialog. Full UBL-XML (Schematron) validation via
+ * the mapping engine returns in Phase 6B.
  */
 async function handleValidateClick() {
-  // CUTOVER NOTE (Phase 4/5): export is now the JSON instance document, so the
-  // ITB UBL-XML validation is temporarily unavailable. Instance-data validation
-  // against the precompiled composed schemas, and UBL export via the mapping
-  // engine, both land in Phase 6 — at which point this button validates again.
+  const container = document.getElementById('form-content');
+  const { valid, errors } = validateInstance(getAnswers());
+
+  // Inline markers on the current step's visible fields.
+  showValidationErrors(errors, container);
+
+  if (valid) {
+    showValidationResults({
+      success: true,
+      errors: [],
+      warnings: [],
+      message: t('ui.validationPassed', 'All answers are valid.'),
+    });
+    return;
+  }
+
   showValidationResults({
     success: false,
-    status: 'INFO',
-    errors: [],
-    warnings: [{
-      description: 'XML validation is temporarily unavailable while the service moves to the model-driven data layer. Instance-data validation (against the composed JSON Schemas) and UBL export/validation return in the next phase.',
-      location: '', test: '', level: 'warning'
-    }],
-    errorCount: 0,
-    warningCount: 1,
-    message: 'Validation is being upgraded (Phase 6).'
+    errors: errors.map((e) => ({
+      description: e.message,
+      location: errorLocation(e.dataPath),
+    })),
+    warnings: [],
+    message: t('ui.validationFailed', 'Please correct the highlighted fields.'),
   });
+}
+
+/** Human-readable location for an error, from its dotted dataPath. */
+function errorLocation(dataPath) {
+  if (!dataPath) return '';
+  const partKey = dataPath.split('.')[0]; // partI | partII | …
+  const roman = { partI: 'I', partII: 'II', partIII: 'III', partIV: 'IV', partV: 'V', partVI: 'VI' }[partKey];
+  const partLabel = roman ? t(`part.short.${roman}`, `Part ${roman}`) : '';
+  return partLabel ? `${partLabel} — ${dataPath}` : dataPath;
 }
 
 /**

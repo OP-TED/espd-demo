@@ -13,3 +13,9 @@ yarn-error.log*
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# E2E scratch output — specs write these fresh each run (the dir is kept via
+# .gitkeep). The render-golden snapshots (e2e/**/*-snapshots/) are NOT ignored:
+# they are the committed parity baseline.
+/e2e/test-output/*
+!/e2e/test-output/.gitkeep

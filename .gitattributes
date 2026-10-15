@@ -1,0 +1,33 @@
+# Normalize line endings to LF for text files so the generated model tree
+# (rewritten wholesale by `npm run model:compile`) does not churn with CRLF on
+# Windows checkouts. The compiler writes LF; this keeps the committed blobs LF
+# regardless of the contributor's core.autocrlf setting.
+* text=auto eol=lf
+
+# Explicit: all the text formats in this repo are LF.
+*.js    text eol=lf
+*.mjs   text eol=lf
+*.cjs   text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.xml   text eol=lf
+*.gc    text eol=lf
+*.cva   text eol=lf
+*.sch   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.svg   text eol=lf
+
+# Binary assets — never normalize.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.pdf   binary
+*.xlsx  binary
+*.vsd   binary
+*.vsdx  binary
+*.eapx  binary

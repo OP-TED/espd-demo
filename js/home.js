@@ -101,8 +101,8 @@ function renderContinueCard(session, roleData, onContinue) {
 function renderImportArea() {
   return `
     <div class="espd-import-area" role="region" aria-label="Import existing ESPD">
-      <h3>Import Existing ESPD</h3>
-      <p>Load a previously saved ESPD document (XML) to continue editing.</p>
+      <h2>Import an ESPD</h2>
+      <p>Load an ESPD Request you received, or an ESPD you saved earlier, as an XML file.</p>
       <div class="espd-import-controls">
         <input type="file" id="import-file-home" accept=".xml,.json" aria-label="Select ESPD file to import">
         <button type="button" id="btn-import-home" class="secondary">Import</button>
@@ -134,7 +134,7 @@ export function renderHomePage({ container, session, roleData, onContinue, onNew
 
   let html = `
     <hgroup>
-      <h1 id="landing-heading">European Single Procurement Document (ESPD)</h1>
+      <h1 id="landing-heading">European Single Procurement Document</h1>
       <p>Create an ESPD Request or Response for EU public procurement procedures.</p>
     </hgroup>
   `;
@@ -146,8 +146,12 @@ export function renderHomePage({ container, session, roleData, onContinue, onNew
 
   // New ESPD button
   html += `
-    <div class="espd-home-actions">
-      <button type="button" id="btn-new-espd" class="contrast">New ESPD</button>
+    <div class="espd-home-actions" role="region" aria-labelledby="new-espd-heading">
+      <h2 id="new-espd-heading">Start a new ESPD</h2>
+      <p>Buyers create an ESPD Request setting out the exclusion grounds and selection criteria. Economic operators answer it with an ESPD Response.</p>
+      <div>
+        <button type="button" id="btn-new-espd" class="contrast">New ESPD</button>
+      </div>
     </div>
   `;
 

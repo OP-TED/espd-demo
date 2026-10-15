@@ -298,7 +298,14 @@ function buildStepNav() {
     const shortTitle = `Part ${part.key}`;
     const link = document.createElement('a');
     link.href = '#';
-    link.textContent = shortTitle;
+    const num = document.createElement('span');
+    num.className = 'espd-step__num';
+    num.setAttribute('aria-hidden', 'true');
+    num.textContent = part.key;
+    const label = document.createElement('span');
+    label.className = 'espd-step__label';
+    label.textContent = t(`part.short.${part.key}`, shortTitle);
+    link.append(num, label);
     link.title = t(`part.title.${part.key}`, part.title);
     link.setAttribute('aria-label', `Step ${index + 1}: ${t(`part.title.${part.key}`, part.title)}`);
 
@@ -323,8 +330,11 @@ function updateStepNav() {
 
   items.forEach((item, index) => {
     item.classList.remove('active', 'completed');
+    const link = item.querySelector('a');
+    if (link) link.removeAttribute('aria-current');
     if (index === currentStep) {
       item.classList.add('active');
+      if (link) link.setAttribute('aria-current', 'step');
     } else if (index < currentStep) {
       item.classList.add('completed');
     }

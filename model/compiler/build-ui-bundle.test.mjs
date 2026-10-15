@@ -115,11 +115,16 @@ describe('ui-bundle: assembled shape', () => {
 
 describe('ui-bundle: composed schemas ($ref, never merge)', () => {
   const ajv = new Ajv({ allErrors: true, strict: false, logger: false });
-  // Register per-criterion schemas (keyed by their unique $id) + the part roots.
+  // Register per-criterion schemas (keyed by their unique $id) + the part roots
+  // + the hand-authored admin section schemas (the document root $refs these).
   for (const f of fs.readdirSync(instanceDataDir).filter((x) => x.endsWith('.schema.json'))) {
     ajv.addSchema(read(path.join(instanceDataDir, f)));
   }
   for (const { schema } of partSchemas) ajv.addSchema(schema);
+  const partsRoot = path.join(here, '..', 'parts');
+  for (const [dir, section] of [['partI', 'sectionA'], ['partI', 'sectionB'], ['partI', 'sectionC'], ['partII', 'sectionA'], ['partII', 'sectionB'], ['partVI', 'sectionA']]) {
+    ajv.addSchema(read(path.join(partsRoot, dir, `${section}.schema.json`)));
+  }
 
   it('every part root compiles under Ajv 2020', () => {
     for (const { roman } of partSchemas) {
@@ -127,8 +132,43 @@ describe('ui-bundle: composed schemas ($ref, never merge)', () => {
     }
   });
 
-  it('the document root compiles ($refs the part roots)', () => {
+  it('the document root compiles ($refs the part roots + admin sections)', () => {
     assert.doesNotThrow(() => ajv.compile(documentRoot));
+  });
+
+  it('the document root is FLAT (partI…partVI keys matching the instance document)', () => {
+    assert.deepEqual(
+      Object.keys(documentRoot.properties).sort(),
+      ['partI', 'partII', 'partIII', 'partIV', 'partV', 'partVI']
+    );
+    assert.equal(documentRoot.additionalProperties, false);
+    // partII merges the criteria container + both admin sub-keys.
+    assert.deepEqual(
+      Object.keys(documentRoot.properties.partII.properties).sort(),
+      ['economicOperator', 'economicOperatorCriteria', 'powersOfAttorney']
+    );
+    // Every leaf is a $ref (nothing inlined/merged).
+    for (const partProp of Object.values(documentRoot.properties)) {
+      for (const sub of Object.values(partProp.properties)) {
+        assert.ok(sub.$ref, 'document-root sub-key is a $ref');
+      }
+    }
+  });
+
+  it('the document root validates a FLAT whole document', () => {
+    const validate = ajv.compile(documentRoot);
+    const exg = read(path.join(instanceDataDir, 'exg-crim-part.example.json'));
+    const doc = {
+      partI: { publication: { type: 'TED_CN', identifier: '310364-2026' }, contractingAuthority: { officialName: 'ACME', country: 'BEL' } },
+      partIII: { ...exg.partIII },
+    };
+    assert.ok(validate(doc), JSON.stringify(validate.errors?.slice(0, 3)));
+  });
+
+  it('the document root rejects an unknown top-level part and an unknown sub-key', () => {
+    const validate = ajv.compile(documentRoot);
+    assert.ok(!validate({ partZ: {} }), 'unknown part rejected');
+    assert.ok(!validate({ partI: { nope: 1 } }), 'unknown sub-key rejected');
   });
 
   it('part roots $ref criteria (do not inline/merge)', () => {

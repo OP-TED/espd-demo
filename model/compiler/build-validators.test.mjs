@@ -31,6 +31,7 @@ const EXPECTED_EXPORTS = [
   'partII', 'partIII', 'partIV', 'partV',
   'partI_sectionA', 'partI_sectionB', 'partI_sectionC',
   'partII_sectionA', 'partII_sectionB', 'partVI_sectionA',
+  'espd',
 ];
 
 // The validators module is generated code; load it once for the whole suite via
@@ -39,7 +40,7 @@ const EXPECTED_EXPORTS = [
 const V = await import(pathToFileURL(validatorsOutPath).href);
 
 describe('validators: module shape', () => {
-  it('exports the expected 10 validate() functions', () => {
+  it('exports the expected 11 validate() functions (10 part/section + 1 document)', () => {
     for (const name of EXPECTED_EXPORTS) {
       assert.equal(typeof V[name], 'function', `missing export: ${name}`);
     }
@@ -101,6 +102,37 @@ describe('validators: accepts valid admin-section slices', () => {
   it('partVI_sectionA accepts an empty (unsigned) partVI block', () => {
     const ok = V.partVI_sectionA({ partVI: {} });
     assert.equal(ok, true, JSON.stringify(V.partVI_sectionA.errors));
+  });
+});
+
+describe('validators: whole-document validator (espd)', () => {
+  it('accepts a flat multi-part document (admin + criteria)', () => {
+    const exg = JSON.parse(readFileSync(join(instanceDataDir, 'exg-crim-part.example.json'), 'utf8'));
+    const doc = {
+      partI: {
+        publication: { type: 'TED_CN', identifier: '310364-2026' },
+        contractingAuthority: { officialName: 'ACME', country: 'BEL' },
+      },
+      partIII: { ...exg.partIII },
+      partVI: { signatory: { physicalLocationName: 'Brussels' } },
+    };
+    assert.equal(V.espd(doc), true, JSON.stringify(V.espd.errors));
+  });
+
+  it('accepts an empty document (every part optional)', () => {
+    assert.equal(V.espd({}), true, JSON.stringify(V.espd.errors));
+  });
+
+  it('rejects an unknown top-level part key', () => {
+    assert.equal(V.espd({ partZ: {} }), false);
+  });
+
+  it('rejects an unknown sub-key within a part', () => {
+    assert.equal(V.espd({ partI: { nope: 1 } }), false);
+  });
+
+  it('rejects an unknown criterion inside a flat document', () => {
+    assert.equal(V.espd({ partIII: { exclusionGrounds: { 'not-a-criterion': {} } } }), false);
   });
 });
 

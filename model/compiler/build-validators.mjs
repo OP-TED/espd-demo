@@ -31,6 +31,7 @@ const instanceDataDir = path.join(here, '..', 'generated', 'instance-data');
 const uiSchemaDir = path.join(here, '..', 'generated', 'ui', 'schema');
 const partsRoot = path.join(here, '..', 'parts');
 const outDir = path.join(here, '..', 'generated', 'ui', 'validators');
+const documentSchemaPath = path.join(uiSchemaDir, 'espd.schema.json');
 
 const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 
@@ -85,6 +86,16 @@ export function buildAjv() {
     ajv.addSchema(schema);
     exports[name] = schema['$id'];
   }
+
+  // The whole-document validator. espd.schema.json is the FLAT document root
+  // ({ partI … partVI }); it $refs the part roots and admin section schemas
+  // registered above (by $id), so it must be added last. Exported as `espd`:
+  // validateInstance() can use it to validate a complete document in one pass,
+  // in addition to the per-part/per-section validators used for inline UX.
+  const documentSchema = readJson(documentSchemaPath);
+  ajv.addSchema(documentSchema);
+  exports.espd = documentSchema['$id'];
+
   return { ajv, exports };
 }
 
@@ -162,7 +173,7 @@ export function buildValidators({ write = true } = {}) {
     fs.mkdirSync(outDir, { recursive: true });
     fs.writeFileSync(path.join(outDir, 'index.mjs'), source);
   }
-  return { source, names: [...PART_ROOTS, ...ADMIN_SECTIONS].map((e) => e.name) };
+  return { source, names: [...PART_ROOTS.map((e) => e.name), ...ADMIN_SECTIONS.map((e) => e.name), 'espd'] };
 }
 
 export const validatorsOutPath = path.join(outDir, 'index.mjs');

@@ -85,6 +85,25 @@ export function validateInstance(instance, opts = {}) {
 }
 
 /**
+ * Validate the whole instance document in a single pass against the composed
+ * document-root schema (the `espd` validator). This also catches unknown
+ * TOP-LEVEL part keys and cross-part structure that the per-part pass does not
+ * see. Returns the same { valid, errors } shape as validateInstance.
+ *
+ * Prefer validateInstance() for inline field UX (it slices per owner and never
+ * flags an absent optional admin block); use validateDocument() for a strict
+ * whole-document gate (e.g. before UBL export).
+ */
+export function validateDocument(instance) {
+  const doc = instance && typeof instance === 'object' ? instance : {};
+  const fn = validators.espd;
+  if (typeof fn !== 'function') return { valid: true, errors: [] };
+  const ok = fn(doc);
+  const errors = ok || !Array.isArray(fn.errors) ? [] : fn.errors.map((err) => toFieldError(err));
+  return { valid: ok, errors };
+}
+
+/**
  * Convert a single Ajv error into a UI error: resolve the offending field's
  * dataPath and a human-readable message.
  */

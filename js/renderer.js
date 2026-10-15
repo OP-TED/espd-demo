@@ -54,9 +54,11 @@ export function renderPart(part, partKey, role, container) {
     }
   }
 
-  // Part I buyer affordances: radio-input publication group + TED lookup.
+  // Part I buyer affordances: the TED "Look up" button on the publication
+  // reference fields. (Per the model, publication is { type, identifier, url } —
+  // the DocRefContentType `type` dropdown replaces the legacy mutually-exclusive
+  // radio group, so there is no radio-input-group here.)
   if (partKey === 'I') {
-    enhancePublicationGroup(container);
     if (EO_ROLES.has(role)) {
       markReadOnly(container);
     } else if (features.tedLookup) {
@@ -387,60 +389,6 @@ function renderCriterionChecklistItem(member, role) {
 }
 
 // ─── Part I affordances ───────────────────────────────────────────────────────
-
-/**
- * Turn the publication-reference fields (uiHints.publicationBranch, or the three
- * PI01 fields) into a radio-input-group: one branch active at a time. We detect
- * the group as the one holding the ted-notice lookup fields + the national ref.
- */
-function enhancePublicationGroup(container) {
-  // The publication fields are those whose dataPath is under partI.publication.
-  const fieldEls = [...container.querySelectorAll('.espd-field[data-field^="partI.publication."]')];
-  if (fieldEls.length < 2) return;
-  const groupEl = fieldEls[0].closest('.espd-question-group');
-  if (!groupEl) return;
-  groupEl.classList.add('espd-radio-input-group');
-
-  const radioName = 'pub-ref-type';
-  const activeIndex = 0;
-
-  fieldEls.forEach((fieldEl, index) => {
-    const row = document.createElement('div');
-    row.className = 'espd-radio-input-row';
-    if (index === activeIndex) row.classList.add('espd-radio-input-row--active');
-
-    const radio = document.createElement('input');
-    radio.type = 'radio';
-    radio.name = radioName;
-    radio.value = String(index);
-    radio.id = `${radioName}-${index}`;
-    radio.checked = index === activeIndex;
-    radio.setAttribute('aria-label', `Select: ${fieldEl.querySelector('label')?.textContent || ''}`);
-
-    fieldEl.parentNode.insertBefore(row, fieldEl);
-    row.appendChild(radio);
-    row.appendChild(fieldEl);
-
-    const input = fieldEl.querySelector('input, select, textarea');
-    if (input && index !== activeIndex) {
-      input.disabled = true;
-      input.classList.add('espd-input-dimmed');
-    }
-
-    radio.addEventListener('change', () => {
-      groupEl.querySelectorAll('.espd-radio-input-row').forEach((r, i) => {
-        const inp = r.querySelector('input:not([type=radio]), select, textarea');
-        if (i === index) {
-          r.classList.add('espd-radio-input-row--active');
-          if (inp) { inp.disabled = false; inp.classList.remove('espd-input-dimmed'); inp.focus(); }
-        } else {
-          r.classList.remove('espd-radio-input-row--active');
-          if (inp) { inp.disabled = true; inp.classList.add('espd-input-dimmed'); }
-        }
-      });
-    });
-  });
-}
 
 /** Mark all Part I fields read-only (EO sees the buyer-authored Part I). */
 function markReadOnly(container) {

@@ -8,15 +8,16 @@
  * launch: `browserType.launch: spawn UNKNOWN`). Run with `npm run test:e2e` in
  * CI or locally. See tests/phase0/README.md.
  *
- * Verified selectors (from js/home.js, js/path-selector.js, index.html):
- *   home:          #btn-new-espd, #btn-continue-session, #btn-new-espd,
+ * Selectors (model-driven UI, Phase 4/5):
+ *   home:          #btn-new-espd, #btn-continue-session,
  *                  #import-file-home + #btn-import-home
  *   path-selector: step 1 = two <article> cards each with a <button>;
  *                  step 2 = radios input[name="espd-role"] + a Continue <button>
  *   wizard:        #wizard-container, #form-content, #btn-prev, #btn-next,
  *                  #btn-download, #btn-validate
- *   fields:        [data-contentpath="…"] (input/select/textarea within or on it)
- *   sections:      [data-section-tag="Cxx"], [data-section-code="…"]
+ *   fields:        [data-field="<dataPath>"] (input/select/textarea within or on it)
+ *   criteria:      .espd-criterion[data-section-tag][data-section-code];
+ *                  buyer checklist: .criterion-card + #criterion-<tag>
  */
 
 import { expect } from '@playwright/test';
@@ -71,46 +72,27 @@ export async function goToPart(page, partKey) {
   await expect(page.locator('#form-content h2')).toContainText(`Part ${partKey}`);
 }
 
-/**
- * Select a Part I publication-reference branch (PI01 radio-input-group).
- *
- * CURRENT behaviour: PI01 renders as `.espd-radio-input-group` with three
- * `input[name="pub-ref-type"]` radios (0 = TED number, 1 = TED URL,
- * 2 = national). Only the ACTIVE branch's input is enabled; the others are
- * `disabled .espd-input-dimmed` until their radio is checked. Branch 0 is active
- * by default. Call this before filling Q2 or Q3.
- */
-export async function selectPubRefBranch(page, index) {
-  const radio = page.locator(`input[name="pub-ref-type"][value="${index}"]`);
-  await radio.check();
-  // The row's field becomes enabled once its radio is active.
-  const contentpath = `PI01_proc-pub-ref/QG1/Q${index + 1}/R1/RV`;
-  await expect(
-    page.locator(`[data-contentpath="${contentpath}"] input`).first()
-  ).toBeEnabled();
-}
-
-/** Fill a text/url/number/textarea field addressed by its contentpath. */
-export async function fillField(page, contentpath, value) {
+/** Fill a text/url/number/textarea field addressed by its model dataPath. */
+export async function fillField(page, dataPath, value) {
   const field = page.locator(
-    `[data-contentpath="${contentpath}"] input, [data-contentpath="${contentpath}"] textarea, ` +
-    `input[data-contentpath="${contentpath}"], textarea[data-contentpath="${contentpath}"]`
+    `[data-field="${dataPath}"] input, [data-field="${dataPath}"] textarea, ` +
+    `input[data-field="${dataPath}"], textarea[data-field="${dataPath}"]`
   ).first();
   await field.fill(value);
 }
 
-/** Select an option in a code dropdown addressed by its contentpath. */
-export async function selectField(page, contentpath, value) {
+/** Select an option in a code dropdown addressed by its model dataPath. */
+export async function selectField(page, dataPath, value) {
   const sel = page.locator(
-    `[data-contentpath="${contentpath}"] select, select[data-contentpath="${contentpath}"]`
+    `[data-field="${dataPath}"] select, select[data-field="${dataPath}"]`
   ).first();
   await sel.selectOption(value);
 }
 
-/** Answer an INDICATOR (Yes/No radio) addressed by its contentpath. */
-export async function answerIndicator(page, contentpath, yes) {
+/** Answer a boolean (Yes/No radio) addressed by its model dataPath. */
+export async function answerIndicator(page, dataPath, yes) {
   const value = yes ? 'true' : 'false';
-  await page.locator(`input[type="radio"][data-contentpath="${contentpath}"][value="${value}"]`).check();
+  await page.locator(`input[type="radio"][data-field="${dataPath}"][value="${value}"]`).check();
 }
 
 /** Advance to the next wizard step. */

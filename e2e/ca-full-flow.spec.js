@@ -1,20 +1,21 @@
 /**
- * E2E: Contracting Authority fills an ESPD Request and downloads the XML.
+ * E2E: Contracting Authority fills an ESPD Request and downloads it.
  *
- * REWRITTEN for Phase 0 against the CURRENT flow (home → path-selector → wizard)
- * and the current contentpaths (PI01_proc-pub-ref / PI02_proc-procurer-id /
- * PI03_proc-procedure-info). The previous version targeted a removed
- * `#btn-role-ca` button and stale `PI01_proc-publication-info` paths.
+ * REWRITTEN for the Phase 4/5 model-driven cutover: fields are addressed by their
+ * model dataPath ([data-field="partI…"]) instead of legacy contentpaths, Part I
+ * publication is a plain {type, identifier, url} group (no radio branch), and the
+ * download is the JSON instance document (espd-request.json), not UBL XML — UBL
+ * export via the mapping engine returns in Phase 6.
  *
  * Cannot run in the dev sandbox (Chromium won't launch). Run: `npm run test:e2e`.
  */
 import { test, expect } from '@playwright/test';
 import path from 'path';
 import fs from 'fs';
-import { startWizardAs, goToPart, visibleStepKeys, fillField, selectField, selectPubRefBranch, next } from './helpers.js';
+import { startWizardAs, goToPart, visibleStepKeys, fillField, selectField, next } from './helpers.js';
 
 test.describe('Contracting Authority — full ESPD Request flow', () => {
-  test('fills Part I, walks all visible parts, downloads the Request XML', async ({ page }) => {
+  test('fills Part I, walks all visible parts, downloads the instance document', async ({ page }) => {
     await startWizardAs(page, 'contracting-authority');
 
     // The CA sees parts I, III, IV, V, VI (not II) — the role's visibleParts.
@@ -23,32 +24,24 @@ test.describe('Contracting Authority — full ESPD Request flow', () => {
     // ── Part I ─────────────────────────────────────────────
     await expect(page.locator('#form-content h2')).toContainText('Part I');
 
-    // Publication reference (PI01) is a mutually-exclusive radio-input-group:
-    // branch 0 (TED notice number) is active by default; the URL / national
-    // inputs are disabled until their radio is picked. The CURRENT UI only lets
-    // the active branch be filled — so fill the default branch (Q1).
-    await fillField(page, 'PI01_proc-pub-ref/QG1/Q1/R1/RV', '2026/S 142-123456');
-    // Characterize the gating: Q2 (URL) is disabled until its branch is active.
-    await expect(
-      page.locator('[data-contentpath="PI01_proc-pub-ref/QG1/Q2/R1/RV"] input')
-    ).toBeDisabled();
+    // Publication reference: a DocRefContentType dropdown + notice number/url.
+    await selectField(page, 'partI.publication.type', 'TED_CN');
+    await fillField(page, 'partI.publication.identifier', '2026/S 142-123456');
 
-    // Procurer identity (PI02) — all fields editable for a CA.
-    await fillField(page, 'PI02_proc-procurer-id/QG1/Q1/R1/RV', 'European Commission — DG DIGIT');
-    await selectField(page, 'PI02_proc-procurer-id/QG1/Q2/R1/RV', 'BEL');
-    await fillField(page, 'PI02_proc-procurer-id/QG1/Q4/R1/RV', 'BE-0123456789');
+    // Identity of the procurer.
+    await fillField(page, 'partI.contractingAuthority.officialName', 'European Commission — DG DIGIT');
+    await selectField(page, 'partI.contractingAuthority.country', 'BEL');
 
-    // Procedure info (PI03) — Q1 title, Q2 file reference, Q3 procedure type.
-    await fillField(page, 'PI03_proc-procedure-info/QG1/Q1/R1/RV', 'Supply of IT Equipment and Services 2026');
-    await fillField(page, 'PI03_proc-procedure-info/QG1/Q2/R1/RV', 'DIGIT/2026/OP/0042');
-    await selectField(page, 'PI03_proc-procedure-info/QG1/Q3/R1/RV', 'open');
+    // Procurement procedure.
+    await fillField(page, 'partI.procedure.fileReference.value', 'DIGIT/2026/OP/0042');
+    await fillField(page, 'partI.project.name', 'Supply of IT Equipment and Services 2026');
+    await selectField(page, 'partI.procedure.procedureType', 'open');
 
     // ── Walk the remaining visible parts ───────────────────
     await next(page);
     await expect(page.locator('#form-content h2')).toContainText('Part III');
     // CA sees Part III as a criteria-selection checklist of `.criterion-card`s,
-    // each a checkbox with id `criterion-C01` … (not data-section-tag). C01 is
-    // mandatory → its checkbox is disabled and the card is marked mandatory.
+    // each a checkbox with id `criterion-C01` …; C01 is mandatory.
     await expect(page.locator('#criterion-C01')).toBeVisible();
     await expect(page.locator('.criterion-card--mandatory #criterion-C01')).toBeDisabled();
 
@@ -65,22 +58,21 @@ test.describe('Contracting Authority — full ESPD Request flow', () => {
     // Last step → Download appears.
     await expect(page.locator('#btn-download')).toBeVisible();
 
-    // ── Download + inspect ─────────────────────────────────
+    // ── Download + inspect (the JSON instance document) ────
     const [download] = await Promise.all([
       page.waitForEvent('download'),
       page.locator('#btn-download').click(),
     ]);
-    expect(download.suggestedFilename()).toBe('espd-request.xml');
+    expect(download.suggestedFilename()).toBe('espd-request.json');
 
     const outPath = path.join('e2e', 'test-output', download.suggestedFilename());
     await download.saveAs(outPath);
-    const xml = fs.readFileSync(outPath, 'utf8');
+    const doc = JSON.parse(fs.readFileSync(outPath, 'utf8'));
 
-    expect(xml).toContain('<?xml version="1.0"');
-    expect(xml).toContain('QualificationApplicationRequest');
-    expect(xml).toContain('ESPD Request');
-    expect(xml).toContain('European Commission');
-    expect(xml).toContain('Supply of IT Equipment and Services 2026');
-    expect(xml).toContain('TenderingCriterion');
+    expect(doc.format).toBe('espd-instance');
+    expect(doc.documentType).toBe('request');
+    expect(doc.role).toBe('contracting-authority');
+    expect(doc.instance.partI.contractingAuthority.officialName).toBe('European Commission — DG DIGIT');
+    expect(doc.instance.partI.project.name).toBe('Supply of IT Equipment and Services 2026');
   });
 });

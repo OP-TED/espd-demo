@@ -1,16 +1,20 @@
 /**
  * E2E behaviour: the interactive rules the rebuild must preserve —
- *  - conditional show/hide (ONTRUE/ONFALSE subgroups) driven by an INDICATOR;
- *  - codelist dropdowns render their options;
- *  - the Part I radio-input-group + TED "Look up" affordance.
+ *  - declarative conditional show/hide (field.visibleWhen) driven by a boolean;
+ *  - codelist dropdowns render their options from the generated codelists;
+ *  - the Part I TED "Look up" affordance.
+ *
+ * REWRITTEN for the Phase 4/5 model-driven DOM: fields are addressed by dataPath;
+ * conditional fields carry data-visible-when and start hidden until their
+ * condition holds (replacing the legacy ONTRUE/ONFALSE subgroups).
  *
  * Cannot run in the dev sandbox (Chromium won't launch). Run: `npm run test:e2e`.
  */
 import { test, expect } from '@playwright/test';
-import { startWizardAs, goToPart } from './helpers.js';
+import { startWizardAs, goToPart, answerIndicator } from './helpers.js';
 
-test.describe('Conditional visibility (ONTRUE/ONFALSE)', () => {
-  test('answering a criterion indicator reveals its conditional subgroup', async ({ page }) => {
+test.describe('Conditional visibility (visibleWhen)', () => {
+  test('answering a criterion boolean reveals its conditional field', async ({ page }) => {
     // Sole tenderer answers Part III criteria directly (not the buyer checklist).
     await startWizardAs(page, 'sole-tenderer');
     await goToPart(page, 'III');
@@ -18,14 +22,16 @@ test.describe('Conditional visibility (ONTRUE/ONFALSE)', () => {
     const criterion = page.locator('[data-section-tag="C01"]');
     await expect(criterion).toBeVisible();
 
-    // The ONTRUE/ONFALSE subgroups start hidden.
-    const conditional = criterion.locator('.espd-question-subgroup[data-code="ONTRUE"], .espd-question-subgroup[data-code="ONFALSE"]').first();
+    // The conviction-date field is gated by the answer (visibleWhen equals true)
+    // and starts hidden.
+    const conditional = criterion.locator(
+      '[data-field="partIII.exclusionGrounds.exg-crim-part.response.convictions[].dateOfConviction"]'
+    ).first();
     await expect(conditional).toBeHidden();
 
-    // Answer the first indicator "Yes" → an ONTRUE subgroup becomes visible.
-    const yesRadio = criterion.locator('input[type="radio"][value="true"]').first();
-    await yesRadio.check();
-    await expect(criterion.locator('.espd-question-subgroup[data-code="ONTRUE"]').first()).toBeVisible();
+    // Answer "Yes" → the conditional field becomes visible.
+    await answerIndicator(page, 'partIII.exclusionGrounds.exg-crim-part.response.answer', true);
+    await expect(conditional).toBeVisible();
   });
 });
 
@@ -33,7 +39,7 @@ test.describe('Codelist dropdowns render options', () => {
   test('Part I country select offers country options', async ({ page }) => {
     await startWizardAs(page, 'contracting-authority');
     await goToPart(page, 'I');
-    const countrySelect = page.locator('select[data-contentpath="PI02_proc-procurer-id/QG1/Q2/R1/RV"]');
+    const countrySelect = page.locator('select[data-field="partI.contractingAuthority.country"]');
     await expect(countrySelect).toBeVisible();
     // More than just the placeholder "— Select —".
     const optionCount = await countrySelect.locator('option').count();
@@ -43,12 +49,12 @@ test.describe('Codelist dropdowns render options', () => {
 });
 
 test.describe('Part I affordances', () => {
-  test('publication reference renders as a radio-input-group with a Look up button', async ({ page }) => {
+  test('publication fields carry a TED "Look up" button (feature-gated)', async ({ page }) => {
     await startWizardAs(page, 'contracting-authority');
     await goToPart(page, 'I');
-    // The radio-input-group enhancement runs for Part I buyer view.
-    await expect(page.locator('.espd-radio-input-group, .espd-radio-input-row').first()).toBeVisible();
-    // TED "Look up" button is attached to the notice-number field (feature-gated).
+    // The DocRefContentType type dropdown is present.
+    await expect(page.locator('select[data-field="partI.publication.type"]')).toBeVisible();
+    // TED "Look up" button is attached to the notice fields (feature-gated).
     const lookup = page.locator('.espd-lookup-btn');
     if (await lookup.count() > 0) {
       await expect(lookup.first()).toBeVisible();

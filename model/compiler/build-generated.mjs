@@ -14,6 +14,7 @@ import { buildCoverageReport, reportPath } from './build-coverage-report.mjs';
 import { buildCompiledModel, envelopePath } from './build-compiled-model.mjs';
 import { buildRolesLens } from './roles.mjs';
 import { buildPartsLens } from './parts.mjs';
+import { buildUiBundle } from './build-ui-bundle.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
@@ -64,9 +65,17 @@ process.stderr.write(`Generated UI role lens (${rolesLens.buyerTypes.length + ro
 // hand-authored section lenses into model/generated/ui/part-*.json, with the
 // Part I TED-lookup affordance carried as declarative uiHints. English text to
 // the espd.parts.json catalogue.
-const { lenses: partLenses } = buildPartsLens({ write: true });
-const partSectionCount = partLenses.reduce((n, l) => n + l.sections.length, 0);
-process.stderr.write(`Generated ${partLenses.length} UI part lenses (${partSectionCount} sections) under model/generated/ui/part-*.json.\n`);
+const { lenses: adminLenses } = buildPartsLens({ write: true });
+process.stderr.write(`Validated ${adminLenses.length} admin part lenses; wrote the espd.parts.json catalogue.\n`);
+
+// UI assembly bundle (Phase 3): the part -> ordered sections -> ordered members
+// structure (criterion form-structures + admin lenses, grouped by the EA section
+// structure) + the composed $ref JSON Schemas (per-part roots + document root).
+// Must run AFTER criteria (needs form-structure + instance-data) and parts.
+const { partLenses, criteriaByPart } = buildUiBundle({ write: true });
+const bundledCriteria = [...criteriaByPart.values()].reduce((n, c) => n + c.length, 0);
+const bundledSections = partLenses.reduce((n, l) => n + l.sections.length, 0);
+process.stderr.write(`Assembled UI bundle: ${partLenses.length} parts, ${bundledSections} sections, ${bundledCriteria} criteria under model/generated/ui/{index.json, part-*.json, schema/*}.\n`);
 
 // "State of the model" coverage report (generated from the sources above).
 buildCoverageReport({ write: true });

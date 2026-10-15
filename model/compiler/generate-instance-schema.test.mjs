@@ -23,10 +23,11 @@ const sidecar = JSON.parse(fs.readFileSync(path.join(here, '..', 'model-sources'
 const criterion = overlayEnrichment(core, sidecar);
 const { registry } = loadValidatedRegistry();
 const hints = JSON.parse(fs.readFileSync(path.join(here, '..', 'model-sources', 'criteria', `${CODE}.hints.json`), 'utf8'));
-// Baseline (no hints) and refined (with hints) schemas. Distinct $ids so Ajv
-// can compile both in one instance.
-const baselineSchema = generateInstanceSchema(criterion, registry, { partId: 'part-IV-baseline' });
-const schema = generateInstanceSchema(criterion, registry, { partId: 'part-IV', hints });
+// Baseline (no hints) and refined (with hints) schemas. Distinct outputIds give
+// distinct $ids so Ajv can compile both in one instance ($id derives from
+// outputId, the per-criterion schema filename stem).
+const baselineSchema = generateInstanceSchema(criterion, registry, { partId: 'IV', outputId: `${CODE}-baseline` });
+const schema = generateInstanceSchema(criterion, registry, { partId: 'IV', outputId: CODE, hints });
 
 const ajv = new Ajv({ allErrors: true, strict: false });
 const validate = ajv.compile(schema);

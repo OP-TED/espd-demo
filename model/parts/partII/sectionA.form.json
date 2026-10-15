@@ -12,6 +12,7 @@
     {
       "dataPath": "partII.economicOperator.role",
       "labelKey": "partII.economicOperator.role",
+      "label": "Role in this bid",
       "uiType": "code",
       "codelist": "eo-role-type",
       "required": true,
@@ -20,6 +21,7 @@
     {
       "dataPath": "partII.economicOperator.name",
       "labelKey": "partII.economicOperator.name",
+      "label": "Official name",
       "uiType": "text",
       "required": true,
       "description": "Official name of the economic operator (BR-RESP-10-05)."
@@ -27,6 +29,7 @@
     {
       "dataPath": "partII.economicOperator.size",
       "labelKey": "partII.economicOperator.size",
+      "label": "Size",
       "uiType": "code",
       "codelist": "economic-operator-size",
       "required": true,
@@ -35,6 +38,7 @@
     {
       "dataPath": "partII.economicOperator.country",
       "labelKey": "partII.economicOperator.country",
+      "label": "Country",
       "uiType": "code",
       "codelist": "country",
       "required": true,
@@ -43,6 +47,7 @@
     {
       "dataPath": "partII.economicOperator.identifier.value",
       "labelKey": "partII.economicOperator.identifier.value",
+      "label": "Identifier",
       "uiType": "text",
       "required": true,
       "description": "An identifier that identifies the economic operator (BR-RESP-10-04)."
@@ -50,6 +55,7 @@
     {
       "dataPath": "partII.economicOperator.identifier.schemeAgency",
       "labelKey": "partII.economicOperator.identifier.schemeAgency",
+      "label": "Scheme agency",
       "uiType": "text",
       "required": true,
       "description": "The agency maintaining the identifier scheme. Mandatory on the XML element (BR-OTH-02).",

@@ -14,7 +14,6 @@ import {
   loadPartsSources,
   validatePartsSources,
   buildPartsLens,
-  partLensPath,
   partsI18nPath,
 } from './parts.mjs';
 
@@ -95,8 +94,8 @@ describe('parts: source validation', () => {
 });
 
 describe('parts: assembled lens shape', () => {
-  it('emits Part I and Part VI', () => {
-    assert.deepEqual(lenses.map((l) => l.part), ['I', 'VI']);
+  it('emits the admin parts I, II, VI', () => {
+    assert.deepEqual(lenses.map((l) => l.part), ['I', 'II', 'VI']);
   });
 
   it('Part I carries sections A, B, C in order', () => {
@@ -152,14 +151,8 @@ describe('parts: assembled lens shape', () => {
 });
 
 describe('parts: generated artifacts are up to date (staleness guard)', () => {
-  for (const part of ['I', 'VI']) {
-    it(`committed model/generated/ui/part-${part}.json matches a fresh build`, () => {
-      const onDisk = readFileSync(partLensPath(part), 'utf8');
-      const fresh = JSON.stringify(lensOf(part), null, 2) + '\n';
-      assert.equal(onDisk, fresh, `part-${part}.json is stale — run \`node model/compiler/parts.mjs\``);
-    });
-  }
-
+  // parts.mjs owns only the English catalogue; the assembled part-*.json are
+  // written by build-ui-bundle.mjs and guarded in build-ui-bundle.test.mjs.
   it('committed i18n/en/espd.parts.json matches a fresh build', () => {
     const onDisk = readFileSync(partsI18nPath, 'utf8');
     const fresh = JSON.stringify(catalogue, null, 2) + '\n';

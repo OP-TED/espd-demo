@@ -46,6 +46,12 @@ const INFRA = new Set([
                               // no per-criterion node shaping, so R11.4 does not apply.
   'roles.mjs',                // loads/validates the role registry + emits the UI role lens;
                               // pure loader/validator, no per-criterion branching.
+  'build-ui-bundle.mjs',      // assembles the UI bundle from the EA section structure +
+                              // generated form-structures + admin lenses. It names part
+                              // containers (partI..partVI, exclusionGrounds, …) by design —
+                              // it composes ALL parts, not per-criterion logic; adding a
+                              // criterion needs no edit here (criteria come from the EA
+                              // section structure + sidecars).
 ]);
 
 /** The transformation modules the guard applies to (discovered, not listed). */

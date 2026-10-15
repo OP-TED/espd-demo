@@ -12,6 +12,7 @@
     {
       "dataPath": "partII.powersOfAttorney[].description",
       "labelKey": "partII.powerOfAttorney.description",
+      "label": "Mandate description",
       "uiType": "textarea",
       "repeatable": true,
       "required": false,
@@ -20,6 +21,7 @@
     {
       "dataPath": "partII.powersOfAttorney[].agent.name",
       "labelKey": "partII.powerOfAttorney.agent.name",
+      "label": "Representative name",
       "uiType": "text",
       "repeatable": true,
       "required": true,
@@ -28,6 +30,7 @@
     {
       "dataPath": "partII.powersOfAttorney[].agent.identifier.value",
       "labelKey": "partII.powerOfAttorney.agent.identifier.value",
+      "label": "Representative identifier",
       "uiType": "text",
       "repeatable": true,
       "required": false,
@@ -36,6 +39,7 @@
     {
       "dataPath": "partII.powersOfAttorney[].agent.identifier.schemeAgency",
       "labelKey": "partII.powerOfAttorney.agent.identifier.schemeAgency",
+      "label": "Scheme agency",
       "uiType": "text",
       "repeatable": true,
       "required": false,
@@ -45,6 +49,7 @@
     {
       "dataPath": "partII.powersOfAttorney[].agent.country",
       "labelKey": "partII.powerOfAttorney.agent.country",
+      "label": "Representative country",
       "uiType": "code",
       "codelist": "country",
       "repeatable": true,

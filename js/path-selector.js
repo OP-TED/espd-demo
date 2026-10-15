@@ -4,6 +4,8 @@
  * Step 2: Choose a specific role within the selected path.
  */
 
+import { t } from './i18n.js';
+
 /**
  * Renders the two-step role selector.
  * Step 1: Choose path (Buyer / Economic Operator)
@@ -143,10 +145,10 @@ function renderStep2({ container, path, roleEntries, roles, onRoleSelected, onCa
     textWrapper.className = 'espd-role-radio__text';
 
     const labelText = document.createElement('strong');
-    labelText.textContent = role.label;
+    labelText.textContent = t(role.labelKey, role.id);
 
     const descText = document.createElement('small');
-    descText.textContent = role.description;
+    descText.textContent = t(role.descriptionKey, '');
 
     textWrapper.appendChild(labelText);
     textWrapper.appendChild(document.createElement('br'));
@@ -222,17 +224,17 @@ function createRoleCard({ role, onClick }) {
   const article = document.createElement('article');
 
   const header = document.createElement('header');
-  header.textContent = role.label;
+  header.textContent = t(role.labelKey, role.id);
   article.appendChild(header);
 
   const desc = document.createElement('p');
-  desc.textContent = role.description;
+  desc.textContent = t(role.descriptionKey, '');
   article.appendChild(desc);
 
   const footer = document.createElement('footer');
   const btn = document.createElement('button');
   btn.textContent = role.documentType === 'request' ? 'Create ESPD Request' : 'Create ESPD Response';
-  btn.setAttribute('aria-label', `Select role: ${role.label}`);
+  btn.setAttribute('aria-label', `Select role: ${t(role.labelKey, role.id)}`);
   btn.addEventListener('click', onClick);
   footer.appendChild(btn);
   article.appendChild(footer);

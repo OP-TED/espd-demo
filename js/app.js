@@ -12,6 +12,7 @@ import { loadLanguage, t } from './i18n.js';
 import { loadModel, getPart, getPartsForRole, getRoles, getRoleById } from './model.js';
 import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, resetState, getAnswers, hasAnswers, hasSession } from './state.js';
 import { renderPart } from './renderer.js';
+import { loadCodelists } from './codelists.js';
 import { downloadDocument } from './xml-export.js';
 import { importDocumentFile } from './xml-import.js';
 import { renderHomePage } from './home.js';
@@ -25,10 +26,11 @@ let wizardParts = []; // Parts available for current role
  * Application bootstrap.
  */
 async function init() {
-  // Load i18n and model in parallel
+  // Load i18n, the model bundle, and the codelist service data in parallel.
   await Promise.all([
     loadLanguage('en'),
-    loadModel()
+    loadModel(),
+    loadCodelists()
   ]);
 
   // Initialize state (restore from localStorage)
@@ -130,7 +132,7 @@ function showWizard(roleId) {
   const headerContainer = wizardContainer.querySelector('.espd-wizard-header');
   const role = getRoleById(roleId);
   const documentType = role?.documentType || 'request';
-  const roleLabel = role?.label || 'Unknown Role';
+  const roleLabel = role ? t(role.labelKey, roleId) : 'Unknown Role';
 
   renderWizardHeader({
     container: headerContainer,
@@ -207,7 +209,7 @@ async function handleImportFile(file) {
     // On successful import, update wizard header and show wizard (Requirement 4.3)
     const importedRole = getRoleById(result.role);
     const docType = importedRole?.documentType || 'request';
-    const label = importedRole?.label || 'Unknown Role';
+    const label = importedRole ? t(importedRole.labelKey, result.role) : 'Unknown Role';
 
     updateWizardHeader({ documentType: docType, roleLabel: label });
     showWizard(result.role);

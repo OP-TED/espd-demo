@@ -4,6 +4,8 @@
  * New ESPD / Import options (when no session exists).
  */
 
+import { t } from './i18n.js';
+
 /**
  * Computes a human-readable relative time string from an ISO timestamp.
  * @param {string} isoTimestamp - ISO 8601 timestamp
@@ -51,9 +53,11 @@ function formatDocumentType(documentType) {
  * @param {object} answers - The answers map
  * @returns {number}
  */
-function getAnsweredCount(answers) {
-  if (!answers || typeof answers !== 'object') return 0;
-  return Object.keys(answers).length;
+function getAnsweredCount(instance) {
+  // Count leaf values in the nested instance document.
+  if (instance === null || instance === undefined) return 0;
+  if (typeof instance !== 'object') return 1;
+  return Object.values(instance).reduce((n, v) => n + getAnsweredCount(v), 0);
 }
 
 /**
@@ -65,9 +69,9 @@ function getAnsweredCount(answers) {
  */
 function renderContinueCard(session, roleData, onContinue) {
   const documentType = roleData?.documentType || 'request';
-  const roleLabel = roleData?.label || 'Unknown Role';
+  const roleLabel = roleData ? t(roleData.labelKey, roleData.id) : 'Unknown Role';
   const lastModified = session.metadata?.lastModified || null;
-  const answeredCount = getAnsweredCount(session.answers);
+  const answeredCount = getAnsweredCount(session.instance);
   const badgeModifier = documentType === 'response' ? 'espd-doc-badge--response' : 'espd-doc-badge--request';
   const badgeText = formatDocumentType(documentType);
   const relativeTime = formatRelativeTime(lastModified);

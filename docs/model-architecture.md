@@ -126,6 +126,17 @@ Per criterion: **`<code>.schema.json`** + **`<code>.example.json`**.
 This is the heart of the model: the schema says *what valid answer data looks like*,
 addressed by dotted path (`partIII.exclusionGrounds.exg-crim-corrpt.response.answer`).
 
+**Composition, not a monolith.** There is deliberately *no* single giant schema for the
+whole ESPD. A real ESPD instance is sparse — it carries only the criteria selected for
+that procedure/role — so a monolithic schema (which would imply every criterion is always
+present) is the wrong shape. Instead the per-criterion schemas stay the single source and
+are **composed by `$ref`**: each keeps its own `$id`, and generated **root schemas**
+(a per-part root and a document-level root) reference the criterion schemas, keyed under
+their container (e.g. `partIII.exclusionGrounds.<code>`), with each criterion sub-schema
+optional (present-if-included). A validator loads all sub-schemas + a root and validates
+the whole document in one pass without a merged file. See the browser-validation note in
+§6.
+
 ### 4.2 form-structure — the PRESENTATION LENS
 
 Per criterion: **`<code>.form.json`**. A flat-ish list of **fields**, each carrying
@@ -207,6 +218,27 @@ the lenses carry the structure.
   copy, two consumers.
 - **The generated lenses** are data, consumed at runtime by the UI (and by anything
   else that needs the model).
+
+**Instance-data validation is client-side.** The app is a static, no-build browser app
+(the dev server only serves files + proxies TED/ITB). Validation of the instance document
+against the composed schema (§4.1) therefore runs in the browser. The chosen approach is to
+**precompile the validators at build time** (Ajv standalone mode) into `model/generated/`
+and import the plain-JS validators in the browser — no Ajv compiler shipped to the client,
+no `eval`/CSP issue, and the validators stay generated-and-in-sync like every other lens.
+(This is distinct from ITB Schematron validation, which is XML-level and delegated to a
+remote service via the dev-server proxy.)
+
+---
+
+## 6b. The current (legacy) UI data path — being retired
+
+For historical context: the **current** browser UI does not read `model/` at all. It reads
+the hand-authored `espd-edm/` directory (`index.json` + `parts/part-*.json` + `roles.json`),
+hard-codes codelist tables in `js/codelists.js`, and **re-implements the UBL mapping by hand**
+in `js/xml-export.js` (string building) and `js/xml-import.js` (lossy regex parsing), keyed on
+`contentpath` strings. The planned UI rebuild replaces all of this with the generated lenses +
+the shared mapping engine (`mapper.mjs`), after which `espd-edm/` and the hand-rolled
+export/import are retired. See the UI rebuild plan.
 
 ---
 

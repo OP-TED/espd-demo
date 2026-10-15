@@ -13,6 +13,7 @@
         {
           "kind": "criterion",
           "id": "slc-suit-reg-prof",
+          "tag": "C25",
           "code": "slc-suit-reg-prof",
           "nameKey": "criterion.name.slc-suit-reg-prof",
           "descriptionKey": "criterion.description.slc-suit-reg-prof",
@@ -205,6 +206,7 @@
         {
           "kind": "criterion",
           "id": "slc-suit-reg-trade",
+          "tag": "C26",
           "code": "slc-suit-reg-trade",
           "nameKey": "criterion.name.slc-suit-reg-trade",
           "descriptionKey": "criterion.description.slc-suit-reg-trade",
@@ -405,6 +407,7 @@
         {
           "kind": "criterion",
           "id": "slc-suit-auth-mbrshp",
+          "tag": "C66",
           "code": "slc-suit-auth-mbrshp",
           "nameKey": "criterion.name.slc-suit-auth-mbrshp",
           "descriptionKey": "criterion.description.slc-suit-auth-mbrshp",
@@ -598,6 +601,7 @@
         {
           "kind": "criterion",
           "id": "slc-stand-to-gen",
+          "tag": "C29",
           "code": "slc-stand-to-gen",
           "nameKey": "criterion.name.slc-stand-to-gen",
           "descriptionKey": "criterion.description.slc-stand-to-gen",
@@ -938,6 +942,7 @@
         {
           "kind": "criterion",
           "id": "slc-stand-to-avg",
+          "tag": "C30",
           "code": "slc-stand-to-avg",
           "nameKey": "criterion.name.slc-stand-to-avg",
           "descriptionKey": "criterion.description.slc-stand-to-avg",
@@ -1259,6 +1264,7 @@
         {
           "kind": "criterion",
           "id": "slc-stand-to-spec-avg",
+          "tag": "C31",
           "code": "slc-stand-to-spec-avg",
           "nameKey": "criterion.name.slc-stand-to-spec-avg",
           "descriptionKey": "criterion.description.slc-stand-to-spec-avg",
@@ -1614,6 +1620,7 @@
         {
           "kind": "criterion",
           "id": "slc-stand-to-spec",
+          "tag": "C32",
           "code": "slc-stand-to-spec",
           "nameKey": "criterion.name.slc-stand-to-spec",
           "descriptionKey": "criterion.description.slc-stand-to-spec",
@@ -1941,6 +1948,7 @@
         {
           "kind": "criterion",
           "id": "slc-stand-ratio",
+          "tag": "C34",
           "code": "slc-stand-ratio",
           "nameKey": "criterion.name.slc-stand-ratio",
           "descriptionKey": "criterion.description.slc-stand-ratio",
@@ -2143,6 +2151,7 @@
         {
           "kind": "criterion",
           "id": "slc-stand-ins",
+          "tag": "C35",
           "code": "slc-stand-ins",
           "nameKey": "criterion.name.slc-stand-ins",
           "descriptionKey": "criterion.description.slc-stand-ins",
@@ -2355,6 +2364,7 @@
         {
           "kind": "criterion",
           "id": "slc-stand-other",
+          "tag": "C36",
           "code": "slc-stand-other",
           "nameKey": "criterion.name.slc-stand-other",
           "descriptionKey": "criterion.description.slc-stand-other",
@@ -2747,6 +2757,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-ref-work",
+          "tag": "C37",
           "code": "slc-abil-ref-work",
           "nameKey": "criterion.name.slc-abil-ref-work",
           "descriptionKey": "criterion.description.slc-abil-ref-work",
@@ -3042,6 +3053,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-ref-supply",
+          "tag": "C38",
           "code": "slc-abil-ref-supply",
           "nameKey": "criterion.name.slc-abil-ref-supply",
           "descriptionKey": "criterion.description.slc-abil-ref-supply",
@@ -3337,6 +3349,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-ref-services",
+          "tag": "C39",
           "code": "slc-abil-ref-services",
           "nameKey": "criterion.name.slc-abil-ref-services",
           "descriptionKey": "criterion.description.slc-abil-ref-services",
@@ -3632,6 +3645,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-staff-tech-ctrl",
+          "tag": "C40",
           "code": "slc-abil-staff-tech-ctrl",
           "nameKey": "criterion.name.slc-abil-staff-tech-ctrl",
           "descriptionKey": "criterion.description.slc-abil-staff-tech-ctrl",
@@ -3965,6 +3979,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-staff-tech-work",
+          "tag": "C41",
           "code": "slc-abil-staff-tech-work",
           "nameKey": "criterion.name.slc-abil-staff-tech-work",
           "descriptionKey": "criterion.description.slc-abil-staff-tech-work",
@@ -4326,6 +4341,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-mgmt-qual",
+          "tag": "C42",
           "code": "slc-abil-mgmt-qual",
           "nameKey": "criterion.name.slc-abil-mgmt-qual",
           "descriptionKey": "criterion.description.slc-abil-mgmt-qual",
@@ -4496,6 +4512,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-facil-res",
+          "tag": "C43",
           "code": "slc-abil-facil-res",
           "nameKey": "criterion.name.slc-abil-facil-res",
           "descriptionKey": "criterion.description.slc-abil-facil-res",
@@ -4666,6 +4683,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-mgmt-supply",
+          "tag": "C44",
           "code": "slc-abil-mgmt-supply",
           "nameKey": "criterion.name.slc-abil-mgmt-supply",
           "descriptionKey": "criterion.description.slc-abil-mgmt-supply",
@@ -4836,6 +4854,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-mgmt-env",
+          "tag": "C45",
           "code": "slc-abil-mgmt-env",
           "nameKey": "criterion.name.slc-abil-mgmt-env",
           "descriptionKey": "criterion.description.slc-abil-mgmt-env",
@@ -5006,6 +5025,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-facil-tools",
+          "tag": "C46",
           "code": "slc-abil-facil-tools",
           "nameKey": "criterion.name.slc-abil-facil-tools",
           "descriptionKey": "criterion.description.slc-abil-facil-tools",
@@ -5176,6 +5196,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-staff-qual",
+          "tag": "C47",
           "code": "slc-abil-staff-qual",
           "nameKey": "criterion.name.slc-abil-staff-qual",
           "descriptionKey": "criterion.description.slc-abil-staff-qual",
@@ -5423,6 +5444,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-check",
+          "tag": "C48",
           "code": "slc-abil-check",
           "nameKey": "criterion.name.slc-abil-check",
           "descriptionKey": "criterion.description.slc-abil-check",
@@ -5588,6 +5610,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-staff-yrly-no-mgmt",
+          "tag": "C49",
           "code": "slc-abil-staff-yrly-no-mgmt",
           "nameKey": "criterion.name.slc-abil-staff-yrly-no-mgmt",
           "descriptionKey": "criterion.description.slc-abil-staff-yrly-no-mgmt",
@@ -5771,6 +5794,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-staff-yrly-avg-mp",
+          "tag": "C50",
           "code": "slc-abil-staff-yrly-avg-mp",
           "nameKey": "criterion.name.slc-abil-staff-yrly-avg-mp",
           "descriptionKey": "criterion.description.slc-abil-staff-yrly-avg-mp",
@@ -5954,6 +5978,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-subc",
+          "tag": "C51",
           "code": "slc-abil-subc",
           "nameKey": "criterion.name.slc-abil-subc",
           "descriptionKey": "criterion.description.slc-abil-subc",
@@ -6110,6 +6135,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-qual-smp-wo-autent",
+          "tag": "C52",
           "code": "slc-abil-qual-smp-wo-autent",
           "nameKey": "criterion.name.slc-abil-qual-smp-wo-autent",
           "descriptionKey": "criterion.description.slc-abil-qual-smp-wo-autent",
@@ -6266,6 +6292,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-qual-smp-w-autent",
+          "tag": "C53",
           "code": "slc-abil-qual-smp-w-autent",
           "nameKey": "criterion.name.slc-abil-qual-smp-w-autent",
           "descriptionKey": "criterion.description.slc-abil-qual-smp-w-autent",
@@ -6422,6 +6449,7 @@
         {
           "kind": "criterion",
           "id": "slc-abil-qual-inst",
+          "tag": "C54",
           "code": "slc-abil-qual-inst",
           "nameKey": "criterion.name.slc-abil-qual-inst",
           "descriptionKey": "criterion.description.slc-abil-qual-inst",
@@ -6606,6 +6634,7 @@
         {
           "kind": "criterion",
           "id": "slc-sche-qu-cert-indep",
+          "tag": "C55",
           "code": "slc-sche-qu-cert-indep",
           "nameKey": "criterion.name.slc-sche-qu-cert-indep",
           "descriptionKey": "criterion.description.slc-sche-qu-cert-indep",
@@ -6784,6 +6813,7 @@
         {
           "kind": "criterion",
           "id": "slc-sche-env-cert-indep",
+          "tag": "C56",
           "code": "slc-sche-env-cert-indep",
           "nameKey": "criterion.name.slc-sche-env-cert-indep",
           "descriptionKey": "criterion.description.slc-sche-env-cert-indep",

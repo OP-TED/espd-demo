@@ -13,6 +13,7 @@
         {
           "kind": "criterion",
           "id": "ot-reduction-of-candidates",
+          "tag": "OT63",
           "code": "OT",
           "nameKey": "criterion.name.OT",
           "descriptionKey": "criterion.description.OT",

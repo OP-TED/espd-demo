@@ -89,11 +89,12 @@ describe('ui-bundle: assembled shape', () => {
     assert.deepEqual(partIII.sections[3].members.map((m) => m.id), ['exg-natl-bre-nat-law']);
   });
 
-  it('criterion members carry groups/dataPath unflattened', () => {
+  it('criterion members carry groups/dataPath/tag unflattened', () => {
     const m = allCriterionMembers().find((x) => x.id === 'exg-crim-part');
     assert.ok(m.dataPath && Array.isArray(m.groups) && m.groups.length >= 1);
     assert.ok(m.groups[0].fields.length >= 1, 'group fields preserved');
     assert.ok(m.nameKey && m.descriptionKey, 'i18n keys carried');
+    assert.equal(m.tag, 'C01', 'EA tag carried (stable id for the criterion card)');
   });
 
   it('admin members carry flat fields; Part I lookup hint survives', () => {

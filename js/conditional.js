@@ -1,96 +1,50 @@
 /**
- * Conditional logic module — handles ONTRUE/ONFALSE visibility of question subgroups.
+ * Conditional logic — declarative visibleWhen evaluation.
  *
- * Rules:
- * - code "ON*": always visible (default)
- * - code "ONTRUE": visible only when the parent group's INDICATOR question is answered "true"
- * - code "ONFALSE": visible only when the parent group's INDICATOR question is answered "false"
+ * Each field whose model carries a `visibleWhen` is rendered inside a wrapper
+ * marked with data-visible-when="<json>", where the JSON is either
+ *   { "path": "<dataPath>", "equals": <value> }     // show when answer === value
+ *   { "path": "<dataPath>", "isPresent": true }      // show when answer is non-empty
+ * applyConditionalLogic reads those wrappers and toggles `hidden` by evaluating
+ * the condition against the instance document (the dataPath answer store). This
+ * replaces the former DOM-code (ONTRUE/ONFALSE) + sibling-INDICATOR mechanism.
  */
 
 import { getAnswer } from './state.js';
 
+/** Is a stored answer "present" (non-empty)? */
+function isPresent(value) {
+  if (value === null || value === undefined || value === '') return false;
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === 'object') return Object.values(value).some((v) => isPresent(v));
+  return true;
+}
+
+/** Evaluate one visibleWhen condition against the instance document. */
+export function evaluateVisibleWhen(cond) {
+  if (!cond || !cond.path) return true;
+  const value = getAnswer(cond.path);
+  if (Object.hasOwn(cond, 'equals')) return value === cond.equals;
+  if (Object.hasOwn(cond, 'isPresent')) return isPresent(value) === cond.isPresent;
+  return true;
+}
+
 /**
- * Apply conditional visibility logic to all subgroups within a container.
- * Should be called after rendering and after any indicator value changes.
+ * Toggle every conditional wrapper in a container based on the current answers.
+ * Call after rendering and after any answer changes.
  */
 export function applyConditionalLogic(container) {
   if (!container) return;
-
-  // Find all question groups and requirement groups (parents of conditional subgroups)
-  const groups = container.querySelectorAll('.espd-question-group, .espd-question-subgroup');
-
-  groups.forEach(group => {
-    // Find the indicator (radio) within this direct group (not nested)
-    const indicator = findDirectIndicator(group);
-    if (!indicator) return;
-
-    const indicatorValue = getIndicatorValue(indicator);
-
-    // Find direct child subgroups with ONTRUE/ONFALSE codes
-    const subgroups = group.querySelectorAll(':scope > .espd-question-subgroup');
-    subgroups.forEach(subgroup => {
-      const code = subgroup.dataset.code;
-      if (code === 'ONTRUE') {
-        toggleVisibility(subgroup, indicatorValue === 'true');
-      } else if (code === 'ONFALSE') {
-        toggleVisibility(subgroup, indicatorValue === 'false');
-      }
-      // ON* groups are always visible (default behavior)
-    });
-  });
-}
-
-/**
- * Find the first INDICATOR radio group directly within a group (not in nested subgroups).
- */
-function findDirectIndicator(group) {
-  // Look for fieldsets with radio inputs in immediate children
-  const fields = group.querySelectorAll(':scope > .espd-field, :scope > .espd-indicator-wrapper, :scope > div > .espd-indicator-wrapper');
-
-  for (const field of fields) {
-    const radios = field.querySelectorAll('input[type="radio"]');
-    if (radios.length > 0) return field;
-  }
-
-  // Also check for indicator wrappers directly
-  const directWrappers = group.querySelectorAll(':scope > fieldset.espd-indicator-wrapper');
-  for (const wrapper of directWrappers) {
-    return wrapper;
-  }
-
-  return null;
-}
-
-/**
- * Get the current value of an indicator field.
- */
-function getIndicatorValue(indicatorField) {
-  // Check from DOM (checked radio)
-  const checkedRadio = indicatorField.querySelector('input[type="radio"]:checked');
-  if (checkedRadio) return checkedRadio.value;
-
-  // Check from state
-  const radio = indicatorField.querySelector('input[type="radio"]');
-  if (radio) {
-    const contentpath = radio.dataset.contentpath;
-    if (contentpath) {
-      const stateValue = getAnswer(contentpath);
-      if (stateValue !== undefined && stateValue !== null) return String(stateValue);
+  for (const el of container.querySelectorAll('[data-visible-when]')) {
+    let cond;
+    try {
+      cond = JSON.parse(el.dataset.visibleWhen);
+    } catch {
+      continue;
     }
-  }
-
-  return null;
-}
-
-/**
- * Toggle visibility of a subgroup element.
- */
-function toggleVisibility(element, visible) {
-  if (visible) {
-    element.hidden = false;
-    element.removeAttribute('aria-hidden');
-  } else {
-    element.hidden = true;
-    element.setAttribute('aria-hidden', 'true');
+    const visible = evaluateVisibleWhen(cond);
+    el.hidden = !visible;
+    if (visible) el.removeAttribute('aria-hidden');
+    else el.setAttribute('aria-hidden', 'true');
   }
 }

@@ -138,6 +138,7 @@ export function assembleParts({ edm = loadEdm(edmPath) } = {}) {
           members.push({
             kind: 'criterion',
             id,
+            tag: member.tag,
             code: form.code,
             nameKey: form.nameKey,
             descriptionKey: form.descriptionKey,

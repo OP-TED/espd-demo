@@ -13,6 +13,7 @@
         {
           "kind": "criterion",
           "id": "exg-crim-part",
+          "tag": "C01",
           "code": "exg-crim-part",
           "nameKey": "criterion.name.exg-crim-part",
           "descriptionKey": "criterion.description.exg-crim-part",
@@ -189,6 +190,7 @@
         {
           "kind": "criterion",
           "id": "exg-crim-corrpt",
+          "tag": "C02",
           "code": "exg-crim-corrpt",
           "nameKey": "criterion.name.exg-crim-corrpt",
           "descriptionKey": "criterion.description.exg-crim-corrpt",
@@ -365,6 +367,7 @@
         {
           "kind": "criterion",
           "id": "exg-crim-fraud",
+          "tag": "C03",
           "code": "exg-crim-fraud",
           "nameKey": "criterion.name.exg-crim-fraud",
           "descriptionKey": "criterion.description.exg-crim-fraud",
@@ -541,6 +544,7 @@
         {
           "kind": "criterion",
           "id": "exg-crim-terror",
+          "tag": "C04",
           "code": "exg-crim-terror",
           "nameKey": "criterion.name.exg-crim-terror",
           "descriptionKey": "criterion.description.exg-crim-terror",
@@ -717,6 +721,7 @@
         {
           "kind": "criterion",
           "id": "exg-crim-laund",
+          "tag": "C05",
           "code": "exg-crim-laund",
           "nameKey": "criterion.name.exg-crim-laund",
           "descriptionKey": "criterion.description.exg-crim-laund",
@@ -893,6 +898,7 @@
         {
           "kind": "criterion",
           "id": "exg-crim-traffick",
+          "tag": "C06",
           "code": "exg-crim-traffick",
           "nameKey": "criterion.name.exg-crim-traffick",
           "descriptionKey": "criterion.description.exg-crim-traffick",
@@ -1075,6 +1081,7 @@
         {
           "kind": "criterion",
           "id": "exg-pmt-bre-tax",
+          "tag": "C07",
           "code": "exg-pmt-bre-tax",
           "nameKey": "criterion.name.exg-pmt-bre-tax",
           "descriptionKey": "criterion.description.exg-pmt-bre-tax",
@@ -1339,6 +1346,7 @@
         {
           "kind": "criterion",
           "id": "exg-pmt-bre-ssc",
+          "tag": "C08",
           "code": "exg-pmt-bre-ssc",
           "nameKey": "criterion.name.exg-pmt-bre-ssc",
           "descriptionKey": "criterion.description.exg-pmt-bre-ssc",
@@ -1609,6 +1617,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-bre-env-law",
+          "tag": "C09",
           "code": "exg-mis-bre-env-law",
           "nameKey": "criterion.name.exg-mis-bre-env-law",
           "descriptionKey": "criterion.description.exg-mis-bre-env-law",
@@ -1720,6 +1729,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-bre-soc-law",
+          "tag": "C10",
           "code": "exg-mis-bre-soc-law",
           "nameKey": "criterion.name.exg-mis-bre-soc-law",
           "descriptionKey": "criterion.description.exg-mis-bre-soc-law",
@@ -1831,6 +1841,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-bre-lab-law",
+          "tag": "C11",
           "code": "exg-mis-bre-lab-law",
           "nameKey": "criterion.name.exg-mis-bre-lab-law",
           "descriptionKey": "criterion.description.exg-mis-bre-lab-law",
@@ -1942,6 +1953,7 @@
         {
           "kind": "criterion",
           "id": "exg-sitn-bankr",
+          "tag": "C12",
           "code": "exg-sitn-bankr",
           "nameKey": "criterion.name.exg-sitn-bankr",
           "descriptionKey": "criterion.description.exg-sitn-bankr",
@@ -2053,6 +2065,7 @@
         {
           "kind": "criterion",
           "id": "exg-sitn-insolvency",
+          "tag": "C13",
           "code": "exg-sitn-insolvency",
           "nameKey": "criterion.name.exg-sitn-insolvency",
           "descriptionKey": "criterion.description.exg-sitn-insolvency",
@@ -2164,6 +2177,7 @@
         {
           "kind": "criterion",
           "id": "exg-sitn-cred-arran",
+          "tag": "C14",
           "code": "exg-sitn-cred-arran",
           "nameKey": "criterion.name.exg-sitn-cred-arran",
           "descriptionKey": "criterion.description.exg-sitn-cred-arran",
@@ -2275,6 +2289,7 @@
         {
           "kind": "criterion",
           "id": "exg-sitn-other",
+          "tag": "C15",
           "code": "exg-sitn-other",
           "nameKey": "criterion.name.exg-sitn-other",
           "descriptionKey": "criterion.description.exg-sitn-other",
@@ -2386,6 +2401,7 @@
         {
           "kind": "criterion",
           "id": "exg-sitn-liq-admin",
+          "tag": "C16",
           "code": "exg-sitn-liq-admin",
           "nameKey": "criterion.name.exg-sitn-liq-admin",
           "descriptionKey": "criterion.description.exg-sitn-liq-admin",
@@ -2497,6 +2513,7 @@
         {
           "kind": "criterion",
           "id": "exg-sitn-as-susp",
+          "tag": "C17",
           "code": "exg-sitn-as-susp",
           "nameKey": "criterion.name.exg-sitn-as-susp",
           "descriptionKey": "criterion.description.exg-sitn-as-susp",
@@ -2608,6 +2625,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-exg-mis-misconduct",
+          "tag": "C18",
           "code": "exg-mis-exg-mis-misconduct",
           "nameKey": "criterion.name.exg-mis-exg-mis-misconduct",
           "descriptionKey": "criterion.description.exg-mis-exg-mis-misconduct",
@@ -2732,6 +2750,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-distortion",
+          "tag": "C19",
           "code": "exg-mis-distortion",
           "nameKey": "criterion.name.exg-mis-distortion",
           "descriptionKey": "criterion.description.exg-mis-distortion",
@@ -2856,6 +2875,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-partic-confl",
+          "tag": "C20",
           "code": "exg-mis-partic-confl",
           "nameKey": "criterion.name.exg-mis-partic-confl",
           "descriptionKey": "criterion.description.exg-mis-partic-confl",
@@ -2954,6 +2974,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-prep-confl",
+          "tag": "C21",
           "code": "exg-mis-prep-confl",
           "nameKey": "criterion.name.exg-mis-prep-confl",
           "descriptionKey": "criterion.description.exg-mis-prep-confl",
@@ -3052,6 +3073,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-sanction",
+          "tag": "C22",
           "code": "exg-mis-sanction",
           "nameKey": "criterion.name.exg-mis-sanction",
           "descriptionKey": "criterion.description.exg-mis-sanction",
@@ -3176,6 +3198,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-misrepresent",
+          "tag": "C23",
           "code": "exg-mis-misrepresent",
           "nameKey": "criterion.name.exg-mis-misrepresent",
           "descriptionKey": "criterion.description.exg-mis-misrepresent",
@@ -3261,6 +3284,7 @@
         {
           "kind": "criterion",
           "id": "exg-mis-unrel-sec",
+          "tag": "C67",
           "code": "exg-mis-unrel-sec",
           "nameKey": "criterion.name.exg-mis-unrel-sec",
           "descriptionKey": "criterion.description.exg-mis-unrel-sec",
@@ -3345,6 +3369,7 @@
         {
           "kind": "criterion",
           "id": "exg-natl-bre-nat-law",
+          "tag": "C24",
           "code": "exg-natl-bre-nat-law",
           "nameKey": "criterion.name.exg-natl-bre-nat-law",
           "descriptionKey": "criterion.description.exg-natl-bre-nat-law",

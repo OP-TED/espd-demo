@@ -63,6 +63,7 @@
         {
           "kind": "criterion",
           "id": "ot-eo-size",
+          "tag": "OT65",
           "code": "OT",
           "nameKey": "criterion.name.OT",
           "descriptionKey": "criterion.description.OT",
@@ -188,6 +189,7 @@
         {
           "kind": "criterion",
           "id": "ot-sheltered-workshop",
+          "tag": "OT57",
           "code": "OT",
           "nameKey": "criterion.name.OT",
           "descriptionKey": "criterion.description.OT",
@@ -299,6 +301,7 @@
         {
           "kind": "criterion",
           "id": "ot-registered-official-list",
+          "tag": "OT58",
           "code": "OT",
           "nameKey": "criterion.name.OT",
           "descriptionKey": "criterion.description.OT",
@@ -471,6 +474,7 @@
         {
           "kind": "criterion",
           "id": "ot-group-participation",
+          "tag": "OT59",
           "code": "OT",
           "nameKey": "criterion.name.OT",
           "descriptionKey": "criterion.description.OT",
@@ -655,6 +659,7 @@
         {
           "kind": "criterion",
           "id": "ot-relied-on-entities",
+          "tag": "OT60",
           "code": "OT",
           "nameKey": "criterion.name.OT",
           "descriptionKey": "criterion.description.OT",
@@ -772,6 +777,7 @@
         {
           "kind": "criterion",
           "id": "ot-subcontractors",
+          "tag": "OT61",
           "code": "OT",
           "nameKey": "criterion.name.OT",
           "descriptionKey": "criterion.description.OT",

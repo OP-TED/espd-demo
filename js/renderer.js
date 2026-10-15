@@ -1,130 +1,351 @@
 /**
- * Renderer module — converts the ESPD-EDM JSON model into HTML form elements.
- * Handles all component types and property data types.
+ * Renderer — the generic, model-driven form renderer.
+ *
+ * Walks a part lens from the generated UI bundle (part.sections[].members[]) and
+ * binds every field to the JSON instance document at field.dataPath. Fields are
+ * rendered by field.uiType (code/text/url/textarea/boolean/date/number, plus
+ * caption notes); labels resolve through i18n (field.labelKey); code options come
+ * from the generated codelists (field.codelist); conditional visibility is driven
+ * declaratively by field.visibleWhen. No legacy component-type / contentpath /
+ * ONTRUE-ONFALSE machinery.
  */
 
-import { t, deriveQuestionKey, deriveCriterionNameKey, deriveCriterionDescKey, deriveLegislationKey, deriveCaptionKey, deriveRequirementKey } from './i18n.js';
+import { t } from './i18n.js';
 import { getAnswer, setAnswer, getInclusionState, setInclusionState, initInclusionStates } from './state.js';
-import { getCodelist, CURRENCY_CODES } from './codelists.js';
+import { getCodelist } from './codelists.js';
 import { applyConditionalLogic } from './conditional.js';
-import { lookupNotice, deriveTedUrl, deriveTedLinks, extractNoticeNumberFromUrl } from './ted-lookup.js';
+import { lookupNotice, extractNoticeNumberFromUrl } from './ted-lookup.js';
 import { getRoleById, isCriterionMandatory } from './model.js';
 import { features } from './features.js';
 
+const EO_ROLES = new Set(['sole-tenderer', 'group-lead', 'group-mem', 'oeron', 'subcont']);
+
 /**
  * Render a full part into the form content area.
+ * @param {object} part - the part lens { part, titleKey, descriptionKey, sections[] }
+ * @param {string} partKey - Roman numeral
+ * @param {string} role - active role id
+ * @param {HTMLElement} container
  */
 export function renderPart(part, partKey, role, container) {
   container.innerHTML = '';
 
-  // Branch: buyer roles see criteria selection view for Parts III and IV
-  if ((partKey === 'III' || partKey === 'IV') && role) {
-    const roleConfig = getRoleById(role);
-    if (roleConfig && roleConfig.documentType === 'request') {
-      renderCriteriaSelectionView(part, partKey, role, container);
-      return;
-    }
+  const roleConfig = role ? getRoleById(role) : null;
+  const isBuyer = roleConfig?.documentType === 'request';
+
+  container.appendChild(partHeader(part, partKey));
+
+  // Buyer sees Parts III/IV as a criteria-selection checklist.
+  if (isBuyer && (partKey === 'III' || partKey === 'IV')) {
+    renderCriteriaSelectionView(part, partKey, role, container);
+    applyConditionalLogic(container);
+    return;
   }
-
-  // Part header
-  const header = document.createElement('div');
-  header.className = 'espd-part-header';
-  header.innerHTML = `
-    <h2>Part ${partKey}: ${t('part.title.' + partKey, part.title)}</h2>
-    <p>${t('part.description.' + partKey, part.description || '')}</p>
-  `;
-  container.appendChild(header);
-
-  // Group sections by sectionTitle for sub-headings
-  let currentSectionTitle = null;
 
   for (const section of part.sections) {
-    // Section sub-heading (e.g. "A: Information about the economic operator")
-    if (section.sectionTitle && section.sectionTitle !== currentSectionTitle) {
-      currentSectionTitle = section.sectionTitle;
-      const sectionHeading = document.createElement('h3');
-      sectionHeading.className = 'espd-section-title';
-      // Try to find i18n key for this section title
-      const sectionKey = deriveSectionTitleKey(partKey, section.sectionTitle);
-      sectionHeading.textContent = t(sectionKey, section.sectionTitle);
-      container.appendChild(sectionHeading);
+    if (section.titleKey) {
+      const h = document.createElement('h3');
+      h.className = 'espd-section-title';
+      h.textContent = t(section.titleKey, section.id);
+      container.appendChild(h);
     }
-
-    // Render the section (criterion/procedure info/etc.)
-    const sectionEl = renderSection(section, role);
-    container.appendChild(sectionEl);
+    for (const member of section.members) {
+      container.appendChild(renderMember(member, role));
+    }
   }
 
-  // Apply conditional logic after rendering
-  applyConditionalLogic(container);
-
-  // Part I–specific enhancements
+  // Part I buyer affordances: radio-input publication group + TED lookup.
   if (partKey === 'I') {
-    renderRadioInputGroups(container);
-    enhancePartIWithLookup(container, role);
+    enhancePublicationGroup(container);
+    if (EO_ROLES.has(role)) {
+      markReadOnly(container);
+    } else if (features.tedLookup) {
+      enhanceTedLookup(container);
+    }
   }
+
+  applyConditionalLogic(container);
 }
 
-// ─── Criteria Selection View (Buyer Mode) ─────────────────────────────────────
-
-/**
- * Render Parts III/IV as a criteria selection checklist for buyer roles.
- * Shows each criterion as a card with checkbox (include/exclude).
- * Does NOT render EO-facing QUESTION fields.
- */
-function renderCriteriaSelectionView(part, partKey, role, container) {
-  // Part header
+function partHeader(part, partKey) {
   const header = document.createElement('div');
   header.className = 'espd-part-header';
-  header.innerHTML = `
-    <h2>Part ${partKey}: ${t('part.title.' + partKey, part.title)}</h2>
-    <p>${t('part.description.' + partKey, part.description || '')}</p>
-  `;
-  container.appendChild(header);
+  const h2 = document.createElement('h2');
+  h2.tabIndex = -1;
+  h2.textContent = `Part ${partKey}: ${t(part.titleKey, '')}`;
+  const p = document.createElement('p');
+  p.textContent = t(part.descriptionKey, '');
+  header.append(h2, p);
+  return header;
+}
 
-  // Initialise mandatory criteria to included
-  initInclusionStates(part.sections, role, isCriterionMandatory);
+// ─── Members ──────────────────────────────────────────────────────────────────
 
-  // Render sections as checklist items
-  let currentSectionTitle = null;
+function renderMember(member, role) {
+  if (member.kind === 'administrative') return renderAdministrative(member, role);
+  if (member.kind === 'criterion') return renderCriterion(member, role);
+  return document.createComment(`unknown member kind ${member.kind}`);
+}
+
+/** An administrative block: a flat list of fields in one question group. */
+function renderAdministrative(member, role) {
+  const wrap = document.createElement('div');
+  wrap.className = 'espd-criterion';
+  if (member.tag) wrap.dataset.sectionTag = member.tag;
+
+  const group = document.createElement('div');
+  group.className = 'espd-question-group';
+  for (const field of member.fields) {
+    group.appendChild(renderField(field));
+  }
+  wrap.appendChild(group);
+  return wrap;
+}
+
+/** A criterion: name + description + its groups of fields (EO answering view). */
+function renderCriterion(member, role) {
+  const wrap = document.createElement('div');
+  wrap.className = 'espd-criterion';
+  wrap.dataset.sectionTag = member.tag || member.id;
+  wrap.dataset.sectionCode = member.code || '';
+
+  const head = document.createElement('div');
+  head.className = 'espd-criterion-header';
+  const h3 = document.createElement('h3');
+  h3.textContent = t(member.nameKey, member.code || member.id);
+  head.appendChild(h3);
+  const desc = t(member.descriptionKey, '');
+  if (desc) {
+    const p = document.createElement('p');
+    p.textContent = desc;
+    head.appendChild(p);
+  }
+  wrap.appendChild(head);
+
+  for (const group of member.groups || []) {
+    const groupEl = document.createElement('div');
+    groupEl.className = 'espd-question-group';
+    for (const field of group.fields) {
+      groupEl.appendChild(renderField(field));
+    }
+    wrap.appendChild(groupEl);
+  }
+  return wrap;
+}
+
+// ─── Fields ─────────────────────────────────────────────────────────────────
+
+/**
+ * Render one field, bound to the instance document at field.dataPath.
+ * Wraps the control in `.espd-field` carrying data-field="<dataPath>" (and
+ * data-visible-when when conditional, for conditional.js).
+ */
+export function renderField(field) {
+  if (field.kind === 'caption') return renderCaption(field);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'espd-field';
+  wrap.dataset.field = field.dataPath;
+  if (field.repeatable) wrap.dataset.repeatable = 'true';
+  if (field.visibleWhen) {
+    wrap.dataset.visibleWhen = JSON.stringify(field.visibleWhen);
+    wrap.hidden = true; // conditional.js reveals it when the condition holds
+  }
+
+  const label = t(field.labelKey, field.dataPath);
+  const required = field.required === true;
+
+  let control;
+  switch (field.uiType) {
+    case 'boolean': control = booleanControl(field, label, required); break;
+    case 'code': control = codeControl(field, label, required); break;
+    case 'date': control = inputControl(field, label, required, 'date'); break;
+    case 'number': control = inputControl(field, label, required, 'number'); break;
+    case 'url': control = inputControl(field, label, required, 'url'); break;
+    case 'textarea': control = textareaControl(field, label, required); break;
+    case 'text':
+    default: control = inputControl(field, label, required, 'text'); break;
+  }
+  wrap.appendChild(control);
+  return wrap;
+}
+
+function renderCaption(field) {
+  const note = document.createElement('p');
+  note.className = 'espd-caption';
+  if (field.visibleWhen) {
+    note.dataset.visibleWhen = JSON.stringify(field.visibleWhen);
+    note.hidden = true;
+  }
+  note.textContent = t(field.labelKey, '');
+  return note;
+}
+
+function fieldId(dataPath) {
+  return `field-${dataPath.replace(/[^a-zA-Z0-9]+/g, '-')}`;
+}
+
+function labelEl(id, text, required) {
+  const l = document.createElement('label');
+  l.setAttribute('for', id);
+  l.innerHTML = `${escapeHtml(text)}${required ? ' <abbr title="Required">*</abbr>' : ''}`;
+  return l;
+}
+
+/** text / url / number / date input. */
+function inputControl(field, label, required, type) {
+  const frag = document.createElement('div');
+  const id = fieldId(field.dataPath);
+  const value = getAnswer(field.dataPath);
+  frag.appendChild(labelEl(id, label, required));
+  const input = document.createElement('input');
+  input.type = type;
+  input.id = id;
+  input.dataset.field = field.dataPath;
+  input.setAttribute('aria-label', label);
+  if (required) input.required = true;
+  if (value !== undefined && value !== null) input.value = String(value);
+  input.addEventListener('input', () => {
+    setAnswer(field.dataPath, input.value);
+    reapplyConditionals(input);
+  });
+  frag.appendChild(input);
+  return frag;
+}
+
+function textareaControl(field, label, required) {
+  const frag = document.createElement('div');
+  const id = fieldId(field.dataPath);
+  const value = getAnswer(field.dataPath);
+  frag.appendChild(labelEl(id, label, required));
+  const ta = document.createElement('textarea');
+  ta.id = id;
+  ta.dataset.field = field.dataPath;
+  ta.setAttribute('aria-label', label);
+  if (required) ta.required = true;
+  if (value !== undefined && value !== null) ta.value = String(value);
+  ta.addEventListener('input', () => {
+    setAnswer(field.dataPath, ta.value);
+    reapplyConditionals(ta);
+  });
+  frag.appendChild(ta);
+  return frag;
+}
+
+/** boolean -> Yes/No radio group. */
+function booleanControl(field, label, required) {
+  const fs = document.createElement('fieldset');
+  fs.className = 'espd-indicator-wrapper';
+  fs.setAttribute('role', 'radiogroup');
+  fs.setAttribute('aria-required', String(required));
+
+  const legend = document.createElement('legend');
+  legend.innerHTML = `${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}`;
+  fs.appendChild(legend);
+
+  const group = document.createElement('div');
+  group.className = 'espd-indicator-group';
+  const id = fieldId(field.dataPath);
+  const current = getAnswer(field.dataPath);
+  const name = id;
+
+  for (const [val, labelKey, fallback] of [[true, 'ui.yes', 'Yes'], [false, 'ui.no', 'No']]) {
+    const optId = `${id}-${val ? 'yes' : 'no'}`;
+    const l = document.createElement('label');
+    l.setAttribute('for', optId);
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.id = optId;
+    radio.name = name;
+    radio.value = String(val);
+    radio.dataset.field = field.dataPath;
+    if (current === val) radio.checked = true;
+    if (required && val === true) radio.required = true;
+    radio.addEventListener('change', () => {
+      setAnswer(field.dataPath, val);
+      reapplyConditionals(radio);
+    });
+    l.append(radio, document.createTextNode(' ' + t(labelKey, fallback)));
+    group.appendChild(l);
+  }
+  fs.appendChild(group);
+  return fs;
+}
+
+/** code -> select, options from the generated codelist. */
+function codeControl(field, label, required) {
+  const frag = document.createElement('div');
+  const id = fieldId(field.dataPath);
+  const value = getAnswer(field.dataPath);
+  frag.appendChild(labelEl(id, label, required));
+
+  const select = document.createElement('select');
+  select.id = id;
+  select.dataset.field = field.dataPath;
+  select.setAttribute('aria-label', label);
+  if (required) select.required = true;
+
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = t('ui.select', '— Select —');
+  select.appendChild(placeholder);
+
+  for (const opt of getCodelist(field.codelist)) {
+    const o = document.createElement('option');
+    o.value = opt.code;
+    o.textContent = opt.name;
+    if (value === opt.code) o.selected = true;
+    select.appendChild(o);
+  }
+  select.addEventListener('change', () => {
+    setAnswer(field.dataPath, select.value);
+    reapplyConditionals(select);
+  });
+  frag.appendChild(select);
+  return frag;
+}
+
+/** Re-run conditional visibility for the whole form after an answer change. */
+function reapplyConditionals(fromEl) {
+  const root = fromEl.closest('#form-content') || fromEl.closest('form') || document.getElementById('form-content');
+  applyConditionalLogic(root);
+}
+
+// ─── Buyer criteria-selection view (Parts III/IV) ─────────────────────────────
+
+function renderCriteriaSelectionView(part, partKey, role, container) {
+  const criterionMembers = part.sections.flatMap((s) => s.members.filter((m) => m.kind === 'criterion'));
+  initInclusionStates(criterionMembers, role, isCriterionMandatory);
 
   for (const section of part.sections) {
-    if (section.type !== 'CRITERION') continue;
-
-    // Section sub-heading
-    if (section.sectionTitle && section.sectionTitle !== currentSectionTitle) {
-      currentSectionTitle = section.sectionTitle;
-      const sectionHeading = document.createElement('h3');
-      sectionHeading.className = 'espd-section-title';
-      sectionHeading.textContent = section.sectionTitle;
-      container.appendChild(sectionHeading);
+    if (section.titleKey) {
+      const h = document.createElement('h3');
+      h.className = 'espd-section-title';
+      h.textContent = t(section.titleKey, section.id);
+      container.appendChild(h);
     }
-
-    // Render the criterion as a checklist item
-    const item = renderCriterionChecklistItem(section, role, partKey);
-    container.appendChild(item);
+    for (const member of section.members) {
+      if (member.kind !== 'criterion') continue;
+      container.appendChild(renderCriterionChecklistItem(member, role));
+    }
   }
 }
 
-/**
- * Render a single criterion as a checklist item (card with checkbox).
- * @param {object} section - The criterion section from the model
- * @param {string} role - The active role id
- * @param {string} partKey - The part key ('III' or 'IV')
- * @returns {HTMLElement}
- */
-function renderCriterionChecklistItem(section, role, partKey) {
-  const mandatory = isCriterionMandatory(section.code, role);
-  const included = mandatory || getInclusionState(section.tag, section.code) === true;
+function renderCriterionChecklistItem(member, role) {
+  const tag = member.tag || member.id;
+  const code = member.code;
+  const mandatory = isCriterionMandatory(code, role);
+  const included = mandatory || getInclusionState(tag, code) === true;
 
   const card = document.createElement('div');
   card.className = `criterion-card${mandatory ? ' criterion-card--mandatory' : ''}`;
+  card.dataset.sectionTag = tag;
+  card.dataset.sectionCode = code || '';
 
-  // Checkbox + label row
-  const checkboxId = `criterion-${section.tag}`;
   const headerRow = document.createElement('div');
   headerRow.className = 'criterion-card__header';
 
+  const checkboxId = `criterion-${tag}`;
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.id = checkboxId;
@@ -137,136 +358,57 @@ function renderCriterionChecklistItem(section, role, partKey) {
   const label = document.createElement('label');
   label.setAttribute('for', checkboxId);
   label.className = 'criterion-card__label';
-  label.textContent = section.name || section.tag;
+  label.textContent = t(member.nameKey, code || tag);
 
-  headerRow.appendChild(checkbox);
-  headerRow.appendChild(label);
-
-  // Mandatory indicator
+  headerRow.append(checkbox, label);
   if (mandatory) {
     const indicator = document.createElement('span');
     indicator.className = 'criterion-mandatory-indicator';
-    indicator.textContent = 'Required by regulation';
     indicator.id = `${checkboxId}-mandatory-help`;
+    indicator.textContent = t('ui.requiredByRegulation', 'Required by regulation');
     headerRow.appendChild(indicator);
   }
-
   card.appendChild(headerRow);
 
-  // Description
-  if (section.description) {
-    const desc = document.createElement('p');
-    desc.className = 'criterion-card__description';
-    desc.textContent = section.description;
-    card.appendChild(desc);
+  const desc = t(member.descriptionKey, '');
+  if (desc) {
+    const p = document.createElement('p');
+    p.className = 'criterion-card__description';
+    p.textContent = desc;
+    card.appendChild(p);
   }
 
-  // Render REQUIREMENT fields when criterion is included (buyer-set thresholds)
-  if ((partKey === 'III' || partKey === 'IV') && section.components) {
-    const reqContainer = document.createElement('div');
-    reqContainer.className = 'criterion-requirements';
-    reqContainer.hidden = !included;
-
-    for (const comp of section.components) {
-      if (comp.type === 'REQUIREMENT_GROUP' || comp.type === 'REQUIREMENT_SUBGROUP') {
-        renderRequirementComponents(comp, reqContainer);
-      }
-    }
-
-    if (reqContainer.children.length > 0) {
-      card.appendChild(reqContainer);
-    }
-  }
-
-  // Event listener for non-mandatory checkboxes
   if (!mandatory) {
     checkbox.addEventListener('change', () => {
-      setInclusionState(section.tag, section.code, checkbox.checked);
-
-      // Toggle requirement visibility
-      const reqSection = card.querySelector('.criterion-requirements');
-      if (reqSection) {
-        reqSection.hidden = !checkbox.checked;
-      }
+      setInclusionState(tag, code, checkbox.checked);
     });
   }
-
   return card;
 }
 
-/**
- * Render REQUIREMENT components (for buyer-set thresholds in Part IV).
- * Skips QUESTION components.
- */
-function renderRequirementComponents(group, container) {
-  if (!group.components) return;
-
-  for (const comp of group.components) {
-    if (comp.type === 'REQUIREMENT') {
-      const el = document.createElement('div');
-      el.className = 'espd-field';
-      el.dataset.contentpath = comp.contentpath || '';
-
-      const label = comp.description || '';
-      const contentpath = comp.contentpath || '';
-      const inputId = `field-${contentpath.replace(/[/\s]/g, '-')}`;
-      const currentValue = getAnswer(contentpath) || '';
-
-      el.innerHTML = `
-        <label for="${inputId}">${label}</label>
-        <input type="text" id="${inputId}" data-contentpath="${contentpath}" value="${currentValue}" aria-label="${label}">
-      `;
-
-      const input = el.querySelector('input');
-      if (input) {
-        input.addEventListener('input', () => setAnswer(contentpath, input.value));
-      }
-
-      container.appendChild(el);
-    } else if (comp.type === 'REQUIREMENT_GROUP' || comp.type === 'REQUIREMENT_SUBGROUP') {
-      renderRequirementComponents(comp, container);
-    }
-    // Skip QUESTION, QUESTION_GROUP, QUESTION_SUBGROUP
-  }
-}
-
-// ─── Part I–specific enhancements ─────────────────────────────────────────────
+// ─── Part I affordances ───────────────────────────────────────────────────────
 
 /**
- * Render sections with uiType "radio-input-group" as radio buttons with inline inputs.
- * Selecting a radio enables its input and disables the others.
- * @param {HTMLElement} container - The rendered Part container
+ * Turn the publication-reference fields (uiHints.publicationBranch, or the three
+ * PI01 fields) into a radio-input-group: one branch active at a time. We detect
+ * the group as the one holding the ted-notice lookup fields + the national ref.
  */
-function renderRadioInputGroups(container) {
-  // Find sections marked as radio-input-group by looking for the rendered section
-  // that corresponds to the PI01 publication reference section.
-  // We identify it by the contentpaths of its child fields.
-  const pubRefFields = [
-    'PI01_proc-pub-ref/QG1/Q1/R1/RV',
-    'PI01_proc-pub-ref/QG1/Q2/R1/RV',
-    'PI01_proc-pub-ref/QG1/Q3/R1/RV'
-  ];
-
-  const fieldEls = pubRefFields.map(path => container.querySelector(`[data-contentpath="${path}"]`)).filter(Boolean);
-  if (fieldEls.length === 0) return;
-
-  // Find the parent question group that contains these fields
-  const groupEl = fieldEls[0]?.closest('.espd-question-group');
+function enhancePublicationGroup(container) {
+  // The publication fields are those whose dataPath is under partI.publication.
+  const fieldEls = [...container.querySelectorAll('.espd-field[data-field^="partI.publication."]')];
+  if (fieldEls.length < 2) return;
+  const groupEl = fieldEls[0].closest('.espd-question-group');
   if (!groupEl) return;
-
-  // Add radio-input-group class for styling
   groupEl.classList.add('espd-radio-input-group');
 
   const radioName = 'pub-ref-type';
-  let activeIndex = 0; // Default: first option (TED notice number)
+  const activeIndex = 0;
 
-  // Wrap each field in a radio-row
   fieldEls.forEach((fieldEl, index) => {
     const row = document.createElement('div');
     row.className = 'espd-radio-input-row';
     if (index === activeIndex) row.classList.add('espd-radio-input-row--active');
 
-    // Create radio button
     const radio = document.createElement('input');
     radio.type = 'radio';
     radio.name = radioName;
@@ -275,829 +417,122 @@ function renderRadioInputGroups(container) {
     radio.checked = index === activeIndex;
     radio.setAttribute('aria-label', `Select: ${fieldEl.querySelector('label')?.textContent || ''}`);
 
-    // Insert radio before the field content
     fieldEl.parentNode.insertBefore(row, fieldEl);
     row.appendChild(radio);
     row.appendChild(fieldEl);
 
-    // Disable inputs in non-active rows
     const input = fieldEl.querySelector('input, select, textarea');
     if (input && index !== activeIndex) {
       input.disabled = true;
       input.classList.add('espd-input-dimmed');
     }
 
-    // Radio change handler
     radio.addEventListener('change', () => {
-      // Update all rows
-      const allRows = groupEl.querySelectorAll('.espd-radio-input-row');
-      allRows.forEach((r, i) => {
-        const inp = r.querySelector('.espd-field input, .espd-field select, .espd-field textarea');
+      groupEl.querySelectorAll('.espd-radio-input-row').forEach((r, i) => {
+        const inp = r.querySelector('input:not([type=radio]), select, textarea');
         if (i === index) {
           r.classList.add('espd-radio-input-row--active');
-          if (inp) {
-            inp.disabled = false;
-            inp.classList.remove('espd-input-dimmed');
-            inp.focus();
-          }
+          if (inp) { inp.disabled = false; inp.classList.remove('espd-input-dimmed'); inp.focus(); }
         } else {
           r.classList.remove('espd-radio-input-row--active');
-          if (inp) {
-            inp.disabled = true;
-            inp.classList.add('espd-input-dimmed');
-          }
+          if (inp) { inp.disabled = true; inp.classList.add('espd-input-dimmed'); }
         }
       });
     });
   });
 }
 
+/** Mark all Part I fields read-only (EO sees the buyer-authored Part I). */
+function markReadOnly(container) {
+  container.querySelectorAll('input, select, textarea').forEach((el) => {
+    el.disabled = true;
+    el.setAttribute('aria-readonly', 'true');
+    el.classList.add('espd-input-dimmed');
+  });
+}
+
 /**
- * Part I–specific: render the publication reference section as a radio-input-group
- * and add "Look up" buttons for TED fields.
- * For EO roles, marks all Part I fields as read-only.
- * @param {HTMLElement} container - The rendered Part I container
- * @param {string} role - The current role id
+ * Attach a TED "Look up" button to each publication field carrying a
+ * uiHints.lookup = ted-notice, and prefill Part I on success.
  */
-function enhancePartIWithLookup(container, role) {
-  // Determine if this is an EO role (read-only mode)
-  const isEoRole = role && ['sole-tenderer', 'group-lead', 'group-mem', 'oeron', 'subcont'].includes(role);
-
-  if (isEoRole) {
-    // Make all fields read-only for EO roles
-    container.querySelectorAll('input, select, textarea').forEach(el => {
-      el.disabled = true;
-      el.setAttribute('aria-readonly', 'true');
-    });
-    return;
-  }
-
-  // Skip TED lookup enhancement when feature is disabled (serverless mode)
-  if (!features.tedLookup) return;
-
-  // Add "Look up" buttons to the TED notice number and TED URL fields
-  const lookupFields = [
-    { contentpath: 'PI01_proc-pub-ref/QG1/Q1/R1/RV', type: 'number' },
-    { contentpath: 'PI01_proc-pub-ref/QG1/Q2/R1/RV', type: 'url' }
-  ];
-
-  for (const { contentpath, type } of lookupFields) {
-    const field = container.querySelector(`[data-contentpath="${contentpath}"]`);
-    if (!field) continue;
-
-    const input = field.querySelector('input');
+function enhanceTedLookup(container) {
+  const lookupFields = [...container.querySelectorAll('.espd-field[data-field^="partI.publication."]')];
+  for (const fieldEl of lookupFields) {
+    const input = fieldEl.querySelector('input');
     if (!input) continue;
+    const wrapper = input.parentElement;
+    wrapper.classList.add('espd-lookup');
 
-    // Create "Look up" button
-    const lookupBtn = document.createElement('button');
-    lookupBtn.type = 'button';
-    lookupBtn.className = 'secondary outline espd-lookup-btn';
-    lookupBtn.textContent = 'Look up';
-    lookupBtn.setAttribute('aria-label', `Look up procurement details from TED using ${type}`);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'secondary outline espd-lookup-btn';
+    btn.textContent = t('ui.lookUp', 'Look up');
 
-    // Create message area
-    const msgEl = document.createElement('small');
-    msgEl.className = 'espd-lookup-msg';
-    msgEl.setAttribute('role', 'status');
-    msgEl.setAttribute('aria-live', 'polite');
+    const msg = document.createElement('small');
+    msg.className = 'espd-lookup-msg';
+    msg.setAttribute('role', 'status');
+    msg.setAttribute('aria-live', 'polite');
 
-    // Insert button next to the input; the label stays above both (css/espd.css)
-    const inputWrapper = input.parentElement;
-    inputWrapper.classList.add('espd-lookup');
-    inputWrapper.appendChild(lookupBtn);
-    field.appendChild(msgEl);
-
-    // Wire up click handler
-    lookupBtn.addEventListener('click', async () => {
-      const rawValue = input.value.trim();
-      msgEl.textContent = '';
-      msgEl.className = 'espd-lookup-msg';
-
-      if (!rawValue) {
-        msgEl.textContent = `Please enter a ${type === 'number' ? 'notice number' : 'TED URL'}.`;
-        msgEl.classList.add('espd-lookup-msg--error');
+    btn.addEventListener('click', async () => {
+      const raw = (input.value || '').trim();
+      const isUrl = fieldEl.dataset.field.endsWith('.url');
+      const noticeNumber = isUrl ? extractNoticeNumberFromUrl(raw) : raw;
+      if (!noticeNumber) {
+        setLookupMsg(msg, 'info', t('ui.lookUpEnter', 'Enter a TED notice number or URL first.'));
         return;
       }
-
-      // Extract notice number from URL if needed
-      let noticeNumber = rawValue;
-      if (type === 'url') {
-        const extracted = extractNoticeNumberFromUrl(rawValue);
-        if (extracted) {
-          noticeNumber = extracted;
+      setLookupMsg(msg, 'info', t('ui.lookUpLoading', 'Looking up…'));
+      try {
+        const result = await lookupNotice(noticeNumber);
+        if (result.success) {
+          prefillFromTed(result.data, container);
+          setLookupMsg(msg, 'success', t('ui.lookUpOk', 'Procurement details retrieved.'));
         } else {
-          msgEl.textContent = 'Could not extract notice number from URL. Expected format: https://ted.europa.eu/en/notice/{number}/...';
-          msgEl.classList.add('espd-lookup-msg--error');
-          return;
+          setLookupMsg(msg, 'error', result.error || t('ui.lookUpFail', 'Lookup failed.'));
         }
-      }
-
-      lookupBtn.disabled = true;
-      lookupBtn.textContent = 'Looking up…';
-
-      const result = await lookupNotice(noticeNumber);
-
-      lookupBtn.disabled = false;
-      lookupBtn.textContent = 'Look up';
-
-      if (result.success && result.data) {
-        // Auto-populate fields
-        const fieldMap = {
-          'PI02_proc-procurer-id/QG1/Q1/R1/RV': result.data.officialName,
-          'PI02_proc-procurer-id/QG1/Q2/R1/RV': result.data.country,
-          'PI02_proc-procurer-id/QG1/Q4/R1/RV': result.data.buyerId,
-          'PI03_proc-procedure-info/QG1/Q1/R1/RV': result.data.title,
-          'PI03_proc-procedure-info/QG1/Q3/R1/RV': result.data.procedureType
-        };
-
-        for (const [path, value] of Object.entries(fieldMap)) {
-          if (value) {
-            setAnswer(path, value);
-            const el = container.querySelector(
-              `[data-contentpath="${path}"] input, [data-contentpath="${path}"] select, [data-contentpath="${path}"] textarea, ` +
-              `input[data-contentpath="${path}"], select[data-contentpath="${path}"], textarea[data-contentpath="${path}"]`
-            );
-            if (el) {
-              el.value = value;
-              el.dispatchEvent(new Event('input', { bubbles: true }));
-            } else {
-              console.warn('[TED Lookup] Could not find DOM element for path:', path);
-            }
-          }
-        }
-
-        // Cross-populate: if user entered number, fill URL; if URL, fill number
-        if (type === 'number') {
-          const url = deriveTedUrl(noticeNumber);
-          setAnswer('PI01_proc-pub-ref/QG1/Q2/R1/RV', url);
-          const urlInput = container.querySelector('[data-contentpath="PI01_proc-pub-ref/QG1/Q2/R1/RV"] input');
-          if (urlInput) urlInput.value = url;
-        } else {
-          setAnswer('PI01_proc-pub-ref/QG1/Q1/R1/RV', noticeNumber);
-          const numInput = container.querySelector('[data-contentpath="PI01_proc-pub-ref/QG1/Q1/R1/RV"] input');
-          if (numInput) numInput.value = noticeNumber;
-        }
-
-        msgEl.textContent = 'Notice found. Fields auto-populated.';
-        msgEl.classList.add('espd-lookup-msg--success');
-      } else {
-        // Graceful degradation
-        msgEl.textContent = result.error || 'Lookup failed. Please enter details manually.';
-        msgEl.classList.add('espd-lookup-msg--info');
-
-        // Still cross-populate the number/URL pair
-        if (type === 'number') {
-          const url = deriveTedUrl(noticeNumber);
-          setAnswer('PI01_proc-pub-ref/QG1/Q2/R1/RV', url);
-          const urlInput = container.querySelector('[data-contentpath="PI01_proc-pub-ref/QG1/Q2/R1/RV"] input');
-          if (urlInput) urlInput.value = url;
-        }
+      } catch (e) {
+        setLookupMsg(msg, 'error', e.message || t('ui.lookUpFail', 'Lookup failed.'));
       }
     });
+
+    wrapper.appendChild(btn);
+    fieldEl.appendChild(msg);
   }
 }
 
+function setLookupMsg(msg, kind, text) {
+  msg.className = `espd-lookup-msg espd-lookup-msg--${kind}`;
+  msg.textContent = text;
+}
+
 /**
- * Derive section title i18n key from the section title text.
+ * Prefill Part I fields from a TED lookup result into the instance document,
+ * then update the matching inputs in place (leaving them editable).
  */
-function deriveSectionTitleKey(partKey, sectionTitle) {
-  // Extract the letter prefix (e.g. "A" from "A: Information about...")
-  const match = sectionTitle.match(/^([A-Z]):/);
-  if (match) {
-    return `section.title.${partKey}.${match[1]}`;
+function prefillFromTed(data, container) {
+  const map = {
+    'partI.contractingAuthority.officialName': data.officialName,
+    'partI.contractingAuthority.country': data.country,
+    'partI.project.name': data.title,
+    'partI.procedure.procedureType': data.procedureType,
+  };
+  for (const [dataPath, value] of Object.entries(map)) {
+    if (value === undefined || value === null || value === '') continue;
+    setAnswer(dataPath, value);
+    const el = container.querySelector(`[data-field="${CSS.escape(dataPath)}"] input, [data-field="${CSS.escape(dataPath)}"] select`);
+    if (el) el.value = value;
   }
-  return '';
+  applyConditionalLogic(container);
 }
 
-/**
- * Render a single section (criterion, procedure info, etc.)
- */
-function renderSection(section, role) {
-  const el = document.createElement('div');
-  el.className = 'espd-criterion';
-  el.dataset.sectionTag = section.tag;
-  el.dataset.sectionCode = section.code || '';
+// ─── utils ────────────────────────────────────────────────────────────────────
 
-  // Header with name and description
-  const header = document.createElement('div');
-  header.className = 'espd-criterion-header';
-
-  const nameKey = deriveCriterionNameKey(section);
-  const descKey = deriveCriterionDescKey(section);
-  const name = t(nameKey, section.name || section.description || '');
-  const desc = t(descKey, section.description || '');
-
-  header.innerHTML = `<h3>${escapeHtml(name)}</h3>`;
-  if (desc && desc !== name) {
-    header.innerHTML += `<p>${escapeHtml(desc)}</p>`;
-  }
-  el.appendChild(header);
-
-  // Render components
-  if (section.components) {
-    for (const component of section.components) {
-      const compEl = renderComponent(component, section, role);
-      if (compEl) el.appendChild(compEl);
-    }
-  }
-
-  return el;
-}
-
-/**
- * Render a component based on its type.
- */
-function renderComponent(component, section, role, depth = 0) {
-  switch (component.type) {
-    case 'QUESTION_GROUP':
-      return renderQuestionGroup(component, section, role, depth);
-    case 'QUESTION_SUBGROUP':
-      return renderQuestionSubgroup(component, section, role, depth);
-    case 'QUESTION':
-      return renderQuestion(component, section, role);
-    case 'LEGISLATION':
-      return renderLegislation(component, section);
-    case 'CAPTION':
-      return renderCaption(component, section);
-    case 'SUBCRITERION':
-      return renderSubcriterion(component, section, role, depth);
-    case 'REQUIREMENT_GROUP':
-      return renderRequirementGroup(component, section, role, depth);
-    case 'REQUIREMENT_SUBGROUP':
-      return renderRequirementSubgroup(component, section, role, depth);
-    case 'REQUIREMENT':
-      return renderRequirement(component, section, role);
-    default:
-      return null;
-  }
-}
-
-/**
- * Render a QUESTION_GROUP.
- */
-function renderQuestionGroup(group, section, role, depth) {
-  const el = document.createElement('div');
-  el.className = 'espd-question-group';
-  el.dataset.code = group.code || '';
-  el.dataset.groupPath = group.responsepath || '';
-
-  if (group.components) {
-    let i = 0;
-    while (i < group.components.length) {
-      const child = group.components[i];
-
-      // Check if this component starts a field group (fieldset with legend)
-      if (child.group) {
-        const groupName = child.group;
-        const groupLabel = child.groupLabel || groupName;
-
-        const fieldset = document.createElement('fieldset');
-        fieldset.className = 'espd-field-group';
-        fieldset.dataset.fieldGroup = groupName;
-
-        const legend = document.createElement('legend');
-        legend.textContent = groupLabel;
-        fieldset.appendChild(legend);
-
-        // Collect all consecutive components with the same group
-        while (i < group.components.length && group.components[i].group === groupName) {
-          const childEl = renderComponent(group.components[i], section, role, depth + 1);
-          if (childEl) fieldset.appendChild(childEl);
-          i++;
-        }
-        el.appendChild(fieldset);
-      } else {
-        const childEl = renderComponent(child, section, role, depth + 1);
-        if (childEl) el.appendChild(childEl);
-        i++;
-      }
-    }
-  }
-
-  return el;
-}
-
-/**
- * Render a QUESTION_SUBGROUP (conditionally visible).
- */
-function renderQuestionSubgroup(subgroup, section, role, depth) {
-  const el = document.createElement('div');
-  el.className = 'espd-question-subgroup';
-  el.dataset.code = subgroup.code || '';
-  el.dataset.groupPath = subgroup.responsepath || '';
-
-  // Hide by default if it's conditional (ONTRUE/ONFALSE)
-  if (subgroup.code === 'ONTRUE' || subgroup.code === 'ONFALSE') {
-    el.hidden = true;
-    el.setAttribute('aria-hidden', 'true');
-  }
-
-  if (subgroup.components) {
-    for (const child of subgroup.components) {
-      const childEl = renderComponent(child, section, role, depth + 1);
-      if (childEl) el.appendChild(childEl);
-    }
-  }
-
-  return el;
-}
-
-/**
- * Render a QUESTION based on its propertydatatype.
- */
-function renderQuestion(question, section, role) {
-  const el = document.createElement('div');
-  el.className = 'espd-field';
-  el.dataset.contentpath = question.contentpath || '';
-  el.dataset.cardinality = question.cardinality || '1';
-
-  const labelKey = deriveQuestionKey(section, question);
-  const labelText = t(labelKey, question.description || '');
-  const contentpath = question.contentpath || '';
-  const inputId = `field-${contentpath.replace(/[/\s]/g, '-')}`;
-  const isRequired = question.cardinality === '1';
-  const currentValue = getAnswer(contentpath) || '';
-
-  switch (question.propertydatatype) {
-    case 'INDICATOR':
-      el.appendChild(renderIndicator(inputId, labelText, contentpath, isRequired, currentValue, question.labels));
-      break;
-    case 'CODE_COUNTRY':
-      el.appendChild(renderSelect(inputId, labelText, contentpath, isRequired, currentValue, 'CODE_COUNTRY'));
-      break;
-    case 'CODE':
-      el.appendChild(renderSelect(inputId, labelText, contentpath, isRequired, currentValue, 'CODE'));
-      break;
-    case 'CODE_BOOLEAN':
-      el.appendChild(renderSelect(inputId, labelText, contentpath, isRequired, currentValue, 'CODE_BOOLEAN'));
-      break;
-    case 'CODE_EOID_TYPE':
-      el.appendChild(renderSelect(inputId, labelText, contentpath, isRequired, currentValue, 'CODE_EOID_TYPE'));
-      break;
-    case 'DATE':
-      el.appendChild(renderDateField(inputId, labelText, contentpath, isRequired, currentValue));
-      break;
-    case 'AMOUNT':
-    case 'MINIMUM_AMOUNT':
-      el.appendChild(renderAmountField(inputId, labelText, contentpath, isRequired, currentValue));
-      break;
-    case 'QUANTITY_INTEGER':
-    case 'MINIMUM_QUANTITY_INTEGER':
-      el.appendChild(renderNumberField(inputId, labelText, contentpath, isRequired, currentValue, true));
-      break;
-    case 'QUANTITY':
-    case 'MINIMUM_QUANTITY':
-    case 'QUANTITY_YEAR':
-    case 'MINIMUM_QUANTITY_YEAR':
-      el.appendChild(renderNumberField(inputId, labelText, contentpath, isRequired, currentValue, false));
-      break;
-    case 'PERCENTAGE':
-      el.appendChild(renderPercentageField(inputId, labelText, contentpath, isRequired, currentValue));
-      break;
-    case 'URL':
-      el.appendChild(renderUrlField(inputId, labelText, contentpath, isRequired, currentValue));
-      break;
-    case 'PERIOD':
-      el.appendChild(renderPeriodField(inputId, labelText, contentpath, isRequired, currentValue));
-      break;
-    case 'EVIDENCE_IDENTIFIER':
-      el.appendChild(renderEvidenceField(inputId, labelText, contentpath, isRequired, currentValue));
-      break;
-    case 'IDENTIFIER':
-    case 'ECONOMIC_OPERATOR_IDENTIFIER':
-    case 'LOT_IDENTIFIER':
-    case 'QUAL_IDENTIFIER':
-      el.appendChild(renderTextField(inputId, labelText, contentpath, isRequired, currentValue));
-      break;
-    case 'DESCRIPTION':
-    case 'NONE':
-    default:
-      el.appendChild(renderTextField(inputId, labelText, contentpath, isRequired, currentValue));
-      break;
-  }
-
-  return el;
-}
-
-/**
- * Render an INDICATOR (Yes/No radio buttons).
- * @param {string} id - Input element id prefix
- * @param {string} label - Legend label text
- * @param {string} contentpath - State path for the answer
- * @param {boolean} required - Whether the field is required
- * @param {string} value - Current value ('true' or 'false')
- * @param {object} [customLabels] - Optional custom labels: { true: "...", false: "..." }
- */
-function renderIndicator(id, label, contentpath, required, value, customLabels) {
-  const yesLabel = customLabels?.true || t('ui.yes', 'Yes');
-  const noLabel = customLabels?.false || t('ui.no', 'No');
-
-  const wrapper = document.createElement('fieldset');
-  wrapper.className = 'espd-indicator-wrapper';
-  wrapper.setAttribute('role', 'radiogroup');
-  wrapper.setAttribute('aria-required', required.toString());
-
-  const legend = document.createElement('legend');
-  legend.textContent = label;
-  if (required) legend.innerHTML += ' <abbr title="Required">*</abbr>';
-  wrapper.appendChild(legend);
-
-  const group = document.createElement('div');
-  group.className = 'espd-indicator-group';
-
-  const yesId = `${id}-yes`;
-  const noId = `${id}-no`;
-
-  group.innerHTML = `
-    <label for="${yesId}">
-      <input type="radio" id="${yesId}" name="${id}" value="true"
-        ${value === 'true' || value === true ? 'checked' : ''}
-        data-contentpath="${contentpath}"
-        ${required ? 'required' : ''}>
-      ${yesLabel}
-    </label>
-    <label for="${noId}">
-      <input type="radio" id="${noId}" name="${id}" value="false"
-        ${value === 'false' || value === false ? 'checked' : ''}
-        data-contentpath="${contentpath}">
-      ${noLabel}
-    </label>
-  `;
-
-  wrapper.appendChild(group);
-
-  // Event listeners for state management and conditional logic
-  group.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', (e) => {
-      setAnswer(contentpath, e.target.value);
-      applyConditionalLogic(wrapper.closest('#form-content') || wrapper.closest('form'));
-    });
-  });
-
-  return wrapper;
-}
-
-/**
- * Render a select dropdown.
- */
-function renderSelect(id, label, contentpath, required, value, codelistType) {
-  const wrapper = document.createElement('div');
-  const codelist = getCodelist(codelistType) || [];
-
-  wrapper.innerHTML = `
-    <label for="${id}">
-      ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-    </label>
-    <select id="${id}" data-contentpath="${contentpath}" ${required ? 'required' : ''} aria-label="${escapeHtml(label)}">
-      <option value="">— Select —</option>
-      ${codelist.map(item => `<option value="${item.code}" ${value === item.code ? 'selected' : ''}>${escapeHtml(item.name)}</option>`).join('')}
-    </select>
-  `;
-
-  const select = wrapper.querySelector('select');
-  select.addEventListener('change', () => {
-    setAnswer(contentpath, select.value);
-  });
-
-  return wrapper;
-}
-
-/**
- * Render a text input field.
- */
-function renderTextField(id, label, contentpath, required, value) {
-  const wrapper = document.createElement('div');
-
-  wrapper.innerHTML = `
-    <label for="${id}">
-      ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-    </label>
-    <input type="text" id="${id}" data-contentpath="${contentpath}" value="${escapeHtml(value)}" ${required ? 'required' : ''} aria-label="${escapeHtml(label)}">
-  `;
-  const input = wrapper.querySelector('input');
-  input.addEventListener('input', () => setAnswer(contentpath, input.value));
-
-  return wrapper;
-}
-
-/**
- * Render a date input field.
- */
-function renderDateField(id, label, contentpath, required, value) {
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = `
-    <label for="${id}">
-      ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-    </label>
-    <input type="date" id="${id}" data-contentpath="${contentpath}" value="${escapeHtml(value)}" ${required ? 'required' : ''} aria-label="${escapeHtml(label)}">
-  `;
-  const input = wrapper.querySelector('input');
-  input.addEventListener('change', () => setAnswer(contentpath, input.value));
-  return wrapper;
-}
-
-/**
- * Render an amount field with currency select.
- */
-function renderAmountField(id, label, contentpath, required, value) {
-  const wrapper = document.createElement('div');
-  const parsedValue = typeof value === 'object' ? value : { amount: value || '', currency: 'EUR' };
-
-  wrapper.innerHTML = `
-    <label for="${id}">
-      ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-    </label>
-    <div class="grid">
-      <input type="number" id="${id}" data-contentpath="${contentpath}" value="${escapeHtml(String(parsedValue.amount || ''))}" ${required ? 'required' : ''} step="0.01" placeholder="0.00" aria-label="${escapeHtml(label)} amount">
-      <select data-contentpath="${contentpath}-currency" aria-label="Currency">
-        ${CURRENCY_CODES.map(c => `<option value="${c.code}" ${parsedValue.currency === c.code ? 'selected' : ''}>${c.code}</option>`).join('')}
-      </select>
-    </div>
-  `;
-
-  const input = wrapper.querySelector('input');
-  const currencySelect = wrapper.querySelector('select');
-
-  function updateAmount() {
-    setAnswer(contentpath, { amount: input.value, currency: currencySelect.value });
-  }
-
-  input.addEventListener('input', updateAmount);
-  currencySelect.addEventListener('change', updateAmount);
-
-  return wrapper;
-}
-
-/**
- * Render a number field (integer or decimal).
- */
-function renderNumberField(id, label, contentpath, required, value, isInteger) {
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = `
-    <label for="${id}">
-      ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-    </label>
-    <input type="number" id="${id}" data-contentpath="${contentpath}" value="${escapeHtml(String(value || ''))}" ${required ? 'required' : ''} ${isInteger ? 'step="1"' : 'step="any"'} aria-label="${escapeHtml(label)}">
-  `;
-  const input = wrapper.querySelector('input');
-  input.addEventListener('input', () => setAnswer(contentpath, input.value));
-  return wrapper;
-}
-
-/**
- * Render a percentage field.
- */
-function renderPercentageField(id, label, contentpath, required, value) {
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = `
-    <label for="${id}">
-      ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-    </label>
-    <input type="number" id="${id}" data-contentpath="${contentpath}" value="${escapeHtml(String(value || ''))}" ${required ? 'required' : ''} min="0" max="100" step="0.01" placeholder="%" aria-label="${escapeHtml(label)}">
-  `;
-  const input = wrapper.querySelector('input');
-  input.addEventListener('input', () => setAnswer(contentpath, input.value));
-  return wrapper;
-}
-
-/**
- * Render a URL field.
- */
-function renderUrlField(id, label, contentpath, required, value) {
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = `
-    <label for="${id}">
-      ${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}
-    </label>
-    <input type="url" id="${id}" data-contentpath="${contentpath}" value="${escapeHtml(value)}" ${required ? 'required' : ''} placeholder="https://" aria-label="${escapeHtml(label)}">
-  `;
-  const input = wrapper.querySelector('input');
-  input.addEventListener('input', () => setAnswer(contentpath, input.value));
-  return wrapper;
-}
-
-/**
- * Render a period field (start date + end date).
- */
-function renderPeriodField(id, label, contentpath, required, value) {
-  const wrapper = document.createElement('div');
-  const parsedValue = typeof value === 'object' ? value : { start: '', end: '' };
-
-  wrapper.innerHTML = `
-    <fieldset class="espd-period">
-      <legend>${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}</legend>
-      <div class="espd-period__fields">
-        <div>
-          <label for="${id}-start">${escapeHtml(t('ui.startDate', 'Start date'))}</label>
-          <input type="date" id="${id}-start" data-contentpath="${contentpath}" value="${parsedValue.start || ''}" ${required ? 'required' : ''}>
-        </div>
-        <div>
-          <label for="${id}-end">${escapeHtml(t('ui.endDate', 'End date'))}</label>
-          <input type="date" id="${id}-end" data-contentpath="${contentpath}" value="${parsedValue.end || ''}">
-        </div>
-      </div>
-    </fieldset>
-  `;
-
-  const startInput = wrapper.querySelector(`#${CSS.escape(id + '-start')}`);
-  const endInput = wrapper.querySelector(`#${CSS.escape(id + '-end')}`);
-
-  function updatePeriod() {
-    setAnswer(contentpath, { start: startInput.value, end: endInput.value });
-  }
-
-  startInput.addEventListener('change', updatePeriod);
-  endInput.addEventListener('change', updatePeriod);
-
-  return wrapper;
-}
-
-/**
- * Render evidence fields (URL + issuer + reference).
- */
-function renderEvidenceField(id, label, contentpath, required, value) {
-  const wrapper = document.createElement('div');
-  const parsedValue = typeof value === 'object' ? value : { url: value || '', issuer: '', reference: '' };
-
-  wrapper.innerHTML = `
-    <fieldset class="espd-evidence">
-      <legend>${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}</legend>
-      <div>
-        <label for="${id}-url">${escapeHtml(t('ui.evidenceUrl', 'URL'))}</label>
-        <input type="url" id="${id}-url" value="${escapeHtml(parsedValue.url || '')}" placeholder="https://" ${required ? 'required' : ''}>
-      </div>
-      <div>
-        <label for="${id}-issuer">${escapeHtml(t('ui.evidenceIssuer', 'Issuing body'))}</label>
-        <input type="text" id="${id}-issuer" value="${escapeHtml(parsedValue.issuer || '')}">
-      </div>
-      <div>
-        <label for="${id}-ref">${escapeHtml(t('ui.evidenceReference', 'Reference'))}</label>
-        <input type="text" id="${id}-ref" value="${escapeHtml(parsedValue.reference || '')}">
-      </div>
-    </fieldset>
-  `;
-
-  function updateEvidence() {
-    const urlInput = wrapper.querySelector(`#${CSS.escape(id + '-url')}`);
-    const issuerInput = wrapper.querySelector(`#${CSS.escape(id + '-issuer')}`);
-    const refInput = wrapper.querySelector(`#${CSS.escape(id + '-ref')}`);
-    setAnswer(contentpath, {
-      url: urlInput.value,
-      issuer: issuerInput.value,
-      reference: refInput.value
-    });
-  }
-
-  wrapper.querySelectorAll('input').forEach(input => {
-    input.addEventListener('input', updateEvidence);
-  });
-
-  return wrapper;
-}
-
-/**
- * Render a LEGISLATION reference.
- */
-function renderLegislation(legislation, section) {
-  const el = document.createElement('details');
-  el.className = 'espd-legislation';
-
-  const key = deriveLegislationKey(section, legislation);
-  const title = t(key, legislation.description || 'Applicable legislation');
-
-  el.innerHTML = `
-    <summary>Applicable legislation</summary>
-    <p>${escapeHtml(title)}</p>
-  `;
-
-  return el;
-}
-
-/**
- * Render a CAPTION (informational text, no input).
- */
-function renderCaption(caption, section) {
-  const el = document.createElement('div');
-  el.className = 'espd-caption';
-
-  const key = deriveCaptionKey(section, caption);
-  const text = t(key, caption.description || '');
-
-  el.textContent = text;
-  return el;
-}
-
-/**
- * Render a SUBCRITERION.
- */
-function renderSubcriterion(subcriterion, section, role, depth) {
-  const el = document.createElement('div');
-  el.className = 'espd-question-subgroup';
-  el.style.marginTop = '1rem';
-
-  if (subcriterion.name || subcriterion.description) {
-    const heading = document.createElement('h4');
-    heading.textContent = subcriterion.name || subcriterion.description || '';
-    heading.style.fontSize = '0.95rem';
-    el.appendChild(heading);
-  }
-
-  if (subcriterion.components) {
-    for (const child of subcriterion.components) {
-      const childEl = renderComponent(child, section, role, depth + 1);
-      if (childEl) el.appendChild(childEl);
-    }
-  }
-
-  return el;
-}
-
-/**
- * Render a REQUIREMENT_GROUP.
- */
-function renderRequirementGroup(group, section, role, depth) {
-  const el = document.createElement('div');
-  el.className = 'espd-question-group';
-  el.dataset.code = group.code || '';
-
-  if (group.components) {
-    for (const child of group.components) {
-      const childEl = renderComponent(child, section, role, depth + 1);
-      if (childEl) el.appendChild(childEl);
-    }
-  }
-
-  return el;
-}
-
-/**
- * Render a REQUIREMENT_SUBGROUP.
- */
-function renderRequirementSubgroup(subgroup, section, role, depth) {
-  const el = document.createElement('div');
-  el.className = 'espd-question-subgroup';
-  el.dataset.code = subgroup.code || '';
-  el.dataset.groupPath = subgroup.responsepath || '';
-
-  if (subgroup.code === 'ONTRUE' || subgroup.code === 'ONFALSE') {
-    el.hidden = true;
-    el.setAttribute('aria-hidden', 'true');
-  }
-
-  if (subgroup.components) {
-    for (const child of subgroup.components) {
-      const childEl = renderComponent(child, section, role, depth + 1);
-      if (childEl) el.appendChild(childEl);
-    }
-  }
-
-  return el;
-}
-
-/**
- * Render a REQUIREMENT (buyer-set requirement, displayed as read-only info for EO).
- */
-function renderRequirement(requirement, section, role) {
-  const el = document.createElement('div');
-  el.className = 'espd-requirement';
-
-  const key = deriveRequirementKey(section, requirement);
-  const label = t(key, requirement.description || '');
-
-  if (role === 'ca') {
-    // CA can edit requirements
-    const contentpath = requirement.contentpath || '';
-    const currentValue = getAnswer(contentpath) || '';
-    const inputId = `req-${(contentpath || Math.random().toString(36)).replace(/[/\s]/g, '-')}`;
-
-    el.innerHTML = `
-      <label for="${inputId}" class="req-label">${escapeHtml(label)}</label>
-      <input type="text" id="${inputId}" data-contentpath="${contentpath}" value="${escapeHtml(currentValue)}" aria-label="${escapeHtml(label)}">
-    `;
-
-    const input = el.querySelector('input');
-    if (input && contentpath) {
-      input.addEventListener('input', () => setAnswer(contentpath, input.value));
-    }
-  } else {
-    // EO sees requirements as read-only
-    const contentpath = requirement.contentpath || '';
-    const value = getAnswer(contentpath) || '';
-    el.innerHTML = `<span class="req-label">${escapeHtml(label)}</span>`;
-    if (value) {
-      el.innerHTML += `<span class="req-value">${escapeHtml(String(value))}</span>`;
-    }
-  }
-
-  return el;
-}
-
-/**
- * HTML escape utility.
- */
 function escapeHtml(str) {
-  if (!str) return '';
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }

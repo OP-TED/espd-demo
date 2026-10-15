@@ -12,9 +12,8 @@ import { loadLanguage, t } from './i18n.js';
 import { loadModel, getPart, getPartsForRole, getRoles, getRoleById } from './model.js';
 import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, resetState, getAnswers, hasAnswers, hasSession } from './state.js';
 import { renderPart } from './renderer.js';
-import { downloadXml, generateXml } from './xml-export.js';
-import { importXmlFile } from './xml-import.js';
-import { validateXml } from './itb-validation.js';
+import { downloadDocument } from './xml-export.js';
+import { importDocumentFile } from './xml-import.js';
 import { renderHomePage } from './home.js';
 import { renderPathSelector } from './path-selector.js';
 import { renderWizardHeader, updateWizardHeader } from './wizard-header.js';
@@ -202,7 +201,7 @@ async function handleImportFile(file) {
     if (!proceed) return;
   }
 
-  const result = await importXmlFile(file);
+  const result = await importDocumentFile(file);
 
   if (result.success) {
     // On successful import, update wizard header and show wizard (Requirement 4.3)
@@ -254,7 +253,7 @@ function setupEventListeners() {
   // Wizard navigation
   document.getElementById('btn-prev').addEventListener('click', goToPrevStep);
   document.getElementById('btn-next').addEventListener('click', goToNextStep);
-  document.getElementById('btn-download').addEventListener('click', () => downloadXml());
+  document.getElementById('btn-download').addEventListener('click', () => downloadDocument());
   document.getElementById('btn-validate').addEventListener('click', handleValidateClick);
 
   // Validation dialog
@@ -426,34 +425,22 @@ function renderCurrentStep() {
  * Handle the "Validate XML" button click.
  */
 async function handleValidateClick() {
-  const btn = document.getElementById('btn-validate');
-  btn.disabled = true;
-  btn.setAttribute('aria-busy', 'true');
-  btn.textContent = 'Validating…';
-
-  try {
-    const xml = generateXml();
-    const state = getState();
-    const roleConfig = getRoleById(state.role);
-    const documentType = roleConfig?.documentType || 'request';
-
-    const result = await validateXml(xml, documentType);
-    showValidationResults(result);
-  } catch (err) {
-    showValidationResults({
-      success: false,
-      status: 'ERROR',
-      errors: [{ description: err.message || 'Unexpected error', location: '', test: '', level: 'error' }],
-      warnings: [],
-      errorCount: 1,
-      warningCount: 0,
-      message: 'An error occurred while generating or validating the XML.'
-    });
-  } finally {
-    btn.disabled = false;
-    btn.removeAttribute('aria-busy');
-    btn.textContent = 'Validate XML';
-  }
+  // CUTOVER NOTE (Phase 4/5): export is now the JSON instance document, so the
+  // ITB UBL-XML validation is temporarily unavailable. Instance-data validation
+  // against the precompiled composed schemas, and UBL export via the mapping
+  // engine, both land in Phase 6 — at which point this button validates again.
+  showValidationResults({
+    success: false,
+    status: 'INFO',
+    errors: [],
+    warnings: [{
+      description: 'XML validation is temporarily unavailable while the service moves to the model-driven data layer. Instance-data validation (against the composed JSON Schemas) and UBL export/validation return in the next phase.',
+      location: '', test: '', level: 'warning'
+    }],
+    errorCount: 0,
+    warningCount: 1,
+    message: 'Validation is being upgraded (Phase 6).'
+  });
 }
 
 /**

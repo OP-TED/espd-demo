@@ -1,501 +1,59 @@
 /**
- * XML Export module — generates ESPD UBL XML from collected form state.
- * Based on the ESPD-EDM UBL 2.4 structure.
+ * Document export — serialize the JSON instance document for download.
+ *
+ * CUTOVER NOTE (Phase 4/5): export/import now round-trip the JSON INSTANCE
+ * DOCUMENT directly, not UBL XML. The hand-rolled XML string-building this module
+ * used to do is gone; UBL export via the mapping engine (mapper.mjs) returns in
+ * Phase 6. The instance document is the hub the whole UI binds to, so a JSON
+ * round-trip is lossless and keeps "download → import → resume" working.
+ *
+ * Exported envelope shape:
+ *   { $schema?, format: "espd-instance", version, documentType, role, instance,
+ *     inclusions, metadata }
  */
 
-import { getState, getAnswers, getInclusionState } from './state.js';
-import { getModel, getRoleById, isCriterionMandatory } from './model.js';
+import { getState, exportState } from './state.js';
+import { getRoleById } from './model.js';
 
-const UBL_NS = 'urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2';
-const CAC_NS = 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2';
-const CBC_NS = 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2';
-const ESPD_REQ_NS = 'urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationRequest-2';
+const FORMAT = 'espd-instance';
+const FORMAT_VERSION = '1.0';
 
-/**
- * The CriterionTypeCode is the internal section code (e.g. 'exg-crim-part', 'slc-suit-reg-prof').
- * Per the ESPD-EDM v5.0.0 Schematron (espd-validation-schematron), the CriterionTypeCode
- * must match the section codes defined in the ESPD-EDM criterion data structure.
- * BR-REQ-30 checks: exg-crim-part, exg-crim-corrpt, exg-crim-fraud, exg-crim-terror,
- *                    exg-crim-laund, exg-crim-traffick, exg-pmt-bre-tax, exg-pmt-bre-ssc
- * BR-LOT-41 checks: slc-* codes must have ProcurementProjectLotReference
- * BR-LOT-40 checks: exg-* codes must NOT have ProcurementProjectLotReference
- */
-
-/**
- * Generate ESPD XML document from the current state.
- * Uses the role's documentType to determine request vs response.
- * @returns {string} XML string
- */
-export function generateXml() {
-  const state = getState();
-  const model = getModel();
-  const answers = getAnswers();
-  const roleId = state.role;
-  const roleConfig = getRoleById(roleId);
-
-  if (!roleConfig) {
-    throw new Error(`Cannot generate XML: unknown role "${roleId}"`);
-  }
-
-  if (roleConfig.documentType === 'request') {
-    return generateRequestXml(model, answers, roleConfig);
-  } else {
-    return generateResponseXml(model, answers, roleConfig);
-  }
+/** Build the export envelope object from the current state. */
+export function exportDocument() {
+  const state = exportState();
+  const role = getRoleById(state.role);
+  return {
+    format: FORMAT,
+    version: FORMAT_VERSION,
+    documentType: role?.documentType || 'request',
+    role: state.role,
+    instance: state.instance || {},
+    inclusions: state.inclusions || {},
+    metadata: state.metadata || {},
+  };
 }
 
-/**
- * Generate ESPD Request XML (Buyer roles).
- */
-function generateRequestXml(model, answers, roleConfig) {
-  const now = new Date().toISOString().split('T')[0];
-
-  // Resolve Part I fields
-  const officialName = answers['PI02_proc-procurer-id/QG1/Q1/R1/RV'] || '';
-  const country = answers['PI02_proc-procurer-id/QG1/Q2/R1/RV'] || '';
-  const procurerId = answers['PI02_proc-procurer-id/QG1/Q4/R1/RV'] || '';
-  const title = answers['PI03_proc-procedure-info/QG1/Q1/R1/RV'] || '';
-  const fileReference = answers['PI03_proc-procedure-info/QG1/Q2/R1/RV'] || '';
-  const procedureType = answers['PI03_proc-procedure-info/QG1/Q3/R1/RV'] || '';
-
-  // Publication reference fields
-  const noticeNumber = answers['PI01_proc-pub-ref/QG1/Q1/R1/RV'] || '';
-  const tedUrl = answers['PI01_proc-pub-ref/QG1/Q2/R1/RV'] || '';
-  const nationalRef = answers['PI01_proc-pub-ref/QG1/Q3/R1/RV'] || '';
-
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<espd:QualificationApplicationRequest
-  xmlns:espd="${ESPD_REQ_NS}"
-  xmlns:cac="${CAC_NS}"
-  xmlns:cbc="${CBC_NS}">
-
-  <cbc:UBLVersionID schemeAgencyID="OASIS-UBL-TC">2.4</cbc:UBLVersionID>
-  <cbc:CustomizationID schemeAgencyID="EU-COM-OP">urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
-  <cbc:ProfileID schemeAgencyID="EU-COM-OP">ESPD-EDMv5.0.0</cbc:ProfileID>
-  <cbc:ID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:ID>
-  <cbc:UUID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:UUID>
-  <cbc:ContractFolderID schemeAgencyID="EU-COM-OP">${escXml(fileReference || 'Unknown')}</cbc:ContractFolderID>
-  <cbc:IssueDate>${now}</cbc:IssueDate>
-  <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>
-  <cbc:ProcedureCode listID="ProcedureType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(procedureType || 'open')}</cbc:ProcedureCode>`;
-
-  xml += `
-  <cbc:QualificationApplicationTypeCode listID="QualificationApplicationType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">ESPD Request</cbc:QualificationApplicationTypeCode>
-
-  <!-- Contracting Party -->
-  <cac:ContractingParty>
-`;
-
-  if (roleConfig.xmlMapping) {
-    xml += `    <cac:ContractingPartyType>
-      <cbc:PartyTypeCode>${escXml(roleConfig.xmlMapping.code)}</cbc:PartyTypeCode>
-    </cac:ContractingPartyType>
-`;
-  }
-
-  xml += `    <cac:Party>
-`;
-
-  if (procurerId) {
-    xml += `      <cac:PartyIdentification>
-        <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(procurerId)}</cbc:ID>
-      </cac:PartyIdentification>
-`;
-  }
-
-  xml += `      <cac:PartyName>
-        <cbc:Name>${escXml(officialName)}</cbc:Name>
-      </cac:PartyName>
-      <cac:PostalAddress>
-        <cac:Country>
-          <cbc:IdentificationCode listID="CountryCodeIdentifier" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(country)}</cbc:IdentificationCode>
-        </cac:Country>
-      </cac:PostalAddress>
-    </cac:Party>
-  </cac:ContractingParty>
-
-  <!-- Procurement Project -->
-  <cac:ProcurementProject>
-    <cbc:Name>${escXml(title)}</cbc:Name>
-  </cac:ProcurementProject>
-
-`;
-
-  // Render criteria (Parts III, IV, V) — must come before AdditionalDocumentReference per XSD
-  xml += renderCriteriaXml(model, answers, 'request', roleConfig.id);
-
-  // Additional Document Reference (TED notice or national publication)
-  if (noticeNumber) {
-    xml += `  <cac:AdditionalDocumentReference>
-    <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(noticeNumber)}</cbc:ID>
-    <cbc:DocumentTypeCode listID="DocRefContentType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">TED_CN</cbc:DocumentTypeCode>`;
-    if (tedUrl) {
-      xml += `
-    <cac:Attachment>
-      <cac:ExternalReference>
-        <cbc:URI>${escXml(tedUrl)}</cbc:URI>
-      </cac:ExternalReference>
-    </cac:Attachment>`;
-    }
-    xml += `
-  </cac:AdditionalDocumentReference>
-
-`;
-  } else if (tedUrl && !noticeNumber) {
-    xml += `  <cac:AdditionalDocumentReference>
-    <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(tedUrl)}</cbc:ID>
-    <cbc:DocumentTypeCode listID="DocRefContentType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">TED_CN</cbc:DocumentTypeCode>
-    <cac:Attachment>
-      <cac:ExternalReference>
-        <cbc:URI>${escXml(tedUrl)}</cbc:URI>
-      </cac:ExternalReference>
-    </cac:Attachment>
-  </cac:AdditionalDocumentReference>
-
-`;
-  } else if (nationalRef) {
-    xml += `  <cac:AdditionalDocumentReference>
-    <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(nationalRef)}</cbc:ID>
-    <cbc:DocumentTypeCode listID="DocRefContentType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">NATIONAL</cbc:DocumentTypeCode>
-  </cac:AdditionalDocumentReference>
-
-`;
-  }
-
-  xml += `</espd:QualificationApplicationRequest>`;
-  return xml;
+/** Serialize the export envelope to a JSON string. */
+export function serializeDocument() {
+  return JSON.stringify(exportDocument(), null, 2);
 }
 
-/**
- * Generate ESPD Response XML (Economic Operator roles).
- */
-function generateResponseXml(model, answers, roleConfig) {
-  const now = new Date().toISOString().split('T')[0];
-
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<espd:QualificationApplicationResponse
-  xmlns:espd="${UBL_NS}"
-  xmlns:cac="${CAC_NS}"
-  xmlns:cbc="${CBC_NS}">
-
-  <cbc:UBLVersionID schemeAgencyID="OASIS-UBL-TC">2.4</cbc:UBLVersionID>
-  <cbc:CustomizationID schemeAgencyID="EU-COM-OP">urn:fdc:espd:ver5.0.0</cbc:CustomizationID>
-  <cbc:ProfileID schemeAgencyID="EU-COM-OP">ESPD-EDMv5.0.0</cbc:ProfileID>
-  <cbc:ID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:ID>
-  <cbc:UUID schemeAgencyID="EU-COM-OP">${generateUUID()}</cbc:UUID>
-  <cbc:IssueDate>${now}</cbc:IssueDate>
-  <cbc:IssueTime>${new Date().toISOString().split('T')[1].substring(0, 8)}</cbc:IssueTime>
-  <cbc:QualificationApplicationTypeCode listID="QualificationApplicationType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">ESPD Response</cbc:QualificationApplicationTypeCode>
-
-  <!-- Procurement Project Lot (BR-LOT-10: mandatory, exactly one) -->
-  <cac:ProcurementProjectLot>
-    <cbc:ID schemeAgencyID="EU-COM-OP">LOT-0000</cbc:ID>
-  </cac:ProcurementProjectLot>
-
-  <!-- Economic Operator -->
-  <cac:EconomicOperatorParty>
-`;
-
-  // Encode EO role from role config
-  if (roleConfig.xmlMapping) {
-    xml += `    <cac:EconomicOperatorRole>
-      <cbc:RoleCode>${escXml(roleConfig.xmlMapping.code)}</cbc:RoleCode>
-    </cac:EconomicOperatorRole>
-`;
-  } else {
-    console.warn('Role missing xmlMapping, skipping RoleCode encoding');
-  }
-
-  const eoId = answers['EO01_eo-info-general/QG1/Q2/R1/RV'] || answers['EO01_eo-info-general/QG1/Q3/R1/RV'] || generateUUID();
-  const eoSize = answers['EO01_eo-info-general/QG1/Q10/R1/RV'] || 'sme';
-
-  xml += `    <cac:Party>
-      <cbc:IndustryClassificationCode listID="EconomicOperatorSize" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(eoSize)}</cbc:IndustryClassificationCode>
-      <cac:PartyIdentification>
-        <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(eoId)}</cbc:ID>
-      </cac:PartyIdentification>
-      <cac:PartyName>
-        <cbc:Name>${escXml(answers['EO01_eo-info-general/QG1/Q1/R1/RV'] || '')}</cbc:Name>
-      </cac:PartyName>
-      <cac:PostalAddress>
-        <cbc:StreetName>${escXml(answers['EO01_eo-info-general/QG1/Q4/R1/RV'] || '')}</cbc:StreetName>
-        <cbc:CityName>${escXml(answers['EO01_eo-info-general/QG1/Q6/R1/RV'] || '')}</cbc:CityName>
-        <cbc:PostalZone>${escXml(answers['EO01_eo-info-general/QG1/Q5/R1/RV'] || '')}</cbc:PostalZone>
-        <cac:Country>
-          <cbc:IdentificationCode listID="CountryCodeIdentifier" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(answers['EO01_eo-info-general/QG1/Q7/R1/RV'] || '')}</cbc:IdentificationCode>
-        </cac:Country>
-      </cac:PostalAddress>
-      <cac:Contact>
-        <cbc:Telephone>${escXml(answers['EO01_eo-info-general/QG1/Q8/R1/RV'] || '')}</cbc:Telephone>
-        <cbc:ElectronicMail>${escXml(answers['EO01_eo-info-general/QG1/Q9/R1/RV'] || '')}</cbc:ElectronicMail>
-      </cac:Contact>
-    </cac:Party>
-  </cac:EconomicOperatorParty>
-
-`;
-
-  // Render criteria responses
-  xml += renderCriteriaXml(model, answers, 'response');
-
-  xml += `</espd:QualificationApplicationResponse>`;
-  return xml;
+/** The download filename for the current document type. */
+export function documentFilename() {
+  const role = getRoleById(getState().role);
+  return role?.documentType === 'response' ? 'espd-response.json' : 'espd-request.json';
 }
 
-/**
- * Render all criteria as XML elements.
- * In request mode, only emits criteria that are included (or mandatory).
- */
-function renderCriteriaXml(model, answers, mode, roleId) {
-  let xml = '';
-  const parts = ['III', 'IV', 'V'];
-
-  for (const partKey of parts) {
-    const part = model.parts[partKey];
-    if (!part) continue;
-
-    for (const section of part.sections) {
-      if (section.type === 'CRITERION') {
-        // In request mode, filter by inclusion state
-        if (mode === 'request' && !shouldEmitCriterion(section, roleId)) {
-          continue;
-        }
-        xml += renderSingleCriterionXml(section, answers, mode);
-      }
-    }
-  }
-
-  return xml;
-}
-
-/**
- * Determine if a criterion should be emitted in the Request XML.
- * Always emits mandatory criteria. If no explicit inclusion state exists
- * (user hasn't interacted with criteria selection), emits all criteria by default.
- */
-function shouldEmitCriterion(section, roleId) {
-  if (isCriterionMandatory(section.code, roleId)) return true;
-  const included = getInclusionState(section.tag, section.code);
-  // If no explicit state set (undefined), include by default
-  return included !== false;
-}
-
-/**
- * Render a single criterion to XML.
- */
-function renderSingleCriterionXml(section, answers, mode) {
-  const criterionTypeCode = section.code || '';
-  const isSelectionCriterion = section.code && section.code.startsWith('slc-');
-  let xml = `  <cac:TenderingCriterion>\n`;
-  xml += `    <cbc:ID schemeID="CriteriaTaxonomy" schemeAgencyID="EU-COM-OP">${escXml(section.uuid || section.tag)}</cbc:ID>\n`;
-  if (criterionTypeCode) {
-    xml += `    <cbc:CriterionTypeCode listID="CriteriaTypeCode" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(criterionTypeCode)}</cbc:CriterionTypeCode>\n`;
-  }
-  xml += `    <cbc:Name>${escXml(section.name || section.description || '')}</cbc:Name>\n`;
-  xml += `    <cbc:Description>${escXml(section.description || '')}</cbc:Description>\n`;
-
-  // Selection criteria require at least one ProcurementProjectLotReference (BR-LOT-41)
-  if (isSelectionCriterion) {
-    xml += `    <cac:ProcurementProjectLotReference>\n`;
-    xml += `      <cbc:ID schemeAgencyID="EU-COM-OP">LOT-0000</cbc:ID>\n`;
-    xml += `    </cac:ProcurementProjectLotReference>\n`;
-  }
-
-  // Render property groups
-  if (section.components) {
-    xml += renderPropertyGroupsXml(section.components, answers, mode);
-  }
-
-  xml += `  </cac:TenderingCriterion>\n`;
-  return xml;
-}
-
-/**
- * Recursively render property groups and their questions/responses.
- */
-function renderPropertyGroupsXml(components, answers, mode, indent = '    ') {
-  let xml = '';
-
-  for (const comp of components) {
-    if (comp.type === 'QUESTION_GROUP' || comp.type === 'REQUIREMENT_GROUP') {
-      xml += `${indent}<cac:TenderingCriterionPropertyGroup>\n`;
-      xml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>\n`;
-      if (comp.code) {
-        xml += `${indent}  <cbc:PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(comp.code)}</cbc:PropertyGroupTypeCode>\n`;
-      }
-      if (comp.components) {
-        xml += renderPropertiesXml(comp.components, answers, mode, indent + '  ');
-      }
-      xml += `${indent}</cac:TenderingCriterionPropertyGroup>\n`;
-    } else if (comp.type === 'QUESTION_SUBGROUP' || comp.type === 'REQUIREMENT_SUBGROUP') {
-      xml += `${indent}<cac:SubsidiaryTenderingCriterionPropertyGroup>\n`;
-      xml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>\n`;
-      if (comp.code) {
-        xml += `${indent}  <cbc:PropertyGroupTypeCode listID="PropertyGroupType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(comp.code)}</cbc:PropertyGroupTypeCode>\n`;
-      }
-      if (comp.components) {
-        xml += renderPropertiesXml(comp.components, answers, mode, indent + '  ');
-      }
-      xml += `${indent}</cac:SubsidiaryTenderingCriterionPropertyGroup>\n`;
-    }
-  }
-
-  return xml;
-}
-
-/**
- * Render properties (questions/requirements) as XML.
- * Per XSD, TenderingCriterionProperty elements must appear before
- * SubsidiaryTenderingCriterionPropertyGroup elements, and at least one
- * TenderingCriterionProperty is required per group.
- * Per Schematron BR-TC-18..21: ID, Description, TypeCode, ValueDataTypeCode are mandatory.
- */
-function renderPropertiesXml(components, answers, mode, indent) {
-  let propertiesXml = '';
-  let groupsXml = '';
-
-  for (const comp of components) {
-    if (comp.type === 'QUESTION') {
-      const valueDataType = comp.propertydatatype || 'DESCRIPTION';
-      propertiesXml += `${indent}<cac:TenderingCriterionProperty>\n`;
-      propertiesXml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>\n`;
-      propertiesXml += `${indent}  <cbc:Description>${escXml(comp.description || '')}</cbc:Description>\n`;
-      propertiesXml += `${indent}  <cbc:TypeCode listID="CriterionElementType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">QUESTION</cbc:TypeCode>\n`;
-      propertiesXml += `${indent}  <cbc:ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(valueDataType)}</cbc:ValueDataTypeCode>\n`;
-
-      if (mode === 'response' && comp.contentpath) {
-        const value = answers[comp.contentpath];
-        if (value !== undefined && value !== null && value !== '') {
-          propertiesXml += renderResponseValueXml(comp.propertydatatype, value, indent + '  ');
-        }
-      }
-
-      propertiesXml += `${indent}</cac:TenderingCriterionProperty>\n`;
-    } else if (comp.type === 'REQUIREMENT') {
-      const valueDataType = comp.propertydatatype || 'DESCRIPTION';
-      propertiesXml += `${indent}<cac:TenderingCriterionProperty>\n`;
-      propertiesXml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">${escXml(comp.responsepath || comp.requestpath || '')}</cbc:ID>\n`;
-      propertiesXml += `${indent}  <cbc:Description>${escXml(comp.description || '')}</cbc:Description>\n`;
-      propertiesXml += `${indent}  <cbc:TypeCode listID="CriterionElementType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">REQUIREMENT</cbc:TypeCode>\n`;
-      propertiesXml += `${indent}  <cbc:ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">${escXml(valueDataType)}</cbc:ValueDataTypeCode>\n`;
-      propertiesXml += `${indent}</cac:TenderingCriterionProperty>\n`;
-    } else if (comp.type === 'QUESTION_SUBGROUP' || comp.type === 'QUESTION_GROUP' ||
-               comp.type === 'REQUIREMENT_GROUP' || comp.type === 'REQUIREMENT_SUBGROUP') {
-      groupsXml += renderPropertyGroupsXml([comp], answers, mode, indent);
-    }
-  }
-
-  // XSD requires at least one TenderingCriterionProperty per group
-  if (!propertiesXml && groupsXml) {
-    propertiesXml = `${indent}<cac:TenderingCriterionProperty>\n`;
-    propertiesXml += `${indent}  <cbc:ID schemeAgencyID="EU-COM-OP">placeholder</cbc:ID>\n`;
-    propertiesXml += `${indent}  <cbc:Description></cbc:Description>\n`;
-    propertiesXml += `${indent}  <cbc:TypeCode listID="CriterionElementType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">QUESTION</cbc:TypeCode>\n`;
-    propertiesXml += `${indent}  <cbc:ValueDataTypeCode listID="ResponseDataType" listAgencyID="EU-COM-OP" listVersionID="5.0.0">NONE</cbc:ValueDataTypeCode>\n`;
-    propertiesXml += `${indent}</cac:TenderingCriterionProperty>\n`;
-  }
-
-  return propertiesXml + groupsXml;
-}
-
-/**
- * Render a response value element based on data type.
- */
-function renderResponseValueXml(datatype, value, indent) {
-  let xml = `${indent}<cac:ResponseValue>\n`;
-
-  switch (datatype) {
-    case 'INDICATOR':
-      xml += `${indent}  <cbc:ResponseIndicator>${value === 'true' || value === true ? 'true' : 'false'}</cbc:ResponseIndicator>\n`;
-      break;
-    case 'DATE':
-      xml += `${indent}  <cbc:ResponseDate>${escXml(String(value))}</cbc:ResponseDate>\n`;
-      break;
-    case 'AMOUNT':
-    case 'MINIMUM_AMOUNT':
-      if (typeof value === 'object') {
-        xml += `${indent}  <cbc:ResponseAmount currencyID="${escXml(value.currency || 'EUR')}">${escXml(String(value.amount || '0'))}</cbc:ResponseAmount>\n`;
-      } else {
-        xml += `${indent}  <cbc:ResponseAmount currencyID="EUR">${escXml(String(value))}</cbc:ResponseAmount>\n`;
-      }
-      break;
-    case 'QUANTITY_INTEGER':
-    case 'MINIMUM_QUANTITY_INTEGER':
-      xml += `${indent}  <cbc:ResponseQuantity unitCode="INTEGER">${escXml(String(value))}</cbc:ResponseQuantity>\n`;
-      break;
-    case 'QUANTITY':
-    case 'MINIMUM_QUANTITY':
-    case 'QUANTITY_YEAR':
-    case 'MINIMUM_QUANTITY_YEAR':
-      xml += `${indent}  <cbc:ResponseQuantity>${escXml(String(value))}</cbc:ResponseQuantity>\n`;
-      break;
-    case 'PERCENTAGE':
-      xml += `${indent}  <cbc:ResponseNumeric>${escXml(String(value))}</cbc:ResponseNumeric>\n`;
-      break;
-    case 'URL':
-      xml += `${indent}  <cbc:ResponseURI>${escXml(String(value))}</cbc:ResponseURI>\n`;
-      break;
-    case 'PERIOD':
-      if (typeof value === 'object') {
-        xml += `${indent}  <cac:Period>\n`;
-        if (value.start) xml += `${indent}    <cbc:StartDate>${escXml(value.start)}</cbc:StartDate>\n`;
-        if (value.end) xml += `${indent}    <cbc:EndDate>${escXml(value.end)}</cbc:EndDate>\n`;
-        xml += `${indent}  </cac:Period>\n`;
-      }
-      break;
-    case 'CODE_COUNTRY':
-    case 'CODE':
-    case 'CODE_BOOLEAN':
-      xml += `${indent}  <cbc:ResponseCode>${escXml(String(value))}</cbc:ResponseCode>\n`;
-      break;
-    default:
-      xml += `${indent}  <cbc:Description>${escXml(String(typeof value === 'object' ? JSON.stringify(value) : value))}</cbc:Description>\n`;
-      break;
-  }
-
-  xml += `${indent}</cac:ResponseValue>\n`;
-  return xml;
-}
-
-/**
- * Trigger download of the generated XML file.
- */
-export function downloadXml() {
-  const xml = generateXml();
-  const state = getState();
-  const roleConfig = getRoleById(state.role);
-  const filename = roleConfig?.documentType === 'request' ? 'espd-request.xml' : 'espd-response.xml';
-
-  const blob = new Blob([xml], { type: 'application/xml' });
+/** Trigger a browser download of the serialized instance document. */
+export function downloadDocument() {
+  const json = serializeDocument();
+  const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = filename;
+  a.download = documentFilename();
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-
-/**
- * Generate a UUID v4.
- */
-function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
-
-/**
- * XML escape utility.
- */
-function escXml(str) {
-  if (!str) return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
 }

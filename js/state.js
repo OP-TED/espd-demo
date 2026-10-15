@@ -318,6 +318,13 @@ export function clearInclusionStates() {
   persist();
 }
 
+/** Replace all inclusion entries (e.g. on import). */
+export function setInclusions(inclusions) {
+  state.inclusions = inclusions && typeof inclusions === 'object' ? inclusions : {};
+  state.metadata.lastModified = new Date().toISOString();
+  persist();
+}
+
 /**
  * Initialise inclusion states: force mandatory criteria to true.
  * @param {Array} sections - criterion member objects ({ id/code/tag }) or legacy sections

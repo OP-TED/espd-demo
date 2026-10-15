@@ -9,6 +9,7 @@ The authored source of truth the compiler consumes. Nothing here is generated.
   - `codelist-attributes.json` — fixed code-list attribute sets the Schematron requires, one per codelist
   - `encoding-profile.json` — kind → element XML conventions
   - `form-profile.json` — presentation conventions (filledBy, uiType defaults, i18n key derivation)
+  - `roles.json` — role registry: buyer types + economic-operator roles with form behaviour (visible/editable parts, exclusion-ground dispositions), UBL party-role bindings, and the Part III section-code → exclusion-category prefix map (compiled by `../compiler/roles.mjs` → `../generated/ui/roles.json`)
 - `criteria/` — per-criterion enrichment, keyed by criterion code:
   - `<code>.sidecar.json` — semantic IDs + instance bindings (required to model a criterion)
   - `<code>.hints.json` — optional instance-data constraint hints

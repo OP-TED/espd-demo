@@ -12,6 +12,7 @@ import { loadEdm, loadSidecar, compile, emitAll, generatedRoot } from './compile
 import { buildCodelistServiceData } from '../codelists/build-codelist-service-data.mjs';
 import { buildCoverageReport, reportPath } from './build-coverage-report.mjs';
 import { buildCompiledModel, envelopePath } from './build-compiled-model.mjs';
+import { buildRolesLens } from './roles.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
@@ -51,6 +52,12 @@ process.stderr.write(`\nGenerated ${totalFiles} files for ${ok}/${codes.length} 
 const { index } = buildCodelistServiceData({ write: true });
 const codelistCodeCount = index.codelists.reduce((n, c) => n + c.count, 0);
 process.stderr.write(`Generated ${index.codelists.length} UI codelists (${codelistCodeCount} codes) under model/generated/codelists.\n`);
+
+// UI role lens (Phase 1): role ids + form behaviour + UBL party-role bindings +
+// exclusion-category map, with i18n label/description keys (English text to the
+// espd.roles.json catalogue). Validated against the authored role registry.
+const { lens: rolesLens } = buildRolesLens({ write: true });
+process.stderr.write(`Generated UI role lens (${rolesLens.buyerTypes.length + rolesLens.eoRoles.length} roles) under model/generated/ui/roles.json.\n`);
 
 // "State of the model" coverage report (generated from the sources above).
 buildCoverageReport({ write: true });

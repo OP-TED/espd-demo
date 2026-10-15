@@ -1,20 +1,30 @@
 /**
- * Model module — loads and provides access to the ESPD-EDM data model.
- * Loads the decomposed model from espd-edm/index.json and its referenced parts.
- * Loads role definitions from roles.json for form behavior configuration.
+ * Model module — loads and provides access to the generated UI model bundle.
+ * Loads model/generated/ui/index.json, the per-part lenses it references, and
+ * the role lens (roles.json). Exposes the helper API the rest of the UI depends
+ * on (parts, role form-behaviour, criterion mandatoriness).
+ *
+ * The part lens shape is { part, titleKey, descriptionKey, shortKey, filledBy,
+ * sections:[ { id, titleKey, members:[ administrative | criterion ] } ] }.
+ * Role entries carry labelKey/descriptionKey (English text in espd.roles.json),
+ * so callers resolve display text through i18n.
  */
 
 // Relative (no leading slash) so it works both at the domain root (local dev)
 // and under a subpath deployment (e.g. GitLab Pages project sites).
-const MODEL_BASE = 'espd-edm';
+const MODEL_BASE = 'model/generated/ui';
 
-let espdModel = null;
-let rolesData = null;
+const PART_KEYS = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+
+let espdModel = null;   // { version, parts: { <roman>: partLens } }
+let rolesData = null;   // the roles.json lens (buyerTypes/eoRoles/exclusionCategoryMap/…)
 
 /**
- * Mapping of Part III section code prefixes to exclusion ground categories.
+ * Fallback Part III section-code → exclusion-category prefix map, used only if
+ * the role lens fails to load. The authoritative map is roles.json's
+ * exclusionCategoryMap (see getExclusionCategory).
  */
-const EXCLUSION_CATEGORY_MAP = {
+const FALLBACK_EXCLUSION_CATEGORY_MAP = {
   'exg-crim': 'criminal',
   'exg-pmt': 'payment',
   'exg-mis': 'misconduct',
@@ -23,166 +33,108 @@ const EXCLUSION_CATEGORY_MAP = {
 };
 
 /**
- * Load the ESPD-EDM model from the decomposed index + part files.
+ * Load the generated UI bundle: the index manifest, the per-part lenses, and the
+ * role lens. Sets module state; callers use the getters below.
  */
 export async function loadModel() {
-  // Load the index manifest
-  const indexResp = await fetch(`${MODEL_BASE}/index.json`);
-  const index = await indexResp.json();
+  const index = await (await fetch(`${MODEL_BASE}/index.json`)).json();
 
-  // Load metadata
-  const metaResp = await fetch(`${MODEL_BASE}/${index.metadata}`);
-  const metadata = await metaResp.json();
-
-  // Load roles if available
-  if (index.roles) {
-    try {
-      const rolesResp = await fetch(`${MODEL_BASE}/${index.roles}`);
-      rolesData = await rolesResp.json();
-    } catch (e) {
-      console.warn('Failed to load roles.json, falling back to default behavior', e);
-      rolesData = null;
-    }
+  // Role lens.
+  try {
+    const rolesRef = index.roles || './roles.json';
+    rolesData = await (await fetch(`${MODEL_BASE}/${stripDot(rolesRef)}`)).json();
+  } catch (e) {
+    console.warn('Failed to load roles.json; role-driven behaviour falls back to defaults', e);
+    rolesData = null;
   }
 
-  // Load all parts in parallel
-  const partEntries = await Promise.all(
-    index.parts.map(async (entry) => {
-      const resp = await fetch(`${MODEL_BASE}/${entry.$ref}`);
-      const partData = await resp.json();
-      return {
-        key: entry.part,
-        data: {
-          title: partData.title,
-          description: partData.description,
-          filledBy: partData.filledBy,
-          sections: partData.sections
-        }
-      };
+  // Per-part lenses, in the manifest order.
+  const parts = {};
+  await Promise.all(
+    (index.parts || []).map(async (entry) => {
+      const lens = await (await fetch(`${MODEL_BASE}/${stripDot(entry.$ref)}`)).json();
+      parts[entry.part] = lens;
     })
   );
 
-  // Assemble into the same shape the rest of the app expects
-  const parts = {};
-  for (const { key, data } of partEntries) {
-    parts[key] = data;
-  }
-
-  espdModel = { metadata, parts };
+  espdModel = { version: index.version, parts };
   return espdModel;
 }
 
-/**
- * Get the full model object.
- */
+/** Normalise a manifest "./x.json" ref to a path under MODEL_BASE. */
+function stripDot(ref) {
+  return ref.replace(/^\.\//, '');
+}
+
+/** Get the full model object ({ version, parts }). */
 export function getModel() {
   return espdModel;
 }
 
-/**
- * Get metadata about the model.
- */
+/** Metadata about the model (the bundle carries a version). */
 export function getMetadata() {
-  return espdModel?.metadata || {};
+  return espdModel ? { version: espdModel.version } : {};
 }
 
-/**
- * Get the roles registry data.
- * @returns {{ buyerTypes: Array, eoRoles: Array } | null}
- */
+/** The role lens ({ buyerTypes, eoRoles, exclusionCategoryMap, … }) or null. */
 export function getRoles() {
   return rolesData;
 }
 
 /**
- * Find a role configuration by its id.
- * Searches both buyerTypes and eoRoles arrays.
- * @param {string} id - The role id (e.g., 'sole-tenderer', 'contracting-authority')
- * @returns {object|null} The role entry or null if not found
+ * Find a role lens entry by id (searches buyerTypes then eoRoles).
+ * Entries carry labelKey/descriptionKey (resolve display text via i18n).
  */
 export function getRoleById(id) {
   if (!rolesData) return null;
-
-  const buyer = rolesData.buyerTypes.find(r => r.id === id);
+  const buyer = rolesData.buyerTypes?.find(r => r.id === id);
   if (buyer) return buyer;
-
-  const eo = rolesData.eoRoles.find(r => r.id === id);
+  const eo = rolesData.eoRoles?.find(r => r.id === id);
   if (eo) return eo;
-
   return null;
 }
 
-/**
- * Get all parts as an ordered array.
- */
+/** All parts as an ordered array of { key, ...partLens } over I..VI. */
 export function getParts() {
   if (!espdModel) return [];
-  const partKeys = ['I', 'II', 'III', 'IV', 'V', 'VI'];
-  return partKeys.map(key => ({
-    key,
-    ...espdModel.parts[key]
-  }));
+  return PART_KEYS
+    .filter(key => espdModel.parts[key])
+    .map(key => ({ key, ...espdModel.parts[key] }));
 }
 
-/**
- * Get a specific part by its Roman numeral key.
- */
+/** A specific part lens by its Roman-numeral key. */
 export function getPart(partKey) {
   if (!espdModel) return null;
   return espdModel.parts[partKey] || null;
 }
 
-/**
- * Get sections for a specific part.
- */
+/** The ordered sections of a part. */
 export function getSections(partKey) {
   const part = getPart(partKey);
   return part?.sections || [];
 }
 
 /**
- * Determine which parts are relevant for a given role.
- * Uses formBehavior.visibleParts from the role registry.
- * Falls back to showing all parts if role is not found.
- * @param {string} roleId - The role id
- * @returns {Array} Array of part objects with key property
+ * Which parts are relevant for a role (role.formBehavior.visibleParts).
+ * Falls back to all parts if the role is not found.
+ * @returns {Array} part objects with a `key` property
  */
 export function getPartsForRole(roleId) {
   const allParts = getParts();
   const role = getRoleById(roleId);
-
-  if (!role) {
-    // Fallback: show all parts
-    return allParts;
-  }
-
+  if (!role) return allParts;
   const visibleKeys = role.formBehavior.visibleParts;
   return allParts.filter(part => visibleKeys.includes(part.key));
 }
 
-/**
- * Check if a part is editable for a given role.
- * Uses formBehavior.editableParts from the role registry.
- * @param {string} partKey - The part key (e.g., 'I', 'II')
- * @param {string} roleId - The role id
- * @returns {boolean}
- */
+/** Whether a part is editable for a role (role.formBehavior.editableParts). */
 export function isPartEditable(partKey, roleId) {
   const role = getRoleById(roleId);
-
-  if (!role) {
-    // Fallback: all parts editable
-    return true;
-  }
-
+  if (!role) return true;
   return role.formBehavior.editableParts.includes(partKey);
 }
 
-/**
- * Get the exclusion ground rules for a role.
- * @param {string} roleId - The role id
- * @returns {object|null} The exclusionGroundRules object or null
- */
+/** The exclusion-ground rules for a role, or null. */
 export function getExclusionRules(roleId) {
   const role = getRoleById(roleId);
   if (!role) return null;
@@ -190,38 +142,37 @@ export function getExclusionRules(roleId) {
 }
 
 /**
- * Determine the exclusion ground category for a section code.
- * @param {string} sectionCode - The section code (e.g., 'exg-crim-part', 'exg-pmt-bre-tax')
- * @returns {string|null} The category ('criminal', 'payment', 'misconduct', 'national') or null
+ * The exclusion-ground category for a criterion code, by longest-prefix match
+ * against the role lens's exclusionCategoryMap (fallback map if roles absent).
  */
 export function getExclusionCategory(sectionCode) {
   if (!sectionCode) return null;
-
-  for (const [prefix, category] of Object.entries(EXCLUSION_CATEGORY_MAP)) {
-    if (sectionCode.startsWith(prefix)) {
-      return category;
-    }
+  const map = rolesData?.exclusionCategoryMap || FALLBACK_EXCLUSION_CATEGORY_MAP;
+  for (const [prefix, category] of Object.entries(map)) {
+    if (sectionCode.startsWith(prefix)) return category;
   }
   return null;
 }
 
 /**
- * Determine if a criterion is mandatory for a given role.
- * A criterion is mandatory if its exclusion category is mapped to "mandatory"
- * in the role's exclusionGroundRules.
- * @param {string} sectionCode - The section code (e.g., 'exg-crim-part')
- * @param {string} roleId - The role id (e.g., 'contracting-authority')
- * @returns {boolean} true if the criterion is mandatory for this role
+ * Whether a criterion is mandatory for a role: its exclusion category is marked
+ * "mandatory" in the role's exclusionGroundRules.
  */
 export function isCriterionMandatory(sectionCode, roleId) {
   const category = getExclusionCategory(sectionCode);
   if (!category) return false;
-
   const rules = getExclusionRules(roleId);
   if (!rules) return false;
-
   return rules[category] === 'mandatory';
 }
 
-// Export the category map for testing
-export { EXCLUSION_CATEGORY_MAP };
+/**
+ * Back-compat export of the exclusion-category map. Prefer getExclusionCategory;
+ * this reflects the role lens when loaded, else the fallback.
+ */
+export function getExclusionCategoryMap() {
+  return rolesData?.exclusionCategoryMap || FALLBACK_EXCLUSION_CATEGORY_MAP;
+}
+
+// Legacy named export kept for tests/consumers that imported the constant.
+export const EXCLUSION_CATEGORY_MAP = FALLBACK_EXCLUSION_CATEGORY_MAP;

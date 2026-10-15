@@ -11,7 +11,7 @@
 import { test, expect } from '@playwright/test';
 import path from 'path';
 import fs from 'fs';
-import { startWizardAs, goToPart, visibleStepKeys, fillField, selectField, next } from './helpers.js';
+import { startWizardAs, goToPart, visibleStepKeys, fillField, selectField, selectPubRefBranch, next } from './helpers.js';
 
 test.describe('Contracting Authority — full ESPD Request flow', () => {
   test('fills Part I, walks all visible parts, downloads the Request XML', async ({ page }) => {
@@ -23,18 +23,25 @@ test.describe('Contracting Authority — full ESPD Request flow', () => {
     // ── Part I ─────────────────────────────────────────────
     await expect(page.locator('#form-content h2')).toContainText('Part I');
 
-    // Publication reference (PI01)
+    // Publication reference (PI01) is a mutually-exclusive radio-input-group:
+    // branch 0 (TED notice number) is active by default; the URL / national
+    // inputs are disabled until their radio is picked. The CURRENT UI only lets
+    // the active branch be filled — so fill the default branch (Q1).
     await fillField(page, 'PI01_proc-pub-ref/QG1/Q1/R1/RV', '2026/S 142-123456');
-    await fillField(page, 'PI01_proc-pub-ref/QG1/Q2/R1/RV', 'https://ted.europa.eu/en/notice/-/detail/123456-2026');
+    // Characterize the gating: Q2 (URL) is disabled until its branch is active.
+    await expect(
+      page.locator('[data-contentpath="PI01_proc-pub-ref/QG1/Q2/R1/RV"] input')
+    ).toBeDisabled();
 
-    // Procurer identity (PI02)
+    // Procurer identity (PI02) — all fields editable for a CA.
     await fillField(page, 'PI02_proc-procurer-id/QG1/Q1/R1/RV', 'European Commission — DG DIGIT');
     await selectField(page, 'PI02_proc-procurer-id/QG1/Q2/R1/RV', 'BEL');
     await fillField(page, 'PI02_proc-procurer-id/QG1/Q4/R1/RV', 'BE-0123456789');
 
-    // Procedure info (PI03)
+    // Procedure info (PI03) — Q1 title, Q2 file reference, Q3 procedure type.
     await fillField(page, 'PI03_proc-procedure-info/QG1/Q1/R1/RV', 'Supply of IT Equipment and Services 2026');
     await fillField(page, 'PI03_proc-procedure-info/QG1/Q2/R1/RV', 'DIGIT/2026/OP/0042');
+    await selectField(page, 'PI03_proc-procedure-info/QG1/Q3/R1/RV', 'open');
 
     // ── Walk the remaining visible parts ───────────────────
     await next(page);

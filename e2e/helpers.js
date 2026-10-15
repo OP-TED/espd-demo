@@ -71,6 +71,25 @@ export async function goToPart(page, partKey) {
   await expect(page.locator('#form-content h2')).toContainText(`Part ${partKey}`);
 }
 
+/**
+ * Select a Part I publication-reference branch (PI01 radio-input-group).
+ *
+ * CURRENT behaviour: PI01 renders as `.espd-radio-input-group` with three
+ * `input[name="pub-ref-type"]` radios (0 = TED number, 1 = TED URL,
+ * 2 = national). Only the ACTIVE branch's input is enabled; the others are
+ * `disabled .espd-input-dimmed` until their radio is checked. Branch 0 is active
+ * by default. Call this before filling Q2 or Q3.
+ */
+export async function selectPubRefBranch(page, index) {
+  const radio = page.locator(`input[name="pub-ref-type"][value="${index}"]`);
+  await radio.check();
+  // The row's field becomes enabled once its radio is active.
+  const contentpath = `PI01_proc-pub-ref/QG1/Q${index + 1}/R1/RV`;
+  await expect(
+    page.locator(`[data-contentpath="${contentpath}"] input`).first()
+  ).toBeEnabled();
+}
+
 /** Fill a text/url/number/textarea field addressed by its contentpath. */
 export async function fillField(page, contentpath, value) {
   const field = page.locator(

@@ -16,6 +16,15 @@ import fs from 'fs';
 import { startWizardAs, goToPart, fillField, selectField } from './helpers.js';
 
 test.describe('Export → import → resume', () => {
+  // The CURRENT UI warns before importing over an existing session:
+  // handleImportFile() calls confirm('Importing will replace your current
+  // session…') whenever hasSession() && hasAnswers(). After step 1 fills + the
+  // state persists to localStorage, a fresh load restores that session, so the
+  // confirm fires on import. Accept it so the import proceeds.
+  test.beforeEach(async ({ page }) => {
+    page.on('dialog', (dialog) => dialog.accept());
+  });
+
   test('a downloaded ESPD Request re-imports and resumes with its data', async ({ page }) => {
     // 1) Fill a minimal Part I as the Contracting Authority and download.
     await startWizardAs(page, 'contracting-authority');

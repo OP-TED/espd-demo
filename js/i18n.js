@@ -7,6 +7,11 @@ const translations = {};
 let currentLanguage = 'en';
 const namespaces = [
   'espd.common',
+  // Generated UI catalogues (roles, assembled parts, codelists) — the model-driven
+  // UI resolves its labelKey/titleKey/nameKey/codelist.label keys against these.
+  'espd.roles',
+  'espd.parts',
+  'espd.codelists',
   'espd.part1',
   'espd.part2',
   'espd.part3',

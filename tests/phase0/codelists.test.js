@@ -1,83 +1,77 @@
-// Phase 0 characterization — js/codelists.js (hard-coded tables + getCodelist).
-// Locks down the CURRENT codelist resolution so the rebuild (which will fetch
-// model/generated/codelists/*.json and resolve labels via i18n keys) can be
-// proven to preserve the same codes/options the UI shows today.
+// Phase 0 characterization — codelist availability for the UI.
+//
+// UPDATED at the Phase 4/5 cutover. The former js/codelists.js hard-coded
+// tables (COUNTRY_CODES/PROCEDURE_TYPES/… + getCodelist(propertydatatype)) were
+// replaced by a loader that fetches model/generated/codelists/<name>.json and
+// resolves labels via i18n. The browser-facing getCodelist(name) now depends on
+// fetch + the i18n catalogue, so it is exercised in the E2E layer; here we assert
+// the DATA-LEVEL contract that backs it — the generated lists + the English
+// catalogue still offer every code/label the UI relied on. This preserves the
+// original parity intent (same options available) against the new source.
 
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  getCodelist,
-  COUNTRY_CODES,
-  PROCEDURE_TYPES,
-  BOOLEAN_CODES,
-  CURRENCY_CODES,
-  EOID_TYPES,
-} from '../../js/codelists.js';
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-describe('phase0: codelists — getCodelist(propertydatatype) resolution', () => {
-  it('maps each code-valued datatype to its table (current behaviour)', () => {
-    assert.equal(getCodelist('CODE_COUNTRY'), COUNTRY_CODES);
-    assert.equal(getCodelist('CODE'), PROCEDURE_TYPES);
-    assert.equal(getCodelist('CODE_BOOLEAN'), BOOLEAN_CODES);
-    assert.equal(getCodelist('CODE_EOID_TYPE'), EOID_TYPES);
+const here = dirname(fileURLToPath(import.meta.url));
+const read = (p) => JSON.parse(readFileSync(resolve(here, p), 'utf8'));
+const clDir = '../../model/generated/codelists';
+const list = (name) => read(`${clDir}/${name}.json`).codes;
+const catalogue = read('../../i18n/i18n/en/espd.codelists.json');
+const common = read('../../i18n/i18n/en/espd.common.json');
+const labelOf = (labelKey) => catalogue[labelKey] ?? common[labelKey];
+
+describe('phase0: codelists — the generated lists back the UI pickers', () => {
+  it('the generated index lists the UI codelists', () => {
+    const index = read(`${clDir}/index.json`);
+    const names = index.codelists.map((c) => c.codelist);
+    for (const n of ['country', 'eoid-type', 'economic-operator-size', 'eo-role-type', 'currency', 'docrefcontent-type']) {
+      assert.ok(names.includes(n), `index includes ${n}`);
+    }
   });
 
-  it('returns null for datatypes with no hard-coded table', () => {
-    // Characterization: today the UI has no table for these; the rebuild will
-    // resolve them from the field.codelist name instead.
-    assert.equal(getCodelist('DESCRIPTION'), null);
-    assert.equal(getCodelist('INDICATOR'), null);
-    assert.equal(getCodelist('AMOUNT'), null);
-    assert.equal(getCodelist(undefined), null);
-  });
-});
-
-describe('phase0: codelists — table shape + representative members', () => {
-  const tables = { COUNTRY_CODES, PROCEDURE_TYPES, BOOLEAN_CODES, CURRENCY_CODES, EOID_TYPES };
-
-  it('every table entry is a { code, name } pair with non-empty strings', () => {
-    for (const [tableName, table] of Object.entries(tables)) {
-      assert.ok(Array.isArray(table) && table.length > 0, `${tableName} is a non-empty array`);
-      for (const entry of table) {
-        assert.equal(typeof entry.code, 'string', `${tableName} entry has a string code`);
-        assert.ok(entry.code.length > 0, `${tableName} code is non-empty`);
-        assert.equal(typeof entry.name, 'string', `${tableName} entry has a string name`);
-        assert.ok(entry.name.length > 0, `${tableName} name is non-empty`);
+  it('every code carries a resolvable English label', () => {
+    for (const name of ['country', 'eoid-type', 'economic-operator-size', 'eo-role-type', 'docrefcontent-type']) {
+      for (const { code, labelKey } of list(name)) {
+        assert.ok(code && code.length > 0, `${name} code non-empty`);
+        const label = labelOf(labelKey);
+        assert.ok(label && label.length > 0, `${name}.${code} has a label (${labelKey})`);
       }
     }
   });
 
-  it('codes within a table are unique', () => {
-    for (const [tableName, table] of Object.entries(tables)) {
-      const codes = table.map(e => e.code);
-      assert.equal(new Set(codes).size, codes.length, `${tableName} codes are unique`);
+  it('codes within a list are unique', () => {
+    for (const name of ['country', 'eoid-type', 'economic-operator-size', 'eo-role-type', 'currency']) {
+      const codes = list(name).map((e) => e.code);
+      assert.equal(new Set(codes).size, codes.length, `${name} codes unique`);
     }
   });
+});
 
-  // Representative members the current UI relies on — the rebuild must still
-  // offer these (resolved from the richer generated codelists).
-  it('country table includes the EU member states the UI uses (alpha-3)', () => {
-    const codes = new Set(COUNTRY_CODES.map(e => e.code));
+describe('phase0: codelists — representative members the UI relies on', () => {
+  it('country includes the EU member states the UI uses (alpha-3), BEL = Belgium', () => {
+    const codes = new Set(list('country').map((e) => e.code));
     for (const c of ['BEL', 'FRA', 'DEU', 'ESP', 'ITA', 'NLD', 'POL', 'SWE']) {
-      assert.ok(codes.has(c), `country table has ${c}`);
+      assert.ok(codes.has(c), `country has ${c}`);
     }
-    assert.equal(COUNTRY_CODES.find(e => e.code === 'BEL').name, 'Belgium');
+    assert.equal(labelOf('codelist.label.country.BEL'), 'Belgium');
   });
 
-  it('EOID types are the five scheme codes the identifier field offers', () => {
-    assert.deepEqual(EOID_TYPES.map(e => e.code), ['VAT', 'NATIONAL', 'LEI', 'BRIS', 'DUNS']);
+  it('eoid-type offers the five identifier-scheme codes', () => {
+    const codes = list('eoid-type').map((e) => e.code).sort();
+    assert.deepEqual(codes, ['BRIS', 'DUNS', 'LEI', 'NATIONAL', 'VAT']);
   });
 
-  it('boolean codelist offers the three current options', () => {
-    assert.deepEqual(BOOLEAN_CODES.map(e => e.code), ['TRUE', 'FALSE', 'NOT_APPLICABLE']);
+  it('currency includes EUR', () => {
+    assert.ok(list('currency').some((e) => e.code === 'EUR'));
+    assert.equal(labelOf('codelist.label.currency.EUR'), 'Euro');
   });
 
-  it('procedure types include open and restricted', () => {
-    const codes = new Set(PROCEDURE_TYPES.map(e => e.code));
-    assert.ok(codes.has('open') && codes.has('restricted'));
-  });
-
-  it('currency table includes EUR', () => {
-    assert.ok(CURRENCY_CODES.some(e => e.code === 'EUR'));
+  it('procurement-procedure-type (not shipped as .gc) still offers open/restricted via the common catalogue', () => {
+    // Carried inline by js/codelists.js UNSHIPPED fallback; labels in espd.common.json.
+    assert.equal(common['codelist.label.procurement-procedure-type.open'], 'Open procedure');
+    assert.equal(common['codelist.label.procurement-procedure-type.restricted'], 'Restricted procedure');
   });
 });

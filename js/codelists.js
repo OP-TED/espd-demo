@@ -1,130 +1,103 @@
 /**
- * Codelists module — provides EU country codes, procedure types, and other enums.
- * Based on EU Vocabularies / ESPD-EDM codelists.
+ * Codelists module — loads the generated UI codelist service data
+ * (model/generated/codelists/<name>.json) and resolves option labels through
+ * i18n. Replaces the former hard-coded propertydatatype→array tables: codelists
+ * are now referenced BY NAME from the model (field.codelist), and their codes +
+ * label keys come from the shipped ESPD-EDM .gc files via the compiler.
  */
 
-/**
- * EU Member States + EEA countries (ISO 3166-1 alpha-3).
- * Source: EU Vocabularies authority table
- * http://publications.europa.eu/resource/authority/country
- * Matches ESPD-EDM/codelists/Country.gc
- */
-export const COUNTRY_CODES = [
-  { code: 'AUT', name: 'Austria' },
-  { code: 'BEL', name: 'Belgium' },
-  { code: 'BGR', name: 'Bulgaria' },
-  { code: 'HRV', name: 'Croatia' },
-  { code: 'CYP', name: 'Cyprus' },
-  { code: 'CZE', name: 'Czechia' },
-  { code: 'DNK', name: 'Denmark' },
-  { code: 'EST', name: 'Estonia' },
-  { code: 'FIN', name: 'Finland' },
-  { code: 'FRA', name: 'France' },
-  { code: 'DEU', name: 'Germany' },
-  { code: 'GRC', name: 'Greece' },
-  { code: 'HUN', name: 'Hungary' },
-  { code: 'IRL', name: 'Ireland' },
-  { code: 'ITA', name: 'Italy' },
-  { code: 'LVA', name: 'Latvia' },
-  { code: 'LTU', name: 'Lithuania' },
-  { code: 'LUX', name: 'Luxembourg' },
-  { code: 'MLT', name: 'Malta' },
-  { code: 'NLD', name: 'Netherlands' },
-  { code: 'POL', name: 'Poland' },
-  { code: 'PRT', name: 'Portugal' },
-  { code: 'ROU', name: 'Romania' },
-  { code: 'SVK', name: 'Slovakia' },
-  { code: 'SVN', name: 'Slovenia' },
-  { code: 'ESP', name: 'Spain' },
-  { code: 'SWE', name: 'Sweden' },
-  // EEA
-  { code: 'ISL', name: 'Iceland' },
-  { code: 'LIE', name: 'Liechtenstein' },
-  { code: 'NOR', name: 'Norway' },
-  // Other commonly included
-  { code: 'CHE', name: 'Switzerland' },
-  { code: 'GBR', name: 'United Kingdom' },
-  { code: 'ALB', name: 'Albania' },
-  { code: 'BIH', name: 'Bosnia and Herzegovina' },
-  { code: 'GEO', name: 'Georgia' },
-  { code: 'MDA', name: 'Moldova' },
-  { code: 'MNE', name: 'Montenegro' },
-  { code: 'MKD', name: 'North Macedonia' },
-  { code: 'SRB', name: 'Serbia' },
-  { code: 'TUR', name: 'Türkiye' },
-  { code: 'UKR', name: 'Ukraine' }
-];
+import { t } from './i18n.js';
+
+// Relative so it resolves at the domain root and under a subpath deployment,
+// matching how the model bundle itself is fetched.
+const CODELISTS_BASE = 'model/generated/codelists';
+
+// Model fields reference codelists by name; a few names in the model use an
+// alias of the generated file's canonical name (mirrors the governance aliases).
+const ALIASES = {
+  EOIDType: 'eoid-type',
+  DocRefContentType: 'docrefcontent-type',
+  PropertyGroupType: 'property-group-type',
+  ResponseDataType: 'response-data-type',
+  ProfileExecutionID: 'profile-execution-id',
+};
+
+// `procurement-procedure-type` is NOT shipped as a .gc (ESPD-EDM issue #308), so
+// the compiler emits no generated list for it. It is still needed by Part I
+// Section C's procedureType picker, so we carry the OP authority set inline here
+// as a suggested list, with its own i18n keys. The moment a .gc ships, this entry
+// goes away and the list is served from model/generated/codelists like the rest.
+const UNSHIPPED = {
+  'procurement-procedure-type': [
+    { code: 'open', labelKey: 'codelist.label.procurement-procedure-type.open' },
+    { code: 'restricted', labelKey: 'codelist.label.procurement-procedure-type.restricted' },
+    { code: 'neg-w-call', labelKey: 'codelist.label.procurement-procedure-type.neg-w-call' },
+    { code: 'comp-dial', labelKey: 'codelist.label.procurement-procedure-type.comp-dial' },
+    { code: 'innovation', labelKey: 'codelist.label.procurement-procedure-type.innovation' },
+    { code: 'neg-wo-call', labelKey: 'codelist.label.procurement-procedure-type.neg-wo-call' },
+    { code: 'comp-tend', labelKey: 'codelist.label.procurement-procedure-type.comp-tend' },
+  ],
+};
+
+// code -> [{ code, labelKey }], populated lazily by loadCodelists().
+const lists = new Map();
+let loaded = false;
+
+/** Resolve a model codelist name to its generated file's canonical name. */
+function canonical(name) {
+  return ALIASES[name] ?? name;
+}
 
 /**
- * Procedure types used in ESPD Part I.
- * Source: EU Vocabularies authority table
- * http://publications.europa.eu/resource/authority/procurement-procedure-type
- * Codes match eForms and TED API values.
+ * Load the generated codelist service data (idempotent). Call once at startup
+ * before rendering. Fetches each list in the generated index; the unshipped
+ * fallbacks are registered too.
  */
-export const PROCEDURE_TYPES = [
-  { code: 'open', name: 'Open procedure' },
-  { code: 'restricted', name: 'Restricted procedure' },
-  { code: 'neg-w-call', name: 'Negotiated with prior call for competition' },
-  { code: 'comp-dial', name: 'Competitive dialogue' },
-  { code: 'innovation', name: 'Innovation partnership' },
-  { code: 'neg-wo-call', name: 'Negotiated without prior call for competition' },
-  { code: 'comp-tend', name: 'Competitive tendering' }
-];
+export async function loadCodelists() {
+  if (loaded) return;
+  const indexResp = await fetch(`${CODELISTS_BASE}/index.json`);
+  const index = await indexResp.json();
 
-/**
- * Boolean codelist for CODE_BOOLEAN property data type.
- */
-export const BOOLEAN_CODES = [
-  { code: 'TRUE', name: 'Yes' },
-  { code: 'FALSE', name: 'No' },
-  { code: 'NOT_APPLICABLE', name: 'Not applicable' }
-];
+  await Promise.all(
+    index.codelists.map(async (entry) => {
+      try {
+        const resp = await fetch(`${CODELISTS_BASE}/${entry.codelist}.json`);
+        const doc = await resp.json();
+        lists.set(entry.codelist, doc.codes ?? []);
+      } catch (e) {
+        console.warn(`Failed to load codelist "${entry.codelist}"`, e);
+        lists.set(entry.codelist, []);
+      }
+    })
+  );
 
-/**
- * Currency codes (most common in EU procurement).
- */
-export const CURRENCY_CODES = [
-  { code: 'EUR', name: 'Euro (€)' },
-  { code: 'BGN', name: 'Bulgarian Lev (лв)' },
-  { code: 'CZK', name: 'Czech Koruna (Kč)' },
-  { code: 'DKK', name: 'Danish Krone (kr)' },
-  { code: 'GBP', name: 'British Pound (£)' },
-  { code: 'HUF', name: 'Hungarian Forint (Ft)' },
-  { code: 'PLN', name: 'Polish Zloty (zł)' },
-  { code: 'RON', name: 'Romanian Leu (lei)' },
-  { code: 'SEK', name: 'Swedish Krona (kr)' },
-  { code: 'CHF', name: 'Swiss Franc (CHF)' },
-  { code: 'NOK', name: 'Norwegian Krone (kr)' },
-  { code: 'ISK', name: 'Icelandic Króna (kr)' },
-  { code: 'USD', name: 'US Dollar ($)' }
-];
-
-/**
- * Economic Operator / Procurer Identifier Type.
- * Source: ESPD-EDM codelist EOIDType.gc
- */
-export const EOID_TYPES = [
-  { code: 'VAT', name: 'VAT number' },
-  { code: 'NATIONAL', name: 'National Identifier' },
-  { code: 'LEI', name: 'Legal Entity Identifier' },
-  { code: 'BRIS', name: 'Business Registry European Unique Identifier' },
-  { code: 'DUNS', name: 'Duns & Bradstreet number' }
-];
-
-/**
- * Get a codelist by the property data type name.
- */
-export function getCodelist(propertydatatype) {
-  switch (propertydatatype) {
-    case 'CODE_COUNTRY':
-      return COUNTRY_CODES;
-    case 'CODE':
-      return PROCEDURE_TYPES;
-    case 'CODE_BOOLEAN':
-      return BOOLEAN_CODES;
-    case 'CODE_EOID_TYPE':
-      return EOID_TYPES;
-    default:
-      return null;
+  for (const [name, codes] of Object.entries(UNSHIPPED)) {
+    if (!lists.has(name)) lists.set(name, codes);
   }
+  loaded = true;
+}
+
+/**
+ * Get a codelist by its model NAME (e.g. 'country', 'docrefcontent-type',
+ * 'EOIDType', 'procurement-procedure-type'). Returns an array of
+ * `{ code, name }` where `name` is the i18n-resolved English label.
+ * Returns [] (with a warning) for an unknown list, so a renderer degrades to an
+ * empty picker rather than throwing.
+ * @param {string} name
+ * @returns {Array<{code: string, name: string}>}
+ */
+export function getCodelist(name) {
+  if (!name) return [];
+  const key = canonical(name);
+  const codes = lists.get(key);
+  if (!codes) {
+    console.warn(`Unknown codelist "${name}" (resolved "${key}") — not loaded`);
+    return [];
+  }
+  return codes.map(({ code, labelKey }) => ({ code, name: t(labelKey, code) }));
+}
+
+/** Whether a codelist name resolves to a known (loaded) list. */
+export function hasCodelist(name) {
+  return lists.has(canonical(name));
 }

@@ -66,14 +66,27 @@ and the app chrome: `app.js` wizard orchestration, `home.js`, `path-selector.js`
 
 ## Step-by-step plan
 
-### Phase 0 — Safety net (before any change)
-- **0.1** Extend the existing Playwright setup (`playwright.config.js`, `test:e2e`) with
-  smoke/behaviour tests against the CURRENT UI: for each role, run home → path-selector →
-  wizard; render each part; assert key fields, conditional show/hide, codelist options,
-  the Part I TED lookup, **import an ESPD and resume**, and **export** round-trips.
-- **0.2** Capture golden snapshots (rendered DOM + the post-TED-merge styling) per
-  (role × part). This is the parity oracle the rebuild is proven against — doubly important
-  now that the design system just changed.
+### Phase 0 — Safety net (before any change) — DONE (commit `22a9546`)
+Built in two layers; see `tests/phase0/README.md` for the full rationale and the
+Node-vs-E2E scope boundary.
+- **0.1 Node characterization harness** (`tests/phase0/*.test.js`, 37 tests, **green**
+  via `node --test tests/phase0/`; picked up by `npm run test`): the data-level parity
+  oracle — role → `visibleParts`/mandatory-exclusion goldens, codelist resolution, and
+  the state store's answer/inclusion keying + legacy role migration. Export/import are
+  **excluded** from this layer (fetch-loaded model has no injection point; `DOMParser`
+  is undefined in Node) and characterized in the E2E layer instead.
+- **0.2 E2E behaviour + golden suite** (`e2e/*.spec.js`, 35 tests, **authored**): per-role
+  home → path-selector → wizard, per-part render, conditional show/hide, codelist options,
+  Part I TED lookup, import→resume, export round-trip, plus DOM/visual golden snapshots per
+  (role × part). **Cannot run in the dev sandbox** (Chromium `spawn UNKNOWN`); run where a
+  browser launches. The render goldens have **no committed baseline yet** and must be
+  captured against the CURRENT UI *before* Phase 4/7 changes the DOM:
+  ```
+  npm run test:e2e -- --update-snapshots   # first run: capture baseline, then commit e2e/**/*-snapshots/
+  npm run test:e2e                          # subsequent runs: diff against baseline
+  ```
+  **TODO (CI):** add a CI job that runs `npm run test:e2e` and manages the golden baseline,
+  so capture/verification is automatic instead of a manual step on another machine.
 
 ### Phase 1 — Port the role registry into `model/` (gap #1)
 - **1.1** `model/model-sources/roles.json` — owned copy (buyerTypes, eoRoles, `formBehavior`

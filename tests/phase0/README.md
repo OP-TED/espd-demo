@@ -43,5 +43,20 @@ DOM/visual golden snapshots per (role × part).
 npm run test:e2e
 ```
 
-The golden snapshots are the DOM/visual parity reference the rebuild is diffed
-against in Phase 7.
+### Capturing the golden baseline (first run)
+
+The render goldens have **no committed baseline yet**. They assert nothing until
+captured, and must be captured against the CURRENT UI **before** the rebuild
+changes the DOM — otherwise the "before" reference is lost. On a machine where a
+browser can launch, run once:
+
+```
+npm run test:e2e -- --update-snapshots
+```
+
+Then commit the generated `e2e/**/*-snapshots/` files. Subsequent runs
+(`npm run test:e2e`) diff against that baseline. These snapshots are the
+DOM/visual parity reference the rebuild is diffed against in Phase 7.
+
+> TODO (tracked): add a CI job that runs `npm run test:e2e` (and manages the
+> golden baseline) so capture/verification is automatic rather than manual.

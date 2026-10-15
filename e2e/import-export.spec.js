@@ -80,6 +80,9 @@ test.describe('Export → import → resume', () => {
     await page.locator('#btn-import-home').click();
     await expect(page.locator('#wizard-container')).toBeVisible();
     // An EO response makes Part II (economic operator) available in the nav.
-    await expect(page.locator('.espd-steps li .espd-step__num', { hasText: 'II' })).toBeVisible();
+    // Exact-match the step number so 'II' does not also match 'III'/'IV'.
+    await expect(
+      page.locator('.espd-steps li .espd-step__num').filter({ hasText: /^II$/ })
+    ).toBeVisible();
   });
 });

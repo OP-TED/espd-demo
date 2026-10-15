@@ -167,11 +167,33 @@ Node-vs-E2E scope boundary.
   Gate export on a valid instance.
 
 ### Phase 7 — Cut over & retire the legacy data path
-- **7.1** Run the Phase-0 harness against the rebuilt UI; diff vs. goldens (DOM + styling);
-  fix deltas.
+- **7.1** Run the Phase-0 harness against the rebuilt UI. The two layers behave differently
+  at cutover:
+  - **Behaviour assertions** (role → visible parts, codelist options, import→resume,
+    request/response detection) are phrased against *behaviour*, not markup, so they should
+    survive the rebuild with at most selector touch-ups. These are the durable net — treat a
+    failure as a real regression first, a stale selector second.
+  - **Render goldens** are a *before-photo*, deliberately coupled to the current DOM
+    (`espd-input-dimmed`, `pub-ref-type` radios, `contentpath` keys). The model-driven
+    renderer emits different markup, so they **will** break — that is the mechanism working.
+    Review the diff as the one place an *unintended* change (a field that silently stopped
+    rendering, a codelist that lost options) can't hide inside the intended one, then
+    **re-baseline**: `npm run test:e2e -- --update-snapshots` and commit. From here the goldens
+    guard the *new* UI, not the old.
 - **7.2** Delete `espd-edm/` (data + `*.cjs` tooling), the hard-coded codelist tables, and
   the hand-rolled `xml-export.js`/`xml-import.js` internals (replaced by the engine wrappers).
   Update build/deploy + docs.
+- **7.3** **Migrate affordance assertions down to the model lens.** A Phase-0 golden that
+  asserts "Part I renders a three-branch radio-input-group" or "C01 is mandatory" is really
+  asserting a *fact about the model*. Once Parts I/VI are compiled (Phase 2) and roles are an
+  input (Phase 1, done), those facts belong in cheap model-lens tests (does the `partI`
+  form-structure carry a `radio-input-group` with three branches? does the role registry mark
+  C01 mandatory for a CA?) — no browser needed, closer to the source of truth. As this
+  migration proceeds, the E2E layer should **shrink toward pure interaction/wiring coverage**
+  (does clicking actually navigate, does import actually populate the store), with the model
+  layer owning "what the UI should contain". Do **not** slim the E2E behaviour layer *before*
+  cutover: during Phases 4–6 the data layer, renderer, and export/import all change at once,
+  which is exactly when a full-stack browser net earns its keep.
 
 ---
 

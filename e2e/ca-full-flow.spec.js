@@ -46,12 +46,15 @@ test.describe('Contracting Authority — full ESPD Request flow', () => {
     // ── Walk the remaining visible parts ───────────────────
     await next(page);
     await expect(page.locator('#form-content h2')).toContainText('Part III');
-    // CA sees Part III as a criteria-selection checklist; C01 is present + mandatory.
-    await expect(page.locator('[data-section-tag="C01"]')).toBeVisible();
+    // CA sees Part III as a criteria-selection checklist of `.criterion-card`s,
+    // each a checkbox with id `criterion-C01` … (not data-section-tag). C01 is
+    // mandatory → its checkbox is disabled and the card is marked mandatory.
+    await expect(page.locator('#criterion-C01')).toBeVisible();
+    await expect(page.locator('.criterion-card--mandatory #criterion-C01')).toBeDisabled();
 
     await next(page);
     await expect(page.locator('#form-content h2')).toContainText('Part IV');
-    await expect(page.locator('[data-section-tag="C25"]')).toBeVisible();
+    await expect(page.locator('#criterion-C25')).toBeVisible();
 
     await next(page);
     await expect(page.locator('#form-content h2')).toContainText('Part V');

@@ -12,6 +12,7 @@
     {
       "dataPath": "partI.procedure.procedureType",
       "labelKey": "partI.procedure.procedureType",
+      "label": "Type of procedure",
       "uiType": "code",
       "codelist": "procurement-procedure-type",
       "required": true,
@@ -20,6 +21,7 @@
     {
       "dataPath": "partI.procedure.fileReference.value",
       "labelKey": "partI.procedure.fileReference.value",
+      "label": "File reference number",
       "uiType": "text",
       "required": false,
       "description": "The buyer's own file reference number for this procedure."
@@ -27,6 +29,7 @@
     {
       "dataPath": "partI.procedure.fileReference.schemeAgency",
       "labelKey": "partI.procedure.fileReference.schemeAgency",
+      "label": "Scheme agency",
       "uiType": "text",
       "required": false,
       "description": "The agency owning the reference numbering scheme. Mandatory on the XML element (BR-OTH-02), so required once a file reference is entered.",
@@ -35,6 +38,7 @@
     {
       "dataPath": "partI.project.name",
       "labelKey": "partI.project.name",
+      "label": "Project title",
       "uiType": "text",
       "required": false,
       "description": "Short title of the procurement."
@@ -42,6 +46,7 @@
     {
       "dataPath": "partI.project.description",
       "labelKey": "partI.project.description",
+      "label": "Project description",
       "uiType": "textarea",
       "required": false,
       "description": "Description of the procurement."
@@ -49,6 +54,7 @@
     {
       "dataPath": "partI.lots[]",
       "labelKey": "partI.lots",
+      "label": "Lot identifier",
       "uiType": "text",
       "repeatable": true,
       "required": false,

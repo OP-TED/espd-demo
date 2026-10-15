@@ -12,6 +12,7 @@
     {
       "dataPath": "partI.contractingAuthority.officialName",
       "labelKey": "partI.contractingAuthority.officialName",
+      "label": "Official name",
       "uiType": "text",
       "required": true,
       "description": "Official name of the contracting authority or contracting entity (BR-REQ-20-02, fatal)."
@@ -19,6 +20,7 @@
     {
       "dataPath": "partI.contractingAuthority.country",
       "labelKey": "partI.contractingAuthority.country",
+      "label": "Country",
       "uiType": "code",
       "codelist": "country",
       "required": true,
@@ -27,6 +29,7 @@
     {
       "dataPath": "partI.contractingAuthority.identifier.value",
       "labelKey": "partI.contractingAuthority.identifier.value",
+      "label": "Identifier",
       "uiType": "text",
       "required": false,
       "description": "Party identifier value. Recommended but not fatal (BR-REQ-20-04, warning)."
@@ -34,6 +37,7 @@
     {
       "dataPath": "partI.contractingAuthority.identifier.scheme",
       "labelKey": "partI.contractingAuthority.identifier.scheme",
+      "label": "Identifier scheme",
       "uiType": "code",
       "codelist": "EOIDType",
       "required": false,
@@ -43,6 +47,7 @@
     {
       "dataPath": "partI.contractingAuthority.identifier.schemeAgency",
       "labelKey": "partI.contractingAuthority.identifier.schemeAgency",
+      "label": "Scheme agency",
       "uiType": "text",
       "required": false,
       "description": "The agency maintaining the scheme (e.g. VIES for VAT). Mandatory on the XML element (BR-OTH-02), so required once an identifier value is given.",

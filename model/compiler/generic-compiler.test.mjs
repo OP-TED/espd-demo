@@ -39,6 +39,13 @@ const INFRA = new Set([
   'codelist-attributes.mjs',  // loads/validates codelist-attributes.json vs Schematron
   'schematron-validate.mjs',  // Saxon/Schematron runner + attribute expansion
   'structural-equivalence.mjs', // the EA-projection correctness gate (no per-node shaping)
+  'parts.mjs',                // assembles the HAND-AUTHORED administrative Parts I & VI
+                              // (not EA-compiled criteria). It legitimately names partI/
+                              // partVI because those parts are authored as data under
+                              // model/parts/<part>/, not discovered from sidecars; it does
+                              // no per-criterion node shaping, so R11.4 does not apply.
+  'roles.mjs',                // loads/validates the role registry + emits the UI role lens;
+                              // pure loader/validator, no per-criterion branching.
 ]);
 
 /** The transformation modules the guard applies to (discovered, not listed). */

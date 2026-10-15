@@ -13,6 +13,7 @@ import { buildCodelistServiceData } from '../codelists/build-codelist-service-da
 import { buildCoverageReport, reportPath } from './build-coverage-report.mjs';
 import { buildCompiledModel, envelopePath } from './build-compiled-model.mjs';
 import { buildRolesLens } from './roles.mjs';
+import { buildPartsLens } from './parts.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
@@ -58,6 +59,14 @@ process.stderr.write(`Generated ${index.codelists.length} UI codelists (${codeli
 // espd.roles.json catalogue). Validated against the authored role registry.
 const { lens: rolesLens } = buildRolesLens({ write: true });
 process.stderr.write(`Generated UI role lens (${rolesLens.buyerTypes.length + rolesLens.eoRoles.length} roles) under model/generated/ui/roles.json.\n`);
+
+// UI part lenses (Phase 2): the administrative Parts I & VI assembled from their
+// hand-authored section lenses into model/generated/ui/part-*.json, with the
+// Part I TED-lookup affordance carried as declarative uiHints. English text to
+// the espd.parts.json catalogue.
+const { lenses: partLenses } = buildPartsLens({ write: true });
+const partSectionCount = partLenses.reduce((n, l) => n + l.sections.length, 0);
+process.stderr.write(`Generated ${partLenses.length} UI part lenses (${partSectionCount} sections) under model/generated/ui/part-*.json.\n`);
 
 // "State of the model" coverage report (generated from the sources above).
 buildCoverageReport({ write: true });

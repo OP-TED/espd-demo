@@ -12,6 +12,7 @@
     {
       "dataPath": "partI.publication.type",
       "labelKey": "partI.publication.type",
+      "label": "Type of publication reference",
       "uiType": "code",
       "codelist": "docrefcontent-type",
       "required": true,
@@ -20,16 +21,20 @@
     {
       "dataPath": "partI.publication.identifier",
       "labelKey": "partI.publication.identifier",
+      "label": "Notice number",
       "uiType": "text",
       "required": true,
-      "description": "The notice identifier/number."
+      "description": "The notice identifier/number.",
+      "uiHints": { "lookup": { "name": "ted-notice", "inputKind": "notice-number" } }
     },
     {
       "dataPath": "partI.publication.url",
       "labelKey": "partI.publication.url",
+      "label": "Notice URL",
       "uiType": "url",
       "required": false,
-      "description": "Optional URL locating the notice."
+      "description": "Optional URL locating the notice.",
+      "uiHints": { "lookup": { "name": "ted-notice", "inputKind": "notice-url" } }
     }
   ]
 }

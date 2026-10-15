@@ -12,6 +12,7 @@
     {
       "dataPath": "partVI.signatory.physicalLocationName",
       "labelKey": "partVI.signatory.physicalLocationName",
+      "label": "Place of signing",
       "uiType": "text",
       "required": false,
       "description": "Name of the physical location of the signatory party (e.g. the place of signing)."

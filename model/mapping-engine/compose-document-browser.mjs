@@ -86,9 +86,21 @@ export async function browserDeps(criterionIds = []) {
  * @returns {Promise<string>} the composed UBL XML
  */
 export async function composeInBrowser(opts) {
-  const ids = opts.includedIds ?? criteriaIdsInInstance(opts.instance);
-  const deps = await browserDeps(ids);
-  return composeDocument({ ...opts, includedIds: opts.includedIds, deps });
+  // Resolve the criterion set to FRAGMENT FILE ids. An explicit includedIds is
+  // already fragment ids (the UI passes member.id). The default — the criteria
+  // present in the instance — yields the instance CONTAINER KEYS, which differ
+  // from the fragment id for the "OT" family (key "eo-size" → id "ot-eo-size"),
+  // so map them through the model index. Passing fragment ids to composeDocument
+  // makes it load the right spec; each fragment's own `from` paths then resolve
+  // the data from the instance (by the instance key), so answers still flow.
+  let includedIds = opts.includedIds;
+  if (!includedIds) {
+    const index = await fragmentIndex();
+    includedIds = criteriaIdsInInstance(opts.instance)
+      .map((key) => index.byInstanceKey.get(key) ?? key);
+  }
+  const deps = await browserDeps(includedIds);
+  return composeDocument({ ...opts, includedIds, deps });
 }
 
 // ─── UBL import (reverse of the composer) ─────────────────────────────────────
@@ -121,8 +133,8 @@ export async function reconstructFromUbl(xml) {
   // code for the "OT" criteria (code "OT", id e.g. "ot-eo-size"), so resolve the
   // id via the model index (tag → id).
   const criteria = presentCriteria(xml); // [{ tag, code }]
-  const index = await fragmentIndex();   // tag → fragment id
-  for (const c of criteria) c.id = index.get(c.tag) ?? c.code; // code===id for C-criteria
+  const index = await fragmentIndex();   // { byTag, byInstanceKey }
+  for (const c of criteria) c.id = index.byTag.get(c.tag) ?? c.code; // code===id for C-criteria
   const criterionIds = [...new Set(criteria.map((c) => c.id))];
 
   const deps = await browserDeps(criterionIds);
@@ -171,29 +183,37 @@ export function presentCriteria(xml) {
   return out;
 }
 
-// Cache the model index (tag → fragment id), fetched once per session.
+// Cache the model index, fetched once per session.
 let _fragmentIndex = null;
 /**
- * tag → fragment id, built from the generated part lenses (each criterion member
- * carries { id, tag, code }). Lets the importer resolve the fragment file for a
- * criterion seen in a UBL doc — notably the "OT" criteria, whose code ("OT") is
- * not the fragment id.
+ * Resolve a criterion to its FRAGMENT FILE id from the generated part lenses
+ * (each criterion member carries { id, tag, code, dataPath }). Two lookups:
+ *   - byTag:         EA tag (C01, OT65) → fragment id — used on IMPORT.
+ *   - byInstanceKey: the instance container key (the last dataPath segment, e.g.
+ *                    "eo-size") → fragment id ("ot-eo-size") — used on EXPORT to
+ *                    turn the instance's own keys into the right fragment file.
+ * The two differ only for the "OT" family (code "OT", key "eo-size", id
+ * "ot-eo-size"); for exclusion/selection criteria all three coincide.
  */
 export async function fragmentIndex() {
   if (_fragmentIndex) return _fragmentIndex;
   const index = await fetchJson(`${MODEL_BASE}/generated/ui/index.json`);
-  const map = new Map();
+  const byTag = new Map();
+  const byInstanceKey = new Map();
   await Promise.all((index.parts || []).map(async (entry) => {
     const ref = String(entry.$ref).replace(/^\.\//, '');
     const lens = await fetchJson(`${MODEL_BASE}/generated/ui/${ref}`);
     for (const section of lens.sections || []) {
       for (const member of section.members || []) {
-        if (member.kind === 'criterion' && member.tag) map.set(member.tag, member.id);
+        if (member.kind !== 'criterion') continue;
+        if (member.tag) byTag.set(member.tag, member.id);
+        const key = (member.dataPath || '').split('.').pop();
+        if (key) byInstanceKey.set(key, member.id);
       }
     }
   }));
-  _fragmentIndex = map;
-  return map;
+  _fragmentIndex = { byTag, byInstanceKey };
+  return _fragmentIndex;
 }
 
 /** The criterion ids present in a flat instance document (any part container). */

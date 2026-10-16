@@ -1,10 +1,11 @@
-// Phase 0 characterization — role-driven form behaviour.
+// Role-driven form behaviour — golden per-role outcomes.
 // js/model.js derives visibleParts / editableParts / mandatory-criterion rules
-// from espd-edm/roles.json (via getPartsForRole / isPartEditable /
-// isCriterionMandatory). model.js uses fetch(), so — like tests/model.test.js —
-// we exercise the SAME logic against the SAME data source, capturing the exact
-// per-role outcomes the UI shows today. Phase 1 ports roles.json into model/;
-// the rebuild must reproduce these outcomes.
+// from the GENERATED role lens (model/generated/ui/roles.json) via
+// getPartsForRole / isPartEditable / isCriterionMandatory. Originally a Phase 0
+// characterization snapshot read from the legacy espd-edm/roles.json; repointed
+// at the generated lens after the Phase 4/5 cutover (the legacy dir is gone).
+// model/compiler/roles.test.mjs guards that the generated lens is in sync with
+// its authored source; this file pins the per-role OUTCOMES the UI shows.
 
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
@@ -13,10 +14,12 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const roles = JSON.parse(readFileSync(resolve(here, '../../espd-edm/roles.json'), 'utf8'));
+const roles = JSON.parse(readFileSync(resolve(here, '../../model/generated/ui/roles.json'), 'utf8'));
 
-// --- logic mirrored from js/model.js (unchanged) -------------------------
-const EXCLUSION_CATEGORY_MAP = {
+// --- logic mirrored from js/model.js -------------------------------------
+// The exclusion-category map is carried in the generated lens; fall back to the
+// known map if an older lens is read.
+const EXCLUSION_CATEGORY_MAP = roles.exclusionCategoryMap ?? {
   'exg-crim': 'criminal',
   'exg-pmt': 'payment',
   'exg-mis': 'misconduct',

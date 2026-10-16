@@ -1,9 +1,12 @@
 /**
  * Build script for the static (serverless) GitLab Pages deployment.
  *
- * - Copies the static site assets into ./public
+ * - Copies the browser-served application assets into ./public, mirroring the
+ *   repo-root layout so the app's RELATIVE fetches (model/…, i18n/…) resolve.
  * - Overwrites public/js/runtime-config.js so window.__ESPD_SERVERLESS__ = true,
  *   which disables the server-dependent features (TED lookup, ITB validation).
+ *   Everything else — the model-driven form, client-side JSON-Schema validation,
+ *   and UBL export/import (composed in the browser) — works fully offline.
  *
  * The source tree is left untouched, so local dev (`npm run dev`) is unaffected.
  *
@@ -17,26 +20,34 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const outDir = join(root, 'public');
 
-// Static assets that make up the browser-served application.
-// (Runtime data is loaded from /espd-edm via model.js and /i18n via i18n.js.)
-const ASSETS = [
-  'index.html',
-  'css',
-  'js',
-  'i18n',
-  'images',
-  'fonts',
-];
+// Static front-end assets, copied wholesale (recursive). i18n is the translation
+// tree js/i18n.js fetches; js is the application code (ES modules); css/images/
+// fonts are presentation assets.
+const STATIC_ASSETS = ['index.html', 'css', 'js', 'i18n', 'images', 'fonts'];
 
-// The /espd-edm model data is copied selectively so dev-only artifacts
-// (node_modules, *.cjs scripts, _diff, package files) are NOT shipped.
-// Only the files fetched at runtime by model.js are included.
-const ESPD_EDM_ASSETS = [
-  'index.json',
-  'metadata.json',
-  'roles.json',
+// The model/ assets the browser actually loads at runtime, copied SELECTIVELY so
+// dev-only artifacts (the Node compiler, *.test.mjs, source registries, EA
+// inputs) are not shipped. Paths are relative to model/ and preserve layout:
+//   - generated/ui         — the UI bundle: index.json, part-*.json, roles.json,
+//                            schema/*, and validators/index.mjs (standalone Ajv).
+//   - generated/codelists  — the codelist service data (index.json + <name>.json).
+//   - generated/xml-mapping — the per-criterion UBL mapping fragments.
+//   - mapping-engine       — the browser-safe composer/mapper modules + envelope.json
+//                            (compose-document-node.mjs is unused by the browser
+//                            graph but harmless to ship; it imports nothing at load).
+//   - parts                — the hand-authored admin section *.mapping.json sidecars
+//                            (the renderer form lenses live under generated/ui).
+// Plus the single source registry the composer fetches for codelist-attribute
+// expansion (model-sources is otherwise a build-time input).
+const MODEL_ASSETS = [
+  'generated/ui',
+  'generated/codelists',
+  'generated/xml-mapping',
+  'mapping-engine',
   'parts',
-  'schemas',
+];
+const MODEL_FILE_ASSETS = [
+  'model-sources/registries/codelist-attributes.json',
 ];
 
 const SERVERLESS_CONFIG = `/**
@@ -46,33 +57,39 @@ const SERVERLESS_CONFIG = `/**
 window.__ESPD_SERVERLESS__ = true;
 `;
 
+async function copyAsset(asset, fromBase, toBase) {
+  const from = join(fromBase, asset);
+  const to = join(toBase, asset);
+  try {
+    await cp(from, to, { recursive: true });
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      console.warn(`[build:pages] Skipping missing asset: ${asset}`);
+      return;
+    }
+    throw err;
+  }
+}
+
 async function main() {
-  // Fresh output directory
+  // Fresh output directory.
   await rm(outDir, { recursive: true, force: true });
   await mkdir(outDir, { recursive: true });
 
-  const copyAsset = async (asset, fromBase, toBase) => {
-    const from = join(fromBase, asset);
-    const to = join(toBase, asset);
-    try {
-      await cp(from, to, { recursive: true });
-    } catch (err) {
-      if (err.code === 'ENOENT') {
-        console.warn(`[build:pages] Skipping missing asset: ${asset}`);
-        return;
-      }
-      throw err;
-    }
-  };
-
-  for (const asset of ASSETS) {
+  // Front-end assets at the public root.
+  for (const asset of STATIC_ASSETS) {
     await copyAsset(asset, root, outDir);
   }
 
-  // Selective copy of the model data directory.
-  await mkdir(join(outDir, 'espd-edm'), { recursive: true });
-  for (const asset of ESPD_EDM_ASSETS) {
-    await copyAsset(asset, join(root, 'espd-edm'), join(outDir, 'espd-edm'));
+  // model/ runtime assets, preserving the model/<...> layout the app fetches.
+  const modelFrom = join(root, 'model');
+  const modelTo = join(outDir, 'model');
+  for (const asset of MODEL_ASSETS) {
+    await copyAsset(asset, modelFrom, modelTo);
+  }
+  for (const asset of MODEL_FILE_ASSETS) {
+    await mkdir(join(modelTo, asset, '..'), { recursive: true });
+    await copyAsset(asset, modelFrom, modelTo);
   }
 
   // Force serverless mode in the deployed copy.

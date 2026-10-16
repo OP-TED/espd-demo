@@ -6,14 +6,12 @@ import { fileURLToPath } from 'node:url';
 import fc from 'fast-check';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROLES_PATH = resolve(__dirname, '../espd-edm/roles.json');
+// The GENERATED role lens (the live source js/model.js fetches). model.js uses
+// fetch(), so we exercise the SAME pure logic here against the SAME data.
+const ROLES_PATH = resolve(__dirname, '../model/generated/ui/roles.json');
 const rolesData = JSON.parse(readFileSync(ROLES_PATH, 'utf8'));
 
-// Import the functions we're testing (using dynamic import to handle module)
-// Since model.js uses fetch(), we test the pure logic functions by reimplementing them here
-// against the same data source (roles.json)
-
-const EXCLUSION_CATEGORY_MAP = {
+const EXCLUSION_CATEGORY_MAP = rolesData.exclusionCategoryMap ?? {
   'exg-crim': 'criminal',
   'exg-pmt': 'payment',
   'exg-mis': 'misconduct',

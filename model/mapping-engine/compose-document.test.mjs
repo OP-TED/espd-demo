@@ -45,9 +45,9 @@ const requestInstance = {
     contractingAuthority: {
       officialName: 'Ministerio de Hacienda',
       country: 'ESP',
-      identifier: { value: 'B82387770', scheme: 'VAT', schemeAgency: 'VIES' },
+      identifier: { value: 'B82387770', scheme: 'VAT' },
     },
-    procedure: { procedureType: 'open', fileReference: { value: 'PP.2026-1', schemeAgency: 'DGPE' } },
+    procedure: { procedureType: 'open', fileReference: { value: 'PP.2026-1' } },
     project: { description: 'Supply of office equipment.' },
     lots: ['LOT-0000'],
   },
@@ -69,7 +69,7 @@ const responseInstance = {
       name: 'Constructora del Norte S.A.',
       size: 'sme',
       country: 'ESP',
-      identifier: { value: 'AD123456789', schemeAgency: 'OP' },
+      identifier: { value: 'AD123456789' },
     },
   },
   partVI: { signatory: { physicalLocationName: 'Madrid' } },
@@ -251,10 +251,10 @@ describe('compose-document: schematron validity (Saxon-gated)', () => {
 describe('compose-document: coded fields round-trip through unmap (import)', () => {
   const roundTripInstance = {
     partI: {
-      contractingAuthority: { officialName: 'ACME', country: 'ESP', identifier: { value: 'B82387770', scheme: 'VAT', schemeAgency: 'VIES' } },
-      procedure: { procedureType: 'open', fileReference: { value: 'PP-1', schemeAgency: 'DGPE' } },
+      contractingAuthority: { officialName: 'ACME', country: 'ESP', identifier: { value: 'B82387770', scheme: 'VAT' } },
+      procedure: { procedureType: 'open', fileReference: { value: 'PP-1' } },
     },
-    partII: { economicOperator: { role: 'sole-tenderer', name: 'EO Co', size: 'sme', country: 'ESP', identifier: { value: 'EO1', schemeAgency: 'OP' } } },
+    partII: { economicOperator: { role: 'sole-tenderer', name: 'EO Co', size: 'sme', country: 'ESP', identifier: { value: 'EO1' } } },
     partIII: { exclusionGrounds: { 'exg-crim-part': { response: { answer: false, electronicEvidence: { availableElectronically: false } } } } },
   };
 

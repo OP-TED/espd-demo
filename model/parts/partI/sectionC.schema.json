@@ -37,19 +37,14 @@
 
     "fileReference": {
       "type": "object",
-      "description": "The buyer's own reference number for this procedure. Maps to cbc:ContractFolderID. Structured like Section B's party identifier because BR-OTH-02 (fatal) requires a non-empty @schemeAgencyID on the element, naming the agency whose numbering scheme the reference belongs to.",
+      "description": "The buyer's own reference number for this procedure. Maps to cbc:ContractFolderID. BR-OTH-02 (fatal) requires a non-empty @schemeAgencyID on the element; it is supplied as a constant 'OP' at export (the file reference is the buyer's own internal reference, with no scheme to derive an agency from), so it is not stored here.",
       "properties": {
         "value": {
           "type": "string",
           "description": "The file reference number (e.g. 'PP.20170419.1024-9'). Maps to the text of cbc:ContractFolderID."
-        },
-        "schemeAgency": {
-          "type": "string",
-          "description": "The agency owning the reference numbering scheme (e.g. 'DGPE'). Maps to @schemeAgencyID, which BR-OTH-02 makes mandatory and non-empty. Not codelist-constrained by any rule.",
-          "minLength": 1
         }
       },
-      "required": ["value", "schemeAgency"],
+      "required": ["value"],
       "additionalProperties": false
     },
 

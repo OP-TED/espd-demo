@@ -13,9 +13,11 @@
 
 import { composeDocument } from './compose-document.mjs';
 import { expandCodelistAttributes } from './expand-codelist-attributes.mjs';
+import { resolveSchemeAgency } from './resolve-scheme-agency.mjs';
 
 const MODEL_BASE = 'model';
 const PROFILE_PATH = `${MODEL_BASE}/model-sources/registries/codelist-attributes.json`;
+const SCHEME_AGENCY_PROFILE_PATH = `${MODEL_BASE}/model-sources/registries/scheme-agency-profile.json`;
 const ENVELOPE_PATH = `${MODEL_BASE}/mapping-engine/envelope.json`;
 
 /** Fetch JSON, failing loudly on a non-OK response (the dev server's SPA
@@ -56,15 +58,20 @@ export async function browserDeps(criterionIds = []) {
     criterionRels.push(`generated/xml-mapping/${id}.response.mapping.json`);
   }
 
-  const [envelope, profile, ...specDocs] = await Promise.all([
+  const [envelope, profile, schemeAgencyProfile, ...specDocs] = await Promise.all([
     fetchJson(ENVELOPE_PATH),
     fetchJson(PROFILE_PATH),
+    fetchJson(SCHEME_AGENCY_PROFILE_PATH),
     ...[...sidecarRels, ...criterionRels].map((rel) => fetchJson(`${MODEL_BASE}/${rel}`)),
   ]);
 
   // Index the fetched specs by their relative path for synchronous loadSpec.
+  // Resolve each spec's { fromMap: { profile } } references against the
+  // scheme-agency registry once, up front (so loadSpec stays synchronous and the
+  // mapping engine only sees inlined { path?, map, default }).
   const specByRel = new Map();
-  [...sidecarRels, ...criterionRels].forEach((rel, i) => specByRel.set(rel, specDocs[i]));
+  [...sidecarRels, ...criterionRels].forEach((rel, i) =>
+    specByRel.set(rel, resolveSchemeAgency(specDocs[i], schemeAgencyProfile)));
 
   return {
     loadEnvelope: () => envelope,

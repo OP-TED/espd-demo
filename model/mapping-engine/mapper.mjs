@@ -136,7 +136,24 @@ function resolveAttr(attrValue, context) {
   if (attrValue && typeof attrValue === 'object' && 'from' in attrValue) {
     return resolve(context, attrValue.from);
   }
+  // Derived attribute: look up the value of another field (fromMap.path, relative
+  // to the current context) in a static map, falling back to fromMap.default.
+  // Export-only — the result is NOT instance data (it is annotation computed from
+  // another field), so import does not write it back anywhere. Used for
+  // @schemeAgencyID, derived from the identifier's scheme (VAT -> VIES, …) with a
+  // constant fallback where there is no scheme to derive from.
+  if (attrValue && typeof attrValue === 'object' && 'fromMap' in attrValue) {
+    const { path, map, default: dflt } = attrValue.fromMap;
+    const key = path !== undefined ? resolve(context, path) : undefined;
+    const mapped = key != null ? map?.[key] : undefined;
+    return mapped !== undefined ? mapped : dflt;
+  }
   return attrValue;
+}
+
+/** An attribute spec that is a constant value (not { from } / { fromMap }). */
+function isConstantAttr(value) {
+  return !(value && typeof value === 'object' && ('from' in value || 'fromMap' in value));
 }
 
 /**
@@ -799,8 +816,9 @@ const NON_DISCRIMINATOR_ATTRS = new Set(['listID']);
 function constantAttributesMatch(ruleAttributes, elementAttributes) {
   for (const [name, value] of Object.entries(ruleAttributes)) {
     if (NON_DISCRIMINATOR_ATTRS.has(name)) continue; // codelist annotation, expanded on export
-    const isConstant = !(value && typeof value === 'object' && 'from' in value);
-    if (isConstant && elementAttributes[name] !== String(value)) return false;
+    // A derived ({ fromMap }) attribute is export-only annotation, not a fixed
+    // discriminator, so it never gates an import match.
+    if (isConstantAttr(value) && elementAttributes[name] !== String(value)) return false;
   }
   return true;
 }

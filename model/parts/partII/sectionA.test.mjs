@@ -8,14 +8,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { map, unmap } from '../../mapping-engine/mapper.mjs';
+import { resolveSchemeAgency } from '../../mapping-engine/resolve-scheme-agency.mjs';
 import { readCodelistCodes, codelistPath } from '../../codelists/read-codelist.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
+const schemeAgencyProfile = read('../../model-sources/registries/scheme-agency-profile.json');
 
 const schema = read('sectionA.schema.json');
 const example = read('sectionA.example.json');
-const spec = read('sectionA.mapping.json');
+// Resolve the { fromMap: { profile } } @schemeAgencyID references the same way
+// the composer's loadSpec does, so map() sees the inlined { map, default }.
+const spec = resolveSchemeAgency(read('sectionA.mapping.json'), schemeAgencyProfile);
 const form = read('sectionA.form.json');
 
 const compile = async () => {
@@ -34,7 +38,7 @@ test('all five BR-RESP-10 fields are required', async () => {
   const validate = await compile();
   const base = () => ({
     role: 'group-mem', name: 'X', size: 'sme', country: 'BEL',
-    identifier: { value: 'ID-1', schemeAgency: 'OP' },
+    identifier: { value: 'ID-1' },
   });
   assert.ok(validate({ partII: { economicOperator: base() } }), 'complete EO must validate');
   for (const drop of ['role', 'name', 'size', 'country', 'identifier']) {
@@ -43,13 +47,14 @@ test('all five BR-RESP-10 fields are required', async () => {
   }
 });
 
-test('the identifier requires value AND a non-empty scheme agency', async () => {
+test('the identifier requires only its value (the @schemeAgencyID is a constant at export)', async () => {
   const validate = await compile();
   const eo = (identifier) => ({ partII: { economicOperator: {
     role: 'group-mem', name: 'X', size: 'sme', country: 'BEL', identifier } } });
-  assert.ok(validate(eo({ value: 'ID-1', schemeAgency: 'OP' })), 'complete identifier validates');
-  assert.ok(!validate(eo({ value: 'ID-1' })), 'missing schemeAgency fails (BR-OTH-02)');
-  assert.ok(!validate(eo({ value: 'ID-1', schemeAgency: '' })), 'empty schemeAgency fails');
+  assert.ok(validate(eo({ value: 'ID-1' })), 'a value alone validates');
+  assert.ok(!validate(eo({})), 'missing value fails (BR-RESP-10-04)');
+  assert.ok(!validate(eo({ value: 'ID-1', schemeAgency: 'OP' })),
+    'a stray schemeAgency property must be rejected (it is no longer part of the model)');
 });
 
 // --- roundtrip ----------------------------------------------------------
@@ -114,7 +119,7 @@ test('country is referenced by name, not inlined (341 codes)', () => {
 
 // --- form lens ----------------------------------------------------------
 
-test('the form lens covers all six fields, all required', () => {
+test('the form lens covers all five fields, all required', () => {
   const byPath = new Map(form.fields.map(f => [f.dataPath, f]));
   assert.deepEqual([...byPath.keys()], [
     'partII.economicOperator.role',
@@ -122,7 +127,6 @@ test('the form lens covers all six fields, all required', () => {
     'partII.economicOperator.size',
     'partII.economicOperator.country',
     'partII.economicOperator.identifier.value',
-    'partII.economicOperator.identifier.schemeAgency',
   ]);
   for (const f of form.fields) assert.equal(f.required, true, `${f.dataPath} must be required`);
   assert.equal(byPath.get('partII.economicOperator.role').codelist, 'eo-role-type');

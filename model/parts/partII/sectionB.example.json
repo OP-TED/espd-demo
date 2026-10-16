@@ -5,7 +5,7 @@
         "description": "Authority to sign and submit the ESPD on behalf of the economic operator.",
         "agent": {
           "name": "María López García",
-          "identifier": { "value": "ES-99887766X", "schemeAgency": "OP" },
+          "identifier": { "value": "ES-99887766X" },
           "country": "ESP"
         }
       }

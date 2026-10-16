@@ -23,12 +23,17 @@
       "attributes": { "listID": "country" }
     },
     {
-      "$comment": "BR-REQ-20-04 (warning) — party identifier value, with its scheme on @schemeID (EOIDType, CVA-validated) and its maintaining agency on @schemeAgencyID (BR-OTH-02, fatal: mandatory on every cbc:ID). All three roundtrip: the value as element text, both scheme fields as data-sourced attributes.",
+      "$comment": "BR-REQ-20-04 (warning) — party identifier value, with its scheme on @schemeID (EOIDType, CVA-validated) and its maintaining agency on @schemeAgencyID (BR-OTH-02, fatal: mandatory on every cbc:ID). The value and scheme roundtrip (data-sourced); @schemeAgencyID is DERIVED from the scheme via the 'identifier-scheme-agency' profile in model-sources/registries/scheme-agency-profile.json (the single source of truth: VAT→VIES etc., OP by default). Export-only derivation; it is annotation computed from @schemeID, not independent instance data.",
       "from": "partI.contractingAuthority.identifier.value",
       "to": "cac:ContractingParty/cac:Party/cac:PartyIdentification/cbc:ID",
       "attributes": {
         "schemeID": { "from": "partI.contractingAuthority.identifier.scheme" },
-        "schemeAgencyID": { "from": "partI.contractingAuthority.identifier.schemeAgency" }
+        "schemeAgencyID": {
+          "fromMap": {
+            "path": "partI.contractingAuthority.identifier.scheme",
+            "profile": "identifier-scheme-agency"
+          }
+        }
       }
     }
   ]

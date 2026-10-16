@@ -50,19 +50,14 @@
 
     "eoIdentifier": {
       "type": "object",
-      "description": "An identifier that identifies the economic operator. Mandatory (BR-RESP-10-04, error). Maps to cac:Party/cac:PartyIdentification/cbc:ID with a mandatory @schemeAgencyID (BR-OTH-02, fatal). Unlike the Part I buyer identifier, the Response sample carries no @schemeID/EOIDType here, so only the agency is modelled.",
+      "description": "An identifier that identifies the economic operator. Mandatory (BR-RESP-10-04, error). Maps to cac:Party/cac:PartyIdentification/cbc:ID with a mandatory @schemeAgencyID (BR-OTH-02, fatal). The Response sample carries no @schemeID/EOIDType here and there is no scheme to derive an agency from, so @schemeAgencyID is supplied as a constant 'OP' at export, not stored here.",
       "properties": {
         "value": {
           "type": "string",
           "description": "The identifier value (e.g. 'AD123456789'). Maps to the text of cbc:ID."
-        },
-        "schemeAgency": {
-          "type": "string",
-          "description": "The agency maintaining the identifier scheme (e.g. 'OP'). Maps to @schemeAgencyID, mandatory and non-empty (BR-OTH-02).",
-          "minLength": 1
         }
       },
-      "required": ["value", "schemeAgency"],
+      "required": ["value"],
       "additionalProperties": false
     }
   }

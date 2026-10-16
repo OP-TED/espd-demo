@@ -3,7 +3,7 @@
   "part": "I",
   "section": "A",
   "title": "Information about publication",
-  "titleKey": "partI.sectionA.title",
+  "titleKey": "section.title.I.A",
   "description": "Reference of the relevant notice published in the Official Journal of the European Union or other identifying information.",
   "descriptionKey": "partI.sectionA.description",
   "filledBy": "contractingAuthority",

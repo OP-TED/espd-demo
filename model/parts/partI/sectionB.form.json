@@ -3,7 +3,7 @@
   "part": "I",
   "section": "B",
   "title": "Identity of the procurer",
-  "titleKey": "partI.sectionB.title",
+  "titleKey": "section.title.I.B",
   "description": "Identify the contracting authority or contracting entity running this procurement procedure.",
   "descriptionKey": "partI.sectionB.description",
   "filledBy": "contractingAuthority",
@@ -41,16 +41,7 @@
       "uiType": "code",
       "codelist": "EOIDType",
       "required": false,
-      "description": "The scheme the identifier belongs to (NATIONAL, LEI, BRIS, DUNS, VAT). Required once an identifier value is given.",
-      "visibleWhen": { "path": "partI.contractingAuthority.identifier.value", "isPresent": true }
-    },
-    {
-      "dataPath": "partI.contractingAuthority.identifier.schemeAgency",
-      "labelKey": "partI.contractingAuthority.identifier.schemeAgency",
-      "label": "Scheme agency",
-      "uiType": "text",
-      "required": false,
-      "description": "The agency maintaining the scheme (e.g. VIES for VAT). Mandatory on the XML element (BR-OTH-02), so required once an identifier value is given.",
+      "description": "The scheme the identifier belongs to (NATIONAL, LEI, BRIS, DUNS, VAT). Required once an identifier value is given. The XML @schemeAgencyID (BR-OTH-02) is DERIVED from this scheme at export (VAT→VIES, …; OP otherwise), so there is no separate scheme-agency field.",
       "visibleWhen": { "path": "partI.contractingAuthority.identifier.value", "isPresent": true }
     }
   ]

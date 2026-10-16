@@ -88,16 +88,6 @@
                 "path": "partI.contractingAuthority.identifier.value",
                 "isPresent": true
               }
-            },
-            {
-              "dataPath": "partI.contractingAuthority.identifier.schemeAgency",
-              "uiType": "text",
-              "labelKey": "partI.contractingAuthority.identifier.schemeAgency",
-              "required": false,
-              "visibleWhen": {
-                "path": "partI.contractingAuthority.identifier.value",
-                "isPresent": true
-              }
             }
           ]
         }
@@ -124,16 +114,6 @@
               "uiType": "text",
               "labelKey": "partI.procedure.fileReference.value",
               "required": false
-            },
-            {
-              "dataPath": "partI.procedure.fileReference.schemeAgency",
-              "uiType": "text",
-              "labelKey": "partI.procedure.fileReference.schemeAgency",
-              "required": false,
-              "visibleWhen": {
-                "path": "partI.procedure.fileReference.value",
-                "isPresent": true
-              }
             },
             {
               "dataPath": "partI.project.name",

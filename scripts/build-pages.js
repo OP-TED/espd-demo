@@ -37,8 +37,9 @@ const STATIC_ASSETS = ['index.html', 'css', 'js', 'i18n', 'images', 'fonts'];
 //                            graph but harmless to ship; it imports nothing at load).
 //   - parts                — the hand-authored admin section *.mapping.json sidecars
 //                            (the renderer form lenses live under generated/ui).
-// Plus the single source registry the composer fetches for codelist-attribute
-// expansion (model-sources is otherwise a build-time input).
+// Plus the source registries the composer fetches at runtime: codelist-attribute
+// expansion and the scheme-agency profile (@schemeAgencyID derivation).
+// model-sources is otherwise a build-time input.
 const MODEL_ASSETS = [
   'generated/ui',
   'generated/codelists',
@@ -48,6 +49,7 @@ const MODEL_ASSETS = [
 ];
 const MODEL_FILE_ASSETS = [
   'model-sources/registries/codelist-attributes.json',
+  'model-sources/registries/scheme-agency-profile.json',
 ];
 
 const SERVERLESS_CONFIG = `/**

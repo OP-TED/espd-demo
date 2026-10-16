@@ -9,14 +9,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { map, unmap } from '../../mapping-engine/mapper.mjs';
+import { resolveSchemeAgency } from '../../mapping-engine/resolve-scheme-agency.mjs';
 import { readCodelistCodes, codelistPath } from '../../codelists/read-codelist.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
+const schemeAgencyProfile = read('../../model-sources/registries/scheme-agency-profile.json');
 
 const schema = read('sectionB.schema.json');
 const example = read('sectionB.example.json');
-const spec = read('sectionB.mapping.json');
+// Resolve the { fromMap: { profile } } @schemeAgencyID references the same way
+// the composer's loadSpec does, so map() sees the inlined { map, default }.
+const spec = resolveSchemeAgency(read('sectionB.mapping.json'), schemeAgencyProfile);
 const form = read('sectionB.form.json');
 
 const compile = async () => {
@@ -41,17 +45,15 @@ test('the Schematron-mandated minimum (name + country) is required; identifier i
   assert.ok(!validate({ partI: { contractingAuthority: { officialName: 'X' } } }), 'missing country must fail');
 });
 
-test('an identifier requires a value, a scheme AND a scheme agency', async () => {
+test('an identifier requires a value AND a scheme', async () => {
   const validate = await compile();
   const ca = (identifier) => ({ partI: { contractingAuthority: { officialName: 'X', country: 'BEL', identifier } } });
-  assert.ok(validate(ca({ value: 'B82387770', scheme: 'VAT', schemeAgency: 'VIES' })),
-    'complete identifier must validate');
-  assert.ok(!validate(ca({ value: 'B82387770', scheme: 'VAT' })),
-    'identifier without schemeAgency must fail — BR-OTH-02 makes @schemeAgencyID mandatory on cbc:ID');
-  assert.ok(!validate(ca({ value: 'B82387770', schemeAgency: 'VIES' })), 'identifier without scheme must fail');
-  assert.ok(!validate(ca({ scheme: 'VAT', schemeAgency: 'VIES' })), 'identifier without value must fail');
-  assert.ok(!validate(ca({ value: 'B82387770', scheme: 'VAT', schemeAgency: '' })),
-    'an empty schemeAgency must fail');
+  assert.ok(validate(ca({ value: 'B82387770', scheme: 'VAT' })),
+    'value + scheme must validate (the @schemeAgencyID is derived from the scheme at export, not entered)');
+  assert.ok(!validate(ca({ value: 'B82387770' })), 'identifier without scheme must fail');
+  assert.ok(!validate(ca({ scheme: 'VAT' })), 'identifier without value must fail');
+  assert.ok(!validate(ca({ value: 'B82387770', scheme: 'VAT', schemeAgency: 'VIES' })),
+    'a stray schemeAgency property must be rejected (it is no longer part of the model)');
 });
 
 // --- roundtrip ----------------------------------------------------------
@@ -73,24 +75,43 @@ test('the identifier scheme roundtrips through the @schemeID attribute', () => {
       partI: {
         contractingAuthority: {
           officialName: 'X', country: 'BEL',
-          identifier: { value: 'ID-1', scheme, schemeAgency: 'AGENCY' },
+          identifier: { value: 'ID-1', scheme },
         },
       },
     };
     const back = unmap(spec, map(spec, doc));
     assert.equal(back.partI.contractingAuthority.identifier.scheme, scheme, `scheme ${scheme} must roundtrip`);
-    assert.equal(back.partI.contractingAuthority.identifier.schemeAgency, 'AGENCY');
+    // @schemeAgencyID is derived from the scheme at export and is NOT stored in
+    // the instance, so it must not reappear on import.
+    assert.ok(!('schemeAgency' in back.partI.contractingAuthority.identifier),
+      'the derived agency must not round-trip back into the instance');
   }
 });
 
-test('the party identifier carries @schemeAgencyID, mandatory per BR-OTH-02', () => {
-  // Every cbc:ID is in the BR-OTH-02 element list, so a party identifier without
-  // a non-empty @schemeAgencyID is fatally invalid. Guard against regressing to
-  // emitting only @schemeID.
-  const xml = map(spec, example);
+test('the party identifier @schemeAgencyID is DERIVED from the scheme (BR-OTH-02)', () => {
+  // Every cbc:ID needs a non-empty @schemeAgencyID (BR-OTH-02). It is no longer a
+  // user field: it is derived from the identifier scheme. VAT -> VIES (matching
+  // ESPD-Request-BASE.xml); the scheme (@schemeID) is carried verbatim.
+  const xml = map(spec, example); // example uses scheme "VAT"
   const idTag = xml.match(/<cbc:ID[^>]*>/)[0];
   assert.match(idTag, /schemeAgencyID="VIES"/);
   assert.match(idTag, /schemeID="VAT"/);
+});
+
+test('the derived @schemeAgencyID follows the scheme→agency map, OP by default', () => {
+  const agencyFor = (scheme) => {
+    const doc = { partI: { contractingAuthority: {
+      officialName: 'X', country: 'BEL', identifier: { value: 'ID-1', scheme },
+    } } };
+    const idTag = map(spec, doc).match(/<cbc:ID[^>]*>/)[0];
+    return idTag.match(/schemeAgencyID="([^"]*)"/)?.[1];
+  };
+  assert.equal(agencyFor('VAT'), 'VIES');
+  assert.equal(agencyFor('LEI'), 'GLEIF');
+  assert.equal(agencyFor('DUNS'), 'D&amp;B'); // '&' is XML-escaped in the attribute
+  // Schemes with no single authority fall back to OP.
+  assert.equal(agencyFor('BRIS'), 'OP');
+  assert.equal(agencyFor('NATIONAL'), 'OP');
 });
 
 // --- UBL structure ------------------------------------------------------
@@ -141,7 +162,7 @@ test('the schema rejects a scheme outside EOIDType', async () => {
     partI: {
       contractingAuthority: {
         officialName: 'X', country: 'BEL',
-        identifier: { value: 'ID-1', scheme: 'NONSENSE', schemeAgency: 'VIES' },
+        identifier: { value: 'ID-1', scheme: 'NONSENSE' },
       },
     },
   };
@@ -170,7 +191,6 @@ test('the form lens covers the buyer fields with severity-matched requiredness',
     'partI.contractingAuthority.country',
     'partI.contractingAuthority.identifier.value',
     'partI.contractingAuthority.identifier.scheme',
-    'partI.contractingAuthority.identifier.schemeAgency',
   ]);
 
   // Fatal rules -> required; warning-level identifier -> optional.

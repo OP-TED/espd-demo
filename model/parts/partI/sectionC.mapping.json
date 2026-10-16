@@ -12,11 +12,11 @@
 
   "rules": [
     {
-      "$comment": "BR-OTH-02 (fatal) — the buyer's file reference, with its scheme agency on @schemeAgencyID.",
+      "$comment": "BR-OTH-02 (fatal) — the buyer's file reference. @schemeAgencyID names the agency owning the reference numbering scheme; the file reference carries no scheme field to derive it from (it is the buyer's own internal reference), so it resolves to the DEFAULT of the 'identifier-scheme-agency' profile (model-sources/registries/scheme-agency-profile.json → 'OP'). Not user-entered; no `path` means the default applies.",
       "from": "partI.procedure.fileReference.value",
       "to": "cbc:ContractFolderID",
       "attributes": {
-        "schemeAgencyID": { "from": "partI.procedure.fileReference.schemeAgency" }
+        "schemeAgencyID": { "fromMap": { "profile": "identifier-scheme-agency" } }
       }
     },
     {

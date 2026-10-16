@@ -6,8 +6,7 @@
       "size": "sme",
       "country": "ESP",
       "identifier": {
-        "value": "AD123456789",
-        "schemeAgency": "OP"
+        "value": "AD123456789"
       }
     }
   }

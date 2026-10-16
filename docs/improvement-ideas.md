@@ -287,8 +287,9 @@ TED lookup naturally produces one reference among possibly several.
 ## Part I Section B — contracting authority
 
 Current model: the Schematron-mandated minimum — `officialName`, `country`, and
-an optional `identifier { value, scheme, schemeAgency }`. See
-`model/parts/partI/sectionB.*`.
+an optional `identifier { value, scheme }`. The UBL `@schemeAgencyID` (BR-OTH-02)
+is derived from the scheme at export (VAT→VIES, LEI→GLEIF, DUNS→D&B; OP
+otherwise), not entered by the user. See `model/parts/partI/sectionB.*`.
 
 ### B1. Identifier lookup from a business register
 
@@ -356,8 +357,10 @@ making them required would reject valid ESPDs.
 
 ## Part I Section C — procedure and project
 
-Current model: `procedureType`, `fileReference { value, schemeAgency }`,
-`project { name, description }`, and `lots[]`. See `model/parts/partI/sectionC.*`.
+Current model: `procedureType`, `fileReference { value }`,
+`project { name, description }`, and `lots[]`. The UBL `@schemeAgencyID`
+(BR-OTH-02) on the file reference is supplied as the constant `OP` at export.
+See `model/parts/partI/sectionC.*`.
 
 ### C1. CPV codes, with lookup
 

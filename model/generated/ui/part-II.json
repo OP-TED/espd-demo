@@ -47,16 +47,6 @@
               "uiType": "text",
               "labelKey": "partII.economicOperator.identifier.value",
               "required": true
-            },
-            {
-              "dataPath": "partII.economicOperator.identifier.schemeAgency",
-              "uiType": "text",
-              "labelKey": "partII.economicOperator.identifier.schemeAgency",
-              "required": true,
-              "visibleWhen": {
-                "path": "partII.economicOperator.identifier.value",
-                "isPresent": true
-              }
             }
           ]
         },
@@ -628,17 +618,6 @@
               "labelKey": "partII.powerOfAttorney.agent.identifier.value",
               "required": false,
               "repeatable": true
-            },
-            {
-              "dataPath": "partII.powersOfAttorney[].agent.identifier.schemeAgency",
-              "uiType": "text",
-              "labelKey": "partII.powerOfAttorney.agent.identifier.schemeAgency",
-              "required": false,
-              "repeatable": true,
-              "visibleWhen": {
-                "path": "partII.powersOfAttorney[].agent.identifier.value",
-                "isPresent": true
-              }
             },
             {
               "dataPath": "partII.powersOfAttorney[].agent.country",

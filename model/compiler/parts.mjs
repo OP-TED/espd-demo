@@ -192,8 +192,15 @@ export function buildPartsLens({ sources = loadPartsSources(), write = true } = 
   const lenses = sources.parts.map(({ part, manifest, sections }) => {
     const uiSections = sections.map((section, i) => {
       const id = manifest.sections[i];
+      // Harmonised section-title key: a single convention shared with the
+      // criterion-bearing sections that build-ui-bundle.mjs synthesises
+      // (section.title.<roman>.<letter>). The authored section.titleKey is
+      // ignored on purpose so the key convention lives in exactly one place; the
+      // authored prose title is what gets written under that key, overriding any
+      // terser positional entry in espd.common.json.
+      const titleKey = `section.title.${part}.${id}`;
       // Section text -> catalogue.
-      catalogue[section.titleKey] = section.title;
+      catalogue[titleKey] = section.title;
       if (section.descriptionKey && section.description) {
         catalogue[section.descriptionKey] = section.description;
       }
@@ -203,7 +210,7 @@ export function buildPartsLens({ sources = loadPartsSources(), write = true } = 
       }
       return {
         id,
-        titleKey: section.titleKey,
+        titleKey,
         ...(section.descriptionKey ? { descriptionKey: section.descriptionKey } : {}),
         filledBy: section.filledBy,
         fields: section.fields.map(toUiField),

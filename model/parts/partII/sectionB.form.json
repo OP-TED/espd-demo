@@ -3,7 +3,7 @@
   "part": "II",
   "section": "B",
   "title": "Power of attorney",
-  "titleKey": "partII.sectionB.title",
+  "titleKey": "section.title.II.B",
   "description": "Where applicable, the representative(s) authorised to act for the economic operator.",
   "descriptionKey": "partII.sectionB.description",
   "filledBy": "economicOperator",
@@ -34,17 +34,7 @@
       "uiType": "text",
       "repeatable": true,
       "required": false,
-      "description": "Identifier of the representative."
-    },
-    {
-      "dataPath": "partII.powersOfAttorney[].agent.identifier.schemeAgency",
-      "labelKey": "partII.powerOfAttorney.agent.identifier.schemeAgency",
-      "label": "Scheme agency",
-      "uiType": "text",
-      "repeatable": true,
-      "required": false,
-      "description": "The agency maintaining the identifier scheme. Mandatory on the XML element (BR-OTH-02), so required once an identifier value is given.",
-      "visibleWhen": { "path": "partII.powersOfAttorney[].agent.identifier.value", "isPresent": true }
+      "description": "Identifier of the representative. The XML @schemeAgencyID (BR-OTH-02) is supplied as a constant 'OP' at export, so there is no separate scheme-agency field."
     },
     {
       "dataPath": "partII.powersOfAttorney[].agent.country",

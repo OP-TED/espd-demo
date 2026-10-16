@@ -8,13 +8,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { map, unmap } from '../../mapping-engine/mapper.mjs';
+import { resolveSchemeAgency } from '../../mapping-engine/resolve-scheme-agency.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
+const schemeAgencyProfile = read('../../model-sources/registries/scheme-agency-profile.json');
 
 const schema = read('sectionC.schema.json');
 const example = read('sectionC.example.json');
-const spec = read('sectionC.mapping.json');
+// Resolve the { fromMap: { profile } } @schemeAgencyID references the same way
+// the composer's loadSpec does, so map() sees the inlined { map, default }.
+const spec = resolveSchemeAgency(read('sectionC.mapping.json'), schemeAgencyProfile);
 const form = read('sectionC.form.json');
 
 const compile = async () => {
@@ -37,13 +41,13 @@ test('procedureType is required (BR-SC-10 is fatal); project and lots are not', 
   assert.ok(!validate({ partI: {} }), 'missing procedure must fail');
 });
 
-test('a file reference requires BOTH a value and a non-empty scheme agency (BR-OTH-02)', async () => {
+test('a file reference requires only its value (the @schemeAgencyID is a constant at export)', async () => {
   const validate = await compile();
   const withRef = (fileReference) => ({ partI: { procedure: { procedureType: 'Open', fileReference } } });
-  assert.ok(validate(withRef({ value: 'PP-1', schemeAgency: 'DGPE' })), 'complete reference must validate');
-  assert.ok(!validate(withRef({ value: 'PP-1' })), 'reference without schemeAgency must fail');
-  assert.ok(!validate(withRef({ schemeAgency: 'DGPE' })), 'reference without value must fail');
-  assert.ok(!validate(withRef({ value: 'PP-1', schemeAgency: '' })), 'empty schemeAgency must fail');
+  assert.ok(validate(withRef({ value: 'PP-1' })), 'a value alone must validate');
+  assert.ok(!validate(withRef({})), 'reference without value must fail');
+  assert.ok(!validate(withRef({ value: 'PP-1', schemeAgency: 'DGPE' })),
+    'a stray schemeAgency property must be rejected (it is no longer part of the model)');
 });
 
 test('lots must be a non-empty array of non-empty strings when present', async () => {
@@ -74,9 +78,11 @@ test('the lot list roundtrips, preserving order and count', () => {
   assert.deepEqual(back.partI.lots, doc.partI.lots);
 });
 
-test('the file reference scheme agency roundtrips through @schemeAgencyID', () => {
+test('the file reference @schemeAgencyID is the constant OP and does not round-trip into the instance', () => {
   const back = unmap(spec, map(spec, example));
-  assert.equal(back.partI.procedure.fileReference.schemeAgency, 'DGPE');
+  // The agency is a derived constant, not instance data.
+  assert.ok(!('schemeAgency' in back.partI.procedure.fileReference),
+    'the derived agency must not reappear in the instance');
 });
 
 // --- UBL structure ------------------------------------------------------
@@ -84,7 +90,7 @@ test('the file reference scheme agency roundtrips through @schemeAgencyID', () =
 test('procedure fields land on DOCUMENT-HEADER elements, not in a cac: aggregate', () => {
   const xml = map(spec, example);
   // ContractFolderID + ProcedureCode are direct children of the root.
-  assert.match(xml, /<cbc:ContractFolderID[^>]*schemeAgencyID="DGPE"[^>]*>PP\.20170419\.1024-9<\/cbc:ContractFolderID>/);
+  assert.match(xml, /<cbc:ContractFolderID[^>]*schemeAgencyID="OP"[^>]*>PP\.20170419\.1024-9<\/cbc:ContractFolderID>/);
   assert.match(xml, /<cbc:ProcedureCode[^>]*>Open<\/cbc:ProcedureCode>/);
 });
 
@@ -142,9 +148,9 @@ test('the ContractFolderID @schemeAgencyID survives expansion (BR-OTH-02, fatal)
   const { profile } = loadValidatedCodelistProfile();
 
   const expanded = expandCodelistAttributes(map(spec, example), profile);
-  // ContractFolderID is in the BR-OTH-02 element list; its agency must not be
-  // rewritten by the cbc:ID criterion-scheme rule.
-  assert.match(expanded, /<cbc:ContractFolderID[^>]*schemeAgencyID="DGPE"/);
+  // ContractFolderID is in the BR-OTH-02 element list; its agency (the constant
+  // 'OP') must not be rewritten by the cbc:ID criterion-scheme rule.
+  assert.match(expanded, /<cbc:ContractFolderID[^>]*schemeAgencyID="OP"/);
 });
 
 // --- form lens ----------------------------------------------------------
@@ -154,7 +160,6 @@ test('the form lens covers all Section C fields with severity-matched requiredne
   assert.deepEqual([...byPath.keys()], [
     'partI.procedure.procedureType',
     'partI.procedure.fileReference.value',
-    'partI.procedure.fileReference.schemeAgency',
     'partI.project.name',
     'partI.project.description',
     'partI.lots[]',
@@ -164,12 +169,6 @@ test('the form lens covers all Section C fields with severity-matched requiredne
   assert.equal(byPath.get('partI.procedure.procedureType').required, true);
   assert.equal(byPath.get('partI.procedure.fileReference.value').required, false);
   assert.equal(byPath.get('partI.project.name').required, false);
-
-  // The scheme agency only makes sense once a file reference is being entered.
-  assert.deepEqual(byPath.get('partI.procedure.fileReference.schemeAgency').visibleWhen, {
-    path: 'partI.procedure.fileReference.value',
-    isPresent: true,
-  });
 
   // Lots are a repeating field.
   assert.equal(byPath.get('partI.lots[]').repeatable, true);

@@ -9,13 +9,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { map, unmap } from '../../mapping-engine/mapper.mjs';
+import { resolveSchemeAgency } from '../../mapping-engine/resolve-scheme-agency.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
+const schemeAgencyProfile = read('../../model-sources/registries/scheme-agency-profile.json');
 
 const schema = read('sectionB.schema.json');
 const example = read('sectionB.example.json');
-const spec = read('sectionB.mapping.json');
+// Resolve the { fromMap: { profile } } @schemeAgencyID references the same way
+// the composer's loadSpec does, so map() sees the inlined { map, default }.
+const spec = resolveSchemeAgency(read('sectionB.mapping.json'), schemeAgencyProfile);
 const form = read('sectionB.form.json');
 
 const compile = async () => {
@@ -42,11 +46,12 @@ test('each power of attorney requires an agent, and an agent requires a name', a
   assert.ok(validate({ partII: { powersOfAttorney: [{ agent: { name: 'A' } }] } }), 'agent name alone is enough');
 });
 
-test('an agent identifier requires value AND a non-empty scheme agency', async () => {
+test('an agent identifier requires only its value (the @schemeAgencyID is a constant at export)', async () => {
   const validate = await compile();
   const poa = (identifier) => ({ partII: { powersOfAttorney: [{ agent: { name: 'A', identifier } }] } });
-  assert.ok(validate(poa({ value: 'ID-1', schemeAgency: 'OP' })), 'complete identifier validates');
-  assert.ok(!validate(poa({ value: 'ID-1' })), 'missing schemeAgency fails (BR-OTH-02)');
+  assert.ok(validate(poa({ value: 'ID-1' })), 'a value alone validates');
+  assert.ok(!validate(poa({ value: 'ID-1', schemeAgency: 'OP' })),
+    'a stray schemeAgency property must be rejected (it is no longer part of the model)');
 });
 
 // --- roundtrip ----------------------------------------------------------
@@ -59,8 +64,8 @@ test('multiple powers of attorney roundtrip, preserving order', () => {
   const doc = {
     partII: {
       powersOfAttorney: [
-        { description: 'Sign', agent: { name: 'Alice', identifier: { value: 'A-1', schemeAgency: 'OP' }, country: 'BEL' } },
-        { description: 'Submit', agent: { name: 'Bob', identifier: { value: 'B-2', schemeAgency: 'OP' }, country: 'FRA' } },
+        { description: 'Sign', agent: { name: 'Alice', identifier: { value: 'A-1' }, country: 'BEL' } },
+        { description: 'Submit', agent: { name: 'Bob', identifier: { value: 'B-2' }, country: 'FRA' } },
       ],
     },
   };
@@ -108,9 +113,7 @@ test('the form lens is a repeatable PoA block with an agent name required', () =
   assert.ok(byPath.has('partII.powersOfAttorney[].agent.name'));
   assert.equal(byPath.get('partII.powersOfAttorney[].agent.name').required, true);
   for (const f of form.fields) assert.equal(f.repeatable, true, `${f.dataPath} must be repeatable`);
-  // scheme agency gated by the identifier value.
-  assert.deepEqual(byPath.get('partII.powersOfAttorney[].agent.identifier.schemeAgency').visibleWhen, {
-    path: 'partII.powersOfAttorney[].agent.identifier.value',
-    isPresent: true,
-  });
+  // The scheme-agency field is gone: @schemeAgencyID is a constant at export.
+  assert.ok(!byPath.has('partII.powersOfAttorney[].agent.identifier.schemeAgency'),
+    'the scheme-agency field must no longer be in the lens');
 });

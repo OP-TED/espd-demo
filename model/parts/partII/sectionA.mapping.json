@@ -35,11 +35,11 @@
       "attributes": { "listID": "country" }
     },
     {
-      "$comment": "BR-RESP-10-04 (error) — EO identifier, with its scheme agency on @schemeAgencyID (BR-OTH-02, fatal). No @schemeID/EOIDType on the EO identifier in the Response sample.",
+      "$comment": "BR-RESP-10-04 (error) — EO identifier, with its maintaining agency on @schemeAgencyID (BR-OTH-02, fatal). The Response sample carries no @schemeID/EOIDType on the EO identifier, so there is no scheme to derive the agency from: it resolves to the DEFAULT of the 'identifier-scheme-agency' profile (model-sources/registries/scheme-agency-profile.json → 'OP'). Not user-entered.",
       "from": "partII.economicOperator.identifier.value",
       "to": "cac:EconomicOperatorParty/cac:Party/cac:PartyIdentification/cbc:ID",
       "attributes": {
-        "schemeAgencyID": { "from": "partII.economicOperator.identifier.schemeAgency" }
+        "schemeAgencyID": { "fromMap": { "profile": "identifier-scheme-agency" } }
       }
     }
   ]

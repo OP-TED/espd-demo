@@ -56,16 +56,11 @@
 
     "agentIdentifier": {
       "type": "object",
-      "description": "An identifier for the representative. Maps to cac:Party/cac:PartyIdentification/cbc:ID with a mandatory @schemeAgencyID (BR-OTH-02, fatal, applies to every cbc:ID).",
+      "description": "An identifier for the representative. Maps to cac:Party/cac:PartyIdentification/cbc:ID with a mandatory @schemeAgencyID (BR-OTH-02, fatal, applies to every cbc:ID). There is no scheme to derive an agency from, so @schemeAgencyID is supplied as a constant 'OP' at export, not stored here.",
       "properties": {
-        "value": { "type": "string", "description": "The identifier value. Maps to the text of cbc:ID." },
-        "schemeAgency": {
-          "type": "string",
-          "description": "The agency maintaining the scheme. Maps to @schemeAgencyID (BR-OTH-02, mandatory non-empty).",
-          "minLength": 1
-        }
+        "value": { "type": "string", "description": "The identifier value. Maps to the text of cbc:ID." }
       },
-      "required": ["value", "schemeAgency"],
+      "required": ["value"],
       "additionalProperties": false
     }
   }

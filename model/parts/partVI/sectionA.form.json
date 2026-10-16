@@ -3,7 +3,7 @@
   "part": "VI",
   "section": "A",
   "title": "Signature",
-  "titleKey": "partVI.sectionA.title",
+  "titleKey": "section.title.VI.A",
   "description": "Concluding signature of the economic operator's declaration.",
   "descriptionKey": "partVI.sectionA.description",
   "filledBy": "economicOperator",

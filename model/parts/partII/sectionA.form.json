@@ -3,7 +3,7 @@
   "part": "II",
   "section": "A",
   "title": "Information about the economic operator",
-  "titleKey": "partII.sectionA.title",
+  "titleKey": "section.title.II.A",
   "description": "Identify the economic operator, its role in this bid, and its size.",
   "descriptionKey": "partII.sectionA.description",
   "filledBy": "economicOperator",
@@ -50,16 +50,7 @@
       "label": "Identifier",
       "uiType": "text",
       "required": true,
-      "description": "An identifier that identifies the economic operator (BR-RESP-10-04)."
-    },
-    {
-      "dataPath": "partII.economicOperator.identifier.schemeAgency",
-      "labelKey": "partII.economicOperator.identifier.schemeAgency",
-      "label": "Scheme agency",
-      "uiType": "text",
-      "required": true,
-      "description": "The agency maintaining the identifier scheme. Mandatory on the XML element (BR-OTH-02).",
-      "visibleWhen": { "path": "partII.economicOperator.identifier.value", "isPresent": true }
+      "description": "An identifier that identifies the economic operator (BR-RESP-10-04). The XML @schemeAgencyID (BR-OTH-02) is supplied as a constant 'OP' at export, so there is no separate scheme-agency field."
     }
   ]
 }

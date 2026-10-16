@@ -115,16 +115,15 @@ function deepMerge(a, b) {
 export async function reconstructFromUbl(xml) {
   const documentType = /<QualificationApplicationResponse\b/.test(xml) ? 'response' : 'request';
 
-  // Which criteria are present: read every cac:TenderingCriterion's
-  // cbc:CriterionTypeCode (the criterion CODE). Map code → fragment id. For most
-  // criteria id === code; the Part II/V "OT" criteria use code "OT" with distinct
-  // ids, so fall back to scanning the first property-group id (CNN_<id>/…).
-  const codes = [...xml.matchAll(/<cbc:CriterionTypeCode\b[^>]*>([^<]+)<\/cbc:CriterionTypeCode>/g)]
-    .map((m) => m[1].trim());
-  // Map each code to a fragment id. We only have the committed fragments; try the
-  // code as the id, and for OT criteria resolve via the property-group id prefix.
-  const idByCode = await resolveFragmentIds(codes, xml);
-  const criterionIds = [...new Set(Object.values(idByCode).filter(Boolean))];
+  // Which criteria are present. Each cac:TenderingCriterion carries its property
+  // ids as <tag>_<code>/… (e.g. C01_exg-crim-part/QG1, OT65_OT/QG1), so the prefix
+  // IS the inclusion key (`${tag}_${code}`). The fragment FILE id differs from the
+  // code for the "OT" criteria (code "OT", id e.g. "ot-eo-size"), so resolve the
+  // id via the model index (tag → id).
+  const criteria = presentCriteria(xml); // [{ tag, code }]
+  const index = await fragmentIndex();   // tag → fragment id
+  for (const c of criteria) c.id = index.get(c.tag) ?? c.code; // code===id for C-criteria
+  const criterionIds = [...new Set(criteria.map((c) => c.id))];
 
   const deps = await browserDeps(criterionIds);
   const fragmentDir = documentType === 'response' ? 'response' : 'request';
@@ -144,30 +143,56 @@ export async function reconstructFromUbl(xml) {
     instance = deepMerge(instance, unmap(spec, xml));
   }
 
-  return { instance, documentType, criterionIds };
+  return { instance, documentType, criterionIds, criteria };
 }
 
 /**
- * Resolve criterion CODES (from cbc:CriterionTypeCode) to fragment IDS. For the
- * normal case code === id. For the "OT" criteria (code "OT", shared), the
- * fragment id is encoded in the property-group ids (CNN_<id>/…) carried in the
- * same TenderingCriterion block, so read it from there.
+ * The criteria DECLARED in a UBL document, as { tag, id } pairs. Inclusion in an
+ * ESPD is encoded by the PRESENCE of a cac:TenderingCriterion, so this is the set
+ * the importer restores into the buyer's selection (inclusions) map. tag + id are
+ * both read from the criterion's property-group ids (CNN_<id>/…): CNN is the EA
+ * tag used in the inclusion key, <id> is the fragment id.
  */
-async function resolveFragmentIds(codes, xml) {
-  const map = {};
-  for (const code of codes) {
-    if (code && code !== 'OT') { map[code] = code; continue; }
+export function presentCriteria(xml) {
+  const out = [];
+  const seen = new Set();
+  for (const block of xml.matchAll(/<cac:TenderingCriterion>[\s\S]*?<\/cac:TenderingCriterion>/g)) {
+    // The first property-group id: <tag>_<code>/… — tag is CNN or OTNN, code is
+    // the criterion code (lowercase for C-criteria, "OT" for the OT family).
+    const m = block[0].match(/>([A-Z]+\d+)_([A-Za-z0-9-]+)\//);
+    if (!m) continue;
+    const tag = m[1];
+    const code = m[2];
+    const key = `${tag}_${code}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({ tag, code });
   }
-  // OT criteria: scan each TenderingCriterion block whose CriterionTypeCode is OT
-  // and pull the id from the first group id (…>CNN_<id>/QG… or /RG…).
-  if (codes.includes('OT')) {
-    for (const block of xml.matchAll(/<cac:TenderingCriterion>[\s\S]*?<\/cac:TenderingCriterion>/g)) {
-      const b = block[0];
-      if (!/<cbc:CriterionTypeCode\b[^>]*>OT<\/cbc:CriterionTypeCode>/.test(b)) continue;
-      const g = b.match(/>C\d+_([a-z0-9-]+)\/[QR]G/);
-      if (g) map[`OT:${g[1]}`] = g[1];
+  return out;
+}
+
+// Cache the model index (tag → fragment id), fetched once per session.
+let _fragmentIndex = null;
+/**
+ * tag → fragment id, built from the generated part lenses (each criterion member
+ * carries { id, tag, code }). Lets the importer resolve the fragment file for a
+ * criterion seen in a UBL doc — notably the "OT" criteria, whose code ("OT") is
+ * not the fragment id.
+ */
+export async function fragmentIndex() {
+  if (_fragmentIndex) return _fragmentIndex;
+  const index = await fetchJson(`${MODEL_BASE}/generated/ui/index.json`);
+  const map = new Map();
+  await Promise.all((index.parts || []).map(async (entry) => {
+    const ref = String(entry.$ref).replace(/^\.\//, '');
+    const lens = await fetchJson(`${MODEL_BASE}/generated/ui/${ref}`);
+    for (const section of lens.sections || []) {
+      for (const member of section.members || []) {
+        if (member.kind === 'criterion' && member.tag) map.set(member.tag, member.id);
+      }
     }
-  }
+  }));
+  _fragmentIndex = map;
   return map;
 }
 

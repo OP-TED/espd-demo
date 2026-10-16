@@ -43,12 +43,17 @@ export async function importUblString(xml) {
   } catch (e) {
     return { role: null, success: false, message: `Could not read the ESPD document: ${e.message}` };
   }
-  const { instance, documentType, criterionIds } = result;
+  const { instance, documentType, criterionIds, criteria } = result;
   const role = inferRole(instance, documentType);
 
   setRole(role);
   setInstance(instance || {});
-  setInclusions({}); // UBL does not carry the buyer's selection state; start clean
+  // Reconstruct the buyer's criteria selection: a criterion is "included" by the
+  // PRESENCE of its cac:TenderingCriterion. The inclusion key is `${tag}_${code}`
+  // (js/state.js inclusionKey) — exactly the criterion's property-id prefix.
+  const inclusions = {};
+  for (const c of criteria || []) inclusions[`${c.tag}_${c.code}`] = true;
+  setInclusions(inclusions);
   setCurrentStep(0);
 
   return {

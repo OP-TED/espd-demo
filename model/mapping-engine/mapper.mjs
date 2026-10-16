@@ -784,9 +784,21 @@ export function parseXml(xml) {
   return root;
 }
 
+// Attributes that are codelist ANNOTATIONS, not round-trip discriminators: their
+// shorthand value (e.g. listID="eo-role-type") is rewritten to the full codelist
+// URI (listID="http://…/eo-role-type") by the attribute-expansion pass that runs
+// AFTER map(). So on import they no longer equal the rule's shorthand and must
+// NOT be used to match/skip a value rule — doing so silently drops the coded
+// value. `listID` is never used to disambiguate two value rules on the same
+// target path (verified across all mapping specs); genuine discriminators (a
+// constant `schemeID`, e.g. "criterion" on cbc:ID) are preserved verbatim by the
+// expander and are still honoured below.
+const NON_DISCRIMINATOR_ATTRS = new Set(['listID']);
+
 /** Do the rule's CONSTANT attributes (not { from } refs) match the element? */
 function constantAttributesMatch(ruleAttributes, elementAttributes) {
   for (const [name, value] of Object.entries(ruleAttributes)) {
+    if (NON_DISCRIMINATOR_ATTRS.has(name)) continue; // codelist annotation, expanded on export
     const isConstant = !(value && typeof value === 'object' && 'from' in value);
     if (isConstant && elementAttributes[name] !== String(value)) return false;
   }

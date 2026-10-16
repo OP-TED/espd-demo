@@ -20,8 +20,15 @@
 
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { compose } from './compose-document-node.mjs';
+import { unmap } from './mapper.mjs';
 import { checkSaxonAvailable, validateXml } from '../compiler/schematron-validate.mjs';
+
+const modelRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+const readSpec = (rel) => JSON.parse(fs.readFileSync(path.join(modelRoot, rel), 'utf8'));
 
 // Deterministic ids/clock so the envelope is reproducible across runs.
 const IDS = { uuid: '11111111-2222-4333-8444-555555555555', documentId: 'ESPDREQ-TEST-0001' };
@@ -231,5 +238,60 @@ describe('compose-document: schematron validity (Saxon-gated)', () => {
     const unexpected = errors.filter((e) => !isAttributeError(e) && !isDocumentedResidual(e));
     assert.deepEqual(unexpected.map((e) => `${e.validator}: ${e.text.slice(0, 100)}`), [],
       'no unexpected non-attribute fatal findings in the composed response');
+  });
+});
+
+// ---- Coded-field round-trip (compose → unmap) --------------------------------
+// Guards the mapper fix for the import discriminator bug: a coded value rule
+// annotates its element with a shorthand listID (e.g. listID="eo-role-type"),
+// which the compose step EXPANDS to the full codelist URI. On import the reverse
+// match must NOT treat that (now-expanded) listID as a discriminator, or the
+// coded value is silently dropped. Genuine discriminators (a constant schemeID)
+// must still work.
+describe('compose-document: coded fields round-trip through unmap (import)', () => {
+  const roundTripInstance = {
+    partI: {
+      contractingAuthority: { officialName: 'ACME', country: 'ESP', identifier: { value: 'B82387770', scheme: 'VAT', schemeAgency: 'VIES' } },
+      procedure: { procedureType: 'open', fileReference: { value: 'PP-1', schemeAgency: 'DGPE' } },
+    },
+    partII: { economicOperator: { role: 'sole-tenderer', name: 'EO Co', size: 'sme', country: 'ESP', identifier: { value: 'EO1', schemeAgency: 'OP' } } },
+    partIII: { exclusionGrounds: { 'exg-crim-part': { response: { answer: false, electronicEvidence: { availableElectronically: false } } } } },
+  };
+
+  function deepMerge(a, b) {
+    if (b === undefined) return a;
+    if (Array.isArray(b) || typeof b !== 'object' || b === null) return b;
+    const out = a && typeof a === 'object' && !Array.isArray(a) ? { ...a } : {};
+    for (const [k, v] of Object.entries(b)) out[k] = deepMerge(out[k], v);
+    return out;
+  }
+
+  // Compose the (attribute-expanded) response, then reconstruct via unmap.
+  const xml = compose({ instance: roundTripInstance, documentType: 'response', ids: IDS, now: NOW });
+  let back = {};
+  for (const rel of [
+    'parts/partI/sectionB.mapping.json',
+    'parts/partI/sectionC.mapping.json',
+    'parts/partII/sectionA.mapping.json',
+    'generated/xml-mapping/exg-crim-part.response.mapping.json',
+  ]) {
+    back = deepMerge(back, unmap(readSpec(rel), xml));
+  }
+
+  it('round-trips the economic-operator coded fields (role, size, country)', () => {
+    assert.equal(back?.partII?.economicOperator?.role, 'sole-tenderer');
+    assert.equal(back?.partII?.economicOperator?.size, 'sme');
+    assert.equal(back?.partII?.economicOperator?.country, 'ESP');
+  });
+
+  it('round-trips the Part I coded fields (procedureType, buyer country)', () => {
+    assert.equal(back?.partI?.procedure?.procedureType, 'open');
+    assert.equal(back?.partI?.contractingAuthority?.country, 'ESP');
+  });
+
+  it('still honours the constant schemeID discriminator (party id scheme preserved)', () => {
+    // The buyer identifier's @schemeID (VAT, an EOIDType code) must round-trip —
+    // proving the fix dropped only the listID annotation, not real discriminators.
+    assert.equal(back?.partI?.contractingAuthority?.identifier?.scheme, 'VAT');
   });
 });

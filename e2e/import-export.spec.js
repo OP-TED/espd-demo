@@ -81,6 +81,37 @@ test.describe('Export → import → resume', () => {
     expect(xml).toMatch(/listVersionID="/);
   });
 
+  test('a UBL Request re-imports with the buyer\'s criteria selection restored', async ({ page }) => {
+    // Inclusion is encoded in UBL by the PRESENCE of a cac:TenderingCriterion;
+    // the importer reconstructs the selection map from it. Select a NON-mandatory
+    // selection criterion (so the choice is meaningful), export UBL, re-import,
+    // and assert it is still checked.
+    await startWizardAs(page, 'contracting-authority');
+    await goToPart(page, 'IV');
+    const criterion = page.locator('#criterion-C25');
+    await expect(criterion).toBeVisible();
+    if (!(await criterion.isChecked())) await criterion.check();
+    await expect(criterion).toBeChecked();
+
+    await goToPart(page, 'VI');
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      page.locator('#btn-download').click(),
+    ]);
+    expect(download.suggestedFilename()).toBe('espd-request.xml');
+    const file = path.join('e2e', 'test-output', 'roundtrip-request-selection.xml');
+    await download.saveAs(file);
+    expect(fs.readFileSync(file, 'utf8')).toContain('slc-suit-reg-prof'); // C25's code
+
+    // Fresh load → import → the selection is restored (C25 still checked).
+    await page.goto('/');
+    await page.locator('#import-file-home').setInputFiles(file);
+    await page.locator('#btn-import-home').click();
+    await expect(page.locator('#wizard-container')).toBeVisible();
+    await goToPart(page, 'IV');
+    await expect(page.locator('#criterion-C25')).toBeChecked();
+  });
+
   test('an EO Response UBL export re-imports and is detected as a response', async ({ page }) => {
     await startWizardAs(page, 'sole-tenderer');
     await goToPart(page, 'II');

@@ -1,11 +1,12 @@
 /**
  * E2E: Contracting Authority fills an ESPD Request and downloads it.
  *
- * REWRITTEN for the Phase 4/5 model-driven cutover: fields are addressed by their
- * model dataPath ([data-field="partI…"]) instead of legacy contentpaths, Part I
- * publication is a plain {type, identifier, url} group (no radio branch), and the
- * download is the JSON instance document (espd-request.json), not UBL XML — UBL
- * export via the mapping engine returns in Phase 6.
+ * Model-driven UI: fields are addressed by their model dataPath
+ * ([data-field="partI…"]), Part I publication is a plain {type, identifier, url}
+ * group (no radio branch). Phase 6B-3: the official export is UBL XML
+ * (#btn-download); this flow saves + inspects the JSON DRAFT (#btn-draft, the
+ * lossless save-progress file). The UBL XML export is covered in
+ * import-export.spec.js.
  *
  * Cannot run in the dev sandbox (Chromium won't launch). Run: `npm run test:e2e`.
  */
@@ -55,15 +56,18 @@ test.describe('Contracting Authority — full ESPD Request flow', () => {
     await next(page);
     await expect(page.locator('#form-content h2')).toContainText('Part VI');
 
-    // Last step → Download appears.
+    // Last step → the export buttons appear (official UBL + JSON draft).
     await expect(page.locator('#btn-download')).toBeVisible();
+    await expect(page.locator('#btn-draft')).toBeVisible();
 
-    // ── Download + inspect (the JSON instance document) ────
+    // ── Save draft + inspect (the JSON instance document) ────
+    // The lossless save-progress file; the official UBL XML is covered in
+    // import-export.spec.js.
     const [download] = await Promise.all([
       page.waitForEvent('download'),
-      page.locator('#btn-download').click(),
+      page.locator('#btn-draft').click(),
     ]);
-    expect(download.suggestedFilename()).toBe('espd-request.json');
+    expect(download.suggestedFilename()).toBe('espd-request-draft.json');
 
     const outPath = path.join('e2e', 'test-output', download.suggestedFilename());
     await download.saveAs(outPath);

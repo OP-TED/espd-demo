@@ -1,10 +1,15 @@
 /**
- * E2E: export → import → resume round-trip on the JSON instance document.
+ * E2E: export → import → resume.
  *
- * REWRITTEN for the Phase 4/5 cutover: export/import now round-trip the JSON
- * instance document (format "espd-instance"), not UBL XML. UBL via the mapping
- * engine returns in Phase 6; this proves the data round-trip (fill → download →
- * import → resume) holds on the instance document itself.
+ * Phase 6B-3 cutover: there are now TWO exports.
+ *   - "Download XML" (#btn-download) → the OFFICIAL UBL ESPD Request/Response
+ *     (.xml), assembled by the document composer.
+ *   - "Save draft"   (#btn-draft)    → the JSON instance document
+ *     (format "espd-instance", .json) — the lossless save-progress file.
+ * Import (#btn-import-home / wizard import) accepts BOTH .xml and .json.
+ *
+ * These tests cover the lossless JSON draft round-trip (fill → save draft →
+ * import → resume) and the official UBL export + re-import (role detected).
  *
  * Cannot run in the dev sandbox (Chromium won't launch). Run: `npm run test:e2e`.
  */
@@ -19,23 +24,24 @@ test.describe('Export → import → resume', () => {
     page.on('dialog', (dialog) => dialog.accept());
   });
 
-  test('a downloaded ESPD Request re-imports and resumes with its data', async ({ page }) => {
+  test('a saved JSON draft re-imports and resumes with its data (lossless)', async ({ page }) => {
     await startWizardAs(page, 'contracting-authority');
     await goToPart(page, 'I');
     await fillField(page, 'partI.contractingAuthority.officialName', 'Round-Trip Authority');
     await selectField(page, 'partI.contractingAuthority.country', 'BEL');
     await fillField(page, 'partI.project.name', 'Round-Trip Procurement 2026');
 
-    // Jump to the last part so Download is available, then download.
+    // Jump to the last part so the export buttons are available, then save draft.
     await goToPart(page, 'VI');
     const [download] = await Promise.all([
       page.waitForEvent('download'),
-      page.locator('#btn-download').click(),
+      page.locator('#btn-draft').click(),
     ]);
-    expect(download.suggestedFilename()).toBe('espd-request.json');
-    const file = path.join('e2e', 'test-output', 'roundtrip-request.json');
+    expect(download.suggestedFilename()).toBe('espd-request-draft.json');
+    const file = path.join('e2e', 'test-output', 'roundtrip-request-draft.json');
     await download.saveAs(file);
     const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
+    expect(doc.format).toBe('espd-instance');
     expect(doc.instance.partI.contractingAuthority.officialName).toBe('Round-Trip Authority');
     expect(doc.instance.partI.project.name).toBe('Round-Trip Procurement 2026');
 
@@ -52,7 +58,30 @@ test.describe('Export → import → resume', () => {
     ).toHaveValue('Round-Trip Authority');
   });
 
-  test('importing an EO Response is detected as a response document', async ({ page }) => {
+  test('the official UBL export is a valid ESPD Request XML', async ({ page }) => {
+    await startWizardAs(page, 'contracting-authority');
+    await goToPart(page, 'I');
+    await fillField(page, 'partI.contractingAuthority.officialName', 'UBL Authority');
+    await selectField(page, 'partI.contractingAuthority.country', 'BEL');
+
+    await goToPart(page, 'VI');
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      page.locator('#btn-download').click(),
+    ]);
+    expect(download.suggestedFilename()).toBe('espd-request.xml');
+    const file = path.join('e2e', 'test-output', 'roundtrip-request.xml');
+    await download.saveAs(file);
+    const xml = fs.readFileSync(file, 'utf8');
+    expect(xml).toContain('<QualificationApplicationRequest');
+    expect(xml).toContain('<cbc:UBLVersionID');
+    // The buyer's details are carried into the UBL ContractingParty.
+    expect(xml).toContain('UBL Authority');
+    // Shorthand codelist attributes were expanded to the full dated set.
+    expect(xml).toMatch(/listVersionID="/);
+  });
+
+  test('an EO Response UBL export re-imports and is detected as a response', async ({ page }) => {
     await startWizardAs(page, 'sole-tenderer');
     await goToPart(page, 'II');
     await fillField(page, 'partII.economicOperator.name', 'Round-Trip Operator Ltd');
@@ -62,9 +91,10 @@ test.describe('Export → import → resume', () => {
       page.waitForEvent('download'),
       page.locator('#btn-download').click(),
     ]);
-    expect(download.suggestedFilename()).toBe('espd-response.json');
-    const file = path.join('e2e', 'test-output', 'roundtrip-response.json');
+    expect(download.suggestedFilename()).toBe('espd-response.xml');
+    const file = path.join('e2e', 'test-output', 'roundtrip-response.xml');
     await download.saveAs(file);
+    expect(fs.readFileSync(file, 'utf8')).toContain('<QualificationApplicationResponse');
 
     await page.goto('/');
     await page.locator('#import-file-home').setInputFiles(file);

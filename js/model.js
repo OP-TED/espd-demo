@@ -115,6 +115,24 @@ export function getSections(partKey) {
 }
 
 /**
+ * Every criterion member across all parts, in part/section/member order.
+ * Each entry is the bundle's criterion member ({ id, tag, code, dataPath, … }).
+ * Used by the UBL exporter to decide which criteria a Request declares
+ * (mandatory ∪ buyer-included), independent of whether they were answered.
+ */
+export function allCriterionMembers() {
+  const out = [];
+  for (const part of getParts()) {
+    for (const section of part.sections || []) {
+      for (const member of section.members || []) {
+        if (member.kind === 'criterion') out.push(member);
+      }
+    }
+  }
+  return out;
+}
+
+/**
  * Which parts are relevant for a role (role.formBehavior.visibleParts).
  * Falls back to all parts if the role is not found.
  * @returns {Array} part objects with a `key` property

@@ -13,7 +13,7 @@ import { loadModel, getPart, getPartsForRole, getRoles, getRoleById } from './mo
 import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, resetState, getAnswers, hasAnswers, hasSession } from './state.js';
 import { renderPart } from './renderer.js';
 import { loadCodelists } from './codelists.js';
-import { downloadDocument } from './xml-export.js';
+import { downloadDocument, downloadDraft } from './xml-export.js';
 import { importDocumentFile } from './xml-import.js';
 import { renderHomePage } from './home.js';
 import { renderPathSelector } from './path-selector.js';
@@ -255,7 +255,8 @@ function setupEventListeners() {
   // Wizard navigation
   document.getElementById('btn-prev').addEventListener('click', goToPrevStep);
   document.getElementById('btn-next').addEventListener('click', goToNextStep);
-  document.getElementById('btn-download').addEventListener('click', () => downloadDocument());
+  document.getElementById('btn-download').addEventListener('click', handleDownloadClick);
+  document.getElementById('btn-draft').addEventListener('click', () => downloadDraft());
   document.getElementById('btn-validate').addEventListener('click', handleValidateClick);
 
   // Validation dialog
@@ -347,11 +348,13 @@ function updateStepNav() {
   const isLastStep = currentStep === wizardParts.length - 1;
   const btnNext = document.getElementById('btn-next');
   const btnDownload = document.getElementById('btn-download');
+  const btnDraft = document.getElementById('btn-draft');
   const btnValidate = document.getElementById('btn-validate');
 
   if (isLastStep) {
     btnNext.hidden = true;
     btnDownload.hidden = false;
+    btnDraft.hidden = false;
     // Phase 6A: the Validate button now runs CLIENT-SIDE JSON-Schema validation
     // (precompiled standalone validators, no server), so it is shown on the last
     // step regardless of serverless mode. (The old server-dependent ITB UBL-XML
@@ -361,6 +364,7 @@ function updateStepNav() {
   } else {
     btnNext.hidden = false;
     btnDownload.hidden = true;
+    btnDraft.hidden = true;
     btnValidate.hidden = true;
   }
 }
@@ -424,6 +428,29 @@ function renderStep(index) {
  */
 function renderCurrentStep() {
   renderStep(getCurrentStep());
+}
+
+// ─── Export ───────────────────────────────────────────────────────────────────
+
+/**
+ * Handle the "Download XML" button: build + download the official UBL document.
+ * Async (it fetches the mapping specs + codelist profile); surfaces a readable
+ * error if composition fails rather than letting the promise reject silently.
+ */
+async function handleDownloadClick() {
+  const btn = document.getElementById('btn-download');
+  const prevLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = t('ui.lookUpLoading', 'Working…');
+  try {
+    await downloadDocument();
+  } catch (err) {
+    console.error('UBL export failed', err);
+    alert(`Could not generate the ESPD XML: ${err.message}`);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = prevLabel;
+  }
 }
 
 // ─── Validation ───────────────────────────────────────────────────────────────

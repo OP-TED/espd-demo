@@ -12,9 +12,10 @@
 
   "rules": [
     {
-      "$comment": "Notice identifier → AdditionalDocumentReference/ID.",
+      "$comment": "Notice identifier → AdditionalDocumentReference/ID. @schemeAgencyID is mandatory and non-empty on EVERY cbc:ID (BR-OTH-02, fatal). The publication identifier has no agency field in the instance model, so the maintaining agency is a constant: 'OP' (the EU Publications Office, which assigns TED notice numbers). This mirrors how the other administrative identifiers carry @schemeAgencyID.",
       "from": "partI.publication.identifier",
-      "to": "cac:AdditionalDocumentReference/cbc:ID"
+      "to": "cac:AdditionalDocumentReference/cbc:ID",
+      "attributes": { "schemeAgencyID": "OP" }
     },
     {
       "$comment": "Publication type → AdditionalDocumentReference/DocumentTypeCode (DocrefcontentType codelist). The codelist attribute set is expanded by expandCodelistAttributes at validation time.",

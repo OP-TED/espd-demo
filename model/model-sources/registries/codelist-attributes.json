@@ -49,9 +49,10 @@
       "listURI": "https://github.com/OP-TED/ESPD-EDM"
     },
     "country": {
-      "$note": "cac:Country/cbc:IdentificationCode (needed by C07's CODE_COUNTRY; dated listVersionID differs from the 5.0.0 lists).",
+      "$note": "cac:Country/cbc:IdentificationCode. Used both inside a criterion (C07's CODE_COUNTRY) and in the document header (Part I buyer / Part II EO postal address). listAgencyID is NOT required by 01-ESPD-common-cl-attributes.sch (its country rule leaves it commented out) but IS required (fatal) by 04-ESPD-common-other-br.sch BR-OTH-01-20 on cbc:IdentificationCode — which only bites once a full document emits the element (the single-criterion splice reuses the BASE's own hand-written address). Value 'OP' matches ESPD-Request/Response-BASE.xml. Dated listVersionID differs from the 5.0.0 lists.",
       "listName": "country",
       "listID": "http://publications.europa.eu/resource/authority/country",
+      "listAgencyID": "OP",
       "listVersionID": "20250618-0",
       "listSchemeURI": "http://publications.europa.eu/resource/distribution/country/20250618-0/xml/gc/Country.gc",
       "listURI": "http://publications.europa.eu/resource/dataset/country"
@@ -105,9 +106,10 @@
       "listVersionID": "20250924-0"
     },
     "docrefcontent-type": {
-      "$note": "cac:AdditionalDocumentReference/cbc:DocumentTypeCode (Part I publication reference type). 5 attributes mandated by 01-ESPD-common-cl-attributes.sch line 74; no listAgencyID required. Values from the Schematron + DocrefcontentType.gc Identification block.",
+      "$note": "cac:AdditionalDocumentReference/cbc:DocumentTypeCode (Part I publication reference type). 01-ESPD-common-cl-attributes.sch (line 74) mandates listName/listID/listVersionID/listSchemeURI/listURI and does NOT require listAgencyID; but 04-ESPD-common-other-br.sch BR-OTH-01-20 (fatal) requires listAgencyID on cbc:DocumentTypeCode once a full document emits it. Value 'OP' per the Publications Office authority list (consistent with the other EU-authority lists here). Other values from the Schematron + DocrefcontentType.gc Identification block.",
       "listName": "DocrefcontentType",
       "listID": "http://publications.europa.eu/resource/authority/docrefcontent-type",
+      "listAgencyID": "OP",
       "listVersionID": "20250319-0",
       "listSchemeURI": "http://publications.europa.eu/resource/distribution/docrefcontent-type/20250319-0/xml/gc/DocrefcontentType.gc",
       "listURI": "http://publications.europa.eu/resource/dataset/docrefcontent-type"

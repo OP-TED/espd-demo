@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C24_exg-natl-bre-nat-law/QG2/Q1/R1",
+          "key": "C24_exg-natl-bre-nat-law/QG2/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-natl-bre-nat-law.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C24_exg-natl-bre-nat-law/QG2/QSG1/Q1/R1",
+          "key": "C24_exg-natl-bre-nat-law/QG2/QSG1/Q1",
           "references": {
             "forEach": "partIII.exclusionGrounds.exg-natl-bre-nat-law.response.electronicEvidence.evidence",
             "key": "id",
@@ -75,7 +75,7 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
@@ -83,7 +83,7 @@
       "forEach": "partIII.exclusionGrounds.exg-natl-bre-nat-law.response.nationalCriteria",
       "entries": [
         {
-          "key": "C24_exg-natl-bre-nat-law/QG1/QSG1/Q1/R1",
+          "key": "C24_exg-natl-bre-nat-law/QG1/QSG1/Q1",
           "value": {
             "from": "answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",

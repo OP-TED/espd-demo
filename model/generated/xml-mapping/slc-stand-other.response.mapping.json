@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-other.response.rating.rating",
             "to": "cac:ResponseValue/cbc:ResponseQuantity",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-other.response.rating.evidenceAvailableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG2/QSG1/QSG1/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-stand-other.response.rating.evidence",
             "key": "id",
@@ -79,7 +79,7 @@
           }
         },
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-other.response.descriptive.answer",
             "to": "cac:ResponseValue/cbc:Description",
@@ -87,7 +87,7 @@
           }
         },
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-other.response.descriptive.evidenceAvailableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -95,7 +95,7 @@
           }
         },
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG3/QSG1/QSG1/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-stand-other.response.descriptive.evidence",
             "key": "id",
@@ -128,7 +128,7 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
@@ -136,7 +136,7 @@
       "forEach": "partIV.selectionCriteria.slc-stand-other.response.amountRequirements",
       "entries": [
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/Q1",
           "value": {
             "from": "amount.value",
             "to": "cac:ResponseValue/cbc:ResponseAmount",
@@ -149,7 +149,7 @@
           }
         },
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "evidenceAvailableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -157,7 +157,7 @@
           }
         },
         {
-          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1",
           "references": {
             "forEach": "evidence",
             "key": "id",

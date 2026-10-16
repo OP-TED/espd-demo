@@ -1,0 +1,84 @@
+{
+  "$comment": "Hand-authored UBL document envelope descriptor for the ESPD Request/Response, grounded in the schematron BASE samples (espd-validation-schematron/common/xml/ESPD-{Request,Response}-BASE.xml). It describes (a) the document root element + the full namespace/schemaLocation attribute set, and (b) the mandatory HEADER elements that NO mapping sidecar emits — the fixed/generated envelope scalars (UBLVersionID … VersionID). The remaining header blocks (ProcedureCode, ContractingParty, EconomicOperatorParty, ProcurementProject/Lot) come from the admin mapping sidecars; the composer assembles everything in the fixed UBL order. Values marked \"generated\": true are supplied per-document by compose-document.mjs (ID, UUID, IssueDate, IssueTime); the rest are fixed constants from the BASE. CAVEAT: the BASE samples are the authoritative target; keep this in sync if a BASE revision changes the envelope.",
+
+  "request": {
+    "root": "QualificationApplicationRequest",
+    "rootAttributes": {
+      "xmlns": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationRequest-2",
+      "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "xsi:schemaLocation": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationRequest-2 ../xsdrt/maindoc/UBL-QualificationApplicationRequest-2.4.xsd",
+      "xmlns:fn": "http://www.w3.org/2005/xpath-functions",
+      "xmlns:xs": "http://www.w3.org/2001/XMLSchema",
+      "xmlns:cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "xmlns:cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+      "xmlns:espd": "urn:com:grow:espd:5.0.0"
+    }
+  },
+
+  "response": {
+    "root": "QualificationApplicationResponse",
+    "rootAttributes": {
+      "xmlns": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2",
+      "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "xsi:schemaLocation": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2 ../xsdrt/maindoc/UBL-QualificationApplicationResponse-2.4.xsd",
+      "xmlns:fn": "http://www.w3.org/2005/xpath-functions",
+      "xmlns:xs": "http://www.w3.org/2001/XMLSchema",
+      "xmlns:cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "xmlns:cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+      "xmlns:espd": "urn:com:grow:espd:5.0.0"
+    }
+  },
+
+  "header": [
+    {
+      "element": "cbc:UBLVersionID",
+      "const": "2.4",
+      "attributes": { "schemeAgencyID": "OASIS-UBL-TC" }
+    },
+    {
+      "element": "cbc:ProfileExecutionID",
+      "const": "ESPD-EDMv5.0.0",
+      "attributes": { "schemeAgencyID": "OP", "schemeVersionID": "5.0.0" }
+    },
+    {
+      "element": "cbc:ID",
+      "generated": "documentId",
+      "attributes": { "schemeAgencyID": "DGPE" }
+    },
+    {
+      "element": "cbc:CopyIndicator",
+      "const": "false"
+    },
+    {
+      "element": "cbc:UUID",
+      "generated": "uuid",
+      "attributes": {
+        "schemeID": "ISO/IEC 9834-8:2008 - 4UUID",
+        "schemeAgencyID": "XXXESPD-SERVICEXXX",
+        "schemeVersionID": "5.0.0"
+      }
+    },
+    {
+      "$comment": "ContractFolderID is the buyer's procedure reference. The VALUE comes from the instance (partI.procedure.fileReference.value) via the Part I §C sidecar when present; this envelope entry supplies the envelope FALLBACK + the mandatory @schemeAgencyID (BR-OTH-02). The composer uses the instance value/agency when present and this fallback otherwise.",
+      "element": "cbc:ContractFolderID",
+      "from": "partI.procedure.fileReference.value",
+      "const": "ESPD-REF",
+      "attributes": {
+        "schemeAgencyID": { "from": "partI.procedure.fileReference.schemeAgency", "const": "DGPE" }
+      }
+    },
+    {
+      "element": "cbc:IssueDate",
+      "generated": "issueDate"
+    },
+    {
+      "element": "cbc:IssueTime",
+      "generated": "issueTime"
+    },
+    {
+      "element": "cbc:VersionID",
+      "const": "5.0.0",
+      "attributes": { "schemeAgencyID": "OP", "schemeVersionID": "5.0.0" }
+    }
+  ]
+}

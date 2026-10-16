@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C67_exg-mis-unrel-sec/QG1/Q1/R1",
+          "key": "C67_exg-mis-unrel-sec/QG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-mis-unrel-sec.response.answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -46,7 +46,7 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
@@ -54,7 +54,7 @@
       "forEach": "partIII.exclusionGrounds.exg-mis-unrel-sec.response.evidenceBlocks",
       "entries": [
         {
-          "key": "C67_exg-mis-unrel-sec/QG1/QSG1/Q1/R1",
+          "key": "C67_exg-mis-unrel-sec/QG1/QSG1/Q1",
           "value": {
             "from": "availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -62,7 +62,7 @@
           }
         },
         {
-          "key": "C67_exg-mis-unrel-sec/QG1/QSG1/QSG1/Q1/R1",
+          "key": "C67_exg-mis-unrel-sec/QG1/QSG1/QSG1/Q1",
           "references": {
             "forEach": "evidence",
             "key": "id",

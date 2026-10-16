@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.fulfilledByItself",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.reliedUpon",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.reliedUponEntity.name",
             "to": "cac:ResponseValue/cbc:Description",
@@ -58,7 +58,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.reliedUponEntity.id",
             "to": "cac:ResponseValue/cbc:ResponseID",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG4/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG4/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -74,7 +74,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG4/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG4/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.electronicEvidence.evidence",
             "key": "id",
@@ -107,7 +107,7 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
@@ -115,7 +115,7 @@
       "forEach": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.technicians",
       "entries": [
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q1",
           "value": {
             "from": "firstName",
             "to": "cac:ResponseValue/cbc:Description",
@@ -123,7 +123,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q2/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q2",
           "value": {
             "from": "lastName",
             "to": "cac:ResponseValue/cbc:Description",
@@ -131,7 +131,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q3/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q3",
           "value": {
             "from": "profession",
             "to": "cac:ResponseValue/cbc:Description",
@@ -139,7 +139,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q4/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q4",
           "value": {
             "from": "experience",
             "to": "cac:ResponseValue/cbc:Description",
@@ -147,7 +147,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q5/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q5",
           "value": {
             "from": "otherInformation",
             "to": "cac:ResponseValue/cbc:Description",
@@ -155,7 +155,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q6/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/Q6",
           "value": {
             "from": "yearsWithEo",
             "to": "cac:ResponseValue/cbc:ResponseQuantity",
@@ -166,7 +166,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/Q1",
           "value": {
             "from": "electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -174,7 +174,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG2/QSG1/QSG1/QSG1/Q1",
           "references": {
             "forEach": "electronicEvidence.evidence",
             "key": "id",
@@ -207,7 +207,7 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
@@ -215,7 +215,7 @@
       "forEach": "partIV.selectionCriteria.slc-abil-staff-tech-work.response.bodies",
       "entries": [
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q1",
           "value": {
             "from": "name",
             "to": "cac:ResponseValue/cbc:Description",
@@ -223,7 +223,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q2/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q2",
           "value": {
             "from": "experienceArea",
             "to": "cac:ResponseValue/cbc:Description",
@@ -231,7 +231,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q3/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/Q3",
           "value": {
             "from": "otherInformation",
             "to": "cac:ResponseValue/cbc:Description",
@@ -239,7 +239,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/Q1",
           "value": {
             "from": "electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -247,7 +247,7 @@
           }
         },
         {
-          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C41_slc-abil-staff-tech-work/RG1/RSG1/RSG1/QSG3/QSG1/QSG1/QSG1/Q1",
           "references": {
             "forEach": "electronicEvidence.evidence",
             "key": "id",

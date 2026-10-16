@@ -45,9 +45,19 @@ const EVIDENCE_RESOLVE_FIELDS = [
   { from: 'url', to: 'cac:DocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI' },
 ];
 
-/** Derived response path for a leaf (…/R1). */
+/** Derived response path for a leaf (…/R1) — the response's own id. */
 function responsePath(leaf) {
   return `${leaf.requestpath}/R1`;
+}
+
+/**
+ * The property-reference id a response points at: cac:TenderingCriterionResponse/
+ * cbc:ValidatedCriterionPropertyID must equal the answered property's
+ * cac:TenderingCriterionProperty/cbc:ID (BR-TCR-01-02) — i.e. the leaf's
+ * requestpath (…/Q1), NOT the response path (…/R1).
+ */
+function validatedPropertyId(leaf) {
+  return leaf.requestpath;
 }
 
 /**
@@ -64,7 +74,11 @@ function responseEntry(criterion, leaf, registry, baseOverride) {
   const binding = registry.valueTypes[leaf.valueType]?.responseXml;
   if (!binding) return undefined; // not an answerable response leaf
   const base = baseOverride ?? leafInstancePath(criterion, leaf).join('.');
-  const key = responsePath(leaf);
+  // The record key is the ValidatedCriterionPropertyID — the id of the PROPERTY
+  // being answered (…/Q1), per BR-TCR-01-02. (The response's own …/R1 id would
+  // be the optional cac:TenderingCriterionResponse/cbc:ID, which no rule requires
+  // and which the engine's single-key records construct does not emit.)
+  const key = validatedPropertyId(leaf);
 
   if (binding.kind === 'scalar') {
     const value = { from: base, to: binding.element, type: SCALAR_TYPE[leaf.valueType] ?? 'string' };
@@ -201,7 +215,7 @@ export function generateResponseMapping(criterion, registry) {
   for (const c of containerList) {
     const rule = {
       records: 'cac:TenderingCriterionResponse',
-      key: { to: 'cac:ValidatedCriterionPropertyID/cbc:ID', attributes: { schemeID: 'criterion' } },
+      key: { to: 'cbc:ValidatedCriterionPropertyID', attributes: { schemeID: 'criterion' } },
       forEach: c.forEach,
       entries: c.entries,
     };
@@ -233,7 +247,7 @@ export function generateResponseMapping(criterion, registry) {
     { to: 'cac:TenderingCriterion/cbc:Name', const: criterion.name ?? '' },
     {
       records: 'cac:TenderingCriterionResponse',
-      key: { to: 'cac:ValidatedCriterionPropertyID/cbc:ID', attributes: { schemeID: 'criterion' } },
+      key: { to: 'cbc:ValidatedCriterionPropertyID', attributes: { schemeID: 'criterion' } },
       entries: flatEntries,
     },
     ...repeatableRecordRules,

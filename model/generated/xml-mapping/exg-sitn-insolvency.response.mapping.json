@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C13_exg-sitn-insolvency/QG1/Q1/R1",
+          "key": "C13_exg-sitn-insolvency/QG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-sitn-insolvency.response.answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C13_exg-sitn-insolvency/QG1/QSG1/Q1/R1",
+          "key": "C13_exg-sitn-insolvency/QG1/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-sitn-insolvency.response.situation.details",
             "to": "cac:ResponseValue/cbc:Description",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C13_exg-sitn-insolvency/QG1/QSG1/Q2/R1",
+          "key": "C13_exg-sitn-insolvency/QG1/QSG1/Q2",
           "value": {
             "from": "partIII.exclusionGrounds.exg-sitn-insolvency.response.situation.stillAbleToPerform",
             "to": "cac:ResponseValue/cbc:Description",
@@ -58,7 +58,7 @@
           }
         },
         {
-          "key": "C13_exg-sitn-insolvency/QG2/Q1/R1",
+          "key": "C13_exg-sitn-insolvency/QG2/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-sitn-insolvency.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "C13_exg-sitn-insolvency/QG2/QSG1/Q1/R1",
+          "key": "C13_exg-sitn-insolvency/QG2/QSG1/Q1",
           "references": {
             "forEach": "partIII.exclusionGrounds.exg-sitn-insolvency.response.electronicEvidence.evidence",
             "key": "id",

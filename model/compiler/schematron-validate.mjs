@@ -72,6 +72,13 @@ const SHORTHAND = {
   // elsewhere (e.g. cac:PartyIdentification/cbc:ID, whose @schemeID is an
   // EOIDType code such as VAT) is left untouched.
   'cbc:ID': { marker: 'schemeID', key: 'criterion-id', only: 'criterion' },
+  // cac:TenderingCriterionResponse/cbc:ValidatedCriterionPropertyID cross-refs a
+  // criterion property id and carries the SAME identifier scheme as the criterion
+  // cbc:IDs (schemeID="criterion"). The response generator emits the shorthand
+  // schemeID="criterion"; expand it to the full criterion-id attribute set so
+  // @schemeAgencyID/@schemeVersionID are present (BR-OTH-02, fatal). Scoped by
+  // `only:'criterion'` like cbc:ID.
+  'cbc:ValidatedCriterionPropertyID': { marker: 'schemeID', key: 'criterion-id', only: 'criterion' },
   // A code-valued response. The shorthand listID carries the codelist KEY
   // ('country'), expanded to that codelist's full dated attribute set — which
   // differs from response-data-type (the C07 CODE_COUNTRY probe).

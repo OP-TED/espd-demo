@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C03_exg-crim-fraud/QG1/Q1/R1",
+          "key": "C03_exg-crim-fraud/QG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-crim-fraud.response.answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C03_exg-crim-fraud/QG2/Q1/R1",
+          "key": "C03_exg-crim-fraud/QG2/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-crim-fraud.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C03_exg-crim-fraud/QG2/QSG1/Q1/R1",
+          "key": "C03_exg-crim-fraud/QG2/QSG1/Q1",
           "references": {
             "forEach": "partIII.exclusionGrounds.exg-crim-fraud.response.electronicEvidence.evidence",
             "key": "id",
@@ -83,7 +83,7 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
@@ -91,7 +91,7 @@
       "forEach": "partIII.exclusionGrounds.exg-crim-fraud.response.convictions",
       "entries": [
         {
-          "key": "C03_exg-crim-fraud/QG1/QSG1/Q1/R1",
+          "key": "C03_exg-crim-fraud/QG1/QSG1/Q1",
           "value": {
             "from": "dateOfConviction",
             "to": "cac:ResponseValue/cbc:ResponseDate",
@@ -99,7 +99,7 @@
           }
         },
         {
-          "key": "C03_exg-crim-fraud/QG1/QSG1/Q2/R1",
+          "key": "C03_exg-crim-fraud/QG1/QSG1/Q2",
           "value": {
             "from": "reason",
             "to": "cac:ResponseValue/cbc:Description",
@@ -107,7 +107,7 @@
           }
         },
         {
-          "key": "C03_exg-crim-fraud/QG1/QSG1/Q3/R1",
+          "key": "C03_exg-crim-fraud/QG1/QSG1/Q3",
           "value": {
             "from": "whoConvicted",
             "to": "cac:ResponseValue/cbc:Description",
@@ -115,7 +115,7 @@
           }
         },
         {
-          "key": "C03_exg-crim-fraud/QG1/QSG1/Q4/R1",
+          "key": "C03_exg-crim-fraud/QG1/QSG1/Q4",
           "object": {
             "from": "exclusionPeriod",
             "to": "cac:ApplicablePeriod",
@@ -132,7 +132,7 @@
           }
         },
         {
-          "key": "C03_exg-crim-fraud/QG1/QSG1/QSG1/Q1/R1",
+          "key": "C03_exg-crim-fraud/QG1/QSG1/QSG1/Q1",
           "value": {
             "from": "selfCleaning.taken",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -140,7 +140,7 @@
           }
         },
         {
-          "key": "C03_exg-crim-fraud/QG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C03_exg-crim-fraud/QG1/QSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "selfCleaning.description",
             "to": "cac:ResponseValue/cbc:Description",

@@ -37,34 +37,42 @@ check('target root is QualificationApplicationResponse', () => {
   assert.equal(spec.target.root, 'QualificationApplicationResponse');
 });
 
-check('one TenderingCriterionResponse record with entries keyed by responsepath (/R1)', () => {
+check('record key is cbc:ValidatedCriterionPropertyID (BR-TCR-01), entries keyed by the PROPERTY id (…/Q1)', () => {
   assert.ok(responseRecord, 'response record present');
+  // The cross-reference element is a cbc text element (not a cac wrapper), and
+  // its value is the answered property's id (requestpath, …/Q<n>), which must
+  // match a cac:TenderingCriterionProperty/cbc:ID per BR-TCR-01-02.
+  assert.equal(responseRecord.key.to, 'cbc:ValidatedCriterionPropertyID');
+  assert.equal(responseRecord.key.attributes.schemeID, 'criterion');
   assert.ok(responseRecord.entries.length >= 13, `expected 13 answer entries, got ${responseRecord.entries.length}`);
-  for (const e of responseRecord.entries) assert.ok(e.key.endsWith('/R1'), `entry key must end /R1: ${e.key}`);
+  for (const e of responseRecord.entries) {
+    assert.ok(/\/Q\d+$/.test(e.key), `entry key must be a property id ending /Q<n>: ${e.key}`);
+    assert.ok(!e.key.endsWith('/R1'), `entry key must NOT be the response id (…/R1): ${e.key}`);
+  }
 });
 
 check('INDICATOR -> value cac:ResponseValue/cbc:ResponseIndicator (boolean)', () => {
-  const e = entriesByKey['C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1/Q1/R1'];
+  const e = entriesByKey['C31_slc-stand-to-spec-avg/RG1/RSG1/QSG1/Q1'];
   assert.equal(e.value.to, 'cac:ResponseValue/cbc:ResponseIndicator');
   assert.equal(e.value.type, 'boolean');
   assert.ok(e.value.from.endsWith('response.fulfilledByItself'));
 });
 
 check('AMOUNT -> value cac:ResponseValue/cbc:ResponseAmount with currencyID from currency', () => {
-  const e = entriesByKey['C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/Q2/R1'];
+  const e = entriesByKey['C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/Q2'];
   assert.equal(e.value.to, 'cac:ResponseValue/cbc:ResponseAmount');
   assert.equal(e.value.attributes.currencyID.from, 'partIV.selectionCriteria.slc-stand-to-spec-avg.response.turnover.amount.currency');
 });
 
 check('PERIOD -> object cac:ApplicablePeriod with StartDate/EndDate fields', () => {
-  const e = entriesByKey['C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/Q1/R1'];
+  const e = entriesByKey['C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/Q1'];
   assert.equal(e.object.to, 'cac:ApplicablePeriod');
   const tos = e.object.fields.map(f => f.to);
   assert.ok(tos.includes('cbc:StartDate') && tos.includes('cbc:EndDate'));
 });
 
 check('EVIDENCE_IDENTIFIER -> references with resolve to cac:Evidence', () => {
-  const e = entriesByKey['C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1'];
+  const e = entriesByKey['C31_slc-stand-to-spec-avg/RG1/RSG1/QSG2/QSG1/QSG1/Q1'];
   assert.equal(e.references.to, 'cac:EvidenceSupplied/cbc:ID');
   assert.equal(e.references.resolve.records, 'cac:Evidence');
 });

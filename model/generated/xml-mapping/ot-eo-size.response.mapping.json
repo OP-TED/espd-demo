@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "OT65_OT/QG1/Q1/R1",
+          "key": "OT65_OT/QG1/Q1",
           "value": {
             "from": "partII.economicOperatorCriteria.eo-size.response.answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "OT65_OT/QG1/QSG1/Q1/R1",
+          "key": "OT65_OT/QG1/QSG1/Q1",
           "value": {
             "from": "partII.economicOperatorCriteria.eo-size.response.numberOfEmployees",
             "to": "cac:ResponseValue/cbc:ResponseQuantity",
@@ -53,7 +53,7 @@
           }
         },
         {
-          "key": "OT65_OT/QG1/QSG1/Q2/R1",
+          "key": "OT65_OT/QG1/QSG1/Q2",
           "value": {
             "from": "partII.economicOperatorCriteria.eo-size.response.turnover.value",
             "to": "cac:ResponseValue/cbc:ResponseAmount",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "OT65_OT/QG2/Q1/R1",
+          "key": "OT65_OT/QG2/Q1",
           "value": {
             "from": "partII.economicOperatorCriteria.eo-size.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -74,7 +74,7 @@
           }
         },
         {
-          "key": "OT65_OT/QG2/QSG1/Q1/R1",
+          "key": "OT65_OT/QG2/QSG1/Q1",
           "references": {
             "forEach": "partII.economicOperatorCriteria.eo-size.response.electronicEvidence.evidence",
             "key": "id",

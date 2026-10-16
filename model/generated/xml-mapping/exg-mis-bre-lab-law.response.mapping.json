@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C11_exg-mis-bre-lab-law/QG1/Q1/R1",
+          "key": "C11_exg-mis-bre-lab-law/QG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-mis-bre-lab-law.response.answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C11_exg-mis-bre-lab-law/QG1/QSG1/Q1/R1",
+          "key": "C11_exg-mis-bre-lab-law/QG1/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-mis-bre-lab-law.response.measures.taken",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C11_exg-mis-bre-lab-law/QG1/QSG1/QSG1/Q1/R1",
+          "key": "C11_exg-mis-bre-lab-law/QG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-mis-bre-lab-law.response.measures.description",
             "to": "cac:ResponseValue/cbc:Description",
@@ -58,7 +58,7 @@
           }
         },
         {
-          "key": "C11_exg-mis-bre-lab-law/QG2/Q1/R1",
+          "key": "C11_exg-mis-bre-lab-law/QG2/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-mis-bre-lab-law.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "C11_exg-mis-bre-lab-law/QG2/QSG1/Q1/R1",
+          "key": "C11_exg-mis-bre-lab-law/QG2/QSG1/Q1",
           "references": {
             "forEach": "partIII.exclusionGrounds.exg-mis-bre-lab-law.response.electronicEvidence.evidence",
             "key": "id",

@@ -76,8 +76,10 @@ test('C07 request+response mapping specs generate without criterion-specific cod
   // The CODE_COUNTRY answer appears as a response entry with the country-codelist
   // shorthand on its value element.
   const responseRule = response.rules.find(r => r.records === 'cac:TenderingCriterionResponse');
+  // Entries are keyed by the answered property id (ValidatedCriterionPropertyID,
+  // …/Q1 — the requestpath), per BR-TCR-01-02.
   const countryEntry = responseRule.entries.find(
-    e => e.key === `${CODE === 'exg-pmt-bre-tax' ? 'C07_exg-pmt-bre-tax' : CODE}/RG1/QSG1/QSG1/Q1/R1`);
+    e => e.key === `${CODE === 'exg-pmt-bre-tax' ? 'C07_exg-pmt-bre-tax' : CODE}/RG1/QSG1/QSG1/Q1`);
   assert.ok(countryEntry, 'expected a response entry for the country question');
   assert.equal(countryEntry.value.to, 'cac:ResponseValue/cbc:ResponseCode');
   assert.deepEqual(countryEntry.value.attributes, { listID: 'country' });

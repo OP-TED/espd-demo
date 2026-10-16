@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "OT60_OT/QG1/Q1/R1",
+          "key": "OT60_OT/QG1/Q1",
           "value": {
             "from": "partII.economicOperatorCriteria.relied-on-entities.response.answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "OT60_OT/QG2/Q1/R1",
+          "key": "OT60_OT/QG2/Q1",
           "value": {
             "from": "partII.economicOperatorCriteria.relied-on-entities.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "OT60_OT/QG2/QSG1/Q1/R1",
+          "key": "OT60_OT/QG2/QSG1/Q1",
           "references": {
             "forEach": "partII.economicOperatorCriteria.relied-on-entities.response.electronicEvidence.evidence",
             "key": "id",
@@ -83,7 +83,7 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
@@ -91,7 +91,7 @@
       "forEach": "partII.economicOperatorCriteria.relied-on-entities.response.entities",
       "entries": [
         {
-          "key": "OT60_OT/QG1/QSG1/Q1/R1",
+          "key": "OT60_OT/QG1/QSG1/Q1",
           "value": {
             "from": "name",
             "to": "cac:ResponseValue/cbc:Description",
@@ -99,7 +99,7 @@
           }
         },
         {
-          "key": "OT60_OT/QG1/QSG1/Q2/R1",
+          "key": "OT60_OT/QG1/QSG1/Q2",
           "value": {
             "from": "id",
             "to": "cac:ResponseValue/cbc:ResponseID",

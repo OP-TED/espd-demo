@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG1/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.fulfilledByItself",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG1/QSG1/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.reliedUpon",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.reliedUponEntity.name",
             "to": "cac:ResponseValue/cbc:Description",
@@ -58,7 +58,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.reliedUponEntity.id",
             "to": "cac:ResponseValue/cbc:ResponseID",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG2/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG2/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.turnover.averageAmount.value",
             "to": "cac:ResponseValue/cbc:ResponseAmount",
@@ -79,7 +79,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG2/Q2/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG2/Q2",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.turnover.additionalInformation",
             "to": "cac:ResponseValue/cbc:Description",
@@ -87,7 +87,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG2/QSG1/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG2/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.turnover.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -95,7 +95,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG2/QSG1/QSG1/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG2/QSG1/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-stand-to-avg.response.turnover.electronicEvidence.evidence",
             "key": "id",
@@ -124,7 +124,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG3/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG3/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.startTrading.date",
             "to": "cac:ResponseValue/cbc:ResponseDate",
@@ -132,7 +132,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG3/QSG1/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG3/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.startTrading.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -140,7 +140,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG3/QSG1/QSG1/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG3/QSG1/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-stand-to-avg.response.startTrading.electronicEvidence.evidence",
             "key": "id",
@@ -169,7 +169,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG4/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG4/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-stand-to-avg.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -177,7 +177,7 @@
           }
         },
         {
-          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG4/QSG1/Q1/R1",
+          "key": "C30_slc-stand-to-avg/RG1/RSG1/QSG4/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-stand-to-avg.response.electronicEvidence.evidence",
             "key": "id",

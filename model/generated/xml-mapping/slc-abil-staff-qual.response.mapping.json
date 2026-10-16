@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/Q1/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-qual.response.fulfilledByItself",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/Q1/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-qual.response.reliedUpon",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-qual.response.reliedUponEntity.name",
             "to": "cac:ResponseValue/cbc:Description",
@@ -58,7 +58,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG1/QSG1/QSG1/Q2",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-qual.response.reliedUponEntity.id",
             "to": "cac:ResponseValue/cbc:ResponseID",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG3/Q1/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG3/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-qual.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -74,7 +74,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG3/QSG1/Q1/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG3/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-abil-staff-qual.response.electronicEvidence.evidence",
             "key": "id",
@@ -107,7 +107,7 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
@@ -115,7 +115,7 @@
       "forEach": "partIV.selectionCriteria.slc-abil-staff-qual.response.staff",
       "entries": [
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q1/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q1",
           "value": {
             "from": "firstName",
             "to": "cac:ResponseValue/cbc:Description",
@@ -123,7 +123,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q2/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q2",
           "value": {
             "from": "lastName",
             "to": "cac:ResponseValue/cbc:Description",
@@ -131,7 +131,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q3/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q3",
           "value": {
             "from": "educationalProfessionalQualification",
             "to": "cac:ResponseValue/cbc:Description",
@@ -139,7 +139,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q4/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q4",
           "value": {
             "from": "escoIdentifier",
             "to": "cac:ResponseValue/cbc:ResponseURI",
@@ -147,7 +147,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q5/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q5",
           "value": {
             "from": "escoQualificationDescription",
             "to": "cac:ResponseValue/cbc:Description",
@@ -155,7 +155,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q6/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q6",
           "value": {
             "from": "qualificationName",
             "to": "cac:ResponseValue/cbc:Description",
@@ -163,7 +163,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q7/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q7",
           "value": {
             "from": "qualificationNumber",
             "to": "cac:ResponseValue/cbc:ResponseID",
@@ -171,7 +171,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q8/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q8",
           "value": {
             "from": "qualificationIssuingDate",
             "to": "cac:ResponseValue/cbc:ResponseDate",
@@ -179,7 +179,7 @@
           }
         },
         {
-          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q9/R1",
+          "key": "C47_slc-abil-staff-qual/RG1/RSG1/RSG1/QSG2/QSG1/Q9",
           "value": {
             "from": "qualificationIssuingBody",
             "to": "cac:ResponseValue/cbc:Description",

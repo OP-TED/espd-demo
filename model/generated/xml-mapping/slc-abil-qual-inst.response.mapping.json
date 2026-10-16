@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG1/Q1/R1",
+          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-qual-inst.response.fulfilledByItself",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG1/QSG1/Q1/R1",
+          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-qual-inst.response.reliedUpon",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-qual-inst.response.reliedUponEntity.name",
             "to": "cac:ResponseValue/cbc:Description",
@@ -58,7 +58,7 @@
           }
         },
         {
-          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1",
+          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-qual-inst.response.reliedUponEntity.id",
             "to": "cac:ResponseValue/cbc:ResponseID",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG2/Q1/R1",
+          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG2/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-qual-inst.response.conforms",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -74,7 +74,7 @@
           }
         },
         {
-          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG2/QSG1/Q1/R1",
+          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG2/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-qual-inst.response.conformsExplanation",
             "to": "cac:ResponseValue/cbc:Description",
@@ -82,7 +82,7 @@
           }
         },
         {
-          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG3/Q1/R1",
+          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG3/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-qual-inst.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -90,7 +90,7 @@
           }
         },
         {
-          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG3/QSG1/Q1/R1",
+          "key": "C54_slc-abil-qual-inst/RG1/RSG1/QSG3/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-abil-qual-inst.response.electronicEvidence.evidence",
             "key": "id",

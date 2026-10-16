@@ -48,7 +48,8 @@ test('the mapping roundtrips a minimal example (no url)', () => {
 test('generated XML has the correct UBL structure', () => {
   const xml = map(spec, example);
   assert.match(xml, /<cac:AdditionalDocumentReference>/);
-  assert.match(xml, /<cbc:ID>310364-2026<\/cbc:ID>/);
+  // cbc:ID carries @schemeAgencyID (BR-OTH-02, mandatory on every cbc:ID).
+  assert.match(xml, /<cbc:ID schemeAgencyID="OP">310364-2026<\/cbc:ID>/);
   assert.match(xml, /<cbc:DocumentTypeCode[^>]*>TED_CN<\/cbc:DocumentTypeCode>/);
   assert.match(xml, /<cac:Attachment>\s*<cac:ExternalReference>\s*<cbc:URI>/);
   assert.match(xml, /https:\/\/ted\.europa\.eu\/en\/notice\/-\/detail\/310364-2026<\/cbc:URI>/);

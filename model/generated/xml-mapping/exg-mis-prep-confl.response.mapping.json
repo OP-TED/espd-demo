@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C21_exg-mis-prep-confl/QG1/Q1/R1",
+          "key": "C21_exg-mis-prep-confl/QG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-mis-prep-confl.response.answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C21_exg-mis-prep-confl/QG1/QSG1/Q1/R1",
+          "key": "C21_exg-mis-prep-confl/QG1/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-mis-prep-confl.response.description",
             "to": "cac:ResponseValue/cbc:Description",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C21_exg-mis-prep-confl/QG2/Q1/R1",
+          "key": "C21_exg-mis-prep-confl/QG2/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-mis-prep-confl.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -58,7 +58,7 @@
           }
         },
         {
-          "key": "C21_exg-mis-prep-confl/QG2/QSG1/Q1/R1",
+          "key": "C21_exg-mis-prep-confl/QG2/QSG1/Q1",
           "references": {
             "forEach": "partIII.exclusionGrounds.exg-mis-prep-confl.response.electronicEvidence.evidence",
             "key": "id",

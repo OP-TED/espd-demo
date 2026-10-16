@@ -117,8 +117,9 @@ test('7.0b — response mapping round-trips a repeatable group as a forEach reco
   const convRule = response.rules.find(r => r.records === 'cac:TenderingCriterionResponse' && r.forEach);
   assert.ok(convRule, 'expected a forEach records rule for the repeatable group');
   assert.ok(convRule.forEach.endsWith('.response.convictions'), convRule.forEach);
-  // Its entry `from` paths are RELATIVE to the array item.
-  const dateEntry = convRule.entries.find(e => e.key.endsWith('/QSG1/Q1/R1'));
+  // Its entry `from` paths are RELATIVE to the array item. Entries are keyed by
+  // the answered PROPERTY id (ValidatedCriterionPropertyID, …/Q1), per BR-TCR-01.
+  const dateEntry = convRule.entries.find(e => e.key.endsWith('/QSG1/Q1'));
   assert.equal(dateEntry.value.from, 'dateOfConviction', 'item-relative path');
 
   const data = { partIII: { exclusionGrounds: { [CODE]: { response: {
@@ -205,7 +206,9 @@ test('7.0b — C01 repeatable-group response runs through the ESPD Schematron', 
   const expanded = expandCodelistAttributes(map(response, data), profile);
 
   // Two convictions -> two repeated response records for each conviction leaf.
-  const dateRecords = (expanded.match(/QG1\/QSG1\/Q1\/R1/g) || []).length;
+  // Each date-of-conviction answer cross-references the SAME property id (…/QG1/
+  // QSG1/Q1) via cbc:ValidatedCriterionPropertyID, so count those.
+  const dateRecords = (expanded.match(/<cbc:ValidatedCriterionPropertyID[^>]*>[^<]*QG1\/QSG1\/Q1<\/cbc:ValidatedCriterionPropertyID>/g) || []).length;
   assert.equal(dateRecords, 2, 'one date-of-conviction response per conviction');
 
   const { errors, warnings, findings } = validateXml(expanded, 'response');

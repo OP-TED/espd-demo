@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG1/Q1/R1",
+          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-yrly-avg-mp.response.fulfilledByItself",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG1/QSG1/Q1/R1",
+          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-yrly-avg-mp.response.reliedUpon",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -50,7 +50,7 @@
           }
         },
         {
-          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-yrly-avg-mp.response.reliedUponEntity.name",
             "to": "cac:ResponseValue/cbc:Description",
@@ -58,7 +58,7 @@
           }
         },
         {
-          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG1/QSG1/QSG1/Q2/R1",
+          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG1/QSG1/QSG1/Q2",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-yrly-avg-mp.response.reliedUponEntity.id",
             "to": "cac:ResponseValue/cbc:ResponseID",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG2/Q1/R1",
+          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG2/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-yrly-avg-mp.response.manpower.year",
             "to": "cac:ResponseValue/cbc:ResponseQuantity",
@@ -77,7 +77,7 @@
           }
         },
         {
-          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG2/Q2/R1",
+          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG2/Q2",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-yrly-avg-mp.response.manpower.number",
             "to": "cac:ResponseValue/cbc:ResponseQuantity",
@@ -88,7 +88,7 @@
           }
         },
         {
-          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG3/Q1/R1",
+          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG3/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-abil-staff-yrly-avg-mp.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -96,7 +96,7 @@
           }
         },
         {
-          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG3/QSG1/Q1/R1",
+          "key": "C50_slc-abil-staff-yrly-avg-mp/RG1/RSG1/QSG3/QSG1/Q1",
           "references": {
             "forEach": "partIV.selectionCriteria.slc-abil-staff-yrly-avg-mp.response.electronicEvidence.evidence",
             "key": "id",

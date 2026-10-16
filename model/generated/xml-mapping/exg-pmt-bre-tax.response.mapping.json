@@ -27,14 +27,14 @@
     {
       "records": "cac:TenderingCriterionResponse",
       "key": {
-        "to": "cac:ValidatedCriterionPropertyID/cbc:ID",
+        "to": "cbc:ValidatedCriterionPropertyID",
         "attributes": {
           "schemeID": "criterion"
         }
       },
       "entries": [
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.answer",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.country",
             "to": "cac:ResponseValue/cbc:ResponseCode",
@@ -53,7 +53,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/Q2/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/Q2",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.amount.value",
             "to": "cac:ResponseValue/cbc:ResponseAmount",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.establishedByOtherMeans",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -74,7 +74,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG1/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.meansDescription",
             "to": "cac:ResponseValue/cbc:Description",
@@ -82,7 +82,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.decision.finalAndBinding",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -90,7 +90,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.decision.date",
             "to": "cac:ResponseValue/cbc:ResponseDate",
@@ -98,7 +98,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q2/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG2/QSG1/Q2",
           "object": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.decision.exclusionPeriod",
             "to": "cac:ApplicablePeriod",
@@ -115,7 +115,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG3/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG3/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.remedy.obligationsFulfilled",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -123,7 +123,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG3/QSG1/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/RG1/QSG1/QSG1/QSG1/QSG3/QSG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.breach.remedy.description",
             "to": "cac:ResponseValue/cbc:Description",
@@ -131,7 +131,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/QG1/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/QG1/Q1",
           "value": {
             "from": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.electronicEvidence.availableElectronically",
             "to": "cac:ResponseValue/cbc:ResponseIndicator",
@@ -139,7 +139,7 @@
           }
         },
         {
-          "key": "C07_exg-pmt-bre-tax/QG1/QSG1/Q1/R1",
+          "key": "C07_exg-pmt-bre-tax/QG1/QSG1/Q1",
           "references": {
             "forEach": "partIII.exclusionGrounds.exg-pmt-bre-tax.response.electronicEvidence.evidence",
             "key": "id",

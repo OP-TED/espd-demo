@@ -33,6 +33,7 @@
   "ui.no": "No",
   "ui.select": "— Select —",
   "ui.requiredByRegulation": "Required by regulation",
+  "ui.requirementHeading": "Requirement set by the buyer",
   "ui.lookUp": "Look up",
   "ui.lookUpEnter": "Enter a TED notice number or URL first.",
   "ui.lookUpLoading": "Looking up…",

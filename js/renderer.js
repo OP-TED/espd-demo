@@ -380,12 +380,55 @@ function renderCriterionChecklistItem(member, role) {
     card.appendChild(p);
   }
 
+  // Buyer requirement panel: the fields the contracting authority fills to set
+  // this criterion's requirement (e.g. a selection criterion's minimum amount /
+  // number of years). Only shown when the criterion is included, since an
+  // unselected criterion has no requirement to express. Exclusion grounds carry
+  // no such fields, so the panel is empty and nothing extra is shown there.
+  const reqFields = requirementFields(member);
+  let requirementPanel = null;
+  if (reqFields.length > 0) {
+    requirementPanel = document.createElement('div');
+    requirementPanel.className = 'criterion-requirements';
+    requirementPanel.hidden = !included;
+    const heading = document.createElement('p');
+    heading.className = 'criterion-requirements__heading';
+    heading.textContent = t('ui.requirementHeading', 'Requirement set by the buyer');
+    requirementPanel.appendChild(heading);
+    const group = document.createElement('div');
+    group.className = 'espd-question-group';
+    for (const field of reqFields) group.appendChild(renderField(field));
+    requirementPanel.appendChild(group);
+    card.appendChild(requirementPanel);
+  }
+
   if (!mandatory) {
     checkbox.addEventListener('change', () => {
       setInclusionState(tag, code, checkbox.checked);
+      if (requirementPanel) {
+        requirementPanel.hidden = !checkbox.checked;
+        // Reveal/settle any conditional fields inside the panel now it is shown.
+        if (checkbox.checked) applyConditionalLogic(requirementPanel);
+      }
     });
   }
   return card;
+}
+
+/**
+ * The buyer-filled requirement fields of a criterion: the fields of every group
+ * whose `filledBy` is the contracting authority. These are what a buyer sets to
+ * express the criterion's requirement (e.g. the minimum turnover + number of
+ * years for "Average yearly turnover"). Selection criteria (Part IV) carry a
+ * `requirement` group; exclusion grounds (Part III) carry none, so this is empty.
+ */
+function requirementFields(member) {
+  const fields = [];
+  for (const group of member.groups || []) {
+    if (group.filledBy !== 'contractingAuthority') continue;
+    for (const field of group.fields || []) fields.push(field);
+  }
+  return fields;
 }
 
 // ─── Part I affordances ───────────────────────────────────────────────────────

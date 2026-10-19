@@ -1798,7 +1798,8 @@ fieldset[role="radiogroup"]:has(.espd-role-radio) {
   font-size: var(--gs-base-font-size-s);
 }
 
-/* Values the buyer sets for a chosen criterion. */
+/* Values the buyer sets for a chosen criterion. Revealed (unhidden) when the
+   criterion is included; hidden otherwise. */
 .criterion-requirements {
   display: flex;
   flex-direction: column;
@@ -1807,6 +1808,17 @@ fieldset[role="radiogroup"]:has(.espd-role-radio) {
   padding: 20px;
   border-radius: var(--gs-base-radius-m);
   background: var(--gs-base-color-gray-5);
+}
+
+.criterion-requirements[hidden] {
+  display: none;
+}
+
+.criterion-requirements__heading {
+  margin: 0;
+  font-size: var(--gs-base-font-size-s);
+  font-weight: var(--gs-base-font-weight-bold, 600);
+  color: var(--gs-base-color-gray-75);
 }
 
 /* 12. Messages ----------------------------------------------------------------- */

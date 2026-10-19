@@ -105,7 +105,7 @@ function renderContinueCard(session, roleData, onContinue) {
 function renderImportArea() {
   return `
     <div class="espd-import-area" role="region" aria-label="Import existing ESPD">
-      <h2>Import an ESPD</h2>
+      <h2>Import an ESPD document</h2>
       <p>Load an ESPD Request you received, or an ESPD you saved earlier, as an XML file.</p>
       <div class="espd-import-controls">
         <input type="file" id="import-file-home" accept=".xml,.json" aria-label="Select ESPD file to import">
@@ -143,24 +143,26 @@ export function renderHomePage({ container, session, roleData, onContinue, onNew
     </hgroup>
   `;
 
-  // Continue Card (only when session exists)
-  if (hasSession && roleData) {
-    html += renderContinueCard(session, roleData, onContinue);
-  }
+  // Section order (left to right): 1. Create new  2. Import  3. Continue.
 
-  // New ESPD button
+  // 1. Create new ESPD document
   html += `
     <div class="espd-home-actions" role="region" aria-labelledby="new-espd-heading">
-      <h2 id="new-espd-heading">Start a new ESPD</h2>
-      <p>Buyers create an ESPD Request setting out the exclusion grounds and selection criteria. Economic operators answer it with an ESPD Response.</p>
+      <h2 id="new-espd-heading">Create new ESPD document</h2>
+      <p>Buyers create an ESPD Request setting out the exclusion grounds and selection criteria. Economic operators answer it with an ESPD or create an ESPD from scratch.</p>
       <div>
-        <button type="button" id="btn-new-espd" class="contrast">New ESPD</button>
+        <button type="button" id="btn-new-espd" class="contrast">New ESPD document</button>
       </div>
     </div>
   `;
 
-  // Import area — prominently displayed, not inside <details> (Requirement 4.1)
+  // 2. Import area — prominently displayed, not inside <details> (Requirement 4.1)
   html += renderImportArea();
+
+  // 3. Continue Card (only when a session exists)
+  if (hasSession && roleData) {
+    html += renderContinueCard(session, roleData, onContinue);
+  }
 
   container.innerHTML = html;
 

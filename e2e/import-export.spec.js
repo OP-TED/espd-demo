@@ -6,7 +6,9 @@
  *     (.xml), assembled by the document composer.
  *   - "Save draft"   (#btn-draft)    → the JSON instance document
  *     (format "espd-instance", .json) — the lossless save-progress file.
- * Import (#btn-import-home / wizard import) accepts BOTH .xml and .json.
+ * Import accepts BOTH .xml and .json. Entry points: Buyer "Reuse an existing
+ * ESPD" (#buyer-reuse-file) and Economic Operator "Import ESPD" (#btn-eo-import
+ * → sub-role picker → #eo-import-file).
  *
  * These tests cover the lossless JSON draft round-trip (fill → save draft →
  * import → resume) and the official UBL export + re-import (role detected).
@@ -45,11 +47,10 @@ test.describe('Export → import → resume', () => {
     expect(doc.instance.partI.contractingAuthority.officialName).toBe('Round-Trip Authority');
     expect(doc.instance.partI.project.name).toBe('Round-Trip Procurement 2026');
 
-    // Fresh load → import from Home → lands in the wizard with the data restored.
+    // Fresh load → Buyer "Reuse an existing ESPD" → lands in the wizard restored.
     await page.goto('/');
     await expect(page.locator('#landing-page')).toBeVisible();
-    await page.locator('#import-file-home').setInputFiles(file);
-    await page.locator('#btn-import-home').click();
+    await page.locator('#buyer-reuse-file').setInputFiles(file);
 
     await expect(page.locator('#wizard-container')).toBeVisible();
     await goToPart(page, 'I');
@@ -103,10 +104,9 @@ test.describe('Export → import → resume', () => {
     await download.saveAs(file);
     expect(fs.readFileSync(file, 'utf8')).toContain('slc-suit-reg-prof'); // C25's code
 
-    // Fresh load → import → the selection is restored (C25 still checked).
+    // Fresh load → Buyer "Reuse" → the selection is restored (C25 still checked).
     await page.goto('/');
-    await page.locator('#import-file-home').setInputFiles(file);
-    await page.locator('#btn-import-home').click();
+    await page.locator('#buyer-reuse-file').setInputFiles(file);
     await expect(page.locator('#wizard-container')).toBeVisible();
     await goToPart(page, 'IV');
     await expect(page.locator('#criterion-C25')).toBeChecked();
@@ -128,12 +128,56 @@ test.describe('Export → import → resume', () => {
     expect(fs.readFileSync(file, 'utf8')).toContain('<QualificationApplicationResponse');
 
     await page.goto('/');
-    await page.locator('#import-file-home').setInputFiles(file);
-    await page.locator('#btn-import-home').click();
+    // EO "Import ESPD" → pick the sub-role → Continue → choose the file.
+    await page.locator('#btn-eo-import').click();
+    await page.locator('input[name="espd-role"][value="sole-tenderer"]').check();
+    await page.locator('#landing-page button.contrast').click();
+    await page.locator('#eo-import-file').setInputFiles(file);
     await expect(page.locator('#wizard-container')).toBeVisible();
     // An EO response makes Part II (economic operator) available in the nav.
     await expect(
       page.locator('.espd-steps li .espd-step__num').filter({ hasText: /^II$/ })
+    ).toBeVisible();
+  });
+
+  test('an EO imports a buyer Request and builds a Response on it', async ({ page }) => {
+    // Buyer: declare a selection criterion with a requirement, export the Request.
+    await startWizardAs(page, 'contracting-authority');
+    await goToPart(page, 'IV');
+    const criterion = page.locator('#criterion-C25'); // slc-suit-reg-prof
+    await expect(criterion).toBeVisible();
+    if (!(await criterion.isChecked())) await criterion.check();
+
+    await goToPart(page, 'VI');
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      page.locator('#btn-download').click(),
+    ]);
+    const file = path.join('e2e', 'test-output', 'buyer-request-for-eo.xml');
+    await download.saveAs(file);
+
+    // EO: fresh load → Import ESPD → pick sub-role → import the buyer's Request.
+    await page.goto('/');
+    await page.locator('#btn-eo-import').click();
+    await page.locator('input[name="espd-role"][value="sole-tenderer"]').check();
+    await page.locator('#landing-page button.contrast').click();
+    await page.locator('#eo-import-file').setInputFiles(file);
+    await expect(page.locator('#wizard-container')).toBeVisible();
+
+    // The session is now an EO Response: Part II is available...
+    await expect(
+      page.locator('.espd-steps li .espd-step__num').filter({ hasText: /^II$/ })
+    ).toBeVisible();
+    // ...Part II's "Role in this bid" is preselected from the chosen sub-role...
+    await goToPart(page, 'II');
+    await expect(
+      page.locator('[data-field="partII.economicOperator.role"] select')
+    ).toHaveValue('sole-tenderer');
+    // ...and in Part IV the EO answers the buyer's DECLARED criterion (C25),
+    // rendered as an answerable criterion card (not a checklist checkbox).
+    await goToPart(page, 'IV');
+    await expect(
+      page.locator('.espd-criterion[data-section-tag="C25"]')
     ).toBeVisible();
   });
 });

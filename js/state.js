@@ -312,6 +312,16 @@ export function setInclusionState(tag, code, included) {
   persist();
 }
 
+/**
+ * Whether ANY inclusion entry exists. Used to distinguish an EO session built on
+ * an imported buyer Request (inclusions carry the buyer's DECLARED criteria set)
+ * from a blank EO response (no inclusions → the EO may answer the full
+ * catalogue).
+ */
+export function hasInclusions() {
+  return Object.keys(state.inclusions || {}).length > 0;
+}
+
 /** Clear all inclusion entries. */
 export function clearInclusionStates() {
   state.inclusions = {};

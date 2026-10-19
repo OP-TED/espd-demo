@@ -11,7 +11,7 @@
  */
 
 import { t } from './i18n.js';
-import { getAnswer, setAnswer, getInclusionState, setInclusionState, initInclusionStates } from './state.js';
+import { getAnswer, setAnswer, getInclusionState, setInclusionState, initInclusionStates, hasInclusions } from './state.js';
 import { getCodelist } from './codelists.js';
 import { applyConditionalLogic } from './conditional.js';
 import { lookupNotice, extractNoticeNumberFromUrl } from './ted-lookup.js';
@@ -42,14 +42,25 @@ export function renderPart(part, partKey, role, container) {
     return;
   }
 
+  // EO answering view. For the criterion-bearing parts (III/IV/V), the EO
+  // answers either the buyer's DECLARED set (when built on an imported Request —
+  // inclusions carry that set, and the EO cannot add/remove) or, on a blank
+  // response (no inclusions), the FULL catalogue.
+  const isEo = EO_ROLES.has(role);
+  const restrictToDeclared = isEo && hasInclusions();
+
   for (const section of part.sections) {
+    const members = restrictToDeclared
+      ? section.members.filter((m) => m.kind !== 'criterion' || isDeclared(m))
+      : section.members;
+    if (members.length === 0) continue;
     if (section.titleKey) {
       const h = document.createElement('h3');
       h.className = 'espd-section-title';
       h.textContent = t(section.titleKey, section.id);
       container.appendChild(h);
     }
-    for (const member of section.members) {
+    for (const member of members) {
       container.appendChild(renderMember(member, role));
     }
   }
@@ -67,6 +78,12 @@ export function renderPart(part, partKey, role, container) {
   }
 
   applyConditionalLogic(container);
+}
+
+/** Was this criterion declared by the buyer (present in the inclusions map)? */
+function isDeclared(member) {
+  const tag = member.tag || member.id;
+  return getInclusionState(tag, member.code) === true;
 }
 
 function partHeader(part, partKey) {
@@ -123,12 +140,55 @@ function renderCriterion(member, role) {
   wrap.appendChild(head);
 
   for (const group of member.groups || []) {
+    // The buyer's `requirement` group (filledBy: contractingAuthority) is NOT the
+    // EO's to edit. When the EO is building on an imported Request, the buyer set
+    // these values — show them READ-ONLY as context. On a blank response no buyer
+    // defined them, so OMIT the group entirely.
+    if (group.filledBy === 'contractingAuthority') {
+      const panel = renderBuyerRequirementContext(group);
+      if (panel) wrap.appendChild(panel);
+      continue;
+    }
     const groupEl = document.createElement('div');
     groupEl.className = 'espd-question-group';
     appendFields(groupEl, group.fields);
     wrap.appendChild(groupEl);
   }
   return wrap;
+}
+
+/**
+ * Render the buyer's requirement group as READ-ONLY context in the EO view.
+ * Returns null when the buyer set no values (blank response) — then nothing is
+ * shown, per the model's buyer/EO authorship boundary.
+ */
+function renderBuyerRequirementContext(group) {
+  const fields = (group.fields || []).filter((f) => f.kind !== 'caption');
+  const hasValue = fields.some((f) => {
+    const v = getAnswer(f.dataPath);
+    return v !== undefined && v !== null && v !== '' && !(Array.isArray(v) && v.length === 0);
+  });
+  if (!hasValue) return null;
+
+  const panel = document.createElement('div');
+  panel.className = 'criterion-requirements criterion-requirements--readonly';
+  const heading = document.createElement('p');
+  heading.className = 'criterion-requirements__heading';
+  heading.textContent = t('ui.requirementHeading', 'Requirement set by the buyer');
+  panel.appendChild(heading);
+
+  const groupEl = document.createElement('div');
+  groupEl.className = 'espd-question-group';
+  appendFields(groupEl, group.fields);
+  panel.appendChild(groupEl);
+
+  // The EO cannot edit the buyer's requirement: disable every control.
+  groupEl.querySelectorAll('input, select, textarea').forEach((el) => {
+    el.disabled = true;
+    el.setAttribute('aria-readonly', 'true');
+    el.classList.add('espd-input-dimmed');
+  });
+  return panel;
 }
 
 // ─── Fields ─────────────────────────────────────────────────────────────────

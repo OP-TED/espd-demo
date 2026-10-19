@@ -1102,21 +1102,24 @@ dialog button[rel="prev"]:hover {
 
 /* Home: the continue card, starting a new ESPD and importing one sit side by
    side as cards, and stack on narrow screens. */
-#landing-page:has(.espd-home-actions) {
+/* Home: two role panels (Buyer / Economic Operator) side by side, with the
+   Continue card (when present) spanning the full width above them. Stacks on
+   narrow screens. */
+#landing-page:has(.espd-role-panel) {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
   gap: var(--gs-base-spacing-l);
   align-items: stretch;
 }
 
-#landing-page:has(.espd-home-actions) > hgroup {
+#landing-page:has(.espd-role-panel) > hgroup,
+#landing-page:has(.espd-role-panel) > .espd-continue-card {
   grid-column: 1 / -1;
   margin-bottom: 0;
 }
 
 .espd-continue-card,
-.espd-home-actions,
-.espd-import-area {
+.espd-role-panel {
   display: flex;
   flex-direction: column;
   gap: var(--gs-base-spacing-s);
@@ -1148,31 +1151,34 @@ dialog button[rel="prev"]:hover {
   font-size: var(--gs-base-font-size-s);
 }
 
-.espd-continue-card > footer,
-.espd-home-actions > :last-child,
-.espd-import-controls {
+.espd-continue-card > footer {
   margin-top: auto;
   padding-top: var(--gs-base-spacing-xs);
 }
 
-.espd-home-actions h2,
-.espd-import-area h2,
-.espd-import-area h3 {
+.espd-role-panel h2 {
   margin: 0;
   font-size: var(--gs-base-font-size-l);
   line-height: 1.3;
 }
 
-.espd-home-actions p,
-.espd-import-area p {
+.espd-role-panel p {
   margin: 0;
 }
 
-.espd-import-controls {
+/* The two action buttons sit at the bottom of the panel, so both panels align
+   even when their descriptions differ in length. */
+.espd-role-panel__actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: var(--gs-base-spacing-s);
+  margin-top: auto;
+  padding-top: var(--gs-base-spacing-xs);
+}
+
+.espd-role-panel__hint {
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-s);
 }
 
 /* Path selection: two cards (Pico <article>s inside .grid). */
@@ -1851,6 +1857,12 @@ fieldset[role="radiogroup"]:has(.espd-role-radio) {
   font-size: var(--gs-base-font-size-s);
   font-weight: var(--gs-base-font-weight-bold, 600);
   color: var(--gs-base-color-gray-75);
+}
+
+/* The EO sees the buyer's requirement as read-only context (not editable). */
+.criterion-requirements--readonly .espd-input-dimmed {
+  background: var(--gs-base-color-gray-5);
+  cursor: not-allowed;
 }
 
 /* 12. Messages ----------------------------------------------------------------- */

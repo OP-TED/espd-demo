@@ -16,7 +16,7 @@ import { loadCodelists } from './codelists.js';
 import { downloadDocument, downloadDraft } from './xml-export.js';
 import { importDocumentFile } from './xml-import.js';
 import { renderHomePage } from './home.js';
-import { renderPathSelector } from './path-selector.js';
+import { renderEoRolePicker } from './path-selector.js';
 import { renderWizardHeader, updateWizardHeader } from './wizard-header.js';
 import { validateInstance, showValidationErrors } from './validation.js';
 
@@ -62,60 +62,83 @@ function showHomePage() {
   const state = getState();
   const roleData = state.role ? getRoleById(state.role) : null;
 
-  // Render home page into landing container
+  const roles = getRoles();
+  const defaultBuyerRole = roles?.buyerTypes?.[0]?.id || 'contracting-authority';
+
+  // Render the two-role home page. Buyer: create / reuse a Request. Economic
+  // Operator: import (a buyer's Request or own response) / create a response.
   renderHomePage({
     container: landingPage,
     session: state,
     roleData,
-    onContinue: () => {
-      // Restore wizard with existing role (Requirement 1.3)
-      showWizard(state.role);
+    onContinue: () => showWizard(state.role),
+
+    // Buyer — create a new blank ESPD Request.
+    onBuyerCreate: () => {
+      resetState();
+      setRole(defaultBuyerRole);
+      showWizard(defaultBuyerRole);
     },
-    onNewEspd: () => {
-      // Show path selector for new ESPD creation
-      showPathSelector();
-    },
-    onImport: (file) => {
-      // Trigger import from home page
-      handleImportFile(file);
-    }
+    // Buyer — reuse (import) an existing Request and keep editing it as a buyer.
+    onBuyerReuse: (file) => handleImportFile(file, { role: defaultBuyerRole, documentType: 'request' }),
+
+    // Economic Operator — both entry points pick a sub-role first.
+    onEoCreate: () => showEoRolePicker({
+      continueLabel: 'Create response',
+      onRole: (roleId) => {
+        resetState();
+        setRole(roleId);
+        seedEconomicOperatorRole(roleId);
+        showWizard(roleId);
+      },
+    }),
+    onEoImport: () => showEoRolePicker({
+      continueLabel: 'Choose a file to import',
+      onRole: (roleId) => triggerEoImport(roleId),
+    }),
   });
 }
 
 /**
- * Show the Path Selector (two-step role selection).
- * Renders into the landing page container.
- * Requirements: 2.1, 2.2, 2.3, 2.4
+ * Show the Economic Operator sub-role picker, then run `onRole` with the chosen
+ * EO role id. Used by both EO entry points (create response, import).
  */
-function showPathSelector() {
+function showEoRolePicker({ continueLabel, onRole }) {
   const landingPage = document.getElementById('landing-page');
   const wizardContainer = document.getElementById('wizard-container');
-
-  // Toggle visibility: show landing, hide wizard
   landingPage.hidden = false;
   wizardContainer.hidden = true;
 
-  const roles = getRoles();
-
-  renderPathSelector({
+  renderEoRolePicker({
     container: landingPage,
-    roles,
-    onRoleSelected: (roleId) => {
-      // Reset state for clean session, set new role (Requirement 2.4)
-      resetState();
-      setRole(roleId);
-      // The EO already chose their specific role at the start, and the five EO
-      // role ids ARE the eo-role-type codes, so preselect Part II §A's "Role in
-      // this bid" from it. Only for a fresh EO session (state was just reset) and
-      // only the five EO roles — buyers have no such field.
-      seedEconomicOperatorRole(roleId);
-      showWizard(roleId);
-    },
-    onCancel: () => {
-      // Return to home page
-      showHomePage();
-    }
+    roles: getRoles(),
+    title: 'Select your role',
+    subtitle: 'Choose how you are taking part in this procurement procedure.',
+    continueLabel,
+    onRoleSelected: onRole,
+    onCancel: () => showHomePage(),
   });
+}
+
+/**
+ * EO import: the sub-role is already chosen, so open the file dialog and import
+ * with intent { role: <eo-role>, documentType: 'response' }. A buyer's Request
+ * then transitions into the EO's response (keeping Part I + the declared
+ * criteria + the buyer's requirement values as read-only context).
+ */
+function triggerEoImport(roleId) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.xml,.json';
+  input.id = 'eo-import-file'; // stable handle for tests / assistive tech
+  input.style.display = 'none';
+  document.body.appendChild(input);
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    if (file) handleImportFile(file, { role: roleId, documentType: 'response' });
+    document.body.removeChild(input);
+  });
+  input.click();
 }
 
 /**
@@ -183,8 +206,8 @@ function showWizard(roleId) {
         const dialog = document.getElementById('confirm-new-dialog');
         dialog.showModal();
       } else {
-        // No answers — go directly to path selector (Requirement 6.4)
-        showPathSelector();
+        // No answers — go straight back to the home page to pick a fresh flow.
+        showHomePage();
       }
     },
     onImport: () => {
@@ -227,28 +250,33 @@ function triggerImportFromWizard() {
 
 /**
  * Handle importing a file with session overwrite warning.
- * Requirements: 4.3, 4.4, 4.5
  * @param {File} file - The file to import
+ * @param {{role?: string, documentType?: 'request'|'response'}} [intent]
+ *   The caller's intended role/documentType (e.g. EO importing a buyer's
+ *   Request → { role: <eo-role>, documentType: 'response' }). Passed through to
+ *   the importer, which lets it override what the file itself implies.
  */
-async function handleImportFile(file) {
-  // If a session with answers exists, warn before overwriting (Requirement 4.5)
+async function handleImportFile(file, intent) {
+  // If a session with answers exists, warn before overwriting.
   if (hasSession() && hasAnswers()) {
     const proceed = confirm('Importing will replace your current session. Do you want to continue?');
     if (!proceed) return;
   }
 
-  const result = await importDocumentFile(file);
+  const result = await importDocumentFile(file, intent);
 
   if (result.success) {
-    // On successful import, update wizard header and show wizard (Requirement 4.3)
+    // When an EO imported a buyer's Request, the session is now an EO Response,
+    // so preselect Part II's "Role in this bid" from the chosen sub-role.
+    if (result.transitioned) seedEconomicOperatorRole(result.role);
+
     const importedRole = getRoleById(result.role);
-    const docType = importedRole?.documentType || 'request';
+    const docType = result.documentType || importedRole?.documentType || 'request';
     const label = displayRoleLabel(importedRole, result.role);
 
     updateWizardHeader({ documentType: docType, roleLabel: label });
     showWizard(result.role);
   } else {
-    // On failure, display an error message (Requirement 4.4)
     alert(`Import failed: ${result.message}`);
   }
 }
@@ -264,11 +292,11 @@ function setupConfirmDialog() {
   const btnOk = document.getElementById('btn-confirm-new-ok');
   const btnCancel = document.getElementById('btn-confirm-new-cancel');
 
-  // Confirm: reset state and show path selector (Requirement 6.2)
+  // Confirm: reset state and return to the home page to pick a fresh flow.
   btnOk.addEventListener('click', () => {
     dialog.close();
     resetState();
-    showPathSelector();
+    showHomePage();
   });
 
   // Cancel: close dialog, return to wizard unchanged (Requirement 6.3)

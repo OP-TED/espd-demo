@@ -104,40 +104,57 @@ function renderContinueCard(session, roleData, onContinue) {
   `;
 }
 
-/**
- * Renders the import area (file input + import button, prominently displayed).
- * @returns {string} HTML string
- */
-function renderImportArea() {
+/** The Buyer role section: create a new Request, or reuse an existing one. */
+function renderBuyerSection() {
   return `
-    <div class="espd-import-area" role="region" aria-label="Import existing ESPD">
-      <h2>Import an ESPD document</h2>
-      <p>Load an ESPD Request you received, or an ESPD you saved earlier, as an XML file.</p>
-      <div class="espd-import-controls">
-        <input type="file" id="import-file-home" accept=".xml,.json" aria-label="Select ESPD file to import">
-        <button type="button" id="btn-import-home" class="secondary">Import</button>
+    <section class="espd-role-panel" role="region" aria-labelledby="buyer-heading">
+      <h2 id="buyer-heading">Buyer</h2>
+      <p>Create an ESPD Request setting out the exclusion grounds and selection criteria for a procurement procedure.</p>
+      <div class="espd-role-panel__actions">
+        <button type="button" id="btn-buyer-create" class="contrast">Create a new ESPD</button>
+        <div class="espd-reuse-control">
+          <button type="button" id="btn-buyer-reuse" class="secondary">Reuse an existing ESPD</button>
+          <input type="file" id="buyer-reuse-file" accept=".xml,.json" hidden aria-label="Select an ESPD Request to reuse">
+        </div>
       </div>
-    </div>
+      <p class="espd-role-panel__hint">Reuse loads an ESPD Request you prepared earlier so you can keep editing it.</p>
+    </section>
+  `;
+}
+
+/** The Economic Operator role section: import a Request/response, or start fresh. */
+function renderEoSection() {
+  return `
+    <section class="espd-role-panel" role="region" aria-labelledby="eo-heading">
+      <h2 id="eo-heading">Economic Operator</h2>
+      <p>Respond to a buyer's ESPD Request, or create your ESPD from scratch to declare your suitability.</p>
+      <div class="espd-role-panel__actions">
+        <button type="button" id="btn-eo-import" class="contrast">Import ESPD</button>
+        <button type="button" id="btn-eo-create" class="secondary">Create response</button>
+      </div>
+      <p class="espd-role-panel__hint">Import loads the buyer's ESPD Request (or your own saved ESPD) so you can complete your answers.</p>
+    </section>
   `;
 }
 
 /**
  * Renders the home page content into the specified container.
  *
- * When a session with a role exists, displays a Continue Card with session
- * details plus the New ESPD and Import options.
- *
- * When no session exists, displays only the New ESPD button and Import area.
+ * Two role-scoped sections — Buyer (create / reuse a Request) and Economic
+ * Operator (import / create a response) — plus a Continue card when a session
+ * exists. Mirrors the flow of other ESPD services so users feel familiar.
  *
  * @param {object} options
  * @param {HTMLElement} options.container - The #landing-page element
  * @param {object|null} options.session - Current state from getState()
  * @param {object|null} options.roleData - Role metadata from getRoleById()
- * @param {function} options.onContinue - Callback when Continue card is clicked
- * @param {function} options.onNewEspd - Callback to open path selector
- * @param {function(File):void} options.onImport - Callback when import file is selected
+ * @param {function} options.onContinue   - resume the saved session
+ * @param {function} options.onBuyerCreate - buyer: new blank Request
+ * @param {function(File):void} options.onBuyerReuse - buyer: import a Request to keep editing
+ * @param {function} options.onEoImport   - EO: pick sub-role, then import a Request/response
+ * @param {function} options.onEoCreate   - EO: pick sub-role, then a blank Response
  */
-export function renderHomePage({ container, session, roleData, onContinue, onNewEspd, onImport }) {
+export function renderHomePage({ container, session, roleData, onContinue, onBuyerCreate, onBuyerReuse, onEoImport, onEoCreate }) {
   if (!container) return;
 
   const hasSession = session && session.role;
@@ -145,54 +162,42 @@ export function renderHomePage({ container, session, roleData, onContinue, onNew
   let html = `
     <hgroup>
       <h1 id="landing-heading">European Single Procurement Document</h1>
-      <p>Create an ESPD Request or Response for EU public procurement procedures.</p>
+      <p>Create an ESPD Request as a buyer, or complete your ESPD as an economic operator.</p>
     </hgroup>
   `;
 
-  // Section order (left to right): 1. Create new  2. Import  3. Continue.
-
-  // 1. Create new ESPD document
-  html += `
-    <div class="espd-home-actions" role="region" aria-labelledby="new-espd-heading">
-      <h2 id="new-espd-heading">Create new ESPD document</h2>
-      <p>Buyers create an ESPD Request setting out the exclusion grounds and selection criteria. Economic operators answer it with an ESPD or create an ESPD from scratch.</p>
-      <div>
-        <button type="button" id="btn-new-espd" class="contrast">New ESPD document</button>
-      </div>
-    </div>
-  `;
-
-  // 2. Import area — prominently displayed, not inside <details> (Requirement 4.1)
-  html += renderImportArea();
-
-  // 3. Continue Card (only when a session exists)
+  // Continue card first when a session exists, so resuming is one click away.
   if (hasSession && roleData) {
     html += renderContinueCard(session, roleData, onContinue);
   }
 
+  html += renderBuyerSection();
+  html += renderEoSection();
+
   container.innerHTML = html;
 
-  // Wire event listeners
+  // ─ Continue ─
   const continueBtn = container.querySelector('#btn-continue-session');
-  if (continueBtn && onContinue) {
-    continueBtn.addEventListener('click', onContinue);
-  }
+  if (continueBtn && onContinue) continueBtn.addEventListener('click', onContinue);
 
-  const newBtn = container.querySelector('#btn-new-espd');
-  if (newBtn && onNewEspd) {
-    newBtn.addEventListener('click', onNewEspd);
-  }
+  // ─ Buyer ─
+  const buyerCreate = container.querySelector('#btn-buyer-create');
+  if (buyerCreate && onBuyerCreate) buyerCreate.addEventListener('click', onBuyerCreate);
 
-  // Import: read the selected file and pass to callback
-  const importFileInput = container.querySelector('#import-file-home');
-  const importBtn = container.querySelector('#btn-import-home');
-
-  if (importBtn && importFileInput && onImport) {
-    importBtn.addEventListener('click', () => {
-      const file = importFileInput.files[0];
-      if (file) {
-        onImport(file);
-      }
+  const reuseBtn = container.querySelector('#btn-buyer-reuse');
+  const reuseFile = container.querySelector('#buyer-reuse-file');
+  if (reuseBtn && reuseFile && onBuyerReuse) {
+    reuseBtn.addEventListener('click', () => reuseFile.click());
+    reuseFile.addEventListener('change', () => {
+      const file = reuseFile.files[0];
+      if (file) onBuyerReuse(file);
     });
   }
+
+  // ─ Economic Operator ─ (the file step happens AFTER the sub-role picker, in app.js)
+  const eoImport = container.querySelector('#btn-eo-import');
+  if (eoImport && onEoImport) eoImport.addEventListener('click', onEoImport);
+
+  const eoCreate = container.querySelector('#btn-eo-create');
+  if (eoCreate && onEoCreate) eoCreate.addEventListener('click', onEoCreate);
 }

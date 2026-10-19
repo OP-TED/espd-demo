@@ -1,19 +1,19 @@
 /**
  * Phase 0 E2E helpers — shared navigation + field utilities for the CURRENT UI.
  *
- * These drive the REAL flow (home → path-selector two-step → wizard), so the
- * behaviour/golden suite stays consistent and does not re-encode selectors.
+ * These drive the REAL flow (two-role home → [EO sub-role picker] → wizard), so
+ * the behaviour/golden suite stays consistent and does not re-encode selectors.
  *
  * NOTE: These specs cannot run in the current dev sandbox (Chromium fails to
  * launch: `browserType.launch: spawn UNKNOWN`). Run with `npm run test:e2e` in
  * CI or locally. See tests/phase0/README.md.
  *
- * Selectors (model-driven UI, Phase 4/5):
- *   home:          #btn-new-espd, #btn-continue-session,
- *                  #import-file-home + #btn-import-home
- *   path-selector: step 1 = two <article> cards each with a <button>;
- *                  Buyer enters the wizard directly; Economic Operator shows
- *                  step 2 = radios input[name="espd-role"] + a Continue <button>
+ * Selectors (model-driven UI):
+ *   home:          two role panels. Buyer: #btn-buyer-create (new Request),
+ *                  #btn-buyer-reuse + #buyer-reuse-file (reuse a Request).
+ *                  Economic Operator: #btn-eo-create (new response),
+ *                  #btn-eo-import (import a Request/response). #btn-continue-session.
+ *   eo picker:     radios input[name="espd-role"] + a Continue <button> (.contrast)
  *   wizard:        #wizard-container, #form-content, #btn-prev, #btn-next,
  *                  #btn-download, #btn-validate
  *   fields:        [data-field="<dataPath>"] (input/select/textarea within or on it)
@@ -23,40 +23,30 @@
 
 import { expect } from '@playwright/test';
 
-/** Role id → index of its <article> path card in step 1 (0 = Buyer, 1 = EO). */
-const PATH_OF_ROLE = {
-  'contracting-authority': 0,
-  'contracting-entity': 0,
-  'sole-tenderer': 1,
-  'group-lead': 1,
-  'group-mem': 1,
-  'oeron': 1,
-  'subcont': 1,
-};
+/** The five Economic Operator sub-roles (the rest are buyer roles). */
+const EO_ROLES = new Set(['sole-tenderer', 'group-lead', 'group-mem', 'oeron', 'subcont']);
 
 /**
- * From the loaded app, go home → New ESPD → pick path → pick role → enter wizard.
- * Leaves the page on the wizard, first visible part rendered.
+ * From the loaded app, enter the wizard as `roleId` via the two-role home page.
+ * Buyer: "Create a new ESPD" enters directly. Economic Operator: "Create
+ * response" → pick the sub-role → Continue. Leaves the page on the wizard, first
+ * visible part rendered.
+ *
+ * NOTE: the UI presents a single "Buyer", so both buyer role ids enter the
+ * wizard as the default buyer role — pass 'contracting-authority' for buyers.
  */
 export async function startWizardAs(page, roleId) {
   await page.goto('/');
   await expect(page.locator('#landing-page')).toBeVisible();
 
-  // Home → New ESPD opens the path selector (into the landing container).
-  await page.locator('#btn-new-espd').click();
-
-  // Step 1: pick Buyer (card 0) or Economic Operator (card 1).
-  const pathIndex = PATH_OF_ROLE[roleId];
-  if (pathIndex === undefined) throw new Error(`Unknown role for path selection: ${roleId}`);
-  await page.locator('#landing-page article button').nth(pathIndex).click();
-
-  // The Buyer path enters the wizard directly (no sub-role step — the UI treats
-  // all buyers as one "Buyer"). The Economic Operator path shows step 2: pick the
-  // specific role radio, then Continue.
-  if (pathIndex === 1) {
+  if (EO_ROLES.has(roleId)) {
+    // Economic Operator → "Create response" opens the sub-role picker.
+    await page.locator('#btn-eo-create').click();
     await page.locator(`input[name="espd-role"][value="${roleId}"]`).check();
-    // The step-2 Continue button is the primary (.contrast) action button.
-    await page.locator('#landing-page button.contrast').click();
+    await page.locator('#landing-page button.contrast').click(); // Continue
+  } else {
+    // Buyer → "Create a new ESPD" enters the wizard directly.
+    await page.locator('#btn-buyer-create').click();
   }
 
   await expect(page.locator('#wizard-container')).toBeVisible();

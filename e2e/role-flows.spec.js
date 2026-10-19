@@ -20,36 +20,34 @@ const VISIBLE_PARTS = {
   'subcont': ['I', 'II', 'III', 'VI'],
 };
 
-test.describe('Path selector + role-driven wizard', () => {
-  test('home shows the New ESPD action and an import area', async ({ page }) => {
+test.describe('Two-role home + role-driven wizard', () => {
+  test('home shows the Buyer and Economic Operator panels with their actions', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('#landing-page')).toBeVisible();
-    await expect(page.locator('#btn-new-espd')).toBeVisible();
-    await expect(page.locator('#import-file-home')).toBeVisible();
+    await expect(page.locator('#btn-buyer-create')).toBeVisible();
+    await expect(page.locator('#btn-buyer-reuse')).toBeVisible();
+    await expect(page.locator('#btn-eo-create')).toBeVisible();
+    await expect(page.locator('#btn-eo-import')).toBeVisible();
   });
 
-  test('New ESPD opens the path selector with Buyer and Economic Operator', async ({ page }) => {
+  test('Buyer "Create a new ESPD" enters the wizard directly (no sub-role step)', async ({ page }) => {
     await page.goto('/');
-    await page.locator('#btn-new-espd').click();
-    const cards = page.locator('#landing-page article');
-    await expect(cards).toHaveCount(2); // Buyer, Economic Operator
-  });
-
-  test('picking Buyer enters the wizard directly (no sub-role step)', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('#btn-new-espd').click();
-    // Buyer is card 0. The UI no longer differentiates buyer sub-types, so there
-    // is no step-2 role radio — selecting Buyer goes straight to the wizard.
-    await page.locator('#landing-page article').nth(0).locator('button').click();
+    await page.locator('#btn-buyer-create').click();
     await expect(page.locator('#wizard-container')).toBeVisible();
     await expect(page.locator('input[name="espd-role"]')).toHaveCount(0);
   });
 
-  test('picking Economic Operator shows the EO sub-role step', async ({ page }) => {
+  test('EO "Create response" shows the sub-role picker', async ({ page }) => {
     await page.goto('/');
-    await page.locator('#btn-new-espd').click();
-    // Economic Operator is card 1 → step 2 with the EO role radios.
-    await page.locator('#landing-page article').nth(1).locator('button').click();
+    await page.locator('#btn-eo-create').click();
+    await expect(page.locator('input[name="espd-role"][value="sole-tenderer"]')).toBeVisible();
+    await expect(page.locator('input[name="espd-role"][value="group-lead"]')).toBeVisible();
+  });
+
+  test('EO "Import ESPD" shows the sub-role picker before the file dialog', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#btn-eo-import').click();
+    // The sub-role picker appears first; the file dialog opens only after Continue.
     await expect(page.locator('input[name="espd-role"][value="sole-tenderer"]')).toBeVisible();
   });
 

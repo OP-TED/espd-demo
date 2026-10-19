@@ -119,6 +119,17 @@ function showPathSelector() {
 }
 
 /**
+ * The role label shown in the wizard header. The UI no longer differentiates
+ * buyer sub-types (Contracting Authority vs Contracting Entity), so every buyer
+ * (a request role) is labelled "Buyer". Economic-operator sub-roles stay
+ * distinct and keep their specific label.
+ */
+function displayRoleLabel(role, roleId) {
+  if (role?.documentType === 'request') return 'Buyer';
+  return role ? t(role.labelKey, roleId) : 'Unknown Role';
+}
+
+/**
  * Preselect Part II §A's "Role in this bid" (partII.economicOperator.role) from
  * the role the economic operator chose at the start. The eo-role-type codelist
  * codes are exactly the five EO role ids (sole-tenderer, group-lead, group-mem,
@@ -155,7 +166,7 @@ function showWizard(roleId) {
   const headerContainer = wizardContainer.querySelector('.espd-wizard-header');
   const role = getRoleById(roleId);
   const documentType = role?.documentType || 'request';
-  const roleLabel = role ? t(role.labelKey, roleId) : 'Unknown Role';
+  const roleLabel = displayRoleLabel(role, roleId);
 
   renderWizardHeader({
     container: headerContainer,
@@ -232,7 +243,7 @@ async function handleImportFile(file) {
     // On successful import, update wizard header and show wizard (Requirement 4.3)
     const importedRole = getRoleById(result.role);
     const docType = importedRole?.documentType || 'request';
-    const label = importedRole ? t(importedRole.labelKey, result.role) : 'Unknown Role';
+    const label = displayRoleLabel(importedRole, result.role);
 
     updateWizardHeader({ documentType: docType, roleLabel: label });
     showWizard(result.role);

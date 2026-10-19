@@ -69,7 +69,13 @@ function getAnsweredCount(instance) {
  */
 function renderContinueCard(session, roleData, onContinue) {
   const documentType = roleData?.documentType || 'request';
-  const roleLabel = roleData ? t(roleData.labelKey, roleData.id) : 'Unknown Role';
+  // The UI no longer differentiates buyer sub-types (Contracting Authority vs
+  // Contracting Entity) — all buyers are shown as "Buyer". Economic-operator
+  // sub-roles stay distinct (sole tenderer, group member, …), so show their
+  // specific label.
+  const roleLabel = documentType === 'request'
+    ? 'Buyer'
+    : (roleData ? t(roleData.labelKey, roleData.id) : 'Unknown Role');
   const lastModified = session.metadata?.lastModified || null;
   const answeredCount = getAnsweredCount(session.instance);
   const badgeModifier = documentType === 'response' ? 'espd-doc-badge--response' : 'espd-doc-badge--request';

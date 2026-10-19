@@ -10,7 +10,7 @@
 
 import { loadLanguage, t } from './i18n.js';
 import { loadModel, getPart, getPartsForRole, getRoles, getRoleById } from './model.js';
-import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, resetState, getAnswers, hasAnswers, hasSession } from './state.js';
+import { initState, getState, setRole, setCurrentStep, getCurrentStep, getRole, resetState, getAnswers, getAnswer, setAnswer, hasAnswers, hasSession } from './state.js';
 import { renderPart } from './renderer.js';
 import { loadCodelists } from './codelists.js';
 import { downloadDocument, downloadDraft } from './xml-export.js';
@@ -104,6 +104,11 @@ function showPathSelector() {
       // Reset state for clean session, set new role (Requirement 2.4)
       resetState();
       setRole(roleId);
+      // The EO already chose their specific role at the start, and the five EO
+      // role ids ARE the eo-role-type codes, so preselect Part II §A's "Role in
+      // this bid" from it. Only for a fresh EO session (state was just reset) and
+      // only the five EO roles — buyers have no such field.
+      seedEconomicOperatorRole(roleId);
       showWizard(roleId);
     },
     onCancel: () => {
@@ -111,6 +116,24 @@ function showPathSelector() {
       showHomePage();
     }
   });
+}
+
+/**
+ * Preselect Part II §A's "Role in this bid" (partII.economicOperator.role) from
+ * the role the economic operator chose at the start. The eo-role-type codelist
+ * codes are exactly the five EO role ids (sole-tenderer, group-lead, group-mem,
+ * oeron, subcont), so the role id is also the code. No-op for buyer roles and if
+ * the field is already set (e.g. after an import). Writes into the instance so it
+ * flows to the exported document, not just the rendered dropdown.
+ */
+function seedEconomicOperatorRole(roleId) {
+  const role = getRoleById(roleId);
+  if (role?.documentType !== 'response') return; // buyers have no such field
+  const EO_ROLE_CODES = new Set(['sole-tenderer', 'group-lead', 'group-mem', 'oeron', 'subcont']);
+  if (!EO_ROLE_CODES.has(roleId)) return;
+  if (getAnswer('partII.economicOperator.role') === undefined) {
+    setAnswer('partII.economicOperator.role', roleId);
+  }
 }
 
 /**

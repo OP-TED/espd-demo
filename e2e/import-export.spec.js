@@ -179,5 +179,8 @@ test.describe('Export → import → resume', () => {
     await expect(
       page.locator('.espd-criterion[data-section-tag="C25"]')
     ).toBeVisible();
+    // Sections whose criteria the buyer did NOT declare still appear, with a
+    // "No criteria selected" note (mirroring peer services like ejn.gov.si).
+    await expect(page.locator('.espd-section-empty').first()).toBeVisible();
   });
 });

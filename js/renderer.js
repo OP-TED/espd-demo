@@ -50,15 +50,30 @@ export function renderPart(part, partKey, role, container) {
   const restrictToDeclared = isEo && hasInclusions();
 
   for (const section of part.sections) {
+    const hasCriteria = section.members.some((m) => m.kind === 'criterion');
     const members = restrictToDeclared
       ? section.members.filter((m) => m.kind !== 'criterion' || isDeclared(m))
       : section.members;
-    if (members.length === 0) continue;
+
+    // A criterion section with nothing left after filtering: the buyer declared
+    // none of its criteria. Still show the section (heading + a "No criteria
+    // selected" note) so the EO sees the full structure — mirroring peer ESPD
+    // services. A non-criterion section that filtered empty is simply skipped.
+    const emptyCriterionSection = restrictToDeclared && hasCriteria && members.length === 0;
+    if (members.length === 0 && !emptyCriterionSection) continue;
+
     if (section.titleKey) {
       const h = document.createElement('h3');
       h.className = 'espd-section-title';
       h.textContent = t(section.titleKey, section.id);
       container.appendChild(h);
+    }
+    if (emptyCriterionSection) {
+      const note = document.createElement('p');
+      note.className = 'espd-section-empty';
+      note.textContent = t('ui.noCriteriaSelected', 'No criteria selected.');
+      container.appendChild(note);
+      continue;
     }
     for (const member of members) {
       container.appendChild(renderMember(member, role));

@@ -35,8 +35,12 @@ export function renderPart(part, partKey, role, container) {
 
   container.appendChild(partHeader(part, partKey));
 
-  // Buyer sees Parts III/IV as a criteria-selection checklist.
-  if (isBuyer && (partKey === 'III' || partKey === 'IV')) {
+  // The buyer sees the criterion-bearing parts (III exclusion grounds, IV
+  // selection criteria, V reduction-of-candidates) as a criteria-SELECTION
+  // checklist — they choose which criteria apply (and set any requirement),
+  // they do not answer them. The EO answers later. Without this, Part V's
+  // EO-only answer fields would wrongly render as editable in the buyer path.
+  if (isBuyer && (partKey === 'III' || partKey === 'IV' || partKey === 'V')) {
     renderCriteriaSelectionView(part, partKey, role, container);
     applyConditionalLogic(container);
     return;
@@ -465,7 +469,7 @@ function reapplyConditionals(fromEl) {
   applyConditionalLogic(root);
 }
 
-// ─── Buyer criteria-selection view (Parts III/IV) ─────────────────────────────
+// ─── Buyer criteria-selection view (Parts III/IV/V) ───────────────────────────
 
 function renderCriteriaSelectionView(part, partKey, role, container) {
   const criterionMembers = part.sections.flatMap((s) => s.members.filter((m) => m.kind === 'criterion'));

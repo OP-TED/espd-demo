@@ -15,7 +15,7 @@ import { getAnswer, setAnswer, getInclusionState, setInclusionState, initInclusi
 import { getCodelist } from './codelists.js';
 import { applyConditionalLogic } from './conditional.js';
 import { lookupNotice, extractNoticeNumberFromUrl } from './ted-lookup.js';
-import { getRoleById, isCriterionMandatory } from './model.js';
+import { getRoleById, isCriterionMandatory, isPartEditable } from './model.js';
 import { features } from './features.js';
 
 const EO_ROLES = new Set(['sole-tenderer', 'group-lead', 'group-mem', 'oeron', 'subcont']);
@@ -84,16 +84,20 @@ export function renderPart(part, partKey, role, container) {
     }
   }
 
-  // Part I buyer affordances: the TED "Look up" button on the publication
-  // reference fields. (Per the model, publication is { type, identifier, url } —
-  // the DocRefContentType `type` dropdown replaces the legacy mutually-exclusive
-  // radio group, so there is no radio-input-group here.)
-  if (partKey === 'I') {
-    if (EO_ROLES.has(role)) {
-      markReadOnly(container);
-    } else if (features.tedLookup) {
-      enhanceTedLookup(container);
-    }
+  // Part I buyer affordance: the TED "Look up" button on the publication
+  // reference fields (buyers author Part I; feature-gated).
+  if (partKey === 'I' && !EO_ROLES.has(role) && features.tedLookup) {
+    enhanceTedLookup(container);
+  }
+
+  // Read-only enforcement, driven by the role's editableParts (the model's
+  // authorship boundary): a part a role may SEE but not AUTHOR is dimmed and
+  // disabled. This covers the EO viewing the buyer-authored Part I, and the
+  // buyer viewing the EO-authored Part VI (signature) — and any future
+  // visible-but-not-editable combination — from one rule instead of per-part
+  // special cases.
+  if (!isPartEditable(partKey, role)) {
+    markReadOnly(container);
   }
 
   applyConditionalLogic(container);
@@ -585,7 +589,7 @@ function requirementFields(member) {
 
 // ─── Part I affordances ───────────────────────────────────────────────────────
 
-/** Mark all Part I fields read-only (EO sees the buyer-authored Part I). */
+/** Disable + dim every control in a part the active role may see but not edit. */
 function markReadOnly(container) {
   container.querySelectorAll('input, select, textarea').forEach((el) => {
     el.disabled = true;

@@ -6,9 +6,9 @@
  *     (.xml), assembled by the document composer.
  *   - "Save draft"   (#btn-draft)    → the JSON instance document
  *     (format "espd-instance", .json) — the lossless save-progress file.
- * Import accepts BOTH .xml and .json. Entry points: Buyer "Reuse an existing
- * ESPD" (#buyer-reuse-file) and Economic Operator "Import ESPD" (#btn-eo-import
- * → sub-role picker → #eo-import-file).
+ * Import accepts BOTH .xml and .json. Entry points: Buyer "Reuse existing ESPD
+ * request" (#buyer-reuse-file) and Economic Operator "Import ESPD"
+ * (#btn-eo-import → sub-role picker → #eo-import-file).
  *
  * These tests cover the lossless JSON draft round-trip (fill → save draft →
  * import → resume) and the official UBL export + re-import (role detected).

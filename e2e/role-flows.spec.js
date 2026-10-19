@@ -30,14 +30,14 @@ test.describe('Two-role home + role-driven wizard', () => {
     await expect(page.locator('#btn-eo-import')).toBeVisible();
   });
 
-  test('Buyer "Create a new ESPD" enters the wizard directly (no sub-role step)', async ({ page }) => {
+  test('Buyer "Create new ESPD request" enters the wizard directly (no sub-role step)', async ({ page }) => {
     await page.goto('/');
     await page.locator('#btn-buyer-create').click();
     await expect(page.locator('#wizard-container')).toBeVisible();
     await expect(page.locator('input[name="espd-role"]')).toHaveCount(0);
   });
 
-  test('EO "Create response" shows the sub-role picker', async ({ page }) => {
+  test('EO "Create new ESPD" shows the sub-role picker', async ({ page }) => {
     await page.goto('/');
     await page.locator('#btn-eo-create').click();
     await expect(page.locator('input[name="espd-role"][value="sole-tenderer"]')).toBeVisible();

@@ -28,8 +28,8 @@ const EO_ROLES = new Set(['sole-tenderer', 'group-lead', 'group-mem', 'oeron', '
 
 /**
  * From the loaded app, enter the wizard as `roleId` via the two-role home page.
- * Buyer: "Create a new ESPD" enters directly. Economic Operator: "Create
- * response" → pick the sub-role → Continue. Leaves the page on the wizard, first
+ * Buyer: "Create new ESPD request" enters directly. Economic Operator: "Create
+ * new ESPD" → pick the sub-role → Continue. Leaves the page on the wizard, first
  * visible part rendered.
  *
  * NOTE: the UI presents a single "Buyer", so both buyer role ids enter the
@@ -40,12 +40,12 @@ export async function startWizardAs(page, roleId) {
   await expect(page.locator('#landing-page')).toBeVisible();
 
   if (EO_ROLES.has(roleId)) {
-    // Economic Operator → "Create response" opens the sub-role picker.
+    // Economic Operator → "Create new ESPD" opens the sub-role picker.
     await page.locator('#btn-eo-create').click();
     await page.locator(`input[name="espd-role"][value="${roleId}"]`).check();
     await page.locator('#landing-page button.contrast').click(); // Continue
   } else {
-    // Buyer → "Create a new ESPD" enters the wizard directly.
+    // Buyer → "Create new ESPD request" enters the wizard directly.
     await page.locator('#btn-buyer-create').click();
   }
 

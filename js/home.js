@@ -111,9 +111,9 @@ function renderBuyerSection() {
       <h2 id="buyer-heading">Buyer</h2>
       <p>Create an ESPD Request setting out the exclusion grounds and selection criteria for a procurement procedure.</p>
       <div class="espd-role-panel__actions">
-        <button type="button" id="btn-buyer-create" class="contrast">Create a new ESPD</button>
+        <button type="button" id="btn-buyer-create" class="contrast">Create new ESPD request</button>
         <div class="espd-reuse-control">
-          <button type="button" id="btn-buyer-reuse" class="secondary">Reuse an existing ESPD</button>
+          <button type="button" id="btn-buyer-reuse" class="secondary">Reuse existing ESPD request</button>
           <input type="file" id="buyer-reuse-file" accept=".xml,.json" hidden aria-label="Select an ESPD Request to reuse">
         </div>
       </div>
@@ -130,7 +130,7 @@ function renderEoSection() {
       <p>Respond to a buyer's ESPD Request, or create your ESPD from scratch to declare your suitability.</p>
       <div class="espd-role-panel__actions">
         <button type="button" id="btn-eo-import" class="contrast">Import ESPD</button>
-        <button type="button" id="btn-eo-create" class="secondary">Create response</button>
+        <button type="button" id="btn-eo-create" class="secondary">Create new ESPD</button>
       </div>
       <p class="espd-role-panel__hint">Import loads the buyer's ESPD Request (or your own saved ESPD) so you can complete your answers.</p>
     </section>
@@ -166,13 +166,13 @@ export function renderHomePage({ container, session, roleData, onContinue, onBuy
     </hgroup>
   `;
 
-  // Continue card first when a session exists, so resuming is one click away.
+  // Three columns, left to right: Buyer, Economic Operator, and (when a session
+  // exists) Continue.
+  html += renderBuyerSection();
+  html += renderEoSection();
   if (hasSession && roleData) {
     html += renderContinueCard(session, roleData, onContinue);
   }
-
-  html += renderBuyerSection();
-  html += renderEoSection();
 
   container.innerHTML = html;
 

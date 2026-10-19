@@ -1112,8 +1112,9 @@ dialog button[rel="prev"]:hover {
   align-items: stretch;
 }
 
-#landing-page:has(.espd-role-panel) > hgroup,
-#landing-page:has(.espd-role-panel) > .espd-continue-card {
+/* Only the page heading spans the full width; the Buyer, Economic Operator and
+   Continue cards each occupy their own column. */
+#landing-page:has(.espd-role-panel) > hgroup {
   grid-column: 1 / -1;
   margin-bottom: 0;
 }

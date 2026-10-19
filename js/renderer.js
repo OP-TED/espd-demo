@@ -97,9 +97,7 @@ function renderAdministrative(member, role) {
 
   const group = document.createElement('div');
   group.className = 'espd-question-group';
-  for (const field of member.fields) {
-    group.appendChild(renderField(field));
-  }
+  appendFields(group, member.fields);
   wrap.appendChild(group);
   return wrap;
 }
@@ -127,15 +125,94 @@ function renderCriterion(member, role) {
   for (const group of member.groups || []) {
     const groupEl = document.createElement('div');
     groupEl.className = 'espd-question-group';
-    for (const field of group.fields) {
-      groupEl.appendChild(renderField(field));
-    }
+    appendFields(groupEl, group.fields);
     wrap.appendChild(groupEl);
   }
   return wrap;
 }
 
 // ─── Fields ─────────────────────────────────────────────────────────────────
+
+/**
+ * Append a list of fields to a container, pairing each monetary amount with its
+ * currency. An AMOUNT/MINIMUM_AMOUNT/MAXIMUM_AMOUNT leaf is emitted by the
+ * compiler as two consecutive fields that share a semanticId: the numeric value
+ * and a `currency`-codelist select, both carrying the same labelKey. Rendered
+ * separately they read as a duplicated label and an unlabelled dropdown; here we
+ * detect the pair and render them as one amount field (shared label once, value
+ * + a clearly-labelled "Currency" select side by side).
+ */
+function appendFields(parent, fields) {
+  for (let i = 0; i < fields.length; i++) {
+    const field = fields[i];
+    const next = fields[i + 1];
+    if (isAmountPair(field, next)) {
+      parent.appendChild(renderAmountField(field, next));
+      i++; // consume the currency field too
+      continue;
+    }
+    parent.appendChild(renderField(field));
+  }
+}
+
+/** Is `value` the amount of a monetary pair whose currency is the next field? */
+function isAmountPair(value, currency) {
+  return (
+    value && currency &&
+    value.kind !== 'caption' && currency.kind !== 'caption' &&
+    value.semanticId && value.semanticId === currency.semanticId &&
+    value.uiType === 'number' && currency.uiType === 'code' &&
+    currency.codelist === 'currency'
+  );
+}
+
+/**
+ * Render a monetary amount (value + currency) as one grouped field: the shared
+ * label once, the amount input and the currency select side by side. The
+ * currency select gets its own accessible label ("Currency") rather than
+ * repeating the amount label. Both controls keep their own data-field / dataset
+ * so state binding, conditional visibility and validation are unchanged.
+ */
+function renderAmountField(valueField, currencyField) {
+  const wrap = document.createElement('div');
+  wrap.className = 'espd-field espd-amount';
+  wrap.dataset.field = valueField.dataPath;
+  if (valueField.visibleWhen) {
+    wrap.dataset.visibleWhen = JSON.stringify(valueField.visibleWhen);
+    wrap.hidden = true; // conditional.js reveals it when the condition holds
+  }
+
+  const label = t(valueField.labelKey, valueField.dataPath);
+  const required = valueField.required === true;
+
+  // Shared heading for the pair (the amount's label), with the required marker.
+  const groupLabel = document.createElement('span');
+  groupLabel.className = 'espd-amount__label';
+  groupLabel.innerHTML = `${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}`;
+  wrap.appendChild(groupLabel);
+
+  const row = document.createElement('div');
+  row.className = 'espd-amount__row';
+
+  // Amount value (number). Reuse inputControl but strip its own label, since the
+  // shared label above covers the pair.
+  const valueCtl = inputControl(valueField, label, required, 'number');
+  const valueLabelEl = valueCtl.querySelector('label');
+  if (valueLabelEl) valueLabelEl.remove();
+  valueCtl.classList.add('espd-amount__value');
+  row.appendChild(valueCtl);
+
+  // Currency (code select) with its own label. Prefer a model-supplied
+  // propertyLabelKey (some criteria set "ui.currency" via their presentation
+  // sidecar); otherwise default to the "Currency" catalogue entry.
+  const currencyLabel = t(currencyField.propertyLabelKey || 'ui.currency', 'Currency');
+  const currencyCtl = codeControl(currencyField, currencyLabel, currencyField.required === true);
+  currencyCtl.classList.add('espd-amount__currency');
+  row.appendChild(currencyCtl);
+
+  wrap.appendChild(row);
+  return wrap;
+}
 
 /**
  * Render one field, bound to the instance document at field.dataPath.
@@ -393,7 +470,7 @@ function renderCriterionChecklistItem(member, role) {
     requirementPanel.appendChild(heading);
     const group = document.createElement('div');
     group.className = 'espd-question-group';
-    for (const field of reqFields) group.appendChild(renderField(field));
+    appendFields(group, reqFields);
     requirementPanel.appendChild(group);
     card.appendChild(requirementPanel);
   }

@@ -1563,6 +1563,38 @@ fieldset[role="radiogroup"]:has(.espd-role-radio) {
   max-width: 28rem;
 }
 
+/* A monetary amount: one shared label, then the amount value and the currency
+   select side by side (each keeps its own control; the amount label is shown
+   once above the pair, the currency gets its own "Currency" label). */
+.espd-amount__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: var(--gs-base-font-size-s);
+  font-weight: 700;
+}
+
+.espd-amount__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gs-base-spacing-m);
+  align-items: flex-end;
+}
+
+.espd-amount__value {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.espd-amount__currency {
+  flex: 0 1 12rem;
+  min-width: 0;
+}
+
+/* The currency label sits above its select, in the normal field weight. */
+.espd-amount__currency label {
+  font-weight: 400;
+}
+
 /* A period (two dates side by side) and evidence (three fields): the group's
    name is the legend, each field keeps its own visible label. */
 .espd-period > legend,

@@ -62,6 +62,15 @@ test('labels are the English column only (multilingual columns ignored)', () => 
   assert.equal(catalogue['codelist.label.country.FRA'] ?? 'France', 'France');
 });
 
+test('XML character entities in .gc labels are decoded (no &amp; in the UI text)', () => {
+  // EOIDType DUNS is "Duns &amp; Bradstreet number" in the .gc; the catalogue
+  // must carry the real ampersand so the dropdown shows "&", not "&amp;".
+  // (The renderer sets option text via textContent, which re-escapes for display.)
+  const label = catalogue['codelist.label.eoid-type.DUNS'];
+  assert.equal(label, 'Duns & Bradstreet number');
+  assert.ok(!label.includes('&amp;'), 'the stored label must not keep the XML escape');
+});
+
 test('counts match the underlying .gc row counts', () => {
   for (const [name, doc] of byName) {
     const gc = governance.codelists[name].gc;

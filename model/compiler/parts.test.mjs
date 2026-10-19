@@ -137,8 +137,18 @@ describe('parts: assembled lens shape', () => {
     }
   });
 
-  it('visibleWhen is preserved on dependent fields', () => {
-    const scheme = fieldOf(lensOf('I'), 'partI.contractingAuthority.identifier.scheme');
+  it('visibleWhen is carried through to the built lens when a field declares one', () => {
+    // No admin field currently uses visibleWhen (the identifier type is shown
+    // unconditionally), so inject one into a cloned source and confirm the
+    // projection preserves it verbatim.
+    const src = clone(sources);
+    const field = src.parts[0].sections[1].fields[3]; // partI.contractingAuthority.identifier.scheme
+    field.visibleWhen = { path: 'partI.contractingAuthority.identifier.value', isPresent: true };
+    const { lenses: built } = buildPartsLens({ sources: src, write: false });
+    const scheme = built
+      .find((l) => l.part === 'I')
+      .sections.flatMap((s) => s.fields)
+      .find((f) => f.dataPath === 'partI.contractingAuthority.identifier.scheme');
     assert.deepEqual(scheme.visibleWhen, {
       path: 'partI.contractingAuthority.identifier.value',
       isPresent: true,

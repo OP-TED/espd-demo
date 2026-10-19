@@ -83,11 +83,7 @@
               "uiType": "code",
               "labelKey": "partI.contractingAuthority.identifier.scheme",
               "codelist": "EOIDType",
-              "required": false,
-              "visibleWhen": {
-                "path": "partI.contractingAuthority.identifier.value",
-                "isPresent": true
-              }
+              "required": false
             }
           ]
         }

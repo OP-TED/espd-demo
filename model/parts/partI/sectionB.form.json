@@ -37,12 +37,11 @@
     {
       "dataPath": "partI.contractingAuthority.identifier.scheme",
       "labelKey": "partI.contractingAuthority.identifier.scheme",
-      "label": "Identifier scheme",
+      "label": "Identifier type",
       "uiType": "code",
       "codelist": "EOIDType",
       "required": false,
-      "description": "The scheme the identifier belongs to (NATIONAL, LEI, BRIS, DUNS, VAT). Required once an identifier value is given. The XML @schemeAgencyID (BR-OTH-02) is DERIVED from this scheme at export (VAT→VIES, …; OP otherwise), so there is no separate scheme-agency field.",
-      "visibleWhen": { "path": "partI.contractingAuthority.identifier.value", "isPresent": true }
+      "description": "The type of identifier (NATIONAL, LEI, BRIS, DUNS, VAT) — the EOIDType codelist. Shown alongside the identifier so the user can pick the type and enter the value together. The XML @schemeAgencyID (BR-OTH-02) is DERIVED from this type at export (VAT→VIES, …; OP otherwise), so there is no separate scheme-agency field."
     }
   ]
 }

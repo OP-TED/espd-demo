@@ -198,15 +198,13 @@ test('the form lens covers the buyer fields with severity-matched requiredness',
   assert.equal(byPath.get('partI.contractingAuthority.country').required, true);
   assert.equal(byPath.get('partI.contractingAuthority.identifier.value').required, false);
 
-  // Country + scheme are codelist pickers.
+  // Country + identifier type are codelist pickers.
   assert.equal(byPath.get('partI.contractingAuthority.country').codelist, 'country');
   assert.equal(byPath.get('partI.contractingAuthority.identifier.scheme').codelist, 'EOIDType');
 
-  // The scheme only makes sense once a value is being entered.
-  assert.deepEqual(byPath.get('partI.contractingAuthority.identifier.scheme').visibleWhen, {
-    path: 'partI.contractingAuthority.identifier.value',
-    isPresent: true,
-  });
+  // The identifier type is shown alongside the identifier (no visibleWhen gate),
+  // so the user can pick the type and enter the value together.
+  assert.equal(byPath.get('partI.contractingAuthority.identifier.scheme').visibleWhen, undefined);
 });
 
 test('every form dataPath exists in the schema', () => {

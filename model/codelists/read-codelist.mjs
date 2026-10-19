@@ -21,6 +21,26 @@ export function codelistPath(gcFileName) {
   return path.join(CODELISTS_DIR, gcFileName);
 }
 
+/**
+ * Decode the XML character entities a .gc text value may carry. Genericode is
+ * XML, so a literal ampersand in a label (e.g. "Duns & Bradstreet number") is
+ * stored escaped as "&amp;". Extracting the raw text keeps that escape, which
+ * then shows through in the UI as "&amp;". Decode the five predefined XML
+ * entities (plus numeric refs) so the stored label is the real text; the UI
+ * renders it with textContent, which re-escapes safely for display.
+ */
+export function decodeXmlEntities(text) {
+  if (typeof text !== 'string') return text;
+  return text
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&'); // last: so "&amp;lt;" decodes to "&lt;", not "<"
+}
+
 // Lazily-built index: codelist NAME (as used in our profiles / sidecar `codelist`
 // values, e.g. 'financial-ratio-type') -> .gc file name. A .gc declares both a
 // ShortName ('FinancialRatioType') and a LongName ('financial-ratio-type' or
@@ -92,7 +112,7 @@ export function readCodelistEntries(gcPath) {
     for (const m of row.matchAll(
       /<Value\s+ColumnRef\s*=\s*"([^"]+)"[^>]*>\s*<SimpleValue>([\s\S]*?)<\/SimpleValue>/g
     )) {
-      cells.set(m[1], m[2].trim());
+      cells.set(m[1], decodeXmlEntities(m[2].trim()));
     }
     const code = cells.get('code');
     if (code === undefined) continue;
@@ -122,7 +142,7 @@ export function readCodelistCodes(gcPath) {
     const match = row.match(
       /<Value\s+ColumnRef\s*=\s*"code"[^>]*>\s*<SimpleValue>([\s\S]*?)<\/SimpleValue>/
     );
-    if (match) codes.push(match[1].trim());
+    if (match) codes.push(decodeXmlEntities(match[1].trim()));
   }
   return codes;
 }

@@ -4446,7 +4446,7 @@
   "codelist.label.eoid-type.NATIONAL": "National Identifier",
   "codelist.label.eoid-type.LEI": "Legal Entity Identifier",
   "codelist.label.eoid-type.BRIS": "Business Registry European Unique Identifier",
-  "codelist.label.eoid-type.DUNS": "Duns &amp; Bradstreet number",
+  "codelist.label.eoid-type.DUNS": "Duns & Bradstreet number",
   "codelist.label.eoid-type.VAT": "VAT number",
   "codelist.label.access-right.PUBLIC": "public",
   "codelist.label.access-right.RESTRICTED": "restricted",

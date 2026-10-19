@@ -10,7 +10,7 @@
   "partI.contractingAuthority.officialName": "Official name",
   "partI.contractingAuthority.country": "Country",
   "partI.contractingAuthority.identifier.value": "Identifier",
-  "partI.contractingAuthority.identifier.scheme": "Identifier scheme",
+  "partI.contractingAuthority.identifier.scheme": "Identifier type",
   "section.title.I.C": "Procurement procedure",
   "partI.sectionC.description": "Identify the procurement procedure, the project it concerns, and the lots it is divided into.",
   "partI.procedure.procedureType": "Type of procedure",

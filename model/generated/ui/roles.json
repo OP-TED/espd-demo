@@ -51,10 +51,6 @@
           "misconduct": "mandatory",
           "national": "mandatory"
         }
-      },
-      "xmlMapping": {
-        "element": "cac:ContractingParty/cac:ContractingPartyType/cbc:PartyTypeCode",
-        "code": "cont-auth"
       }
     },
     {
@@ -82,10 +78,6 @@
           "misconduct": "mandatory",
           "national": "mandatory"
         }
-      },
-      "xmlMapping": {
-        "element": "cac:ContractingParty/cac:ContractingPartyType/cbc:PartyTypeCode",
-        "code": "cont-ent"
       }
     }
   ],

@@ -12,6 +12,7 @@
  *   home:          #btn-new-espd, #btn-continue-session,
  *                  #import-file-home + #btn-import-home
  *   path-selector: step 1 = two <article> cards each with a <button>;
+ *                  Buyer enters the wizard directly; Economic Operator shows
  *                  step 2 = radios input[name="espd-role"] + a Continue <button>
  *   wizard:        #wizard-container, #form-content, #btn-prev, #btn-next,
  *                  #btn-download, #btn-validate
@@ -49,10 +50,14 @@ export async function startWizardAs(page, roleId) {
   if (pathIndex === undefined) throw new Error(`Unknown role for path selection: ${roleId}`);
   await page.locator('#landing-page article button').nth(pathIndex).click();
 
-  // Step 2: select the specific role radio, then Continue.
-  await page.locator(`input[name="espd-role"][value="${roleId}"]`).check();
-  // The step-2 Continue button is the primary (.contrast) action button.
-  await page.locator('#landing-page button.contrast').click();
+  // The Buyer path enters the wizard directly (no sub-role step — the UI treats
+  // all buyers as one "Buyer"). The Economic Operator path shows step 2: pick the
+  // specific role radio, then Continue.
+  if (pathIndex === 1) {
+    await page.locator(`input[name="espd-role"][value="${roleId}"]`).check();
+    // The step-2 Continue button is the primary (.contrast) action button.
+    await page.locator('#landing-page button.contrast').click();
+  }
 
   await expect(page.locator('#wizard-container')).toBeVisible();
   await expect(page.locator('#form-content h2')).toBeVisible();

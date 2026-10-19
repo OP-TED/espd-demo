@@ -1,5 +1,5 @@
 {
-  "$comment": "Role registry. The authored source of truth for the ESPD role model: the buyer types that create a Request and the economic-operator roles that create a Response, each with its form behaviour (which Parts are visible/editable, and the mandatory/optional disposition of the four exclusion-ground categories) and its UBL party-role binding. Ported from the legacy espd-edm/roles.json and extended with exclusionCategoryMap (the Part III section-code -> exclusion-category prefix map that js/model.js currently hard-codes), so the whole role model is one first-class compiler input. The compiler (model/compiler/roles.mjs) validates this and emits model/generated/ui/roles.json; English label/description text is split out to the i18n catalogue, keyed role.label.<id> / role.description.<id>, mirroring the codelist service-data lens.",
+  "$comment": "Role registry. The authored source of truth for the ESPD role model: the buyer types that create a Request and the economic-operator roles that create a Response, each with its form behaviour (which Parts are visible/editable, and the mandatory/optional disposition of the four exclusion-ground categories). EO roles additionally carry an `xmlMapping` (cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode = <EoRoleType code>), which the Part II §A mapping serialises. The BUYER types carry NO xmlMapping: in ESPD-EDM 5.0.0 the buyer/EO split is STRUCTURAL (a Request's cac:ContractingParty vs a Response's cac:EconomicOperatorParty), and there is no grounded serialization for the Contracting-Authority vs Contracting-Entity sub-distinction — cbc:PartyTypeCode has no ESPD codelist and no Schematron rule, so the former cont-auth/cont-ent mapping (an ungrounded carry-over) was removed. The two buyer types are kept so the CA/CE regulatory distinction (Directive 2014/24 vs 2014/25) survives in the model for when further buyer roles are introduced, even though the UI now presents a single 'Buyer'. Ported from the legacy espd-edm/roles.json and extended with exclusionCategoryMap (the Part III section-code -> exclusion-category prefix map that js/model.js currently hard-codes). The compiler (model/compiler/roles.mjs) validates this and emits model/generated/ui/roles.json; English label/description text is split out to the i18n catalogue, keyed role.label.<id> / role.description.<id>, mirroring the codelist service-data lens.",
   "parts": ["I", "II", "III", "IV", "V", "VI"],
   "exclusionCategories": ["criminal", "payment", "misconduct", "national"],
   "exclusionDispositions": ["mandatory", "optional"],
@@ -26,10 +26,6 @@
           "misconduct": "mandatory",
           "national": "mandatory"
         }
-      },
-      "xmlMapping": {
-        "element": "cac:ContractingParty/cac:ContractingPartyType/cbc:PartyTypeCode",
-        "code": "cont-auth"
       }
     },
     {
@@ -46,10 +42,6 @@
           "misconduct": "mandatory",
           "national": "mandatory"
         }
-      },
-      "xmlMapping": {
-        "element": "cac:ContractingParty/cac:ContractingPartyType/cbc:PartyTypeCode",
-        "code": "cont-ent"
       }
     }
   ],

@@ -102,10 +102,22 @@ describe('roles: registry validation', () => {
     assert.throws(() => validateRoleRegistry(bad), /invalid documentType/);
   });
 
-  it('rejects a role missing xmlMapping', () => {
+  it('rejects an EO role missing xmlMapping', () => {
     const bad = structuredClone(registry);
     delete bad.eoRoles[0].xmlMapping;
     assert.throws(() => validateRoleRegistry(bad), /missing xmlMapping/);
+  });
+
+  it('accepts a buyer role without xmlMapping (buyer type is structural, not serialized)', () => {
+    const ok = structuredClone(registry);
+    delete ok.buyerTypes[0].xmlMapping; // may already be absent; ensure it is
+    assert.doesNotThrow(() => validateRoleRegistry(ok));
+  });
+
+  it('rejects a malformed xmlMapping when one is present', () => {
+    const bad = structuredClone(registry);
+    bad.eoRoles[0].xmlMapping = { element: 'x' }; // missing .code
+    assert.throws(() => validateRoleRegistry(bad), /missing \.element or \.code/);
   });
 
   it('rejects an exclusionCategoryMap value that is not a declared category', () => {

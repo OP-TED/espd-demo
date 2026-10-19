@@ -1,7 +1,10 @@
 /**
- * Path Selector module — two-step role selection flow.
+ * Path Selector module — role selection flow.
  * Step 1: Choose a path (Buyer or Economic Operator).
- * Step 2: Choose a specific role within the selected path.
+ *   - Buyer: no sub-type is shown (the UI treats all buyers as one "Buyer"), so
+ *     selecting it enters the wizard directly with the default buyer role.
+ *   - Economic Operator: proceeds to Step 2 to pick a specific EO role.
+ * Step 2 (EO only): choose a specific Economic Operator role.
  */
 
 import { t } from './i18n.js';
@@ -36,30 +39,30 @@ function renderStep1({ container, roles, onRoleSelected, onCancel }) {
   const grid = document.createElement('div');
   grid.className = 'grid';
 
-  // Buyer card
+  // Buyer card. The UI no longer differentiates buyer sub-types (Contracting
+  // Authority vs Contracting Entity) — it presents a single "Buyer" — so picking
+  // Buyer goes STRAIGHT into the wizard, skipping the per-role step. The model
+  // still keeps both buyer types (see model-sources/registries/roles.json); the
+  // UI defaults to the first one so the CA/CE distinction survives underneath for
+  // when further buyer roles are introduced.
+  const defaultBuyerRoleId = roles.buyerTypes[0]?.id;
   const buyerCard = createPathCard({
     title: 'Buyer',
     description: 'Create an ESPD Request defining the criteria and exclusion grounds for a procurement procedure.',
-    buttonLabel: 'Select Buyer Path',
-    onClick: () => renderStep2({
-      container,
-      path: 'buyer',
-      roleEntries: roles.buyerTypes,
-      roles,
-      onRoleSelected,
-      onCancel
-    })
+    buttonLabel: 'Create ESPD Request',
+    onClick: () => onRoleSelected(defaultBuyerRoleId)
   });
   grid.appendChild(buyerCard);
 
-  // Economic Operator card
+  // Economic Operator card. EO sub-roles (sole tenderer, group leader/member,
+  // other-entity-relied-on, subcontractor) are a real distinction that maps to
+  // cac:EconomicOperatorRole/cbc:RoleCode, so the EO path keeps its role step.
   const eoCard = createPathCard({
     title: 'Economic Operator',
     description: 'Create an ESPD Response to declare your suitability for a procurement procedure.',
     buttonLabel: 'Select Economic Operator Path',
     onClick: () => renderStep2({
       container,
-      path: 'eo',
       roleEntries: roles.eoRoles,
       roles,
       onRoleSelected,
@@ -93,18 +96,17 @@ function renderStep1({ container, roles, onRoleSelected, onCancel }) {
 }
 
 /**
- * Render Step 2: specific role selection for the chosen path.
- * Uses radio buttons for role selection with a single Continue button.
+ * Render Step 2: specific Economic Operator role selection.
+ * Uses radio buttons for role selection with a single Continue button. Only the
+ * EO path reaches this step — the buyer path goes straight into the wizard.
  */
-function renderStep2({ container, path, roleEntries, roles, onRoleSelected, onCancel }) {
+function renderStep2({ container, roleEntries, roles, onRoleSelected, onCancel }) {
   container.innerHTML = '';
-
-  const pathLabel = path === 'buyer' ? 'Buyer' : 'Economic Operator';
 
   const heading = document.createElement('hgroup');
   heading.innerHTML = `
     <h2>Select Your Role</h2>
-    <p>Choose a specific ${pathLabel} role.</p>
+    <p>Choose a specific Economic Operator role.</p>
   `;
   container.appendChild(heading);
 
@@ -124,7 +126,7 @@ function renderStep2({ container, path, roleEntries, roles, onRoleSelected, onCa
   // Radio group for role selection
   const fieldset = document.createElement('fieldset');
   fieldset.setAttribute('role', 'radiogroup');
-  fieldset.setAttribute('aria-label', `${pathLabel} role selection`);
+  fieldset.setAttribute('aria-label', 'Economic Operator role selection');
 
   let selectedRoleId = roleEntries[0]?.id || null;
 
@@ -165,7 +167,7 @@ function renderStep2({ container, path, roleEntries, roles, onRoleSelected, onCa
   const actions = document.createElement('div');
   actions.className = 'espd-path-selector__actions';
   const continueBtn = document.createElement('button');
-  continueBtn.textContent = path === 'buyer' ? 'Create ESPD Request' : 'Create ESPD Response';
+  continueBtn.textContent = 'Create ESPD Response';
   continueBtn.className = 'contrast';
   continueBtn.addEventListener('click', () => {
     if (selectedRoleId) {

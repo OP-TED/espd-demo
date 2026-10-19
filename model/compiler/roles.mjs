@@ -126,9 +126,18 @@ export function validateRoleRegistry(registry) {
       }
     }
 
+    // xmlMapping serialises a role into the UBL document. EO roles (response)
+    // require it — it is the cac:EconomicOperatorRole/cbc:RoleCode the Part II §A
+    // mapping emits. BUYER roles (request) carry NONE: the buyer/EO split is
+    // structural (ContractingParty vs EconomicOperatorParty) and the CA/CE
+    // sub-distinction has no grounded ESPD serialization. So xmlMapping is
+    // OPTIONAL for buyers; when present (on any role) it must be well-formed.
     const xm = role.xmlMapping;
-    if (!xm || !xm.element || !xm.code) {
-      throw new Error(`roles.json: ${where} is missing xmlMapping.element or xmlMapping.code`);
+    if (role.documentType === 'response' && !xm) {
+      throw new Error(`roles.json: ${where} (an economic-operator role) is missing xmlMapping`);
+    }
+    if (xm && (!xm.element || !xm.code)) {
+      throw new Error(`roles.json: ${where} xmlMapping is present but missing .element or .code`);
     }
   }
 

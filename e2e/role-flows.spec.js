@@ -28,18 +28,36 @@ test.describe('Path selector + role-driven wizard', () => {
     await expect(page.locator('#import-file-home')).toBeVisible();
   });
 
-  test('New ESPD opens a two-step path selector (Buyer / Economic Operator)', async ({ page }) => {
+  test('New ESPD opens the path selector with Buyer and Economic Operator', async ({ page }) => {
     await page.goto('/');
     await page.locator('#btn-new-espd').click();
     const cards = page.locator('#landing-page article');
     await expect(cards).toHaveCount(2); // Buyer, Economic Operator
-    // Step 1 → pick Buyer → step 2 shows the buyer role radios.
-    await cards.nth(0).locator('button').click();
-    await expect(page.locator('input[name="espd-role"][value="contracting-authority"]')).toBeVisible();
-    await expect(page.locator('input[name="espd-role"][value="contracting-entity"]')).toBeVisible();
+  });
+
+  test('picking Buyer enters the wizard directly (no sub-role step)', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#btn-new-espd').click();
+    // Buyer is card 0. The UI no longer differentiates buyer sub-types, so there
+    // is no step-2 role radio — selecting Buyer goes straight to the wizard.
+    await page.locator('#landing-page article').nth(0).locator('button').click();
+    await expect(page.locator('#wizard-container')).toBeVisible();
+    await expect(page.locator('input[name="espd-role"]')).toHaveCount(0);
+  });
+
+  test('picking Economic Operator shows the EO sub-role step', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#btn-new-espd').click();
+    // Economic Operator is card 1 → step 2 with the EO role radios.
+    await page.locator('#landing-page article').nth(1).locator('button').click();
+    await expect(page.locator('input[name="espd-role"][value="sole-tenderer"]')).toBeVisible();
   });
 
   for (const [roleId, parts] of Object.entries(VISIBLE_PARTS)) {
+    // The buyer path enters as a single default buyer role, so both buyer ids
+    // resolve to the same wizard; exercise only one (contracting-authority) to
+    // avoid asserting a contracting-entity selection the UI no longer offers.
+    if (roleId === 'contracting-entity') continue;
     test(`${roleId}: wizard shows parts ${parts.join(',')}`, async ({ page }) => {
       await startWizardAs(page, roleId);
       expect(await visibleStepKeys(page)).toEqual(parts);

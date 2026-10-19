@@ -62,13 +62,18 @@ describe('phase0: role registry — structure', () => {
       ['sole-tenderer', 'group-lead', 'group-mem', 'oeron', 'subcont']);
   });
 
-  it('every role has documentType, visibleParts, editableParts, exclusionGroundRules, xmlMapping', () => {
+  it('every role has documentType, visibleParts, editableParts, exclusionGroundRules; EO roles carry xmlMapping', () => {
     for (const r of [...roles.buyerTypes, ...roles.eoRoles]) {
       assert.ok(['request', 'response'].includes(r.documentType), `${r.id} documentType`);
       assert.ok(Array.isArray(r.formBehavior.visibleParts), `${r.id} visibleParts`);
       assert.ok(Array.isArray(r.formBehavior.editableParts), `${r.id} editableParts`);
       assert.ok(r.formBehavior.exclusionGroundRules, `${r.id} exclusionGroundRules`);
-      assert.ok(r.xmlMapping?.element && r.xmlMapping?.code, `${r.id} xmlMapping`);
+      // EO roles serialise via xmlMapping; buyer types are structural and carry none.
+      if (r.documentType === 'response') {
+        assert.ok(r.xmlMapping?.element && r.xmlMapping?.code, `${r.id} xmlMapping`);
+      } else {
+        assert.equal(r.xmlMapping, undefined, `${r.id} (buyer) must not carry xmlMapping`);
+      }
       // editableParts must be a subset of visibleParts
       for (const p of r.formBehavior.editableParts) {
         assert.ok(r.formBehavior.visibleParts.includes(p), `${r.id} editable ${p} is visible`);

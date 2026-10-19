@@ -8,8 +8,8 @@
     {
       "code": "OT",
       "uuid": "0d62c6ed-f074-4fcf-8e9f-f691351d52ad",
-      "nameKey": "criterion.name.OT",
-      "descriptionKey": "criterion.description.OT",
+      "nameKey": "criterion.name.OT60",
+      "descriptionKey": "criterion.description.OT60",
       "filledBy": "economicOperator",
       "dataPath": "partII.economicOperatorCriteria.relied-on-entities",
       "groups": [
@@ -23,7 +23,7 @@
               "filledBy": "economicOperator",
               "uiType": "boolean",
               "required": true,
-              "labelKey": "question.label.OT.QG1.Q1",
+              "labelKey": "question.label.OT60.QG1.Q1",
               "$derivedFrom": "OT60_OT/QG1/Q1"
             },
             {
@@ -32,7 +32,7 @@
               "filledBy": "economicOperator",
               "uiType": "textarea",
               "required": true,
-              "labelKey": "question.label.OT.QG1.QSG1.Q1",
+              "labelKey": "question.label.OT60.QG1.QSG1.Q1",
               "visibleWhen": {
                 "path": "partII.economicOperatorCriteria.relied-on-entities.response.answer",
                 "equals": true
@@ -45,7 +45,7 @@
               "filledBy": "economicOperator",
               "uiType": "text",
               "required": true,
-              "labelKey": "question.label.OT.QG1.QSG1.Q2",
+              "labelKey": "question.label.OT60.QG1.QSG1.Q2",
               "visibleWhen": {
                 "path": "partII.economicOperatorCriteria.relied-on-entities.response.answer",
                 "equals": true
@@ -65,7 +65,7 @@
               "filledBy": "economicOperator",
               "uiType": "boolean",
               "required": true,
-              "labelKey": "question.label.OT.QG2.Q1",
+              "labelKey": "question.label.OT60.QG2.Q1",
               "$derivedFrom": "OT60_OT/QG2/Q1"
             },
             {
@@ -74,7 +74,7 @@
               "filledBy": "economicOperator",
               "uiType": "url",
               "required": true,
-              "labelKey": "question.label.OT.QG2.QSG1.Q1",
+              "labelKey": "question.label.OT60.QG2.QSG1.Q1",
               "repeatable": true,
               "visibleWhen": {
                 "path": "partII.economicOperatorCriteria.relied-on-entities.response.electronicEvidence.availableElectronically",
@@ -88,7 +88,7 @@
               "filledBy": "economicOperator",
               "uiType": "text",
               "required": false,
-              "labelKey": "question.label.OT.QG2.QSG1.Q1",
+              "labelKey": "question.label.OT60.QG2.QSG1.Q1",
               "repeatable": true,
               "visibleWhen": {
                 "path": "partII.economicOperatorCriteria.relied-on-entities.response.electronicEvidence.availableElectronically",
@@ -102,7 +102,7 @@
               "filledBy": "economicOperator",
               "uiType": "text",
               "required": false,
-              "labelKey": "question.label.OT.QG2.QSG1.Q1",
+              "labelKey": "question.label.OT60.QG2.QSG1.Q1",
               "repeatable": true,
               "visibleWhen": {
                 "path": "partII.economicOperatorCriteria.relied-on-entities.response.electronicEvidence.availableElectronically",

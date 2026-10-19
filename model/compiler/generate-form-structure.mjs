@@ -35,15 +35,29 @@ export function loadPresentation(code, dir = path.join(here, '..', 'model-source
 }
 
 /**
+ * The i18n STABLE ID for a criterion. The shipped catalogue (and js/i18n.js
+ * getStableId) key criterion names/descriptions/labels by the criterion CODE,
+ * except for the "OT" family: those several criteria all share code "OT", so
+ * they are disambiguated by their EA TAG (OT65, OT63, …). Keying by the bare
+ * "OT" would collapse them onto one non-existent key and the UI would fall back
+ * to the raw code / dataPath (the untranslated-label bug). Mirror the runtime
+ * convention here so the generated keys match the catalogue.
+ */
+function stableIdOf(criterion) {
+  return criterion.code === 'OT' ? criterion.tag : criterion.code;
+}
+
+/**
  * i18n label key for a leaf (R6.6). The shipped catalogue is keyed by
- * '<kind>.label.<criterion-code>.<EA tag path>' — the requestpath with its
- * leading 'C31_<code>' segment replaced by the bare criterion code.
+ * '<kind>.label.<stableId>.<EA tag path>' — the requestpath with its leading
+ * 'C31_<code>' segment replaced by the criterion stable id (code, or the tag
+ * for the shared-code "OT" family).
  */
 function labelKeyOf(criterion, leaf, profile) {
   const prefix = profile.i18n.labelKeyPrefixByNodeKind[leaf.nodeKind];
   if (!prefix) return undefined;
   const segs = leaf.requestpath.split('/');
-  segs[0] = criterion.code;
+  segs[0] = stableIdOf(criterion);
   return `${prefix}.${segs.join('.')}`;
 }
 
@@ -279,7 +293,7 @@ function fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, 
  */
 function captionField(criterion, caption, gate, registry, profile) {
   const segs = caption.requestpath.split('/');
-  segs[0] = criterion.code;
+  segs[0] = stableIdOf(criterion);
   const field = {
     kind: 'caption',
     labelKey: `${profile.i18n.labelKeyPrefixByNodeKind.caption}.${segs.join('.')}`,
@@ -383,8 +397,8 @@ export function generateCriterionForm(
   return {
     code: criterion.code,
     uuid: criterion.uuid,
-    nameKey: `${profile.i18n.criterionNameKey}.${criterion.code}`,
-    descriptionKey: `${profile.i18n.criterionDescriptionKey}.${criterion.code}`,
+    nameKey: `${profile.i18n.criterionNameKey}.${stableIdOf(criterion)}`,
+    descriptionKey: `${profile.i18n.criterionDescriptionKey}.${stableIdOf(criterion)}`,
     filledBy: roles.size > 1 ? profile.filledBy.mixed : [...roles][0],
     dataPath: [...m.containerPath, criterion[m.key.source]].join('.'),
     groups,

@@ -31,8 +31,10 @@ function stripNode(node) {
 export function projectCompiled(compiled) {
   // arrayContainers and branchSelectors are compiler-derived projection data
   // (from repeatable-group bindings / enum-selector sidecar), not EA structure,
-  // so they are dropped alongside id/instanceModel.
-  const { id, instanceModel, arrayContainers, branchSelectors, ...rest } = compiled;
+  // so they are dropped alongside id/instanceModel/tag. (The output is built
+  // explicitly below from code/uuid/cardinality/children, so this destructure is
+  // belt-and-braces: it documents what is non-structural.)
+  const { id, tag, instanceModel, arrayContainers, branchSelectors, ...rest } = compiled;
   return {
     code: rest.code,
     uuid: rest.uuid,

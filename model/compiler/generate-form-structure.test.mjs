@@ -599,15 +599,18 @@ test('F1 — a caption becomes a non-input note field (labelKey + $derivedFrom, 
   assert.equal(cap.filledBy, undefined);
 });
 
-test('F1 — caption label key follows the same code-stem convention as sibling leaves', () => {
+test('F1 — caption label key follows the same stable-id stem as sibling leaves', () => {
   const { compiled, registry } = compileCode('ot-registered-official-list');
   const form = generateFormStructure(compiled, registry, { partId: 'II' });
   const fields = allFields(form);
   const cap = fields.find(f => f.kind === 'caption');
   assert.ok(cap, 'OT58 has a caption');
-  // Leaves use the bare code "OT" as the stem; the caption must match (not the
-  // EA tag OT58), so key families stay consistent.
-  assert.match(cap.labelKey, /^caption\.label\.OT\./);
+  // The "OT" family shares code "OT", so the i18n stable id is the EA TAG
+  // (OT58). Leaves and the caption must use the SAME stem — the tag — so the key
+  // families stay consistent AND resolve against the tag-keyed catalogue.
+  assert.match(cap.labelKey, /^caption\.label\.OT58\./);
+  const leaf = fields.find(f => f.labelKey && f.kind !== 'caption');
+  assert.match(leaf.labelKey, /^question\.label\.OT58\./, 'sibling leaves use the same OT58 stem');
 });
 
 test('F1 — a caption inside a conditional branch inherits that branch visibleWhen', () => {

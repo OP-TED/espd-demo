@@ -36,6 +36,11 @@ export function overlayEnrichment(core, sidecar) {
 
   const compiled = clone(core);
   compiled.id = sidecar.criterion.id ?? core.code;
+  // The EA tag (e.g. OT65, C01). Carried onto the compiled criterion so the form
+  // generator can key i18n by the stable id — the tag disambiguates the "OT"
+  // family (several criteria share code "OT"). Absent for criteria that declare
+  // no tag (their code is already a unique stable id).
+  if (sidecar.criterion.tag) compiled.tag = sidecar.criterion.tag;
   compiled.instanceModel = sidecar.criterion.instanceModel;
   // Enum-selector branch visibility (e.g. C36: a radio type-selector reveals one
   // of several mutually-exclusive branches). Carried through so the form

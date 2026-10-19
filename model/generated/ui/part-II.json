@@ -55,8 +55,8 @@
           "id": "ot-eo-size",
           "tag": "OT65",
           "code": "OT",
-          "nameKey": "criterion.name.OT",
-          "descriptionKey": "criterion.description.OT",
+          "nameKey": "criterion.name.OT65",
+          "descriptionKey": "criterion.description.OT65",
           "filledBy": "economicOperator",
           "dataPath": "partII.economicOperatorCriteria.eo-size",
           "groups": [
@@ -70,7 +70,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.Q1",
+                  "labelKey": "question.label.OT65.QG1.Q1",
                   "$derivedFrom": "OT65_OT/QG1/Q1"
                 },
                 {
@@ -79,7 +79,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "number",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q1",
+                  "labelKey": "question.label.OT65.QG1.QSG1.Q1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.eo-size.response.answer",
                     "equals": true
@@ -92,7 +92,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "number",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q2",
+                  "labelKey": "question.label.OT65.QG1.QSG1.Q2",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.eo-size.response.answer",
                     "equals": true
@@ -105,7 +105,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "code",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q2",
+                  "labelKey": "question.label.OT65.QG1.QSG1.Q2",
                   "codelist": "currency",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.eo-size.response.answer",
@@ -126,7 +126,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.Q1",
+                  "labelKey": "question.label.OT65.QG2.Q1",
                   "$derivedFrom": "OT65_OT/QG2/Q1"
                 },
                 {
@@ -135,7 +135,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "url",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT65.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.eo-size.response.electronicEvidence.availableElectronically",
@@ -149,7 +149,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT65.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.eo-size.response.electronicEvidence.availableElectronically",
@@ -163,7 +163,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT65.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.eo-size.response.electronicEvidence.availableElectronically",
@@ -181,8 +181,8 @@
           "id": "ot-sheltered-workshop",
           "tag": "OT57",
           "code": "OT",
-          "nameKey": "criterion.name.OT",
-          "descriptionKey": "criterion.description.OT",
+          "nameKey": "criterion.name.OT57",
+          "descriptionKey": "criterion.description.OT57",
           "filledBy": "economicOperator",
           "dataPath": "partII.economicOperatorCriteria.sheltered-workshop",
           "groups": [
@@ -196,7 +196,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.Q1",
+                  "labelKey": "question.label.OT57.QG1.Q1",
                   "$derivedFrom": "OT57_OT/QG1/Q1"
                 },
                 {
@@ -205,7 +205,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "number",
                   "required": false,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q1",
+                  "labelKey": "question.label.OT57.QG1.QSG1.Q1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.sheltered-workshop.response.answer",
                     "equals": true
@@ -218,7 +218,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": false,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q2",
+                  "labelKey": "question.label.OT57.QG1.QSG1.Q2",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.sheltered-workshop.response.answer",
                     "equals": true
@@ -238,7 +238,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.Q1",
+                  "labelKey": "question.label.OT57.QG2.Q1",
                   "$derivedFrom": "OT57_OT/QG2/Q1"
                 },
                 {
@@ -247,7 +247,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "url",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT57.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.sheltered-workshop.response.electronicEvidence.availableElectronically",
@@ -261,7 +261,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT57.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.sheltered-workshop.response.electronicEvidence.availableElectronically",
@@ -275,7 +275,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT57.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.sheltered-workshop.response.electronicEvidence.availableElectronically",
@@ -293,8 +293,8 @@
           "id": "ot-registered-official-list",
           "tag": "OT58",
           "code": "OT",
-          "nameKey": "criterion.name.OT",
-          "descriptionKey": "criterion.description.OT",
+          "nameKey": "criterion.name.OT58",
+          "descriptionKey": "criterion.description.OT58",
           "filledBy": "economicOperator",
           "dataPath": "partII.economicOperatorCriteria.registered-official-list",
           "groups": [
@@ -308,7 +308,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.Q1",
+                  "labelKey": "question.label.OT58.QG1.Q1",
                   "$derivedFrom": "OT58_OT/QG1/Q1"
                 },
                 {
@@ -317,7 +317,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q1",
+                  "labelKey": "question.label.OT58.QG1.QSG1.Q1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.answer",
                     "equals": true
@@ -330,7 +330,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.QSG1.Q1",
+                  "labelKey": "question.label.OT58.QG1.QSG1.QSG1.Q1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.isRegistered",
                     "equals": true
@@ -343,7 +343,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "url",
                   "required": false,
-                  "labelKey": "question.label.OT.QG1.QSG1.QSG1.Q2",
+                  "labelKey": "question.label.OT58.QG1.QSG1.QSG1.Q2",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.isRegistered",
                     "equals": true
@@ -356,7 +356,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": false,
-                  "labelKey": "question.label.OT.QG1.QSG1.QSG1.Q3",
+                  "labelKey": "question.label.OT58.QG1.QSG1.QSG1.Q3",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.isRegistered",
                     "equals": true
@@ -369,7 +369,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.QSG1.QSG1.Q1",
+                  "labelKey": "question.label.OT58.QG1.QSG1.QSG1.QSG1.Q1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.isRegistered",
                     "equals": true
@@ -382,7 +382,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.QSG2.Q1",
+                  "labelKey": "question.label.OT58.QG1.QSG1.QSG2.Q1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.isRegistered",
                     "equals": false
@@ -391,7 +391,7 @@
                 },
                 {
                   "kind": "caption",
-                  "labelKey": "caption.label.OT.QG1.QSG2.CA1",
+                  "labelKey": "caption.label.OT58.QG1.QSG2.CA1",
                   "$derivedFrom": "OT58_OT/QG1/QSG2/CA1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.answer",
@@ -411,7 +411,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.Q1",
+                  "labelKey": "question.label.OT58.QG2.Q1",
                   "$derivedFrom": "OT58_OT/QG2/Q1"
                 },
                 {
@@ -420,7 +420,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "url",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT58.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.electronicEvidence.availableElectronically",
@@ -434,7 +434,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT58.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.electronicEvidence.availableElectronically",
@@ -448,7 +448,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT58.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.registered-official-list.response.electronicEvidence.availableElectronically",
@@ -466,8 +466,8 @@
           "id": "ot-group-participation",
           "tag": "OT59",
           "code": "OT",
-          "nameKey": "criterion.name.OT",
-          "descriptionKey": "criterion.description.OT",
+          "nameKey": "criterion.name.OT59",
+          "descriptionKey": "criterion.description.OT59",
           "filledBy": "economicOperator",
           "dataPath": "partII.economicOperatorCriteria.group-participation",
           "groups": [
@@ -481,7 +481,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.Q1",
+                  "labelKey": "question.label.OT59.QG1.Q1",
                   "$derivedFrom": "OT59_OT/QG1/Q1"
                 },
                 {
@@ -490,7 +490,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "code",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q1",
+                  "labelKey": "question.label.OT59.QG1.QSG1.Q1",
                   "codelist": "eo-role-type",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.group-participation.response.answer",
@@ -504,7 +504,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": false,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q2",
+                  "labelKey": "question.label.OT59.QG1.QSG1.Q2",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.group-participation.response.answer",
                     "equals": true
@@ -517,7 +517,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": false,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q3",
+                  "labelKey": "question.label.OT59.QG1.QSG1.Q3",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.group-participation.response.answer",
                     "equals": true
@@ -537,7 +537,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.Q1",
+                  "labelKey": "question.label.OT59.QG2.Q1",
                   "$derivedFrom": "OT59_OT/QG2/Q1"
                 },
                 {
@@ -546,7 +546,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "url",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT59.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.group-participation.response.electronicEvidence.availableElectronically",
@@ -560,7 +560,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT59.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.group-participation.response.electronicEvidence.availableElectronically",
@@ -574,7 +574,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT59.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.group-participation.response.electronicEvidence.availableElectronically",
@@ -640,8 +640,8 @@
           "id": "ot-relied-on-entities",
           "tag": "OT60",
           "code": "OT",
-          "nameKey": "criterion.name.OT",
-          "descriptionKey": "criterion.description.OT",
+          "nameKey": "criterion.name.OT60",
+          "descriptionKey": "criterion.description.OT60",
           "filledBy": "economicOperator",
           "dataPath": "partII.economicOperatorCriteria.relied-on-entities",
           "groups": [
@@ -655,7 +655,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.Q1",
+                  "labelKey": "question.label.OT60.QG1.Q1",
                   "$derivedFrom": "OT60_OT/QG1/Q1"
                 },
                 {
@@ -664,7 +664,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q1",
+                  "labelKey": "question.label.OT60.QG1.QSG1.Q1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.relied-on-entities.response.answer",
                     "equals": true
@@ -677,7 +677,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q2",
+                  "labelKey": "question.label.OT60.QG1.QSG1.Q2",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.relied-on-entities.response.answer",
                     "equals": true
@@ -697,7 +697,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.Q1",
+                  "labelKey": "question.label.OT60.QG2.Q1",
                   "$derivedFrom": "OT60_OT/QG2/Q1"
                 },
                 {
@@ -706,7 +706,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "url",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT60.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.relied-on-entities.response.electronicEvidence.availableElectronically",
@@ -720,7 +720,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT60.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.relied-on-entities.response.electronicEvidence.availableElectronically",
@@ -734,7 +734,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT60.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.relied-on-entities.response.electronicEvidence.availableElectronically",
@@ -758,8 +758,8 @@
           "id": "ot-subcontractors",
           "tag": "OT61",
           "code": "OT",
-          "nameKey": "criterion.name.OT",
-          "descriptionKey": "criterion.description.OT",
+          "nameKey": "criterion.name.OT61",
+          "descriptionKey": "criterion.description.OT61",
           "filledBy": "economicOperator",
           "dataPath": "partII.economicOperatorCriteria.subcontractors",
           "groups": [
@@ -773,7 +773,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.Q1",
+                  "labelKey": "question.label.OT61.QG1.Q1",
                   "$derivedFrom": "OT61_OT/QG1/Q1"
                 },
                 {
@@ -782,7 +782,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q1",
+                  "labelKey": "question.label.OT61.QG1.QSG1.Q1",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.subcontractors.response.answer",
                     "equals": true
@@ -795,7 +795,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": true,
-                  "labelKey": "question.label.OT.QG1.QSG1.Q2",
+                  "labelKey": "question.label.OT61.QG1.QSG1.Q2",
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.subcontractors.response.answer",
                     "equals": true
@@ -815,7 +815,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.Q1",
+                  "labelKey": "question.label.OT61.QG2.Q1",
                   "$derivedFrom": "OT61_OT/QG2/Q1"
                 },
                 {
@@ -824,7 +824,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "url",
                   "required": true,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT61.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.subcontractors.response.electronicEvidence.availableElectronically",
@@ -838,7 +838,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT61.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.subcontractors.response.electronicEvidence.availableElectronically",
@@ -852,7 +852,7 @@
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.OT.QG2.QSG1.Q1",
+                  "labelKey": "question.label.OT61.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
                     "path": "partII.economicOperatorCriteria.subcontractors.response.electronicEvidence.availableElectronically",

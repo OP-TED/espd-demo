@@ -8,8 +8,8 @@
     {
       "code": "OT",
       "uuid": "51c39ba9-0444-4967-afe9-36f753b30175",
-      "nameKey": "criterion.name.OT",
-      "descriptionKey": "criterion.description.OT",
+      "nameKey": "criterion.name.OT63",
+      "descriptionKey": "criterion.description.OT63",
       "filledBy": "economicOperator",
       "dataPath": "partV.otherCriteria.reduction-of-candidates",
       "groups": [
@@ -23,7 +23,7 @@
               "filledBy": "economicOperator",
               "uiType": "boolean",
               "required": true,
-              "labelKey": "question.label.OT.QG1.Q1",
+              "labelKey": "question.label.OT63.QG1.Q1",
               "$derivedFrom": "OT63_OT/QG1/Q1"
             },
             {
@@ -32,7 +32,7 @@
               "filledBy": "economicOperator",
               "uiType": "textarea",
               "required": true,
-              "labelKey": "question.label.OT.QG1.QSG1.Q1",
+              "labelKey": "question.label.OT63.QG1.QSG1.Q1",
               "visibleWhen": {
                 "path": "partV.otherCriteria.reduction-of-candidates.response.answer",
                 "equals": true
@@ -52,7 +52,7 @@
               "filledBy": "economicOperator",
               "uiType": "boolean",
               "required": true,
-              "labelKey": "question.label.OT.QG2.Q1",
+              "labelKey": "question.label.OT63.QG2.Q1",
               "$derivedFrom": "OT63_OT/QG2/Q1"
             },
             {
@@ -61,7 +61,7 @@
               "filledBy": "economicOperator",
               "uiType": "url",
               "required": true,
-              "labelKey": "question.label.OT.QG2.QSG1.Q1",
+              "labelKey": "question.label.OT63.QG2.QSG1.Q1",
               "repeatable": true,
               "visibleWhen": {
                 "path": "partV.otherCriteria.reduction-of-candidates.response.electronicEvidence.availableElectronically",
@@ -75,7 +75,7 @@
               "filledBy": "economicOperator",
               "uiType": "text",
               "required": false,
-              "labelKey": "question.label.OT.QG2.QSG1.Q1",
+              "labelKey": "question.label.OT63.QG2.QSG1.Q1",
               "repeatable": true,
               "visibleWhen": {
                 "path": "partV.otherCriteria.reduction-of-candidates.response.electronicEvidence.availableElectronically",
@@ -89,7 +89,7 @@
               "filledBy": "economicOperator",
               "uiType": "text",
               "required": false,
-              "labelKey": "question.label.OT.QG2.QSG1.Q1",
+              "labelKey": "question.label.OT63.QG2.QSG1.Q1",
               "repeatable": true,
               "visibleWhen": {
                 "path": "partV.otherCriteria.reduction-of-candidates.response.electronicEvidence.availableElectronically",

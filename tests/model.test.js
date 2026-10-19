@@ -139,17 +139,18 @@ describe('Feature: espd-role-selection, Property 7: Exclusion mandatoriness matc
     );
   });
 
-  it('contracting-authority has mandatory criminal and payment categories', () => {
+  // Policy: all exclusion grounds are mandatory for every role, buyers included.
+  it('contracting-authority has all four exclusion categories mandatory', () => {
     const ca = getRoleById('contracting-authority');
-    assert.strictEqual(ca.formBehavior.exclusionGroundRules.criminal, 'mandatory');
-    assert.strictEqual(ca.formBehavior.exclusionGroundRules.payment, 'mandatory');
+    for (const cat of ['criminal', 'payment', 'misconduct', 'national']) {
+      assert.strictEqual(ca.formBehavior.exclusionGroundRules[cat], 'mandatory', cat);
+    }
   });
 
-  it('contracting-entity has all categories optional', () => {
+  it('contracting-entity has all four exclusion categories mandatory', () => {
     const ce = getRoleById('contracting-entity');
-    assert.strictEqual(ce.formBehavior.exclusionGroundRules.criminal, 'optional');
-    assert.strictEqual(ce.formBehavior.exclusionGroundRules.payment, 'optional');
-    assert.strictEqual(ce.formBehavior.exclusionGroundRules.misconduct, 'optional');
-    assert.strictEqual(ce.formBehavior.exclusionGroundRules.national, 'optional');
+    for (const cat of ['criminal', 'payment', 'misconduct', 'national']) {
+      assert.strictEqual(ce.formBehavior.exclusionGroundRules[cat], 'mandatory', cat);
+    }
   });
 });

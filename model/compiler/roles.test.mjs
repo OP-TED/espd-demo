@@ -182,16 +182,18 @@ describe('roles: behaviour parity with Phase 0 goldens (mandatory exclusion grou
     assert.equal(categoryOf('slc-suit-reg-prof'), null);
   });
 
-  it('contracting-authority: criminal + payment mandatory, misconduct/national optional', () => {
-    assert.equal(isMandatory('exg-crim-part', 'contracting-authority'), true);
-    assert.equal(isMandatory('exg-pmt-bre-tax', 'contracting-authority'), true);
-    assert.equal(isMandatory('exg-mis-distortion', 'contracting-authority'), false);
-    assert.equal(isMandatory('exg-natl-bre-nat-law', 'contracting-authority'), false);
+  // Policy: ALL exclusion grounds are mandatory — the economic operator must
+  // answer every one, so the buyer always includes them (and cannot uncheck).
+  // This holds for every role, buyers included.
+  it('contracting-authority: all four exclusion categories mandatory', () => {
+    for (const code of ['exg-crim-part', 'exg-pmt-bre-tax', 'exg-mis-distortion', 'exg-natl-bre-nat-law']) {
+      assert.equal(isMandatory(code, 'contracting-authority'), true, code);
+    }
   });
 
-  it('contracting-entity: all exclusion grounds optional', () => {
+  it('contracting-entity: all four exclusion categories mandatory', () => {
     for (const code of ['exg-crim-part', 'exg-pmt-bre-tax', 'exg-mis-distortion', 'exg-natl-bre-nat-law']) {
-      assert.equal(isMandatory(code, 'contracting-entity'), false, code);
+      assert.equal(isMandatory(code, 'contracting-entity'), true, code);
     }
   });
 

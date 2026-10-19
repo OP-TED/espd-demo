@@ -23,8 +23,8 @@
         "exclusionGroundRules": {
           "criminal": "mandatory",
           "payment": "mandatory",
-          "misconduct": "optional",
-          "national": "optional"
+          "misconduct": "mandatory",
+          "national": "mandatory"
         }
       },
       "xmlMapping": {
@@ -41,10 +41,10 @@
         "visibleParts": ["I", "III", "IV", "V", "VI"],
         "editableParts": ["I", "III", "IV", "V"],
         "exclusionGroundRules": {
-          "criminal": "optional",
-          "payment": "optional",
-          "misconduct": "optional",
-          "national": "optional"
+          "criminal": "mandatory",
+          "payment": "mandatory",
+          "misconduct": "mandatory",
+          "national": "mandatory"
         }
       },
       "xmlMapping": {

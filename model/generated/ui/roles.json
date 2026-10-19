@@ -48,8 +48,8 @@
         "exclusionGroundRules": {
           "criminal": "mandatory",
           "payment": "mandatory",
-          "misconduct": "optional",
-          "national": "optional"
+          "misconduct": "mandatory",
+          "national": "mandatory"
         }
       },
       "xmlMapping": {
@@ -77,10 +77,10 @@
           "V"
         ],
         "exclusionGroundRules": {
-          "criminal": "optional",
-          "payment": "optional",
-          "misconduct": "optional",
-          "national": "optional"
+          "criminal": "mandatory",
+          "payment": "mandatory",
+          "misconduct": "mandatory",
+          "national": "mandatory"
         }
       },
       "xmlMapping": {

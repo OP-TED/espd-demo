@@ -352,9 +352,12 @@ function renderCriterionChecklistItem(member, role) {
   checkbox.type = 'checkbox';
   checkbox.id = checkboxId;
   checkbox.checked = included;
+  // A mandatory criterion is always included and cannot be unchecked. (All Part
+  // III exclusion grounds are mandatory: the economic operator must answer every
+  // one, so the buyer always includes them.) The checkbox is kept (disabled)
+  // rather than removed, so the selection affordance can be re-enabled later.
   if (mandatory) {
     checkbox.disabled = true;
-    checkbox.setAttribute('aria-describedby', `${checkboxId}-mandatory-help`);
   }
 
   const label = document.createElement('label');
@@ -363,13 +366,6 @@ function renderCriterionChecklistItem(member, role) {
   label.textContent = t(member.nameKey, code || tag);
 
   headerRow.append(checkbox, label);
-  if (mandatory) {
-    const indicator = document.createElement('span');
-    indicator.className = 'criterion-mandatory-indicator';
-    indicator.id = `${checkboxId}-mandatory-help`;
-    indicator.textContent = t('ui.requiredByRegulation', 'Required by regulation');
-    headerRow.appendChild(indicator);
-  }
   card.appendChild(headerRow);
 
   const desc = t(member.descriptionKey, '');

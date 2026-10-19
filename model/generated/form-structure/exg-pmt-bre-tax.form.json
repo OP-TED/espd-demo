@@ -22,7 +22,7 @@
               "dataPath": "partIII.exclusionGrounds.exg-pmt-bre-tax.requirement.minimumAmount.value",
               "filledBy": "contractingAuthority",
               "uiType": "number",
-              "required": true,
+              "required": false,
               "labelKey": "requirement.label.exg-pmt-bre-tax.RG1.RQ1",
               "$derivedFrom": "C07_exg-pmt-bre-tax/RG1/RQ1"
             },
@@ -31,7 +31,7 @@
               "dataPath": "partIII.exclusionGrounds.exg-pmt-bre-tax.requirement.minimumAmount.currency",
               "filledBy": "contractingAuthority",
               "uiType": "code",
-              "required": true,
+              "required": false,
               "labelKey": "requirement.label.exg-pmt-bre-tax.RG1.RQ1",
               "codelist": "currency",
               "$derivedFrom": "C07_exg-pmt-bre-tax/RG1/RQ1"
@@ -41,7 +41,7 @@
               "dataPath": "partIII.exclusionGrounds.exg-pmt-bre-tax.requirement.additionalInformation",
               "filledBy": "contractingAuthority",
               "uiType": "textarea",
-              "required": true,
+              "required": false,
               "labelKey": "requirement.label.exg-pmt-bre-tax.RG1.RQ2",
               "$derivedFrom": "C07_exg-pmt-bre-tax/RG1/RQ2"
             }

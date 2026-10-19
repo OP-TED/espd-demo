@@ -44,7 +44,7 @@ function formatRelativeTime(isoTimestamp) {
  */
 function formatDocumentType(documentType) {
   if (documentType === 'request') return 'ESPD Request';
-  if (documentType === 'response') return 'ESPD Response';
+  if (documentType === 'response') return 'ESPD';
   return 'ESPD';
 }
 

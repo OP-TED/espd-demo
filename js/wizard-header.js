@@ -9,11 +9,11 @@ let headerContainer = null;
 /**
  * Formats the document type string for display.
  * @param {string} documentType - "request" or "response"
- * @returns {string} Display text like "ESPD Request" or "ESPD Response"
+ * @returns {string} Display text: "ESPD Request" for a request, "ESPD" otherwise
  */
 function formatBadgeText(documentType) {
   if (documentType === 'request') return 'ESPD Request';
-  if (documentType === 'response') return 'ESPD Response';
+  if (documentType === 'response') return 'ESPD';
   return 'ESPD';
 }
 

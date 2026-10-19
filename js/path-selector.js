@@ -59,8 +59,8 @@ function renderStep1({ container, roles, onRoleSelected, onCancel }) {
   // cac:EconomicOperatorRole/cbc:RoleCode, so the EO path keeps its role step.
   const eoCard = createPathCard({
     title: 'Economic Operator',
-    description: 'Create an ESPD Response to declare your suitability for a procurement procedure.',
-    buttonLabel: 'Select Economic Operator Path',
+    description: 'Create an ESPD to declare your suitability for a procurement procedure.',
+    buttonLabel: 'Create ESPD',
     onClick: () => renderStep2({
       container,
       roleEntries: roles.eoRoles,
@@ -167,7 +167,7 @@ function renderStep2({ container, roleEntries, roles, onRoleSelected, onCancel }
   const actions = document.createElement('div');
   actions.className = 'espd-path-selector__actions';
   const continueBtn = document.createElement('button');
-  continueBtn.textContent = 'Create ESPD Response';
+  continueBtn.textContent = 'Create ESPD';
   continueBtn.className = 'contrast';
   continueBtn.addEventListener('click', () => {
     if (selectedRoleId) {
@@ -235,7 +235,7 @@ function createRoleCard({ role, onClick }) {
 
   const footer = document.createElement('footer');
   const btn = document.createElement('button');
-  btn.textContent = role.documentType === 'request' ? 'Create ESPD Request' : 'Create ESPD Response';
+  btn.textContent = role.documentType === 'request' ? 'Create ESPD Request' : 'Create ESPD';
   btn.setAttribute('aria-label', `Select role: ${t(role.labelKey, role.id)}`);
   btn.addEventListener('click', onClick);
   footer.appendChild(btn);

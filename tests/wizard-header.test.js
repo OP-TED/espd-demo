@@ -124,7 +124,8 @@ describe('wizard-header.js', () => {
         onImport: () => {}
       });
 
-      assert.ok(container.innerHTML.includes('ESPD Response'), 'should contain badge text "ESPD Response"');
+      const badge = container.querySelector('.espd-doc-badge');
+      assert.strictEqual(badge.textContent.trim(), 'ESPD', 'response badge text is "ESPD"');
       assert.ok(container.innerHTML.includes('espd-doc-badge--response'), 'should have response modifier class');
     });
 
@@ -282,8 +283,8 @@ describe('wizard-header.js', () => {
 
       const badge = container.querySelector('.espd-doc-badge');
       assert.strictEqual(badge.className, 'espd-doc-badge espd-doc-badge--response');
-      assert.strictEqual(badge.textContent, 'ESPD Response');
-      assert.strictEqual(badge.attributes['aria-label'], 'Document type: ESPD Response, Role: Sole Tenderer');
+      assert.strictEqual(badge.textContent, 'ESPD');
+      assert.strictEqual(badge.attributes['aria-label'], 'Document type: ESPD, Role: Sole Tenderer');
     });
 
     it('updates role label text', () => {

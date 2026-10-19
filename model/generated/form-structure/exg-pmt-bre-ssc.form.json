@@ -22,7 +22,7 @@
               "dataPath": "partIII.exclusionGrounds.exg-pmt-bre-ssc.requirement.minimumAmount.value",
               "filledBy": "contractingAuthority",
               "uiType": "number",
-              "required": false,
+              "required": true,
               "labelKey": "requirement.label.exg-pmt-bre-ssc.RG1.RQ1",
               "$derivedFrom": "C08_exg-pmt-bre-ssc/RG1/RQ1"
             },
@@ -31,7 +31,7 @@
               "dataPath": "partIII.exclusionGrounds.exg-pmt-bre-ssc.requirement.minimumAmount.currency",
               "filledBy": "contractingAuthority",
               "uiType": "code",
-              "required": false,
+              "required": true,
               "labelKey": "requirement.label.exg-pmt-bre-ssc.RG1.RQ1",
               "codelist": "currency",
               "$derivedFrom": "C08_exg-pmt-bre-ssc/RG1/RQ1"
@@ -41,7 +41,7 @@
               "dataPath": "partIII.exclusionGrounds.exg-pmt-bre-ssc.requirement.additionalInformation",
               "filledBy": "contractingAuthority",
               "uiType": "textarea",
-              "required": false,
+              "required": true,
               "labelKey": "requirement.label.exg-pmt-bre-ssc.RG1.RQ2",
               "$derivedFrom": "C08_exg-pmt-bre-ssc/RG1/RQ2"
             }

@@ -1,9 +1,0 @@
-{
-  "$comment": "C08 exg-pmt-bre-ssc constraint hints. Structural clone of C07 (exg-pmt-bre-tax). The buyer REQUIREMENT leaves (minimum-amount threshold + additional information) encode the OPTIONAL de-minimis derogation of Article 57(2), 2nd subparagraph of Directive 2014/24/EU for unpaid social security contributions. Not in the ESPD Annex 2 questionnaire and not Schematron-required, so relax both to OPTIONAL via optionalLeaves (form + instance-data schema in step).",
-  "optionalLeaves": {
-    "ids": [
-      "exg-pmt-bre-ssc.minimum-amount",
-      "exg-pmt-bre-ssc.additional-information"
-    ]
-  }
-}

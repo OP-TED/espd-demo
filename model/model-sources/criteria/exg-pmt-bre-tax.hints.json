@@ -1,9 +1,0 @@
-{
-  "$comment": "C07 exg-pmt-bre-tax constraint hints. The buyer REQUIREMENT leaves (minimum-amount threshold + additional information) carry EA cardinality 1, so the generator would mark them required. But they encode the OPTIONAL de-minimis derogation of Article 57(2), 2nd subparagraph of Directive 2014/24/EU ('Member States MAY provide for a derogation ... where only minor amounts ... are unpaid'). The ESPD Annex 2 questionnaire does not even include a buyer threshold field, and no Schematron rule requires it. So relax both to OPTIONAL via optionalLeaves — the buyer sets a threshold only if their Member State applies the derogation. This flows to both the form (not required) and the instance-data schema (not in `required`), keeping the two layers in step.",
-  "optionalLeaves": {
-    "ids": [
-      "exg-pmt-bre-tax.minimum-amount",
-      "exg-pmt-bre-tax.additional-information"
-    ]
-  }
-}

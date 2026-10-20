@@ -60,6 +60,23 @@ function requestValueChild(criterion, leaf, registry, itemPrefixLen = 0) {
   if (!binding) return undefined;
   const base = leafValueBase(criterion, leaf, itemPrefixLen);
 
+  // Per-leaf request-value override, supplied as DATA on the leaf (sidecar
+  // `requestValue`, see overlay-enrichment). Used where the EA value type is
+  // wrong for the leaf — e.g. the two CODE_BOOLEAN leaves whose
+  // boolean-gui-control-type codelist is a GUI-render hint, not a semantic value.
+  // Shape: { element, const? (fixed text), valueMap? (instance->code), attributes? }.
+  // A `const` emits a fixed code (UI-only discriminator); a `valueMap` translates
+  // the instance value (e.g. boolean -> CHECK_BOX_TRUE/FALSE). Keeps the emitted
+  // XML identical to the BASE sample. The generator stays criterion-agnostic
+  // (R11.4): the only criterion-specific knowledge lives in the sidecar.
+  if (leaf.requestValue) {
+    const ov = leaf.requestValue;
+    const node = { element: ov.element, attributes: { ...(ov.attributes ?? {}) } };
+    if (ov.const !== undefined) node.const = ov.const;
+    if (ov.valueMap) { node.from = base; node.valueMap = ov.valueMap; }
+    return node;
+  }
+
   if (binding.kind === 'repeatedProperty') {
     // handled at the property level via forEach; see leafPropertyNode
     return undefined;

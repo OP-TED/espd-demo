@@ -35,7 +35,13 @@
     },
     "C36_slc-stand-other/RG1/RSG1/RSG1/RQ1": {
       "id": "slc-stand-other.requirement-type",
-      "instanceBinding": { "side": "requirement", "path": ["requirementType"] }
+      "instanceBinding": { "side": "requirement", "path": ["requirementType"] },
+      "$requestValueNote": "This leaf's EA value type is CODE_BOOLEAN (boolean-gui-control-type), but it is really the 3-way branch discriminator (Economic/Rating/Descriptive). The UI renders a 3-option selector (presentation optionsOverrides + hints leafShapes enum) whose values match branchSelectors. The EA leaf carries no real enum, so on export emit the BASE constant RADIO_BUTTON_TRUE; the chosen type is a UI-only discriminator, inferred on import from the populated branch. See espd-notes.",
+      "requestValue": {
+        "element": "cbc:ExpectedCode",
+        "const": "RADIO_BUTTON_TRUE",
+        "attributes": { "listID": "boolean-gui-control-type" }
+      }
     },
 
     "C36_slc-stand-other/RG1/RSG1/RSG1/RSG1": {

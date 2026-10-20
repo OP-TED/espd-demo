@@ -22,7 +22,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadEdm, loadSidecar, compile, generateMappings } from './compile.mjs';
+import { loadEdm, loadSidecar, loadHints, compile, generateMappings } from './compile.mjs';
 import { generateInstanceSchema, generateExample } from './generate-instance-schema.mjs';
 import { generateFormStructure } from './generate-form-structure.mjs';
 import { generateRequestMapping } from './generate-request-mapping.mjs';
@@ -123,13 +123,18 @@ test('C36 compiles; amountRequirements container spans BOTH sides', () => {
 
 test('C36 schema + example validate with the repeatable amount block on both sides', async () => {
   const { compiled, registry } = compileC('slc-stand-other');
-  const schema = generateInstanceSchema(compiled, registry, { partId: 'IV' });
+  const hints = loadHints('slc-stand-other');
+  const schema = generateInstanceSchema(compiled, registry, { partId: 'IV', hints });
   const crit = schema.properties.partIV.properties.selectionCriteria.properties['slc-stand-other'];
   assert.equal(crit.properties.requirement.properties.amountRequirements.type, 'array');
   assert.equal(crit.properties.response.properties.amountRequirements.type, 'array');
+  // The requirement-type discriminator is the overridden 3-value enum (not the
+  // raw boolean-gui-control-type codes), matching the branchSelectors values.
+  assert.deepEqual(crit.properties.requirement.properties.requirementType.enum,
+    ['[Economic or Financial]', '[Rating]', '[Descriptive]']);
 
   const validate = (await ajv()).compile(schema);
-  assert.ok(validate(generateExample(compiled, registry)), `C36 example invalid: ${JSON.stringify(validate.errors)}`);
+  assert.ok(validate(generateExample(compiled, registry, hints)), `C36 example invalid: ${JSON.stringify(validate.errors)}`);
 });
 
 test('C36 shape (A): three independent branches gated by the type selector', () => {
@@ -175,7 +180,7 @@ test('C36 request mapping round-trips the single-level repeatable requirement gr
   const request = generateRequestMapping(compiled, registry);
   const data = { partIV: { selectionCriteria: { 'slc-stand-other': { requirement: {
     lotIdentifiers: ['LOT-1'],
-    requirementType: 'CHECK_BOX_TRUE',
+    requirementType: '[Economic or Financial]',
     amountRequirements: [
       { description: 'd1', minimumAmount: { value: 1000, currency: 'EUR' } },
       { description: 'd2', minimumAmount: { value: 2000, currency: 'EUR' } },
@@ -321,7 +326,7 @@ test('C36 amountRequirements[].period round-trips on the request side', () => {
   const request = generateRequestMapping(compiled, registry);
   const data = { partIV: { selectionCriteria: { 'slc-stand-other': { requirement: {
     lotIdentifiers: ['LOT-1'],
-    requirementType: 'CHECK_BOX_TRUE',
+    requirementType: '[Economic or Financial]',
     amountRequirements: [
       { description: 'd1', minimumAmount: { value: 1000, currency: 'EUR' }, period: { startDate: '2019-01-01', endDate: '2019-12-31' } },
       { description: 'd2', minimumAmount: { value: 2000, currency: 'EUR' }, period: { startDate: '2020-06-01', endDate: '2020-12-31' } },

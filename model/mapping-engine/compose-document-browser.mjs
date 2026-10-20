@@ -162,7 +162,29 @@ export async function reconstructFromUbl(xml) {
     instance = deepMerge(instance, unmap(spec, xml));
   }
 
+  inferDerivedDiscriminators(instance);
+
   return { instance, documentType, criterionIds, criteria };
+}
+
+/**
+ * Restore UI-only discriminators that are NOT serialized to UBL. Currently just
+ * C36 (slc-stand-other) `requirementType`: on export it emits a constant
+ * (RADIO_BUTTON_TRUE), so the chosen requirement TYPE is not in the document. It
+ * is inferred from which mutually-exclusive branch block is populated, using the
+ * exact branchSelectors values the form's visibleWhen compares against so the
+ * right branch reveals after import. No-op when C36 is absent.
+ */
+function inferDerivedDiscriminators(instance) {
+  const req = instance?.partIV?.selectionCriteria?.['slc-stand-other']?.requirement;
+  if (!req || req.requirementType !== undefined) return;
+  if (Array.isArray(req.amountRequirements) && req.amountRequirements.length > 0) {
+    req.requirementType = '[Economic or Financial]';
+  } else if (req.rating !== undefined) {
+    req.requirementType = '[Rating]';
+  } else if (req.descriptive !== undefined) {
+    req.requirementType = '[Descriptive]';
+  }
 }
 
 /**

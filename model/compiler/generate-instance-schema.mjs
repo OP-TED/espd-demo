@@ -283,18 +283,30 @@ export function generateCriterionSchema(criterion, registry, hints = null) {
   };
 
   const leafConstraints = hints?.leafConstraints ? cleanHint(hints.leafConstraints) : {};
+  const leafShapes = hints?.leafShapes ? cleanHint(hints.leafShapes) : {};
   const optionalIds = new Set(hints?.optionalLeaves?.ids ?? []);
 
   for (const { leaf, insideConditional } of leavesWithContext(criterion)) {
     const vt = registry.valueTypes[leaf.valueType];
     if (!vt?.instanceShape) throw new Error(`No instanceShape for value type ${leaf.valueType} (${leaf.id})`);
-    let shape = cloneShape(vt.instanceShape);
-    // For per-leaf CODE: the leaf's sidecar `codelist` names the code list; put
-    // it on the shape so the UI knows which picker to use and the enum derivation
-    // can resolve it to a shipped .gc (if the list is small enough to inline).
-    if (leaf.codelist && !shape.codeList) shape.codeList = leaf.codelist;
-    // Derive an enum from the shipped .gc (codeListFile or codeList, size-gated).
-    deriveCodelistEnum(shape);
+    let shape;
+    // Per-leaf shape REPLACE (hints.leafShapes[semanticId]): when the value
+    // type's shape is wrong for this specific leaf, the hint supplies the whole
+    // shape and we skip the value-type clone + codelist/enum derivation. Used
+    // for the two CODE_BOOLEAN leaves whose EA codelist is a GUI-render hint, not
+    // a value (C29 threshold-per-year -> boolean; C36 requirement-type -> a
+    // 3-option branch discriminator). Keeps the shared CODE_BOOLEAN type intact.
+    if (leafShapes[leaf.id]) {
+      shape = cloneShape(leafShapes[leaf.id]);
+    } else {
+      shape = cloneShape(vt.instanceShape);
+      // For per-leaf CODE: the leaf's sidecar `codelist` names the code list; put
+      // it on the shape so the UI knows which picker to use and the enum derivation
+      // can resolve it to a shipped .gc (if the list is small enough to inline).
+      if (leaf.codelist && !shape.codeList) shape.codeList = leaf.codelist;
+      // Derive an enum from the shipped .gc (codeListFile or codeList, size-gated).
+      deriveCodelistEnum(shape);
+    }
     // 4.3.1: array bounds derived from EA cardinality (no hint needed).
     if (shape.type === 'array') {
       const bounds = arrayBoundsFromCardinality(leaf.cardinality);
@@ -431,8 +443,9 @@ function sampleForShape(shape, constraints = null) {
  * `availableElectronically` indicators default to false so no evidence is
  * required — keeping the example valid under the conditional hints.
  */
-export function generateExample(criterion, registry) {
+export function generateExample(criterion, registry, hints = null) {
   const sideData = { requirement: {}, response: {} };
+  const leafShapes = hints?.leafShapes ? cleanHint(hints.leafShapes) : {};
 
   // Set a value at a binding path, opening a single-element ARRAY at each
   // array-container depth (task 7.0 / nested C34). `arrayDepths` is the set of
@@ -508,13 +521,22 @@ export function generateExample(criterion, registry) {
     const vt = registry.valueTypes[leaf.valueType];
     // Derive the codelist enum (if any) so the sampler can pick a real member;
     // on a clone, leaving the registry shape untouched. Carry the per-leaf
-    // codelist (generic CODE) just as the schema path does.
-    const sampleShape = cloneShape(vt.instanceShape);
-    if (leaf.codelist && !sampleShape.codeList) sampleShape.codeList = leaf.codelist;
-    deriveCodelistEnum(sampleShape);
+    // codelist (generic CODE) just as the schema path does. A per-leaf shape
+    // REPLACE (hints.leafShapes) mirrors the schema path so the example matches
+    // the overridden shape (the two CODE_BOOLEAN leaves).
+    let sampleShape;
+    let constraints = vt.instanceConstraints;
+    if (leafShapes[leaf.id]) {
+      sampleShape = cloneShape(leafShapes[leaf.id]);
+      constraints = null;
+    } else {
+      sampleShape = cloneShape(vt.instanceShape);
+      if (leaf.codelist && !sampleShape.codeList) sampleShape.codeList = leaf.codelist;
+      deriveCodelistEnum(sampleShape);
+    }
     const value = gateValue.has(key)
       ? gateValue.get(key)
-      : sampleForShape(sampleShape, vt.instanceConstraints);
+      : sampleForShape(sampleShape, constraints);
     const arrayDepths = new Set(arrayContainerDepths(criterion, leaf));
     setAt(sideData[side], leaf.instanceBinding.path, value, arrayDepths);
   }

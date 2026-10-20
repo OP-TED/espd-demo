@@ -1,0 +1,9 @@
+{
+  "$comment": "C36 (slc-stand-other) hints. leafShapes REPLACES the value-type instanceShape for the 'requirement type' leaf: its EA value type CODE_BOOLEAN would derive a boolean-gui-control-type string enum, but it is a 3-way branch discriminator whose valid values are the branchSelectors branch codes. The instance stores one of these; it is a UI-only discriminator (export emits the BASE constant RADIO_BUTTON_TRUE, import infers it from the populated branch). The shared CODE_BOOLEAN value type is untouched.",
+  "leafShapes": {
+    "slc-stand-other.requirement-type": {
+      "type": "string",
+      "enum": ["[Economic or Financial]", "[Rating]", "[Descriptive]"]
+    }
+  }
+}

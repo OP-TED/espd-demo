@@ -1,0 +1,6 @@
+{
+  "$comment": "C29 (slc-stand-to-gen, 'General yearly turnover') presentation sidecar. Keyed by Semantic_ID. Only the 'threshold per year' requirement needs an override: its EA value type is CODE_BOOLEAN (bound to the boolean-gui-control-type GUI-render codelist), which the default uiType table renders as a raw 'Checkbox FALSE/TRUE' dropdown. Semantically it is a buyer yes/no toggle ('is a per-year threshold required?'), so render it as a boolean. The export still emits the BASE boolean-gui-control-type code (true -> CHECK_BOX_TRUE) via the mapping override. See espd-notes for the upstream-model finding.",
+  "uiTypeOverrides": {
+    "slc-stand-to-gen.threshold-per-year": "boolean"
+  }
+}

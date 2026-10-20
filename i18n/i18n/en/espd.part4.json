@@ -47,7 +47,7 @@
   "legislation.title.slc-stand-to-gen.L1": "L1",
   "requirement.label.slc-stand-to-gen.RG1.RQ1": "Lots this criterion applies to",
   "requirement.label.slc-stand-to-gen.RG1.RSG1.RQ1": "Number of fiscal years",
-  "requirement.label.slc-stand-to-gen.RG1.RSG1.RQ2": "Threshold per year",
+  "requirement.label.slc-stand-to-gen.RG1.RSG1.RQ2": "Is a minimum turnover threshold required per year?",
   "requirement.label.slc-stand-to-gen.RG1.RSG1.RQ3": "Minimum amount requirement",
   "question.label.slc-stand-to-gen.RG1.RSG1.QSG1.Q1": "Does the EO fulfil the criteria by itself?",
   "question.label.slc-stand-to-gen.RG1.RSG1.QSG1.QSG1.Q1": "In the case of no – Relied upon or not",

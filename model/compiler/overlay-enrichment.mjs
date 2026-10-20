@@ -83,6 +83,13 @@ export function overlayEnrichment(core, sidecar) {
       // e.g. financial-ratio-type vs occupation). Attached to the leaf so the
       // generators can read it; the value type itself stays codelist-agnostic.
       if (meta.codelist) leaf.codelist = meta.codelist;
+      // A per-leaf request-value override (DATA, not generator logic): overrides
+      // how this leaf's buyer REQUIREMENT value serializes, for leaves whose EA
+      // value type is wrong for them (e.g. the two CODE_BOOLEAN leaves whose
+      // boolean-gui-control-type codelist is a GUI-render hint). Shape:
+      //   { element, const? , valueMap? }  (see generate-request-mapping).
+      // Kept as data so the generator stays criterion-agnostic (R11.4).
+      if (meta.requestValue) leaf.requestValue = meta.requestValue;
       usedPaths.add(reqpath);
       continue;
     }

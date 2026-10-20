@@ -277,8 +277,22 @@ function fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, 
       }
 
       if (repeatable) field.repeatable = true;
+      // A codelist only makes sense for a `code` control. A uiType override can
+      // turn a value-type that carries a codelist (e.g. CODE_BOOLEAN) into a
+      // boolean/text control; in that case drop the now-irrelevant codelist so
+      // the field doesn't carry a stray, unused list.
       const codelist = codelists.get(suffix.join('.'));
-      if (codelist) field.codelist = codelist;
+      if (codelist && field.uiType === 'code') field.codelist = codelist;
+      // Inline options override (presentation sidecar `optionsOverrides[leaf.id]`):
+      // an explicit [{ code, labelKey }] option list for a `code` control whose
+      // choices are NOT a shipped codelist — e.g. the C36 requirement-type branch
+      // selector, whose option VALUES must equal the branchSelectors values. Only
+      // on the whole-leaf (empty suffix) case; takes precedence over a codelist.
+      const options = suffix.length === 0 ? presentation?.optionsOverrides?.[leaf.id] : undefined;
+      if (options) {
+        field.options = options;
+        delete field.codelist; // an inline option set replaces the codelist picker
+      }
       if (visibleWhen) field.visibleWhen = visibleWhen;
       field.$derivedFrom = leaf.requestpath;
       return field;

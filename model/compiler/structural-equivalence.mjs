@@ -19,7 +19,10 @@ import { readStructuralCore, findCriterion, leavesOf } from './read-structural-c
 
 /** Strip the semantic-overlay fields the compiler adds, leaving pure structure. */
 function stripNode(node) {
-  const { id, instanceBinding, codelist, ...rest } = node;
+  // id/instanceBinding/codelist/requestValue are semantic-overlay fields the
+  // sidecar attaches; they carry no STRUCTURE, so remove them before the
+  // equivalence comparison with the pure EA core.
+  const { id, instanceBinding, codelist, requestValue, ...rest } = node;
   if (rest.children) rest.children = rest.children.map(stripNode);
   return rest;
 }

@@ -24,16 +24,11 @@
                     },
                     "requirementType": {
                       "type": "string",
-                      "codeList": "boolean-gui-control-type",
                       "enum": [
-                        "CHECK_BOX_FALSE",
-                        "CHECK_BOX_TRUE",
-                        "CHECK_BOX_UNCHECKED",
-                        "RADIO_BUTTON_FALSE",
-                        "RADIO_BUTTON_TRUE",
-                        "RADIO_BUTTON_UNSELECTED"
-                      ],
-                      "$codelistEnumIsImplementerChoice": true
+                        "[Economic or Financial]",
+                        "[Rating]",
+                        "[Descriptive]"
+                      ]
                     },
                     "amountRequirements": {
                       "type": "array",

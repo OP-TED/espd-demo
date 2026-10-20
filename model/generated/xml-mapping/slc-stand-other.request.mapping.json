@@ -175,11 +175,10 @@
                           },
                           {
                             "element": "cbc:ExpectedCode",
-                            "from": "partIV.selectionCriteria.slc-stand-other.requirement.requirementType",
-                            "type": "string",
                             "attributes": {
                               "listID": "boolean-gui-control-type"
-                            }
+                            },
+                            "const": "RADIO_BUTTON_TRUE"
                           }
                         ]
                       },

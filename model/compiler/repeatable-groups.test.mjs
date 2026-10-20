@@ -147,7 +147,7 @@ test('a single-level REQUIREMENT value inside a repeatable group round-trips (re
   const request = generateRequestMapping(compiled, registry);
   const data = { partIV: { selectionCriteria: { 'slc-stand-other': { requirement: {
     lotIdentifiers: ['LOT-1'],
-    requirementType: 'CHECK_BOX_TRUE',
+    requirementType: '[Economic or Financial]',
     amountRequirements: [
       { description: 'd1', minimumAmount: { value: 1000, currency: 'EUR' } },
       { description: 'd2', minimumAmount: { value: 2000, currency: 'EUR' } },

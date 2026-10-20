@@ -7,7 +7,7 @@
             "sample"
           ],
           "numberOfYears": 1,
-          "thresholdPerYear": "CHECK_BOX_FALSE",
+          "thresholdPerYear": false,
           "minimumAmount": {
             "value": 1000,
             "currency": "sample"

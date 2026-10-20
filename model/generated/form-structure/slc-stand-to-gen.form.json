@@ -40,10 +40,9 @@
               "semanticId": "slc-stand-to-gen.threshold-per-year",
               "dataPath": "partIV.selectionCriteria.slc-stand-to-gen.requirement.thresholdPerYear",
               "filledBy": "contractingAuthority",
-              "uiType": "code",
+              "uiType": "boolean",
               "required": true,
               "labelKey": "requirement.label.slc-stand-to-gen.RG1.RSG1.RQ2",
-              "codelist": "boolean-gui-control-type",
               "$derivedFrom": "C29_slc-stand-to-gen/RG1/RSG1/RQ2"
             },
             {

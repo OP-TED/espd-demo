@@ -1,0 +1,10 @@
+{
+  "$comment": "C36 (slc-stand-other, 'Other economic or financial requirements') presentation sidecar. The 'requirement type' selector (RG1/RSG1/RSG1/RQ1) is the branch discriminator: choosing a value reveals one of three mutually-exclusive sub-forms (amount / rating / descriptive) via the sidecar's branchSelectors visibleWhen. Its EA value type is CODE_BOOLEAN (boolean-gui-control-type), which renders as a meaningless 'Checkbox/Radio FALSE/TRUE' dropdown AND whose values never match the branch gate values, so no branch ever shows. The override makes it a real 3-option selector whose option VALUES are exactly the branchSelectors values ('[Economic or Financial]' / '[Rating]' / '[Descriptive]'), so the branches reveal. On export the leaf emits the BASE constant RADIO_BUTTON_TRUE (the EA model carries no real enum); the chosen type is a UI-only discriminator, inferred on import from which branch block is populated. See espd-notes for the upstream-model finding.",
+  "optionsOverrides": {
+    "slc-stand-other.requirement-type": [
+      { "code": "[Economic or Financial]", "labelKey": "ui.c36.type.economicFinancial" },
+      { "code": "[Rating]", "labelKey": "ui.c36.type.rating" },
+      { "code": "[Descriptive]", "labelKey": "ui.c36.type.descriptive" }
+    ]
+  }
+}

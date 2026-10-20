@@ -642,7 +642,12 @@ function lotSelectControl(field, label, required) {
   return fs;
 }
 
-/** code -> select, options from the generated codelist. */
+/**
+ * code -> select. Options come from the generated codelist (field.codelist) or,
+ * when the field carries an explicit inline option set (field.options, e.g. the
+ * C36 requirement-type branch selector whose choices are not a shipped
+ * codelist), from that list — each { code, labelKey } resolved through i18n.
+ */
 function codeControl(field, label, required) {
   const frag = document.createElement('div');
   const id = fieldId(field.dataPath);
@@ -660,7 +665,10 @@ function codeControl(field, label, required) {
   placeholder.textContent = t('ui.select', '— Select —');
   select.appendChild(placeholder);
 
-  for (const opt of getCodelist(field.codelist)) {
+  const options = Array.isArray(field.options)
+    ? field.options.map((o) => ({ code: o.code, name: t(o.labelKey, o.code) }))
+    : getCodelist(field.codelist);
+  for (const opt of options) {
     const o = document.createElement('option');
     o.value = opt.code;
     o.textContent = opt.name;

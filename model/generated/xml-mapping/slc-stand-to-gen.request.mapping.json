@@ -197,10 +197,13 @@
                       },
                       {
                         "element": "cbc:ExpectedCode",
-                        "from": "partIV.selectionCriteria.slc-stand-to-gen.requirement.thresholdPerYear",
-                        "type": "string",
                         "attributes": {
                           "listID": "boolean-gui-control-type"
+                        },
+                        "from": "partIV.selectionCriteria.slc-stand-to-gen.requirement.thresholdPerYear",
+                        "valueMap": {
+                          "true": "CHECK_BOX_TRUE",
+                          "false": "CHECK_BOX_FALSE"
                         }
                       }
                     ]

@@ -19,7 +19,13 @@
     },
     "C29_slc-stand-to-gen/RG1/RSG1/RQ2": {
       "id": "slc-stand-to-gen.threshold-per-year",
-      "instanceBinding": { "side": "requirement", "path": ["thresholdPerYear"] }
+      "instanceBinding": { "side": "requirement", "path": ["thresholdPerYear"] },
+      "$requestValueNote": "This leaf's EA value type is CODE_BOOLEAN (boolean-gui-control-type), a GUI-render hint, not a semantic value. The UI renders it as a yes/no toggle (presentation + hints leafShapes -> boolean); on export the boolean maps to the BASE boolean-gui-control-type code. See espd-notes.",
+      "requestValue": {
+        "element": "cbc:ExpectedCode",
+        "valueMap": { "true": "CHECK_BOX_TRUE", "false": "CHECK_BOX_FALSE" },
+        "attributes": { "listID": "boolean-gui-control-type" }
+      }
     },
     "C29_slc-stand-to-gen/RG1/RSG1/RQ3": {
       "id": "slc-stand-to-gen.minimum-amount",

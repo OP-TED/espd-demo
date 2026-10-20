@@ -21,7 +21,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadEdm, loadSidecar, compile, generateMappings, generateForm } from './compile.mjs';
+import { loadEdm, loadSidecar, loadHints, compile, generateMappings, generateForm } from './compile.mjs';
 import { generateInstanceSchema, generateExample } from './generate-instance-schema.mjs';
 import { leavesOf } from './read-structural-core.mjs';
 import { readCodelistCodes, codelistPath } from '../codelists/read-codelist.mjs';
@@ -146,28 +146,33 @@ test('slc-stand-to-gen introduces CODE_BOOLEAN as a buyer requirement', () => {
   assert.ok(!leavesOf(compiled).some(l => l.id.endsWith('.business-domain')));
 });
 
-test('CODE_BOOLEAN schema enum is DERIVED from BooleanGUIControlType.gc (and kept in sync)', () => {
+test('CODE_BOOLEAN value type still opts into .gc enum derivation (the generic invariant)', () => {
   // The CODE_BOOLEAN instanceShape opts into enum derivation via `codeListFile`.
-  // The generated schema must inline exactly the .gc codes, with the
-  // non-standard codeListFile marker stripped. If this fails after a codelist
-  // update, it means the generator and the .gc disagree — which should not be
-  // possible since the generator reads the .gc, so it flags a real regression.
+  // No modeled leaf uses the raw enum any more (C29/C36 both override it — see
+  // below), but the value-type default must still be able to derive the enum, so
+  // a future CODE_BOOLEAN leaf without an override renders a real picker.
+  const { registry } = compileCriterion('slc-stand-to-gen');
+  const vt = registry.valueTypes.CODE_BOOLEAN;
+  assert.equal(vt.instanceShape.codeListFile, 'BooleanGUIControlType.gc');
+  assert.equal(vt.instanceShape.codeList, 'boolean-gui-control-type');
+  assert.equal(vt.requestXml.codelist, 'boolean-gui-control-type');
+});
+
+test('C29 threshold-per-year is OVERRIDDEN to a boolean (CODE_BOOLEAN is a GUI-render hint here)', () => {
+  // The EA leaf is CODE_BOOLEAN (boolean-gui-control-type), but that codelist is
+  // a GUI-render hint, not a semantic value. A hints `leafShapes` override makes
+  // the instance a plain boolean (the buyer's yes/no toggle); the schema + the
+  // generated example must reflect that, NOT the raw .gc enum. See espd-notes.
   const { compiled, registry } = compileCriterion('slc-stand-to-gen');
-  const schema = generateInstanceSchema(compiled, registry, { partId: 'IV' });
+  const hints = loadHints('slc-stand-to-gen');
+  const schema = generateInstanceSchema(compiled, registry, { partId: 'IV', hints });
   const field = schema.properties.partIV.properties.selectionCriteria
     .properties['slc-stand-to-gen'].properties.requirement.properties.thresholdPerYear;
+  assert.deepEqual(field, { type: 'boolean' }, 'threshold-per-year is a boolean, not a gui-control enum');
 
-  const gcCodes = readCodelistCodes(codelistPath('BooleanGUIControlType.gc'));
-  assert.deepEqual(field.enum, gcCodes, 'schema enum must equal the .gc codes in order');
-  assert.equal(field.codeListFile, undefined, 'the codeListFile marker must not leak into the schema');
-  assert.equal(field.codeList, 'boolean-gui-control-type', 'the human-facing codeList name stays');
-  // Marked as our implementation's choice, not a hard ESPD requirement.
-  assert.equal(field.$codelistEnumIsImplementerChoice, true);
-
-  // The generated example must pick a REAL code, not the generic 'sample'.
-  const example = generateExample(compiled, registry);
+  const example = generateExample(compiled, registry, hints);
   const value = example.partIV.selectionCriteria['slc-stand-to-gen'].requirement.thresholdPerYear;
-  assert.ok(gcCodes.includes(value), `example value '${value}' must be a real codelist code`);
+  assert.equal(typeof value, 'boolean', 'example value is a boolean');
 });
 
 test('per-leaf CODE (financial-ratio-type) enum is DERIVED from the leaf codelist, size-gated', () => {
@@ -259,7 +264,9 @@ test('slc-stand-to-gen request: CODE_BOOLEAN expands to the boolean-gui-control-
   const { profile } = loadValidatedCodelistProfile();
 
   const requirement = {
-    lotIdentifiers: ['LOT-0001'], numberOfYears: 3, thresholdPerYear: 'CHECK_BOX_TRUE',
+    // threshold-per-year is now a boolean (the gui-control code is a render hint,
+    // not a value); the mapping valueMap emits true -> CHECK_BOX_TRUE.
+    lotIdentifiers: ['LOT-0001'], numberOfYears: 3, thresholdPerYear: true,
     minimumAmount: { value: 1000000, currency: 'EUR' },
   };
   const xml = map(request, { partIV: { selectionCriteria: { 'slc-stand-to-gen': { requirement } } } });

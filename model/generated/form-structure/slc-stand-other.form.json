@@ -39,7 +39,20 @@
               "uiType": "code",
               "required": true,
               "labelKey": "requirement.label.slc-stand-other.RG1.RSG1.RSG1.RQ1",
-              "codelist": "boolean-gui-control-type",
+              "options": [
+                {
+                  "code": "[Economic or Financial]",
+                  "labelKey": "ui.c36.type.economicFinancial"
+                },
+                {
+                  "code": "[Rating]",
+                  "labelKey": "ui.c36.type.rating"
+                },
+                {
+                  "code": "[Descriptive]",
+                  "labelKey": "ui.c36.type.descriptive"
+                }
+              ],
               "$derivedFrom": "C36_slc-stand-other/RG1/RSG1/RSG1/RQ1"
             },
             {

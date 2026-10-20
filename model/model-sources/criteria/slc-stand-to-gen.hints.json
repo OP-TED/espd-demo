@@ -1,0 +1,6 @@
+{
+  "$comment": "C29 (slc-stand-to-gen) hints. leafShapes REPLACES the value-type instanceShape for the 'threshold per year' leaf: its EA value type CODE_BOOLEAN would derive a string enum of boolean-gui-control-type codes, but semantically it is a buyer yes/no toggle, so the instance stores a boolean. The shared CODE_BOOLEAN value type is left untouched (only this leaf is overridden). Export still emits the BASE code (true -> CHECK_BOX_TRUE) via the request-mapping valueMap override.",
+  "leafShapes": {
+    "slc-stand-to-gen.threshold-per-year": { "type": "boolean" }
+  }
+}

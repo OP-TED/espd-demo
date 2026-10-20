@@ -6,7 +6,7 @@
           "lotIdentifiers": [
             "sample"
           ],
-          "requirementType": "CHECK_BOX_FALSE",
+          "requirementType": "[Economic or Financial]",
           "amountRequirements": [
             {
               "description": "sample",

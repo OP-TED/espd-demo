@@ -102,7 +102,7 @@ export function emitAll(code, compiled, registry, { root = generatedRoot, partId
 
   const hints = loadHints(code);
   write('instance-data', `${code}.schema.json`, generateInstanceSchema(compiled, registry, { partId, hints, outputId: code }));
-  write('instance-data', `${code}.example.json`, generateExample(compiled, registry));
+  write('instance-data', `${code}.example.json`, generateExample(compiled, registry, hints));
   write('form-structure', `${code}.form.json`, generateForm(compiled, registry, { partId, hints }));
 
   try {

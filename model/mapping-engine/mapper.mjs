@@ -234,6 +234,34 @@ function setStructureAttributes(node, attributes, context) {
   }
 }
 
+/**
+ * Translate an instance value through a leaf's `valueMap` on EXPORT. A valueMap
+ * is a small fixed dictionary from an instance value to the emitted text — used
+ * where the instance shape and the UBL code differ (e.g. a boolean requirement
+ * toggle stored as true/false but emitted as a boolean-gui-control-type code:
+ * { "true": "CHECK_BOX_TRUE", "false": "CHECK_BOX_FALSE" }). Keys are compared
+ * as strings. Returns the mapped text, or undefined if the value is not in the
+ * map (so an unset/absent value emits nothing).
+ */
+function applyValueMap(valueMap, value) {
+  if (value === undefined || value === null || value === '') return undefined;
+  const key = String(value);
+  return Object.prototype.hasOwnProperty.call(valueMap, key) ? valueMap[key] : undefined;
+}
+
+/** The inverse of applyValueMap, for IMPORT: emitted text -> instance value. */
+function reverseValueMap(valueMap, text) {
+  for (const [k, v] of Object.entries(valueMap)) {
+    if (String(v) === text) {
+      // Restore the original JSON type for the common boolean case.
+      if (k === 'true') return true;
+      if (k === 'false') return false;
+      return k;
+    }
+  }
+  return undefined;
+}
+
 /** Resolve a structure leaf's text value against `context` (from wins over const). */
 function structureLeafText(specNode, context) {
   if (specNode.fromItem !== undefined) {
@@ -242,7 +270,9 @@ function structureLeafText(specNode, context) {
   }
   if (specNode.from !== undefined) {
     const v = resolve(context, specNode.from);
-    if (v !== undefined && v !== null && v !== '') return v;
+    if (v !== undefined && v !== null && v !== '') {
+      return specNode.valueMap ? applyValueMap(specNode.valueMap, v) : v;
+    }
   }
   return specNode.const;
 }
@@ -997,12 +1027,16 @@ function unmapStructureNode(xmlNode, specNode, context) {
     return;
   }
 
-  // Leaf: only `from`/`fromItem` leaves carry instance data back.
+  // Leaf: only `from`/`fromItem` leaves carry instance data back. A `const`-only
+  // leaf (no from/fromItem) carries no instance data, so it is not read back.
   const dest = specNode.fromItem !== undefined && specNode.fromItem !== '.'
     ? specNode.fromItem
     : specNode.from;
   if (dest !== undefined && xmlNode.text !== undefined) {
-    setPath(context, dest, textToValue(xmlNode.text, specNode.type));
+    const value = specNode.valueMap
+      ? reverseValueMap(specNode.valueMap, xmlNode.text)
+      : textToValue(xmlNode.text, specNode.type);
+    if (value !== undefined) setPath(context, dest, value);
   }
 }
 

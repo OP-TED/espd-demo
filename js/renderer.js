@@ -72,6 +72,7 @@ export function renderPart(part, partKey, role, container) {
       h.textContent = t(section.titleKey, section.id);
       container.appendChild(h);
     }
+    appendSectionDescription(section, container);
     if (emptyCriterionSection) {
       const note = document.createElement('p');
       note.className = 'espd-section-empty';
@@ -119,6 +120,22 @@ function partHeader(part, partKey) {
   p.textContent = t(part.descriptionKey, '');
   header.append(h2, p);
   return header;
+}
+
+/**
+ * Append an optional section description paragraph after the section title.
+ * The key is carried by the generated lens (build-ui-bundle) only when the admin
+ * section authored one; rendered only when it resolves to non-empty text, so
+ * description-less sections add no empty paragraph.
+ */
+function appendSectionDescription(section, container) {
+  if (!section.descriptionKey) return;
+  const text = t(section.descriptionKey, '');
+  if (!text) return;
+  const desc = document.createElement('p');
+  desc.className = 'espd-section-description';
+  desc.textContent = text;
+  container.appendChild(desc);
 }
 
 // ─── Members ──────────────────────────────────────────────────────────────────
@@ -486,6 +503,7 @@ function renderCriteriaSelectionView(part, partKey, role, container) {
       h.textContent = t(section.titleKey, section.id);
       container.appendChild(h);
     }
+    appendSectionDescription(section, container);
     for (const member of section.members) {
       if (member.kind !== 'criterion') continue;
       container.appendChild(renderCriterionChecklistItem(member, role));

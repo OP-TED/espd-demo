@@ -1491,6 +1491,16 @@ fieldset[role="radiogroup"]:has(.espd-role-radio) {
   line-height: 1.3;
 }
 
+/* Optional explanatory text under a section title (authored on the admin
+   section; e.g. Part I §A "Publication of the procedure"). Sits between the
+   title and the fields; a title immediately pulls it up under the heading. */
+.espd-section-description {
+  margin: calc(-1 * var(--gs-base-spacing-xs)) 0 var(--gs-base-spacing-l);
+  max-width: 52rem;
+  color: var(--gs-base-color-gray-75);
+  line-height: 1.4;
+}
+
 /* Placeholder under a section whose criteria the buyer did not select. */
 .espd-section-empty {
   margin: 0 0 var(--gs-base-spacing-l);

@@ -111,6 +111,17 @@ describe('ui-bundle: assembled shape', () => {
       }
     }
   });
+
+  it('an admin section that authored a description carries its descriptionKey', () => {
+    const sectionA = parts.get('I').sections.find((s) => s.id === 'A');
+    assert.equal(sectionA.descriptionKey, 'partI.sectionA.description');
+  });
+
+  it('a criterion-only section carries no descriptionKey', () => {
+    // Part III section A is all exclusion-ground criteria, no admin block.
+    const sectionA = parts.get('III').sections.find((s) => s.id === 'A');
+    assert.equal(sectionA.descriptionKey, undefined);
+  });
 });
 
 describe('ui-bundle: composed schemas ($ref, never merge)', () => {

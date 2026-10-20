@@ -167,7 +167,19 @@ export function assembleParts({ edm = loadEdm(edmPath) } = {}) {
           throw new Error(`part ${roman} section ${letter}: unexpected member type ${member.type} (${member.tag})`);
         }
       }
-      return { id: letter, titleKey: `section.title.${roman}.${letter}`, members };
+      // Section description is optional and authored only on the admin section
+      // (model/parts/<part>/section<Letter>.form.json -> parts.mjs carries its
+      // descriptionKey). Criterion-only sections carry none. Surfaced by the
+      // renderer below the section title; the English text lives in the i18n
+      // catalogue under this key.
+      const adminSec = adminSectionById.get(letter);
+      const descriptionKey = adminSec?.descriptionKey;
+      return {
+        id: letter,
+        titleKey: `section.title.${roman}.${letter}`,
+        ...(descriptionKey ? { descriptionKey } : {}),
+        members,
+      };
     });
 
     // Every hand-authored admin section must have been placed by the EA structure.

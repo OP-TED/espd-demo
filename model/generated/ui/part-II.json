@@ -9,6 +9,7 @@
     {
       "id": "A",
       "titleKey": "section.title.II.A",
+      "descriptionKey": "partII.sectionA.description",
       "members": [
         {
           "kind": "administrative",
@@ -592,6 +593,7 @@
     {
       "id": "B",
       "titleKey": "section.title.II.B",
+      "descriptionKey": "partII.sectionB.description",
       "members": [
         {
           "kind": "administrative",

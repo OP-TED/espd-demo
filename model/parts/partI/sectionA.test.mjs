@@ -103,13 +103,29 @@ import { readCodelistCodes, codelistPath } from '../../codelists/read-codelist.m
 
 const GC = codelistPath('DocrefcontentType.gc');
 
-test('the type enum is in sync with DocrefcontentType.gc (regenerate if this fails)', () => {
-  const codes = readCodelistCodes(GC);
+// The ESPD-allowed publication-reference types are the .gc codes MINUS the
+// governance exclusions (codes that are not valid as the publication launching
+// the procedure in the ESPD context). governance.json is the single source.
+const governance = JSON.parse(
+  fs.readFileSync(path.join(here, '..', '..', 'codelists', 'governance.json'), 'utf8'));
+const EXCLUDED = new Set(governance.codelists['docrefcontent-type'].excludedCodes ?? []);
+const allowedCodes = () => readCodelistCodes(GC).filter((c) => !EXCLUDED.has(c));
+
+test('governance excludes the ESPD-request types from docrefcontent-type', () => {
+  assert.ok(EXCLUDED.has('ESPD_REQUEST') && EXCLUDED.has('epo-acc-espd-request'),
+    'the two ESPD-request codes must be declared excluded in governance.json');
+});
+
+test('the type enum is the .gc codes minus the governance exclusions (regenerate if this fails)', () => {
   const enumInSchema = schema.$defs.publicationReference.properties.type.enum;
   assert.deepEqual(
     [...enumInSchema].sort(),
-    [...codes].sort(),
-    'schema `type` enum drifted from DocrefcontentType.gc — update sectionA.schema.json');
+    [...allowedCodes()].sort(),
+    'schema `type` enum drifted from (DocrefcontentType.gc − governance.excludedCodes) — update sectionA.schema.json');
+  // None of the excluded codes may appear in the enum.
+  for (const bad of EXCLUDED) {
+    assert.ok(!enumInSchema.includes(bad), `excluded code '${bad}' must not be in the type enum`);
+  }
   // The $codelist marker names the source list.
   assert.equal(schema.$defs.publicationReference.properties.type.$codelist, 'docrefcontent-type');
 });
@@ -126,8 +142,18 @@ test('the schema accepts every real codelist code as a type', async () => {
   const { default: Ajv } = await import('ajv');
   const ajv = new Ajv({ allErrors: true, strict: false });
   const validate = ajv.compile(schema);
-  for (const code of readCodelistCodes(GC)) {
+  for (const code of allowedCodes()) {
     const doc = { partI: { publication: { type: code, identifier: 'x' } } };
     assert.ok(validate(doc), `code '${code}' should be accepted: ${JSON.stringify(validate.errors)}`);
+  }
+});
+
+test('the schema rejects the excluded ESPD-request types', async () => {
+  const { default: Ajv } = await import('ajv');
+  const ajv = new Ajv({ allErrors: true, strict: false });
+  const validate = ajv.compile(schema);
+  for (const code of EXCLUDED) {
+    const doc = { partI: { publication: { type: code, identifier: 'x' } } };
+    assert.ok(!validate(doc), `excluded code '${code}' must be rejected by the enum`);
   }
 });

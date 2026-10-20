@@ -25,7 +25,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "description": "DocrefcontentType code identifying the kind/location of publication. The enum is DERIVED from ESPD-EDM/codelists/DocrefcontentType.gc (the single source of truth); sectionA.test.mjs asserts it stays in sync. Regenerate if the codelist changes.",
+          "description": "DocrefcontentType code identifying the kind/location of the publication that launched the procedure. The enum is the ESPD-allowed subset: DocrefcontentType.gc codes MINUS the governance exclusions (ESPD_REQUEST, epo-acc-espd-request — an ESPD Request is not a published notice that identifies the procedure). sectionA.test.mjs asserts it stays in sync with '.gc minus governance.excludedCodes'. Single source: model/codelists/governance.json.",
           "$codelist": "docrefcontent-type",
           "enum": [
             "TED_PIN",
@@ -33,11 +33,9 @@
             "TED_CN",
             "ROJCN",
             "ROJPIN",
-            "ESPD_REQUEST",
             "NOJCN",
             "NOJPIN",
-            "LOJCN",
-            "epo-acc-espd-request"
+            "LOJCN"
           ]
         },
         "identifier": {

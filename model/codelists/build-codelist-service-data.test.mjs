@@ -71,12 +71,19 @@ test('XML character entities in .gc labels are decoded (no &amp; in the UI text)
   assert.ok(!label.includes('&amp;'), 'the stored label must not keep the XML escape');
 });
 
-test('counts match the underlying .gc row counts', () => {
+test('counts match the underlying .gc row counts (minus governance exclusions)', () => {
   for (const [name, doc] of byName) {
-    const gc = governance.codelists[name].gc;
+    const def = governance.codelists[name];
+    const gc = def.gc;
+    const excluded = new Set(def.excludedCodes ?? []);
     const entries = readCodelistEntries(codelistPath(gc));
-    assert.equal(doc.count, entries.length, `${name} count`);
-    assert.equal(doc.codes.length, entries.length, `${name} codes length`);
+    const expected = entries.length - excluded.size;
+    assert.equal(doc.count, expected, `${name} count`);
+    assert.equal(doc.codes.length, expected, `${name} codes length`);
+    // No excluded code may survive into the emitted service data.
+    for (const ex of excluded) {
+      assert.ok(!doc.codes.some(c => c.code === ex), `${name} excludes ${ex}`);
+    }
   }
 });
 

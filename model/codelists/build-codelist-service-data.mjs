@@ -56,7 +56,12 @@ export function buildCodelistServiceData({ write = true } = {}) {
 
   for (const [name, def] of Object.entries(governance.codelists)) {
     if (!def.shipped || !def.useForUI || !def.gc) continue;
-    const entries = readCodelistEntries(codelistPath(def.gc));
+    // excludedCodes: an ESPD profile narrowing of a shared EU authority table —
+    // codes present in the .gc but not valid in the ESPD context (see the
+    // governance $excludedCodesNote). Dropped from the UI pick list here; the
+    // instance-schema enum and the sync test derive from the same exclusion.
+    const excluded = new Set(def.excludedCodes ?? []);
+    const entries = readCodelistEntries(codelistPath(def.gc)).filter((e) => !excluded.has(e.code));
     let labelled = 0;
     const codes = entries.map(({ code, label }) => {
       const key = codelistLabelKey(name, code);

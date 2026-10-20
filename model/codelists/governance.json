@@ -43,7 +43,9 @@
       "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": true,
       "gc": "DocrefcontentType.gc",
       "aliases": ["DocRefContentType"],
-      "$note": "10 codes; validated (cac:AdditionalDocumentReference/cbc:DocumentTypeCode) AND inlined (Part I Section A). The valid 'validated + inlined' case: small enough to inline for authoring-time feedback, while the XML layer enforces the same set. Enum is NOT implementer-choice (values are the enforced set)."
+      "excludedCodes": ["ESPD_REQUEST", "epo-acc-espd-request"],
+      "$note": "10 codes; validated (cac:AdditionalDocumentReference/cbc:DocumentTypeCode) AND inlined (Part I Section A). The valid 'validated + inlined' case: small enough to inline for authoring-time feedback, while the XML layer enforces the same set. Enum is NOT implementer-choice (values are the enforced set).",
+      "$excludedCodesNote": "DocrefcontentType is a GENERIC EU authority table (shared with eForms/TED) listing reference-document types. Two of its codes are not valid as the publication that LAUNCHED this procurement procedure in the ESPD context — an ESPD Request is this very document, not a published call-for-competition/notice that identifies the procedure: 'ESPD_REQUEST' and 'epo-acc-espd-request'. They are excluded from our Part I §A publication-reference type everywhere: dropped from the UI pick list, removed from the inlined instance-schema enum, and denied by a dedicated ESPD-request Schematron rule (BR-ESPD-DOCREF-01). The upstream .gc is left untouched; this is an ESPD profile narrowing of a shared table. excludedCodes is the single source — the UI, the schema enum, and the sync test all derive from it."
     },
     "eoid-type": {
       "shipped": true, "schematronValidated": true, "useForUI": true, "inlineEnum": true,

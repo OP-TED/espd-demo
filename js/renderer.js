@@ -324,8 +324,12 @@ export function renderField(field) {
 
   const wrap = document.createElement('div');
   wrap.className = 'espd-field';
-  wrap.dataset.field = field.dataPath;
-  if (field.repeatable) wrap.dataset.repeatable = 'true';
+  // A lot-select binds the WHOLE lotIdentifiers array (not per-item rows), so the
+  // wrapper carries the un-bracketed array path — matching the dataPath the
+  // schema's minItems/required error resolves to, so validation can highlight it.
+  const isLotSelect = field.uiType === 'lot-select';
+  wrap.dataset.field = isLotSelect ? field.dataPath.replace(/\[\]$/, '') : field.dataPath;
+  if (field.repeatable && !isLotSelect) wrap.dataset.repeatable = 'true';
   if (field.visibleWhen) {
     wrap.dataset.visibleWhen = JSON.stringify(field.visibleWhen);
     wrap.hidden = true; // conditional.js reveals it when the condition holds

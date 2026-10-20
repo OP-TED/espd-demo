@@ -21,7 +21,7 @@
               "semanticId": "slc-stand-other.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-stand-other.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-stand-other.RG1.RQ1",
               "repeatable": true,

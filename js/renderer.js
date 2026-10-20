@@ -337,6 +337,7 @@ export function renderField(field) {
   let control;
   switch (field.uiType) {
     case 'boolean': control = booleanControl(field, label, required); break;
+    case 'lot-select': control = lotSelectControl(field, label, required); break;
     case 'code': control = codeControl(field, label, required); break;
     case 'date': control = inputControl(field, label, required, 'date'); break;
     case 'number': control = inputControl(field, label, required, 'number'); break;
@@ -445,6 +446,74 @@ function booleanControl(field, label, required) {
       reapplyConditionals(radio);
     });
     l.append(radio, document.createTextNode(' ' + t(labelKey, fallback)));
+    group.appendChild(l);
+  }
+  fs.appendChild(group);
+  return fs;
+}
+
+/**
+ * lot-select -> a checkbox group of the lots the buyer declared in Part I
+ * (partI.lots). Bound to the criterion's lotIdentifiers ARRAY. The buyer ticks
+ * which declared lots this selection criterion applies to; BR-LOT-41 needs >=1,
+ * so none are pre-selected (the buyer must choose) and an empty selection is a
+ * validation error. If no lots have been declared yet, a note points the buyer
+ * back to Part I rather than showing an empty, unusable control.
+ */
+function lotSelectControl(field, label, required) {
+  // The dataPath carries the array marker (…lotIdentifiers[]); the whole array
+  // lives one level up, at the un-suffixed path.
+  const arrayPath = field.dataPath.replace(/\[\]$/, '');
+  const declaredLots = getAnswer('partI.lots');
+  const lots = Array.isArray(declaredLots) ? declaredLots.filter(l => l != null && l !== '') : [];
+  const selected = new Set(Array.isArray(getAnswer(arrayPath)) ? getAnswer(arrayPath) : []);
+
+  const fs = document.createElement('fieldset');
+  fs.className = 'espd-lot-select';
+  fs.dataset.field = arrayPath;
+  fs.setAttribute('role', 'group');
+  fs.setAttribute('aria-required', String(required));
+
+  const legend = document.createElement('legend');
+  legend.innerHTML = `${escapeHtml(label)}${required ? ' <abbr title="Required">*</abbr>' : ''}`;
+  fs.appendChild(legend);
+
+  if (lots.length === 0) {
+    const note = document.createElement('p');
+    note.className = 'espd-lot-select__empty';
+    note.textContent = t('ui.lots.none', 'No lots have been declared yet. Add them in Part I — Procurement procedure.');
+    fs.appendChild(note);
+    return fs;
+  }
+
+  const group = document.createElement('div');
+  group.className = 'espd-lot-select__group';
+  const baseId = fieldId(arrayPath);
+
+  // Write the selection back as an array ordered to match the declared lots, so
+  // the stored lotIdentifiers stay stable regardless of click order.
+  const commit = () => {
+    const chosen = lots.filter(l => selected.has(l));
+    setAnswer(arrayPath, chosen);
+  };
+
+  for (const lot of lots) {
+    const optId = `${baseId}-${lot.replace(/[^a-zA-Z0-9]+/g, '-')}`;
+    const l = document.createElement('label');
+    l.setAttribute('for', optId);
+    l.className = 'espd-lot-select__option';
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.id = optId;
+    cb.value = lot;
+    cb.dataset.field = arrayPath;
+    if (selected.has(lot)) cb.checked = true;
+    cb.addEventListener('change', () => {
+      if (cb.checked) selected.add(lot); else selected.delete(lot);
+      commit();
+      reapplyConditionals(cb);
+    });
+    l.append(cb, document.createTextNode(' ' + lot));
     group.appendChild(l);
   }
   fs.appendChild(group);

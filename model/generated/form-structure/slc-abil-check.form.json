@@ -21,7 +21,7 @@
               "semanticId": "slc-abil-check.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-abil-check.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-abil-check.RG1.RQ1",
               "repeatable": true,

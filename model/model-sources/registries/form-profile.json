@@ -21,7 +21,7 @@
   "uiType": {
     "$comment": "R10.2 / R6.5 — default uiType table keyed by ValueDataTypeCode, so the common case needs no per-field authoring. An object-shaped value type maps PER PROPERTY (an AMOUNT is a number input plus a currency picker). A value type absent from this table has no inferable control and MUST be supplied by the presentation sidecar, otherwise the build fails with the component's semantic ID (R6.7).",
     "byValueType": {
-      "LOT_IDENTIFIER": "text",
+      "LOT_IDENTIFIER": "lot-select",
       "QUANTITY_YEAR": "number",
       "QUANTITY_INTEGER": "number",
       "QUANTITY": "number",

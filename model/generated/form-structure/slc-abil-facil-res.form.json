@@ -21,7 +21,7 @@
               "semanticId": "slc-abil-facil-res.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-abil-facil-res.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-abil-facil-res.RG1.RQ1",
               "repeatable": true,

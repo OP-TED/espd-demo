@@ -21,7 +21,7 @@
               "semanticId": "slc-suit-auth-mbrshp.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-suit-auth-mbrshp.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-suit-auth-mbrshp.RG1.RQ1",
               "repeatable": true,

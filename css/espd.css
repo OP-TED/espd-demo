@@ -1670,6 +1670,42 @@ fieldset[role="radiogroup"]:has(.espd-role-radio) {
   cursor: pointer;
 }
 
+/* Lot multi-select: the buyer ticks which declared lots a selection criterion
+   applies to. Legend is the question; the lot checkboxes wrap in a row. */
+.espd-lot-select {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.espd-lot-select > legend {
+  margin-bottom: var(--gs-base-spacing-xs);
+  padding: 0;
+  font-size: var(--gs-base-font-size-m);
+}
+
+.espd-lot-select__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gs-base-spacing-xs) var(--gs-base-spacing-l);
+}
+
+.espd-lot-select__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  font-size: var(--gs-base-font-size-m);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.espd-lot-select__empty {
+  margin: 0;
+  color: var(--gs-base-color-gray-75);
+  font-style: italic;
+}
+
 /* Repeatable groups (add another / remove). */
 .espd-repeatable-instance {
   position: relative;

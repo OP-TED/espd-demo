@@ -21,7 +21,7 @@
               "semanticId": "slc-abil-staff-yrly-no-mgmt.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-abil-staff-yrly-no-mgmt.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-abil-staff-yrly-no-mgmt.RG1.RQ1",
               "repeatable": true,

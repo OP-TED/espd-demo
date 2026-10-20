@@ -21,7 +21,7 @@
               "semanticId": "slc-sche-qu-cert-indep.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-sche-qu-cert-indep.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-sche-qu-cert-indep.RG1.RQ1",
               "repeatable": true,

@@ -21,7 +21,7 @@
               "semanticId": "slc-suit-reg-prof.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-suit-reg-prof.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-suit-reg-prof.RG1.RQ1",
               "repeatable": true,

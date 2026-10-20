@@ -21,7 +21,7 @@
               "semanticId": "slc-abil-staff-tech-work.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-abil-staff-tech-work.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-abil-staff-tech-work.RG1.RQ1",
               "repeatable": true,

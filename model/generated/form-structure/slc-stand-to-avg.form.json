@@ -21,7 +21,7 @@
               "semanticId": "slc-stand-to-avg.lot-identifiers",
               "dataPath": "partIV.selectionCriteria.slc-stand-to-avg.requirement.lotIdentifiers[]",
               "filledBy": "contractingAuthority",
-              "uiType": "text",
+              "uiType": "lot-select",
               "required": true,
               "labelKey": "requirement.label.slc-stand-to-avg.RG1.RQ1",
               "repeatable": true,

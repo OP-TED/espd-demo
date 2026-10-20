@@ -373,7 +373,7 @@ test('R10.2 — uiType defaults derive from the value type', () => {
   const { compiled, registry, hints } = compileC31();
   const fields = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
 
-  assert.equal(fields.get(`${P}.requirement.lotIdentifiers[]`).uiType, 'text');       // LOT_IDENTIFIER
+  assert.equal(fields.get(`${P}.requirement.lotIdentifiers[]`).uiType, 'lot-select'); // LOT_IDENTIFIER
   assert.equal(fields.get(`${P}.requirement.numberOfYears`).uiType, 'number');        // QUANTITY_YEAR
   assert.equal(fields.get(`${P}.requirement.businessDomain`).uiType, 'textarea');     // DESCRIPTION
   assert.equal(fields.get(`${P}.response.fulfilledByItself`).uiType, 'boolean');      // INDICATOR
@@ -570,6 +570,14 @@ test('the hand-authored lens uiTypes are reproduced', () => {
   for (const ref of handAuthored.criteria[0].groups.flatMap(g => g.fields)) {
     const gen = generated.get(ref.dataPath);
     assert.ok(gen, `${ref.dataPath} not generated`);
+    // The per-criterion lot field intentionally DIVERGES from the frozen legacy
+    // baseline: lots are now a multi-select of the buyer's declared lots
+    // (uiType 'lot-select'), not a free-text box ('text'). The legacy snapshot
+    // is kept as the historical record, so skip the lot field here.
+    if (ref.dataPath.endsWith('requirement.lotIdentifiers[]')) {
+      assert.equal(gen.uiType, 'lot-select', 'lot field is now a lot-select');
+      continue;
+    }
     assert.equal(gen.uiType, ref.uiType, `${ref.dataPath} uiType`);
   }
 });

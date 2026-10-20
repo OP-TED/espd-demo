@@ -51,6 +51,14 @@
       "uiType": "text",
       "required": true,
       "description": "An identifier that identifies the economic operator (BR-RESP-10-04). The XML @schemeAgencyID (BR-OTH-02) is supplied as a constant 'OP' at export, so there is no separate scheme-agency field."
+    },
+    {
+      "dataPath": "partII.economicOperator.lot",
+      "labelKey": "partII.economicOperator.lot",
+      "label": "Lot the economic operator is tendering for",
+      "uiType": "lot-choice",
+      "required": true,
+      "description": "The single procurement lot this response applies to (BR-LOT-10, fatal: a Response specifies exactly one lot). Choose from the lots the buyer declared in Part I; if the procedure has one lot it is selected automatically."
     }
   ]
 }

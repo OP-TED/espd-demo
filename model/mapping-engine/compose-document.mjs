@@ -186,6 +186,73 @@ function selectCriteria({ instance, includedIds }) {
   return ordered;
 }
 
+// ---- Lot synthesis (BR-LOT-40/41 request, BR-LOT-10 response) ----------------
+
+const DEFAULT_LOT_ID = 'LOT-0000';
+
+/** A cac:ProcurementProjectLot node wrapping one cbc:ID with the criterion scheme. */
+function lotNode(lotId) {
+  const lot = makeNode('cac:ProcurementProjectLot');
+  const id = makeNode('cbc:ID');
+  id.attributes = { schemeID: 'criterion' };
+  id.text = lotId;
+  lot.children.push(id);
+  return lot;
+}
+
+/** A cac:ProcurementProjectLotReference node (criterion-scoped lot reference). */
+function lotReferenceNode(lotId) {
+  const ref = makeNode('cac:ProcurementProjectLotReference');
+  const id = makeNode('cbc:ID');
+  id.attributes = { schemeID: 'criterion' };
+  id.text = lotId;
+  ref.children.push(id);
+  return ref;
+}
+
+/**
+ * Insert a lot reference into a criterion node after cbc:Description (before the
+ * SubTenderingCriterion / property groups), matching the generated fragment
+ * order and the BASE sample. Only when the criterion has no reference yet.
+ */
+function ensureLotReference(criterionNode, lotId) {
+  if (criterionNode.children.some((c) => c.name === 'cac:ProcurementProjectLotReference')) return;
+  const descIdx = criterionNode.children.findIndex((c) => c.name === 'cbc:Description');
+  const at = descIdx >= 0 ? descIdx + 1 : criterionNode.children.length;
+  criterionNode.children.splice(at, 0, lotReferenceNode(lotId));
+}
+
+/**
+ * REQUEST lots (BR-LOT-41 / BR-LOT-40). When the procedure is not divided into
+ * lots (the buyer declared none, so sectionC emitted no cac:ProcurementProjectLot)
+ * BUT selection criteria are present, a single implicit lot LOT-0000 is
+ * synthesized: one document-level cac:ProcurementProjectLot plus a reference on
+ * every selection criterion that lacks one (BR-LOT-41 requires >=1 on each). An
+ * exclusion-only Request (no selection criteria) gets no lot and no reference, so
+ * BR-LOT-40 (exclusion grounds carry none) still holds.
+ */
+function synthesizeRequestLots(buckets, selectionCriterionNodes, push) {
+  if (selectionCriterionNodes.length === 0) return;        // exclusion-only: no lots
+  if ((buckets.get('cac:ProcurementProjectLot') || []).length > 0) return; // lots declared
+  push(lotNode(DEFAULT_LOT_ID));
+  for (const node of selectionCriterionNodes) ensureLotReference(node, DEFAULT_LOT_ID);
+}
+
+/**
+ * RESPONSE lot (BR-LOT-10). The EO must specify EXACTLY ONE lot it tenders for.
+ * sectionC's mapping lifts every declared lot (partI.lots) as a
+ * cac:ProcurementProjectLot, which would emit N lots on a response built from a
+ * multi-lot Request; replace that bucket with the single lot the EO chose
+ * (partII.economicOperator.lot), falling back to the first declared lot, then
+ * LOT-0000, so the document always carries exactly one.
+ */
+function applyResponseSingleLot(buckets, instance) {
+  const chosen = instance?.partII?.economicOperator?.lot;
+  const declared = Array.isArray(instance?.partI?.lots) ? instance.partI.lots : [];
+  const lotId = (chosen && String(chosen)) || declared[0] || DEFAULT_LOT_ID;
+  buckets.set('cac:ProcurementProjectLot', [lotNode(lotId)]);
+}
+
 // ---- Composition ------------------------------------------------------------
 
 /**
@@ -257,11 +324,15 @@ export function composeDocument({ instance = {}, documentType, deps, includedIds
   //    additionally lift the answers (TenderingCriterionResponse) and the shared
   //    Evidence set from the response fragment.
   const criteria = selectCriteria({ instance, includedIds });
-  for (const { id } of criteria) {
+  const selectionCriterionNodes = []; // Part IV declaration nodes, for lot-synthesis
+  for (const { id, part } of criteria) {
     const requestSpec = deps.loadSpec(`generated/xml-mapping/${id}.request.mapping.json`);
     const reqTree = buildTree(requestSpec, instance);
     for (const child of reqTree.children) {
-      if (child.name === 'cac:TenderingCriterion') push(child);
+      if (child.name === 'cac:TenderingCriterion') {
+        push(child);
+        if (part === 'partIV') selectionCriterionNodes.push(child);
+      }
     }
     if (documentType === 'response') {
       const responseSpec = deps.loadSpec(`generated/xml-mapping/${id}.response.mapping.json`);
@@ -273,6 +344,13 @@ export function composeDocument({ instance = {}, documentType, deps, includedIds
         push(child);
       }
     }
+  }
+
+  // 3b. Lot handling (BR-LOT-40/41, BR-LOT-10).
+  if (documentType === 'request') {
+    synthesizeRequestLots(buckets, selectionCriterionNodes, push);
+  } else {
+    applyResponseSingleLot(buckets, instance);
   }
 
   // 4. Assemble the root in canonical UBL order.

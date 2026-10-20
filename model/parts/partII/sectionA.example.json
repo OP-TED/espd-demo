@@ -7,7 +7,8 @@
       "country": "ESP",
       "identifier": {
         "value": "AD123456789"
-      }
+      },
+      "lot": "LOT-0000"
     }
   }
 }

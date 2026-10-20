@@ -34,23 +34,31 @@ test('the example validates against the schema', async () => {
   assert.ok(validate(example), `example invalid: ${JSON.stringify(validate.errors)}`);
 });
 
-test('all five BR-RESP-10 fields are required', async () => {
+test('all five BR-RESP-10 fields plus the BR-LOT-10 lot are required', async () => {
   const validate = await compile();
   const base = () => ({
     role: 'group-mem', name: 'X', size: 'sme', country: 'BEL',
-    identifier: { value: 'ID-1' },
+    identifier: { value: 'ID-1' }, lot: 'LOT-0000',
   });
   assert.ok(validate({ partII: { economicOperator: base() } }), 'complete EO must validate');
-  for (const drop of ['role', 'name', 'size', 'country', 'identifier']) {
+  for (const drop of ['role', 'name', 'size', 'country', 'identifier', 'lot']) {
     const eo = base(); delete eo[drop];
     assert.ok(!validate({ partII: { economicOperator: eo } }), `missing ${drop} must fail`);
   }
 });
 
+test('the responding lot must be a non-empty string (BR-LOT-10)', async () => {
+  const validate = await compile();
+  const eo = (lot) => ({ partII: { economicOperator: {
+    role: 'group-mem', name: 'X', size: 'sme', country: 'BEL', identifier: { value: 'ID-1' }, lot } } });
+  assert.ok(validate(eo('LOT-0000')), 'a lot id validates');
+  assert.ok(!validate(eo('')), 'an empty lot id fails');
+});
+
 test('the identifier requires only its value (the @schemeAgencyID is a constant at export)', async () => {
   const validate = await compile();
   const eo = (identifier) => ({ partII: { economicOperator: {
-    role: 'group-mem', name: 'X', size: 'sme', country: 'BEL', identifier } } });
+    role: 'group-mem', name: 'X', size: 'sme', country: 'BEL', identifier, lot: 'LOT-0000' } } });
   assert.ok(validate(eo({ value: 'ID-1' })), 'a value alone validates');
   assert.ok(!validate(eo({})), 'missing value fails (BR-RESP-10-04)');
   assert.ok(!validate(eo({ value: 'ID-1', schemeAgency: 'OP' })),
@@ -119,7 +127,7 @@ test('country is referenced by name, not inlined (341 codes)', () => {
 
 // --- form lens ----------------------------------------------------------
 
-test('the form lens covers all five fields, all required', () => {
+test('the form lens covers the five identity fields plus the responding lot, all required', () => {
   const byPath = new Map(form.fields.map(f => [f.dataPath, f]));
   assert.deepEqual([...byPath.keys()], [
     'partII.economicOperator.role',
@@ -127,9 +135,12 @@ test('the form lens covers all five fields, all required', () => {
     'partII.economicOperator.size',
     'partII.economicOperator.country',
     'partII.economicOperator.identifier.value',
+    'partII.economicOperator.lot',
   ]);
   for (const f of form.fields) assert.equal(f.required, true, `${f.dataPath} must be required`);
   assert.equal(byPath.get('partII.economicOperator.role').codelist, 'eo-role-type');
   assert.equal(byPath.get('partII.economicOperator.size').codelist, 'economic-operator-size');
   assert.equal(byPath.get('partII.economicOperator.country').codelist, 'country');
+  // The responding lot is a single-select of the declared lots (BR-LOT-10).
+  assert.equal(byPath.get('partII.economicOperator.lot').uiType, 'lot-choice');
 });

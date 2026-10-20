@@ -42,9 +42,12 @@ const ADMIN_PARTS = [
   { part: 'VI', dir: 'partVI' },
 ];
 
-// 'lot-count' is the Part I §C "Number of lots" control: a single integer input
-// that the renderer expands into the canonical partI.lots array (LOT-000n ids).
-const ALLOWED_UI_TYPES = new Set(['text', 'textarea', 'url', 'code', 'lot-count']);
+// Lot controls:
+//  - 'lot-count'  Part I §C "Number of lots" — a single integer input the
+//    renderer expands into the canonical partI.lots array (LOT-000n ids).
+//  - 'lot-choice' Part II §A "Lot the EO tenders for" — a single-select of the
+//    declared partI.lots (BR-LOT-10: a Response specifies exactly one lot).
+const ALLOWED_UI_TYPES = new Set(['text', 'textarea', 'url', 'code', 'lot-count', 'lot-choice']);
 
 /** Load a JSON file. */
 function readJson(p) {

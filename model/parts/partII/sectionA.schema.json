@@ -42,9 +42,14 @@
           "description": "Country of the economic operator, as a Country code. Mandatory (BR-RESP-10-07, error). Maps to cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode.",
           "$codelist": "country"
         },
-        "identifier": { "$ref": "#/$defs/eoIdentifier" }
+        "identifier": { "$ref": "#/$defs/eoIdentifier" },
+        "lot": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The single procurement lot this response applies to (a LOT-000n id declared by the buyer in Part I). Mandatory (BR-LOT-10, fatal: a Response specifies EXACTLY ONE lot). Maps to the Response's one cac:ProcurementProjectLot/cbc:ID; the document composer emits exactly this lot."
+        }
       },
-      "required": ["role", "name", "size", "country", "identifier"],
+      "required": ["role", "name", "size", "country", "identifier", "lot"],
       "additionalProperties": false
     },
 

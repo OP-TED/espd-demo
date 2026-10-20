@@ -25,6 +25,7 @@
   "partII.economicOperator.size": "Size",
   "partII.economicOperator.country": "Country",
   "partII.economicOperator.identifier.value": "Identifier",
+  "partII.economicOperator.lot": "Lot the economic operator is tendering for",
   "section.title.II.B": "Power of attorney",
   "partII.sectionB.description": "Where applicable, the representative(s) authorised to act for the economic operator.",
   "partII.powerOfAttorney.description": "Mandate description",

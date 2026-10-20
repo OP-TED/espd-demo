@@ -48,6 +48,12 @@
               "uiType": "text",
               "labelKey": "partII.economicOperator.identifier.value",
               "required": true
+            },
+            {
+              "dataPath": "partII.economicOperator.lot",
+              "uiType": "lot-choice",
+              "labelKey": "partII.economicOperator.lot",
+              "required": true
             }
           ]
         },

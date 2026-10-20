@@ -41,6 +41,12 @@
       "attributes": {
         "schemeAgencyID": { "fromMap": { "profile": "identifier-scheme-agency" } }
       }
+    },
+    {
+      "$comment": "BR-LOT-10 (fatal) — the single lot the EO tenders for, as the Response's one cac:ProcurementProjectLot/cbc:ID (scheme 'criterion'). This rule exists for IMPORT (reconstructing partII.economicOperator.lot from the document); on EXPORT the composer owns the single-lot emission (applyResponseSingleLot replaces the lot bucket), so this rule's output is superseded and never double-emits.",
+      "from": "partII.economicOperator.lot",
+      "to": "cac:ProcurementProjectLot/cbc:ID",
+      "attributes": { "schemeID": "criterion" }
     }
   ]
 }

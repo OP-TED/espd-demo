@@ -342,6 +342,7 @@ export function renderField(field) {
   switch (field.uiType) {
     case 'boolean': control = booleanControl(field, label, required); break;
     case 'lot-count': control = lotCountControl(field, label, required); break;
+    case 'lot-choice': control = lotChoiceControl(field, label, required); break;
     case 'lot-select': control = lotSelectControl(field, label, required); break;
     case 'code': control = codeControl(field, label, required); break;
     case 'date': control = inputControl(field, label, required, 'date'); break;
@@ -460,6 +461,62 @@ function booleanControl(field, label, required) {
 /** Canonical lot id for the zero-based index n: LOT-0000, LOT-0001, … */
 function lotIdForIndex(n) {
   return `LOT-${String(n).padStart(4, '0')}`;
+}
+
+/**
+ * lot-choice -> the EO's single responding lot (Part II §A). BR-LOT-10 requires
+ * a Response to specify EXACTLY ONE lot. A <select> of the lots the buyer
+ * declared in Part I (partI.lots). When the procedure has exactly one lot it is
+ * selected automatically (the EO has no real choice); when none are declared a
+ * note points back to Part I.
+ */
+function lotChoiceControl(field, label, required) {
+  const frag = document.createElement('div');
+  const id = fieldId(field.dataPath);
+  const declared = getAnswer('partI.lots');
+  const lots = Array.isArray(declared) ? declared.filter(l => l != null && l !== '') : [];
+  let current = getAnswer(field.dataPath);
+
+  frag.appendChild(labelEl(id, label, required));
+
+  if (lots.length === 0) {
+    const note = document.createElement('p');
+    note.className = 'espd-lot-select__empty';
+    note.textContent = t('ui.lots.none', 'No lots have been declared yet. Add them in Part I — Procurement procedure.');
+    frag.appendChild(note);
+    return frag;
+  }
+
+  // Exactly one declared lot: auto-select it (and persist) — no real choice.
+  if (lots.length === 1 && current !== lots[0]) {
+    current = lots[0];
+    setAnswer(field.dataPath, current);
+  }
+
+  const select = document.createElement('select');
+  select.id = id;
+  select.dataset.field = field.dataPath;
+  select.setAttribute('aria-label', label);
+  if (required) select.required = true;
+
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = t('ui.select', '— Select —');
+  select.appendChild(placeholder);
+
+  for (const lot of lots) {
+    const o = document.createElement('option');
+    o.value = lot;
+    o.textContent = lot;
+    if (current === lot) o.selected = true;
+    select.appendChild(o);
+  }
+  select.addEventListener('change', () => {
+    setAnswer(field.dataPath, select.value || undefined);
+    reapplyConditionals(select);
+  });
+  frag.appendChild(select);
+  return frag;
 }
 
 /**

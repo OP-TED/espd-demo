@@ -197,6 +197,81 @@ describe('compose-document: input validation', () => {
   });
 });
 
+// ---- Lot handling (Phase 4: BR-LOT-40/41 request, BR-LOT-10 response) --------
+describe('compose-document: lot handling', () => {
+  const partIAdmin = {
+    publication: { type: 'TED_CN', identifier: '2026/S 1-1' },
+    contractingAuthority: { officialName: 'A', country: 'ESP' },
+    procedure: { procedureType: 'open' },
+  };
+  const SEL = 'slc-stand-to-spec-avg';
+  const selectionReq = {
+    requirement: { lotIdentifiers: [], numberOfYears: 3, businessDomain: 'x', minimumAmount: { value: 5, currency: 'EUR' } },
+  };
+  const countLots = (xml) => (xml.match(/<cac:ProcurementProjectLot>/g) || []).length;
+  const countRefs = (xml) => (xml.match(/<cac:ProcurementProjectLotReference>/g) || []).length;
+
+  it('4a — a Request with a selection criterion and NO declared lots synthesizes a single LOT-0000 + a reference (BR-LOT-41)', () => {
+    const xml = compose({
+      instance: { partI: { ...partIAdmin }, partIV: { selectionCriteria: { [SEL]: selectionReq } } },
+      documentType: 'request', includedIds: [SEL], ids: IDS, now: NOW,
+    });
+    assert.equal(countLots(xml), 1, 'one synthesized document lot');
+    assert.match(xml, /<cac:ProcurementProjectLot>\s*<cbc:ID[^>]*>LOT-0000<\/cbc:ID>/);
+    assert.ok(countRefs(xml) >= 1, 'the selection criterion gains a lot reference');
+    assert.match(xml, /<cac:ProcurementProjectLotReference>\s*<cbc:ID[^>]*>LOT-0000<\/cbc:ID>/);
+  });
+
+  it('4a — an exclusion-only Request with no lots emits NO lot and NO reference (BR-LOT-40)', () => {
+    const xml = compose({
+      instance: {
+        partI: { ...partIAdmin },
+        partIII: { exclusionGrounds: { 'exg-crim-part': { response: { answer: false, electronicEvidence: { availableElectronically: false } } } } },
+      },
+      documentType: 'request', includedIds: ['exg-crim-part'], ids: IDS, now: NOW,
+    });
+    assert.equal(countLots(xml), 0, 'no lots for an exclusion-only Request');
+    assert.equal(countRefs(xml), 0, 'exclusion grounds carry no lot reference');
+  });
+
+  it('4a — a Request that DECLARED lots is left untouched (no synthesis)', () => {
+    const xml = compose({
+      instance: {
+        partI: { ...partIAdmin, lots: ['LOT-0000', 'LOT-0001'] },
+        partIV: { selectionCriteria: { [SEL]: { requirement: { ...selectionReq.requirement, lotIdentifiers: ['LOT-0001'] } } } },
+      },
+      documentType: 'request', includedIds: [SEL], ids: IDS, now: NOW,
+    });
+    assert.equal(countLots(xml), 2, 'both declared lots are emitted, nothing synthesized');
+  });
+
+  it('4b — a Response emits EXACTLY ONE lot = the EO choice, even from a multi-lot Request (BR-LOT-10)', () => {
+    const xml = compose({
+      instance: {
+        partI: { ...partIAdmin, lots: ['LOT-0000', 'LOT-0001', 'LOT-0002'] },
+        partII: { economicOperator: { role: 'sole-tenderer', name: 'EO', size: 'sme', country: 'ESP', identifier: { value: 'X' }, lot: 'LOT-0002' } },
+        partIII: { exclusionGrounds: { 'exg-crim-part': { response: { answer: false, electronicEvidence: { availableElectronically: false } } } } },
+      },
+      documentType: 'response', includedIds: ['exg-crim-part'], ids: IDS, now: NOW,
+    });
+    assert.equal(countLots(xml), 1, 'exactly one ProcurementProjectLot on the Response');
+    assert.match(xml, /<cac:ProcurementProjectLot>\s*<cbc:ID[^>]*>LOT-0002<\/cbc:ID>/);
+  });
+
+  it('4b — a Response falls back to the first declared lot when the EO has not chosen', () => {
+    const xml = compose({
+      instance: {
+        partI: { ...partIAdmin, lots: ['LOT-0000', 'LOT-0001'] },
+        partII: { economicOperator: { role: 'sole-tenderer', name: 'EO', size: 'sme', country: 'ESP', identifier: { value: 'X' } } },
+        partIII: { exclusionGrounds: { 'exg-crim-part': { response: { answer: false, electronicEvidence: { availableElectronically: false } } } } },
+      },
+      documentType: 'response', includedIds: ['exg-crim-part'], ids: IDS, now: NOW,
+    });
+    assert.equal(countLots(xml), 1, 'still exactly one lot');
+    assert.match(xml, /<cac:ProcurementProjectLot>\s*<cbc:ID[^>]*>LOT-0000<\/cbc:ID>/);
+  });
+});
+
 // ---- Schematron layer (Saxon-gated) ----------------------------------------
 describe('compose-document: schematron validity (Saxon-gated)', () => {
   const saxon = checkSaxonAvailable();

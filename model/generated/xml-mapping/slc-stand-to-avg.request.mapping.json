@@ -36,6 +36,19 @@
             "const": ""
           },
           {
+            "element": "cac:ProcurementProjectLotReference",
+            "forEach": "partIV.selectionCriteria.slc-stand-to-avg.requirement.lotIdentifiers",
+            "children": [
+              {
+                "element": "cbc:ID",
+                "fromItem": ".",
+                "attributes": {
+                  "schemeID": "criterion"
+                }
+              }
+            ]
+          },
+          {
             "element": "cac:TenderingCriterionPropertyGroup",
             "children": [
               {

@@ -53,10 +53,37 @@ check('criterion cbc:ID = uuid; CriterionTypeCode = code', () => {
   assert.equal(children.find(c => c.element === 'cbc:CriterionTypeCode').const, CODE);
 });
 
-check('lotIdentifiers -> repeated cac:TenderingCriterionProperty with cbc:ExpectedID fromItem', () => {
-  const forEachNode = all.find(x => x.node.forEach && x.node.forEach.endsWith('requirement.lotIdentifiers'));
+check('lotIdentifiers -> criterion-scoped cac:ProcurementProjectLotReference (BR-LOT-41)', () => {
+  const criterionChildren = spec.rules[0].structure.children;
+  const lotRefs = criterionChildren.filter(c => c.element === 'cac:ProcurementProjectLotReference');
+  assert.equal(lotRefs.length, 1, 'exactly one lot-reference node, directly under cac:TenderingCriterion');
+  const lotRef = lotRefs[0];
+  assert.ok(lotRef.forEach && lotRef.forEach.endsWith('requirement.lotIdentifiers'),
+    `forEach should iterate lotIdentifiers, got ${lotRef.forEach}`);
+  const id = (lotRef.children ?? []).find(c => c.element === 'cbc:ID');
+  assert.ok(id, 'lot reference carries a cbc:ID child');
+  assert.equal(id.fromItem, '.');
+  assert.equal(id.attributes.schemeID, 'criterion');
+});
+
+check('lot reference is positioned after cbc:Description, before property groups', () => {
+  const children = spec.rules[0].structure.children;
+  const descIdx = children.findIndex(c => c.element === 'cbc:Description');
+  const lotIdx = children.findIndex(c => c.element === 'cac:ProcurementProjectLotReference');
+  const firstGroupIdx = children.findIndex(c => c.element === 'cac:TenderingCriterionPropertyGroup');
+  assert.ok(descIdx >= 0 && lotIdx === descIdx + 1, 'lot reference immediately follows Description');
+  if (firstGroupIdx >= 0) assert.ok(lotIdx < firstGroupIdx, 'lot reference precedes the property groups');
+});
+
+check('lotIdentifiers ALSO stays a repeated cac:TenderingCriterionProperty/cbc:ExpectedID', () => {
+  // The e-Certis group completeness rule (03-ESPD-common-criterion-br) counts the
+  // lot REQUIREMENT property inside RG1; it must remain alongside the lot ref.
+  const forEachNode = all.find(x =>
+    x.node.element === 'cac:TenderingCriterionProperty' &&
+    x.node.forEach && x.node.forEach.endsWith('requirement.lotIdentifiers'));
   assert.ok(forEachNode, 'expected a forEach property for lotIdentifiers');
   const expectedId = (forEachNode.node.children ?? []).find(c => c.element === 'cbc:ExpectedID');
+  assert.ok(expectedId, 'lot property carries cbc:ExpectedID');
   assert.equal(expectedId.fromItem, '.');
   assert.equal(expectedId.attributes.schemeAgencyID, 'OP');
 });

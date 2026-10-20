@@ -7,12 +7,18 @@
   },
   "valueTypes": {
     "LOT_IDENTIFIER": {
+      "$note": "A buyer REQUIREMENT naming the procurement lots a (selection) criterion applies to. The e-Certis criterion definition and the BASE request carry the lot in TWO places, both of which the Schematron checks: (1) as a repeated cac:TenderingCriterionProperty (REQUIREMENT) inside its RG1 group, each with a cbc:ExpectedID — the property-group completeness rule (03-ESPD-common-criterion-br) counts this; and (2) as a repeated cac:ProcurementProjectLotReference directly under cac:TenderingCriterion (after cbc:Description, before the property groups) — BR-LOT-41 requires >=1 of these on every selection criterion and BR-LOT-40 forbids any on exclusion grounds. Both are emitted from the same lotIdentifiers array: `requestXml` drives the property (via the repeatedProperty kind) and `lotReference` drives the criterion-scoped reference node.",
       "sourceDescription": "Code used to detect an identifier that refers to a Lot",
       "instanceShape": { "type": "array", "items": { "type": "string" } },
       "requestXml": {
         "kind": "repeatedProperty",
         "element": "cbc:ExpectedID",
         "attributes": { "schemeAgencyID": { "const": "OP" } }
+      },
+      "lotReference": {
+        "element": "cac:ProcurementProjectLotReference",
+        "idElement": "cbc:ID",
+        "attributes": { "schemeID": { "const": "criterion" } }
       }
     },
     "QUANTITY_YEAR": {

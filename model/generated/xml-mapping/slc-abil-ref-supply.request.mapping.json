@@ -36,6 +36,19 @@
             "const": ""
           },
           {
+            "element": "cac:ProcurementProjectLotReference",
+            "forEach": "partIV.selectionCriteria.slc-abil-ref-supply.requirement.lotIdentifiers",
+            "children": [
+              {
+                "element": "cbc:ID",
+                "fromItem": ".",
+                "attributes": {
+                  "schemeID": "criterion"
+                }
+              }
+            ]
+          },
+          {
             "element": "cac:TenderingCriterionPropertyGroup",
             "children": [
               {

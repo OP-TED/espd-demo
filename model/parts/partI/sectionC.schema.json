@@ -66,7 +66,7 @@
 
     "lots": {
       "type": "array",
-      "description": "The lot identifiers this procedure is divided into. Each maps to one cac:ProcurementProjectLot/cbc:ID carrying the criterion identifier scheme. Lots are a DOCUMENT-level mechanism (one Request per procedure); selection criteria reference these ids via cac:ProcurementProjectLotReference, which BR-LOT-41 makes mandatory for every selection criterion.",
+      "description": "The lot identifiers this procedure is divided into (LOT-0000, LOT-0001, …). The UI collects a 'Number of lots' count and generates this array; it is the canonical stored form. Each id maps to one cac:ProcurementProjectLot/cbc:ID carrying the criterion identifier scheme. Lots are a DOCUMENT-level mechanism (one Request per procedure); selection criteria reference these ids via cac:ProcurementProjectLotReference, which BR-LOT-41 makes mandatory for every selection criterion. OPTIONAL overall (a procedure need not be divided into lots), but non-empty WHEN PRESENT — a count of 0/blank stores no `lots` key at all rather than an empty array.",
       "items": { "type": "string", "minLength": 1 },
       "minItems": 1
     }

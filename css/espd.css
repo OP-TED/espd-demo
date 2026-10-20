@@ -1706,6 +1706,14 @@ fieldset[role="radiogroup"]:has(.espd-role-radio) {
   font-style: italic;
 }
 
+/* Inline help text under a field label (e.g. Part I "Number of lots"). */
+.espd-field-help {
+  margin: calc(-1 * var(--gs-base-spacing-xs)) 0 var(--gs-base-spacing-xs);
+  color: var(--gs-base-color-gray-75);
+  font-size: var(--gs-base-font-size-s);
+  line-height: 1.4;
+}
+
 /* Repeatable groups (add another / remove). */
 .espd-repeatable-instance {
   position: relative;

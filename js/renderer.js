@@ -341,6 +341,7 @@ export function renderField(field) {
   let control;
   switch (field.uiType) {
     case 'boolean': control = booleanControl(field, label, required); break;
+    case 'lot-count': control = lotCountControl(field, label, required); break;
     case 'lot-select': control = lotSelectControl(field, label, required); break;
     case 'code': control = codeControl(field, label, required); break;
     case 'date': control = inputControl(field, label, required, 'date'); break;
@@ -454,6 +455,56 @@ function booleanControl(field, label, required) {
   }
   fs.appendChild(group);
   return fs;
+}
+
+/** Canonical lot id for the zero-based index n: LOT-0000, LOT-0001, … */
+function lotIdForIndex(n) {
+  return `LOT-${String(n).padStart(4, '0')}`;
+}
+
+/**
+ * lot-count -> the Part I §C "Number of lots" control: a single integer input.
+ * It does not store a count; it is a view over the canonical partI.lots array.
+ * Changing it (re)generates partI.lots = [LOT-0000 … LOT-000(N-1)]; a blank or 0
+ * clears the lots entirely (a procedure not divided into lots carries no
+ * cac:ProcurementProjectLot). The declared lots drive the Part IV lot-select.
+ */
+function lotCountControl(field, label, required) {
+  const frag = document.createElement('div');
+  const id = fieldId(field.dataPath);
+  const current = getAnswer(field.dataPath);
+  const count = Array.isArray(current) ? current.length : 0;
+
+  frag.appendChild(labelEl(id, label, required));
+  const help = document.createElement('p');
+  help.className = 'espd-field-help';
+  help.id = `${id}-help`;
+  help.textContent = t('ui.lots.countHelp', 'Indicate the number of lots the procurement is divided into. Leave blank if it is not divided into lots.');
+  frag.appendChild(help);
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.min = '0';
+  input.step = '1';
+  input.id = id;
+  input.dataset.field = field.dataPath;
+  input.setAttribute('aria-label', label);
+  input.setAttribute('aria-describedby', help.id);
+  input.inputMode = 'numeric';
+  if (count > 0) input.value = String(count);
+
+  input.addEventListener('input', () => {
+    const n = Math.floor(Number(input.value));
+    if (!Number.isFinite(n) || n <= 0) {
+      // Not divided into lots: drop the lots key so no ProcurementProjectLot is
+      // emitted (an empty array would violate the schema's minItems:1).
+      setAnswer(field.dataPath, undefined);
+    } else {
+      setAnswer(field.dataPath, Array.from({ length: n }, (_, i) => lotIdForIndex(i)));
+    }
+    reapplyConditionals(input);
+  });
+  frag.appendChild(input);
+  return frag;
 }
 
 /**

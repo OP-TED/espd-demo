@@ -162,7 +162,7 @@ test('the form lens covers all Section C fields with severity-matched requiredne
     'partI.procedure.fileReference.value',
     'partI.project.name',
     'partI.project.description',
-    'partI.lots[]',
+    'partI.lots',
   ]);
 
   // BR-SC-10 is fatal -> required. Everything else is unconstrained -> optional.
@@ -170,8 +170,11 @@ test('the form lens covers all Section C fields with severity-matched requiredne
   assert.equal(byPath.get('partI.procedure.fileReference.value').required, false);
   assert.equal(byPath.get('partI.project.name').required, false);
 
-  // Lots are a repeating field.
-  assert.equal(byPath.get('partI.lots[]').repeatable, true);
+  // Lots are collected via a "Number of lots" count control that generates the
+  // canonical partI.lots array; it is optional and not a repeatable row field.
+  assert.equal(byPath.get('partI.lots').uiType, 'lot-count');
+  assert.equal(byPath.get('partI.lots').required, false);
+  assert.equal(byPath.get('partI.lots').repeatable, undefined);
 });
 
 test('the procedureType field documents the missing-codelist caveat', () => {

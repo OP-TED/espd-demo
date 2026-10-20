@@ -155,8 +155,10 @@ describe('parts: assembled lens shape', () => {
     });
   });
 
-  it('the repeatable lots field keeps its repeatable flag', () => {
-    assert.equal(fieldOf(lensOf('I'), 'partI.lots[]').repeatable, true);
+  it('the lots field is a lot-count control (generates the canonical lots array)', () => {
+    const lots = fieldOf(lensOf('I'), 'partI.lots');
+    assert.equal(lots.uiType, 'lot-count');
+    assert.equal(lots.repeatable, undefined);
   });
 });
 

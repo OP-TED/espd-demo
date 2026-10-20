@@ -42,7 +42,9 @@ const ADMIN_PARTS = [
   { part: 'VI', dir: 'partVI' },
 ];
 
-const ALLOWED_UI_TYPES = new Set(['text', 'textarea', 'url', 'code']);
+// 'lot-count' is the Part I §C "Number of lots" control: a single integer input
+// that the renderer expands into the canonical partI.lots array (LOT-000n ids).
+const ALLOWED_UI_TYPES = new Set(['text', 'textarea', 'url', 'code', 'lot-count']);
 
 /** Load a JSON file. */
 function readJson(p) {

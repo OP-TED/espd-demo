@@ -17,7 +17,7 @@
   "partI.procedure.fileReference.value": "File reference number",
   "partI.project.name": "Project title",
   "partI.project.description": "Project description",
-  "partI.lots": "Lot identifier",
+  "partI.lots": "Number of lots",
   "section.title.II.A": "Information about the economic operator",
   "partII.sectionA.description": "Identify the economic operator, its role in this bid, and its size.",
   "partII.economicOperator.role": "Role in this bid",

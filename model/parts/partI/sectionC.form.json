@@ -43,13 +43,12 @@
       "description": "Description of the procurement."
     },
     {
-      "dataPath": "partI.lots[]",
+      "dataPath": "partI.lots",
       "labelKey": "partI.lots",
-      "label": "Lot identifier",
-      "uiType": "text",
-      "repeatable": true,
+      "label": "Number of lots",
+      "uiType": "lot-count",
       "required": false,
-      "description": "Lot identifiers (e.g. LOT-0000). Every selection criterion must reference at least one lot (BR-LOT-41), so a procedure carrying selection criteria needs at least one lot declared here."
+      "description": "The number of lots this procurement is divided into. Leave blank (or 0) if it is not divided into lots. The lot identifiers (LOT-0000, LOT-0001, …) are generated from this count and each selection criterion in Part IV then references the lots it applies to (BR-LOT-41)."
     }
   ]
 }

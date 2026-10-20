@@ -127,11 +127,10 @@
               "required": false
             },
             {
-              "dataPath": "partI.lots[]",
-              "uiType": "text",
+              "dataPath": "partI.lots",
+              "uiType": "lot-count",
               "labelKey": "partI.lots",
-              "required": false,
-              "repeatable": true
+              "required": false
             }
           ]
         }

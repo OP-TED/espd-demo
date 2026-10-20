@@ -16,6 +16,21 @@
           "filledBy": "economicOperator",
           "fields": [
             {
+              "dataPath": "partVI.declaration.accuracy",
+              "kind": "caption",
+              "labelKey": "partVI.declaration.accuracy"
+            },
+            {
+              "dataPath": "partVI.declaration.evidence",
+              "kind": "caption",
+              "labelKey": "partVI.declaration.evidence"
+            },
+            {
+              "dataPath": "partVI.declaration.consent",
+              "kind": "caption",
+              "labelKey": "partVI.declaration.consent"
+            },
+            {
               "dataPath": "partVI.signatory.physicalLocationName",
               "uiType": "text",
               "labelKey": "partVI.signatory.physicalLocationName",

@@ -64,9 +64,23 @@ test('the signatory maps to cac:Signature/cac:SignatoryParty/cac:PhysicalLocatio
 
 // --- form lens ----------------------------------------------------------
 
-test('the form lens is a single optional, non-repeatable field', () => {
-  assert.equal(form.fields.length, 1);
-  const f = form.fields[0];
+test('the form lens carries the three concluding-declaration captions + one optional signature field', () => {
+  // Three read-only declaration captions (Regulation 2016/7, Annex 2, Part VI)
+  // followed by the single optional, non-repeatable "place of signing" field.
+  const captions = form.fields.filter((f) => f.kind === 'caption');
+  assert.deepEqual(captions.map((c) => c.dataPath), [
+    'partVI.declaration.accuracy',
+    'partVI.declaration.evidence',
+    'partVI.declaration.consent',
+  ]);
+  for (const c of captions) {
+    assert.ok(c.labelKey, `${c.dataPath} caption has a labelKey`);
+    assert.equal(c.uiType, undefined, 'a caption is display text, not an input');
+  }
+
+  const inputs = form.fields.filter((f) => f.kind !== 'caption');
+  assert.equal(inputs.length, 1);
+  const f = inputs[0];
   assert.equal(f.dataPath, 'partVI.signatory.physicalLocationName');
   assert.equal(f.required, false);
   assert.ok(!f.repeatable, 'the signature field is not repeatable');

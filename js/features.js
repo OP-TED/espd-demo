@@ -40,7 +40,7 @@ const serverlessFlags = {
  * Priority:
  *   1. ?serverless / ?serverless=true|1 in the URL forces serverless mode.
  *   2. A build-time global window.__ESPD_SERVERLESS__ === true forces
- *      serverless mode (used by the GitLab Pages build).
+ *      serverless mode (used by the GitHub Pages build).
  *   3. Otherwise the defaults apply (all features ON, for local dev with
  *      the proxying dev-server).
  */

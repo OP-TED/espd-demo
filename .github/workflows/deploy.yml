@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+# Build the ESPD demo as a static site and publish it to GitHub Pages.
+#
+# The site is static-only. The two server-dependent features (TED lookup, ITB
+# validation) are disabled at build time by scripts/build-pages.js, which sets
+# window.__ESPD_SERVERLESS__ = true in the deployed copy of js/runtime-config.js.
+# Mirrors the former .gitlab-ci.yml `pages` job (deploy only from the default branch).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:   # allow manual deploys from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One live deployment at a time; a newer push supersedes an in-flight run.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npm run build:pages
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

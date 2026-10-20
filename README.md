@@ -1,6 +1,8 @@
-# ESPD-EDM Reference Implementation
+# espd-demo — ESPD-EDM Reference Implementation
 
 A European Single Procurement Document (ESPD) service implementation using plain HTML, CSS, and JavaScript.
+
+Repository: <https://github.com/OP-TED/espd-demo> · Live demo: <https://op-ted.github.io/espd-demo/>
 
 ## Features
 
@@ -37,9 +39,9 @@ server so the proxied API calls can reach the internet:
 HTTPS_PROXY=http://your-proxy:port npm run dev
 ```
 
-## Building for GitLab Pages
+## Building for GitHub Pages
 
-GitLab Pages serves static files only — there is no Node.js runtime in
+GitHub Pages serves static files only — there is no Node.js runtime in
 production. The build produces a fully static site with the server-dependent
 features disabled (see [Feature Flags](#feature-flags)).
 
@@ -61,9 +63,14 @@ This runs `scripts/build-pages.js`, which:
 
 The source tree is left untouched, so local development is unaffected.
 
-Deployment is handled by [`.gitlab-ci.yml`](./.gitlab-ci.yml): the `pages` job
-runs `npm run build:pages`, publishes `public/` as the Pages artifact, and runs
-only on the default branch. The site is served from the Pages **root**.
+Deployment is handled by the GitHub Actions workflow
+[`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml): on a push to
+`main` (or a manual run) it runs `npm run build:pages`, uploads `public/` as the
+Pages artifact, and deploys it. Set **Settings → Pages → Source = "GitHub
+Actions"** in the repository. The site is served from the project-Pages base
+path `https://op-ted.github.io/espd-demo/`; the app uses relative asset paths
+and an `index.html` `<base href="./">`, so that non-root base path works without
+changes.
 
 ## Feature Flags
 
@@ -92,7 +99,7 @@ Flags are resolved in this priority order:
 | Environment            | `__ESPD_SERVERLESS__` | TED lookup | ITB validation |
 | ---------------------- | --------------------- | ---------- | -------------- |
 | Local dev (`npm run dev`) | `false`            | on         | on             |
-| GitLab Pages           | `true`                | off        | off            |
+| GitHub Pages           | `true`                | off        | off            |
 
 To preview serverless mode locally, append `?serverless` to the URL, e.g.
 http://localhost:3000/?serverless.
@@ -139,7 +146,7 @@ http://localhost:3000/?serverless.
 │   ├── mapping-engine/         # Bidirectional UBL map/unmap engine (runtime)
 │   ├── parts/                  # Hand-authored admin parts (I, II, VI) mapping sidecars
 │   └── legacy/                 # Pre-compiler parity references (see model/legacy/README.md)
-├── .gitlab-ci.yml              # GitLab Pages deployment pipeline
+├── .github/workflows/deploy.yml # GitHub Pages deployment workflow
 └── package.json                # Scripts: dev, build:pages, model:compile, model:test, test, test:e2e
 ```
 
@@ -188,7 +195,8 @@ ownership rules for where each piece of the model is authored.
 ### TODO: CI test gate
 
 Add the unit tests (`npm test`) and e2e tests (`npm run test:e2e`) as a gating
-stage in `.gitlab-ci.yml` that must pass before the `pages` deploy job runs.
+job in `.github/workflows/deploy.yml` (or a separate CI workflow) that must pass
+before the Pages `deploy` job runs.
 
 ### TODO: move exclusion-ground mandatoriness into ESPD-EDM
 

@@ -12,8 +12,9 @@ import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
-// model/codelists/ -> repo root (espd) -> ESPD-EDM/codelists
-// here = <ws>/espd-edm-reference-implementation/model/codelists
+// model/codelists/ -> app repo root -> workspace root (espd) -> ESPD-EDM/codelists
+// Path is resolved RELATIVE to this module (import.meta.url), so it is unaffected
+// by the app-repo folder name; it assumes ESPD-EDM/ is a sibling of the app repo.
 const CODELISTS_DIR = path.resolve(here, '..', '..', '..', 'ESPD-EDM', 'codelists');
 
 /** Absolute path to a shipped .gc codelist by file name (e.g. 'EOIDType.gc'). */

@@ -11,7 +11,7 @@
  */
 
 // Relative (no leading slash) so it works both at the domain root (local dev)
-// and under a subpath deployment (e.g. GitLab Pages project sites).
+// and under a subpath deployment (e.g. GitHub Pages project sites).
 const MODEL_BASE = 'model/generated/ui';
 
 const PART_KEYS = ['I', 'II', 'III', 'IV', 'V', 'VI'];

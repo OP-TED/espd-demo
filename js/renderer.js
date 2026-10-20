@@ -392,7 +392,17 @@ function inputControl(field, label, required, type) {
   if (required) input.required = true;
   if (value !== undefined && value !== null) input.value = String(value);
   input.addEventListener('input', () => {
-    setAnswer(field.dataPath, input.value);
+    // A number input's .value is a STRING; store it as a real number so it
+    // matches the schema's number/integer type (otherwise validation flags the
+    // field as "wrong type"). A blank or non-numeric entry stores undefined
+    // (i.e. "unanswered") rather than NaN or an empty string.
+    if (type === 'number') {
+      const raw = input.value.trim();
+      const n = raw === '' ? undefined : Number(raw);
+      setAnswer(field.dataPath, Number.isFinite(n) ? n : undefined);
+    } else {
+      setAnswer(field.dataPath, input.value);
+    }
     reapplyConditionals(input);
   });
   frag.appendChild(input);

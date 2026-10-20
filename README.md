@@ -1,4 +1,4 @@
-# espd-demo — ESPD-EDM Reference Implementation
+# espd-demo
 
 A European Single Procurement Document (ESPD) service implementation using plain HTML, CSS, and JavaScript.
 

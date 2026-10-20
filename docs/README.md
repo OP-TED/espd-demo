@@ -1,6 +1,6 @@
 # Documentation
 
-Documentation for the ESPD-EDM reference implementation, organised by kind.
+Documentation for espd-demo, organised by kind.
 
 ## `reference/` — how the shipped system works
 

@@ -1,5 +1,5 @@
 /**
- * ESPD-EDM Reference Implementation — Main application module.
+ * espd-demo — Main application module.
  * Initializes the app, manages wizard navigation, and wires up events.
  *
  * Navigation flow:
@@ -624,11 +624,11 @@ function escHtml(str) {
 // ─── Application Init ─────────────────────────────────────────────────────────
 
 init().catch(err => {
-  console.error('Failed to initialize ESPD-EDM Reference Implementation:', err);
+  console.error('Failed to initialize espd-demo:', err);
   document.getElementById('main-content').innerHTML = `
     <article>
       <header>Initialization Error</header>
-      <p>Failed to load the ESPD-EDM Reference Implementation. Please refresh the page and try again.</p>
+      <p>Failed to load the application. Please refresh the page and try again.</p>
       <p><small>${err.message}</small></p>
     </article>
   `;

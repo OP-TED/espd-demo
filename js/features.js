@@ -1,5 +1,5 @@
 /**
- * Feature flags for the ESPD-EDM Reference Implementation application.
+ * Feature flags for the espd-demo application.
  *
  * Controls which server-dependent features are enabled.
  * When running as a pure static site (no backend proxy), disable

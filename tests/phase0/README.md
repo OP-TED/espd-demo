@@ -1,7 +1,7 @@
 # Phase 0 — UI rebuild regression harness
 
 These tests are the **parity oracle** for the model-driven UI rebuild
-(see `docs/ui-rebuild-plan.md`). They characterize the CURRENT UI's behaviour so
+(see `ui-rebuild-plan.md` in the `espd-notes` repo). They characterize the CURRENT UI's behaviour so
 the rebuild can be proven to preserve it. They assert *what the code does today*
 (including quirks), not what it ideally should do — a characterization harness.
 

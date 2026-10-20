@@ -27,7 +27,7 @@ exemplify this block. The shape is derived from the EA `I73` model and UBL 2.4
 `SignatureType`. **REVIEW against a real signed instance** when one is available
 — the same situation Part I §A and Part II §B were in before samples existed.
 
-This supersedes the earlier **P6-1** deferral in `docs/improvement-ideas.md`
+This supersedes the earlier **P6-1** deferral in the `espd-notes` repo (`notes/improvement-ideas.md`)
 (Part VI was previously parked as "one optional field, no sample"): it is now
 modelled, with the no-sample caveat recorded here.
 

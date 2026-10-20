@@ -4,7 +4,7 @@ This document defines **what each modeling artifact is, what it means, and how t
 artifacts relate**. It is the conceptual map of the `model/` subsystem — read it
 before changing the pipeline or building anything (e.g. the UI) on top of the model.
 
-For the directory layout and build commands see [`../model/README.md`](../model/README.md).
+For the directory layout and build commands see [`../../model/README.md`](../../model/README.md).
 For the ownership rule (what lives where) see
 [`espd-edm-primary-input-enrichment.md`](./espd-edm-primary-input-enrichment.md).
 
@@ -101,7 +101,7 @@ Hand-authored, reviewed, the source of truth for enrichment.
 One entry per codelist with the four **independent** axes — `shipped`,
 `schematronValidated`, `useForUI`, `inlineEnum` — plus the derived
 "implementer-choice" marker. Drives enum inlining (instance schema) and UI pick-list
-emission. See [`codelist-governance.md`](./codelist-governance.md).
+emission. See [`codelist-governance.md`](../codelist-governance.md).
 
 ---
 
@@ -175,7 +175,7 @@ the same `.gc` files as the inlined enums, so they cannot drift.
 
 One file tying it together: model version + EDM provenance, the value-type set with
 usage, the criterion inventory, the codelist governance digest, and generated-layer
-counts. A machine-readable sibling of [`coverage-report.md`](./coverage-report.md).
+counts. A machine-readable sibling of [`coverage-report.md`](../coverage-report.md).
 
 ---
 
@@ -230,15 +230,19 @@ remote service via the dev-server proxy.)
 
 ---
 
-## 6b. The current (legacy) UI data path — being retired
+## 6b. The UI data path
 
-For historical context: the **current** browser UI does not read `model/` at all. It reads
-the hand-authored `espd-edm/` directory (`index.json` + `parts/part-*.json` + `roles.json`),
-hard-codes codelist tables in `js/codelists.js`, and **re-implements the UBL mapping by hand**
-in `js/xml-export.js` (string building) and `js/xml-import.js` (lossy regex parsing), keyed on
-`contentpath` strings. The planned UI rebuild replaces all of this with the generated lenses +
-the shared mapping engine (`mapper.mjs`), after which `espd-edm/` and the hand-rolled
-export/import are retired. See the UI rebuild plan.
+The browser UI is driven by the generated model. `js/model.js` loads the UI bundle
+from `model/generated/ui/` (`index.json` + per-part lenses + `roles.json`), and UBL
+export/import goes through the shared mapping engine: `js/xml-export.js` calls
+`composeInBrowser` from `model/mapping-engine/compose-document-browser.mjs` rather
+than building XML strings by hand.
+
+> **Historical note.** An earlier UI generation read a hand-authored `espd-edm/`
+> directory and re-implemented the UBL mapping by hand in `js/xml-export.js` /
+> `js/xml-import.js`. That directory has been removed and the mapping consolidated
+> onto the shared engine. The original migration plan was moved to the separate
+> `espd-notes` repository (`notes/ui-rebuild-plan.md`).
 
 ---
 

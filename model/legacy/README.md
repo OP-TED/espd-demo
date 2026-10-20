@@ -9,12 +9,6 @@ Everything here predates the compiler and is kept for parity/reference only.
   hand-authored model (e.g. C01 → `form-structure/part-III.form.json`,
   C31 → `instance-data/part-IV.schema.json`). `xml-mapping/` also holds the
   roundtrip/scaffold tests that exercise those specs through the mapping engine.
-- `tooling/` — dev CLIs that operate on the artifacts above (validate,
-  check-paths, uml, xml-uml, mapping-uml, skeleton, sample, mapxml,
-  build-request-mapping). Not run by any suite.
-- `poc-c31/` — the original C31 proof-of-concept the production compiler
-  generalizes. Not executed by any test/build; cited by the docs as the
-  design's origin.
 
 Once the compiler fully reproduces a part's hand-authored artifacts, the
 corresponding legacy files can be removed. Until then the per-part files are

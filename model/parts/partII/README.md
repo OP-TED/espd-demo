@@ -55,7 +55,7 @@ would exercise the `eo-role-type` enum via `OT59`). Part V also has an `OT`
 criterion (`staff-red`); the whole-model criterion count should be recomputed
 with an `OT`-inclusive filter.
 
-## Deferred (administrative, optional — in `docs/improvement-ideas.md`)
+## Deferred (administrative, optional — in `espd-notes` `notes/improvement-ideas.md`)
 
 - Section A optional party fields the EA model carries but no Schematron rule
   requires: postal address (street/city/zone/building), contact

@@ -41,7 +41,7 @@ Per `docs/codelist-governance.md`:
 
 ## Deferred (optional — not debt)
 
-All grounded in `docs/improvement-ideas.md`; none required for a conformant ESPD:
+All grounded in the `espd-notes` repo (`notes/improvement-ideas.md`); none required for a conformant ESPD:
 
 - **A2** — multiple publication references (EA cardinality is `1..n`; we model one).
 - **A** `Attachment/Name` — a human-readable notice title; present in EA, not modelled.

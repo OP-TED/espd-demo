@@ -159,6 +159,7 @@ The proof-of-concept validator enforces that:
   and its EA cardinality is `0..n` / `1..n`); and
 - every semantic value node refers to a defined value type.
 
-The executable implementation is under `model/legacy/poc-c31/`. The broader
+These invariants are enforced by the production compiler under `model/compiler/`
+(see `overlay-enrichment.mjs` and `structural-equivalence.mjs`). The broader
 question of which enrichment can be inferred from the EA export is covered in
-[Keeping espd-edm.json as the Primary Input](espd-edm-primary-input-enrichment.md).
+[Keeping espd-edm.json as the Primary Input](../reference/espd-edm-primary-input-enrichment.md).

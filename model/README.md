@@ -61,20 +61,13 @@ model/
 │   │                          export form data to UBL XML and import it back
 │   └── records-value-attributes.test.mjs   the engine's own unit test
 │
-└── legacy/              PRE-COMPILER artifacts + legacy dev tooling, kept as parity
-    │                    references the compiler tests compare against. Removable per
-    │                    part once the compiler fully reproduces it.
+└── legacy/              PRE-COMPILER artifacts kept as parity references the
+    │                    compiler tests compare against. Removable per part once
+    │                    the compiler fully reproduces it.
     ├── xml-mapping/           part-*.json mapping specs + roundtrip-part-*.test.mjs,
     │                          scaffold-part-IV.test.mjs (exercise the hand-authored specs)
     ├── instance-data/         part-*.schema.json + part-*.example.json originals
     ├── form-structure/        part-*.form.json originals
-    ├── tooling/               dev CLIs over the legacy artifacts (not in any suite):
-    │                          validate / check-paths / uml / xml-uml / mapping-uml /
-    │                          skeleton / sample / mapxml / build-request-mapping
-    ├── poc-c31/               the original C31 proof-of-concept the production compiler
-    │                          generalizes. Not executed by any test/build; cited by the
-    │                          docs (design.md, espd-edm-semantic-identifiers.md,
-    │                          model-xml-mapping.md) as the design's origin.
     └── README.md
 ```
 
@@ -93,14 +86,14 @@ npm run model:test      # node --test model/compiler/ model/mapping-engine/ mode
 - **Projection decisions** (semantic IDs, instance bindings, uiType, i18n keys,
   presentation) — hand-authored in `model-sources/`.
 
-See `../docs/espd-edm-primary-input-enrichment.md` for the full rationale.
+See `../docs/reference/espd-edm-primary-input-enrichment.md` for the full rationale.
 
 ## Notes
 
 - `mapping-engine/mapper.mjs` is **runtime** code, not legacy: the compiler
   imports it to run generated mapping specs, and the UI will import it to export
   form data to UBL XML (and import it back). It lives in its own module so both
-  consumers share one copy. Everything under `legacy/` — the per-part originals,
-  their roundtrip tests, and `legacy/tooling/` dev CLIs — is pre-compiler and
-  slated for removal per part as the compiler reproduces each one.
+  consumers share one copy. Everything under `legacy/` — the per-part originals
+  and their roundtrip tests — is pre-compiler and slated for removal per part as
+  the compiler reproduces each one.
 ```

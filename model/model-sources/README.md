@@ -19,5 +19,5 @@ A criterion is "modeled" when it has a `<code>.sidecar.json` here. The build
 (`node model/compiler/build-generated.mjs`) compiles each and writes
 `../generated/`.
 
-See `../../docs/espd-edm-primary-input-enrichment.md` for the rationale behind
+See `../../docs/reference/espd-edm-primary-input-enrichment.md` for the rationale behind
 what lives here (implementation projections) versus upstream in `espd-edm.json`.

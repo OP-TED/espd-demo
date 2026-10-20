@@ -8,14 +8,15 @@ to and from UBL XML. It is not yet wired into the reference-implementation UI.
 > That approach has since been generalized into the `model/compiler/` pipeline,
 > and the hand-authored per-part artifacts now live under `model/legacy/`
 > (specs in `legacy/xml-mapping/`, schemas/examples in `legacy/instance-data/`,
-> lenses in `legacy/form-structure/`), with their dev CLIs in `legacy/tooling/`.
-> The mapping engine itself was extracted to `model/mapping-engine/mapper.mjs`
-> and is shared by the compiler and these legacy tools. Paths below use the
-> current locations.
+> lenses in `legacy/form-structure/`). The dev CLIs that operated on these
+> artifacts (`legacy/tooling/`) have since been removed; the command examples
+> below are retained only to describe what those tools did. The mapping engine
+> itself was extracted to `model/mapping-engine/mapper.mjs` and is shared by the
+> compiler. Paths below use the current locations.
 
 > For why this correspondence engine was kept rather than replaced by a
 > (reverse) text template engine such as reverse-ejs, see
-> [decision-reverse-template-engine.md](./decision-reverse-template-engine.md).
+> [decision-reverse-template-engine.md](../decisions/decision-reverse-template-engine.md).
 
 ## Three layers
 
@@ -23,8 +24,7 @@ The model is deliberately split into three independent layers:
 
 - **`model/legacy/instance-data/`** — the canonical data a user enters, as a JSON
   Schema + example pair per part (`part-I`, `part-II`, `part-III`). Semantic
-  keys, no form or XML concerns. Validated with
-  `node legacy/tooling/validate.mjs part-III`.
+  keys, no form or XML concerns.
 - **`model/legacy/form-structure/`** — a presentation lens (sections, ordering, UI
   hints, conditional visibility, criterion order). References instance data by
   dotted `dataPath`. Carries no XML concerns.
@@ -240,10 +240,10 @@ instance data:
 - `part-IV.response.mapping.json` — the EO `response.*` → `QualificationApplicationResponse`.
 
 The round trip is verified per document and the two reconstructed halves merged
-(`roundtrip-part-IV.test.mjs`). The generators (`sample.mjs`, `skeleton.mjs`,
-`mapping-uml.mjs`, `xml-uml.mjs`) accept an explicit spec filename so they can
-target either document; `uml.mjs` and `validate.mjs` remain per-part (one
-schema). All of these now live in `legacy/tooling/`.
+(`roundtrip-part-IV.test.mjs`). (The dev CLIs that generated samples, skeletons
+and UML from these specs — `sample`, `skeleton`, `mapping-uml`, `xml-uml`,
+`uml`, `validate` — have since been removed; see the note under "Generating
+samples and skeletons" below.)
 
 ### Engine additions (generic, spec-driven)
 
@@ -313,86 +313,64 @@ So the architecture supports the requirement, but full coverage, verified
 decoding of externally-produced XML, the request document, and UI wiring remain
 open work.
 
-## Generating samples and skeletons
+## Generating samples, skeletons and UML (removed tooling)
 
-Two helpers in `model/legacy/tooling/` produce XML from the model without a
-hand-written instance, for documentation and fixtures:
+> **Note.** The dev CLIs described in this section lived under
+> `model/legacy/tooling/` and have been **removed**. The descriptions are kept
+> because they document what the hand-authored per-part model can produce and
+> the diagram conventions used for the pre-generated PlantUML artifacts (moved to
+> the separate `espd-notes` repository, `diagrams/`); the
+> production pipeline is `model/compiler/` (`npm run model:compile`) and
+> verification runs through `npm run model:test`. If these generators are
+> needed again, the committed diagrams and this description are the reference
+> for reconstructing them against the mapping engine.
 
-- **`skeleton.mjs`** — a structural *skeleton* of the XML from the mapping spec
+Two helpers produced XML from the model without a hand-written instance, for
+documentation and fixtures:
+
+- **`skeleton`** — a structural *skeleton* of the XML from the mapping spec
   alone: every element the mapping can produce, with placeholders naming what
   fills each leaf (`{const}`, `{from: <instance path>}`, `{ref: <array>[].<field>}`)
   and `<!-- repeats per ... -->` comments on repeating records. No values are
   invented; it is a shape/template reference.
-
-  ```
-  node legacy/tooling/skeleton.mjs part-III
-  ```
-
-- **`sample.mjs`** — a realistic *sample* document: it synthesizes a
+- **`sample`** — a realistic *sample* document: it synthesized a
   minimal-but-complete valid instance from the JSON Schema (required fields; one
-  item per array; booleans chosen to open conditional branches) and runs the
-  real `map()`. `--instance` also prints the synthesized instance.
+  item per array; booleans chosen to open conditional branches) and ran the real
+  `map()`. It did not honor `pattern` constraints (e.g. the Part I TED-notice
+  id), so a pattern-constrained field got a visible placeholder rather than a
+  conforming value.
 
-  ```
-  node legacy/tooling/sample.mjs part-III --instance
-  ```
+Three generators emitted PlantUML for documentation; the pre-generated examples
+for all parts were moved to the separate `espd-notes` repository (`diagrams/`):
 
-  Note: `sample.mjs` does not yet honor `pattern` constraints (e.g. the Part I
-  TED-notice id), so a pattern-constrained field gets a visible placeholder
-  rather than a conforming value.
-
-## UML diagrams
-
-Two generators emit PlantUML for documentation (render with the PlantUML VS Code
-extension, `plantuml file.puml`, or the plantuml.com server). Pre-generated
-examples for all parts live in `docs/diagrams/` (see its README); pass `--out
-<file>` to write clean UTF-8 directly rather than shell-redirecting.
-
-- **`legacy/tooling/uml.mjs`** — a class diagram of the canonical DATA MODEL from
-  the JSON Schema. One class per object type (`$defs` entry, the root part
-  object, and inline object properties); scalar properties are attributes
-  (`*` marks required), and object/array properties are associations with
-  cardinality. A referenced type is shown ONLY as an association — not also
-  duplicated as an attribute.
-
-  ```
-  node legacy/tooling/uml.mjs part-III > part-III.model.puml
-  ```
-
-- **`legacy/tooling/mapping-uml.mjs`** — a correspondence diagram of the MAPPING:
-  two packages ("instance data" and "UBL XML") with an arrow per mapping rule,
-  labelled by kind (value / const / object / ref / key).
-
-  ```
-  node legacy/tooling/mapping-uml.mjs part-III > part-III.mapping.puml
-  ```
-
-- **`legacy/tooling/xml-uml.mjs`** — a class diagram of the UBL XML ELEMENT
-  STRUCTURE produced by the mapping, in the style of the EA "Technical View"
-  diagrams: a class per aggregate (`cac:*`) element, basic (`cbc:*`) children as
-  attributes, aggregate children as associations with cardinality. Repeating
-  elements (from `records`/`forEach`) show `0..*` / `1..*`. Where several records
-  share a wrapper element (e.g. `cac:TenderingCriterionResponse`) they are
-  collapsed into one class showing all possible bodies, with a note (each runtime
-  instance carries exactly one body per BR-TCR-03).
-
-  ```
-  node legacy/tooling/xml-uml.mjs part-III > part-III.xml.puml
-  ```
+- **`uml`** — a class diagram of the canonical DATA MODEL from the JSON Schema.
+  One class per object type (`$defs` entry, the root part object, and inline
+  object properties); scalar properties are attributes (`*` marks required), and
+  object/array properties are associations with cardinality. A referenced type is
+  shown ONLY as an association — not also duplicated as an attribute.
+- **`mapping-uml`** — a correspondence diagram of the MAPPING: two packages
+  ("instance data" and "UBL XML") with an arrow per mapping rule, labelled by
+  kind (value / const / object / ref / key).
+- **`xml-uml`** — a class diagram of the UBL XML ELEMENT STRUCTURE produced by
+  the mapping, in the style of the EA "Technical View" diagrams: a class per
+  aggregate (`cac:*`) element, basic (`cbc:*`) children as attributes, aggregate
+  children as associations with cardinality. Repeating elements (from
+  `records`/`forEach`) show `0..*` / `1..*`. Where several records share a
+  wrapper element (e.g. `cac:TenderingCriterionResponse`) they are collapsed into
+  one class showing all possible bodies, with a note (each runtime instance
+  carries exactly one body per BR-TCR-03).
 
 ## Verifying
 
-From `model/`:
+The legacy per-part roundtrip tests remain and run under `npm run model:test`:
 
 ```
-node legacy/tooling/validate.mjs part-III
-node legacy/tooling/check-paths.mjs part-III
-node legacy/xml-mapping/roundtrip-part-III.test.mjs
-
-node legacy/tooling/validate.mjs part-IV
-node legacy/tooling/check-paths.mjs part-IV
-node legacy/xml-mapping/roundtrip-part-IV.test.mjs
+node model/legacy/xml-mapping/roundtrip-part-III.test.mjs
+node model/legacy/xml-mapping/roundtrip-part-IV.test.mjs
 ```
+
+(The `validate` and `check-paths` CLIs that accompanied these were part of the
+removed `legacy/tooling/`; schema validation now runs inside the compiler tests.)
 
 ## TODO: CPV codes (procurement subject classification) — Part I
 
@@ -555,26 +533,26 @@ sibling), so nested property groups line up. Only `from`/`fromItem` leaves and
 `{ from }` attributes write back — `const` structure is export-only. So one
 embedded tree drives both `map` and `unmap`.
 
-### `build-request-mapping.mjs` — generate the embedded structure (option b)
+### Generating the embedded structure (option b)
 
-`model/legacy/tooling/build-request-mapping.mjs` walks a criterion's `components`
-tree in the authoritative `espd-tools/EAtoJSON/outputs/espd-edm.json` and writes
-the complete `part-IV.request.mapping.json`, whose single `structure` rule is the
-generated tree. The only hand-specified criterion-specific part is the small
-per-criterion `FIELD_MAPS` table in the generator, which says which REQUIREMENT
-requestpath binds to which instance `requirement` field. The datatype-to-UBL
-element correspondence is instead shared by all criteria in `DATATYPE_ELEMENT`.
-Together these become the `from`/`forEach` leaves spliced onto the tree.
-Regenerate after `espd-edm.json` changes:
+> **Note.** The `build-request-mapping` generator described here was part of the
+> removed `legacy/tooling/`. The approach it embodied has been generalized into
+> `model/compiler/generate-request-mapping.mjs`; the description is kept for the
+> node→element rules it documents.
 
-```
-node model/legacy/tooling/build-request-mapping.mjs
-```
+The generator walked a criterion's `components` tree in the authoritative
+`espd-tools/EAtoJSON/outputs/espd-edm.json` and wrote the complete
+`part-IV.request.mapping.json`, whose single `structure` rule is the generated
+tree. The only hand-specified criterion-specific part was a small per-criterion
+`FIELD_MAPS` table, which said which REQUIREMENT requestpath binds to which
+instance `requirement` field. The datatype-to-UBL element correspondence was
+instead shared by all criteria in `DATATYPE_ELEMENT`. Together these became the
+`from`/`forEach` leaves spliced onto the tree.
 
 The generated mapping is a normal spec — do not hand-edit its `structure`; edit
-the generator or `FIELD_MAPS` and regenerate. The EDM owns criterion structure
-and metadata, while `FIELD_MAPS` owns the correspondence to our instance-data
-vocabulary; the mapping is their generated artifact.
+the generator and regenerate. The EDM owns criterion structure and metadata,
+while the field-map owns the correspondence to our instance-data vocabulary; the
+mapping is their generated artifact.
 
 Node → element rules (driven by node `type`/`tag`):
 
@@ -911,10 +889,12 @@ The maintained source should be lean; the compiled artifact may still expose
 expanded request, response and content paths for existing consumers. Those
 expanded fields should be generated and tested, not hand-maintained.
 
-The executable C31 proof of this design is under `model/legacy/poc-c31/`.
-`compile-lean.mjs` expands its lean criterion, shared node-kind registry and
-electronic-evidence fragment, then deep-compares the EA-compatible projection
-with C31 from the original generated `espd-edm.json`.
+This design — originally proven on a C31 proof-of-concept — is now realised by
+the production compiler under `model/compiler/`: it expands the lean,
+hand-authored enrichment in `model/model-sources/` over the structural core from
+`espd-tools/EAtoJSON/outputs/espd-edm.json`, and `structural-equivalence.mjs`
+gates every compile by deep-comparing the EA-compatible projection against that
+source.
 
 ##### Stable semantic IDs and relative bindings
 

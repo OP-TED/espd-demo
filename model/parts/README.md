@@ -6,7 +6,7 @@ The compiler (`model/compiler/`) generates the model layers for **criteria**
 they are UBL party/document aggregates, not the `CRITERION/QUESTION/REQUIREMENT`
 component tree the compiler consumes. They are modelled here, by hand.
 
-See `docs/model-xml-mapping.md` and the three-way comparison that led to this
+See `docs/reference/model-xml-mapping.md` and the three-way comparison that led to this
 split (the EA model and the live UI each shoehorn Part I into the criterion tree
 in different, incompatible ways; this directory models it as what it actually is).
 

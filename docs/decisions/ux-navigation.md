@@ -102,4 +102,4 @@ rather than paraphrased, to stay aligned with the legal/standard source.
 - `js/wizard-header.js` — wizard context row (badge, role, actions)
 - `js/app.js` — navigation orchestration between Home, path selector, and wizard
 - `css/espd.css` — layout and styling for the above
-- `espd-edm/roles.json` — role definitions and per-role form behavior
+- `model/generated/ui/roles.json` — role definitions and per-role form behavior

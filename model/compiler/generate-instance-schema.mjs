@@ -62,7 +62,7 @@ function deriveCodelistEnum(shape) {
     // Mark that the enum is our implementation's choice, not a hard requirement:
     // the value is a code from `codeList`, and a different implementation may
     // legitimately present a different subset. (Deliberately NOT enforced by the
-    // ESPD Schematron for these lists — see docs/improvement-ideas.md.)
+    // ESPD Schematron for these lists — see docs/codelist-governance.md.)
     shape.$codelistEnumIsImplementerChoice = true;
   }
   return shape;

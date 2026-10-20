@@ -103,12 +103,14 @@ the counterexamples to the discarded coupling:
   enum from a shipped source — so our inlined set would be sourced directly from
   the [OP dataset](https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/procurement-procedure-type)
   and carried as a hand-maintained list until the shipping gap is closed. See
-  `improvement-ideas.md` X1 for the shipping proposal.
+  item X1 in the `espd-notes` repo (`notes/improvement-ideas.md`) for the shipping
+  proposal.
 - **"Shipped but not validated" is a deliberate category**, not an oversight for
   `financial-ratio-type` / `boolean-gui-control-type`. They are *intentionally*
   unvalidated because the values are suggestions. (This supersedes the
-  `improvement-ideas.md` CVA1 framing of adding them to the CVA — see ⚠ below.)
-- ⚠ **CVA1 superseded.** `improvement-ideas.md` CVA1 proposed *adding*
+  CVA1 framing of adding them to the CVA — see ⚠ below.)
+- ⚠ **CVA1 superseded.** The `improvement-ideas.md` CVA1 item (now in the
+  `espd-notes` repo) proposed *adding*
   `financial-ratio-type` and `boolean-gui-control-type` to the Schematron. That
   would turn a *suggested* list into an *enforced* one, contradicting the team's
   "implementers may use others" statement. CVA1 is marked superseded there; keep
@@ -123,8 +125,9 @@ the counterexamples to the discarded coupling:
 ## How this maps to our modeling and implementation
 
 The governance table is **data**, so our implementation should read it rather
-than re-derive the decisions. See `improvement-ideas.md` X6/UX1 for the mechanics;
-the structural proposal is in the next section.
+than re-derive the decisions. See items X6/UX1 in the `espd-notes` repo
+(`notes/improvement-ideas.md`) for the mechanics; the structural proposal is in
+the next section.
 ### Proposal: a single governance registry, read everywhere
 
 **Problem with today's code:** the generator decides inlining by a **size gate**
@@ -176,7 +179,7 @@ compiler + UI read it.
    audit.
 
 4. **UI/codelist service reads `useForUI` + `externalSource`.** The service
-   (UX1 in `improvement-ideas.md`) builds its pick lists from the shipped `.gc`
+   (UX1 in the `espd-notes` improvement-ideas) builds its pick lists from the shipped `.gc`
    for `useForUI` lists, and from `externalSource` for a not-yet-shipped list
    like `procurement-procedure-type`.
 

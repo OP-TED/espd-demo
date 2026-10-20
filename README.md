@@ -6,7 +6,7 @@ A European Single Procurement Document (ESPD) service implementation using plain
 
 - **Two roles**: Contracting Authority (ESPD Request) and Economic Operator (ESPD Response)
 - **Six-part wizard**: Step-by-step form covering all ESPD parts (I–VI)
-- **Dynamic rendering**: Form generated from decomposed `espd-edm/` data model (loaded via `index.json`)
+- **Dynamic rendering**: Form generated from the compiled UI model bundle under `model/generated/ui/` (loaded via `index.json`)
 - **Conditional logic**: ONTRUE/ONFALSE visibility based on indicator answers
 - **Persistent state**: Answers saved to localStorage, restored on reload
 - **XML export**: Generate UBL-compliant ESPD Request/Response XML
@@ -49,10 +49,13 @@ npm run build:pages
 
 This runs `scripts/build-pages.js`, which:
 
-1. Copies the browser-served assets (`index.html`, `css/`, `js/`, `i18n/`, and
-   the runtime model data from `espd-edm/`) into a `public/` directory.
-   Dev-only artifacts under `espd-edm/` (`node_modules/`, `*.cjs` scripts,
-   `_diff/`, package files) are **not** shipped.
+1. Copies the browser-served assets (`index.html`, `css/`, `js/`, `i18n/`,
+   `images/`, `fonts/`) and the runtime model data the browser actually loads
+   (`model/generated/ui/`, `model/generated/codelists/`,
+   `model/generated/xml-mapping/`, `model/mapping-engine/`, `model/parts/`, plus
+   the two registry files the composer fetches) into a `public/` directory.
+   Dev-only model artifacts (the Node compiler, `*.test.mjs`, source registries,
+   EA inputs) are **not** shipped.
 2. Overwrites `public/js/runtime-config.js` to set
    `window.__ESPD_SERVERLESS__ = true`, disabling the server-dependent features.
 
@@ -103,14 +106,18 @@ http://localhost:3000/?serverless.
 │   └── espd.css                # Custom styles on top of Pico CSS
 ├── js/
 │   ├── app.js                  # Main application, wizard orchestration
+│   ├── home.js                 # Landing / role-selection screen
 │   ├── features.js             # Feature-flag resolution (serverless mode)
 │   ├── runtime-config.js       # Sets window.__ESPD_SERVERLESS__ (build-time flag)
-│   ├── renderer.js             # Renders JSON model → HTML form elements
-│   ├── model.js                # Loads the ESPD-EDM data model
+│   ├── renderer.js             # Renders the model lens → HTML form elements
+│   ├── model.js                # Loads the compiled UI model bundle (model/generated/ui/)
 │   ├── state.js                # Form state management + localStorage
 │   ├── conditional.js          # ONTRUE/ONFALSE visibility logic
 │   ├── validation.js           # Cardinality & datatype validation
 │   ├── codelists.js            # Country codes, procedure types, currencies
+│   ├── path-selector.js        # Request/response document path selection
+│   ├── site-header.js          # Shared site header
+│   ├── wizard-header.js        # Wizard step header / navigation
 │   ├── i18n.js                 # Internationalization support
 │   ├── xml-export.js           # UBL XML generation
 │   ├── xml-import.js           # ESPD XML parsing
@@ -122,14 +129,18 @@ http://localhost:3000/?serverless.
 ├── i18n/
 │   └── i18n/
 │       ├── translations.json   # i18n manifest and key conventions
-│       └── en/                 # English translations (per-part)
-├── espd-edm/                    # ESPD-EDM data model (decomposed parts + schemas)
-│   ├── index.json              # Manifest linking all parts
-│   ├── metadata.json           # Version, title, legal basis
-│   ├── parts/                  # One file per ESPD part (I–VI)
-│   └── schemas/                # JSON Schemas for validation
+│       └── en/                 # English translations (per-part + roles/codelists)
+├── model/                       # ESPD-EDM model subsystem (see model/README.md)
+│   ├── compiler/               # Compiles the EA export + enrichment → generated/
+│   ├── model-sources/          # Hand-authored compiler inputs (registries + sidecars)
+│   ├── generated/              # Committed compiler output
+│   │   └── ui/                 #   The UI bundle the app loads: index.json,
+│   │                           #   part-I…VI.json, roles.json, schema/, validators/
+│   ├── mapping-engine/         # Bidirectional UBL map/unmap engine (runtime)
+│   ├── parts/                  # Hand-authored admin parts (I, II, VI) mapping sidecars
+│   └── legacy/                 # Pre-compiler parity references (see model/legacy/README.md)
 ├── .gitlab-ci.yml              # GitLab Pages deployment pipeline
-└── package.json                # Scripts: dev, build:pages, test
+└── package.json                # Scripts: dev, build:pages, model:compile, model:test, test, test:e2e
 ```
 
 ## CSS Framework
@@ -138,13 +149,24 @@ Uses [Pico CSS](https://picocss.com/) (CDN) — a minimal, semantic CSS framewor
 
 ## Data Model
 
-The `espd-edm/` directory defines the data model in decomposed form:
+The data model lives under [`model/`](./model/). The compiler turns the EA
+export (`espd-edm.json`) plus hand-authored enrichment into a committed UI
+bundle under [`model/generated/ui/`](./model/generated/ui/), which the app loads
+at runtime (`js/model.js`):
+
+- `index.json` — manifest linking the per-part lenses and the role lens
+- `part-I.json` … `part-VI.json` — one lens per ESPD part (I–VI)
+- `roles.json` — buyer/EO role behaviour (which criteria apply, mandatoriness)
+- `schema/`, `validators/` — JSON Schemas and a standalone Ajv validator
+
+The model describes:
 - **6 parts** with sections, criteria, and question hierarchies
 - **Component types**: CRITERION, QUESTION_GROUP, QUESTION_SUBGROUP, QUESTION, REQUIREMENT, LEGISLATION, CAPTION, etc.
 - **Property data types**: INDICATOR, DESCRIPTION, DATE, URL, AMOUNT, CODE_COUNTRY, PERCENTAGE, etc.
 - **Conditional codes**: ON* (always visible), ONTRUE (show when parent = yes), ONFALSE (show when parent = no)
 
-A decomposed version of this model is available in [`espd-edm/`](./espd-edm/) — split by Part (I–VI) into separate files for easier navigation, maintenance, and tooling. See the [ESPD-EDM README](./espd-edm/README.md) for details.
+See the [model README](./model/README.md) for the full compiler pipeline and the
+ownership rules for where each piece of the model is authored.
 
 ## Accessibility
 
@@ -170,7 +192,7 @@ stage in `.gitlab-ci.yml` that must pass before the `pages` deploy job runs.
 
 ### TODO: move exclusion-ground mandatoriness into ESPD-EDM
 
-`espd-edm/roles.json` currently encodes, per buyer role, which Part III
+`model/generated/ui/roles.json` currently encodes, per buyer role, which Part III
 exclusion-ground categories are mandatory vs. optional
 (`formBehavior.exclusionGroundRules`). This reflects real legal distinctions —
 e.g. under Article 57(1)/(2) of Directive 2014/24/EU, criminal-conviction and

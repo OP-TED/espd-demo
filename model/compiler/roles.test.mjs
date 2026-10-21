@@ -166,8 +166,8 @@ describe('roles: generated lens shape', () => {
 // The Phase 0 goldens, reproduced from the generated lens.
 describe('roles: behaviour parity with Phase 0 goldens (visibleParts)', () => {
   const expected = {
-    'contracting-authority': ['I', 'III', 'IV', 'V', 'VI'],
-    'contracting-entity': ['I', 'III', 'IV', 'V', 'VI'],
+    'contracting-authority': ['I', 'III', 'IV', 'VI'],
+    'contracting-entity': ['I', 'III', 'IV', 'VI'],
     'sole-tenderer': ['I', 'II', 'III', 'IV', 'V', 'VI'],
     'group-lead': ['I', 'II', 'III', 'IV', 'V', 'VI'],
     'group-mem': ['I', 'II', 'III', 'IV', 'VI'],

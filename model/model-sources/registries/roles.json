@@ -18,8 +18,9 @@
       "description": "A contracting authority subject to Directive 2014/24/EU creating an ESPD Request.",
       "documentType": "request",
       "formBehavior": {
-        "visibleParts": ["I", "III", "IV", "V", "VI"],
-        "editableParts": ["I", "III", "IV", "V"],
+        "$comment.partV": "Part V (reduction of the number of qualified candidates) is intentionally NOT shown to buyers: it has no buyer requirement to express and nothing to edit; the economic operator answers it. So it is omitted from visible/editableParts here.",
+        "visibleParts": ["I", "III", "IV", "VI"],
+        "editableParts": ["I", "III", "IV"],
         "exclusionGroundRules": {
           "criminal": "mandatory",
           "payment": "mandatory",
@@ -34,8 +35,9 @@
       "description": "A contracting entity subject to Directive 2014/25/EU (utilities: water, energy, transport, postal services) creating an ESPD Request.",
       "documentType": "request",
       "formBehavior": {
-        "visibleParts": ["I", "III", "IV", "V", "VI"],
-        "editableParts": ["I", "III", "IV", "V"],
+        "$comment.partV": "Part V (reduction of the number of qualified candidates) is intentionally NOT shown to buyers: it has no buyer requirement to express and nothing to edit; the economic operator answers it. So it is omitted from visible/editableParts here.",
+        "visibleParts": ["I", "III", "IV", "VI"],
+        "editableParts": ["I", "III", "IV"],
         "exclusionGroundRules": {
           "criminal": "mandatory",
           "payment": "mandatory",

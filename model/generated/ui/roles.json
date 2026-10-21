@@ -36,14 +36,12 @@
           "I",
           "III",
           "IV",
-          "V",
           "VI"
         ],
         "editableParts": [
           "I",
           "III",
-          "IV",
-          "V"
+          "IV"
         ],
         "exclusionGroundRules": {
           "criminal": "mandatory",
@@ -63,14 +61,12 @@
           "I",
           "III",
           "IV",
-          "V",
           "VI"
         ],
         "editableParts": [
           "I",
           "III",
-          "IV",
-          "V"
+          "IV"
         ],
         "exclusionGroundRules": {
           "criminal": "mandatory",

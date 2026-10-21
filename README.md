@@ -6,7 +6,7 @@ Repository: <https://github.com/OP-TED/espd-demo> · Live demo: <https://op-ted.
 
 ## Features
 
-- **Two roles**: Contracting Authority (ESPD Request) and Economic Operator (ESPD Response)
+- **Two roles**: Buyer (ESPD Request) and Economic Operator (ESPD Response)
 - **Six-part wizard**: Step-by-step form covering all ESPD parts (I–VI)
 - **Dynamic rendering**: Form generated from the compiled UI model bundle under `model/generated/ui/` (loaded via `index.json`)
 - **Conditional logic**: ONTRUE/ONFALSE visibility based on indicator answers
@@ -224,9 +224,9 @@ before the Pages `deploy` job runs.
 exclusion-ground categories are mandatory vs. optional
 (`formBehavior.exclusionGroundRules`). This reflects real legal distinctions —
 e.g. under Article 57(1)/(2) of Directive 2014/24/EU, criminal-conviction and
-tax/social-security-payment exclusion grounds are mandatory for a Contracting
-Authority, while Article 80(1) of Directive 2014/25/EU makes this conditional
-for a Contracting Entity.
+tax/social-security-payment exclusion grounds are mandatory for a buyer under
+the classic procurement directive, while Article 80(1) of Directive 2014/25/EU
+makes this conditional for a buyer under the utilities directive.
 
 This is currently reference-implementation-only logic, disconnected from the
 authoritative ESPD-EDM data model (`espd-tools/EAtoJSON/outputs/espd-edm.json`

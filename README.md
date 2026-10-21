@@ -39,6 +39,26 @@ server so the proxied API calls can reach the internet:
 HTTPS_PROXY=http://your-proxy:port npm run dev
 ```
 
+## Testing
+
+- `npm test` — unit/integration tests (Node test runner).
+- `npm run model:test` — model/mapping-engine tests.
+- `npm run test:e2e` — Playwright end-to-end tests, including a full buyer→EO
+  roundtrip (`e2e/roundtrip.spec.js`) that downloads the ESPD Request/Response
+  XML and validates each against the official ESPD Schematron.
+
+The e2e Schematron check has two **optional external dependencies**: `java` on
+`PATH`, and the [`espd-validation-schematron`](https://github.com/OP-TED/espd-validation-schematron)
+repo checked out **as a sibling folder next to this one** (it ships the
+Saxon-HE jar and the compiled XSLT rules). When either is missing the validation
+step skips gracefully (the roundtrip still runs). See
+[`model/compiler/schematron-validate.mjs`](./model/compiler/schematron-validate.mjs).
+
+> ⚠️ **TODO (tech debt):** the sibling repo is resolved by a hard-coded relative
+> path (`../../../espd-validation-schematron`), which is fragile across clones,
+> CI, and alternate layouts. Review a less brittle approach (e.g. an
+> `ESPD_SCHEMATRON_ROOT` env override, a git submodule, or vendoring the jar).
+
 ## Building for GitHub Pages
 
 GitHub Pages serves static files only — there is no Node.js runtime in

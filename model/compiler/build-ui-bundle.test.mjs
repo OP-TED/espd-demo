@@ -170,7 +170,7 @@ describe('ui-bundle: composed schemas ($ref, never merge)', () => {
     const validate = ajv.compile(documentRoot);
     const exg = read(path.join(instanceDataDir, 'exg-crim-part.example.json'));
     const doc = {
-      partI: { publication: { type: 'TED_CN', identifier: '310364-2026' }, contractingAuthority: { officialName: 'ACME', country: 'BEL' } },
+      partI: { publication: { type: 'TED_CN', identifier: '2026/S 142-123456' }, contractingAuthority: { officialName: 'ACME', country: 'BEL' } },
       partIII: { ...exg.partIII },
     };
     assert.ok(validate(doc), JSON.stringify(validate.errors?.slice(0, 3)));

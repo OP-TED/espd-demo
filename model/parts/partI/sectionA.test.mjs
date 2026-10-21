@@ -49,10 +49,10 @@ test('generated XML has the correct UBL structure', () => {
   const xml = map(spec, example);
   assert.match(xml, /<cac:AdditionalDocumentReference>/);
   // cbc:ID carries @schemeAgencyID (BR-OTH-02, mandatory on every cbc:ID).
-  assert.match(xml, /<cbc:ID schemeAgencyID="OP">310364-2026<\/cbc:ID>/);
+  assert.match(xml, /<cbc:ID schemeAgencyID="OP">2026\/S 142-123456<\/cbc:ID>/);
   assert.match(xml, /<cbc:DocumentTypeCode[^>]*>TED_CN<\/cbc:DocumentTypeCode>/);
   assert.match(xml, /<cac:Attachment>\s*<cac:ExternalReference>\s*<cbc:URI>/);
-  assert.match(xml, /https:\/\/ted\.europa\.eu\/en\/notice\/-\/detail\/310364-2026<\/cbc:URI>/);
+  assert.match(xml, /https:\/\/ted\.europa\.eu\/en\/notice\/-\/detail\/2026-S-142-123456<\/cbc:URI>/);
 });
 
 test('DocumentTypeCode carries the docrefcontent-type shorthand for attribute expansion', () => {
@@ -147,7 +147,7 @@ test('the schema accepts every real codelist code as a type', async () => {
   // the other types have no identifier format and accept any string.
   const TED_TYPES = new Set(['TED_CN', 'TED_PIN']);
   for (const code of allowedCodes()) {
-    const identifier = TED_TYPES.has(code) ? '310364-2026' : 'x';
+    const identifier = TED_TYPES.has(code) ? '2026/S 142-123456' : 'x';
     const doc = { partI: { publication: { type: code, identifier } } };
     assert.ok(validate(doc), `code '${code}' should be accepted: ${JSON.stringify(validate.errors)}`);
   }
@@ -165,10 +165,11 @@ test('the schema rejects the excluded ESPD-request types', async () => {
 
 // --- BR-COM-10-01: TED notice identifier format (TED_CN / TED_PIN) ----------
 //     When the publication is a TED notice, the identifier must be a TED OJ S
-//     publication number — the new eForms form 'NNNNNNNN-YYYY' (1–8 digits) OR
-//     the legacy 'YYYY/S NNN-NNNNNN' (the 0000/S 000-000000 placeholder matches
-//     the legacy form). Other publication types have no EU-standard format and
-//     are left unconstrained. Mirrors the Schematron rule of the same id.
+//     publication number in the LEGACY 'YYYY/S NNN-NNNNNN' form (the
+//     0000/S 000-000000 placeholder matches it). Decision: support only the
+//     legacy format for now — the newer eForms form 'NNNNNNNN-YYYY' is NOT
+//     accepted. Other publication types have no EU-standard format and are left
+//     unconstrained.
 
 async function compileSectionA() {
   const { default: Ajv } = await import('ajv');
@@ -178,22 +179,22 @@ async function compileSectionA() {
 
 const docOf = (type, identifier) => ({ partI: { publication: { type, identifier } } });
 
-test('TED notice types accept the new eForms publication number NNNNNNNN-YYYY', async () => {
+test('TED notice types accept the legacy OJ S scheme and the temporary placeholder', async () => {
   const validate = await compileSectionA();
   for (const type of ['TED_CN', 'TED_PIN']) {
-    for (const id of ['310364-2026', '19849-2023', '00676595-2024', '1-2024']) {
+    for (const id of ['2015/S 252-461137', '2026/S 142-123456', '0000/S 000-000000']) {
       assert.ok(validate(docOf(type, id)),
         `${type} '${id}' should be accepted: ${JSON.stringify(validate.errors)}`);
     }
   }
 });
 
-test('TED notice types still accept the legacy OJ S scheme and the temporary placeholder', async () => {
+test('TED notice types reject the new eForms publication number (not yet supported)', async () => {
   const validate = await compileSectionA();
   for (const type of ['TED_CN', 'TED_PIN']) {
-    for (const id of ['2015/S 252-461137', '0000/S 000-000000']) {
-      assert.ok(validate(docOf(type, id)),
-        `${type} '${id}' should be accepted: ${JSON.stringify(validate.errors)}`);
+    for (const id of ['310364-2026', '19849-2023', '00676595-2024', '1-2024']) {
+      assert.ok(!validate(docOf(type, id)),
+        `${type} '${id}' must be rejected: only the legacy OJ S format is supported for now`);
     }
   }
 });
@@ -201,7 +202,7 @@ test('TED notice types still accept the legacy OJ S scheme and the temporary pla
 test('TED notice types reject identifiers that match neither scheme', async () => {
   const validate = await compileSectionA();
   for (const type of ['TED_CN', 'TED_PIN']) {
-    for (const id of ['310364/2026', '123456789-2026', 'not-a-notice', '2026-S-1']) {
+    for (const id of ['310364/2026', 'not-a-notice', '2026-S-1']) {
       assert.ok(!validate(docOf(type, id)),
         `${type} '${id}' must be rejected by the identifier pattern`);
     }

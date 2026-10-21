@@ -110,7 +110,7 @@ describe('validators: whole-document validator (espd)', () => {
     const exg = JSON.parse(readFileSync(join(instanceDataDir, 'exg-crim-part.example.json'), 'utf8'));
     const doc = {
       partI: {
-        publication: { type: 'TED_CN', identifier: '310364-2026' },
+        publication: { type: 'TED_CN', identifier: '2026/S 142-123456' },
         contractingAuthority: { officialName: 'ACME', country: 'BEL' },
       },
       partIII: { ...exg.partIII },

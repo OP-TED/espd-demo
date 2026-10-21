@@ -48,7 +48,23 @@
         }
       },
       "required": ["type", "identifier"],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "$comment": "ESPD Schematron BR-COM-10-01: when the referenced publication is a TED notice (Contract Notice TED_CN or Prior Information Notice TED_PIN), its identifier must be a TED OJ S publication number. Two forms are accepted: the eForms/TED number 'NNNNNNNN-YYYY' (1–8 digit publication number, a hyphen, and the 4-digit year; e.g. 310364-2026) and the legacy OJ S scheme 'YYYY/S NNN-NNNNNN' (e.g. 2015/S 252-461137; the temporary placeholder 0000/S 000-000000 matches this). Other publication types (national/regional/local journals) have no EU-standard identifier format and are left unconstrained.",
+          "if": {
+            "properties": { "type": { "enum": ["TED_CN", "TED_PIN"] } },
+            "required": ["type"]
+          },
+          "then": {
+            "properties": {
+              "identifier": {
+                "pattern": "^([0-9]{1,8}-[0-9]{4}|[0-9]{4}/S [0-9]{3}-[0-9]{6})$"
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }

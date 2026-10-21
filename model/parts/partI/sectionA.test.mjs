@@ -142,8 +142,13 @@ test('the schema accepts every real codelist code as a type', async () => {
   const { default: Ajv } = await import('ajv');
   const ajv = new Ajv({ allErrors: true, strict: false });
   const validate = ajv.compile(schema);
+  // TED notice types (TED_CN/TED_PIN) carry a format constraint on the
+  // identifier (BR-COM-10-01), so use a valid TED publication number for those;
+  // the other types have no identifier format and accept any string.
+  const TED_TYPES = new Set(['TED_CN', 'TED_PIN']);
   for (const code of allowedCodes()) {
-    const doc = { partI: { publication: { type: code, identifier: 'x' } } };
+    const identifier = TED_TYPES.has(code) ? '310364-2026' : 'x';
+    const doc = { partI: { publication: { type: code, identifier } } };
     assert.ok(validate(doc), `code '${code}' should be accepted: ${JSON.stringify(validate.errors)}`);
   }
 });
@@ -155,5 +160,58 @@ test('the schema rejects the excluded ESPD-request types', async () => {
   for (const code of EXCLUDED) {
     const doc = { partI: { publication: { type: code, identifier: 'x' } } };
     assert.ok(!validate(doc), `excluded code '${code}' must be rejected by the enum`);
+  }
+});
+
+// --- BR-COM-10-01: TED notice identifier format (TED_CN / TED_PIN) ----------
+//     When the publication is a TED notice, the identifier must be a TED OJ S
+//     publication number — the new eForms form 'NNNNNNNN-YYYY' (1–8 digits) OR
+//     the legacy 'YYYY/S NNN-NNNNNN' (the 0000/S 000-000000 placeholder matches
+//     the legacy form). Other publication types have no EU-standard format and
+//     are left unconstrained. Mirrors the Schematron rule of the same id.
+
+async function compileSectionA() {
+  const { default: Ajv } = await import('ajv');
+  const ajv = new Ajv({ allErrors: true, strict: false });
+  return ajv.compile(schema);
+}
+
+const docOf = (type, identifier) => ({ partI: { publication: { type, identifier } } });
+
+test('TED notice types accept the new eForms publication number NNNNNNNN-YYYY', async () => {
+  const validate = await compileSectionA();
+  for (const type of ['TED_CN', 'TED_PIN']) {
+    for (const id of ['310364-2026', '19849-2023', '00676595-2024', '1-2024']) {
+      assert.ok(validate(docOf(type, id)),
+        `${type} '${id}' should be accepted: ${JSON.stringify(validate.errors)}`);
+    }
+  }
+});
+
+test('TED notice types still accept the legacy OJ S scheme and the temporary placeholder', async () => {
+  const validate = await compileSectionA();
+  for (const type of ['TED_CN', 'TED_PIN']) {
+    for (const id of ['2015/S 252-461137', '0000/S 000-000000']) {
+      assert.ok(validate(docOf(type, id)),
+        `${type} '${id}' should be accepted: ${JSON.stringify(validate.errors)}`);
+    }
+  }
+});
+
+test('TED notice types reject identifiers that match neither scheme', async () => {
+  const validate = await compileSectionA();
+  for (const type of ['TED_CN', 'TED_PIN']) {
+    for (const id of ['310364/2026', '123456789-2026', 'not-a-notice', '2026-S-1']) {
+      assert.ok(!validate(docOf(type, id)),
+        `${type} '${id}' must be rejected by the identifier pattern`);
+    }
+  }
+});
+
+test('non-TED publication types do not constrain the identifier format', async () => {
+  const validate = await compileSectionA();
+  for (const type of ['NOJCN', 'NOJPIN', 'ROJCN', 'ROJPIN', 'LOJCN', 'LOJPIN']) {
+    assert.ok(validate(docOf(type, 'any-national-reference/42')),
+      `${type} should accept a free-form identifier: ${JSON.stringify(validate.errors)}`);
   }
 });

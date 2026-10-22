@@ -10,7 +10,7 @@
           "businessDomain": "sample",
           "minimumAmount": {
             "value": 1000,
-            "currency": "sample"
+            "currency": "AED"
           }
         },
         "response": {
@@ -22,7 +22,7 @@
               },
               "amount": {
                 "value": 1000,
-                "currency": "sample"
+                "currency": "AED"
               },
               "electronicEvidence": {
                 "availableElectronically": false

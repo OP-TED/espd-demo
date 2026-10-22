@@ -9,7 +9,7 @@
           "numberOfYears": 1,
           "minimumAmount": {
             "value": 1000,
-            "currency": "sample"
+            "currency": "AED"
           }
         },
         "response": {
@@ -17,7 +17,7 @@
           "turnover": {
             "averageAmount": {
               "value": 1000,
-              "currency": "sample"
+              "currency": "AED"
             },
             "additionalInformation": "sample",
             "electronicEvidence": {

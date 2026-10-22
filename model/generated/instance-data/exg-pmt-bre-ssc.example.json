@@ -5,7 +5,7 @@
         "requirement": {
           "minimumAmount": {
             "value": 1000,
-            "currency": "sample"
+            "currency": "AED"
           },
           "additionalInformation": "sample"
         },

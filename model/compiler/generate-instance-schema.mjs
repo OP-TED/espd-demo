@@ -412,6 +412,14 @@ function sampleForShape(shape, constraints = null) {
   // A codelist-derived (or hand-authored) enum: pick a real member, never the
   // generic 'sample' placeholder, so the example validates against its schema.
   if (Array.isArray(shape?.enum) && shape.enum.length > 0) return shape.enum[0];
+  // A LARGE codelist is not inlined as an enum (see deriveCodelistEnum): the
+  // shape keeps only the `codeList` name marker. Resolve a REAL code from that
+  // list (e.g. currency -> EUR, country -> the first ISO code) instead of the
+  // generic 'sample' placeholder, so coded example values are meaningful.
+  if (shape?.codeList) {
+    const codes = codesForCodelist(shape.codeList);
+    if (codes && codes.length > 0) return codes[0];
+  }
   const s = constraints ? { ...shape, ...cleanHint(constraints) } : shape;
   switch (s.type) {
     case 'string': return s.format === 'date' ? '2023-01-01' : 'sample';

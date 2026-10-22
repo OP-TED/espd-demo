@@ -6,7 +6,7 @@
           "lotIdentifiers": [
             "sample"
           ],
-          "occupation": "sample"
+          "occupation": "0"
         },
         "response": {
           "fulfilledByItself": true,

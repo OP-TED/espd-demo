@@ -1,7 +1,7 @@
 {
   "$comment": "C01 enrichment sidecar. exg-crim-part, 'Participation in a criminal organisation'. The Part III archetype: a response-only exclusion ground (no buyer REQUIREMENT) with DATE + PERIOD answers and a self-cleaning ONTRUE branch.",
 
-  "$note.repeatableGroup": "The conviction subgroup (QG1/QSG1) has cardinality 0..n — a REPEATABLE GROUP, which the hand-authored part-III.form.json models as 'convictions[]'. Task 7.0: the GROUP carries its own binding with repeatable:true, declaring the array container 'convictions'; its leaves bind to paths THROUGH that container (['convictions', ...]) and the compiler treats the 'convictions' segment as an array of objects. The instance-data schema + example and the form lens honour this; XML-mapping of repeatable groups (forEach over the array) is deferred — see tasks.md 7.0b.",
+  "$note.repeatableGroup": "The conviction subgroup (QG1/QSG1) has cardinality 0..n — a REPEATABLE GROUP, modeled as 'convictions[]'. Task 7.0: the GROUP carries its own binding with repeatable:true, declaring the array container 'convictions'; its leaves bind to paths THROUGH that container (['convictions', ...]) and the compiler treats the 'convictions' segment as an array of objects. The instance-data schema + example and the form lens honour this; XML-mapping of repeatable groups (forEach over the array) is deferred — see tasks.md 7.0b.",
   "criterion": {
     "code": "exg-crim-part",
     "id": "exg-crim-part",

@@ -219,9 +219,8 @@ function branchVisibleWhenOf(criterion, leaf, registry) {
 
 /**
  * Emit the form field(s) for one leaf. A leaf whose value type is an object or
- * an array of objects becomes one field PER scalar property, matching the
- * hand-authored lens (a PERIOD renders as two date inputs, an AMOUNT as a value
- * plus a currency code).
+ * an array of objects becomes one field PER scalar property (a PERIOD renders as
+ * two date inputs, an AMOUNT as a value plus a currency code).
  */
 function fieldsForLeaf({ criterion, leaf, gate, registry, profile, optionalIds, presentation }) {
   const shape = registry.valueTypes[leaf.valueType]?.instanceShape;
@@ -325,8 +324,8 @@ function captionField(criterion, caption, gate, registry, profile) {
  * leading path segment rather than the EA tag — an EA tag like `QSG1` is an
  * encoding artefact and has no place in a presentation lens.
  *
- * A meaningful name for a prefix-less group (the hand-authored lens calls C31's
- * QSG1 'fulfilment') is a presentation decision, so it is an override in the
+ * A meaningful name for a prefix-less group (e.g. 'fulfilment' for C31's QSG1)
+ * is a presentation decision, so it is an override in the
  * task 5.2 presentation sidecar, not something derivable here.
  */
 function groupIdFor(leaves) {

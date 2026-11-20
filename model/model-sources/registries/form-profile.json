@@ -14,8 +14,8 @@
   "visibleWhen": {
     "$comment": "R6.3 — condition marker -> the boolean the gating leaf must hold. The gate is the nearest preceding sibling value leaf of the conditional group, the same rule the instance-data generator uses for if/then/else (task 4.3.2).",
     "equalsByCondition": { "true": true, "false": false },
-    "$comment.requiredIsScopedToVisibility": "`required` on a gated field means 'required ONCE SHOWN', matching the generated schema, whose derived if/then requires the field inside the branch. Note the hand-authored part-IV.form.json is inconsistent on this point (evidence[].url is required:true with a visibleWhen, while reliedUpon is required:false with one); the generator applies the schema-consistent rule uniformly.",
-    "$comment.nearestGateOnly": "Only the NEAREST conditional ancestor produces a visibleWhen, not the whole ancestor chain. Deeper gates are transitively satisfied: a gate that is itself hidden stays unanswered, so it cannot hold the value that reveals its children. This matches the hand-authored lens."
+    "$comment.requiredIsScopedToVisibility": "`required` on a gated field means 'required ONCE SHOWN', matching the generated schema, whose derived if/then requires the field inside the branch. The generator applies this schema-consistent rule uniformly to every gated field.",
+    "$comment.nearestGateOnly": "Only the NEAREST conditional ancestor produces a visibleWhen, not the whole ancestor chain. Deeper gates are transitively satisfied: a gate that is itself hidden stays unanswered, so it cannot hold the value that reveals its children."
   },
 
   "uiType": {
@@ -62,7 +62,7 @@
   },
 
   "grouping": {
-    "$comment": "Form groups are derived, not hand-named: all REQUIREMENT leaves form the buyer group, and each top-level QUESTION group under the criterion forms one response group. The group id is the instance-path segment the group's leaves share (giving turnover/startTrading/electronicEvidence for C31); where they share none, the first leaf's leading segment is used. EA tags (QSG1, ...) are deliberately NOT used as ids — they are encoding artefacts with no place in a presentation lens. A nicer name for a prefix-less group (the hand-authored C31 lens calls QSG1 'fulfilment') is a presentation decision and belongs in the task 5.2 presentation sidecar.",
+    "$comment": "Form groups are derived, not hand-named: all REQUIREMENT leaves form the buyer group, and each top-level QUESTION group under the criterion forms one response group. The group id is the instance-path segment the group's leaves share (giving turnover/startTrading/electronicEvidence for C31); where they share none, the first leaf's leading segment is used. EA tags (QSG1, ...) are deliberately NOT used as ids — they are encoding artefacts with no place in a presentation lens. A nicer name for a prefix-less group (e.g. 'fulfilment' for C31's QSG1) is a presentation decision and belongs in the task 5.2 presentation sidecar.",
     "requirementGroupId": "requirement",
     "idFromCommonPathPrefix": true
   }

@@ -1,0 +1,121 @@
+{
+  "$comment": "Role UI profile (demo-specific presentation). Per-role display text and form behaviour for the reference implementation, keyed by role id from roles.json: the English label/description, and which ESPD Parts the UI shows (visibleParts) and lets the user edit (editableParts). The authoritative, implementer-neutral role facts (ids, documentType, exclusion dispositions, UBL role mapping) are in roles.json; model/compiler/roles.mjs joins the two and emits model/generated/ui/roles.json plus the English catalogue.",
+  "$note": "Part V (reduction of the number of qualified candidates) is intentionally NOT shown to buyers: it has no buyer requirement to express and nothing to edit; the economic operator answers it. So it is omitted from the buyer roles' visibleParts/editableParts.",
+  "roles": {
+    "contracting-authority": {
+      "label": "Contracting Authority",
+      "description": "A contracting authority subject to Directive 2014/24/EU creating an ESPD Request.",
+      "visibleParts": [
+        "I",
+        "III",
+        "IV",
+        "VI"
+      ],
+      "editableParts": [
+        "I",
+        "III",
+        "IV"
+      ]
+    },
+    "contracting-entity": {
+      "label": "Contracting Entity",
+      "description": "A contracting entity subject to Directive 2014/25/EU (utilities: water, energy, transport, postal services) creating an ESPD Request.",
+      "visibleParts": [
+        "I",
+        "III",
+        "IV",
+        "VI"
+      ],
+      "editableParts": [
+        "I",
+        "III",
+        "IV"
+      ]
+    },
+    "sole-tenderer": {
+      "label": "Sole tenderer",
+      "description": "Economic operator which has submitted a tender without being part of a group of economic operators.",
+      "visibleParts": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI"
+      ],
+      "editableParts": [
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI"
+      ]
+    },
+    "group-lead": {
+      "label": "Group leader",
+      "description": "Economic operator which is the leader of a group of economic operators.",
+      "visibleParts": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI"
+      ],
+      "editableParts": [
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI"
+      ]
+    },
+    "group-mem": {
+      "label": "Group member",
+      "description": "Economic operator, which is a member of a group of economic operators, without being the leader.",
+      "visibleParts": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "VI"
+      ],
+      "editableParts": [
+        "II",
+        "III",
+        "IV",
+        "VI"
+      ]
+    },
+    "oeron": {
+      "label": "Other entity (relied upon)",
+      "description": "Economic operator (who is not a subcontractor) on which the tenderer relies upon, to meet selection criteria.",
+      "visibleParts": [
+        "I",
+        "II",
+        "III",
+        "VI"
+      ],
+      "editableParts": [
+        "II",
+        "III",
+        "VI"
+      ]
+    },
+    "subcont": {
+      "label": "Subcontractor",
+      "description": "Economic operator to whom the contractor assigns a share of the contract.",
+      "visibleParts": [
+        "I",
+        "II",
+        "III",
+        "VI"
+      ],
+      "editableParts": [
+        "II",
+        "III",
+        "VI"
+      ]
+    }
+  }
+}

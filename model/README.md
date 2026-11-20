@@ -44,7 +44,11 @@ model/
 │   │   ├── value-types.json         JSON shapes + UBL value bindings per ValueDataTypeCode
 │   │   ├── codelist-attributes.json fixed code-list attribute sets per codelist
 │   │   ├── encoding-profile.json    kind -> element XML conventions
-│   │   └── form-profile.json        presentation conventions (filledBy, uiType, i18n keys)
+│   │   ├── scheme-agency-profile.json  @schemeAgencyID derivation policy
+│   │   ├── roles.json               role facts: ids, exclusion dispositions, UBL role mapping
+│   │   ├── role-ui.json             DEMO: per-role label/description + visible/editable Parts
+│   │   ├── form-profile.json        DEMO: presentation conventions (filledBy, uiType, i18n keys)
+│   │   └── ui-hints.json            DEMO: vocabulary of UI affordances (e.g. TED lookup)
 │   └── criteria/              per-criterion, keyed by criterion code:
 │       ├── <code>.sidecar.json       semantic IDs + instance bindings (required to model)
 │       ├── <code>.hints.json         optional instance-data constraint hints
@@ -76,6 +80,17 @@ npm run model:test      # node --test model/compiler/ model/mapping-engine/ mode
 - **Codes & descriptions** — from `ESPD-EDM/codelists/*.gc`.
 - **Projection decisions** (semantic IDs, instance bindings, uiType, i18n keys,
   presentation) — hand-authored in `model-sources/`.
+
+### Moving upstream
+
+The implementer-neutral part of `model-sources/` (value types, encoding profile,
+codelist attributes, scheme-agency profile, `roles.json`, all `*.sidecar.json` and
+`*.hints.json`) now has its canonical home in
+`espd-conceptual-model/enrichment/` (validated by JSON Schemas). The copies here
+are temporary: this compiler still reads them, so **until the compiler moves to
+espd-tools and this app consumes the published model, edit both copies**. Files
+marked DEMO above (`role-ui.json`, `form-profile.json`, `ui-hints.json`,
+`*.presentation.json`) are presentation and stay in this repo.
 
 See `../docs/reference/espd-edm-primary-input-enrichment.md` for the full rationale.
 

@@ -1,8 +1,23 @@
 {
-  "$comment": "Role registry. The authored source of truth for the ESPD role model: the buyer types that create a Request and the economic-operator roles that create a Response, each with its form behaviour (which Parts are visible/editable, and the mandatory/optional disposition of the four exclusion-ground categories). EO roles additionally carry an `xmlMapping` (cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode = <EoRoleType code>), which the Part II §A mapping serialises. The BUYER types carry NO xmlMapping: in ESPD-EDM 5.0.0 the buyer/EO split is STRUCTURAL (a Request's cac:ContractingParty vs a Response's cac:EconomicOperatorParty), and there is no grounded serialization for the Contracting-Authority vs Contracting-Entity sub-distinction — cbc:PartyTypeCode has no ESPD codelist and no Schematron rule, so the former cont-auth/cont-ent mapping (an ungrounded carry-over) was removed. The two buyer types are kept so the CA/CE regulatory distinction (Directive 2014/24 vs 2014/25) survives in the model for when further buyer roles are introduced, even though the UI now presents a single 'Buyer'. Ported from the legacy espd-edm/roles.json and extended with exclusionCategoryMap (the Part III section-code -> exclusion-category prefix map that js/model.js currently hard-codes). The compiler (model/compiler/roles.mjs) validates this and emits model/generated/ui/roles.json; English label/description text is split out to the i18n catalogue, keyed role.label.<id> / role.description.<id>, mirroring the codelist service-data lens.",
-  "parts": ["I", "II", "III", "IV", "V", "VI"],
-  "exclusionCategories": ["criminal", "payment", "misconduct", "national"],
-  "exclusionDispositions": ["mandatory", "optional"],
+  "$comment": "Role registry (implementer-neutral). The ESPD role model: the buyer types that create a Request and the economic-operator roles that create a Response, each with the mandatory/optional disposition of the four exclusion-ground categories, plus the Part III section-code prefix -> exclusion-category map. EO roles additionally carry an `xmlMapping` (cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode = <EoRoleType code>), which the Part II section A mapping serialises. The BUYER types carry NO xmlMapping: in ESPD-EDM 5.0.0 the buyer/EO split is STRUCTURAL (a Request's cac:ContractingParty vs a Response's cac:EconomicOperatorParty), and there is no grounded serialization for the Contracting-Authority vs Contracting-Entity sub-distinction (cbc:PartyTypeCode has no ESPD codelist and no Schematron rule). The two buyer types are kept so the CA/CE regulatory distinction (Directive 2014/24 vs 2014/25) survives in the model. Display text, and which Parts a UI shows or makes editable per role, are presentation: they live in the consuming application (the demo's role-ui.json), keyed by role id. TODO (review before publishing as authoritative): every exclusion category is currently 'mandatory' for BOTH buyer types, but Art. 80(1) of Directive 2014/25/EU makes some of them conditional for contracting entities (utilities); confirm the intended dispositions with ESPD governance.",
+  "parts": [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V",
+    "VI"
+  ],
+  "exclusionCategories": [
+    "criminal",
+    "payment",
+    "misconduct",
+    "national"
+  ],
+  "exclusionDispositions": [
+    "mandatory",
+    "optional"
+  ],
   "exclusionCategoryMap": {
     "$comment": "Maps a Part III exclusion-ground section-code PREFIX to its exclusion category. Longest-match-independent: prefixes are mutually exclusive. 'exg-sitn' (conflicts of interest / distortion situations) rolls up to 'misconduct', matching the legacy EXCLUSION_CATEGORY_MAP in js/model.js.",
     "exg-crim": "criminal",
@@ -14,54 +29,34 @@
   "buyerTypes": [
     {
       "id": "contracting-authority",
-      "label": "Contracting Authority",
-      "description": "A contracting authority subject to Directive 2014/24/EU creating an ESPD Request.",
       "documentType": "request",
-      "formBehavior": {
-        "$comment.partV": "Part V (reduction of the number of qualified candidates) is intentionally NOT shown to buyers: it has no buyer requirement to express and nothing to edit; the economic operator answers it. So it is omitted from visible/editableParts here.",
-        "visibleParts": ["I", "III", "IV", "VI"],
-        "editableParts": ["I", "III", "IV"],
-        "exclusionGroundRules": {
-          "criminal": "mandatory",
-          "payment": "mandatory",
-          "misconduct": "mandatory",
-          "national": "mandatory"
-        }
+      "exclusionGroundRules": {
+        "criminal": "mandatory",
+        "payment": "mandatory",
+        "misconduct": "mandatory",
+        "national": "mandatory"
       }
     },
     {
       "id": "contracting-entity",
-      "label": "Contracting Entity",
-      "description": "A contracting entity subject to Directive 2014/25/EU (utilities: water, energy, transport, postal services) creating an ESPD Request.",
       "documentType": "request",
-      "formBehavior": {
-        "$comment.partV": "Part V (reduction of the number of qualified candidates) is intentionally NOT shown to buyers: it has no buyer requirement to express and nothing to edit; the economic operator answers it. So it is omitted from visible/editableParts here.",
-        "visibleParts": ["I", "III", "IV", "VI"],
-        "editableParts": ["I", "III", "IV"],
-        "exclusionGroundRules": {
-          "criminal": "mandatory",
-          "payment": "mandatory",
-          "misconduct": "mandatory",
-          "national": "mandatory"
-        }
+      "exclusionGroundRules": {
+        "criminal": "mandatory",
+        "payment": "mandatory",
+        "misconduct": "mandatory",
+        "national": "mandatory"
       }
     }
   ],
   "eoRoles": [
     {
       "id": "sole-tenderer",
-      "label": "Sole tenderer",
-      "description": "Economic operator which has submitted a tender without being part of a group of economic operators.",
       "documentType": "response",
-      "formBehavior": {
-        "visibleParts": ["I", "II", "III", "IV", "V", "VI"],
-        "editableParts": ["II", "III", "IV", "V", "VI"],
-        "exclusionGroundRules": {
-          "criminal": "mandatory",
-          "payment": "mandatory",
-          "misconduct": "mandatory",
-          "national": "mandatory"
-        }
+      "exclusionGroundRules": {
+        "criminal": "mandatory",
+        "payment": "mandatory",
+        "misconduct": "mandatory",
+        "national": "mandatory"
       },
       "xmlMapping": {
         "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
@@ -70,18 +65,12 @@
     },
     {
       "id": "group-lead",
-      "label": "Group leader",
-      "description": "Economic operator which is the leader of a group of economic operators.",
       "documentType": "response",
-      "formBehavior": {
-        "visibleParts": ["I", "II", "III", "IV", "V", "VI"],
-        "editableParts": ["II", "III", "IV", "V", "VI"],
-        "exclusionGroundRules": {
-          "criminal": "mandatory",
-          "payment": "mandatory",
-          "misconduct": "mandatory",
-          "national": "mandatory"
-        }
+      "exclusionGroundRules": {
+        "criminal": "mandatory",
+        "payment": "mandatory",
+        "misconduct": "mandatory",
+        "national": "mandatory"
       },
       "xmlMapping": {
         "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
@@ -90,18 +79,12 @@
     },
     {
       "id": "group-mem",
-      "label": "Group member",
-      "description": "Economic operator, which is a member of a group of economic operators, without being the leader.",
       "documentType": "response",
-      "formBehavior": {
-        "visibleParts": ["I", "II", "III", "IV", "VI"],
-        "editableParts": ["II", "III", "IV", "VI"],
-        "exclusionGroundRules": {
-          "criminal": "mandatory",
-          "payment": "mandatory",
-          "misconduct": "mandatory",
-          "national": "mandatory"
-        }
+      "exclusionGroundRules": {
+        "criminal": "mandatory",
+        "payment": "mandatory",
+        "misconduct": "mandatory",
+        "national": "mandatory"
       },
       "xmlMapping": {
         "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
@@ -110,18 +93,12 @@
     },
     {
       "id": "oeron",
-      "label": "Other entity (relied upon)",
-      "description": "Economic operator (who is not a subcontractor) on which the tenderer relies upon, to meet selection criteria.",
       "documentType": "response",
-      "formBehavior": {
-        "visibleParts": ["I", "II", "III", "VI"],
-        "editableParts": ["II", "III", "VI"],
-        "exclusionGroundRules": {
-          "criminal": "mandatory",
-          "payment": "mandatory",
-          "misconduct": "mandatory",
-          "national": "mandatory"
-        }
+      "exclusionGroundRules": {
+        "criminal": "mandatory",
+        "payment": "mandatory",
+        "misconduct": "mandatory",
+        "national": "mandatory"
       },
       "xmlMapping": {
         "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",
@@ -130,18 +107,12 @@
     },
     {
       "id": "subcont",
-      "label": "Subcontractor",
-      "description": "Economic operator to whom the contractor assigns a share of the contract.",
       "documentType": "response",
-      "formBehavior": {
-        "visibleParts": ["I", "II", "III", "VI"],
-        "editableParts": ["II", "III", "VI"],
-        "exclusionGroundRules": {
-          "criminal": "mandatory",
-          "payment": "mandatory",
-          "misconduct": "mandatory",
-          "national": "mandatory"
-        }
+      "exclusionGroundRules": {
+        "criminal": "mandatory",
+        "payment": "mandatory",
+        "misconduct": "mandatory",
+        "national": "mandatory"
       },
       "xmlMapping": {
         "element": "cac:EconomicOperatorParty/cac:EconomicOperatorRole/cbc:RoleCode",

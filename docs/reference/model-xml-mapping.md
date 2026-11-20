@@ -4,15 +4,17 @@ This document describes the EXPERIMENTAL model under `model/` — a canonical
 instance-data model for the ESPD form and a declarative engine that maps it
 to and from UBL XML. It is not yet wired into the reference-implementation UI.
 
-> **Layout note.** This describes the original hand-authored, per-part model.
-> That approach has since been generalized into the `model/compiler/` pipeline,
-> and the hand-authored per-part artifacts now live under `model/legacy/`
-> (specs in `legacy/xml-mapping/`, schemas/examples in `legacy/instance-data/`,
-> lenses in `legacy/form-structure/`). The dev CLIs that operated on these
-> artifacts (`legacy/tooling/`) have since been removed; the command examples
-> below are retained only to describe what those tools did. The mapping engine
-> itself was extracted to `model/mapping-engine/mapper.mjs` and is shared by the
-> compiler. Paths below use the current locations.
+> **Historical document.** This describes the original hand-authored, per-part
+> model. That approach has been generalized into the `model/compiler/` pipeline,
+> and the hand-authored per-part artifacts (`model/legacy/`: `xml-mapping/`,
+> `instance-data/`, `form-structure/`) and their dev CLIs (`legacy/tooling/`)
+> have been **removed**; they remain available in git history. The command
+> examples and `model/legacy/...` paths below are retained only to describe the
+> concepts and what those tools did. The current equivalents are the compiled
+> layers under `model/generated/` (`instance-data/`, `form-structure/`,
+> `xml-mapping/`) and the hand-authored admin parts under `model/parts/`. The
+> mapping engine lives in `model/mapping-engine/mapper.mjs` and is shared by the
+> compiler tests and the UI.
 
 > For why this correspondence engine was kept rather than replaced by a
 > (reverse) text template engine such as reverse-ejs, see
@@ -20,17 +22,18 @@ to and from UBL XML. It is not yet wired into the reference-implementation UI.
 
 ## Three layers
 
-The model is deliberately split into three independent layers:
+The model is deliberately split into three independent layers (now generated per
+criterion under `model/generated/`, and hand-authored for the admin parts under
+`model/parts/`):
 
-- **`model/legacy/instance-data/`** — the canonical data a user enters, as a JSON
-  Schema + example pair per part (`part-I`, `part-II`, `part-III`). Semantic
-  keys, no form or XML concerns.
-- **`model/legacy/form-structure/`** — a presentation lens (sections, ordering, UI
-  hints, conditional visibility, criterion order). References instance data by
-  dotted `dataPath`. Carries no XML concerns.
-- **`model/legacy/xml-mapping/`** — a declarative spec per part, driven by the
-  shared engine (`model/mapping-engine/mapper.mjs`) that converts instance data
-  to/from UBL XML.
+- **instance-data** (`model/generated/instance-data/`) — the canonical data a user
+  enters, as a JSON Schema + example pair. Semantic keys, no form or XML concerns.
+- **form-structure** (`model/generated/form-structure/`) — a presentation lens
+  (sections, ordering, UI hints, conditional visibility, criterion order).
+  References instance data by dotted `dataPath`. Carries no XML concerns.
+- **xml-mapping** (`model/generated/xml-mapping/`) — a declarative spec per
+  criterion, driven by the shared engine (`model/mapping-engine/mapper.mjs`) that
+  converts instance data to/from UBL XML.
 
 The connection between a question and its answer differs by layer: in the
 **instance data** it is **structural** (the value's position in the tree), while
@@ -362,15 +365,11 @@ for all parts were moved to the separate `espd-notes` repository (`diagrams/`):
 
 ## Verifying
 
-The legacy per-part roundtrip tests remain and run under `npm run model:test`:
-
-```
-node model/legacy/xml-mapping/roundtrip-part-III.test.mjs
-node model/legacy/xml-mapping/roundtrip-part-IV.test.mjs
-```
-
-(The `validate` and `check-paths` CLIs that accompanied these were part of the
-removed `legacy/tooling/`; schema validation now runs inside the compiler tests.)
+The legacy per-part roundtrip tests were removed together with `model/legacy/`.
+Roundtrip coverage now comes from the compiler tests (e.g.
+`model/compiler/roundtrip-generated.test.mjs`) and the admin-part tests under
+`model/parts/`; run them with `npm run model:test`. Schema validation also runs
+inside the compiler tests.
 
 ## TODO: CPV codes (procurement subject classification) — Part I
 

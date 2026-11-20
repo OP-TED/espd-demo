@@ -164,8 +164,7 @@ http://localhost:3000/?serverless.
 │   │   └── ui/                 #   The UI bundle the app loads: index.json,
 │   │                           #   part-I…VI.json, roles.json, schema/, validators/
 │   ├── mapping-engine/         # Bidirectional UBL map/unmap engine (runtime)
-│   ├── parts/                  # Hand-authored admin parts (I, II, VI) mapping sidecars
-│   └── legacy/                 # Pre-compiler parity references (see model/legacy/README.md)
+│   └── parts/                  # Hand-authored admin parts (I, II, VI) mapping sidecars
 ├── .github/workflows/deploy.yml # GitHub Pages deployment workflow
 └── package.json                # Scripts: dev, build:pages, model:compile, model:test, test, test:e2e
 ```

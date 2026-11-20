@@ -28,6 +28,4 @@ This compiles every criterion that has a `.sidecar.json` in
 ## Related directories
 
 - `../model-sources/` — hand-authored inputs (registries + per-criterion sidecars)
-- `../legacy/` — the pre-compiler hand-authored artifacts, kept as a parity
-  reference while the compiler is proven against them
 - `../compiler/` — the compiler code and its tests

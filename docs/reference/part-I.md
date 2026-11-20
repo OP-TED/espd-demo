@@ -84,13 +84,13 @@ identifier (no attachment):
 ### Model mapping
 
 The form fields feeding this structure (form group `PI01`) map as follows
-(`model/legacy/xml-mapping/part-I.mapping.json`):
+(`model/parts/partI/sectionA.mapping.json`):
 
 | Form field | UBL target |
 | ---------- | ---------- |
-| `partI.publication.reference.identifier` | `cac:AdditionalDocumentReference/cbc:ID` |
-| `partI.publication.reference.type` | `cac:AdditionalDocumentReference/cbc:DocumentTypeCode` |
-| `partI.publication.reference.url` | `cac:AdditionalDocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI` |
+| `partI.publication.identifier` | `cac:AdditionalDocumentReference/cbc:ID` |
+| `partI.publication.type` | `cac:AdditionalDocumentReference/cbc:DocumentTypeCode` |
+| `partI.publication.url` | `cac:AdditionalDocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI` |
 
 The mapping treats the notice identifier and URL as two facets of the *same*
 reference — they map together into one `cac:AdditionalDocumentReference`, not as

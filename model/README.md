@@ -60,22 +60,13 @@ model/
 │   │                          to run generated specs, and the engine the UI uses to
 │   │                          export form data to UBL XML and import it back
 │   └── records-value-attributes.test.mjs   the engine's own unit test
-│
-└── legacy/              PRE-COMPILER artifacts kept as parity references the
-    │                    compiler tests compare against. Removable per part once
-    │                    the compiler fully reproduces it.
-    ├── xml-mapping/           part-*.json mapping specs + roundtrip-part-*.test.mjs,
-    │                          scaffold-part-IV.test.mjs (exercise the hand-authored specs)
-    ├── instance-data/         part-*.schema.json + part-*.example.json originals
-    ├── form-structure/        part-*.form.json originals
-    └── README.md
 ```
 
 ## Build & test
 
 ```
 npm run model:compile   # node model/compiler/build-generated.mjs  -> rewrites generated/
-npm run model:test      # node --test model/compiler/ model/mapping-engine/ model/legacy/xml-mapping/
+npm run model:test      # node --test model/compiler/ model/mapping-engine/ model/parts/ model/codelists/
 ```
 
 ## Where things belong (ownership rule)
@@ -90,10 +81,9 @@ See `../docs/reference/espd-edm-primary-input-enrichment.md` for the full ration
 
 ## Notes
 
-- `mapping-engine/mapper.mjs` is **runtime** code, not legacy: the compiler
-  imports it to run generated mapping specs, and the UI will import it to export
-  form data to UBL XML (and import it back). It lives in its own module so both
-  consumers share one copy. Everything under `legacy/` — the per-part originals
-  and their roundtrip tests — is pre-compiler and slated for removal per part as
-  the compiler reproduces each one.
-```
+- `mapping-engine/mapper.mjs` is **runtime** code: the compiler's tests import it
+  to run generated mapping specs, and the UI imports it to export form data to
+  UBL XML (and import it back). It lives in its own module so both consumers
+  share one copy. It is a candidate for later extraction into a standalone package.
+- The pre-compiler per-part artifacts (`model/legacy/`) have been removed. They
+  remain available in git history.

@@ -246,13 +246,13 @@ than building XML strings by hand.
 
 ---
 
-## 7. `model/legacy/` — what it is and is not
+## 7. Removed: `model/legacy/`
 
-`legacy/` holds the **pre-compiler** per-part artifacts (hand-authored originals) and
-dev tooling, kept only as **parity references** the compiler tests compare against.
-It is slated for removal per part as the compiler reproduces each one. Do not build
-new work on `legacy/`. (Note: `mapping-engine/` is NOT legacy — it is live runtime
-code.)
+The **pre-compiler** per-part artifacts (hand-authored instance-data, form-structure
+and xml-mapping originals, plus their roundtrip tests) used to live in `model/legacy/`
+as parity references for the compiler tests. They have been removed; recover them
+from git history if needed. (Note: `mapping-engine/` is NOT legacy — it is live
+runtime code.)
 
 ---
 

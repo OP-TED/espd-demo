@@ -28,7 +28,7 @@ Decision records and analyses that justify the design.
 ## Generated / registry docs (repo root of `docs/`)
 
 - [`coverage-report.md`](coverage-report.md) — **generated** by `npm run model:compile`; a model coverage snapshot. Do not hand-edit (a test keeps it in sync).
-- [`codelist-governance.md`](codelist-governance.md) — the human-readable form of `model/codelists/governance.json`.
+- [`codelist-governance.md`](codelist-governance.md) — the human-readable form of the codelist governance (the published `codelist-governance` registry plus `model/codelists/ui-codelists.json`).
 
 ## Notes and work-in-progress
 

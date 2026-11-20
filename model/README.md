@@ -58,7 +58,8 @@ model/
 │                        and import it back.
 │
 ├── parts/               Hand-authored administrative parts (I, II, VI): schema, form, mapping.
-└── codelists/           UI codelist service data + the codelist governance registry.
+└── codelists/           UI codelist service data; ui-codelists.json (which lists the UI offers) merged with the
+                         published codelist-governance registry by governance.mjs.
 ```
 
 ## Build & test

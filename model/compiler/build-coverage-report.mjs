@@ -13,11 +13,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadStructure, loadEnvelope, loadCompiled, loadRegistry } from './published-model.mjs';
+import { loadGovernance } from '../codelists/governance.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, '..', '..');
 const partsDir = path.resolve(repoRoot, 'model', 'parts');
-const governancePath = path.resolve(repoRoot, 'model', 'codelists', 'governance.json');
 const generatedDir = path.resolve(repoRoot, 'model', 'generated');
 const reportPath = path.resolve(repoRoot, 'docs', 'coverage-report.md');
 
@@ -94,7 +94,7 @@ export function collectModel() {
 
   // Value-type registry + codelist governance.
   const valueTypes = loadRegistry('value-types');
-  const governance = JSON.parse(fs.readFileSync(governancePath, 'utf8'));
+  const governance = loadGovernance();
 
   // Generated output file counts (per layer).
   const generated = {};

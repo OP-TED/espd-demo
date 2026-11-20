@@ -25,11 +25,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { loadGovernance } from '../codelists/governance.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
 const partsRoot = path.join(here, '..', 'parts');
-const governancePath = path.join(here, '..', 'codelists', 'governance.json');
 const uiHintsPath = path.join(here, '..', 'model-sources', 'registries', 'ui-hints.json');
 const i18nPath = path.resolve(here, '..', '..', 'i18n', 'i18n', 'en', 'espd.parts.json');
 
@@ -66,7 +66,7 @@ function knownCodelists(governance) {
 
 /** Load the authored sources + the two registries this build depends on. */
 export function loadPartsSources() {
-  const governance = readJson(governancePath);
+  const governance = loadGovernance();
   const uiHints = readJson(uiHintsPath);
   const parts = ADMIN_PARTS.map(({ part, dir }) => {
     const partDir = path.join(partsRoot, dir);

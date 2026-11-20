@@ -100,20 +100,20 @@ test('the form lens covers all three publication fields', () => {
 //     DocrefcontentType.gc codes. These tests keep the committed enum honest. ---
 
 import { readCodelistCodes, codelistPath } from '../../codelists/read-codelist.mjs';
+import { loadGovernance } from '../../codelists/governance.mjs';
 
 const GC = codelistPath('DocrefcontentType.gc');
 
 // The ESPD-allowed publication-reference types are the .gc codes MINUS the
 // governance exclusions (codes that are not valid as the publication launching
-// the procedure in the ESPD context). governance.json is the single source.
-const governance = JSON.parse(
-  fs.readFileSync(path.join(here, '..', '..', 'codelists', 'governance.json'), 'utf8'));
+// the procedure in the ESPD context). the published codelist-governance registry is the single source.
+const governance = loadGovernance();
 const EXCLUDED = new Set(governance.codelists['docrefcontent-type'].excludedCodes ?? []);
 const allowedCodes = () => readCodelistCodes(GC).filter((c) => !EXCLUDED.has(c));
 
 test('governance excludes the ESPD-request types from docrefcontent-type', () => {
   assert.ok(EXCLUDED.has('ESPD_REQUEST') && EXCLUDED.has('epo-acc-espd-request'),
-    'the two ESPD-request codes must be declared excluded in governance.json');
+    'the two ESPD-request codes must be declared excluded in the published codelist-governance registry');
 });
 
 test('the type enum is the .gc codes minus the governance exclusions (regenerate if this fails)', () => {

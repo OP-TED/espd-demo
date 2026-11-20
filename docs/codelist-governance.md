@@ -1,5 +1,19 @@
 # Codelist governance — sources of truth and how we use each list
 
+> **Status — the registry is split.** The machine-readable registry this page describes used to be one
+> file in this repository (`model/codelists/governance.json`). It is now two:
+> the implementer-neutral facts (`gc`, `aliases`, `schematronValidated`, `inlineEnum`,
+> `excludedCodes`, `externalSource`) live upstream in `espd-conceptual-model/enrichment/registries/codelist-governance.json`
+> and are published with the model (`ESPD-EDM/model/registries`); this app only keeps its own decision, `useForUI`,
+> in `model/codelists/ui-codelists.json`. `shipped` is no longer stored: a list is shipped when it names its `.gc`.
+> `model/codelists/governance.mjs` merges the two, so `governance.json` below means that merge.
+> Whether the neutral facts are true is checked in `espd-tools/model-compiler/codelist-governance.test.mjs`.
+>
+> One thing the sections below describe as a proposal is still the case: the compiler decides inlining by a
+> size gate (a shipped list with at most 60 codes), not by reading the registry; the registry records and
+> tests that outcome. And the compiler marks every inlined enum `$codelistEnumIsImplementerChoice`, whereas the
+> rule below says only unvalidated ones should carry it. Both are open (see the enrichment README).
+
 This page records, per codelist, **where its authority lives** and **how our
 reference implementation is expected to treat it**. It is the alignment artifact
 for the team discussion: the ESPD-EDM documentation, the shipped `.gc` files, the
@@ -82,7 +96,7 @@ contexts; `financial-ratio-type` and `boolean-gui-control-type` do not;
 the validated+inlined case — but the Part I lists below do; see the independence
 discussion above.)
 
-The remaining shipped lists, recorded in `governance.json` from repo ground truth
+The remaining shipped lists, recorded in the codelist-governance registry from repo ground truth
 (⚠ pending team review), include two that are **both validated and inlined** —
 the counterexamples to the discarded coupling:
 
@@ -120,7 +134,7 @@ the counterexamples to the discarded coupling:
   all is orthogonal to how we validate/inline it.
 - ⚠ **The lists beyond the team's five are repo-ground-truth, pending review.**
   Their `useForUI`/`inlineEnum` values are our current best assessment, not a
-  team decision yet — the `$note`/`REVIEW` markers in `governance.json` flag each.
+  team decision yet — the `$note`/`REVIEW` markers in the codelist-governance registry flag each.
 
 ## How this maps to our modeling and implementation
 
@@ -142,7 +156,7 @@ still, in practice, following size for the inline axis.
 **Proposed structure:** make the four axes explicit, in one place, and have the
 compiler + UI read it.
 
-1. **A governance registry** — `model/codelists/governance.json`, one entry per
+1. **A governance registry** — `enrichment/registries/codelist-governance.json` (neutral; `model/codelists/ui-codelists.json` for the UI decision), one entry per
    codelist, keyed by codelist name:
 
    ```json

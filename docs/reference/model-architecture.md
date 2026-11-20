@@ -111,12 +111,13 @@ Hand-authored, reviewed, the source of truth for enrichment.
 - **`<code>.presentation.json`** — *optional.* Form presentation overrides (uiType per
   semantic id, group relabelling).
 
-### 3.3 Codelist governance (`model/codelists/governance.json`)
+### 3.3 Codelist governance (published registry + `model/codelists/ui-codelists.json`)
 
 One entry per codelist with the four **independent** axes — `shipped`,
 `schematronValidated`, `useForUI`, `inlineEnum` — plus the derived
-"implementer-choice" marker. Drives enum inlining (instance schema) and UI pick-list
-emission. See [`codelist-governance.md`](../codelist-governance.md).
+"implementer-choice" marker. The neutral facts are the published `codelist-governance` registry
+(`shipped` is derived from its `gc` file); `useForUI` is this app's own decision. They drive UI pick-list
+emission here; enum inlining is decided by the compiler's size gate and recorded by the registry. See [`codelist-governance.md`](../codelist-governance.md).
 
 ---
 

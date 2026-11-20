@@ -2,9 +2,10 @@
 //
 // Asserts the lens is DERIVED correctly from the compiled model: filledBy from
 // leaf kind (R6.2), visibleWhen from condition markers (R6.3), codelist from the
-// value-type registry (R6.4), required/repeatable from EA cardinality. The
-// hand-authored part-IV.form.json is the reference for what the derivation must
-// reproduce (uiType/labelKey are excluded — they are task 5.2).
+// value-type registry (R6.4), required/repeatable from EA cardinality.
+// (The former parity comparison against the pre-compiler hand-authored lens was
+// removed together with model/legacy/; regression expectations will be added back
+// as explicit tests.)
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -261,48 +262,17 @@ test('every value leaf of the model reaches the form', () => {
   })(compiled);
 });
 
-test('the derivation reproduces the hand-authored lens structure', () => {
-  const { compiled, registry, hints } = compileC31();
-  const generated = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
-
-  const handAuthored = JSON.parse(
-    fs.readFileSync(path.join(here, '..', 'legacy', 'form-structure', 'part-IV.form.json'), 'utf8'));
-
-  const reference = handAuthored.criteria[0].groups.flatMap(g => g.fields);
-  for (const ref of reference) {
-    const gen = generated.get(ref.dataPath);
-    assert.ok(gen, `hand-authored field ${ref.dataPath} was not generated`);
-    if (ref.codelist) assert.equal(gen.codelist, ref.codelist, `${ref.dataPath} codelist`);
-    if (ref.repeatable) assert.equal(gen.repeatable, true, `${ref.dataPath} repeatable`);
-    if (ref.visibleWhen) assert.deepEqual(gen.visibleWhen, ref.visibleWhen, `${ref.dataPath} visibleWhen`);
-    else assert.equal(gen.visibleWhen, undefined, `${ref.dataPath} must be unconditional`);
-
-    // `required` is compared only where the hand-authored lens is a trustworthy
-    // reference. Two documented divergences, both cases where the hand-authored
-    // FORM contradicts the hand-authored SCHEMA and the generator follows the
-    // schema (see KNOWN_FORM_DIVERGENCES below).
-    if (!ref.visibleWhen && !KNOWN_FORM_DIVERGENCES.has(ref.dataPath)) {
-      assert.equal(gen.required, ref.required, `${ref.dataPath} required`);
-    }
-  }
-});
-
 /**
- * dataPaths where the hand-authored part-IV.form.json disagrees with the
- * hand-authored part-IV.schema.json. The generator sides with the schema.
+ * Fields that must be `required` because EA cardinality is `1` and they are
+ * themselves ungated. (The pre-compiler hand-authored form marked them optional;
+ * that reference has been removed, the generator follows EA cardinality.)
  *
- * 1. `*.electronicEvidence.availableElectronically` — the form says
- *    `required: false`, but part-IV.schema.json's `$defs.electronicEvidence`
- *    carries `required: ["availableElectronically"]`, and EA cardinality is `1`.
- *    The form is the odd one out.
- * 2. gated fields (handled separately above) — the form marks `evidence[].url`
- *    required but `reliedUpon` optional, though both are gated; the schema's
- *    derived if/then requires both inside their branch.
- * 3. `requirement.businessDomain` — the form says `required: false`, but EA
- *    cardinality is `1` and businessDomain is the field that makes a turnover
- *    criterion "specific" (present in C31/C32, absent in C29/C30). The old
- *    `optionalLeaves` relaxation that matched the form was removed (task 4.3.4);
- *    the generator now requires it per the EA model.
+ * 1. `*.electronicEvidence.availableElectronically` — EA cardinality is `1`, and
+ *    the generated schema's `$defs.electronicEvidence` requires it.
+ * 2. `requirement.businessDomain` — EA cardinality is `1` and businessDomain is
+ *    the field that makes a turnover criterion "specific" (present in C31/C32,
+ *    absent in C29/C30). The old `optionalLeaves` relaxation was removed
+ *    (task 4.3.4); the generator now requires it per the EA model.
  */
 const KNOWN_FORM_DIVERGENCES = new Set([
   `${P}.response.turnover.electronicEvidence.availableElectronically`,
@@ -311,13 +281,12 @@ const KNOWN_FORM_DIVERGENCES = new Set([
   `${P}.requirement.businessDomain`,
 ]);
 
-test('availableElectronically + businessDomain follow the schema (required), not the hand-authored form', () => {
+test('availableElectronically + businessDomain are required (EA cardinality 1) and ungated', () => {
   const { compiled, registry, hints } = compileC31();
   const fields = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
 
   // Each is required by EA cardinality 1 (and, for the evidence indicators, by
-  // part-IV.schema.json $defs.electronicEvidence required:["availableElectronically"]),
-  // and each is itself ungated. The hand-authored form marked them optional.
+  // the generated schema's $defs.electronicEvidence), and each is itself ungated.
   for (const p of KNOWN_FORM_DIVERGENCES) {
     assert.equal(fields.get(p).required, true, p);
     assert.equal(fields.get(p).visibleWhen, undefined, `${p} is itself ungated`);
@@ -558,27 +527,6 @@ test('every field carries a complete presentation contract', () => {
         if (f.uiType === 'code') assert.ok(f.codelist, `${f.dataPath} is a code control without a codelist`);
       }
     }
-  }
-});
-
-test('the hand-authored lens uiTypes are reproduced', () => {
-  const { compiled, registry, hints } = compileC31();
-  const generated = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
-  const handAuthored = JSON.parse(
-    fs.readFileSync(path.join(here, '..', 'legacy', 'form-structure', 'part-IV.form.json'), 'utf8'));
-
-  for (const ref of handAuthored.criteria[0].groups.flatMap(g => g.fields)) {
-    const gen = generated.get(ref.dataPath);
-    assert.ok(gen, `${ref.dataPath} not generated`);
-    // The per-criterion lot field intentionally DIVERGES from the frozen legacy
-    // baseline: lots are now a multi-select of the buyer's declared lots
-    // (uiType 'lot-select'), not a free-text box ('text'). The legacy snapshot
-    // is kept as the historical record, so skip the lot field here.
-    if (ref.dataPath.endsWith('requirement.lotIdentifiers[]')) {
-      assert.equal(gen.uiType, 'lot-select', 'lot field is now a lot-select');
-      continue;
-    }
-    assert.equal(gen.uiType, ref.uiType, `${ref.dataPath} uiType`);
   }
 });
 

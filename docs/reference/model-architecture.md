@@ -1,5 +1,20 @@
 # Model architecture — artifacts, purpose, and semantics
 
+> **Status — the model is now compiled upstream.** This document was written when this
+> repository compiled the model itself. The compile step has moved: the EA structure and the
+> enrichment (`espd-conceptual-model/enrichment`) are compiled by `espd-tools/model-compiler` and
+> published as `ESPD-EDM/model`; this app vendors it (`npm run model:sync`) and builds only its own
+> layers. Read the sections below with this mapping, and see [`model/README.md`](../../model/README.md):
+>
+> | Section | Now |
+> | --- | --- |
+> | §1, §2 the compiler and the ownership rule | The rule stands. The compiler is `espd-tools/model-compiler`; the model facts live in the enrichment and are published in ESPD-EDM. |
+> | §3 the inputs (`model-sources`: value types, encoding, codelist attributes, sidecars, hints, roles) | Upstream, in `espd-conceptual-model/enrichment`. Only presentation inputs stay here (`form-profile`, `ui-hints`, `role-ui`, `*.presentation.json`). |
+> | §4.1 instance-data, §4.3 xml-mapping, §4.5 compiled-model | Produced upstream; vendored verbatim under `model/generated/`. The envelope is now `ESPD-EDM/model/compiled-model.json`. |
+> | §4.2 form-structure, §4.4 codelists, the UI bundle | Still built by this app, from the vendored model. |
+> | §6 build-time code | `model/compiler/` is now sync + the app's own layers; it no longer compiles the model. |
+
+
 This document defines **what each modeling artifact is, what it means, and how the
 artifacts relate**. It is the conceptual map of the `model/` subsystem — read it
 before changing the pipeline or building anything (e.g. the UI) on top of the model.

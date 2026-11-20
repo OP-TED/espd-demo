@@ -16,8 +16,9 @@ import { expandCodelistAttributes } from './expand-codelist-attributes.mjs';
 import { resolveSchemeAgency } from './resolve-scheme-agency.mjs';
 
 const MODEL_BASE = 'model';
-const PROFILE_PATH = `${MODEL_BASE}/model-sources/registries/codelist-attributes.json`;
-const SCHEME_AGENCY_PROFILE_PATH = `${MODEL_BASE}/model-sources/registries/scheme-agency-profile.json`;
+// Published registries, vendored under model/generated/registries/ (see model:sync).
+const PROFILE_PATH = `${MODEL_BASE}/generated/registries/codelist-attributes.json`;
+const SCHEME_AGENCY_PROFILE_PATH = `${MODEL_BASE}/generated/registries/scheme-agency-profile.json`;
 const ENVELOPE_PATH = `${MODEL_BASE}/mapping-engine/envelope.json`;
 
 /** Fetch JSON, failing loudly on a non-OK response (the dev server's SPA

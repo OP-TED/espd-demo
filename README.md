@@ -59,6 +59,22 @@ step skips gracefully (the roundtrip still runs). See
 > CI, and alternate layouts. Review a less brittle approach (e.g. an
 > `ESPD_SCHEMATRON_ROOT` env override, a git submodule, or vendoring the jar).
 
+## Updating the model
+
+The ESPD model is not built here. ESPD-EDM publishes it, and this repository vendors it. To
+pick up a new model (read from `ESPD_EDM_ROOT`, default the sibling `../ESPD-EDM`):
+
+```bash
+npm run model:compile    # verifies and vendors the published model, then rebuilds the app's layers
+npm run model:test
+```
+
+`model:sync` alone (`npm run model:sync`) only vendors the published model. Both refuse a model that
+does not verify (schema, listed files, and a hash match with the structure export). Because form
+labels are keyed by the model's codes and paths, a model change usually needs matching entries in
+`i18n/i18n/en/`; `model/compiler/i18n-keys.test.mjs` tells you which. See
+[`model/README.md`](./model/README.md).
+
 ## Building for GitHub Pages
 
 GitHub Pages serves static files only — there is no Node.js runtime in
@@ -76,8 +92,8 @@ This runs `scripts/build-pages.js`, which:
    (`model/generated/ui/`, `model/generated/codelists/`,
    `model/generated/xml-mapping/`, `model/mapping-engine/`, `model/parts/`, plus
    the two registry files the composer fetches) into a `public/` directory.
-   Dev-only model artifacts (the Node compiler, `*.test.mjs`, source registries,
-   EA inputs) are **not** shipped.
+   Dev-only model artifacts (the build code, `*.test.mjs`, presentation sources,
+   the compiled criteria) are **not** shipped.
 2. Overwrites `public/js/runtime-config.js` to set
    `window.__ESPD_SERVERLESS__ = true`, disabling the server-dependent features.
 
@@ -158,15 +174,16 @@ http://localhost:3000/?serverless.
 │       ├── translations.json   # i18n manifest and key conventions
 │       └── en/                 # English translations (per-part + roles/codelists)
 ├── model/                       # ESPD-EDM model subsystem (see model/README.md)
-│   ├── compiler/               # Compiles the EA export + enrichment → generated/
-│   ├── model-sources/          # Hand-authored compiler inputs (registries + sidecars)
-│   ├── generated/              # Committed compiler output
+│   ├── compiler/               # model:sync (verify + vendor the published model) and the
+│   │                           # build of this app's own layers; no model compiler (it is upstream)
+│   ├── model-sources/          # This app's presentation inputs (form profile, UI hints, role UI)
+│   ├── generated/              # Committed: the vendored published model + the app's layers
 │   │   └── ui/                 #   The UI bundle the app loads: index.json,
 │   │                           #   part-I…VI.json, roles.json, schema/, validators/
 │   ├── mapping-engine/         # Bidirectional UBL map/unmap engine (runtime)
 │   └── parts/                  # Hand-authored admin parts (I, II, VI) mapping sidecars
 ├── .github/workflows/deploy.yml # GitHub Pages deployment workflow
-└── package.json                # Scripts: dev, build:pages, model:compile, model:test, test, test:e2e
+└── package.json                # Scripts: dev, build:pages, model:sync, model:compile, model:test, test, test:e2e
 ```
 
 ## CSS Framework
@@ -175,10 +192,11 @@ Uses [Pico CSS](https://picocss.com/) (CDN) — a minimal, semantic CSS framewor
 
 ## Data Model
 
-The data model lives under [`model/`](./model/). The compiler turns the EA
-export (`espd-edm.json`) plus hand-authored enrichment into a committed UI
-bundle under [`model/generated/ui/`](./model/generated/ui/), which the app loads
-at runtime (`js/model.js`):
+The data model lives under [`model/`](./model/). This app consumes the model that
+ESPD-EDM publishes (`ESPD-EDM/model`, compiled upstream from the EA model and the
+enrichment) and builds its own UI bundle from it under
+[`model/generated/ui/`](./model/generated/ui/), which the app loads at runtime
+(`js/model.js`):
 
 - `index.json` — manifest linking the per-part lenses and the role lens
 - `part-I.json` … `part-VI.json` — one lens per ESPD part (I–VI)
@@ -191,8 +209,9 @@ The model describes:
 - **Property data types**: INDICATOR, DESCRIPTION, DATE, URL, AMOUNT, CODE_COUNTRY, PERCENTAGE, etc.
 - **Conditional codes**: ON* (always visible), ONTRUE (show when parent = yes), ONFALSE (show when parent = no)
 
-See the [model README](./model/README.md) for the full compiler pipeline and the
-ownership rules for where each piece of the model is authored.
+See the [model README](./model/README.md) for the pipeline (`npm run model:sync`,
+`npm run model:compile`) and the ownership rules for where each piece of the model is
+authored.
 
 ## Accessibility
 
@@ -217,9 +236,16 @@ Add the unit tests (`npm test`) and e2e tests (`npm run test:e2e`) as a gating
 job in `.github/workflows/deploy.yml` (or a separate CI workflow) that must pass
 before the Pages `deploy` job runs.
 
-### TODO: move exclusion-ground mandatoriness into ESPD-EDM
+### Exclusion-ground mandatoriness: now upstream, still to be reviewed
 
-`model/generated/ui/roles.json` currently encodes, per buyer role, which Part III
+*Status: the encoding has moved upstream. The per-role dispositions now live in the
+enrichment roles registry (`espd-conceptual-model/enrichment/registries/roles.json`) and
+are published in `ESPD-EDM/model/registries/roles.json`; this app vendors them. What is
+left is to confirm the dispositions with ESPD governance: currently every category is
+`mandatory` for both buyer types, although the text below says Article 80(1) of Directive
+2014/25/EU makes some conditional for utilities. The original description follows.*
+
+`model/generated/ui/roles.json` encodes, per buyer role, which Part III
 exclusion-ground categories are mandatory vs. optional
 (`formBehavior.exclusionGroundRules`). This reflects real legal distinctions —
 e.g. under Article 57(1)/(2) of Directive 2014/24/EU, criminal-conviction and

@@ -19,7 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { leafInstancePath, arrayContainerDepths } from './encoding-profile.mjs';
+import { leafInstancePath, arrayContainerDepths } from './instance-paths.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 

@@ -13,7 +13,7 @@ import { resolveSchemeAgency } from '../../mapping-engine/resolve-scheme-agency.
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
-const schemeAgencyProfile = read('../../model-sources/registries/scheme-agency-profile.json');
+const schemeAgencyProfile = read('../../generated/registries/scheme-agency-profile.json');
 
 const schema = read('sectionB.schema.json');
 const example = read('sectionB.example.json');
@@ -100,8 +100,8 @@ test('two powers of attorney produce two distinct cac:PowerOfAttorney wrappers',
 
 test('the agent country expands to the country codelist attribute set', async () => {
   const { expandCodelistAttributes } = await import('../../compiler/schematron-validate.mjs');
-  const { loadValidatedCodelistProfile } = await import('../../compiler/codelist-attributes.mjs');
-  const { profile } = loadValidatedCodelistProfile();
+  const { loadCodelistProfile } = await import('../../mapping-engine/codelist-profile.mjs');
+  const profile = loadCodelistProfile();
   const expanded = expandCodelistAttributes(map(spec, example), profile);
   assert.match(expanded, /IdentificationCode[^>]*listID="http:\/\/publications\.europa\.eu\/resource\/authority\/country"/);
 });

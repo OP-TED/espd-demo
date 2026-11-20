@@ -1,4 +1,4 @@
-// Task 3.4 test — generated C31 XML validates against the ESPD Schematron.
+// Task 3.4 test — XML produced from the PUBLISHED C31 specs validates against the ESPD Schematron.
 //
 // Skips gracefully (exit 0) if Java/Saxon are unavailable.
 //
@@ -6,21 +6,15 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
-import { readStructuralCore } from './read-structural-core.mjs';
-import { overlayEnrichment } from './overlay-enrichment.mjs';
-import { loadValidatedRegistry } from './value-type-registry.mjs';
-import { generateRequestMapping } from './generate-request-mapping.mjs';
-import { generateResponseMapping } from './generate-response-mapping.mjs';
 import { map } from '../mapping-engine/mapper.mjs';
-import { loadValidatedCodelistProfile } from './codelist-attributes.mjs';
+import { loadCodelistProfile } from '../mapping-engine/codelist-profile.mjs';
+import { generatedRoot } from './published-model.mjs';
 import { checkSaxonAvailable, validateXml, parseSvrl, expandCodelistAttributes, wrapRequestDocument } from './schematron-validate.mjs';
 
-const here = path.dirname(fileURLToPath(import.meta.url));
-const sourcePath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
-const edm = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
 const CODE = 'slc-stand-to-spec-avg';
+// The mapping specs are the PUBLISHED ones (vendored under model/generated/xml-mapping/).
+const loadSpec = (side) => JSON.parse(fs.readFileSync(path.join(generatedRoot, 'xml-mapping', `${CODE}.${side}.mapping.json`), 'utf8'));
 
 let failures = 0;
 function check(name, fn) {
@@ -47,12 +41,8 @@ if (!checkSaxonAvailable()) {
   process.exit(0);
 }
 
-const core = readStructuralCore(edm, CODE);
-const sidecar = JSON.parse(fs.readFileSync(path.join(here, '..', 'model-sources', 'criteria', `${CODE}.sidecar.json`), 'utf8'));
-const criterion = overlayEnrichment(core, sidecar);
-const { registry } = loadValidatedRegistry();
-const requestSpec = generateRequestMapping(criterion, registry);
-const responseSpec = generateResponseMapping(criterion, registry);
+const requestSpec = loadSpec('request');
+const responseSpec = loadSpec('response');
 
 const requirement = {
   lotIdentifiers: ['LOT-0000'],
@@ -65,7 +55,7 @@ const response = {
   turnover: { period: { startDate: '2021-01-01', endDate: '2023-12-31' }, amount: { value: 2500000, currency: 'EUR' } },
 };
 
-const { profile: codelistProfile } = loadValidatedCodelistProfile();
+const codelistProfile = loadCodelistProfile();
 const requestXml = map(requestSpec, { partIV: { selectionCriteria: { [CODE]: { requirement } } } });
 
 // Attribute expansion turns shorthand into the full Schematron attribute set.

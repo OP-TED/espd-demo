@@ -13,7 +13,7 @@ import { readCodelistCodes, codelistPath } from '../../codelists/read-codelist.m
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
-const schemeAgencyProfile = read('../../model-sources/registries/scheme-agency-profile.json');
+const schemeAgencyProfile = read('../../generated/registries/scheme-agency-profile.json');
 
 const schema = read('sectionA.schema.json');
 const example = read('sectionA.example.json');
@@ -94,8 +94,8 @@ test('the response document root is QualificationApplicationResponse', () => {
 
 test('role, size and country expand to their Schematron-mandated attribute sets', async () => {
   const { expandCodelistAttributes } = await import('../../compiler/schematron-validate.mjs');
-  const { loadValidatedCodelistProfile } = await import('../../compiler/codelist-attributes.mjs');
-  const { profile } = loadValidatedCodelistProfile();
+  const { loadCodelistProfile } = await import('../../mapping-engine/codelist-profile.mjs');
+  const profile = loadCodelistProfile();
   const expanded = expandCodelistAttributes(map(spec, example), profile);
 
   assert.match(expanded, /RoleCode[^>]*listID="http:\/\/publications\.europa\.eu\/resource\/authority\/eo-role-type"/);

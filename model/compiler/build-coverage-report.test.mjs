@@ -30,7 +30,7 @@ test('every modeled criterion appears exactly once in the report body', () => {
 test('the summary reflects the real counts', () => {
   const model = collectModel();
   const md = renderReport(model);
-  assert.match(md, new RegExp(`\\| Modeled criteria \\(sidecars\\) \\| ${model.criteria.length} \\|`));
+  assert.match(md, new RegExp(`\\| Modeled criteria \\(published model\\) \\| ${model.criteria.length} \\|`));
   assert.match(md, new RegExp(`\\| EA criteria \\(CRITERION entries\\) \\| ${model.eaCriteria.length} \\|`));
   assert.match(md, /\| ESPD parts \| 6 \|/);
 });

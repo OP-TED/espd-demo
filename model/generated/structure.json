@@ -1,0 +1,525 @@
+[
+  {
+    "part": "partI",
+    "sections": [
+      {
+        "section": "A",
+        "criteria": [
+          {
+            "type": "INFORMATION",
+            "tag": "I68",
+            "code": "info-pub",
+            "name": "I68_info-pub"
+          }
+        ]
+      },
+      {
+        "section": "B",
+        "criteria": [
+          {
+            "type": "INFORMATION",
+            "tag": "I69",
+            "code": "info-buyer",
+            "name": "I69_info-buyer"
+          }
+        ]
+      },
+      {
+        "section": "C",
+        "criteria": [
+          {
+            "type": "INFORMATION",
+            "tag": "I70",
+            "code": "info-pp",
+            "name": "I70_info-pp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "part": "partII",
+    "sections": [
+      {
+        "section": "A",
+        "criteria": [
+          {
+            "type": "INFORMATION",
+            "tag": "I71",
+            "code": "info-eo",
+            "name": "I71_info-eo"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C65_OT",
+            "code": "sme",
+            "name": "Economic Operator Micro, Small or Medium-sized Enterprise"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C57_OT",
+            "code": "shelt-worksh",
+            "name": "Economic operator is a sheltered workshop"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C58_OT",
+            "code": "registered",
+            "name": "Economic operator registered in a pre qualification system"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C59_OT",
+            "code": "eo-group",
+            "name": "Economic Operator together with others"
+          }
+        ]
+      },
+      {
+        "section": "B",
+        "criteria": [
+          {
+            "type": "INFORMATION",
+            "tag": "I72",
+            "code": "info-poa",
+            "name": "I72_info-poa"
+          }
+        ]
+      },
+      {
+        "section": "C",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C60_OT",
+            "code": "relied",
+            "name": "Relied on entities"
+          }
+        ]
+      },
+      {
+        "section": "D",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C61_OT",
+            "code": "subco-ent",
+            "name": "Subcontracted entities"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "part": "partIII",
+    "sections": [
+      {
+        "section": "A",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C01",
+            "code": "exg-crim-part",
+            "name": "Participation in a criminal organisation"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C02",
+            "code": "exg-crim-corrpt",
+            "name": "Corruption"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C03",
+            "code": "exg-crim-fraud",
+            "name": "Fraud"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C04",
+            "code": "exg-crim-terror",
+            "name": "Terrorist offences or offences linked to terrorist activities"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C05",
+            "code": "exg-crim-laund",
+            "name": "Money laundering or terrorist financing"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C06",
+            "code": "exg-crim-traffick",
+            "name": "Child labour and including other forms of trafficking in human beings"
+          }
+        ]
+      },
+      {
+        "section": "B",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C07",
+            "code": "exg-pmt-bre-tax",
+            "name": "Breaching obligation relating to payment of taxes"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C08",
+            "code": "exg-pmt-bre-ssc",
+            "name": "Breaching obligation relating to payment of social security contributions"
+          }
+        ]
+      },
+      {
+        "section": "C",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C09",
+            "code": "exg-mis-bre-env-law",
+            "name": "Breaching of obligations in the fields of environmental law"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C10",
+            "code": "exg-mis-bre-soc-law",
+            "name": "Breaching of obligations in the fields of social law"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C11",
+            "code": "exg-mis-bre-lab-law",
+            "name": "Breaching of obligations in the fields of labour law"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C12",
+            "code": "exg-sitn-bankr",
+            "name": "Bankruptcy"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C13",
+            "code": "exg-sitn-insolvency",
+            "name": "Insolvency"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C14",
+            "code": "exg-sitn-cred-arran",
+            "name": "Arrangement with creditors"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C15",
+            "code": "exg-sitn-other",
+            "name": "Analogous situation like bankruptcy, insolvency or arrangement with creditors under national law"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C16",
+            "code": "exg-sitn-liq-admin",
+            "name": "Assets being administered by liquidator"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C17",
+            "code": "exg-sitn-as-susp",
+            "name": "Business activities are suspended"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C18",
+            "code": "exg-mis-misconduct",
+            "name": "Grave professional misconduct"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C19",
+            "code": "exg-mis-distortion",
+            "name": "Agreements with other economic operators aimed at distorting competition"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C20",
+            "code": "exg-mis-partic-confl",
+            "name": "Conflict of interest due to its participation in the procurement procedure"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C21",
+            "code": "exg-mis-prep-confl",
+            "name": "Direct or indirect involvement in the preparation of this procurement procedure"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C22",
+            "code": "exg-mis-sanction",
+            "name": "Early termination, damages, or other comparable sanctions"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C23",
+            "code": "exg-mis-misrepresent",
+            "name": "Misrepresentation, withheld information, unable to provide required documents or obtained confidential information of this procedure"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C67",
+            "code": "exg-mis-unrel-sec",
+            "name": "Lack of reliability to exclude risks to the security of the country"
+          }
+        ]
+      },
+      {
+        "section": "D",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C24",
+            "code": "exg-natl-bre-nat-law",
+            "name": "Breaching of obligations set under purely national exclusion grounds"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "part": "partIV",
+    "sections": [
+      {
+        "section": "A",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C25",
+            "code": "slc-suit-reg-prof",
+            "name": "Enrolment in a relevant professional register"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C26",
+            "code": "slc-suit-reg-trade",
+            "name": "Enrolment in a trade register"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C66",
+            "code": "slc-suit-auth-mbrshp",
+            "name": "Authorisation or membership of a particular organisation needed for service contracts"
+          }
+        ]
+      },
+      {
+        "section": "B",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C29",
+            "code": "slc-stand-to-gen",
+            "name": "General yearly turnover"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C30",
+            "code": "slc-stand-to-avg",
+            "name": "Average yearly turnover"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C31",
+            "code": "slc-stand-to-spec-avg",
+            "name": "Specific average yearly turnover"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C32",
+            "code": "slc-stand-to-spec",
+            "name": "Specific yearly turnover"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C34",
+            "code": "slc-stand-ratio",
+            "name": "Financial ratio"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C35",
+            "code": "slc-stand-ins",
+            "name": "Professional risk indemnity insurance"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C36",
+            "code": "slc-stand-other",
+            "name": "Other economic or financial requirements"
+          }
+        ]
+      },
+      {
+        "section": "C",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C37",
+            "code": "slc-abil-ref-work",
+            "name": "References on specified works"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C38",
+            "code": "slc-abil-ref-supply",
+            "name": "References on specified deliveries"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C39",
+            "code": "slc-abil-ref-services",
+            "name": "References on specified services "
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C40",
+            "code": "slc-abil-staff-tech-ctrl",
+            "name": "Technicians or technical bodies for quality control"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C41",
+            "code": "slc-abil-staff-tech-work",
+            "name": "Technicians or technical bodies to carry out the work"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C42",
+            "code": "slc-abil-mgmt-qual",
+            "name": "Measures for ensuring quality"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C43",
+            "code": "slc-abil-facil-res",
+            "name": "Study, technical and research facilities"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C44",
+            "code": "slc-abil-mgmt-supply",
+            "name": "Supply chain management"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C45",
+            "code": "slc-abil-mgmt-env",
+            "name": "Environmental management measures"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C46",
+            "code": "slc-abil-facil-tools",
+            "name": "Tools, plant, or technical equipment"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C47",
+            "code": "slc-abil-staff-qual",
+            "name": "Relevant educational and professional qualifications"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C48",
+            "code": "slc-abil-check",
+            "name": "Special requirements check"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C49",
+            "code": "slc-abil-staff-yrly-no-mgmt",
+            "name": "Number of managerial staff"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C50",
+            "code": "slc-abil-staff-yrly-avg-mp",
+            "name": "Average yearly manpower"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C51",
+            "code": "slc-abil-subc",
+            "name": "Subcontracting proportion"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C52",
+            "code": "slc-abil-qual-smp-wo-autent",
+            "name": "Samples, descriptions, or photographs without certification of authenticity"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C53",
+            "code": "slc-abil-qual-smp-w-autent",
+            "name": "Samples, descriptions, or photographs with certification of authenticity for supply contracts"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C54",
+            "code": "slc-abil-qual-inst",
+            "name": "Certificates by quality control institutes "
+          }
+        ]
+      },
+      {
+        "section": "D",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C55",
+            "code": "slc-sche-qu-cert-indep",
+            "name": "Certificates by independent bodies about quality assurance standards"
+          },
+          {
+            "type": "CRITERION",
+            "tag": "C56",
+            "code": "slc-sche-env-cert-indep",
+            "name": "Certificates by independent bodies about environmental management systems or standards"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "part": "partV",
+    "sections": [
+      {
+        "section": "A",
+        "criteria": [
+          {
+            "type": "CRITERION",
+            "tag": "C63_OT",
+            "code": "staff-red",
+            "name": "Reduction of the number of qualified candidates"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "part": "partVI",
+    "sections": [
+      {
+        "section": "A",
+        "criteria": [
+          {
+            "type": "INFORMATION",
+            "tag": "I73",
+            "code": "info-signature",
+            "name": "I73_info-signature"
+          }
+        ]
+      }
+    ]
+  }
+]

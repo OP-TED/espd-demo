@@ -12,7 +12,7 @@ import { resolveSchemeAgency } from '../../mapping-engine/resolve-scheme-agency.
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
-const schemeAgencyProfile = read('../../model-sources/registries/scheme-agency-profile.json');
+const schemeAgencyProfile = read('../../generated/registries/scheme-agency-profile.json');
 
 const schema = read('sectionC.schema.json');
 const example = read('sectionC.example.json');
@@ -114,8 +114,8 @@ test('each lot becomes its own cac:ProcurementProjectLot wrapper', () => {
 
 test('ProcedureCode expands to the BR-OTH-01 three-attribute set', async () => {
   const { expandCodelistAttributes } = await import('../../compiler/schematron-validate.mjs');
-  const { loadValidatedCodelistProfile } = await import('../../compiler/codelist-attributes.mjs');
-  const { profile } = loadValidatedCodelistProfile();
+  const { loadCodelistProfile } = await import('../../mapping-engine/codelist-profile.mjs');
+  const profile = loadCodelistProfile();
 
   const expanded = expandCodelistAttributes(map(spec, example), profile);
   const tag = expanded.match(/<cbc:ProcedureCode[^>]*>/)[0];
@@ -128,8 +128,8 @@ test('ProcedureCode expands to the BR-OTH-01 three-attribute set', async () => {
 
 test('each lot cbc:ID expands to the criterion identifier scheme (matching the BASE sample)', async () => {
   const { expandCodelistAttributes } = await import('../../compiler/schematron-validate.mjs');
-  const { loadValidatedCodelistProfile } = await import('../../compiler/codelist-attributes.mjs');
-  const { profile } = loadValidatedCodelistProfile();
+  const { loadCodelistProfile } = await import('../../mapping-engine/codelist-profile.mjs');
+  const profile = loadCodelistProfile();
 
   const expanded = expandCodelistAttributes(map(spec, example), profile);
   const idTags = expanded.match(/<cbc:ID[^>]*>/g) || [];
@@ -144,8 +144,8 @@ test('each lot cbc:ID expands to the criterion identifier scheme (matching the B
 
 test('the ContractFolderID @schemeAgencyID survives expansion (BR-OTH-02, fatal)', async () => {
   const { expandCodelistAttributes } = await import('../../compiler/schematron-validate.mjs');
-  const { loadValidatedCodelistProfile } = await import('../../compiler/codelist-attributes.mjs');
-  const { profile } = loadValidatedCodelistProfile();
+  const { loadCodelistProfile } = await import('../../mapping-engine/codelist-profile.mjs');
+  const profile = loadCodelistProfile();
 
   const expanded = expandCodelistAttributes(map(spec, example), profile);
   // ContractFolderID is in the BR-OTH-02 element list; its agency (the constant

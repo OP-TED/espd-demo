@@ -82,6 +82,14 @@
           }
         },
         {
+          "key": "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG2/QSG2/Q1",
+          "value": {
+            "from": "partIV.selectionCriteria.slc-suit-auth-mbrshp.response.notRegisteredReasons",
+            "to": "cac:ResponseValue/cbc:Description",
+            "type": "string"
+          }
+        },
+        {
           "key": "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG3/Q1",
           "value": {
             "from": "partIV.selectionCriteria.slc-suit-auth-mbrshp.response.electronicEvidence.availableElectronically",

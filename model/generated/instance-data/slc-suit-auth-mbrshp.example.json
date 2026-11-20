@@ -9,7 +9,8 @@
         },
         "response": {
           "fulfilledByItself": true,
-          "registered": false,
+          "registered": true,
+          "registrationNumber": "sample",
           "electronicEvidence": {
             "availableElectronically": false
           }

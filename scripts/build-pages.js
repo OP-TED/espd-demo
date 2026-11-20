@@ -48,8 +48,8 @@ const MODEL_ASSETS = [
   'parts',
 ];
 const MODEL_FILE_ASSETS = [
-  'model-sources/registries/codelist-attributes.json',
-  'model-sources/registries/scheme-agency-profile.json',
+  'generated/registries/codelist-attributes.json',
+  'generated/registries/scheme-agency-profile.json',
 ];
 
 const SERVERLESS_CONFIG = `/**

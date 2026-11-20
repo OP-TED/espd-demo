@@ -12,17 +12,17 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadEdm, loadSidecar, loadHints, compile } from './compile.mjs';
+import { loadCompiled, loadValueTypeRegistry } from './published-model.mjs';
 import { generateFormStructure, generateCriterionForm, loadFormProfile } from './generate-form-structure.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const CODE = 'slc-stand-to-spec-avg';
-const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
 
+// The criterion under test comes from the PUBLISHED model (vendored under model/generated/),
+// not from the EA export: the form generator only ever sees published input.
 function compileC31() {
-  const edm = loadEdm(edmPath);
-  const { compiled, registry } = compile(edm, CODE, loadSidecar(CODE));
-  return { compiled, registry, hints: loadHints(CODE) };
+  const { criterion, hints } = loadCompiled(CODE);
+  return { compiled: criterion, registry: loadValueTypeRegistry(), hints };
 }
 
 /** Flatten all generated fields, keyed by dataPath. */
@@ -536,9 +536,7 @@ function allFields(form) {
   return form.criteria.flatMap(c => c.groups.flatMap(g => g.fields.map(f => ({ ...f, groupId: g.id }))));
 }
 function compileCode(code) {
-  const edm = loadEdm(edmPath);
-  const { compiled, registry } = compile(edm, code, loadSidecar(code));
-  return { compiled, registry };
+  return { compiled: loadCompiled(code).criterion, registry: loadValueTypeRegistry() };
 }
 
 test('F1 — a caption becomes a non-input note field (labelKey + $derivedFrom, no dataPath/uiType)', () => {
@@ -560,19 +558,20 @@ test('F1 — caption label key follows the same stable-id stem as sibling leaves
   const form = generateFormStructure(compiled, registry, { partId: 'II' });
   const fields = allFields(form);
   const cap = fields.find(f => f.kind === 'caption');
-  assert.ok(cap, 'OT58 has a caption');
-  // The "OT" family shares code "OT", so the i18n stable id is the EA TAG
-  // (OT58). Leaves and the caption must use the SAME stem — the tag — so the key
-  // families stay consistent AND resolve against the tag-keyed catalogue.
-  assert.match(cap.labelKey, /^caption\.label\.OT58\./);
+  assert.ok(cap, 'C58_OT (registered) has a caption');
+  // The i18n stable id is the criterion's EA code ('registered'; EA used to give this
+  // whole family the shared code "OT", which made the tag the stem). Leaves and the
+  // caption must use the SAME stem so the key families stay consistent and resolve
+  // against the catalogue.
+  assert.match(cap.labelKey, /^caption\.label\.registered\./);
   const leaf = fields.find(f => f.labelKey && f.kind !== 'caption');
-  assert.match(leaf.labelKey, /^question\.label\.OT58\./, 'sibling leaves use the same OT58 stem');
+  assert.match(leaf.labelKey, /^question\.label\.registered\./, 'sibling leaves use the same stem');
 });
 
 test('F1 — a caption inside a conditional branch inherits that branch visibleWhen', () => {
   const { compiled, registry } = compileCode('ot-registered-official-list');
   const form = generateFormStructure(compiled, registry, { partId: 'II' });
-  const cap = allFields(form).find(f => f.kind === 'caption' && f.$derivedFrom === 'OT58_OT/QG1/QSG2/CA1');
+  const cap = allFields(form).find(f => f.kind === 'caption' && f.$derivedFrom === 'C58_OT_registered/QG1/QSG2/CA1');
   assert.ok(cap, 'the ONFALSE-branch caption is present');
   assert.ok(cap.visibleWhen, 'it is gated');
   assert.equal(cap.visibleWhen.equals, false, 'shown when the gating answer is false (ONFALSE)');

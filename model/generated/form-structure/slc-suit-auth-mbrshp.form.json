@@ -127,6 +127,19 @@
                 "equals": true
               },
               "$derivedFrom": "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG2/QSG1/Q1"
+            },
+            {
+              "semanticId": "slc-suit-auth-mbrshp.not-registered-reasons",
+              "dataPath": "partIV.selectionCriteria.slc-suit-auth-mbrshp.response.notRegisteredReasons",
+              "filledBy": "economicOperator",
+              "uiType": "textarea",
+              "required": true,
+              "labelKey": "question.label.slc-suit-auth-mbrshp.RG1.RSG1.QSG2.QSG2.Q1",
+              "visibleWhen": {
+                "path": "partIV.selectionCriteria.slc-suit-auth-mbrshp.response.registered",
+                "equals": false
+              },
+              "$derivedFrom": "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG2/QSG2/Q1"
             }
           ],
           "$derivedFrom": "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG2"

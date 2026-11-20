@@ -7,6 +7,7 @@
     "dev": "node dev-server.js",
     "build": "echo 'No build step needed - static files'",
     "build:pages": "node scripts/build-pages.js",
+    "model:sync": "node model/compiler/sync-published.mjs",
     "model:compile": "node model/compiler/build-generated.mjs",
     "model:test": "node --test model/compiler/ model/mapping-engine/ model/parts/ model/codelists/",
     "test": "node --test tests/",

@@ -1,114 +1,105 @@
-# `model/` — the compiled ESPD-EDM model subsystem
+# `model/` — the ESPD model, consumed
 
-This directory holds the **compiler** that turns the EA export (`espd-edm.json`)
-plus hand-authored enrichment into three generated model layers (XML mapping,
-instance-data, form-structure).
+This app does **not** compile the ESPD model. ESPD-EDM publishes it (`ESPD-EDM/model`, built by
+`espd-tools/model-compiler` from the EA model plus the enrichment in `espd-conceptual-model`), and
+this directory vendors that published model and builds the layers that are the app's own on top of it.
 
 ## Pipeline at a glance
 
 ```
-espd-tools/EAtoJSON/outputs/espd-edm.json   (EA structure — source of truth)
-            +
-model-sources/   (hand-authored enrichment: registries + per-criterion sidecars)
+ESPD-EDM  (ESPD_EDM_ROOT, default ../ESPD-EDM)
+  ├── criterion/espd-edm.json   the EA structure (parts, sections, criteria)
+  ├── model/                    the published model: compiled criteria, instance-data
+  │                             schemas, XML mapping specs, registries, compiled-model.json
+  └── codelists/*.gc            the shipped code lists
             |
+            |  npm run model:sync     (verify, then copy; also projects the structure)
             v
-compiler/        (reads core, overlays enrichment, gates on structural
-            |     equivalence, generates the three layers)
+generated/   vendored published model            (instance-data/ xml-mapping/ compiled/
+            |                                     registries/ compiled-model.json structure.json)
+            |  npm run model:compile  (the app's own layers)
+            +   model-sources/  presentation: form-profile, ui-hints, role-ui, *.presentation.json
             v
-generated/       (committed output: instance-data / form-structure / xml-mapping)
+generated/   form-structure/  ui/ (bundle, roles, validators)  codelists/   + docs/coverage-report.md
 ```
+
+Everything under `generated/` is committed (GitHub Pages builds no model), and none of it is a
+source of truth: re-sync or recompile, never hand-edit.
 
 ## Tree
 
 ```
 model/
-├── compiler/            Compiler CODE + tests. Reads espd-edm.json + model-sources/,
-│   │                    emits generated/. Nothing hand-authored lives here.
-│   ├── compile.mjs            entry point + loaders + emitAll()
-│   ├── build-generated.mjs    build script: compile every modeled criterion -> generated/
-│   ├── read-structural-core.mjs   lean reader of espd-edm.json
-│   ├── overlay-enrichment.mjs     joins sidecar enrichment by requestpath
-│   ├── structural-equivalence.mjs correctness gate (compiled -> EA projection == source)
-│   ├── value-type-registry.mjs    loads/validates value-types.json vs ResponseDataType.gc
-│   ├── codelist-attributes.mjs    loads/validates codelist-attributes.json vs Schematron
-│   ├── encoding-profile.mjs       kind->element conventions + path/array helpers
-│   ├── generate-instance-schema.mjs   instance-data schema + example generator
-│   ├── generate-request-mapping.mjs   ESPD Request mapping-spec generator
-│   ├── generate-response-mapping.mjs  ESPD Response mapping-spec generator
-│   ├── generate-form-structure.mjs    form-structure (presentation lens) generator
-│   ├── schematron-validate.mjs    Saxon/Schematron validation + attribute expansion
-│   └── *.test.mjs                 unit tests + probes (C07, criteria, nested arrays, UI parity)
+├── compiler/            This app's build code + tests. It derives the app's layers from the
+│   │                    vendored published model; it does not compile the model.
+│   ├── upstream.mjs           where the published ESPD-EDM inputs are (ESPD_EDM_ROOT)
+│   ├── sync-published.mjs     verify the published model, then vendor it into generated/
+│   ├── published-model.mjs    read access to the vendored model (envelope, compiled criteria, registries)
+│   ├── build-generated.mjs    build script: sync, then every app layer below
+│   ├── generate-form-structure.mjs   form-structure (presentation lens) generator
+│   ├── instance-paths.mjs     path helpers mirroring the upstream rules (guarded by a test)
+│   ├── build-ui-bundle.mjs    UI bundle: parts > sections > members + composed JSON Schemas
+│   ├── build-validators.mjs   standalone Ajv validators
+│   ├── parts.mjs, roles.mjs   admin part lenses; role lens (published roles + role-ui.json)
+│   ├── build-coverage-report.mjs   docs/coverage-report.md
+│   ├── schematron-validate.mjs     Saxon/Schematron validation + attribute expansion (test utility)
+│   └── *.test.mjs             tests, incl. contract tests over the published model
 │
-├── model-sources/       Hand-authored compiler INPUTS (source of truth for enrichment).
-│   ├── registries/            shared, criterion-independent:
-│   │   ├── value-types.json         JSON shapes + UBL value bindings per ValueDataTypeCode
-│   │   ├── codelist-attributes.json fixed code-list attribute sets per codelist
-│   │   ├── encoding-profile.json    kind -> element XML conventions
-│   │   ├── scheme-agency-profile.json  @schemeAgencyID derivation policy
-│   │   ├── roles.json               role facts: ids, exclusion dispositions, UBL role mapping
-│   │   ├── role-ui.json             DEMO: per-role label/description + visible/editable Parts
-│   │   ├── form-profile.json        DEMO: presentation conventions (filledBy, uiType, i18n keys)
-│   │   └── ui-hints.json            DEMO: vocabulary of UI affordances (e.g. TED lookup)
-│   └── criteria/              per-criterion, keyed by criterion code:
-│       ├── <code>.sidecar.json       semantic IDs + instance bindings (required to model)
-│       ├── <code>.hints.json         optional instance-data constraint hints
-│       └── <code>.presentation.json  optional form presentation overrides
+├── model-sources/       The app's OWN hand-authored inputs: presentation only.
+│   ├── registries/            form-profile.json (filledBy, uiType, i18n keys), ui-hints.json
+│   │                          (UI affordances such as the TED lookup), role-ui.json (role labels,
+│   │                          visible/editable Parts)
+│   └── criteria/              <code>.presentation.json  optional form presentation overrides
 │
-├── generated/           COMMITTED compiler OUTPUT (do NOT hand-edit; regenerate).
-│   ├── instance-data/         <code>.schema.json + <code>.example.json
-│   ├── form-structure/        <code>.form.json
-│   └── xml-mapping/           <code>.request.mapping.json + <code>.response.mapping.json
+├── generated/           COMMITTED output (do NOT hand-edit). See generated/README.md.
 │
-├── mapping-engine/      The shared, domain-neutral XML MAPPING ENGINE (runtime).
-│   ├── mapper.mjs             bidirectional map()/unmap() — imported by the compiler
-│   │                          to run generated specs, and the engine the UI uses to
-│   │                          export form data to UBL XML and import it back
-│   └── records-value-attributes.test.mjs   the engine's own unit test
+├── mapping-engine/      The shared, domain-neutral XML MAPPING ENGINE (runtime): mapper.mjs does
+│                        bidirectional map()/unmap(); the UI uses it to export form data to UBL XML
+│                        and import it back.
+│
+├── parts/               Hand-authored administrative parts (I, II, VI): schema, form, mapping.
+└── codelists/           UI codelist service data + the codelist governance registry.
 ```
 
 ## Build & test
 
 ```
-npm run model:compile   # node model/compiler/build-generated.mjs  -> rewrites generated/
+npm run model:sync      # verify + vendor the published model (and the structure projection)
+npm run model:compile   # model:sync, then rebuild every app layer; --no-sync to skip the sync
 npm run model:test      # node --test model/compiler/ model/mapping-engine/ model/parts/ model/codelists/
 ```
 
+`model:sync` and `model:compile` read the published ESPD-EDM from `ESPD_EDM_ROOT` (default: the sibling
+`../ESPD-EDM`): `criterion/espd-edm.json`, `model/` and `codelists/`. The sync refuses to copy a model
+that does not verify: schema (shipped with the model), listed files, no strays, and a SHA-256 match
+with the structure export. After a sync, the tests and the Pages build need nothing outside this
+repository except the shipped code lists. Resolving ESPD-EDM without the sibling-checkout assumption
+is the open cross-repo coupling item.
+
 ## Where things belong (ownership rule)
 
-- **Structure** (parts/sections/criteria, cardinality, conditions) — intrinsic
-  ESPD, lives upstream in `espd-edm.json`.
+- **Structure** (parts/sections/criteria, cardinality, conditions) — intrinsic ESPD, in the EA model,
+  published as `ESPD-EDM/criterion/espd-edm.json`.
+- **The model** (semantic ids, instance bindings, value types, UBL bindings, roles, instance-data
+  schemas, mappings) — implementer-neutral, from the enrichment in `espd-conceptual-model/enrichment`,
+  compiled by `espd-tools/model-compiler`, published in `ESPD-EDM/model`. Change it there, not here.
 - **Codes & descriptions** — from `ESPD-EDM/codelists/*.gc`.
-- **Projection decisions** (semantic IDs, instance bindings, uiType, i18n keys,
-  presentation) — hand-authored in `model-sources/`.
+- **Presentation** (form layout, `uiType`, i18n keys and text, role labels, UI hints) — this app,
+  in `model-sources/` and `i18n/`.
 
-### Moving upstream
-
-The implementer-neutral half of this compiler (`read-structural-core`, `overlay-enrichment`,
-`structural-equivalence`, `value-type-registry`, `codelist-attributes`, `encoding-profile`,
-`generate-instance-schema`, `generate-request-mapping`, `generate-response-mapping`, plus
-`read-codelist`) now also exists as `espd-tools/model-compiler`, with all sibling paths replaced by
-explicit inputs. It produces byte-identical `generated/instance-data` and `generated/xml-mapping`
-for all criteria. This app keeps its own copy until it consumes the published model, so change
-generators in both places in the meantime. The presentation half (`generate-form-structure`,
-`build-ui-bundle`, `build-validators`, `parts`, `roles`) and the tests that run mapping specs
-through `mapping-engine/` stay here.
-
-The implementer-neutral part of `model-sources/` (value types, encoding profile,
-codelist attributes, scheme-agency profile, `roles.json`, all `*.sidecar.json` and
-`*.hints.json`) now has its canonical home in
-`espd-conceptual-model/enrichment/` (validated by JSON Schemas). The copies here
-are temporary: this compiler still reads them, so **until the compiler moves to
-espd-tools and this app consumes the published model, edit both copies**. Files
-marked DEMO above (`role-ui.json`, `form-profile.json`, `ui-hints.json`,
-`*.presentation.json`) are presentation and stay in this repo.
-
-See `../docs/reference/espd-edm-primary-input-enrichment.md` for the full rationale.
+See `../docs/reference/espd-edm-primary-input-enrichment.md` for the rationale.
 
 ## Notes
 
-- `mapping-engine/mapper.mjs` is **runtime** code: the compiler's tests import it
-  to run generated mapping specs, and the UI imports it to export form data to
-  UBL XML (and import it back). It lives in its own module so both consumers
-  share one copy. It is a candidate for later extraction into a standalone package.
-- The pre-compiler per-part artifacts (`model/legacy/`) have been removed. They
-  remain available in git history.
+- **i18n follows the model.** Form labels are keyed by criterion code (or EA tag) and the EA path, so
+  when the model changes upstream (a code renamed, a leaf added) the English catalogues under
+  `i18n/i18n/en/` have to follow. `model/compiler/i18n-keys.test.mjs` fails on any key the generated
+  forms use that the catalogue lacks.
+- The form generator mirrors two small path rules from the upstream compiler (`instance-paths.mjs`);
+  `published-model.test.mjs` checks that every form field addresses a real property of the published
+  instance-data schemas.
+- The published specs are exercised through `mapping-engine/mapper.mjs` by
+  `compiler/roundtrip-generated.test.mjs` (every published example) and
+  `compiler/schematron-validate.test.mjs`.
+- The pre-compiler per-part artifacts (`model/legacy/`) and the in-repo model compiler have been removed;
+  both remain in git history.

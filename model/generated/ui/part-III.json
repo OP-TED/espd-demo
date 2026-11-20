@@ -2624,126 +2624,126 @@
         },
         {
           "kind": "criterion",
-          "id": "exg-mis-exg-mis-misconduct",
+          "id": "exg-mis-misconduct",
           "tag": "C18",
-          "code": "exg-mis-exg-mis-misconduct",
-          "nameKey": "criterion.name.exg-mis-exg-mis-misconduct",
-          "descriptionKey": "criterion.description.exg-mis-exg-mis-misconduct",
+          "code": "exg-mis-misconduct",
+          "nameKey": "criterion.name.exg-mis-misconduct",
+          "descriptionKey": "criterion.description.exg-mis-misconduct",
           "filledBy": "economicOperator",
-          "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct",
+          "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct",
           "groups": [
             {
               "id": "answer",
               "filledBy": "economicOperator",
               "fields": [
                 {
-                  "semanticId": "exg-mis-exg-mis-misconduct.answer",
-                  "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.answer",
+                  "semanticId": "exg-mis-misconduct.answer",
+                  "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct.response.answer",
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.exg-mis-exg-mis-misconduct.QG1.Q1",
-                  "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG1/Q1"
+                  "labelKey": "question.label.exg-mis-misconduct.QG1.Q1",
+                  "$derivedFrom": "C18_exg-mis-misconduct/QG1/Q1"
                 },
                 {
-                  "semanticId": "exg-mis-exg-mis-misconduct.description",
-                  "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.description",
+                  "semanticId": "exg-mis-misconduct.description",
+                  "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct.response.description",
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": true,
-                  "labelKey": "question.label.exg-mis-exg-mis-misconduct.QG1.QSG1.Q1",
+                  "labelKey": "question.label.exg-mis-misconduct.QG1.QSG1.Q1",
                   "visibleWhen": {
-                    "path": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.answer",
+                    "path": "partIII.exclusionGrounds.exg-mis-misconduct.response.answer",
                     "equals": true
                   },
-                  "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG1/QSG1/Q1"
+                  "$derivedFrom": "C18_exg-mis-misconduct/QG1/QSG1/Q1"
                 },
                 {
-                  "semanticId": "exg-mis-exg-mis-misconduct.self-cleaning-taken",
-                  "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.selfCleaning.taken",
+                  "semanticId": "exg-mis-misconduct.self-cleaning-taken",
+                  "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct.response.selfCleaning.taken",
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.exg-mis-exg-mis-misconduct.QG1.QSG1.QSG1.Q1",
+                  "labelKey": "question.label.exg-mis-misconduct.QG1.QSG1.QSG1.Q1",
                   "visibleWhen": {
-                    "path": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.answer",
+                    "path": "partIII.exclusionGrounds.exg-mis-misconduct.response.answer",
                     "equals": true
                   },
-                  "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG1/QSG1/QSG1/Q1"
+                  "$derivedFrom": "C18_exg-mis-misconduct/QG1/QSG1/QSG1/Q1"
                 },
                 {
-                  "semanticId": "exg-mis-exg-mis-misconduct.self-cleaning-description",
-                  "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.selfCleaning.description",
+                  "semanticId": "exg-mis-misconduct.self-cleaning-description",
+                  "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct.response.selfCleaning.description",
                   "filledBy": "economicOperator",
                   "uiType": "textarea",
                   "required": true,
-                  "labelKey": "question.label.exg-mis-exg-mis-misconduct.QG1.QSG1.QSG1.QSG1.Q1",
+                  "labelKey": "question.label.exg-mis-misconduct.QG1.QSG1.QSG1.QSG1.Q1",
                   "visibleWhen": {
-                    "path": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.selfCleaning.taken",
+                    "path": "partIII.exclusionGrounds.exg-mis-misconduct.response.selfCleaning.taken",
                     "equals": true
                   },
-                  "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG1/QSG1/QSG1/QSG1/Q1"
+                  "$derivedFrom": "C18_exg-mis-misconduct/QG1/QSG1/QSG1/QSG1/Q1"
                 }
               ],
-              "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG1"
+              "$derivedFrom": "C18_exg-mis-misconduct/QG1"
             },
             {
               "id": "electronicEvidence",
               "filledBy": "economicOperator",
               "fields": [
                 {
-                  "semanticId": "exg-mis-exg-mis-misconduct.evidence-available-electronically",
-                  "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.electronicEvidence.availableElectronically",
+                  "semanticId": "exg-mis-misconduct.evidence-available-electronically",
+                  "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct.response.electronicEvidence.availableElectronically",
                   "filledBy": "economicOperator",
                   "uiType": "boolean",
                   "required": true,
-                  "labelKey": "question.label.exg-mis-exg-mis-misconduct.QG2.Q1",
-                  "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG2/Q1"
+                  "labelKey": "question.label.exg-mis-misconduct.QG2.Q1",
+                  "$derivedFrom": "C18_exg-mis-misconduct/QG2/Q1"
                 },
                 {
-                  "semanticId": "exg-mis-exg-mis-misconduct.evidence-id",
-                  "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.electronicEvidence.evidence[].url",
+                  "semanticId": "exg-mis-misconduct.evidence-id",
+                  "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct.response.electronicEvidence.evidence[].url",
                   "filledBy": "economicOperator",
                   "uiType": "url",
                   "required": true,
-                  "labelKey": "question.label.exg-mis-exg-mis-misconduct.QG2.QSG1.Q1",
+                  "labelKey": "question.label.exg-mis-misconduct.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
-                    "path": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.electronicEvidence.availableElectronically",
+                    "path": "partIII.exclusionGrounds.exg-mis-misconduct.response.electronicEvidence.availableElectronically",
                     "equals": true
                   },
-                  "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG2/QSG1/Q1"
+                  "$derivedFrom": "C18_exg-mis-misconduct/QG2/QSG1/Q1"
                 },
                 {
-                  "semanticId": "exg-mis-exg-mis-misconduct.evidence-id",
-                  "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.electronicEvidence.evidence[].identifier",
+                  "semanticId": "exg-mis-misconduct.evidence-id",
+                  "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct.response.electronicEvidence.evidence[].identifier",
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.exg-mis-exg-mis-misconduct.QG2.QSG1.Q1",
+                  "labelKey": "question.label.exg-mis-misconduct.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
-                    "path": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.electronicEvidence.availableElectronically",
+                    "path": "partIII.exclusionGrounds.exg-mis-misconduct.response.electronicEvidence.availableElectronically",
                     "equals": true
                   },
-                  "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG2/QSG1/Q1"
+                  "$derivedFrom": "C18_exg-mis-misconduct/QG2/QSG1/Q1"
                 },
                 {
-                  "semanticId": "exg-mis-exg-mis-misconduct.evidence-id",
-                  "dataPath": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.electronicEvidence.evidence[].description",
+                  "semanticId": "exg-mis-misconduct.evidence-id",
+                  "dataPath": "partIII.exclusionGrounds.exg-mis-misconduct.response.electronicEvidence.evidence[].description",
                   "filledBy": "economicOperator",
                   "uiType": "text",
                   "required": false,
-                  "labelKey": "question.label.exg-mis-exg-mis-misconduct.QG2.QSG1.Q1",
+                  "labelKey": "question.label.exg-mis-misconduct.QG2.QSG1.Q1",
                   "repeatable": true,
                   "visibleWhen": {
-                    "path": "partIII.exclusionGrounds.exg-mis-exg-mis-misconduct.response.electronicEvidence.availableElectronically",
+                    "path": "partIII.exclusionGrounds.exg-mis-misconduct.response.electronicEvidence.availableElectronically",
                     "equals": true
                   },
-                  "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG2/QSG1/Q1"
+                  "$derivedFrom": "C18_exg-mis-misconduct/QG2/QSG1/Q1"
                 }
               ],
-              "$derivedFrom": "C18_exg-mis-exg-mis-misconduct/QG2"
+              "$derivedFrom": "C18_exg-mis-misconduct/QG2"
             }
           ]
         },

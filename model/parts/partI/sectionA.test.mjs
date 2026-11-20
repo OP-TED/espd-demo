@@ -62,8 +62,8 @@ test('DocumentTypeCode carries the docrefcontent-type shorthand for attribute ex
 
 test('codelist-attribute expansion produces the full Schematron-mandated set', async () => {
   const { expandCodelistAttributes } = await import('../../compiler/schematron-validate.mjs');
-  const { loadValidatedCodelistProfile } = await import('../../compiler/codelist-attributes.mjs');
-  const { profile } = loadValidatedCodelistProfile();
+  const { loadCodelistProfile } = await import('../../mapping-engine/codelist-profile.mjs');
+  const profile = loadCodelistProfile();
 
   const xml = map(spec, example);
   const expanded = expandCodelistAttributes(xml, profile);

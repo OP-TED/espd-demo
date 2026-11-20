@@ -1,5 +1,12 @@
 # Keeping `espd-edm.json` as the Primary Input
 
+> **Status — the model is now compiled upstream.** The enrichment described here is realised as
+> `espd-conceptual-model/enrichment` (registries and per-criterion sidecars, validated by JSON
+> Schemas), compiled together with `espd-edm.json` by `espd-tools/model-compiler`, and published as
+> `ESPD-EDM/model`. This app no longer holds those sources; it consumes the published model. The
+> reasoning below still explains why the enrichment is separate from the structural export.
+
+
 ## Conclusion
 
 The current EA-generated `espd-edm.json` can remain the authoritative

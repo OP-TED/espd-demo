@@ -10,13 +10,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { composeDocument } from './compose-document.mjs';
-import { loadCodelistProfile } from '../compiler/codelist-attributes.mjs';
-import { expandCodelistAttributes } from '../compiler/schematron-validate.mjs';
+import { loadCodelistProfile } from './codelist-profile.mjs';
+import { expandCodelistAttributes } from './expand-codelist-attributes.mjs';
 import { resolveSchemeAgency } from './resolve-scheme-agency.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const modelRoot = path.join(here, '..'); // model/
-const schemeAgencyProfilePath = path.join(modelRoot, 'model-sources', 'registries', 'scheme-agency-profile.json');
+// The scheme-agency policy is a published registry, vendored under model/generated/registries/.
+const schemeAgencyProfilePath = path.join(modelRoot, 'generated', 'registries', 'scheme-agency-profile.json');
 
 const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 

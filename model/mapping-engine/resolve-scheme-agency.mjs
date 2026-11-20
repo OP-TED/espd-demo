@@ -1,7 +1,7 @@
 // Resolve scheme-agency PROFILE references in a mapping spec into the inlined
 // { path?, map, default } form the mapping engine (mapper.mjs resolveAttr)
 // understands. Keeps the single source of truth in one registry file
-// (model/model-sources/registries/scheme-agency-profile.json) while leaving the
+// (model/generated/registries/scheme-agency-profile.json (published, vendored)) while leaving the
 // mapper itself data-only and environment-neutral.
 //
 // A mapping rule declares a derived @schemeAgencyID as:

@@ -92,12 +92,12 @@ test('implementer-choice holds iff inlineEnum && !schematronValidated — and no
 
 // --- completeness: every codelist USED in the repo has an entry ---------
 
-test('every codelist referenced by a value type or sidecar leaf has a governance entry', () => {
+test('every codelist referenced by a value type or compiled leaf has a governance entry', () => {
   const used = new Set();
 
   // 1) value-type registry instanceShape.codeList / codeListFile-derived name.
   const vt = JSON.parse(fs.readFileSync(
-    path.join(here, '..', 'model-sources', 'registries', 'value-types.json'), 'utf8')).valueTypes;
+    path.join(here, '..', 'generated', 'registries', 'value-types.json'), 'utf8')).valueTypes;
   const collect = (shape) => {
     if (!shape || typeof shape !== 'object') return;
     if (shape.codeList) used.add(shape.codeList);
@@ -110,17 +110,17 @@ test('every codelist referenced by a value type or sidecar leaf has a governance
     if (def.responseXml?.codelist) used.add(def.responseXml.codelist);
   }
 
-  // 2) per-leaf `codelist` declared in sidecars.
-  const criteriaDir = path.join(here, '..', 'model-sources', 'criteria');
+  // 2) per-leaf `codelist` carried by the published compiled criteria.
+  const criteriaDir = path.join(here, '..', 'generated', 'compiled');
   for (const f of fs.readdirSync(criteriaDir)) {
-    if (!f.endsWith('.sidecar.json')) continue;
+    if (!f.endsWith('.json')) continue;
     const text = fs.readFileSync(path.join(criteriaDir, f), 'utf8');
     for (const m of text.matchAll(/"codelist"\s*:\s*"([^"]+)"/g)) used.add(m[1]);
   }
 
   // 3) codelists named in the codelist-attribute profile (XML attribute sets).
   const prof = JSON.parse(fs.readFileSync(
-    path.join(here, '..', 'model-sources', 'registries', 'codelist-attributes.json'), 'utf8')).codelists;
+    path.join(here, '..', 'generated', 'registries', 'codelist-attributes.json'), 'utf8')).codelists;
   for (const key of Object.keys(prof)) {
     // 'criterion-id' is a UBL scheme, not a codelist — skip non-governed scheme keys.
     if (key === 'criterion-id') continue;

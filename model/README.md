@@ -83,6 +83,16 @@ npm run model:test      # node --test model/compiler/ model/mapping-engine/ mode
 
 ### Moving upstream
 
+The implementer-neutral half of this compiler (`read-structural-core`, `overlay-enrichment`,
+`structural-equivalence`, `value-type-registry`, `codelist-attributes`, `encoding-profile`,
+`generate-instance-schema`, `generate-request-mapping`, `generate-response-mapping`, plus
+`read-codelist`) now also exists as `espd-tools/model-compiler`, with all sibling paths replaced by
+explicit inputs. It produces byte-identical `generated/instance-data` and `generated/xml-mapping`
+for all criteria. This app keeps its own copy until it consumes the published model, so change
+generators in both places in the meantime. The presentation half (`generate-form-structure`,
+`build-ui-bundle`, `build-validators`, `parts`, `roles`) and the tests that run mapping specs
+through `mapping-engine/` stay here.
+
 The implementer-neutral part of `model-sources/` (value types, encoding profile,
 codelist attributes, scheme-agency profile, `roles.json`, all `*.sidecar.json` and
 `*.hints.json`) now has its canonical home in

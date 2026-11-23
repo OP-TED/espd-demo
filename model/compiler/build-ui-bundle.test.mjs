@@ -132,7 +132,7 @@ describe('ui-bundle: composed schemas ($ref, never merge)', () => {
     ajv.addSchema(read(path.join(instanceDataDir, f)));
   }
   for (const { schema } of partSchemas) ajv.addSchema(schema);
-  const partsRoot = path.join(here, '..', 'parts');
+  const partsRoot = path.join(here, '..', 'generated', 'parts');
   for (const [dir, section] of [['partI', 'sectionA'], ['partI', 'sectionB'], ['partI', 'sectionC'], ['partII', 'sectionA'], ['partII', 'sectionB'], ['partVI', 'sectionA']]) {
     ajv.addSchema(read(path.join(partsRoot, dir, `${section}.schema.json`)));
   }

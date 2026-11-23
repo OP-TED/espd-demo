@@ -12,7 +12,7 @@ to and from UBL XML. It is not yet wired into the reference-implementation UI.
 > examples and `model/legacy/...` paths below are retained only to describe the
 > concepts and what those tools did. The current equivalents are the compiled
 > layers under `model/generated/` (`instance-data/`, `form-structure/`,
-> `xml-mapping/`) and the hand-authored admin parts under `model/parts/`. The
+> `xml-mapping/`) and the admin parts under `model/generated/parts/` (published by ESPD-EDM). The
 > mapping engine lives in `model/mapping-engine/mapper.mjs` and is shared by the
 > compiler tests and the UI.
 
@@ -23,8 +23,8 @@ to and from UBL XML. It is not yet wired into the reference-implementation UI.
 ## Three layers
 
 The model is deliberately split into three independent layers (now generated per
-criterion under `model/generated/`, and hand-authored for the admin parts under
-`model/parts/`):
+criterion under `model/generated/`, and published as authored files for the admin parts under
+`model/generated/parts/`):
 
 - **instance-data** (`model/generated/instance-data/`) — the canonical data a user
   enters, as a JSON Schema + example pair. Semantic keys, no form or XML concerns.
@@ -368,7 +368,7 @@ for all parts were moved to the separate `espd-notes` repository (`diagrams/`):
 The legacy per-part roundtrip tests were removed together with `model/legacy/`.
 Roundtrip coverage now comes from the compiler tests (e.g.
 `model/compiler/roundtrip-generated.test.mjs`) and the admin-part tests under
-`model/parts/`; run them with `npm run model:test`. Schema validation also runs
+`model/parts-tests/`; run them with `npm run model:test`. Schema validation also runs
 inside the compiler tests.
 
 ## TODO: CPV codes (procurement subject classification) — Part I

@@ -10,7 +10,8 @@ Copied verbatim from `ESPD-EDM/model`, after verifying it. Change the model upst
 - `instance-data/<key>.schema.json` and `<key>.example.json` — canonical instance-data JSON Schema and a minimal valid example per criterion
 - `xml-mapping/<key>.request.mapping.json` and `<key>.response.mapping.json` — declarative UBL mapping specs (buyer Request / economic-operator Response)
 - `compiled/<key>.json` — the criterion as joined from the EA structure and the enrichment, plus its hints; the form generator's input
-- `registries/` — value types, encoding profile, codelist attributes, scheme-agency profile, roles
+- `parts/<part>/` — the administrative parts (I, II, VI): per section the instance-data schema, an example, the UBL mapping and the form (fields, input types, labels, code lists); `index.json` is the part manifest
+- `registries/` — value types, encoding profile, codelist attributes, scheme-agency profile, roles, codelist governance, UI hints
 - `compiled-model.json` — the manifest: ESPD/UBL versions, provenance hashes, inventory
 - `structure.json` — a small projection (parts, sections, ordered members) of the structure export the model was verified against; drives the UI section layout
 

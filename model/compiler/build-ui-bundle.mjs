@@ -12,7 +12,7 @@
 //
 // Member resolution:
 //   - INFORMATION -> the admin section of the same letter from parts.mjs
-//     (model/parts/<part>/section<Letter>.form.json), already validated there.
+//     (model/generated/parts/<part>/section<Letter>.form.json), already validated there.
 //   - CRITERION  -> the generated form-structure for the modeled criterion,
 //     found by mapping the EA `tag` to the sidecar `id` (OT65 -> ot-eo-size;
 //     for non-OT criteria the tag's criterion maps to code == id).
@@ -35,7 +35,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const compiledDir = path.join(here, '..', 'generated', 'compiled');
 const formStructureDir = path.join(here, '..', 'generated', 'form-structure');
 const instanceDataDir = path.join(here, '..', 'generated', 'instance-data');
-const partsRoot = path.join(here, '..', 'parts');
+const partsRoot = path.join(here, '..', 'generated', 'parts');
 const uiDir = path.resolve(here, '..', 'generated', 'ui');
 const schemaDir = path.join(uiDir, 'schema');
 
@@ -58,7 +58,7 @@ const CONTAINER_BY_ROMAN = {
 // contributes one or more sub-keys under its part. The document root composes
 // these alongside the criterion-bearing part roots so the composed schema
 // matches the FLAT instance document ({ partI, partII, …, partVI }). Listed by
-// their instance part key + the schema file under model/parts/<part>/. The
+// their instance part key + the schema file under model/generated/parts/<part>/. The
 // contributed sub-keys are DERIVED from each schema (its properties.partX
 // property names), so adding a field to a section schema needs no edit here.
 const ADMIN_SECTION_SCHEMAS = [
@@ -173,7 +173,7 @@ export function assembleParts({ edm = loadStructure() } = {}) {
         }
       }
       // Section description is optional and authored only on the admin section
-      // (model/parts/<part>/section<Letter>.form.json -> parts.mjs carries its
+      // (model/generated/parts/<part>/section<Letter>.form.json -> parts.mjs carries its
       // descriptionKey). Criterion-only sections carry none. Surfaced by the
       // renderer below the section title; the English text lives in the i18n
       // catalogue under this key.

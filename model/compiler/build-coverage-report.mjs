@@ -2,7 +2,7 @@
 //
 // Reads what the app actually consumes — the EA structure export, the vendored
 // published model (envelope, compiled criteria, value-type registry), the
-// hand-authored parts, and the codelist governance registry — and emits a
+// published administrative parts, and the codelist governance registry — and emits a
 // deterministic Markdown report to docs/coverage-report.md.
 //
 // GENERATED, never hand-edited: a test (coverage-report.test.mjs) regenerates it
@@ -17,7 +17,7 @@ import { loadGovernance } from '../codelists/governance.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, '..', '..');
-const partsDir = path.resolve(repoRoot, 'model', 'parts');
+const partsDir = path.resolve(repoRoot, 'model', 'generated', 'parts');
 const generatedDir = path.resolve(repoRoot, 'model', 'generated');
 const reportPath = path.resolve(repoRoot, 'docs', 'coverage-report.md');
 
@@ -173,9 +173,9 @@ export function renderReport(model) {
   }
 
   // --- Administrative blocks ----------------------------------------------
-  L.push('## Administrative blocks (hand-authored)');
+  L.push('## Administrative blocks (published parts)');
   L.push('');
-  L.push('EA `INFORMATION` blocks are modeled by hand under `model/parts/` (party');
+  L.push('EA `INFORMATION` blocks are modeled by hand upstream and published as `ESPD-EDM/model/parts/` (party');
   L.push('aggregates and the signature), not as enrichment sidecars.');
   L.push('');
   L.push('| Part dir | Sections |');

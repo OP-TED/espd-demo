@@ -40,10 +40,10 @@ const INFRA = new Set([
   'sync-published.mjs',       // verifies + vendors the published model
   'build-coverage-report.mjs', // renders the coverage report from the vendored model
   'schematron-validate.mjs',  // Saxon/Schematron runner + attribute expansion
-  'parts.mjs',                // assembles the HAND-AUTHORED administrative Parts I & VI
+  'parts.mjs',                // assembles the published administrative Parts I, II & VI
                               // (not EA-compiled criteria). It legitimately names partI/
                               // partVI because those parts are authored as data under
-                              // model/parts/<part>/, not discovered from sidecars; it does
+                              // model/generated/parts/<part>/ (published upstream), not discovered from sidecars; it does
                               // no per-criterion node shaping, so R11.4 does not apply.
   'roles.mjs',                // loads/validates the role registry + emits the UI role lens;
                               // pure loader/validator, no per-criterion branching.

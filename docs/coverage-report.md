@@ -116,9 +116,9 @@ All **62** EA criteria are modeled in the published model. Counts by part:
 |---|---|---|---:|---:|---:|---|
 | ot-reduction-of-candidates | staff-red | C63_OT | 4 | 0 | 0 | DESCRIPTION, EVIDENCE_IDENTIFIER, INDICATOR |
 
-## Administrative blocks (hand-authored)
+## Administrative blocks (published parts)
 
-EA `INFORMATION` blocks are modeled by hand under `model/parts/` (party
+EA `INFORMATION` blocks are modeled by hand upstream and published as `ESPD-EDM/model/parts/` (party
 aggregates and the signature), not as enrichment sidecars.
 
 | Part dir | Sections |

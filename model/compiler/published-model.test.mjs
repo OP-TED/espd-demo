@@ -15,7 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { generatedRoot, loadEnvelope, loadCompiled, loadValueTypeRegistry } from './published-model.mjs';
 import { generateFormStructure, loadPresentation } from './generate-form-structure.mjs';
-import { VENDORED_DIRS } from './sync-published.mjs';
+import { VENDORED_DIRS, filesUnder } from './sync-published.mjs';
 
 const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 const envelope = loadEnvelope();
@@ -26,10 +26,14 @@ test('every file the vendored envelope lists exists, and nothing else is vendore
   const listed = new Set();
   for (const c of envelope.criteria) for (const rel of Object.values(c.files)) if (rel) listed.add(rel);
   for (const rel of envelope.registries) listed.add(rel);
+  for (const p of envelope.parts) {
+    listed.add(p.manifest);
+    for (const s of p.sections) for (const k of ['schema', 'example', 'mapping', 'form']) listed.add(s[k]);
+  }
   for (const rel of listed) assert.ok(fs.existsSync(path.join(generatedRoot, rel)), `missing vendored file: ${rel}`);
   for (const dir of VENDORED_DIRS) {
-    for (const f of fs.readdirSync(path.join(generatedRoot, dir))) {
-      assert.ok(listed.has(`${dir}/${f}`), `vendored file not in the envelope (stale or hand-added): ${dir}/${f}`);
+    for (const rel of filesUnder(generatedRoot, dir)) {
+      assert.ok(listed.has(rel), `vendored file not in the envelope (stale or hand-added): ${rel}`);
     }
   }
 });

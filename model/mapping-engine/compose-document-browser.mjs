@@ -46,12 +46,12 @@ async function fetchJson(url) {
 export async function browserDeps(criterionIds = []) {
   // The admin sidecars the composer references, by relative path.
   const sidecarRels = [
-    'parts/partI/sectionA.mapping.json',
-    'parts/partI/sectionB.mapping.json',
-    'parts/partI/sectionC.mapping.json',
-    'parts/partII/sectionA.mapping.json',
-    'parts/partII/sectionB.mapping.json',
-    'parts/partVI/sectionA.mapping.json',
+    'generated/parts/partI/sectionA.mapping.json',
+    'generated/parts/partI/sectionB.mapping.json',
+    'generated/parts/partI/sectionC.mapping.json',
+    'generated/parts/partII/sectionA.mapping.json',
+    'generated/parts/partII/sectionB.mapping.json',
+    'generated/parts/partVI/sectionA.mapping.json',
   ];
   const criterionRels = [];
   for (const id of criterionIds) {
@@ -151,9 +151,9 @@ export async function reconstructFromUbl(xml) {
   let instance = {};
   // Admin sidecars (reverse): request → Part I; response → Part I + II + VI.
   const sidecarRels = documentType === 'response'
-    ? ['parts/partI/sectionA.mapping.json', 'parts/partI/sectionB.mapping.json', 'parts/partI/sectionC.mapping.json',
-       'parts/partII/sectionA.mapping.json', 'parts/partII/sectionB.mapping.json', 'parts/partVI/sectionA.mapping.json']
-    : ['parts/partI/sectionA.mapping.json', 'parts/partI/sectionB.mapping.json', 'parts/partI/sectionC.mapping.json'];
+    ? ['generated/parts/partI/sectionA.mapping.json', 'generated/parts/partI/sectionB.mapping.json', 'generated/parts/partI/sectionC.mapping.json',
+       'generated/parts/partII/sectionA.mapping.json', 'generated/parts/partII/sectionB.mapping.json', 'generated/parts/partVI/sectionA.mapping.json']
+    : ['generated/parts/partI/sectionA.mapping.json', 'generated/parts/partI/sectionB.mapping.json', 'generated/parts/partI/sectionC.mapping.json'];
   for (const rel of sidecarRels) {
     instance = deepMerge(instance, unmap(deps.loadSpec(rel), xml));
   }

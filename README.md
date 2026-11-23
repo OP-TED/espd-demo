@@ -90,7 +90,7 @@ This runs `scripts/build-pages.js`, which:
 1. Copies the browser-served assets (`index.html`, `css/`, `js/`, `i18n/`,
    `images/`, `fonts/`) and the runtime model data the browser actually loads
    (`model/generated/ui/`, `model/generated/codelists/`,
-   `model/generated/xml-mapping/`, `model/mapping-engine/`, `model/parts/`, plus
+   `model/generated/xml-mapping/`, `model/generated/parts/`, `model/mapping-engine/`, plus
    the two registry files the composer fetches) into a `public/` directory.
    Dev-only model artifacts (the build code, `*.test.mjs`, presentation sources,
    the compiled criteria) are **not** shipped.
@@ -181,7 +181,7 @@ http://localhost:3000/?serverless.
 │   │   └── ui/                 #   The UI bundle the app loads: index.json,
 │   │                           #   part-I…VI.json, roles.json, schema/, validators/
 │   ├── mapping-engine/         # Bidirectional UBL map/unmap engine (runtime)
-│   └── parts/                  # Hand-authored admin parts (I, II, VI) mapping sidecars
+│   └── parts-tests/            # Tests of the published admin parts (I, II, VI); the parts are vendored under generated/parts/
 ├── .github/workflows/deploy.yml # GitHub Pages deployment workflow
 └── package.json                # Scripts: dev, build:pages, model:sync, model:compile, model:test, test, test:e2e
 ```

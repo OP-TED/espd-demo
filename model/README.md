@@ -15,10 +15,10 @@ ESPD-EDM  (ESPD_EDM_ROOT, default ../ESPD-EDM)
             |
             |  npm run model:sync     (verify, then copy; also projects the structure)
             v
-generated/   vendored published model            (instance-data/ xml-mapping/ compiled/
+generated/   vendored published model            (instance-data/ xml-mapping/ compiled/ parts/
             |                                     registries/ compiled-model.json structure.json)
             |  npm run model:compile  (the app's own layers)
-            +   model-sources/  presentation: form-profile, ui-hints, role-ui, *.presentation.json
+            +   model-sources/  presentation: form-profile, role-ui, *.presentation.json
             v
 generated/   form-structure/  ui/ (bundle, roles, validators)  codelists/   + docs/coverage-report.md
 ```
@@ -46,9 +46,8 @@ model/
 │   └── *.test.mjs             tests, incl. contract tests over the published model
 │
 ├── model-sources/       The app's OWN hand-authored inputs: presentation only.
-│   ├── registries/            form-profile.json (filledBy, uiType, i18n keys), ui-hints.json
-│   │                          (UI affordances such as the TED lookup), role-ui.json (role labels,
-│   │                          visible/editable Parts)
+│   ├── registries/            form-profile.json (filledBy, uiType, i18n keys), role-ui.json
+│   │                          (role labels, visible/editable Parts)
 │   └── criteria/              <code>.presentation.json  optional form presentation overrides
 │
 ├── generated/           COMMITTED output (do NOT hand-edit). See generated/README.md.
@@ -57,7 +56,8 @@ model/
 │                        bidirectional map()/unmap(); the UI uses it to export form data to UBL XML
 │                        and import it back.
 │
-├── parts/               Hand-authored administrative parts (I, II, VI): schema, form, mapping.
+├── parts-tests/         Tests of the published administrative parts (I, II, VI), which are vendored
+│                        under generated/parts/ (schema, example, mapping, form per section).
 └── codelists/           UI codelist service data; ui-codelists.json (which lists the UI offers) merged with the
                          published codelist-governance registry by governance.mjs.
 ```
@@ -67,7 +67,7 @@ model/
 ```
 npm run model:sync      # verify + vendor the published model (and the structure projection)
 npm run model:compile   # model:sync, then rebuild every app layer; --no-sync to skip the sync
-npm run model:test      # node --test model/compiler/ model/mapping-engine/ model/parts/ model/codelists/
+npm run model:test      # node --test model/compiler/ model/mapping-engine/ model/parts-tests/ model/codelists/
 ```
 
 `model:sync` and `model:compile` read the published ESPD-EDM from `ESPD_EDM_ROOT` (default: the sibling

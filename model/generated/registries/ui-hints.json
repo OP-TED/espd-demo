@@ -1,9 +1,9 @@
 {
-  "$comment": "UI-hints registry. The allowed vocabulary of declarative presentation affordances a part/section form field may carry in its `uiHints` block, plus the contract for each. These are PRESENTATION hints over the clean instance-data model — they never change the data shape (dataPath/uiType/codelist) and are safe for a renderer to ignore. The compiler (model/compiler/parts.mjs) validates every field `uiHints` against this registry. Keep this list closed so a typo'd hint fails the build rather than silently doing nothing.",
+  "$comment": "UI-hints registry. The allowed vocabulary of declarative presentation affordances a part/section form field may carry in its `uiHints` block, plus the contract for each. These are PRESENTATION hints over the clean instance-data model — they never change the data shape (dataPath/uiType/codelist) and are safe for a renderer to ignore. enrichment/validate.mjs (and the model compiler) validate every field `uiHints` against this registry. Keep this list closed so a typo'd hint fails the build rather than silently doing nothing.",
 
   "lookups": {
     "ted-notice": {
-      "$comment": "A 'look up from TED' affordance: the field value (a TED notice number or a notice URL) is used to fetch the published notice and prefill Part I. Replaces the legacy hard-coded enhancePartIWithLookup() in js/renderer.js, which keyed off fixed contentpaths; here it is declared on the model field and the renderer stays generic. Regulation 2016/7 Part I anticipates this auto-retrieval for OJEU-published procedures.",
+      "$comment": "A 'look up from TED' affordance: the field value (a TED notice number or a notice URL) is used to fetch the published notice and prefill Part I. Replaces a hard-coded lookup that keyed off fixed contentpaths; here it is declared on the model field and the renderer stays generic. Regulation 2016/7 Part I anticipates this auto-retrieval for OJEU-published procedures.",
       "label": "Look up",
       "labelKey": "uiHint.lookup.ted-notice.label",
       "reads": {

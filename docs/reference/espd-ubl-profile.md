@@ -123,7 +123,7 @@ I72_info-poa
 powers of attorney (Part II, section B) to repeated `cac:PowerOfAttorney` elements
 under `cac:EconomicOperatorParty/cac:Party`, carrying the description and the
 `cac:AgentParty` (name, identifier, country) — see
-`model/parts/partII/sectionB.mapping.json`. Power of Attorney is the UBL construct
+`model/generated/parts/partII/sectionB.mapping.json`. Power of Attorney is the UBL construct
 for expressing a *formal mandate* for a representative. (An earlier hand-authored
 model, since removed, instead emitted representatives as `cac:Person` elements
 directly under the party.)

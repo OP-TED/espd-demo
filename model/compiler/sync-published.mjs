@@ -11,7 +11,7 @@
 //   - the model was built from the structure export we also read (SHA-256 match), so the
 //     structure used for the UI sections and the model used for the data cannot be skew.
 //
-// Copied: instance-data/, xml-mapping/, compiled/, registries/, compiled-model.json.
+// Copied: instance-data/, xml-mapping/, compiled/, parts/, registries/, compiled-model.json.
 // The vendored directories are replaced as a whole, so a criterion removed upstream does
 // not linger. Never hand-edit the vendored files; change the source and re-sync.
 
@@ -24,7 +24,17 @@ import Ajv from 'ajv';
 import { publishedDir, structurePath } from './upstream.mjs';
 import { generatedRoot } from './published-model.mjs';
 
-export const VENDORED_DIRS = ['instance-data', 'xml-mapping', 'compiled', 'registries'];
+export const VENDORED_DIRS = ['instance-data', 'xml-mapping', 'compiled', 'parts', 'registries'];
+
+/** All files under the folder dir (relative to base), as '/'-separated paths relative to base, sorted. */
+export function filesUnder(base, dir) {
+  const out = [];
+  for (const e of fs.readdirSync(path.join(base, dir), { withFileTypes: true })) {
+    const rel = `${dir}/${e.name}`;
+    if (e.isDirectory()) out.push(...filesUnder(base, rel)); else out.push(rel);
+  }
+  return out.sort();
+}
 
 const sha256File = (file) =>
   crypto.createHash('sha256').update(fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n'), 'utf8').digest('hex');
@@ -47,11 +57,15 @@ export function verifyPublished({ source = publishedDir(), structure = structure
   const listed = new Set();
   for (const c of envelope.criteria) for (const rel of Object.values(c.files)) if (rel) listed.add(rel);
   for (const rel of envelope.registries) listed.add(rel);
+  for (const p of envelope.parts) {
+    listed.add(p.manifest);
+    for (const s of p.sections) for (const k of ['schema', 'example', 'mapping', 'form']) listed.add(s[k]);
+  }
   for (const rel of listed) if (!fs.existsSync(path.join(source, rel))) problems.push(`listed file is missing: ${rel}`);
   for (const dir of VENDORED_DIRS) {
     const abs = path.join(source, dir);
     if (!fs.existsSync(abs)) { problems.push(`missing folder: ${dir}`); continue; }
-    for (const f of fs.readdirSync(abs)) if (!listed.has(`${dir}/${f}`)) problems.push(`file not in the envelope: ${dir}/${f}`);
+    for (const rel of filesUnder(source, dir)) if (!listed.has(rel)) problems.push(`file not in the envelope: ${rel}`);
   }
 
   if (!fs.existsSync(structure)) {

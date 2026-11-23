@@ -10,7 +10,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { map, unmap } from '../../mapping-engine/mapper.mjs';
 
-const here = path.dirname(fileURLToPath(import.meta.url));
+// The section files are the published ones, vendored by model:sync into model/generated/parts/partVI/.
+const here = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'generated', 'parts', 'partVI');
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
 
 const schema = read('sectionA.schema.json');

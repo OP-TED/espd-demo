@@ -11,9 +11,10 @@ import { fileURLToPath } from 'node:url';
 import { map, unmap } from '../../mapping-engine/mapper.mjs';
 import { resolveSchemeAgency } from '../../mapping-engine/resolve-scheme-agency.mjs';
 
-const here = path.dirname(fileURLToPath(import.meta.url));
+// The section files are the published ones, vendored by model:sync into model/generated/parts/partII/.
+const here = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'generated', 'parts', 'partII');
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
-const schemeAgencyProfile = read('../../generated/registries/scheme-agency-profile.json');
+const schemeAgencyProfile = read('../../registries/scheme-agency-profile.json');
 
 const schema = read('sectionB.schema.json');
 const example = read('sectionB.example.json');

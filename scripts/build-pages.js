@@ -35,8 +35,8 @@ const STATIC_ASSETS = ['index.html', 'css', 'js', 'i18n', 'images', 'fonts'];
 //   - mapping-engine       — the browser-safe composer/mapper modules + envelope.json
 //                            (compose-document-node.mjs is unused by the browser
 //                            graph but harmless to ship; it imports nothing at load).
-//   - parts                — the hand-authored admin section *.mapping.json sidecars
-//                            (the renderer form lenses live under generated/ui).
+//   - generated/parts      — the administrative section files (the *.mapping.json sidecars
+//                            are what the app reads; the renderer form lenses live under generated/ui).
 // Plus the source registries the composer fetches at runtime: codelist-attribute
 // expansion and the scheme-agency profile (@schemeAgencyID derivation).
 // model-sources is otherwise a build-time input.
@@ -45,7 +45,7 @@ const MODEL_ASSETS = [
   'generated/codelists',
   'generated/xml-mapping',
   'mapping-engine',
-  'parts',
+  'generated/parts',
 ];
 const MODEL_FILE_ASSETS = [
   'generated/registries/codelist-attributes.json',

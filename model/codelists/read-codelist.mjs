@@ -1,6 +1,6 @@
 // Utility: read code values from an ESPD-EDM Genericode (.gc) file, and resolve
 // the shipped codelist directory. Shared by the compiler (enum derivation in the
-// instance-schema generator) and the hand-authored part models (model/parts).
+// instance-schema generator) and the tests of the published administrative parts (model/parts-tests).
 //
 // Usage:
 //   import { readCodelistCodes, codelistPath } from '../codelists/read-codelist.mjs';

@@ -13,7 +13,7 @@ import { map } from './mapper.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (p) => JSON.parse(fs.readFileSync(path.join(here, p), 'utf8'));
-const profileDoc = read('../model-sources/registries/scheme-agency-profile.json');
+const profileDoc = read('../generated/registries/scheme-agency-profile.json');
 
 test('the committed registry defines the identifier-scheme-agency profile', () => {
   const p = profileDoc.profiles['identifier-scheme-agency'];

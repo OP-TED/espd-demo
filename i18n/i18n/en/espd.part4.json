@@ -39,6 +39,7 @@
   "question.label.slc-suit-auth-mbrshp.RG1.RSG1.QSG1.QSG1.QSG1.Q1": "Name of the entity",
   "question.label.slc-suit-auth-mbrshp.RG1.RSG1.QSG1.QSG1.QSG1.Q2": "ID of the entity",
   "question.label.slc-suit-auth-mbrshp.RG1.RSG1.QSG2.Q1": "Your answer?",
+  "question.label.slc-suit-auth-mbrshp.RG1.RSG1.QSG2.QSG2.Q1": "Reasons why you are not registered",
   "question.label.slc-suit-auth-mbrshp.RG1.RSG1.QSG2.QSG1.Q1": "Registration number",
   "question.label.slc-suit-auth-mbrshp.RG1.RSG1.QSG3.Q1": "Is this information available electronically?",
   "question.label.slc-suit-auth-mbrshp.RG1.RSG1.QSG3.QSG1.Q1": "Evidence Supplied",

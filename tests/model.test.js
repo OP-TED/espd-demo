@@ -60,7 +60,7 @@ const PART_III_CODES = [
   'exg-crim-laund', 'exg-crim-traffick',
   'exg-pmt-bre-tax', 'exg-pmt-bre-ssc',
   'exg-mis-bre-env-law', 'exg-mis-bre-soc-law', 'exg-mis-bre-lab-law',
-  'exg-mis-exg-mis-misconduct', 'exg-mis-distortion', 'exg-mis-partic-confl',
+  'exg-mis-misconduct', 'exg-mis-distortion', 'exg-mis-partic-confl',
   'exg-mis-prep-confl', 'exg-mis-sanction', 'exg-mis-misrepresent',
   'exg-sitn-bankr', 'exg-sitn-insolvency', 'exg-sitn-cred-arran',
   'exg-sitn-other', 'exg-sitn-liq-admin', 'exg-sitn-as-susp',

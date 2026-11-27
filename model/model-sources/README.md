@@ -1,23 +1,19 @@
-# `model-sources/` — hand-authored compiler inputs
+# `model-sources/` — this app's own (presentation) inputs
 
-The authored source of truth the compiler consumes. Nothing here is generated.
+Hand-authored, nothing here is generated. These are the choices **this reference implementation**
+makes about how to present the ESPD model. The implementer-neutral model itself (semantic ids, instance
+bindings, value types, UBL bindings, roles, hints) is **not** here: it is built upstream and consumed
+from `../generated/` (vendored by `npm run model:sync`); see `../README.md`.
 
 ## Layout
 
-- `registries/` — shared, criterion-independent inputs:
-  - `value-types.json` — per-ValueDataTypeCode JSON instance shapes + UBL value bindings (validated against `ResponseDataType.gc`)
-  - `codelist-attributes.json` — fixed code-list attribute sets the Schematron requires, one per codelist
-  - `encoding-profile.json` — kind → element XML conventions
-  - `form-profile.json` — presentation conventions (filledBy, uiType defaults, i18n key derivation)
-  - `roles.json` — role registry: buyer types + economic-operator roles with form behaviour (visible/editable parts, exclusion-ground dispositions), UBL party-role bindings, and the Part III section-code → exclusion-category prefix map (compiled by `../compiler/roles.mjs` → `../generated/ui/roles.json`)
-- `criteria/` — per-criterion enrichment, keyed by criterion code:
-  - `<code>.sidecar.json` — semantic IDs + instance bindings (required to model a criterion)
-  - `<code>.hints.json` — optional instance-data constraint hints
-  - `<code>.presentation.json` — optional form presentation overrides
+- `registries/`
+  - `form-profile.json` — presentation conventions: `filledBy`, `uiType` defaults per value type, i18n key derivation, group derivation
+  - `role-ui.json` — per-role English label/description and which Parts the UI shows (`visibleParts`) and lets the user edit (`editableParts`), keyed by role id from the published `roles.json`
+- `criteria/`
+  - `<code>.presentation.json` — optional form presentation overrides for one criterion, keyed by the criterion's output key (e.g. `uiType` overrides, option labels, property sub-labels, group names)
 
-A criterion is "modeled" when it has a `<code>.sidecar.json` here. The build
-(`node model/compiler/build-generated.mjs`) compiles each and writes
-`../generated/`.
+The form generator (`../compiler/generate-form-structure.mjs`) combines these with the published compiled
+criteria; `../compiler/roles.mjs` joins `role-ui.json` with the published roles registry.
 
-See `../../docs/reference/espd-edm-primary-input-enrichment.md` for the rationale behind
-what lives here (implementation projections) versus upstream in `espd-edm.json`.
+See `../../docs/reference/espd-edm-primary-input-enrichment.md` for the rationale.

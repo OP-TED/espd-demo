@@ -16,8 +16,9 @@ import { expandCodelistAttributes } from './expand-codelist-attributes.mjs';
 import { resolveSchemeAgency } from './resolve-scheme-agency.mjs';
 
 const MODEL_BASE = 'model';
-const PROFILE_PATH = `${MODEL_BASE}/model-sources/registries/codelist-attributes.json`;
-const SCHEME_AGENCY_PROFILE_PATH = `${MODEL_BASE}/model-sources/registries/scheme-agency-profile.json`;
+// Published registries, vendored under model/generated/registries/ (see model:sync).
+const PROFILE_PATH = `${MODEL_BASE}/generated/registries/codelist-attributes.json`;
+const SCHEME_AGENCY_PROFILE_PATH = `${MODEL_BASE}/generated/registries/scheme-agency-profile.json`;
 const ENVELOPE_PATH = `${MODEL_BASE}/mapping-engine/envelope.json`;
 
 /** Fetch JSON, failing loudly on a non-OK response (the dev server's SPA
@@ -45,12 +46,12 @@ async function fetchJson(url) {
 export async function browserDeps(criterionIds = []) {
   // The admin sidecars the composer references, by relative path.
   const sidecarRels = [
-    'parts/partI/sectionA.mapping.json',
-    'parts/partI/sectionB.mapping.json',
-    'parts/partI/sectionC.mapping.json',
-    'parts/partII/sectionA.mapping.json',
-    'parts/partII/sectionB.mapping.json',
-    'parts/partVI/sectionA.mapping.json',
+    'generated/parts/partI/sectionA.mapping.json',
+    'generated/parts/partI/sectionB.mapping.json',
+    'generated/parts/partI/sectionC.mapping.json',
+    'generated/parts/partII/sectionA.mapping.json',
+    'generated/parts/partII/sectionB.mapping.json',
+    'generated/parts/partVI/sectionA.mapping.json',
   ];
   const criterionRels = [];
   for (const id of criterionIds) {
@@ -150,9 +151,9 @@ export async function reconstructFromUbl(xml) {
   let instance = {};
   // Admin sidecars (reverse): request → Part I; response → Part I + II + VI.
   const sidecarRels = documentType === 'response'
-    ? ['parts/partI/sectionA.mapping.json', 'parts/partI/sectionB.mapping.json', 'parts/partI/sectionC.mapping.json',
-       'parts/partII/sectionA.mapping.json', 'parts/partII/sectionB.mapping.json', 'parts/partVI/sectionA.mapping.json']
-    : ['parts/partI/sectionA.mapping.json', 'parts/partI/sectionB.mapping.json', 'parts/partI/sectionC.mapping.json'];
+    ? ['generated/parts/partI/sectionA.mapping.json', 'generated/parts/partI/sectionB.mapping.json', 'generated/parts/partI/sectionC.mapping.json',
+       'generated/parts/partII/sectionA.mapping.json', 'generated/parts/partII/sectionB.mapping.json', 'generated/parts/partVI/sectionA.mapping.json']
+    : ['generated/parts/partI/sectionA.mapping.json', 'generated/parts/partI/sectionB.mapping.json', 'generated/parts/partI/sectionC.mapping.json'];
   for (const rel of sidecarRels) {
     instance = deepMerge(instance, unmap(deps.loadSpec(rel), xml));
   }

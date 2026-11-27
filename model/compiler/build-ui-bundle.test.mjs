@@ -20,15 +20,15 @@ import Ajv from '../../node_modules/ajv/dist/2020.js';
 import { buildUiBundle, assembleParts, uiBundleDir, uiSchemaDir } from './build-ui-bundle.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const criteriaDir = path.join(here, '..', 'model-sources', 'criteria');
+const compiledDir = path.join(here, '..', 'generated', 'compiled');
 const instanceDataDir = path.join(here, '..', 'generated', 'instance-data');
 const read = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 
 const { parts, partLenses, index, partSchemas, documentRoot, criteriaByPart } = buildUiBundle({ write: false });
 
-const modeledIds = fs.readdirSync(criteriaDir)
-  .filter((f) => f.endsWith('.sidecar.json'))
-  .map((f) => f.replace('.sidecar.json', ''))
+const modeledIds = fs.readdirSync(compiledDir)
+  .filter((f) => f.endsWith('.json'))
+  .map((f) => f.replace('.json', ''))
   .sort();
 
 /** All criterion members across every assembled part, in order. */
@@ -45,7 +45,7 @@ function allCriterionMembers() {
 describe('ui-bundle: criterion placement completeness', () => {
   it('every modeled criterion is placed exactly once', () => {
     const placed = allCriterionMembers().map((m) => m.id).sort();
-    assert.deepEqual(placed, modeledIds, 'placed criteria must equal the modeled sidecar set');
+    assert.deepEqual(placed, modeledIds, 'placed criteria must equal the published criteria');
   });
 
   it('no criterion id is placed twice', () => {
@@ -53,7 +53,7 @@ describe('ui-bundle: criterion placement completeness', () => {
     assert.equal(new Set(placed).size, placed.length);
   });
 
-  it('criteriaByPart ids are all real sidecars', () => {
+  it('criteriaByPart ids are all published criteria', () => {
     for (const [, crits] of criteriaByPart) {
       for (const { id } of crits) assert.ok(modeledIds.includes(id), `${id} is a modeled criterion`);
     }
@@ -132,7 +132,7 @@ describe('ui-bundle: composed schemas ($ref, never merge)', () => {
     ajv.addSchema(read(path.join(instanceDataDir, f)));
   }
   for (const { schema } of partSchemas) ajv.addSchema(schema);
-  const partsRoot = path.join(here, '..', 'parts');
+  const partsRoot = path.join(here, '..', 'generated', 'parts');
   for (const [dir, section] of [['partI', 'sectionA'], ['partI', 'sectionB'], ['partI', 'sectionC'], ['partII', 'sectionA'], ['partII', 'sectionB'], ['partVI', 'sectionA']]) {
     ajv.addSchema(read(path.join(partsRoot, dir, `${section}.schema.json`)));
   }

@@ -6,7 +6,7 @@
 //   - the four criterion-bearing part roots (ui/schema/part-{II,III,IV,V}.schema.json),
 //     each validating that part's slice of the instance document, e.g. { partIII: … };
 //   - the six hand-authored administrative section schemas
-//     (model/parts/{partI,partII,partVI}/section*.schema.json), each validating its
+//     (model/generated/parts/{partI,partII,partVI}/section*.schema.json), each validating its
 //     own slice ({ partI: … } / { partII: … } / { partVI: … }).
 //
 // The per-criterion schemas (instance-data/<id>.schema.json) are registered (the
@@ -29,7 +29,7 @@ import standaloneCode from '../../node_modules/ajv/dist/standalone/index.js';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const instanceDataDir = path.join(here, '..', 'generated', 'instance-data');
 const uiSchemaDir = path.join(here, '..', 'generated', 'ui', 'schema');
-const partsRoot = path.join(here, '..', 'parts');
+const partsRoot = path.join(here, '..', 'generated', 'parts');
 const outDir = path.join(here, '..', 'generated', 'ui', 'validators');
 const documentSchemaPath = path.join(uiSchemaDir, 'espd.schema.json');
 

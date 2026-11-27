@@ -1,0 +1,62 @@
+{
+  "$comment": "The demo's own codelist decisions: which shipped lists it offers as UI pick lists (`useForUI`). The implementer-neutral facts about each list (gc, aliases, schematronValidated, inlineEnum, excludedCodes, externalSource) are in the PUBLISHED registry model/generated/registries/codelist-governance.json (vendored by `npm run model:sync`); model/codelists/governance.mjs merges the two. Every list in the published registry must have an explicit decision here (a test checks it).",
+  "codelists": {
+    "country": {
+      "useForUI": true
+    },
+    "occupation": {
+      "useForUI": true
+    },
+    "financial-ratio-type": {
+      "useForUI": true
+    },
+    "boolean-gui-control-type": {
+      "useForUI": true
+    },
+    "procurement-procedure-type": {
+      "useForUI": true
+    },
+    "docrefcontent-type": {
+      "useForUI": true
+    },
+    "eoid-type": {
+      "useForUI": true
+    },
+    "access-right": {
+      "useForUI": true
+    },
+    "currency": {
+      "useForUI": true
+    },
+    "eo-role-type": {
+      "useForUI": true
+    },
+    "economic-operator-size": {
+      "useForUI": true
+    },
+    "language": {
+      "useForUI": false
+    },
+    "criterion-element-type": {
+      "useForUI": false
+    },
+    "property-group-type": {
+      "useForUI": false
+    },
+    "response-data-type": {
+      "useForUI": false
+    },
+    "profile-execution-id": {
+      "useForUI": false
+    },
+    "selection-criterion": {
+      "useForUI": false
+    },
+    "exclusion-ground": {
+      "useForUI": false
+    },
+    "criterion": {
+      "useForUI": false
+    }
+  }
+}

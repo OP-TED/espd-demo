@@ -9,14 +9,15 @@
 //   - DISCOVERS the transformation modules by globbing model/compiler/*.mjs and
 //     excluding tests + infrastructure, so a NEW generator module is covered
 //     automatically (no list to update); and
-//   - DISCOVERS the modeled criterion codes from the sidecar filenames, so a NEW
-//     criterion is covered automatically.
+//   - DISCOVERS the modeled criteria from the PUBLISHED model (the vendored
+//     compiled/<key>.json files), so a NEW criterion is covered automatically.
 //
-// A transformation module is one that shapes per-node output (readers, overlay,
-// encoding, generators). Infrastructure modules (CLI/build loop, registry +
-// codelist + schematron validators/loaders, the equivalence gate) are excluded:
-// they carry no per-criterion branching and may legitimately mention a criterion
-// in a usage example.
+// A transformation module is one that shapes per-node output. Since the model
+// compiler moved to espd-tools/model-compiler (which has the same guard for the
+// generators), the only ones left here are the form generator and its path helpers.
+// Infrastructure modules (build loop, loaders, sync, validators) are excluded: they
+// carry no per-criterion branching and may legitimately mention a criterion in a
+// usage example.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -25,7 +26,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const criteriaDir = path.join(here, '..', 'model-sources', 'criteria');
+const compiledDir = path.join(here, '..', 'generated', 'compiled');
 
 // Infrastructure modules excluded from the "no criterion in logic" rule.
 // Keep this list TIGHT: anything with per-node transformation logic must NOT be
@@ -33,16 +34,16 @@ const criteriaDir = path.join(here, '..', 'model-sources', 'criteria');
 // it); only add it here if it is pure loader/validator/CLI with no per-node
 // branching, and say why.
 const INFRA = new Set([
-  'compile.mjs',              // CLI entry + loaders; usage comment names a criterion
-  'build-generated.mjs',      // build loop; discovers criteria from sidecar filenames
-  'value-type-registry.mjs',  // loads/validates value-types.json vs ResponseDataType.gc
-  'codelist-attributes.mjs',  // loads/validates codelist-attributes.json vs Schematron
+  'build-generated.mjs',      // build loop; discovers criteria from the published envelope
+  'upstream.mjs',             // locates the published ESPD-EDM inputs
+  'published-model.mjs',      // read access to the vendored published model
+  'sync-published.mjs',       // verifies + vendors the published model
+  'build-coverage-report.mjs', // renders the coverage report from the vendored model
   'schematron-validate.mjs',  // Saxon/Schematron runner + attribute expansion
-  'structural-equivalence.mjs', // the EA-projection correctness gate (no per-node shaping)
-  'parts.mjs',                // assembles the HAND-AUTHORED administrative Parts I & VI
+  'parts.mjs',                // assembles the published administrative Parts I, II & VI
                               // (not EA-compiled criteria). It legitimately names partI/
                               // partVI because those parts are authored as data under
-                              // model/parts/<part>/, not discovered from sidecars; it does
+                              // model/generated/parts/<part>/ (published upstream), not discovered from sidecars; it does
                               // no per-criterion node shaping, so R11.4 does not apply.
   'roles.mjs',                // loads/validates the role registry + emits the UI role lens;
                               // pure loader/validator, no per-criterion branching.
@@ -68,11 +69,11 @@ function transformationModules() {
     .sort();
 }
 
-/** Modeled criterion codes, discovered from sidecar filenames. */
+/** Modeled criterion keys, discovered from the vendored published model. */
 function modeledCodes() {
-  return fs.readdirSync(criteriaDir)
-    .filter(f => f.endsWith('.sidecar.json'))
-    .map(f => f.replace(/\.sidecar\.json$/, ''))
+  return fs.readdirSync(compiledDir)
+    .filter(f => f.endsWith('.json'))
+    .map(f => f.replace(/\.json$/, ''))
     .sort();
 }
 
@@ -84,7 +85,7 @@ function stripComments(src) {
 test('7.1 — the discovery sets are non-trivial (guards the guard)', () => {
   // If either discovery returned nothing, the assertions below would vacuously
   // pass. Fail loudly instead so a globbing/path regression cannot hide.
-  assert.ok(transformationModules().length >= 5,
+  assert.ok(transformationModules().length >= 2,
     `expected to discover the transformation modules, got ${transformationModules().join(', ')}`);
   assert.ok(modeledCodes().length >= 5,
     `expected to discover modeled criteria, got ${modeledCodes().length}`);

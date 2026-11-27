@@ -12,7 +12,7 @@
 //
 // Member resolution:
 //   - INFORMATION -> the admin section of the same letter from parts.mjs
-//     (model/parts/<part>/section<Letter>.form.json), already validated there.
+//     (model/generated/parts/<part>/section<Letter>.form.json), already validated there.
 //   - CRITERION  -> the generated form-structure for the modeled criterion,
 //     found by mapping the EA `tag` to the sidecar `id` (OT65 -> ot-eo-size;
 //     for non-OT criteria the tag's criterion maps to code == id).
@@ -27,15 +27,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { loadEdm } from './compile.mjs';
+import { loadStructure } from './published-model.mjs';
 import { adminLensesByPart } from './parts.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
-const criteriaDir = path.join(here, '..', 'model-sources', 'criteria');
+// The published compiled criteria (vendored by model:sync); each carries its EA tag/code.
+const compiledDir = path.join(here, '..', 'generated', 'compiled');
 const formStructureDir = path.join(here, '..', 'generated', 'form-structure');
 const instanceDataDir = path.join(here, '..', 'generated', 'instance-data');
-const partsRoot = path.join(here, '..', 'parts');
+const partsRoot = path.join(here, '..', 'generated', 'parts');
 const uiDir = path.resolve(here, '..', 'generated', 'ui');
 const schemaDir = path.join(uiDir, 'schema');
 
@@ -58,7 +58,7 @@ const CONTAINER_BY_ROMAN = {
 // contributes one or more sub-keys under its part. The document root composes
 // these alongside the criterion-bearing part roots so the composed schema
 // matches the FLAT instance document ({ partI, partII, …, partVI }). Listed by
-// their instance part key + the schema file under model/parts/<part>/. The
+// their instance part key + the schema file under model/generated/parts/<part>/. The
 // contributed sub-keys are DERIVED from each schema (its properties.partX
 // property names), so adding a field to a section schema needs no edit here.
 const ADMIN_SECTION_SCHEMAS = [
@@ -73,21 +73,26 @@ const ADMIN_SECTION_SCHEMAS = [
 const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 
 /**
- * Resolve an EA section member { tag, code } to its modeled sidecar id.
- * Built from the sidecars: a sidecar id equals its EA `code` for the normal case
- * (III/IV, so C01's code `exg-crim-part` is the id), while the Part II/V 'OT'
- * criteria share code "OT" and disambiguate by `tag` (OT65 -> ot-eo-size). So we
- * index by both tag (when the sidecar carries one) and code, and resolve a member
- * by tag first, then code.
+ * Resolve an EA section member { tag, code } to its published criterion key.
+ * Built from the published compiled criteria (compiled/<key>.json), each of which
+ * carries its EA `code` and, for the Part II/V "other" criteria (keyed `ot-<id>`), its
+ * EA `tag` (e.g. C65_OT). A member resolves by tag first, then by code. EA codes are
+ * unique, so a duplicate would make the resolution ambiguous and is rejected.
  */
 function memberIdResolver() {
   const byTag = new Map();
   const byCode = new Map();
-  for (const f of fs.readdirSync(criteriaDir).filter((x) => x.endsWith('.sidecar.json'))) {
-    const id = f.replace('.sidecar.json', '');
-    const c = readJson(path.join(criteriaDir, f)).criterion ?? {};
-    if (c.tag) byTag.set(c.tag, id);
-    if (c.code && c.code !== 'OT') byCode.set(c.code, id);
+  const claim = (map, what, value, key) => {
+    if (map.has(value) && map.get(value) !== key) {
+      throw new Error(`published criteria ${map.get(value)} and ${key} share the EA ${what} '${value}'`);
+    }
+    map.set(value, key);
+  };
+  for (const f of fs.readdirSync(compiledDir).filter((x) => x.endsWith('.json'))) {
+    const key = f.replace('.json', '');
+    const c = readJson(path.join(compiledDir, f)).criterion ?? {};
+    if (c.tag) claim(byTag, 'tag', c.tag, key);
+    if (c.code) claim(byCode, 'code', c.code, key);
   }
   return (member) => byTag.get(member.tag) ?? byCode.get(member.code) ?? null;
 }
@@ -116,7 +121,7 @@ function criterionInnerKey(id, roman) {
  * Assemble all six part lenses from the EA section structure. Returns
  * { parts: Map<roman, lens>, criteriaByPart: Map<roman, [{id, innerKey}]> }.
  */
-export function assembleParts({ edm = loadEdm(edmPath) } = {}) {
+export function assembleParts({ edm = loadStructure() } = {}) {
   const admin = adminLensesByPart();
   const resolveId = memberIdResolver();
   const parts = new Map();
@@ -168,7 +173,7 @@ export function assembleParts({ edm = loadEdm(edmPath) } = {}) {
         }
       }
       // Section description is optional and authored only on the admin section
-      // (model/parts/<part>/section<Letter>.form.json -> parts.mjs carries its
+      // (model/generated/parts/<part>/section<Letter>.form.json -> parts.mjs carries its
       // descriptionKey). Criterion-only sections carry none. Surfaced by the
       // renderer below the section title; the English text lives in the i18n
       // catalogue under this key.

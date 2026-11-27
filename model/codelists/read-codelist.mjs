@@ -1,6 +1,6 @@
 // Utility: read code values from an ESPD-EDM Genericode (.gc) file, and resolve
 // the shipped codelist directory. Shared by the compiler (enum derivation in the
-// instance-schema generator) and the hand-authored part models (model/parts).
+// instance-schema generator) and the tests of the published administrative parts (model/parts-tests).
 //
 // Usage:
 //   import { readCodelistCodes, codelistPath } from '../codelists/read-codelist.mjs';
@@ -8,18 +8,14 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { codelistsDir } from '../compiler/upstream.mjs';
 
-const here = path.dirname(fileURLToPath(import.meta.url));
-
-// model/codelists/ -> app repo root -> workspace root (espd) -> ESPD-EDM/codelists
-// Path is resolved RELATIVE to this module (import.meta.url), so it is unaffected
-// by the app-repo folder name; it assumes ESPD-EDM/ is a sibling of the app repo.
-const CODELISTS_DIR = path.resolve(here, '..', '..', '..', 'ESPD-EDM', 'codelists');
+// The shipped code lists are ESPD-EDM's (ESPD_EDM_ROOT, else the sibling ESPD-EDM
+// checkout); see compiler/upstream.mjs. Resolved at call time so the override applies.
 
 /** Absolute path to a shipped .gc codelist by file name (e.g. 'EOIDType.gc'). */
 export function codelistPath(gcFileName) {
-  return path.join(CODELISTS_DIR, gcFileName);
+  return path.join(codelistsDir(), gcFileName);
 }
 
 /**
@@ -50,9 +46,9 @@ let _nameIndex = null;
 function nameIndex() {
   if (_nameIndex) return _nameIndex;
   _nameIndex = new Map();
-  for (const file of fs.readdirSync(CODELISTS_DIR)) {
+  for (const file of fs.readdirSync(codelistsDir())) {
     if (!file.endsWith('.gc')) continue;
-    const xml = fs.readFileSync(path.join(CODELISTS_DIR, file), 'utf8');
+    const xml = fs.readFileSync(path.join(codelistsDir(), file), 'utf8');
     // Index by: the file stem, the ShortName, and EVERY <LongName> — the
     // kebab-case list id lives in <LongName Identifier="listId">...</LongName>,
     // which the ShortName/first-LongName alone would miss. Only index the Identification
@@ -85,7 +81,7 @@ export function gcFileForCodelist(name) {
 /** Codes for a codelist by NAME, or undefined if the list is not shipped. */
 export function codesForCodelist(name) {
   const file = gcFileForCodelist(name);
-  return file ? readCodelistCodes(path.join(CODELISTS_DIR, file)) : undefined;
+  return file ? readCodelistCodes(path.join(codelistsDir(), file)) : undefined;
 }
 
 /**

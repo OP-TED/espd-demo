@@ -2,26 +2,27 @@
 //
 // Asserts the lens is DERIVED correctly from the compiled model: filledBy from
 // leaf kind (R6.2), visibleWhen from condition markers (R6.3), codelist from the
-// value-type registry (R6.4), required/repeatable from EA cardinality. The
-// hand-authored part-IV.form.json is the reference for what the derivation must
-// reproduce (uiType/labelKey are excluded — they are task 5.2).
+// value-type registry (R6.4), required/repeatable from EA cardinality.
+// (The former parity comparison against the pre-compiler hand-authored lens was
+// removed together with model/legacy/; regression expectations will be added back
+// as explicit tests.)
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadEdm, loadSidecar, loadHints, compile } from './compile.mjs';
+import { loadCompiled, loadValueTypeRegistry } from './published-model.mjs';
 import { generateFormStructure, generateCriterionForm, loadFormProfile } from './generate-form-structure.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const CODE = 'slc-stand-to-spec-avg';
-const edmPath = path.resolve(here, '..', '..', '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
 
+// The criterion under test comes from the PUBLISHED model (vendored under model/generated/),
+// not from the EA export: the form generator only ever sees published input.
 function compileC31() {
-  const edm = loadEdm(edmPath);
-  const { compiled, registry } = compile(edm, CODE, loadSidecar(CODE));
-  return { compiled, registry, hints: loadHints(CODE) };
+  const { criterion, hints } = loadCompiled(CODE);
+  return { compiled: criterion, registry: loadValueTypeRegistry(), hints };
 }
 
 /** Flatten all generated fields, keyed by dataPath. */
@@ -261,48 +262,17 @@ test('every value leaf of the model reaches the form', () => {
   })(compiled);
 });
 
-test('the derivation reproduces the hand-authored lens structure', () => {
-  const { compiled, registry, hints } = compileC31();
-  const generated = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
-
-  const handAuthored = JSON.parse(
-    fs.readFileSync(path.join(here, '..', 'legacy', 'form-structure', 'part-IV.form.json'), 'utf8'));
-
-  const reference = handAuthored.criteria[0].groups.flatMap(g => g.fields);
-  for (const ref of reference) {
-    const gen = generated.get(ref.dataPath);
-    assert.ok(gen, `hand-authored field ${ref.dataPath} was not generated`);
-    if (ref.codelist) assert.equal(gen.codelist, ref.codelist, `${ref.dataPath} codelist`);
-    if (ref.repeatable) assert.equal(gen.repeatable, true, `${ref.dataPath} repeatable`);
-    if (ref.visibleWhen) assert.deepEqual(gen.visibleWhen, ref.visibleWhen, `${ref.dataPath} visibleWhen`);
-    else assert.equal(gen.visibleWhen, undefined, `${ref.dataPath} must be unconditional`);
-
-    // `required` is compared only where the hand-authored lens is a trustworthy
-    // reference. Two documented divergences, both cases where the hand-authored
-    // FORM contradicts the hand-authored SCHEMA and the generator follows the
-    // schema (see KNOWN_FORM_DIVERGENCES below).
-    if (!ref.visibleWhen && !KNOWN_FORM_DIVERGENCES.has(ref.dataPath)) {
-      assert.equal(gen.required, ref.required, `${ref.dataPath} required`);
-    }
-  }
-});
-
 /**
- * dataPaths where the hand-authored part-IV.form.json disagrees with the
- * hand-authored part-IV.schema.json. The generator sides with the schema.
+ * Fields that must be `required` because EA cardinality is `1` and they are
+ * themselves ungated. (The pre-compiler hand-authored form marked them optional;
+ * that reference has been removed, the generator follows EA cardinality.)
  *
- * 1. `*.electronicEvidence.availableElectronically` — the form says
- *    `required: false`, but part-IV.schema.json's `$defs.electronicEvidence`
- *    carries `required: ["availableElectronically"]`, and EA cardinality is `1`.
- *    The form is the odd one out.
- * 2. gated fields (handled separately above) — the form marks `evidence[].url`
- *    required but `reliedUpon` optional, though both are gated; the schema's
- *    derived if/then requires both inside their branch.
- * 3. `requirement.businessDomain` — the form says `required: false`, but EA
- *    cardinality is `1` and businessDomain is the field that makes a turnover
- *    criterion "specific" (present in C31/C32, absent in C29/C30). The old
- *    `optionalLeaves` relaxation that matched the form was removed (task 4.3.4);
- *    the generator now requires it per the EA model.
+ * 1. `*.electronicEvidence.availableElectronically` — EA cardinality is `1`, and
+ *    the generated schema's `$defs.electronicEvidence` requires it.
+ * 2. `requirement.businessDomain` — EA cardinality is `1` and businessDomain is
+ *    the field that makes a turnover criterion "specific" (present in C31/C32,
+ *    absent in C29/C30). The old `optionalLeaves` relaxation was removed
+ *    (task 4.3.4); the generator now requires it per the EA model.
  */
 const KNOWN_FORM_DIVERGENCES = new Set([
   `${P}.response.turnover.electronicEvidence.availableElectronically`,
@@ -311,13 +281,12 @@ const KNOWN_FORM_DIVERGENCES = new Set([
   `${P}.requirement.businessDomain`,
 ]);
 
-test('availableElectronically + businessDomain follow the schema (required), not the hand-authored form', () => {
+test('availableElectronically + businessDomain are required (EA cardinality 1) and ungated', () => {
   const { compiled, registry, hints } = compileC31();
   const fields = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
 
   // Each is required by EA cardinality 1 (and, for the evidence indicators, by
-  // part-IV.schema.json $defs.electronicEvidence required:["availableElectronically"]),
-  // and each is itself ungated. The hand-authored form marked them optional.
+  // the generated schema's $defs.electronicEvidence), and each is itself ungated.
   for (const p of KNOWN_FORM_DIVERGENCES) {
     assert.equal(fields.get(p).required, true, p);
     assert.equal(fields.get(p).visibleWhen, undefined, `${p} is itself ungated`);
@@ -561,36 +530,13 @@ test('every field carries a complete presentation contract', () => {
   }
 });
 
-test('the hand-authored lens uiTypes are reproduced', () => {
-  const { compiled, registry, hints } = compileC31();
-  const generated = fieldsByPath(generateFormStructure(compiled, registry, { partId: 'IV', hints }));
-  const handAuthored = JSON.parse(
-    fs.readFileSync(path.join(here, '..', 'legacy', 'form-structure', 'part-IV.form.json'), 'utf8'));
-
-  for (const ref of handAuthored.criteria[0].groups.flatMap(g => g.fields)) {
-    const gen = generated.get(ref.dataPath);
-    assert.ok(gen, `${ref.dataPath} not generated`);
-    // The per-criterion lot field intentionally DIVERGES from the frozen legacy
-    // baseline: lots are now a multi-select of the buyer's declared lots
-    // (uiType 'lot-select'), not a free-text box ('text'). The legacy snapshot
-    // is kept as the historical record, so skip the lot field here.
-    if (ref.dataPath.endsWith('requirement.lotIdentifiers[]')) {
-      assert.equal(gen.uiType, 'lot-select', 'lot field is now a lot-select');
-      continue;
-    }
-    assert.equal(gen.uiType, ref.uiType, `${ref.dataPath} uiType`);
-  }
-});
-
 // --- F1: caption text surfaced as non-input notes --------------------------
 
 function allFields(form) {
   return form.criteria.flatMap(c => c.groups.flatMap(g => g.fields.map(f => ({ ...f, groupId: g.id }))));
 }
 function compileCode(code) {
-  const edm = loadEdm(edmPath);
-  const { compiled, registry } = compile(edm, code, loadSidecar(code));
-  return { compiled, registry };
+  return { compiled: loadCompiled(code).criterion, registry: loadValueTypeRegistry() };
 }
 
 test('F1 — a caption becomes a non-input note field (labelKey + $derivedFrom, no dataPath/uiType)', () => {
@@ -612,19 +558,20 @@ test('F1 — caption label key follows the same stable-id stem as sibling leaves
   const form = generateFormStructure(compiled, registry, { partId: 'II' });
   const fields = allFields(form);
   const cap = fields.find(f => f.kind === 'caption');
-  assert.ok(cap, 'OT58 has a caption');
-  // The "OT" family shares code "OT", so the i18n stable id is the EA TAG
-  // (OT58). Leaves and the caption must use the SAME stem — the tag — so the key
-  // families stay consistent AND resolve against the tag-keyed catalogue.
-  assert.match(cap.labelKey, /^caption\.label\.OT58\./);
+  assert.ok(cap, 'C58_OT (registered) has a caption');
+  // The i18n stable id is the criterion's EA code ('registered'; EA used to give this
+  // whole family the shared code "OT", which made the tag the stem). Leaves and the
+  // caption must use the SAME stem so the key families stay consistent and resolve
+  // against the catalogue.
+  assert.match(cap.labelKey, /^caption\.label\.registered\./);
   const leaf = fields.find(f => f.labelKey && f.kind !== 'caption');
-  assert.match(leaf.labelKey, /^question\.label\.OT58\./, 'sibling leaves use the same OT58 stem');
+  assert.match(leaf.labelKey, /^question\.label\.registered\./, 'sibling leaves use the same stem');
 });
 
 test('F1 — a caption inside a conditional branch inherits that branch visibleWhen', () => {
   const { compiled, registry } = compileCode('ot-registered-official-list');
   const form = generateFormStructure(compiled, registry, { partId: 'II' });
-  const cap = allFields(form).find(f => f.kind === 'caption' && f.$derivedFrom === 'OT58_OT/QG1/QSG2/CA1');
+  const cap = allFields(form).find(f => f.kind === 'caption' && f.$derivedFrom === 'C58_OT_registered/QG1/QSG2/CA1');
   assert.ok(cap, 'the ONFALSE-branch caption is present');
   assert.ok(cap.visibleWhen, 'it is gated');
   assert.equal(cap.visibleWhen.equals, false, 'shown when the gating answer is false (ONFALSE)');

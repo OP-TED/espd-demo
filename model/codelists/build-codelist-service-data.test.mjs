@@ -7,9 +7,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildCodelistServiceData, codelistLabelKey } from './build-codelist-service-data.mjs';
 import { readCodelistEntries, codelistPath } from './read-codelist.mjs';
+import { loadGovernance } from './governance.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const governance = JSON.parse(fs.readFileSync(path.join(here, 'governance.json'), 'utf8'));
+const governance = loadGovernance();
 
 // Build in-memory (write:false) so tests don't depend on disk state.
 const { index, files, catalogue } = buildCodelistServiceData({ write: false });

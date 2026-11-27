@@ -493,6 +493,59 @@
                             ]
                           }
                         ]
+                      },
+                      {
+                        "element": "cac:SubsidiaryTenderingCriterionPropertyGroup",
+                        "children": [
+                          {
+                            "element": "cbc:ID",
+                            "const": "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG2/QSG2",
+                            "attributes": {
+                              "schemeID": "criterion"
+                            }
+                          },
+                          {
+                            "element": "cbc:PropertyGroupTypeCode",
+                            "const": "ONFALSE",
+                            "attributes": {
+                              "listID": "property-group-type"
+                            }
+                          },
+                          {
+                            "element": "cac:TenderingCriterionProperty",
+                            "children": [
+                              {
+                                "element": "cbc:ID",
+                                "const": "C66_slc-suit-auth-mbrshp/RG1/RSG1/QSG2/QSG2/Q1",
+                                "attributes": {
+                                  "schemeID": "criterion"
+                                }
+                              },
+                              {
+                                "element": "cbc:Name",
+                                "const": ""
+                              },
+                              {
+                                "element": "cbc:Description",
+                                "const": "Reasons why your are not registered"
+                              },
+                              {
+                                "element": "cbc:TypeCode",
+                                "const": "QUESTION",
+                                "attributes": {
+                                  "listID": "criterion-element-type"
+                                }
+                              },
+                              {
+                                "element": "cbc:ValueDataTypeCode",
+                                "const": "DESCRIPTION",
+                                "attributes": {
+                                  "listID": "response-data-type"
+                                }
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ]
                   },

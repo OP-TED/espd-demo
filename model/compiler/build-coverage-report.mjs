@@ -1,9 +1,9 @@
 // "State of the model" coverage report.
 //
-// Reads the model's actual sources — the EA export, the per-criterion sidecars,
-// the hand-authored parts, the value-type registry, and the codelist governance
-// registry — and compiles every criterion through the real pipeline, then emits
-// a deterministic Markdown report to docs/coverage-report.md.
+// Reads what the app actually consumes — the EA structure export, the vendored
+// published model (envelope, compiled criteria, value-type registry), the
+// published administrative parts, and the codelist governance registry — and emits a
+// deterministic Markdown report to docs/coverage-report.md.
 //
 // GENERATED, never hand-edited: a test (coverage-report.test.mjs) regenerates it
 // and fails if docs/coverage-report.md is out of date, so it cannot drift from
@@ -12,20 +12,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { loadEdm, loadSidecar, loadHints, compile, loadPresentation } from './compile.mjs';
-import { leavesOf } from './read-structural-core.mjs';
+import { loadStructure, loadEnvelope, loadCompiled, loadRegistry } from './published-model.mjs';
+import { loadGovernance } from '../codelists/governance.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, '..', '..');
-const edmPath = path.resolve(repoRoot, '..', 'espd-tools', 'EAtoJSON', 'outputs', 'espd-edm.json');
-const criteriaDir = path.resolve(repoRoot, 'model', 'model-sources', 'criteria');
-const partsDir = path.resolve(repoRoot, 'model', 'parts');
-const registriesDir = path.resolve(repoRoot, 'model', 'model-sources', 'registries');
-const governancePath = path.resolve(repoRoot, 'model', 'codelists', 'governance.json');
+const partsDir = path.resolve(repoRoot, 'model', 'generated', 'parts');
 const generatedDir = path.resolve(repoRoot, 'model', 'generated');
 const reportPath = path.resolve(repoRoot, 'docs', 'coverage-report.md');
 
-const PART_BY_CONTAINER = { partI: 'I', partII: 'II', partIII: 'III', partIV: 'IV', partV: 'V', partVI: 'VI' };
 const PART_NAME = {
   I: 'Procedure & contracting authority',
   II: 'Economic operator',
@@ -46,7 +41,7 @@ function countCaptions(node, acc = { n: 0 }) {
 
 /** Collect the model's data into a plain object (pure; no I/O side effects). */
 export function collectModel() {
-  const edm = loadEdm(edmPath);
+  const edm = loadStructure();
 
   // EA inventory: CRITERION + INFORMATION entries, by part.
   const eaCriteria = [];
@@ -61,32 +56,25 @@ export function collectModel() {
     }
   });
 
-  // Modeled criteria (one sidecar each), compiled through the real pipeline.
-  const sidecarFiles = fs.readdirSync(criteriaDir).filter(f => f.endsWith('.sidecar.json')).sort();
+  // Modeled criteria: the published model (vendored by model:sync). The envelope
+  // carries the inventory; the compiled criterion supplies what it does not.
+  const envelope = loadEnvelope();
   const criteria = [];
-  const valueTypeUsage = new Map(); // valueType -> count of criteria using it
-  for (const f of sidecarFiles) {
-    const id = f.replace('.sidecar.json', '');
-    const sidecar = loadSidecar(id);
-    const { compiled, registry } = compile(edm, id, sidecar);
-    const leaves = leavesOf(compiled);
-    const vts = new Set(leaves.map(l => l.valueType));
-    for (const vt of vts) valueTypeUsage.set(vt, (valueTypeUsage.get(vt) ?? 0) + 1);
-    const part = PART_BY_CONTAINER[sidecar.criterion.instanceModel.containerPath[0]];
+  const valueTypeUsage = new Map(envelope.valueTypes.map(v => [v.name, v.usedBy]));
+  for (const entry of envelope.criteria) {
+    const { criterion: compiled } = loadCompiled(entry.key);
     criteria.push({
-      id,
-      eaCode: sidecar.criterion.code,
-      tag: sidecar.criterion.tag,
-      part,
+      id: entry.key,
+      eaCode: entry.code,
+      tag: entry.tag,
+      part: entry.part,
       name: compiled.name ?? '',
-      leaves: leaves.length,
-      valueTypes: [...vts].sort(),
+      leaves: entry.leaves,
+      valueTypes: [...entry.valueTypes].sort(),
       repeatableGroups: (compiled.arrayContainers ?? []).length,
       captions: countCaptions(compiled),
-      hasHints: !!loadHints(id),
-      hasPresentation: !!loadPresentation(id),
-      registryShortName: registry.source.shortName,
-      registryVersion: registry.source.version,
+      registryShortName: envelope.provenance.valueTypeSource.shortName,
+      registryVersion: envelope.provenance.valueTypeSource.version,
     });
   }
   criteria.sort((a, b) => a.part.localeCompare(b.part) || a.id.localeCompare(b.id));
@@ -105,8 +93,8 @@ export function collectModel() {
   parts.sort((a, b) => a.dir.localeCompare(b.dir));
 
   // Value-type registry + codelist governance.
-  const valueTypes = JSON.parse(fs.readFileSync(path.join(registriesDir, 'value-types.json'), 'utf8'));
-  const governance = JSON.parse(fs.readFileSync(governancePath, 'utf8'));
+  const valueTypes = loadRegistry('value-types');
+  const governance = loadGovernance();
 
   // Generated output file counts (per layer).
   const generated = {};
@@ -143,7 +131,7 @@ export function renderReport(model) {
   L.push(`| ESPD parts | ${partsCount} |`);
   L.push(`| EA criteria (CRITERION entries) | ${eaCriteria.length} |`);
   L.push(`| — distinct criterion codes | ${distinctCodes} |`);
-  L.push(`| Modeled criteria (sidecars) | ${criteria.length} |`);
+  L.push(`| Modeled criteria (published model) | ${criteria.length} |`);
   L.push(`| Hand-authored administrative blocks | ${parts.reduce((n, p) => n + p.sections.length, 0)} |`);
   L.push(`| Value types registered | ${Object.keys(valueTypes.valueTypes).length} |`);
   L.push(`| Codelists in governance | ${Object.keys(governance.codelists).length} |`);
@@ -158,7 +146,9 @@ export function renderReport(model) {
   // --- Criterion coverage by part -----------------------------------------
   L.push('## Criterion coverage');
   L.push('');
-  L.push(`All **${eaCriteria.length}** EA criteria are modeled (one sidecar each). ` +
+  L.push((criteria.length === eaCriteria.length
+    ? `All **${eaCriteria.length}** EA criteria are modeled in the published model. `
+    : `**${criteria.length}** of the **${eaCriteria.length}** EA criteria are modeled in the published model. `) +
     'Counts by part:');
   L.push('');
   L.push('| Part | Name | Modeled criteria |');
@@ -183,10 +173,10 @@ export function renderReport(model) {
   }
 
   // --- Administrative blocks ----------------------------------------------
-  L.push('## Administrative blocks (hand-authored)');
+  L.push('## Administrative blocks (published parts)');
   L.push('');
-  L.push('EA `INFORMATION` blocks are modeled by hand under `model/parts/` (party');
-  L.push('aggregates and the signature), not as compiler sidecars.');
+  L.push('EA `INFORMATION` blocks are modeled by hand upstream and published as `ESPD-EDM/model/parts/` (party');
+  L.push('aggregates and the signature), not as enrichment sidecars.');
   L.push('');
   L.push('| Part dir | Sections |');
   L.push('|---|---|');
@@ -202,7 +192,7 @@ export function renderReport(model) {
   // --- Value types ---------------------------------------------------------
   L.push('## Value types');
   L.push('');
-  L.push('Registered in `model/model-sources/registries/value-types.json`; the ');
+  L.push('Registered in the published `registries/value-types.json` (vendored under `model/generated/registries/`); the ');
   L.push('authoritative code set is `ResponseDataType.gc`. "Used by" counts the ');
   L.push('modeled criteria whose leaves use the type.');
   L.push('');

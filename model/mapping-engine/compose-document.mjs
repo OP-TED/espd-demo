@@ -3,7 +3,7 @@
 // Assembles ONE valid UBL ESPD Request/Response XML string from the flat
 // instance document ({ partI … partVI }). The per-criterion mapping fragments
 // (model/generated/xml-mapping/<id>.{request,response}.mapping.json) and the
-// hand-authored administrative sidecars (model/parts/<part>/section*.mapping.json)
+// administrative sidecars (model/generated/parts/<part>/section*.mapping.json, published by ESPD-EDM)
 // each map only their own slice; this module:
 //   1. synthesizes the mandatory envelope header (envelope.json) — the fixed /
 //      generated scalars (UBLVersionID … VersionID) that NO sidecar emits;
@@ -56,17 +56,17 @@ const TOP_LEVEL_ORDER = [
 // Admin sidecars that contribute to each document kind, in no particular order
 // (the composer reorders by TOP_LEVEL_ORDER). Paths relative to the model root.
 const REQUEST_SIDECARS = [
-  'parts/partI/sectionA.mapping.json',
-  'parts/partI/sectionB.mapping.json',
-  'parts/partI/sectionC.mapping.json',
+  'generated/parts/partI/sectionA.mapping.json',
+  'generated/parts/partI/sectionB.mapping.json',
+  'generated/parts/partI/sectionC.mapping.json',
 ];
 const RESPONSE_SIDECARS = [
-  'parts/partI/sectionA.mapping.json',
-  'parts/partI/sectionB.mapping.json',
-  'parts/partI/sectionC.mapping.json',
-  'parts/partII/sectionA.mapping.json',
-  'parts/partII/sectionB.mapping.json',
-  'parts/partVI/sectionA.mapping.json',
+  'generated/parts/partI/sectionA.mapping.json',
+  'generated/parts/partI/sectionB.mapping.json',
+  'generated/parts/partI/sectionC.mapping.json',
+  'generated/parts/partII/sectionA.mapping.json',
+  'generated/parts/partII/sectionB.mapping.json',
+  'generated/parts/partVI/sectionA.mapping.json',
 ];
 
 // Instance container key per criterion-bearing part.

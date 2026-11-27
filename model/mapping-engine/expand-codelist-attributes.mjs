@@ -11,7 +11,7 @@
 // harness) and the browser (the UBL document composer). model/compiler/
 // schematron-validate.mjs re-exports these for its existing Node callers; the
 // browser imports them directly. The profile JSON
-// (model/model-sources/registries/codelist-attributes.json) is passed in, so
+// (model/generated/registries/codelist-attributes.json (published, vendored)) is passed in, so
 // this module reads no files and has no environment coupling.
 
 // Shorthand marker attribute -> profile codelist key, by local element name.

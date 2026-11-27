@@ -1,33 +1,36 @@
-# `generated/` — compiler output (do NOT hand-edit)
+# `generated/` — committed output (do NOT hand-edit)
 
-Every file here is produced by the model compiler from the hand-authored inputs
-in `../model-sources/`. It is committed so consumers can read the compiled
-artifacts directly and so changes are reviewable in diffs — but it is **not a
-source of truth**: edit the inputs and regenerate, never edit these files.
+Everything here is committed so the app can ship from files (GitHub Pages builds no model) and so
+changes are reviewable in diffs. None of it is a source of truth. It has two origins.
 
-## Layout
+## Vendored from the published model (`npm run model:sync`)
 
-- `instance-data/<code>.schema.json` — canonical instance-data JSON Schema per criterion
-- `instance-data/<code>.example.json` — a minimal valid example that validates against the schema
-- `form-structure/<code>.form.json` — the presentation lens per criterion
-- `xml-mapping/<code>.request.mapping.json` — buyer (ESPD Request) mapping spec
-- `xml-mapping/<code>.response.mapping.json` — economic-operator (ESPD Response) mapping spec
+Copied verbatim from `ESPD-EDM/model`, after verifying it. Change the model upstream and re-sync.
 
-Files are per-CRITERION (keyed by criterion code), not per-part; per-part
-assembly is a later build step (compiled-model envelope).
+- `instance-data/<key>.schema.json` and `<key>.example.json` — canonical instance-data JSON Schema and a minimal valid example per criterion
+- `xml-mapping/<key>.request.mapping.json` and `<key>.response.mapping.json` — declarative UBL mapping specs (buyer Request / economic-operator Response)
+- `compiled/<key>.json` — the criterion as joined from the EA structure and the enrichment, plus its hints; the form generator's input
+- `parts/<part>/` — the administrative parts (I, II, VI): per section the instance-data schema, an example, the UBL mapping and the form (fields, input types, labels, code lists); `index.json` is the part manifest
+- `registries/` — value types, encoding profile, codelist attributes, scheme-agency profile, roles, codelist governance, UI hints
+- `compiled-model.json` — the manifest: ESPD/UBL versions, provenance hashes, inventory
+- `structure.json` — a small projection (parts, sections, ordered members) of the structure export the model was verified against; drives the UI section layout
+
+`<key>` is the criterion's output identity: its EA code, or `ot-<id>` for the Part II/V "other" criteria.
+
+## Built by this app (`npm run model:compile`)
+
+- `form-structure/<key>.form.json` — the presentation lens per criterion (from `compiled/` + `../model-sources/`)
+- `ui/` — the UI bundle (`index.json`, `part-I..VI.json`, `roles.json`), composed JSON Schemas (`ui/schema/`) and the standalone Ajv validators (`ui/validators/`)
+- `codelists/` — UI pick lists from the shipped code lists
 
 ## Regenerate
 
 ```
-node model/compiler/build-generated.mjs
+npm run model:sync       # vendor the published model (ESPD_EDM_ROOT, default ../ESPD-EDM)
+npm run model:compile    # sync, then rebuild everything the app derives
 ```
-
-This compiles every criterion that has a `.sidecar.json` in
-`../model-sources/criteria/` and rewrites this directory.
 
 ## Related directories
 
-- `../model-sources/` — hand-authored inputs (registries + per-criterion sidecars)
-- `../legacy/` — the pre-compiler hand-authored artifacts, kept as a parity
-  reference while the compiler is proven against them
-- `../compiler/` — the compiler code and its tests
+- `../model-sources/` — this app's presentation inputs
+- `../compiler/` — sync, build code and tests

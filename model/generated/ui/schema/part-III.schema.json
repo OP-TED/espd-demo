@@ -60,8 +60,8 @@
             "exg-sitn-as-susp": {
               "$ref": "exg-sitn-as-susp.schema.json#/properties/partIII/properties/exclusionGrounds/properties/exg-sitn-as-susp"
             },
-            "exg-mis-exg-mis-misconduct": {
-              "$ref": "exg-mis-exg-mis-misconduct.schema.json#/properties/partIII/properties/exclusionGrounds/properties/exg-mis-exg-mis-misconduct"
+            "exg-mis-misconduct": {
+              "$ref": "exg-mis-misconduct.schema.json#/properties/partIII/properties/exclusionGrounds/properties/exg-mis-misconduct"
             },
             "exg-mis-distortion": {
               "$ref": "exg-mis-distortion.schema.json#/properties/partIII/properties/exclusionGrounds/properties/exg-mis-distortion"

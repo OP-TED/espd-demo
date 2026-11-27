@@ -345,9 +345,9 @@ describe('compose-document: coded fields round-trip through unmap (import)', () 
   const xml = compose({ instance: roundTripInstance, documentType: 'response', ids: IDS, now: NOW });
   let back = {};
   for (const rel of [
-    'parts/partI/sectionB.mapping.json',
-    'parts/partI/sectionC.mapping.json',
-    'parts/partII/sectionA.mapping.json',
+    'generated/parts/partI/sectionB.mapping.json',
+    'generated/parts/partI/sectionC.mapping.json',
+    'generated/parts/partII/sectionA.mapping.json',
     'generated/xml-mapping/exg-crim-part.response.mapping.json',
   ]) {
     back = deepMerge(back, unmap(readSpec(rel), xml));

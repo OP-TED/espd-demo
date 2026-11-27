@@ -2,7 +2,8 @@
 
 Status: **Decided — keep the current engine.** Date: 2026-09.
 Scope: the mapping engine (`model/mapping-engine/mapper.mjs`) and the per-part
-specs it runs (`model/legacy/xml-mapping/`) — instance JSON ↔ UBL XML.
+specs it runs (`model/generated/xml-mapping/` and `model/generated/parts/`; originally the
+hand-authored `model/legacy/xml-mapping/`, since removed) — instance JSON ↔ UBL XML.
 
 ## Question
 

@@ -119,14 +119,14 @@ I72_info-poa
                       └─ CTC1  cac:Contact (e-mail, telephone, fax)
 ```
 
-**Relationship to EO06 representatives.** The reference implementation currently
-models EO06 representatives as `cac:Person` elements directly under
-`cac:EconomicOperatorParty/cac:Party` (see
-`model/legacy/xml-mapping/part-II.mapping.json`), not as `cac:PowerOfAttorney`. Power of
-Attorney is the UBL construct for expressing a *formal mandate* for a
-representative; the two share the same underlying person data
-(`cac:Person`), so an implementation that needs to assert a mandate can move or
-mirror that person data into `cac:PowerOfAttorney/cac:AgentParty/cac:Person`.
+**Relationship to EO06 representatives.** The reference implementation maps
+powers of attorney (Part II, section B) to repeated `cac:PowerOfAttorney` elements
+under `cac:EconomicOperatorParty/cac:Party`, carrying the description and the
+`cac:AgentParty` (name, identifier, country) — see
+`model/generated/parts/partII/sectionB.mapping.json`. Power of Attorney is the UBL construct
+for expressing a *formal mandate* for a representative. (An earlier hand-authored
+model, since removed, instead emitted representatives as `cac:Person` elements
+directly under the party.)
 
 ## Sources
 

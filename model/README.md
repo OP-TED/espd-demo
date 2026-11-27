@@ -77,6 +77,10 @@ with the structure export. After a sync, the tests and the Pages build need noth
 repository except the shipped code lists. Resolving ESPD-EDM without the sibling-checkout assumption
 is the open cross-repo coupling item.
 
+TODO: the mapping engine (`mapping-engine/`) and the tests that exercise the published specs through it are not
+specific to this app. They are meant to move to `espd-tools`, which would run them against `ESPD-EDM/model`; see "Open
+TODOs" in `espd-tools/model-compiler/README.md`. Until then they live here.
+
 ## Where things belong (ownership rule)
 
 - **Structure** (parts/sections/criteria, cardinality, conditions) — intrinsic ESPD, in the EA model,
